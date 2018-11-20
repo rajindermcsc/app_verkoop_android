@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">Verkoop</string>
+    <string name="app_logo">logo</string>
+    <string name="login">LOGIN</string>
+    <string name="email">Email</string>
+
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="or">OR</string>
+    <string name="login_with">Login with</string>
+    <string name="facebook">Facebook</string>
+    <string name="google">Google</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="enter_email">Please enter email.</string>
+    <string name="enter_valid_email">Please enter valid email address.</string>
+    <string name="enter_password">Please enter password.</string>
+    <string name="enter_con_password">Please enter confirm password.</string>
+    <string name="match_password">Password did not match.</string>
+    <string name="signup">Signup</string>
+    <string name="name">Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="sign_up_">SIGN UP</string>
+    <string name="login_">Login</string>
+    <string name="enter_name">Please enter name.</string>
 </resources>
