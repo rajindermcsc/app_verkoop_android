@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "211429009365",
+    "firebase_url": "https://verkoop-b7ff3.firebaseio.com",
+    "project_id": "verkoop-b7ff3",
+    "storage_bucket": "verkoop-b7ff3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:211429009365:android:ae937c5479056f67",
+        "android_client_info": {
+          "package_name": "com.verkoop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "211429009365-nalcqpro9bbiqi1rulahqb28o06pdu9p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.verkoop",
+            "certificate_hash": "f28bc6fe478efcd3ef0394b56f3fdf604d2a7fe1"
+          }
+        },
+        {
+          "client_id": "211429009365-bmv08iiaukt10ea1ts0e2l3mp4qudn1h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHmQ5fPJJrtqbltHA4q_ZwsB6ArhkYCp4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "211429009365-bmv08iiaukt10ea1ts0e2l3mp4qudn1h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

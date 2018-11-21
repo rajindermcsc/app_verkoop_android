@@ -1,5 +1,6 @@
 package com.verkoop.activity
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
@@ -7,17 +8,23 @@ import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import com.verkoop.R
+import com.verkoop.VerkoopApplication
+import com.verkoop.models.LoginResponse
+import com.verkoop.models.SignUpRequest
+import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.Utils
 import kotlinx.android.synthetic.main.login_activity.*
 import kotlinx.android.synthetic.main.signup_activity.*
+import retrofit2.Response
 
 class SignUpActivity : AppCompatActivity() {
-
+    private var selectedCountry: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.signup_activity)
         setData()
         ccp.setCountryForPhoneCode(1)
+
         /* setTTFfont(countryCodePicker)
          fun setTTFfont(ccp: CountryCodePicker) {
              val typeFace = Typeface.createFromAsset(this.assets, "fonts/Nexa Light.otf")
@@ -26,12 +33,18 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun setData() {
+        val typefaceFont = Typeface.createFromAsset(assets, "fonts/gothicb.ttf")
+        etPasswordS.typeface = typefaceFont
+        etConfPassword.typeface = typefaceFont
+        ccp.setTypeFace(typefaceFont)
         tvLoginS.setOnClickListener { onBackPressed() }
         tvSignUpS.setOnClickListener {
-            if (isValidate()) {
-            Utils.showToast(this,"work in progress.")
+            if (Utils.isOnline(this)) {
+                if (isValidate()) {
+                    callSignUpApi()
+                }
             } else {
-
+                Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
             }
         }
         etName.addTextChangedListener(object : TextWatcher {
@@ -106,12 +119,12 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun isValidate(): Boolean {
         return if (TextUtils.isEmpty(etName.text.toString().trim())) {
-            Utils.showSimpleMessage(this,getString(R.string.enter_name)).show()
+            Utils.showSimpleMessage(this, getString(R.string.enter_name)).show()
             false
         } else if (TextUtils.isEmpty(etEmailS.text.toString())) {
             Utils.showSimpleMessage(this, getString(R.string.enter_email)).show()
             false
-        }else if (!Utils.emailValidator(etEmailS.text.toString().trim())) {
+        } else if (!Utils.emailValidator(etEmailS.text.toString().trim())) {
             Utils.showSimpleMessage(this, getString(R.string.enter_valid_email)).show()
             false
         } else if (TextUtils.isEmpty(etPasswordS.text.toString().trim())) {
@@ -126,5 +139,23 @@ class SignUpActivity : AppCompatActivity() {
         } else {
             true
         }
+    }
+
+    private fun callSignUpApi() {
+        VerkoopApplication.instance.loader.show(this)
+        ServiceHelper().userSignUPService(SignUpRequest(etEmailS.text.toString().trim(), etName.text.toString().trim(), etConfPassword.text.toString().trim()
+                , ccp.selectedCountryName),
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        VerkoopApplication.instance.loader.hide(this@SignUpActivity)
+                        val loginResponse = response.body() as LoginResponse
+                        //  saveUserData(loginResponse)
+                        //    openNextActivity()
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        VerkoopApplication.instance.loader.hide(this@SignUpActivity)
+                    }
+                })
     }
 }

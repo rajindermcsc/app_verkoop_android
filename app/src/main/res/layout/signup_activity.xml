@@ -35,7 +35,7 @@
                     android:contentDescription="@string/app_logo"
                     android:src="@mipmap/logo" />
 
-                <TextView
+                <com.verkoop.fonts.textView.GothiBoldTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -58,7 +58,7 @@
                         android:padding="@dimen/dp_10"
                         android:src="@mipmap/username_disable" />
 
-                    <EditText
+                    <com.verkoop.fonts.editText.GothiBoldEditText
                         android:id="@+id/etName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
                     app:ccp_showArrow="false"
                     app:ccpDialog_allowSearch="true"
                     app:ccpDialog_keyboardAutoPopup="false"
-                    app:ccpDialog_showPhoneCode="true"
+                    app:ccpDialog_showPhoneCode="false"
                     app:ccp_showPhoneCode="false"
                     app:ccp_contentColor="@color/text_color"
                     app:ccp_countryPreference="US,DE,IN"
@@ -129,7 +129,7 @@
                         android:padding="@dimen/dp_10"
                         android:src="@mipmap/email_disable" />
 
-                    <EditText
+                    <com.verkoop.fonts.editText.GothiBoldEditText
                         android:id="@+id/etEmailS"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -236,7 +236,7 @@
                     card_view:cardCornerRadius="20dp"
                     card_view:cardElevation="@dimen/dp_5">
 
-                    <TextView
+                    <com.verkoop.fonts.textView.GothiBoldTextView
                         android:id="@+id/tvSignUpS"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -257,13 +257,13 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.verkoop.fonts.textView.GothicThinTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Already have an  Account?"
+                    android:text="@string/already_have_an_account"
                     android:textColor="@color/white" />
 
-                <TextView
+                <com.verkoop.fonts.textView.GothiBoldTextView
                     android:id="@+id/tvLoginS"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

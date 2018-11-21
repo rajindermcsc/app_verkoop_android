@@ -3,6 +3,7 @@ package com.verkoop.utils
 import android.app.Activity
 import android.content.Context
 import android.graphics.Typeface
+import android.net.ConnectivityManager
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
@@ -94,5 +95,13 @@ object Utils{
 
     fun showToast(context: Context, message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun isOnline(context: Context): Boolean {
+        val conMgr = context
+                .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val netInfo = conMgr.activeNetworkInfo
+
+        return !(netInfo == null || !netInfo.isConnected || !netInfo.isAvailable)
     }
 }

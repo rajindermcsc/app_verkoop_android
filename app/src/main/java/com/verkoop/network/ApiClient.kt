@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 /*This class used to hit service*/
 object ApiClient {
-    private const val BASE_URL = "http://ec2-18-222-175-74.us-east-2.compute.amazonaws.com/trivia/index.php/"
+    private const val BASE_URL = "http://hireswiftdeveloper.com/VercoopApp/api/"
     private var retrofit: Retrofit? = null
 
     val client: MyService

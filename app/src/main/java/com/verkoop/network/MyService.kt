@@ -1,5 +1,6 @@
 package com.verkoop.network
 
+import com.verkoop.models.*
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -10,13 +11,13 @@ import retrofit2.http.Path
  * Created by intel on 19-11-2018.
  */
 interface MyService{
-   /* @POST("generateOtp")
-    fun getOTP(@Body request: OTPRequestModel): Call<OTPResponseModel>
 
-    @POST("logIn")
-    fun login(@Body request: LoginRequestModel): Call<LoginResponseModel>
+   @POST("user/register")
+   fun userSignUpApi(@Body request: SignUpRequest): Call<LoginResponse>
 
-    @GET("getBankDetails/{userId}/{accessToken}")
-    fun getBankDetails(@Path("accessToken") accessToken: String, @Path("userId") userId: String): Call<BankDetailsResponseModel>*/
+    @POST("user/login")
+    fun userLoginApi(@Body request: LoginRequest): Call<LoginResponse>
 
+    @POST("user/login")
+    fun userLoginApi(@Body request: LoginSocialRequest): Call<LoginResponse>
 }
