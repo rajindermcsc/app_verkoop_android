@@ -10,7 +10,7 @@ data class LoginResponse(
 
 data class Data(
     val id: Int,
-    val username: Any,
+    val username: String,
     val FirstName: String,
     val LastName: Any,
     val Website: Any,
@@ -19,7 +19,7 @@ data class Data(
     val Mobile: Any,
     val Gender: Any,
     val Birthdate: Any,
-    val email: Any,
+    val email: String,
     val loginType: String,
     val socialId: String,
     val email_verified_at: Any,
@@ -29,4 +29,11 @@ data class Data(
     val api_token: String,
     val created_at: String,
     val updated_at: String
+)
+
+data class CategoryModal(
+        var itamName: String,
+        var unselectedImage: Int,
+        var selectedImage: Int,
+        var selectedPosition: Boolean
 )

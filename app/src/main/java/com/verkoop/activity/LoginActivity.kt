@@ -24,6 +24,7 @@ import com.verkoop.models.LoginRequest
 import com.verkoop.models.LoginResponse
 import com.verkoop.models.LoginSocialRequest
 import com.verkoop.network.ServiceHelper
+import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
 import kotlinx.android.synthetic.main.login_activity.*
 import org.json.JSONException
@@ -38,10 +39,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
     private var mGoogleApiClient: GoogleApiClient? = null
     private var callbackManager: CallbackManager? = null
     private var fbAccessToken: AccessToken? = null
-    private var email: String? = null
-    private var name: String? = null
     private var url: String? = null
-    private var facebookId: String? = null
     private var loginType: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +66,8 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 
         tvLogin.setOnClickListener {
             if (Utils.isOnline(this)) {
+                //      val intent = Intent(this@LoginActivity, CategoriesActivity::class.java)
+                //     startActivity(intent)
                 if (isValidate()) {
                     callLoginApi()
                 }
@@ -153,10 +153,6 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finishAffinity()
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -229,7 +225,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
             val acct = result.signInAccount
             var fullName = acct!!.displayName
 
-          val  email = acct.email
+            val email = acct.email
             if (!TextUtils.isEmpty(acct.id) && !TextUtils.isEmpty(acct.email)) {
                 if (Utils.isOnline(this@LoginActivity)) {
                     callSocialLoginApi(email!!, fullName!!, acct.id.toString())
@@ -256,15 +252,29 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                     override fun onSuccess(response: Response<*>) {
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
                         val loginResponse = response.body() as LoginResponse
-                        //  saveUserData(loginResponse)
-                        //    openNextActivity()
+                        setResponseData(loginResponse.data.id.toString(), loginResponse.data.api_token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.loginType)
                     }
 
                     override fun onFailure(msg: String?) {
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
+                        Utils.showSimpleMessage(this@LoginActivity, msg!!).show()
                     }
                 })
     }
+
+    private fun setResponseData(userId: String, api_token: String, firstName: String, email: String, loginType: String) {
+        Utils.savePreferencesString(this@LoginActivity, AppConstants.USER_ID, userId)
+        Utils.savePreferencesString(this@LoginActivity, AppConstants.API_TOKEN, api_token)
+        Utils.savePreferencesString(this@LoginActivity, AppConstants.USER_NAME, firstName)
+        if (!TextUtils.isEmpty(email)) {
+            Utils.savePreferencesString(this@LoginActivity, AppConstants.USER_EMAIL_ID, email)
+        }
+        Utils.savePreferencesString(this@LoginActivity, AppConstants.LOGIN_TYPE, loginType)
+        val intent = Intent(this@LoginActivity, CategoriesActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
 
     private fun callSocialLoginApi(email: String, name: String, loginId: String) {
         VerkoopApplication.instance.loader.show(this)
@@ -273,11 +283,13 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                     override fun onSuccess(response: Response<*>) {
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
                         val loginResponse = response.body() as LoginResponse
-                        Log.e("<<Log>>","Login Successfully.")
+                        Log.e("<<Log>>", "Login Successfully.")
+                        setResponseData(loginResponse.data.id.toString(), loginResponse.data.api_token, loginResponse.data.FirstName, loginResponse.data.email, loginResponse.data.loginType)
                     }
 
                     override fun onFailure(msg: String?) {
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
+                        Utils.showSimpleMessage(this@LoginActivity, msg!!).show()
                     }
                 })
     }

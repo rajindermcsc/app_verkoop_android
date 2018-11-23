@@ -20,4 +20,16 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="ThemeTransparent_light" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="TextGray12" parent="android:Widget.Button">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@drawable/button_text_selector</item>
+    </style>
+
 </resources>

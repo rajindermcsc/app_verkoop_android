@@ -149,8 +149,7 @@ class SignUpActivity : AppCompatActivity() {
                     override fun onSuccess(response: Response<*>) {
                         VerkoopApplication.instance.loader.hide(this@SignUpActivity)
                         val loginResponse = response.body() as LoginResponse
-                        //  saveUserData(loginResponse)
-                        //    openNextActivity()
+                        onBackPressed()
                     }
 
                     override fun onFailure(msg: String?) {
