@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_filter" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_55"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimary"
+        android:baselineAligned="false"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/dp_12"
+        tools:ignore="RtlSymmetry">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvFilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:layout_marginStart="@dimen/dp_8"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_8"
+            android:text="@string/sort"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/sp_18" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:padding="@dimen/dp_10"
+                android:text="@string/nearby" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_.5"
+                android:layout_gravity="end"
+                android:background="@color/light_gray" />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:padding="@dimen/dp_10"
+                android:text="@string/popular" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_.5"
+                android:layout_gravity="end"
+                android:background="@color/light_gray" />
+
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:padding="@dimen/dp_10"
+                android:text="@string/recently_added" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_.5"
+                android:layout_gravity="end"
+                android:background="@color/light_gray" />
+
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:padding="@dimen/dp_10"
+                android:text="@string/price_high_to_low" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_.5"
+                android:layout_gravity="end"
+                android:background="@color/light_gray" />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:padding="@dimen/dp_10"
+                android:text="@string/price_low_to_high" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_.5"
+                android:layout_gravity="end"
+                android:background="@color/light_gray" />
+
+        </RadioGroup>
+    </LinearLayout>
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.verkoop.activity
 
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -11,9 +12,10 @@ import com.verkoop.R
 import com.verkoop.VerkoopApplication
 import com.verkoop.models.LoginResponse
 import com.verkoop.models.SignUpRequest
+import com.verkoop.models.SignUpResponse
 import com.verkoop.network.ServiceHelper
+import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
-import kotlinx.android.synthetic.main.login_activity.*
 import kotlinx.android.synthetic.main.signup_activity.*
 import retrofit2.Response
 
@@ -130,6 +132,9 @@ class SignUpActivity : AppCompatActivity() {
         } else if (TextUtils.isEmpty(etPasswordS.text.toString().trim())) {
             Utils.showSimpleMessage(this, getString(R.string.enter_password)).show()
             false
+        } else if (etPasswordS.text.toString().trim().length < 7) {
+            Utils.showSimpleMessage(this, getString(R.string.enter_password_length)).show()
+            false
         } else if (TextUtils.isEmpty(etConfPassword.text.toString().trim())) {
             Utils.showSimpleMessage(this, getString(R.string.enter_con_password)).show()
             false
@@ -144,17 +149,32 @@ class SignUpActivity : AppCompatActivity() {
     private fun callSignUpApi() {
         VerkoopApplication.instance.loader.show(this)
         ServiceHelper().userSignUPService(SignUpRequest(etEmailS.text.toString().trim(), etName.text.toString().trim(), etConfPassword.text.toString().trim()
-                , ccp.selectedCountryName),
+                ,"normal" ,ccp.selectedCountryName),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         VerkoopApplication.instance.loader.hide(this@SignUpActivity)
-                        val loginResponse = response.body() as LoginResponse
-                        onBackPressed()
+                        val loginResponse = response.body() as SignUpResponse
+                        setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.requestType)
                     }
 
                     override fun onFailure(msg: String?) {
                         VerkoopApplication.instance.loader.hide(this@SignUpActivity)
+                        Utils.showSimpleMessage(this@SignUpActivity, msg!!).show()
+                        etEmailS.setText("")
+                        etEmailS.hint = "Email"
                     }
                 })
+    }
+    private fun setResponseData(userId: String, api_token: String, firstName: String, email: String, loginType: String) {
+        Utils.savePreferencesString(this@SignUpActivity, AppConstants.USER_ID, userId)
+        Utils.savePreferencesString(this@SignUpActivity, AppConstants.API_TOKEN, api_token)
+        Utils.savePreferencesString(this@SignUpActivity, AppConstants.USER_NAME, firstName)
+        if (!TextUtils.isEmpty(email)) {
+            Utils.savePreferencesString(this@SignUpActivity, AppConstants.USER_EMAIL_ID, email)
+        }
+        Utils.savePreferencesString(this@SignUpActivity, AppConstants.LOGIN_TYPE, loginType)
+        val intent = Intent(this@SignUpActivity, CategoriesActivity::class.java)
+        startActivity(intent)
+        finishAffinity()
     }
 }

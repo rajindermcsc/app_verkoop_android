@@ -23,6 +23,7 @@ import com.verkoop.VerkoopApplication
 import com.verkoop.models.LoginRequest
 import com.verkoop.models.LoginResponse
 import com.verkoop.models.LoginSocialRequest
+import com.verkoop.models.SocialResponse
 import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
@@ -142,11 +143,14 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         return if (TextUtils.isEmpty(etEmail.text.toString())) {
             Utils.showSimpleMessage(this, getString(R.string.enter_email)).show()
             false
-        } else if (!Utils.emailValidator(etEmail.text.toString())) {
+        } else if (!Utils.emailValidator(etEmail.text.toString().trim())) {
             Utils.showSimpleMessage(this, getString(R.string.enter_valid_email)).show()
             false
-        } else if (!Utils.isValidPassword(etPassword.text.toString())) {
+        } else if (!Utils.isValidPassword(etPassword.text.toString().trim())) {
             Utils.showSimpleMessage(this, getString(R.string.enter_password)).show()
+            false
+        } else if (etPassword.text.toString().trim().length < 7) {
+            Utils.showSimpleMessage(this, getString(R.string.enter_password_length)).show()
             false
         } else {
             true
@@ -252,7 +256,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                     override fun onSuccess(response: Response<*>) {
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
                         val loginResponse = response.body() as LoginResponse
-                        setResponseData(loginResponse.data.id.toString(), loginResponse.data.api_token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.loginType)
+                        setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.requestType)
                     }
 
                     override fun onFailure(msg: String?) {
@@ -282,7 +286,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
-                        val loginResponse = response.body() as LoginResponse
+                        val loginResponse = response.body() as SocialResponse
                         Log.e("<<Log>>", "Login Successfully.")
                         setResponseData(loginResponse.data.id.toString(), loginResponse.data.api_token, loginResponse.data.FirstName, loginResponse.data.email, loginResponse.data.loginType)
                     }

@@ -15,9 +15,7 @@ import com.verkoop.R
 
 import kotlinx.android.synthetic.main.walk_through_activity.*
 
-/**
- * Created by intel on 22-11-2018.
- */
+
 class WalkThroughActivity:AppCompatActivity(){
     private val mImageResources = intArrayOf(R.mipmap.walkthrough, R.mipmap.walkthrough_2, R.mipmap.walkthrough_3)
     private var vpPosition:Int=0
@@ -52,12 +50,14 @@ class WalkThroughActivity:AppCompatActivity(){
                 val intent = Intent(this, LoginActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
+                finish()
             }
         }
         tvSkipW.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
+            finish()
         }
     }
 

@@ -8,5 +8,7 @@ object AppConstants{
      const val API_TOKEN = "api_token"
      const val LOGIN_TYPE = "loginType"
      const val COMING_FROM = "coming_from"
+     const val CATEGORY_LIST = "category_list"
+     const val PAGER_POSITION = "pager_position"
 
 }

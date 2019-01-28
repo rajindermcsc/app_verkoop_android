@@ -12,6 +12,6 @@
     <solid android:color="@color/colorPrimary" />
 
     <corners
-        android:radius="@dimen/dp_20" />
+        android:radius="@dimen/dp_24" />
 
 </shape>

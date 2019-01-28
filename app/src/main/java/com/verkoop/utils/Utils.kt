@@ -104,4 +104,12 @@ object Utils{
 
         return !(netInfo == null || !netInfo.isConnected || !netInfo.isAvailable)
     }
+
+    fun clearPreferences(context: Context) {
+        val sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context)
+        val editor = sharedPreferences.edit()
+        editor.clear()
+        editor.commit()
+    }
 }

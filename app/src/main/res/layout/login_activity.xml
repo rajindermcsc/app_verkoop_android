@@ -131,7 +131,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/dp_10"
-                    card_view:cardCornerRadius="20dp"
+                    card_view:cardCornerRadius="24dp"
                     card_view:cardElevation="@dimen/dp_5">
 
                     <com.verkoop.fonts.textView.GothiBoldTextView
@@ -140,6 +140,7 @@
                         android:layout_height="match_parent"
                         android:background="@color/colorPrimary"
                         android:gravity="center"
+                        android:textSize="@dimen/sp_18"
                         android:padding="@dimen/dp_10"
                         android:text="@string/login"
                         android:textColor="@color/white" />
@@ -223,6 +224,7 @@
                 <com.verkoop.fonts.textView.GothicThinTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_14"
                     android:text="@string/don_t_have_an_account"
                     android:textColor="@color/white" />
 
@@ -231,6 +233,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/dp_10"
+                    android:textSize="@dimen/sp_14"
                     android:paddingEnd="@dimen/dp_10"
                     android:paddingStart="@dimen/dp_4"
                     android:paddingTop="@dimen/dp_10"

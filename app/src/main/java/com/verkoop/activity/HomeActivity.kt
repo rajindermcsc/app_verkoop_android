@@ -1,16 +1,20 @@
 package com.verkoop.activity
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.app.AppCompatActivity
+import android.widget.Toast
 import com.verkoop.R
 import com.verkoop.adapter.HomePagerAdapter
-import kotlinx.android.synthetic.main.home_fragment.*
+import kotlinx.android.synthetic.main.home_activity.*
+import kotlinx.android.synthetic.main.toolbar_home.*
 
 class HomeActivity:AppCompatActivity(){
-
+    private var doubleBackToExitPressedOnce = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.home_fragment)
+        setContentView(R.layout.home_activity)
         setData()
     }
 
@@ -39,10 +43,27 @@ class HomeActivity:AppCompatActivity(){
         viewPager.adapter = adapter
         viewPager.offscreenPageLimit = 3
         setTabLayout()
+        ivChat.setOnClickListener {logout()  }
+        ivFavourite.setOnClickListener {logout() }
+    }
+
+    private fun logout() {
+        com.verkoop.utils.Utils.clearPreferences(this@HomeActivity)
+        val intent = Intent(this@HomeActivity,WalkThroughActivity::class.java)
+        startActivity(intent)
+        finishAffinity()
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        finishAffinity()
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed()
+            finishAffinity()
+            return
+        }
+
+        this.doubleBackToExitPressedOnce = true
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+
+        Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
     }
 }

@@ -17,8 +17,8 @@ class ServiceHelper{
     fun userSignUPService(request: SignUpRequest, onResponse: OnResponse) {
         val myService = ApiClient.client
         val responseCall = myService.userSignUpApi(request)
-        responseCall.enqueue(object : Callback<LoginResponse> {
-            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+        responseCall.enqueue(object : Callback<SocialResponse> {
+            override fun onResponse(call: Call<SocialResponse>, response: Response<SocialResponse>) {
                 val res = response.body()
                 Log.e("<<<Response>>>", Gson().toJson(res))
                 if (res != null) {
@@ -31,7 +31,7 @@ class ServiceHelper{
                 }
             }
 
-            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+            override fun onFailure(call: Call<SocialResponse>, t: Throwable) {
                 onResponse.onFailure(t.message)
             }
         })
@@ -64,8 +64,8 @@ class ServiceHelper{
     fun socialLoginService(request: LoginSocialRequest, onResponse: OnResponse) {
         val myService = ApiClient.client
         val responseCall = myService.userLoginApi(request)
-        responseCall.enqueue(object : Callback<LoginResponse> {
-            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+        responseCall.enqueue(object : Callback<SocialResponse> {
+            override fun onResponse(call: Call<SocialResponse>, response: Response<SocialResponse>) {
                 val res = response.body()
                 Log.e("<<<Response>>>", Gson().toJson(res))
                 if (res != null) {
@@ -78,7 +78,7 @@ class ServiceHelper{
                 }
             }
 
-            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+            override fun onFailure(call: Call<SocialResponse>, t: Throwable) {
                 onResponse.onFailure(t.message)
             }
         })
