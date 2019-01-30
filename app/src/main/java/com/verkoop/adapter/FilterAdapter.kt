@@ -8,9 +8,6 @@ import android.view.ViewGroup
 import com.verkoop.R
 import kotlinx.android.extensions.LayoutContainer
 
-/**
- * Created by intel on 28-01-2019.
- */
 class FilterAdapter(context: Context) : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
     var mInflater: LayoutInflater = LayoutInflater.from(context)
 

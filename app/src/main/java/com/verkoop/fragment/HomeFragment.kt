@@ -15,6 +15,7 @@ import com.daimajia.slider.library.SliderTypes.DefaultSliderView
 import com.ksmtrivia.common.BaseFragment
 import com.verkoop.R
 import com.verkoop.activity.FullCategoriesActivity
+import com.verkoop.activity.GalleryActivity
 import com.verkoop.activity.HomeActivity
 import com.verkoop.adapter.CategoryListAdapter
 import com.verkoop.adapter.ItemAdapter
@@ -94,7 +95,10 @@ class HomeFragment : BaseFragment() {
             mDemoSlider.addSlider(textSliderView)
         }
         mDemoSlider.setDuration(3000)
-        tvSell.setOnClickListener { Utils.showToast(homeActivity, "Work in progress.") }
+        tvSell.setOnClickListener {
+            val intent = Intent(homeActivity, GalleryActivity::class.java)
+            startActivity(intent)
+        }
         tvViewAll.setOnClickListener { Utils.showToast(homeActivity, "Work in progress.") }
         tvCategory.setOnClickListener {
             val intent = Intent(homeActivity, FullCategoriesActivity::class.java)

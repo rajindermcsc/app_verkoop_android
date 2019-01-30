@@ -35,6 +35,7 @@
     <string name="three_categories">Three Categories</string>
     <string name="selected">Selected : </string>
     <string name="next">NEXT</string>
+    <string name="next_s">Next</string>
     <string name="it_is_long_established_fact_that_a_ready_will_be_distracted_by_the_redable_content">It is long established fact that a reader will be distracted by the readable content.</string>
     <string name="done">DONE</string>
     <string name="pick_any">Pick any</string>
@@ -61,4 +62,25 @@
     <string name="price_high_to_low">Price : High to Low</string>
     <string name="price_low_to_high">Price : Low to High</string>
     <string name="sort">Sort</string>
+    <string name="item_condition">Item Condition</string>
+    <string name="price">Price</string>
+    <string name="min">Min</string>
+    <string name="max">Max</string>
+    <string name="used">Used</string>
+    <string name="apply">APPLY</string>
+    <string name="lorem_ipsum_has_been_the_industry_s_standard_dummy_text_ever_since_the_1500s_when_an_unknown_printer">Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer.</string>
+    <string name="comments">Comments</string>
+    <string name="post_a_comment">post a Comment</string>
+    <string name="share">Share</string>
+    <string name="casual_mens_shoes">Casual Mens Shoes</string>
+    <string name="_25">25</string>
+    <string name="_2_days_ago">2 days ago</string>
+
+    <string name="shoes">:Shoes</string>
+    <string name="make_offer">Make Offer</string>
+    <string name="what_are_you">What are you</string>
+    <string name="listing_today">listing today ?</string>
+
+    <string name="reset">Reset</string>
+    <string name="photos">Photos</string>
 </resources>
