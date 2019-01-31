@@ -4,17 +4,20 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Typeface
 import android.net.ConnectivityManager
+import android.net.Uri
 import android.preference.PreferenceManager
+import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.andrognito.flashbar.Flashbar
 import com.verkoop.R
+
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 
 object Utils{
-
+    private const val GIF_PATTERN = "(.+?)\\.gif$"
     fun savePreferencesString(context: Context, key: String, value: String): String {
 
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
@@ -111,5 +114,23 @@ object Utils{
         val editor = sharedPreferences.edit()
         editor.clear()
         editor.commit()
+    }
+
+    fun checkGif(path: String): Boolean {
+        return path.matches(GIF_PATTERN.toRegex())
+    }
+
+    fun getRealPathFromURI(context: Context, contentURI: Uri): String {
+        val result: String
+        val cursor = context.contentResolver.query(contentURI, null, null, null, null)
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = contentURI.path
+        } else {
+            cursor.moveToFirst()
+            val idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            result = cursor.getString(idx)
+            cursor.close()
+        }
+        return result
     }
 }

@@ -100,3 +100,9 @@ data class QuestionsDataModel(
         val quesId: String
 )
 
+
+data class ImageModal(
+    var imageUrl: String,
+    var isSelected: Boolean,
+    var type: Boolean
+)

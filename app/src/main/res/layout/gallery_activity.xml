@@ -46,8 +46,8 @@
         android:id="@+id/llParentGallery"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginEnd="@dimen/dp_12"
-        android:layout_marginStart="@dimen/sp_12">
+        android:layout_marginEnd="@dimen/dp_5"
+        android:layout_marginStart="@dimen/dp_5">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvGallery"
         android:layout_width="match_parent"
