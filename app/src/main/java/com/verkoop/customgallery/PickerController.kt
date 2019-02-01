@@ -1,14 +1,13 @@
-package com.verkoop.utils
+package com.verkoop.customgallery
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.ContentResolver
 import android.database.Cursor
 import android.net.Uri
 import android.os.AsyncTask
-import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import com.verkoop.activity.GalleryActivity
 import com.verkoop.models.ImageModal
 import com.verkoop.utils.Utils.checkGif
@@ -17,44 +16,20 @@ import java.util.ArrayList
 
  class PickerController internal constructor(private val pickerActivity: GalleryActivity) {
 
-     protected var addImagePaths = ArrayList<Uri>()
-        set
-    private val resolver: ContentResolver
-   // private val cameraUtil = CameraUtil()
+     private var addImagePaths = ArrayList<Uri>()
+
+    private val resolver: ContentResolver = pickerActivity.contentResolver
+     private var cameraUtil = CameraUtil()
     private var pathDir = ""
 
-    /*internal var savePath: String
-        get() = cameraUtil.getSavePath()
-        set(savePath) {
-            cameraUtil.setSavePath(savePath)
-        }*/
 
-
-    init {
-
-        resolver = pickerActivity.contentResolver
+     fun takePicture(activity: Activity, saveDir: String) {
+       val cameraUtil= CameraUtil()
+        cameraUtil.takePictureCamera(activity,saveDir)
     }
-
-
-    /*fun takePicture(activity: Activity, saveDir: String) {
-        cameraUtil.takePicture(activity, saveDir)
-    }*/
-
-
 
     fun setAddImagePath(imagePath: Uri) {
         this.addImagePaths.add(imagePath)
-    }
-
-
-    internal fun checkPermission(): Boolean {
-        val permissionCheck = PermissionCheck(pickerActivity)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (permissionCheck.CheckStoragePermission())
-                return true
-        } else
-            return true
-        return false
     }
 
 
@@ -86,16 +61,14 @@ import java.util.ArrayList
         val selectionArgs = arrayOf(bucketId)
 
         val images = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-        var c: Cursor?
-        if (bucketId != "0") {
-            c = resolver.query(images, null, selection, selectionArgs, sort)
+        val c: Cursor?
+        c = if (bucketId != "0") {
+            resolver.query(images, null, selection, selectionArgs, sort)
         } else {
-            c = resolver.query(images, null, null, null, sort)
+            resolver.query(images, null, null, null, sort)
         }
-      //  val imageUris = arrayOfNulls<ImageModal>(c?.count ?: 0)
-      //  val imageUris = ArrayList<ImageModal>(c?.count ?: 0)
         val imageUris = ArrayList<ImageModal>()
-        val imagemodal=ImageModal("",false,true)
+        val imagemodal=ImageModal("",false,true,0)
         imageUris.add(imagemodal)
         if (c != null) {
             try {
@@ -103,16 +76,13 @@ import java.util.ArrayList
                 if (c.moveToFirst()) {
                     setPathDir(c.getString(c.getColumnIndex(MediaStore.Images.Media.DATA)),
                             c.getString(c.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME)))
-                    var position = -1
                     do {
                         if (exceptGif!! && checkGif(c.getString(c.getColumnIndex(MediaStore.Images.Media.DATA))))
                             continue
                         val imgId = c.getInt(c.getColumnIndex(MediaStore.MediaColumns._ID))
                         val path = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "" + imgId)
-                       // ++position
-                        val imagemodal=ImageModal(path.toString(),false,false)
-                        imageUris.add(imagemodal)
-                      //  Log.e("imageURl",imgId.toString()+"  "+path.toString())
+                        val imageModal=ImageModal(path.toString(),false,false,0)
+                        imageUris.add(imageModal)
 
                     } while (c.moveToNext())
                 }
@@ -136,7 +106,10 @@ import java.util.ArrayList
          return pathDir
      }
 
-     fun finishActivity() {
-         pickerActivity.finishAffinity()
+
+     internal fun getSavePath(): String {
+         return cameraUtil.getSavePath()!!
      }
-}
+
+ }
+

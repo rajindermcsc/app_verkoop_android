@@ -7,9 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import android.view.Window
 import com.verkoop.R
 
-/**
- * Created by intel on 21-11-2018.
- */
+
  class Loading {
     private var iActivity: Activity? = null
     private var dialog: Dialog? = null

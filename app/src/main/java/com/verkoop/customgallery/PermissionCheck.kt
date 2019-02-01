@@ -1,4 +1,4 @@
-package com.verkoop.utils
+package com.verkoop.customgallery
 
 import android.Manifest
 import android.annotation.TargetApi
@@ -9,6 +9,7 @@ import android.os.Build
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.widget.Toast
+import com.verkoop.customgallery.Define
 
 
 class PermissionCheck(internal var context: Context) {

@@ -39,15 +39,13 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/dark_black"
-                android:text=" 2 / 10"/>
+                android:text=" 0 / 10"/>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/llParentGallery"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="@dimen/dp_5"
-        android:layout_marginStart="@dimen/dp_5">
+        android:layout_height="match_parent">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvGallery"
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.verkoop.utils
+package com.verkoop.customgallery
 
 
 class Define {

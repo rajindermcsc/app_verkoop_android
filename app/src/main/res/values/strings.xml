@@ -83,4 +83,10 @@
 
     <string name="reset">Reset</string>
     <string name="photos">Photos</string>
+    <string name="multiple">0 / 10</string>
+    <string name="add_details">Add Details</string>
+    <string name="back">back</string>
+    <string name="image">image</string>
+    <string name="camera">camera</string>
+    <string name="selected_photos">Selected Photos :</string>
 </resources>

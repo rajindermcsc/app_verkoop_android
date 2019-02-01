@@ -10,7 +10,6 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import com.verkoop.R
 import com.verkoop.VerkoopApplication
-import com.verkoop.models.LoginResponse
 import com.verkoop.models.SignUpRequest
 import com.verkoop.models.SignUpResponse
 import com.verkoop.network.ServiceHelper
@@ -20,7 +19,6 @@ import kotlinx.android.synthetic.main.signup_activity.*
 import retrofit2.Response
 
 class SignUpActivity : AppCompatActivity() {
-    private var selectedCountry: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.signup_activity)

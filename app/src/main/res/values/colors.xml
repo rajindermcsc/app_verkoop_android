@@ -6,11 +6,13 @@
 
     <color name="text_color">#CF2027</color>
     <color name="text_gray">#686868</color>
+    <color name="text_gray_">#696969</color>
     <color name="semi_white">#EFEFEF</color>
     <color name="colorAccent">#CF2027</color>
     <color name="light_gray">#9C9C9C</color>
     <color name="dark_black">#222222</color>
     <color name="white">#FFFFFF</color>
+    <color name="white_bag">#FAFAFA</color>
     <color name="light_grey">#F0F0F7</color>
     <color name="transparent">#00000000</color>
     <color name="light_red">#e5a6a7</color>

@@ -104,5 +104,6 @@ data class QuestionsDataModel(
 data class ImageModal(
     var imageUrl: String,
     var isSelected: Boolean,
-    var type: Boolean
+    var type: Boolean,
+    var countSelect:Int
 )

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        tools:ignore="UselessParent">
 
         <FrameLayout
             android:id="@+id/flItem"
@@ -15,8 +17,10 @@
             android:layout_height="match_parent">
             <!-- android:background="@drawable/rectangle_border_shape"-->
             <FrameLayout
+                android:id="@+id/llFrame"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@drawable/transparent_rect_shape"
                 android:layout_margin="@dimen/dp_4">
 
                 <ImageView
@@ -25,10 +29,12 @@
                     android:layout_height="match_parent"
                     android:padding="@dimen/dp_2"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/pic_2" />
+                    android:src="@mipmap/gallery_place"
+                    android:contentDescription="@string/image" />
             </FrameLayout>
 
             <FrameLayout
+                android:id="@+id/llSelection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -37,13 +43,14 @@
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:src="@mipmap/gallery_image_selected" />
+                    android:src="@mipmap/gallery_image_selected"
+                    android:contentDescription="@string/image" />
 
-                <TextView
+                <com.verkoop.fonts.textView.GothicThinTextView
+                    android:id="@+id/tvSelectCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="10"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_12" />
             </FrameLayout>
@@ -54,10 +61,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:visibility="gone"
+            android:layout_margin="@dimen/dp_6"
             android:background="@color/gray_"
             android:elevation="@dimen/dp_4"
-            android:layout_margin="@dimen/dp_6"
+            android:visibility="gone"
             app:cardCornerRadius="@dimen/dp_8">
 
             <FrameLayout
@@ -71,13 +78,15 @@
                     android:padding="@dimen/dp_2"
                     android:scaleType="fitXY"
                     android:src="@mipmap/pic_2"
-                    android:visibility="invisible" />
+                    android:visibility="invisible"
+                    android:contentDescription="@string/image" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:src="@mipmap/camera" />
+                    android:src="@mipmap/camera"
+                    android:contentDescription="@string/camera" />
             </FrameLayout>
 
         </android.support.v7.widget.CardView>

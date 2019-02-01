@@ -10,5 +10,6 @@ object AppConstants{
      const val COMING_FROM = "coming_from"
      const val CATEGORY_LIST = "category_list"
      const val PAGER_POSITION = "pager_position"
+     const val SELECTED_LIST = "selected_list"
 
 }
