@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
+        <com.github.florent37.shapeofview.shapes.RoundRectView
+            android:id="@+id/flImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            app:shape_roundRect_bottomLeftRadius="@dimen/dp_8"
+            app:shape_roundRect_bottomRightRadius="@dimen/dp_8"
+            app:shape_roundRect_topLeftRadius="@dimen/dp_8"
+            app:shape_roundRect_topRightRadius="@dimen/dp_8">
+
+            <ImageView
+                android:id="@+id/ivImageDetail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@mipmap/pic_2"
+                android:contentDescription="@string/image" />
+        </com.github.florent37.shapeofview.shapes.RoundRectView>
+
+        <FrameLayout
+            android:id="@+id/flClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end">
+
+            <ImageView
+                android:layout_width="@dimen/dp_25"
+                android:layout_height="@dimen/dp_25"
+                android:contentDescription="@string/description"
+                android:src="@mipmap/gallery_image_selected" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="@string/description"
+                android:src="@mipmap/filter_close" />
+        </FrameLayout>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/flGallery"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/dp_6"
+            android:background="@color/gray_"
+            android:elevation="@dimen/dp_4"
+            android:visibility="gone"
+            app:cardCornerRadius="@dimen/dp_8">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/dp_4">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/dp_2"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/pic_2"
+                    android:visibility="invisible"
+                    android:contentDescription="@string/image" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/camera"
+                    android:contentDescription="@string/camera" />
+            </FrameLayout>
+
+        </android.support.v7.widget.CardView>
+    </FrameLayout>
+
+</LinearLayout>

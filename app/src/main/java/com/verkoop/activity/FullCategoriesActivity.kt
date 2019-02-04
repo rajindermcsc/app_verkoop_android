@@ -47,7 +47,6 @@ class FullCategoriesActivity: AppCompatActivity(), FullCategoryAdapter.SelectedC
 
     }
     private fun setListData() {
-       // var subListDe:List<String>
         val nameList = arrayOf("Women's", "men's", "Footwear", "Desktop's", "Mobiles", "Furniture", "Pets", "Car", "Books")
         val subList = arrayOf("Women's", "men's", "Footwear", "Desktop's", "Mobiles")
         val subList2 = arrayOf("Women's", "men's", "Footwear", "Desktop's", "Mobiles", "Desktop's", "Mobiles", "Furniture", "Pets", "Car", "Books")

@@ -5,10 +5,6 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 
-/**
- * Created by admin on 4/3/2018.
- */
-
 abstract class BaseActivity : AppCompatActivity() {
     private var lastFragmentName = ""
 

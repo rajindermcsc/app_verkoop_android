@@ -65,7 +65,7 @@ class GalleryActivity : AppCompatActivity(), GalleryAdapter.ImageCountCallBack {
     private fun setIntentData() {
         val selectedList=ArrayList<String>()
        for (i in imageUris.indices){
-           if(selectedList.size<10) {
+           if(selectedList.size<selectcount) {
                if (imageUris[i].isSelected) {
                    selectedList.add(imageUris[i].imageUrl)
                }

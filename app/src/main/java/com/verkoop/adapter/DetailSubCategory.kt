@@ -9,9 +9,7 @@ import android.view.ViewGroup
 import com.verkoop.R
 import kotlinx.android.extensions.LayoutContainer
 
-/**
- * Created by intel on 28-01-2019.
- */
+
 class DetailSubCategory(context:Context):RecyclerView.Adapter<DetailSubCategory.ViewHolder>(){
     private var mInflater:LayoutInflater= LayoutInflater.from(context)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder{

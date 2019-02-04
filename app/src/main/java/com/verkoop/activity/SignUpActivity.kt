@@ -24,7 +24,6 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(R.layout.signup_activity)
         setData()
         ccp.setCountryForPhoneCode(1)
-
         /* setTTFfont(countryCodePicker)
          fun setTTFfont(ccp: CountryCodePicker) {
              val typeFace = Typeface.createFromAsset(this.assets, "fonts/Nexa Light.otf")
