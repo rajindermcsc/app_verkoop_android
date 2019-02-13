@@ -7,11 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.verkoop.R
 import com.verkoop.activity.FullCategoriesActivity
+import com.verkoop.models.SubCategory
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.sub_category.*
 
 
-class SubCategoryAdapter(private  var context: Context,private val answers: List<String>):RecyclerView.Adapter<SubCategoryAdapter.ViewHolder>(){
+class SubCategoryAdapter(private  var context: Context,private val subCategoryList: ArrayList<SubCategory>):RecyclerView.Adapter<SubCategoryAdapter.ViewHolder>(){
      lateinit var selectedSubcategory: SelectedSubcategory
     private val mInflater:LayoutInflater= LayoutInflater.from(context)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder{
@@ -21,19 +22,19 @@ class SubCategoryAdapter(private  var context: Context,private val answers: List
     }
 
     override fun getItemCount(): Int {
-        return answers.size
+        return subCategoryList.size
     }
 
     override fun onBindViewHolder(holder:ViewHolder, position: Int) {
 
-        var list=answers[position]
+        var list=subCategoryList[position]
         holder.bind(list)
     }
     inner class ViewHolder(override val containerView: View):RecyclerView.ViewHolder(containerView),LayoutContainer{
-        fun bind(list: String) {
-            tvSubCategory.text=list
+        fun bind(subCategory: SubCategory) {
+            tvSubCategory.text=subCategory.name
             tvSubCategory.setOnClickListener {
-                selectedSubcategory.subCategoryName(list)
+                selectedSubcategory.subCategoryName(subCategory.id.toString())
             }
         }
 

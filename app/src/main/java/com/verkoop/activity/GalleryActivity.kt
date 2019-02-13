@@ -20,6 +20,11 @@ import com.verkoop.utils.AppConstants
 import kotlinx.android.synthetic.main.gallery_activity.*
 import kotlinx.android.synthetic.main.toolbar_filter.*
 import java.io.File
+import android.provider.MediaStore
+import android.util.Log
+import com.verkoop.utils.CommonUtils
+import java.net.URI
+
 
 class GalleryActivity : AppCompatActivity(), GalleryAdapter.ImageCountCallBack {
     private var define = Define()
@@ -94,18 +99,20 @@ class GalleryActivity : AppCompatActivity(), GalleryAdapter.ImageCountCallBack {
             if (resultCode == RESULT_OK) {
                 val savedFile = File(pickerController.getSavePath())
                 SingleMediaScanner(this, savedFile)
-                addImage(Uri.fromFile(savedFile))
+                addImage(savedFile)
+             val contentURI= CommonUtils.getImageContentUri(this@GalleryActivity,savedFile)
+             Log.e("ImageContentURi",contentURI.toString())
             } else {
                 File(pickerController.getSavePath()).delete()
             }
         }
     }
 
-    private fun addImage(path: Uri) {
-        val imagemodal = ImageModal(path.toString(), false, false, 0)
+    private fun addImage(path: File) {
+        val imagemodal = ImageModal(CommonUtils.getImageContentUri(this@GalleryActivity,path).toString(), false, false, 0)
         imageUris.add(1, imagemodal)
         itemAdapter.notifyDataSetChanged()
-        pickerController.setAddImagePath(path)
+        pickerController.setAddImagePath(Uri.fromFile(path))
     }
 
     override
@@ -135,4 +142,6 @@ class GalleryActivity : AppCompatActivity(), GalleryAdapter.ImageCountCallBack {
             tvChatGallery.visibility=View.INVISIBLE
         }
     }
+
+
 }

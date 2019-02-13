@@ -10,6 +10,8 @@ import com.verkoop.adapter.HomePagerAdapter
 import kotlinx.android.synthetic.main.home_activity.*
 import kotlinx.android.synthetic.main.toolbar_home.*
 
+
+
 class HomeActivity:AppCompatActivity(){
     private var doubleBackToExitPressedOnce = false
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,9 +25,12 @@ class HomeActivity:AppCompatActivity(){
         // set buttons from menu resource
         bottomTabLayout.setItems(R.menu.menu_bottom_layout)
         //set on selected tab listener.
-        bottomTabLayout.setListener { position ->
-            viewPager.currentItem = position
+        bottomTabLayout.setListener { id ->
+            switchFragment(id)
         }
+       /* bottomTabLayout.setListener { position ->
+            viewPager.currentItem = position
+        }*/
         bottomTabLayout.setSelectedTab(R.id.menu_button1)
         //enable indicator
         bottomTabLayout.setIndicatorVisible(true)
@@ -38,6 +43,13 @@ class HomeActivity:AppCompatActivity(){
         //bottomTabLayout.setSelectedTab(R.id.menu_button5)
     }
 
+    private fun switchFragment(id: Int) {
+        when (id) {
+            R.id.menu_button1 -> viewPager.currentItem=0
+            R.id.menu_button2 -> viewPager.currentItem=1
+            R.id.menu_button3 ->  viewPager.currentItem=3
+        }
+    }
     private fun setData() {
         val adapter = HomePagerAdapter(supportFragmentManager, 3)
         viewPager.adapter = adapter
@@ -64,6 +76,6 @@ class HomeActivity:AppCompatActivity(){
         this.doubleBackToExitPressedOnce = true
         Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
 
-        Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
+        Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
     }
 }

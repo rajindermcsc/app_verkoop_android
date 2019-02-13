@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.verkoop.R
 import com.verkoop.models.CategoryModal
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.category_home_row.*
 import kotlinx.android.synthetic.main.category_row.*
 
 
@@ -33,7 +34,7 @@ class CategoryListAdapter(context: Context, private var categoryList: ArrayList<
     inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
             LayoutContainer {
         fun bind(  data: CategoryModal,position: Int) {
-            tvLevel.text=data.itamName
+            tvLevelHome.text=data.itamName
             ivItems.setImageResource(data.unselectedImage)
         }
     }

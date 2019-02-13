@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-</android.support.constraint.ConstraintLayout>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gray_semi"
+    android:orientation="vertical">
+    <com.verkoop.fonts.textView.GothicThinTextView
+        android:id="@+id/tvSubCategoryName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/text_gray_"
+        android:text="@string/men_s_fashion"
+        android:layout_marginStart="@dimen/dp_20"
+        android:padding="@dimen/dp_10"/>
+    <View
+        android:id="@+id/viewSub"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginStart="@dimen/dp_20"
+        android:background="@color/gray_se" />
+</LinearLayout>

@@ -14,14 +14,17 @@ public class NonscrollRecylerview extends RecyclerView {
 
     public NonscrollRecylerview(Context context) {
         super(context);
+        this.setNestedScrollingEnabled(false);
     }
 
     public NonscrollRecylerview(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        this.setNestedScrollingEnabled(false);
     }
 
     public NonscrollRecylerview(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        this.setNestedScrollingEnabled(false);
     }
 
     @Override

@@ -50,7 +50,9 @@ dependencies {
     implementation 'com.zhihu.android:matisse:0.4.3'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.github.florent37:expansionpanel:1.1.1'
+    implementation 'com.github.florent37:viewanimator:1.1.0'
 }
 
 buildscript {

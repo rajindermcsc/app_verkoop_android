@@ -11,20 +11,24 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.verkoop.adapter.CategoryAdapter
 import com.verkoop.R
+import com.verkoop.VerkoopApplication
 import com.verkoop.fragment.FirstCategoryFragment
-import com.verkoop.models.CategoryModal
+import com.verkoop.models.CategoriesResponse
+import com.verkoop.models.DataCategory
+import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
 import kotlinx.android.synthetic.main.categories_screen.*
+import retrofit2.Response
 
 class CategoriesActivity:AppCompatActivity(), CategoryAdapter.SelectedCategory {
     var selectionCount:Int=0
     var doubleBackToExitPressedOnce = false
-    private val categoryList=ArrayList<CategoryModal>()
+    private val categoryList=ArrayList<DataCategory>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.categories_screen)
-        setData()
+        callCategoriesApi()
 
     }
 
@@ -125,7 +129,7 @@ class CategoriesActivity:AppCompatActivity(), CategoryAdapter.SelectedCategory {
 
         Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
     }
-    private fun setData() {
+    /*private fun setData() {
         val nameList = arrayOf("Women's0", "men's","Footwear","Desktop's","Mobiles","Furniture","Pets","Car","Books","Women's1", "men's","Footwear","Desktop's","Mobiles","Furniture","Pets","Car","Books","Women's2", "men's","Footwear","Desktop's","Mobiles","Furniture","Pets","Car","Books")
         val imageList= arrayOf(R.mipmap.women_unselected,R.mipmap.men_unselected,R.mipmap.footwear_unselected,R.mipmap.desktop_unselected,R.mipmap.mobile_unselected,R.mipmap.furniture_unselected,R.mipmap.pet_unseleted,R.mipmap.car_unseleted,R.mipmap.books_unselected,R.mipmap.women_unselected,R.mipmap.men_unselected,R.mipmap.footwear_unselected,R.mipmap.desktop_unselected,R.mipmap.mobile_unselected,R.mipmap.furniture_unselected,R.mipmap.pet_unseleted,R.mipmap.car_unseleted,R.mipmap.books_unselected,R.mipmap.women_unselected,R.mipmap.men_unselected,R.mipmap.footwear_unselected,R.mipmap.desktop_unselected,R.mipmap.mobile_unselected,R.mipmap.furniture_unselected,R.mipmap.pet_unseleted,R.mipmap.car_unseleted,R.mipmap.books_unselected)
         val imageListSelected= arrayOf(R.mipmap.women_selected,R.mipmap.men_selected,R.mipmap.footwear_selected,R.mipmap.desktop_selected,R.mipmap.mobile_selected,R.mipmap.furniture_selected,R.mipmap.pet_selected,R.mipmap.car_selected,R.mipmap.books_selected,R.mipmap.women_selected,R.mipmap.men_selected,R.mipmap.footwear_selected,R.mipmap.desktop_selected,R.mipmap.mobile_selected,R.mipmap.furniture_selected,R.mipmap.pet_selected,R.mipmap.car_selected,R.mipmap.books_selected,R.mipmap.women_selected,R.mipmap.men_selected,R.mipmap.footwear_selected,R.mipmap.desktop_selected,R.mipmap.mobile_selected,R.mipmap.furniture_selected,R.mipmap.pet_selected,R.mipmap.car_selected,R.mipmap.books_selected)
@@ -134,5 +138,22 @@ class CategoriesActivity:AppCompatActivity(), CategoryAdapter.SelectedCategory {
             categoryList.add(categoryModal)
         }
         setAdapter()
+    }*/
+    private fun callCategoriesApi() {
+        VerkoopApplication.instance.loader.show(this)
+        ServiceHelper().categoriesService(
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        VerkoopApplication.instance.loader.hide(this@CategoriesActivity)
+                        val categoriesResponse = response.body() as CategoriesResponse
+                        categoryList.addAll(categoriesResponse.data)
+                        setAdapter()
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        VerkoopApplication.instance.loader.hide(this@CategoriesActivity)
+                        Utils.showSimpleMessage(this@CategoriesActivity, msg!!).show()
+                    }
+                })
     }
 }

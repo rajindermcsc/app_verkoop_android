@@ -11,13 +11,14 @@ import com.verkoop.adapter.CategoryAdapter
 import com.verkoop.R
 import com.verkoop.activity.CategoriesActivity
 import com.verkoop.models.CategoryModal
+import com.verkoop.models.DataCategory
 import com.verkoop.utils.AppConstants.CATEGORY_LIST
 import com.verkoop.utils.AppConstants.PAGER_POSITION
 import kotlinx.android.synthetic.main.first_category.*
 
 class FirstCategoryFragment : Fragment() {
     private lateinit var categoriesActivity: CategoriesActivity
-    private var categoryList=ArrayList<CategoryModal>()
+    private var categoryList=ArrayList<DataCategory>()
     private var position=0
 
 
@@ -39,7 +40,7 @@ class FirstCategoryFragment : Fragment() {
     }
 
 
-    private fun setAdapter(categoryList: ArrayList<CategoryModal>) {
+    private fun setAdapter(categoryList: ArrayList<DataCategory>) {
         val linearLayoutManager = GridLayoutManager(context, 3)
         rvCategoryList.layoutManager = linearLayoutManager
         val categoriesAdapter= CategoryAdapter(categoriesActivity, categoryList, position,llParentCate)
@@ -47,7 +48,7 @@ class FirstCategoryFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(id: Int, categoryList: ArrayList<CategoryModal>): FirstCategoryFragment {
+        fun newInstance(id: Int, categoryList: ArrayList<DataCategory>): FirstCategoryFragment {
             val args = Bundle()
             args.putInt(PAGER_POSITION, id)
             args.putParcelableArrayList(CATEGORY_LIST, categoryList)

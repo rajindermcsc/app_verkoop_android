@@ -11,5 +11,7 @@ object AppConstants{
      const val CATEGORY_LIST = "category_list"
      const val PAGER_POSITION = "pager_position"
      const val SELECTED_LIST = "selected_list"
+     const val CATEGORY_NAME = "category_name"
+     const val CATEGORY_ID = "category_id"
 
 }

@@ -25,6 +25,7 @@ class WalkThroughActivity:AppCompatActivity(){
         setAdapter()
     }
 
+
     private fun setAdapter() {
        val mAdapter = PicturePreViewAdapter(this, mImageResources)
         vpWalkThrough.adapter = mAdapter

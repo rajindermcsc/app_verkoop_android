@@ -31,5 +31,12 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@drawable/button_text_selector</item>
     </style>
-
+    <style name="TransparentCompat" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
 </resources>

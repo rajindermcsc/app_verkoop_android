@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.verkoop.R
 import com.verkoop.activity.FullCategoriesActivity
+import com.verkoop.models.DataCategory
 import com.verkoop.models.QuestionsDataModel
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.full_categories_row.*
@@ -15,7 +16,7 @@ import kotlinx.android.synthetic.main.home_fragment.*
 import java.util.*
 
 
-class FullCategoryAdapter(private val context: Context, private var categoryList: ArrayList<QuestionsDataModel>) : RecyclerView.Adapter<FullCategoryAdapter.ViewHolder>() {
+class FullCategoryAdapter(private val context: Context, private var categoryList: ArrayList<DataCategory>) : RecyclerView.Adapter<FullCategoryAdapter.ViewHolder>() {
     private var mInflater: LayoutInflater = LayoutInflater.from(context)
      private lateinit var selectedCategory:SelectedCategory
 
@@ -36,14 +37,14 @@ class FullCategoryAdapter(private val context: Context, private var categoryList
 
     inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-        fun bind(modal: QuestionsDataModel) {
+        fun bind(modal: DataCategory) {
             val mManager = LinearLayoutManager(context)
             rvSubCategoriesName.layoutManager = mManager
-            val subCategoryAdapter = SubCategoryAdapter(context,modal.answers)
+            val subCategoryAdapter = SubCategoryAdapter(context,modal.sub_category)
             rvSubCategoriesName.isNestedScrollingEnabled = false
             rvSubCategoriesName.adapter = subCategoryAdapter
-            tvCategoryName.text = modal.quesId
-            tvCategoryName.setOnClickListener {selectedCategory.categoryName(modal.quesId)  }
+            tvCategoryName.text = modal.name
+            tvCategoryName.setOnClickListener {selectedCategory.categoryName(modal.id.toString())  }
         }
     }
     interface SelectedCategory{

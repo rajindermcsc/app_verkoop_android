@@ -2,16 +2,133 @@ package com.verkoop.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import com.verkoop.R
+import com.verkoop.adapter.CategoryDialogAdapter
+import com.verkoop.adapter.SubCategoryDialogAdapter
+import kotlinx.android.synthetic.main.select_category_dialog_activity.*
+import java.util.ArrayList
+import android.app.Activity
+import android.content.Intent
+import android.view.View
+import com.github.florent37.viewanimator.ViewAnimator
+import com.verkoop.VerkoopApplication
+import com.verkoop.models.*
+import com.verkoop.network.ServiceHelper
+import com.verkoop.utils.AppConstants
+import com.verkoop.utils.Utils
+import retrofit2.Response
 
 
-class SelectCategoryDialogActivity:AppCompatActivity(){
+class SelectCategoryDialogActivity : AppCompatActivity(), SubCategoryDialogAdapter.SelectedCategory {
 
+    override fun subCategoryName(name: String, position: Int) {
+        ViewAnimator
+                .animate(flParent)
+                .translationY(0f, 2000f)
+                .duration(700)
+                .andAnimate(llParent)
+                .alpha(1f,0f)
+                .duration(400)
+                .onStop {
+                    llParent.visibility= View.GONE
+                    val returnIntent = Intent()
+                    returnIntent.putExtra(AppConstants.CATEGORY_NAME, name)
+                    returnIntent.putExtra(AppConstants.CATEGORY_ID, position)
+                    setResult(Activity.RESULT_OK, returnIntent)
+                    finish()
+                    overridePendingTransition(0,0)
+                }
+                .start()
+
+    }
+
+    private val categoryList= ArrayList<DataCategory>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.select_category_dialog_activity)
+        callCategoriesApi()
         setData()
+        setAnimation()
+    }
+    private fun setAnimation() {
+        ViewAnimator
+                .animate(flParent)
+                .translationY(1000f, 0f)
+                .duration(700)
+                .start()
+    }
+    private fun setAdapter() {
+        val mManager = LinearLayoutManager(this)
+        rvCategoryDialogList.layoutManager = mManager
+        val categoryDialogAdapter = CategoryDialogAdapter(this,categoryList)
+        rvCategoryDialogList.adapter = categoryDialogAdapter
     }
 
     private fun setData() {
+        ivFinish.setOnClickListener {
+            onBackPressed()
+        }
+    }
+  /*  private fun setListData() {
+        val nameList = arrayOf("Women's", "men's", "Footwear", "Desktop's", "Mobiles", "Furniture", "Pets", "Car", "Books")
+        val subList = arrayOf("Women's", "men's", "Footwear", "Desktop's", "Mobiles")
+        val subList2 = arrayOf("Women's", "men's", "Footwear", "Desktop's", "Mobiles", "Desktop's", "Mobiles", "Furniture", "Pets", "Car", "Books")
+        for(j in subList.indices){
+            val subCatogry=SubModal(subList[j],0)
+            newList.add(subCatogry)
+        }
+        for(j in subList2.indices){
+            val subCatogry=SubModal(subList2[j],0)
+            newList1.add(subCatogry)
+        }
 
+        for (i in nameList.indices) {
+            if(i%2==0) {
+                val categoryModal = QuestionsDataDialogModel(newList, nameList[i],false)
+                categoryList.add(categoryModal)
+            }else{
+                val categoryModal = QuestionsDataDialogModel(newList1, nameList[i],false)
+                categoryList.add(categoryModal)
+            }
+
+        }
+        setAdapter()
+    }*/
+
+    override fun onBackPressed() {
+        ViewAnimator
+                .animate(flParent)
+                .translationY(0f, 2000f)
+                .duration(700)
+                .andAnimate(llParent)
+                .alpha(1f,0f)
+                .duration(600)
+                .onStop {
+                    llParent.visibility= View.GONE
+                    val returnIntent = Intent()
+                    setResult(Activity.RESULT_CANCELED, returnIntent)
+                    finish()
+                    overridePendingTransition(0,0)
+                }
+                .start()
+
+    }
+    private fun callCategoriesApi() {
+        VerkoopApplication.instance.loader.show(this)
+        ServiceHelper().categoriesService(
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        VerkoopApplication.instance.loader.hide(this@SelectCategoryDialogActivity)
+                        val categoriesResponse = response.body() as CategoriesResponse
+                        categoryList.addAll(categoriesResponse.data)
+                        setAdapter()
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        VerkoopApplication.instance.loader.hide(this@SelectCategoryDialogActivity)
+                        Utils.showSimpleMessage(this@SelectCategoryDialogActivity, msg!!).show()
+                    }
+                })
     }
 }

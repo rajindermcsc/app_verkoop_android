@@ -1,8 +1,10 @@
 package com.verkoop.utils
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.graphics.Typeface
+import android.database.Cursor
+import android.graphics.Bitmap
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.preference.PreferenceManager
@@ -11,6 +13,7 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.andrognito.flashbar.Flashbar
 import com.verkoop.R
+import java.io.ByteArrayOutputStream
 
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -132,5 +135,40 @@ object Utils{
             cursor.close()
         }
         return result
+    }
+
+    fun scaleDown(realImage: Bitmap, maxImageSize: Float,
+                  filter: Boolean): Bitmap {
+        val ratio = Math.min(
+                maxImageSize / realImage.width,
+                maxImageSize / realImage.height)
+        val width = Math.round(ratio * realImage.width)
+        val height = Math.round(ratio * realImage.height)
+
+        return Bitmap.createScaledBitmap(realImage, width,
+                height, filter)
+    }
+
+    fun getImageUri(inContext: Context, inImage: Bitmap): Uri {
+        val bytes = ByteArrayOutputStream()
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path = MediaStore.Images.Media.insertImage(inContext.contentResolver, inImage, "Title", null)
+        return Uri.parse(path)
+    }
+
+    @SuppressLint("Recycle")
+    fun getRealPathFromUri(context: Context, contentUri: Uri): String {
+        var cursor: Cursor? = null
+        try {
+            val proj = arrayOf(MediaStore.Images.Media.DATA)
+            cursor = context.contentResolver.query(contentUri, proj, null, null, null)
+            val column_index = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            cursor.moveToFirst()
+            return cursor.getString(column_index)
+        } finally {
+            if (cursor != null) {
+                cursor.close()
+            }
+        }
     }
 }

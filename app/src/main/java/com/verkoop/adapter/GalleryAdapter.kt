@@ -32,8 +32,9 @@ class GalleryAdapter(private var context: Activity, private var llParent: Linear
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val  view = mInflater.inflate(R.layout.gallery_item, parent, false)
         val params = view.layoutParams
-        params.height = llParent.height / 5
         params.width = llParent.width / 3
+       // params.height = llParent.height / 5
+        params.height = params.width
         view.layoutParams = params
         imageCountCallBack=context as GalleryActivity
         return ViewHolder(view)

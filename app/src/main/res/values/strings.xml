@@ -45,6 +45,7 @@
     <string name="activities">Activities</string>
     <string name="profile">Profile</string>
     <string name="favourite">favourite</string>
+    <string name="favourites">Favourites</string>
     <string name="chat">chat</string>
     <string name="category">Category</string>
     <string name="search">Search</string>
@@ -92,4 +93,20 @@
     <string name="select_category">Select Category</string>
     <string name="description">Description</string>
     <string name="save">SAVE</string>
+    <string name="men_s_fashion">Men\'s Fashion</string>
+    <string name="post_added">Post Added</string>
+    <string name="date_of_joining">Date of Joining</string>
+    <string name="following">Following</string>
+    <string name="_1281">1281</string>
+    <string name="followers">Followers</string>
+    <string name="_250">250</string>
+    <string name="posts">POSTS</string>
+    <string name="background">background</string>
+    <string name="travis_desantis">Travis Desantis</string>
+    <string name="setting">setting</string>
+    <string name="_281_wilkinson_street">281 Wilkinson Street</string>
+    <string name="nashville_tennessee_tn_37203">Nashville,Tennessee(TN),37203</string>
+    <string name="_02_december_2019">: 02 December 2019</string>
+    <string name="verified">Verified</string>
+    <string name="phone_number">: Phone number</string>
 </resources>

@@ -1,3 +1,4 @@
+/*
 package com.verkoop.network
 
 import com.google.gson.GsonBuilder
@@ -8,13 +9,18 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.net.ssl.*
+import javax.security.cert.CertificateException
 
 
-/*This class used to hit service*/
+
+*/
+/*This class used to hit service*//*
+
 object ApiClient {
-    private const val BASE_URL = "http://hireswiftdeveloper.com/VercoopApp/api/"
+    private const val BASE_URL = "https://148.72.64.214/VerkoopApp/api/V1/"
     private var retrofit: Retrofit? = null
-
+   
     val client: MyService
         get() {
             if (retrofit == null) {
@@ -30,6 +36,7 @@ object ApiClient {
         }
 
     private fun buildClient(): OkHttpClient {
+       
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
 
@@ -42,7 +49,9 @@ object ApiClient {
     }
 
 
-    /* public static class MyOkHttpInterceptor implements Interceptor {
+
+    */
+/* public static class MyOkHttpInterceptor implements Interceptor {
 
         @Override
         public Response intercept(Chain chain) throws IOException {
@@ -54,6 +63,7 @@ object ApiClient {
                     .build();
             return chain.proceed(newRequest);
         }
-    }*/
+    }*//*
 
-}
+
+}*/

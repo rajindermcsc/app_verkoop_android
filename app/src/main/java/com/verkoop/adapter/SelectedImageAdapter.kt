@@ -79,7 +79,7 @@ class SelectedImageAdapter(private val context: Activity, private var selectedIm
                 selectedImageList.add(imageModal)
             }
             notifyDataSetChanged()
-            selectedImageCount.selectDetailCount(listSize,position)
+            selectedImageCount.selectDetailCount(listSize,adapterPosition)
         }
     }
     interface SelectedImageCount{

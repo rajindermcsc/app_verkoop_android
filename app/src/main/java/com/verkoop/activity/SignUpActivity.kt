@@ -151,7 +151,7 @@ class SignUpActivity : AppCompatActivity() {
                     override fun onSuccess(response: Response<*>) {
                         VerkoopApplication.instance.loader.hide(this@SignUpActivity)
                         val loginResponse = response.body() as SignUpResponse
-                        setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.requestType)
+                        setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type)
                     }
 
                     override fun onFailure(msg: String?) {

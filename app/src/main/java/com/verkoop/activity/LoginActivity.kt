@@ -20,10 +20,7 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.verkoop.R
 import com.verkoop.VerkoopApplication
-import com.verkoop.models.LoginRequest
-import com.verkoop.models.LoginResponse
-import com.verkoop.models.LoginSocialRequest
-import com.verkoop.models.SocialResponse
+import com.verkoop.models.*
 import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
@@ -255,8 +252,8 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
-                        val loginResponse = response.body() as LoginResponse
-                        setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.requestType)
+                        val loginResponse = response.body() as LogInResponse
+                        setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type)
                     }
 
                     override fun onFailure(msg: String?) {
@@ -286,9 +283,9 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
-                        val loginResponse = response.body() as SocialResponse
+                        val loginResponse = response.body() as SignUpResponse
                         Log.e("<<Log>>", "Login Successfully.")
-                        setResponseData(loginResponse.data.id.toString(), loginResponse.data.api_token, loginResponse.data.FirstName, loginResponse.data.email, loginResponse.data.loginType)
+                        setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type)
                     }
 
                     override fun onFailure(msg: String?) {

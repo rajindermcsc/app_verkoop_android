@@ -7,10 +7,15 @@ import android.support.v7.widget.LinearLayoutManager
 import com.verkoop.R
 import kotlinx.android.synthetic.main.full_categories_activity.*
 import android.support.v7.widget.StaggeredGridLayoutManager
+import com.verkoop.VerkoopApplication
 import com.verkoop.adapter.FullCategoryAdapter
 import com.verkoop.adapter.SubCategoryAdapter
-import com.verkoop.models.QuestionsDataModel
+import com.verkoop.models.CategoriesResponse
+import com.verkoop.models.DataCategory
+import com.verkoop.network.ServiceHelper
+import com.verkoop.utils.Utils
 import kotlinx.android.synthetic.main.toolbar_category.*
+import retrofit2.Response
 import java.util.ArrayList
 
 
@@ -26,16 +31,12 @@ class FullCategoriesActivity: AppCompatActivity(), FullCategoryAdapter.SelectedC
         startActivity(intent)
     }
 
-
-
-    private val newList = ArrayList<String>()
-    private val newList1 = ArrayList<String>()
-    private val categoryList=ArrayList<QuestionsDataModel>()
+    private val categoryList=ArrayList<DataCategory>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.full_categories_activity)
-        setListData()
+        callCategoriesApi()
     }
 
     private fun setData() {
@@ -46,29 +47,21 @@ class FullCategoriesActivity: AppCompatActivity(), FullCategoryAdapter.SelectedC
         iv_left.setOnClickListener { onBackPressed() }
 
     }
-    private fun setListData() {
-        val nameList = arrayOf("Women's", "men's", "Footwear", "Desktop's", "Mobiles", "Furniture", "Pets", "Car", "Books")
-        val subList = arrayOf("Women's", "men's", "Footwear", "Desktop's", "Mobiles")
-        val subList2 = arrayOf("Women's", "men's", "Footwear", "Desktop's", "Mobiles", "Desktop's", "Mobiles", "Furniture", "Pets", "Car", "Books")
-        for(j in subList.indices){
-            newList.add(subList[j])
-        }
-        for(j in subList2.indices){
-            newList1.add(subList2[j])
-        }
-        for(j in subList2.indices){
-            newList1.add(subList2[j])
-        }
-        for (i in nameList.indices) {
-            if(i%2==0) {
-                val categoryModal = QuestionsDataModel(newList, nameList[i])
-                categoryList.add(categoryModal)
-            }else{
-                val categoryModal = QuestionsDataModel(newList1, nameList[i])
-                categoryList.add(categoryModal)
-            }
+    private fun callCategoriesApi() {
+        VerkoopApplication.instance.loader.show(this)
+        ServiceHelper().categoriesService(
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        VerkoopApplication.instance.loader.hide(this@FullCategoriesActivity)
+                        val categoriesResponse = response.body() as CategoriesResponse
+                        categoryList.addAll(categoriesResponse.data)
+                        setData()
+                    }
 
-        }
-        setData()
+                    override fun onFailure(msg: String?) {
+                        VerkoopApplication.instance.loader.hide(this@FullCategoriesActivity)
+                        Utils.showSimpleMessage(this@FullCategoriesActivity, msg!!).show()
+                    }
+                })
     }
 }

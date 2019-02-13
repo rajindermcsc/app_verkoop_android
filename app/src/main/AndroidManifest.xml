@@ -96,7 +96,10 @@
             android:name=".activity.AddDetailsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-        <activity android:name=".activity.SelectCategoryDialogActivity" />
+        <activity
+            android:name=".activity.SelectCategoryDialogActivity"
+            android:theme="@style/TransparentCompat"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
 
     </application>
 

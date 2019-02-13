@@ -12,6 +12,5 @@
         android:padding="@dimen/dp_4"
         android:drawablePadding="@dimen/dp_10"
         android:layout_gravity="center"
-        android:drawableLeft="@drawable/ic_brightness_1_black_24dp"
-        android:text="makeUp"/>
+        android:drawableStart="@drawable/ic_brightness_1_black_24dp" />
 </LinearLayout>
