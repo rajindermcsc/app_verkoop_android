@@ -27,5 +27,6 @@ data class AddItemRequest(
         val name: String,
         val price: String,
         val item_type: String,
-        val description: String
+        val description: String,
+        val user_id: String
 )

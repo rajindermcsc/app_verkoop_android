@@ -10,7 +10,9 @@ import kotlinx.android.synthetic.main.select_category_dialog_activity.*
 import java.util.ArrayList
 import android.app.Activity
 import android.content.Intent
+import android.support.v4.content.ContextCompat
 import android.view.View
+import android.view.WindowManager
 import com.github.florent37.viewanimator.ViewAnimator
 import com.verkoop.VerkoopApplication
 import com.verkoop.models.*
@@ -66,6 +68,7 @@ class SelectCategoryDialogActivity : AppCompatActivity(), SubCategoryDialogAdapt
     }
 
     private fun setData() {
+        pbProgress.indeterminateDrawable.setColorFilter(ContextCompat.getColor(this,R.color.colorPrimary), android.graphics.PorterDuff.Mode.MULTIPLY)
         ivFinish.setOnClickListener {
             onBackPressed()
         }
@@ -115,10 +118,15 @@ class SelectCategoryDialogActivity : AppCompatActivity(), SubCategoryDialogAdapt
 
     }
     private fun callCategoriesApi() {
-        VerkoopApplication.instance.loader.show(this)
+       // VerkoopApplication.instance.loader.show(this)
+        window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        pbProgress.visibility=View.VISIBLE
         ServiceHelper().categoriesService(
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                        pbProgress.visibility=View.GONE
                         VerkoopApplication.instance.loader.hide(this@SelectCategoryDialogActivity)
                         val categoriesResponse = response.body() as CategoriesResponse
                         categoryList.addAll(categoriesResponse.data)
@@ -126,7 +134,9 @@ class SelectCategoryDialogActivity : AppCompatActivity(), SubCategoryDialogAdapt
                     }
 
                     override fun onFailure(msg: String?) {
-                        VerkoopApplication.instance.loader.hide(this@SelectCategoryDialogActivity)
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                        pbProgress.visibility=View.GONE
+                       // VerkoopApplication.instance.loader.hide(this@SelectCategoryDialogActivity)
                         Utils.showSimpleMessage(this@SelectCategoryDialogActivity, msg!!).show()
                     }
                 })

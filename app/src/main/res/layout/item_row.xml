@@ -33,14 +33,14 @@
                 android:layout_marginStart="@dimen/dp_8"
                 android:orientation="vertical">
 
-                <TextView
+                <com.verkoop.fonts.textView.GothiBoldTextView
+                    android:id="@+id/tvUserName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/louis_wayne"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp_12" />
 
-                <TextView
+                <com.verkoop.fonts.textView.GothicThinTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/_2_day_ago"
@@ -69,13 +69,14 @@
                 android:layout_width="@dimen/dp_180"
                 android:layout_height="@dimen/dp_160"
                 android:scaleType="fitXY"
-                android:src="@mipmap/pic_3" />
+                android:src="@mipmap/pic_3"
+                android:contentDescription="@string/image" />
         </com.github.florent37.shapeofview.shapes.RoundRectView>
 
-        <TextView
+        <com.verkoop.fonts.textView.GothiBoldTextView
+            android:id="@+id/tvProductName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Loafers Mens Shoes"
             android:textColor="@color/black"
             android:layout_marginStart="@dimen/dp_6"
             android:layout_marginTop="@dimen/dp_8"
@@ -87,14 +88,15 @@
             android:layout_marginStart="@dimen/dp_6"
             android:orientation="horizontal">
 
-            <TextView
+            <com.verkoop.fonts.textView.GothiBoldTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Condition : "
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp_12" />
 
-            <TextView
+            <com.verkoop.fonts.textView.GothiBoldTextView
+                android:id="@+id/tvCondition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="new"
@@ -107,31 +109,31 @@
             android:layout_marginStart="@dimen/dp_6"
             android:orientation="horizontal">
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.verkoop.fonts.textView.GothicThinTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Price : "
                     android:textColor="@color/light_gray"
                     android:textSize="@dimen/sp_12" />
 
-                <TextView
+                <com.verkoop.fonts.textView.GothiBoldTextView
+                    android:id="@+id/tvItemPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$50"
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/sp_12" />
             </LinearLayout>
-            <TextView
+            <com.verkoop.fonts.textView.GothiBoldTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/sp_12"
-                android:drawableLeft="@mipmap/post_like"
-                android:text="25"
+                android:drawableStart="@mipmap/post_like"
+
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textColor="@color/colorPrimary"

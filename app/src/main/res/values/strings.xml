@@ -109,4 +109,11 @@
     <string name="_02_december_2019">: 02 December 2019</string>
     <string name="verified">Verified</string>
     <string name="phone_number">: Phone number</string>
+    <string name="dot">dot</string>
+    <string name="dollar">$</string>
+    <string name="enter_item_name">Please enter item name.</string>
+    <string name="enter_category_name">Please select category.</string>
+    <string name="enter_price">Please enter price.</string>
+    <string name="enter_description">Please enter description.</string>
+    <string name="upload_image">Please upload atleast one item image.</string>
 </resources>

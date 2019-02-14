@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.daimajia.slider.library.SliderTypes.BaseSliderView
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView
-
 import com.ksmtrivia.common.BaseFragment
 import com.verkoop.R
 import com.verkoop.activity.FullCategoriesActivity
@@ -97,7 +96,7 @@ class HomeFragment : BaseFragment() {
         mDemoSlider.setDuration(3000)
         tvSell.setOnClickListener {
             val intent = Intent(homeActivity, GalleryActivity::class.java)
-            startActivity(intent)
+            homeActivity.startActivityForResult(intent, 2)
         }
         tvViewAll.setOnClickListener { Utils.showToast(homeActivity, "Work in progress.") }
         tvCategory.setOnClickListener {
@@ -120,4 +119,5 @@ class HomeFragment : BaseFragment() {
         super.onStop()
         mDemoSlider.stopAutoCycle()
     }
+
 }

@@ -125,3 +125,45 @@ data class AddItemResponse(
     val message: String
 )
 
+
+data class MyProfileResponse(
+    val data: DataProfile,
+    val message: String
+)
+
+data class DataProfile(
+    val users: Users,
+    val items: ArrayList<Item>
+)
+
+data class Users(
+    val id: Int,
+    val username: String,
+    val email: String,
+    val first_name: Any,
+    val last_name: Any,
+    val mobile_no: Any,
+    val website: Any,
+    val bio: Any,
+    val profile_pic: Any,
+    val login_type: String,
+    val social_id: Any,
+    val city: Any,
+    val country: String,
+    val is_active: Int,
+    val email_verified_at: Any,
+    val created_at: String,
+    val updated_at: String
+)
+
+data class Item(
+    val id: Int,
+    val user_id: Int,
+    val category_id: Int,
+    val name: String,
+    val price: Int,
+    val item_type: Int,
+    val description: String,
+    val created_at: String,
+    val updated_at: String
+)

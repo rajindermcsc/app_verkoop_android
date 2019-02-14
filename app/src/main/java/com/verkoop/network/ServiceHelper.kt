@@ -4,6 +4,7 @@ import android.text.TextUtils
 import android.util.Log
 import com.google.gson.Gson
 import com.verkoop.models.*
+import com.verkoop.utils.Utils
 import it.sephiroth.android.library.imagezoom.ImageViewTouchBase.LOG_TAG
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -13,7 +14,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
 import java.util.ArrayList
-
 
  class ServiceHelper{
     interface OnResponse{
@@ -132,7 +132,8 @@ import java.util.ArrayList
         val price = RequestBody.create(MediaType.parse("text/plain"), request.price)
         val itemType = RequestBody.create(MediaType.parse("text/plain"), request.item_type)
         val description = RequestBody.create(MediaType.parse("text/plain"), request.description)
-        call = myService.addClothApi( parts, categoryId, name, price,itemType,description)
+        val userId = RequestBody.create(MediaType.parse("text/plain"), request.user_id)
+        call = myService.addClothApi( parts, categoryId, name, price,itemType,description,userId)
         call.enqueue(object : Callback<AddItemResponse> {
             override fun onResponse(call: Call<AddItemResponse>, response: Response<AddItemResponse>) {
                 Log.e("<<<<Response>>>>", Gson().toJson(response.body()))
@@ -150,5 +151,28 @@ import java.util.ArrayList
             }
         })
     }
+
+     fun  myProfileService(userId:String,onResponse: OnResponse) {
+         val myService =  ApiClient.getClient().create(MyService::class.java)
+         val responseCall = myService.getMyProfileService(userId)
+         responseCall.enqueue(object : Callback<MyProfileResponse> {
+             override fun onResponse(call: Call<MyProfileResponse>, response: Response<MyProfileResponse>) {
+                 val res = response.body()
+                 Log.e("<<<Response>>>", Gson().toJson(res))
+                 if (res != null) {
+                     when {
+                         response.code() == 200 -> onResponse.onSuccess(response)
+                         else -> onResponse.onFailure(response.message())
+                     }
+                 }else {
+                     onResponse.onFailure("Something went wrong!")
+                 }
+             }
+
+             override fun onFailure(call: Call<MyProfileResponse>, t: Throwable) {
+                 onResponse.onFailure(t.message)
+             }
+         })
+     }
 }
 

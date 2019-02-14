@@ -9,7 +9,8 @@ import com.verkoop.R
 import com.verkoop.adapter.HomePagerAdapter
 import kotlinx.android.synthetic.main.home_activity.*
 import kotlinx.android.synthetic.main.toolbar_home.*
-
+import android.app.Activity
+import com.verkoop.utils.AppConstants
 
 
 class HomeActivity:AppCompatActivity(){
@@ -77,5 +78,20 @@ class HomeActivity:AppCompatActivity(){
         Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
 
         Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        if (requestCode == 2) {
+            if (resultCode == Activity.RESULT_OK) {
+                val result = data.getIntExtra(AppConstants.TRANSACTION,0)
+                if(result==1){
+                    bottomTabLayout.selectTab(R.id.menu_button3)
+                    viewPager.currentItem=3
+                }
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
     }
 }

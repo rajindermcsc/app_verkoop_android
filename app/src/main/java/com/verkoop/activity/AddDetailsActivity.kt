@@ -14,6 +14,7 @@ import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View.OnFocusChangeListener
 import android.view.WindowManager
 import com.verkoop.BuildConfig
 import com.verkoop.R
@@ -109,11 +110,22 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 }
             }
         })
+        etPrice.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                etPrice.setText(this@AddDetailsActivity.getString(R.string.dollar))
+                etPrice.setSelection(1)
+            }
+        }
         etPrice.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
+                if (etPrice.length() == 0) {
+                    etPrice.setText("$")
+                    etPrice.setSelection(1)
+                }
             }
 
             override fun beforeTextChanged(arg0: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
+
             }
 
             override fun afterTextChanged(arg0: Editable) {
@@ -124,6 +136,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 }
             }
         })
+
         etDescriptionDetail.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
             }
@@ -144,23 +157,27 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
     private fun isValidate(): Boolean {
         return when {
             TextUtils.isEmpty(etNameDetail.text.toString().trim()) -> {
-                Utils.showSimpleMessage(this, "Please enter item name.").show()
+                Utils.showSimpleMessage(this, getString(R.string.enter_item_name)).show()
                 false
             }
             categoryId == 0 -> {
-                Utils.showSimpleMessage(this, "Please select category.").show()
+                Utils.showSimpleMessage(this, getString(R.string.enter_category_name)).show()
                 false
             }
             TextUtils.isEmpty(etPrice.text.toString().trim()) -> {
-                Utils.showSimpleMessage(this, "Please enter price.").show()
+                Utils.showSimpleMessage(this, getString(R.string.enter_price)).show()
+                false
+            }
+            etPrice.text.toString().trim().length <= 1 -> {
+                Utils.showSimpleMessage(this, getString(R.string.enter_price)).show()
                 false
             }
             TextUtils.isEmpty(etDescriptionDetail.text.toString().trim()) -> {
-                Utils.showSimpleMessage(this, "Please enter description.").show()
+                Utils.showSimpleMessage(this, getString(R.string.enter_description)).show()
                 false
             }
             selectedImageList.size < 2 -> {
-                Utils.showSimpleMessage(this, "Please upload atleast one item image.").show()
+                Utils.showSimpleMessage(this, getString(R.string.upload_image)).show()
                 false
             }
             else -> true
@@ -171,6 +188,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         val shareDialog = ShareDialog(this, "", "", object : SharePostListener {
             override fun onWhatAppClick() {
                 Utils.showToast(this@AddDetailsActivity, "whatApp")
+
             }
 
             override fun onFacebookClick() {
@@ -241,11 +259,11 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
 
             override fun onPreExecute() {
                 super.onPreExecute()
+                VerkoopApplication.instance.loader.show(this@AddDetailsActivity)
             }
 
             override fun doInBackground(vararg params: Void): Bitmap? {
                 val uriTemp = FileProvider.getUriForFile(this@AddDetailsActivity, BuildConfig.APPLICATION_ID + ".provider", File(Utils.getRealPathFromUri(this@AddDetailsActivity, Uri.parse(selectedImageList[imageCount].imageUrl))))
-                // val uriTemp = FileProvider.getUriForFile(this@AddDetailsActivity, BuildConfig.APPLICATION_ID + ".provider", File(CommonUtils.getImageContentUri(this@AddDetailsActivity,File(selectedImageList[imageCount].imageUrl)).toString()))
                 contentResolver.notifyChange(uriTemp, null)
                 val cr = contentResolver
                 var bmp: Bitmap? = null
@@ -268,8 +286,6 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     imageCount = 0
                     Log.e("<<RealImagePath>>", realPath.toString())
                     if (Utils.isOnline(this@AddDetailsActivity)) {
-                        /* window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)*/
                         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
 
                         //    pbProgress.setVisibility(View.VISIBLE)
@@ -287,16 +303,18 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             }
 
             private fun uploadImageItem(realPath: java.util.ArrayList<String>) {
-                val addItemRequest = AddItemRequest(realPath, categoryId.toString(), etNameDetail.text.toString(), etPrice.text.toString(), itemType.toString(), etDescriptionDetail.text.toString())
-
-                VerkoopApplication.instance.loader.show(this@AddDetailsActivity)
+                val addItemRequest = AddItemRequest(realPath, categoryId.toString(), etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(),Utils.getPreferencesString(this@AddDetailsActivity,AppConstants.USER_ID))
                 ServiceHelper().addItemsApi(addItemRequest,
                         object : ServiceHelper.OnResponse {
                             override fun onSuccess(response: Response<*>) {
                                 VerkoopApplication.instance.loader.hide(this@AddDetailsActivity)
                                 val categoriesResponse = response.body() as AddItemResponse
                                 Utils.showToast(this@AddDetailsActivity, categoriesResponse.message)
-                                shareDialog()
+                                // shareDialog()
+                                val returnIntent = Intent()
+                                returnIntent.putExtra(AppConstants.TRANSACTION, 1)
+                                setResult(Activity.RESULT_OK, returnIntent)
+                                finish()
                             }
 
                             override fun onFailure(msg: String?) {
