@@ -14,5 +14,6 @@ object AppConstants{
      const val CATEGORY_NAME = "category_name"
      const val CATEGORY_ID = "category_id"
      const val TRANSACTION = "transaction"
+     const val IMAGE_URL = "http://verkoopadmin.com/VerkoopApp/"
 
 }

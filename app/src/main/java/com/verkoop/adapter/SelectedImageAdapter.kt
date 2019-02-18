@@ -23,8 +23,8 @@ class SelectedImageAdapter(private val context: Activity, private var selectedIm
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = mInflater.inflate(R.layout.image_list_row, parent, false)
         val params = view.layoutParams
-        // params.height = flList.height / 5
         params.width = flList.width / 3
+        params.height = params.width
         view.layoutParams = params
         selectedImageCount=context as AddDetailsActivity
         return ViewHolder(view)

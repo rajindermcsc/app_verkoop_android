@@ -12,34 +12,11 @@ data class CategoryModal(
         var selectedPosition: Boolean
 ) : Parcelable
 
-
-data class QuestionnaireResponseModel(
-        val `data`: List<QuestionsDataModel> = ArrayList(),
-        val message: String,
-        val status: Int
-)
-
-data class QuestionsDataModel(
-        val answers: List<String>,
-        val quesId: String
-)
-
-data class QuestionsDataDialogModel(
-        val answers: List<SubModal>,
-        val quesId: String,
-        var isSelected: Boolean
-)
-
 data class ImageModal(
         var imageUrl: String,
         var isSelected: Boolean,
         var type: Boolean,
         var countSelect: Int
-)
-
-data class SubModal(
-        var subCategoryId: String,
-        var subCategoyName: Int
 )
 
 data class SignUpResponse(
@@ -132,11 +109,6 @@ data class MyProfileResponse(
 )
 
 data class DataProfile(
-    val users: Users,
-    val items: ArrayList<Item>
-)
-
-data class Users(
     val id: Int,
     val username: String,
     val email: String,
@@ -153,7 +125,8 @@ data class Users(
     val is_active: Int,
     val email_verified_at: Any,
     val created_at: String,
-    val updated_at: String
+    val updated_at: String,
+    val items: ArrayList<Item>
 )
 
 data class Item(
@@ -164,6 +137,15 @@ data class Item(
     val price: Int,
     val item_type: Int,
     val description: String,
+    val created_at: String,
+    val updated_at: String,
+    val items_images: List<ProductImage>
+)
+
+data class ProductImage(
+    val id: String,
+    val item_id: String,
+    val url: String,
     val created_at: String,
     val updated_at: String
 )

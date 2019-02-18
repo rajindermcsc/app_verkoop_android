@@ -32,6 +32,7 @@ import kotlinx.android.synthetic.main.add_details_activity.*
 import kotlinx.android.synthetic.main.details_toolbar.*
 import retrofit2.Response
 import java.io.File
+import android.util.DisplayMetrics
 
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
@@ -220,6 +221,10 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
     }
 
     private fun setAdapter() {
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val width = displayMetrics.widthPixels
+        rvImageList.layoutParams.height =width / 3
         val mManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvImageList.layoutManager = mManager
         val selectedImageAdapter = SelectedImageAdapter(this, selectedImageList, flList, imageList.size)

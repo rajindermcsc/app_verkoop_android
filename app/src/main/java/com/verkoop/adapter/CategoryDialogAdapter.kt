@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.verkoop.R
 import com.verkoop.models.DataCategory
-import com.verkoop.models.QuestionsDataDialogModel
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.category_dialog.*
 import java.util.*

@@ -9,10 +9,8 @@ import android.view.ViewGroup
 import com.verkoop.R
 import com.verkoop.activity.FullCategoriesActivity
 import com.verkoop.models.DataCategory
-import com.verkoop.models.QuestionsDataModel
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.full_categories_row.*
-import kotlinx.android.synthetic.main.home_fragment.*
 import java.util.*
 
 
