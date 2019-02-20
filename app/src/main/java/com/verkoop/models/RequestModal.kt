@@ -30,3 +30,10 @@ data class AddItemRequest(
         val description: String,
         val user_id: String
 )
+
+data class PlaceSearchRequest(
+    val loc: String,
+    val radius: String,
+    val keyword: String,
+    val key: String
+)

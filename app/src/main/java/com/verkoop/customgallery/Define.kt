@@ -3,6 +3,7 @@ package com.verkoop.customgallery
 
 class Define {
     val PERMISSION_STORAGE = 28
+    val PERMISSION_LOCATION= 29
     val TRANS_IMAGES_RESULT_CODE = 29
     val TAKE_A_PICK_REQUEST_CODE = 128
     val ENTER_ALBUM_REQUEST_CODE = 129

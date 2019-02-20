@@ -15,7 +15,6 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.category_dialog.*
 import java.util.*
 
-
 class CategoryDialogAdapter(private val context: Context, private val categoryList: ArrayList<DataCategory>) : RecyclerView.Adapter<CategoryDialogAdapter.ViewHolder>() {
     private var mInflater: LayoutInflater = LayoutInflater.from(context)
 

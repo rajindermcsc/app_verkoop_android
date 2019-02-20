@@ -1,4 +1,4 @@
-package com.verkoop.customgallery
+package com.verkoop.utils
 
 import android.Manifest
 import android.annotation.TargetApi
@@ -16,7 +16,7 @@ class PermissionCheck(internal var context: Context) {
 
 
     @TargetApi(Build.VERSION_CODES.M)
-    fun CheckStoragePermission(): Boolean {
+    fun checkStoragePermission(): Boolean {
         val define = Define()
         val permissionCheckRead = ContextCompat.checkSelfPermission(context,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -48,9 +48,27 @@ class PermissionCheck(internal var context: Context) {
     }
 
 
+    @TargetApi(Build.VERSION_CODES.M)
+    fun checkLocationPermission(): Boolean {
+        val define = Define()
+        val permissionCheckRead = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+        return if (permissionCheckRead != PackageManager.PERMISSION_GRANTED ) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(context as Activity,
+                            Manifest.permission.ACCESS_FINE_LOCATION)) {
+                ActivityCompat.requestPermissions(context as Activity,
+                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                        define.PERMISSION_LOCATION)
+            } else {
+                ActivityCompat.requestPermissions(context as Activity,
+                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                        define.PERMISSION_LOCATION)
+            }
+            false
+        } else
+            true
+    }
     fun showPermissionDialog() {
         Toast.makeText(context, "permission deny", Toast.LENGTH_SHORT).show()
     }
-
-
 }

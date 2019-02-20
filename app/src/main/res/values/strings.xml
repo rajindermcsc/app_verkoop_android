@@ -116,4 +116,10 @@
     <string name="enter_price">Please enter price.</string>
     <string name="enter_description">Please enter description.</string>
     <string name="upload_image">Please upload atleast one item image.</string>
+    <string name="deal_option">Deal Option</string>
+    <string name="meet_up">Meet-up</string>
+    <string name="describe_what_you_are_selling_and_include_any_details_a_buyer_might_be_insterested_in_people_love_items_what_stories">Describe what you are selling and include any details a buyer might be interested in. People love items what stories!</string>
+    <string name="location">Location</string>
+    <string name="your_meet_up_location_and_schedule">Your meet up location and schedule</string>
+    <string name="deal_location">Deal Location</string>
 </resources>

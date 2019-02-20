@@ -1,4 +1,3 @@
-/*
 package com.verkoop.network
 
 import com.google.gson.GsonBuilder
@@ -9,16 +8,11 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.net.ssl.*
-import javax.security.cert.CertificateException
 
 
-
-*/
-/*This class used to hit service*//*
-
-object ApiClient {
-    private const val BASE_URL = "https://148.72.64.214/VerkoopApp/api/V1/"
+object ApiClientLocation {
+    private const val BASE_URL = "https://maps.googleapis.com/maps/api/place/"
+ //   https://maps.googleapis.com/maps/api/place/textsearch/json?query=bareilly&key=AIzaSyC6ezTSfIS-pq-VX9zyq2qATzKWXZaPJqc
     private var retrofit: Retrofit? = null
    
     val client: MyService
@@ -47,23 +41,4 @@ object ApiClient {
                 .addInterceptor(interceptor)
                 .build()
     }
-
-
-
-    */
-/* public static class MyOkHttpInterceptor implements Interceptor {
-
-        @Override
-        public Response intercept(Chain chain) throws IOException {
-            Request originalRequest = chain.request();
-
-            String token ="";// get token logic
-            Request newRequest = originalRequest.newBuilder()
-                    .header("X-Authorization", token)
-                    .build();
-            return chain.proceed(newRequest);
-        }
-    }*//*
-
-
-}*/
+}

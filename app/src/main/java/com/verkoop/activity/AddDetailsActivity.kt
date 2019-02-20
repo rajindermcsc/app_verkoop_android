@@ -1,11 +1,17 @@
 package com.verkoop.activity
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.location.LocationManager
 import android.net.Uri
 import android.os.AsyncTask
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.FileProvider
 import android.support.v7.app.AppCompatActivity
@@ -13,6 +19,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View.OnFocusChangeListener
 import android.view.WindowManager
@@ -24,19 +31,16 @@ import com.verkoop.models.AddItemRequest
 import com.verkoop.models.AddItemResponse
 import com.verkoop.models.ImageModal
 import com.verkoop.network.ServiceHelper
-import com.verkoop.utils.AppConstants
-import com.verkoop.utils.ShareDialog
-import com.verkoop.utils.SharePostListener
-import com.verkoop.utils.Utils
+import com.verkoop.utils.*
 import kotlinx.android.synthetic.main.add_details_activity.*
 import kotlinx.android.synthetic.main.details_toolbar.*
 import retrofit2.Response
 import java.io.File
-import android.util.DisplayMetrics
 
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
 class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedImageCount {
+    private val REQUEST_CODE = 11
     private var imageList = ArrayList<String>()
     private var selectedImageList = ArrayList<ImageModal>()
     private val realPath = java.util.ArrayList<String>()
@@ -65,6 +69,18 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
 
 
     private fun setData() {
+        llLocation.setOnClickListener {
+            val intent = Intent(this, SearchLocationActivity::class.java)
+            startActivityForResult(intent, 12)
+        }
+        cbNearBy.setOnCheckedChangeListener({ _, isChecked ->
+            if (isChecked) {
+                checkLocationOption()
+            } else {
+                expansionLayout.collapse(true)
+            }
+        })
+
         tvSave.setOnClickListener {
             if (Utils.isOnline(this@AddDetailsActivity)) {
                 if (isValidate()) {
@@ -155,6 +171,17 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         })
     }
 
+    private fun checkLocationOption() {
+        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            buildAlertMessageNoGps()
+        } else {
+            if (checkPermission()) {
+                expansionLayout.expand(true)
+            }
+        }
+    }
+
     private fun isValidate(): Boolean {
         return when {
             TextUtils.isEmpty(etNameDetail.text.toString().trim()) -> {
@@ -224,7 +251,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         val displayMetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(displayMetrics)
         val width = displayMetrics.widthPixels
-        rvImageList.layoutParams.height =width / 3
+        rvImageList.layoutParams.height = width / 3
         val mManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvImageList.layoutManager = mManager
         val selectedImageAdapter = SelectedImageAdapter(this, selectedImageList, flList, imageList.size)
@@ -243,10 +270,10 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         setAdapter()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode === 1) {
             if (resultCode === Activity.RESULT_OK) {
-                val categoryName = data.getStringExtra(AppConstants.CATEGORY_NAME)
+                val categoryName = data!!.getStringExtra(AppConstants.CATEGORY_NAME)
                 categoryId = data.getIntExtra(AppConstants.CATEGORY_ID, 0)
                 tvCategory.text = categoryName
                 tvCategory.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
@@ -254,6 +281,18 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             }
             if (resultCode === Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
+            }
+        }
+        if (requestCode === REQUEST_CODE && resultCode === 0) {
+            val provider = Settings.Secure.getString(contentResolver, Settings.Secure.LOCATION_PROVIDERS_ALLOWED)
+            if (!TextUtils.isEmpty(provider)) {
+                if (checkPermission()) {
+                    expansionLayout.expand(true)
+                }
+
+            } else {
+                expansionLayout.collapse(true)
+                cbNearBy.isChecked = false
             }
         }
 
@@ -308,7 +347,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             }
 
             private fun uploadImageItem(realPath: java.util.ArrayList<String>) {
-                val addItemRequest = AddItemRequest(realPath, categoryId.toString(), etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(),Utils.getPreferencesString(this@AddDetailsActivity,AppConstants.USER_ID))
+                val addItemRequest = AddItemRequest(realPath, categoryId.toString(), etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID))
                 ServiceHelper().addItemsApi(addItemRequest,
                         object : ServiceHelper.OnResponse {
                             override fun onSuccess(response: Response<*>) {
@@ -330,5 +369,50 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             }
         }
         Converter().execute()
+    }
+
+    private fun checkPermission(): Boolean {
+        val permissionCheck = PermissionCheck(this)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (permissionCheck.checkLocationPermission())
+                return true
+        } else
+            return true
+        return false
+    }
+
+    override
+    fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            29 -> {
+                if (grantResults.isNotEmpty()) {
+                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        expansionLayout.expand(true)
+                        Utils.showToast(this, "Permission")
+                    } else {
+                        cbNearBy.isChecked = false
+                        expansionLayout.collapse(true)
+                        PermissionCheck(this).showPermissionDialog()
+
+                    }
+                }
+            }
+        }
+    }
+
+    private fun buildAlertMessageNoGps() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+                .setCancelable(false)
+                .setPositiveButton("Yes") { _, _ ->
+                    startActivityForResult(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                            , REQUEST_CODE)
+                }
+                .setNegativeButton("No") { dialog, _ ->
+                    dialog.cancel()
+                    cbNearBy.isChecked = false
+                }
+        val alert: AlertDialog = builder.create()
+        alert.show()
     }
 }

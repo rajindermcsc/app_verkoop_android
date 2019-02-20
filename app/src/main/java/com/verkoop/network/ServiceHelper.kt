@@ -4,7 +4,6 @@ import android.text.TextUtils
 import android.util.Log
 import com.google.gson.Gson
 import com.verkoop.models.*
-import com.verkoop.utils.Utils
 import it.sephiroth.android.library.imagezoom.ImageViewTouchBase.LOG_TAG
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -174,5 +173,49 @@ import java.util.ArrayList
              }
          })
      }
-}
+     fun  getPlacesService(placeSearchRequest: PlaceSearchRequest,onResponse: OnResponse) {
+         val service = ApiClientLocation.client
+         val responseCall = service.getDetails(placeSearchRequest.loc,placeSearchRequest.radius,placeSearchRequest.key)
+         responseCall.enqueue(object : Callback<PlaceApiResponse> {
+             override fun onResponse(call: Call<PlaceApiResponse>, response: Response<PlaceApiResponse>) {
+                 val res = response.body()
+                 Log.e("<<<Response>>>", Gson().toJson(res))
+                 if (res != null) {
+                     when {
+                         response.code() == 200 -> onResponse.onSuccess(response)
+                         else -> onResponse.onFailure(response.message())
+                     }
+                 }else {
+                     onResponse.onFailure("Something went wrong!")
+                 }
+             }
 
+             override fun onFailure(call: Call<PlaceApiResponse>, t: Throwable) {
+                 onResponse.onFailure(t.message)
+             }
+         })
+     }
+
+     fun  getSearchPlaceService(placeSearchRequest: PlaceSearchRequest,onResponse: OnResponse) {
+         val service = ApiClientLocation.client
+         val responseCall = service.getSearchPlaceApi(placeSearchRequest.keyword,placeSearchRequest.key)
+         responseCall.enqueue(object : Callback<PlaceApiResponse> {
+             override fun onResponse(call: Call<PlaceApiResponse>, response: Response<PlaceApiResponse>) {
+                 val res = response.body()
+                 Log.e("<<<Response>>>", Gson().toJson(res))
+                 if (res != null) {
+                     when {
+                         response.code() == 200 -> onResponse.onSuccess(response)
+                         else -> onResponse.onFailure(response.message())
+                     }
+                 }else {
+                     onResponse.onFailure("Something went wrong!")
+                 }
+             }
+
+             override fun onFailure(call: Call<PlaceApiResponse>, t: Throwable) {
+                 onResponse.onFailure(t.message)
+             }
+         })
+     }
+}

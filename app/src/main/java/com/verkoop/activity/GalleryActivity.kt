@@ -13,7 +13,7 @@ import android.view.View
 import com.verkoop.R
 import com.verkoop.adapter.GalleryAdapter
 import com.verkoop.customgallery.Define
-import com.verkoop.customgallery.PermissionCheck
+import com.verkoop.utils.PermissionCheck
 import com.verkoop.customgallery.PickerController
 import com.verkoop.customgallery.SingleMediaScanner
 import com.verkoop.models.ImageModal
@@ -89,7 +89,7 @@ class GalleryActivity : AppCompatActivity(), GalleryAdapter.ImageCountCallBack {
     private fun checkPermission(): Boolean {
         val permissionCheck = PermissionCheck(this)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (permissionCheck.CheckStoragePermission())
+            if (permissionCheck.checkStoragePermission())
                 return true
         } else
             return true

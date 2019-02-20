@@ -15,5 +15,6 @@ object AppConstants{
      const val CATEGORY_ID = "category_id"
      const val TRANSACTION = "transaction"
      const val IMAGE_URL = "http://verkoopadmin.com/VerkoopApp/"
+     const val GOOGLE_API_KEY = "AIzaSyC6ezTSfIS-pq-VX9zyq2qATzKWXZaPJqc"
 
 }

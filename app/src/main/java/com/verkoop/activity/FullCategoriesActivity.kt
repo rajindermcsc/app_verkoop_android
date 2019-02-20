@@ -7,6 +7,8 @@ import android.support.v7.widget.LinearLayoutManager
 import com.verkoop.R
 import kotlinx.android.synthetic.main.full_categories_activity.*
 import android.support.v7.widget.StaggeredGridLayoutManager
+import com.verkoop.R.id.iv_left
+import com.verkoop.R.id.rvCategoryList
 import com.verkoop.VerkoopApplication
 import com.verkoop.adapter.FullCategoryAdapter
 import com.verkoop.adapter.SubCategoryAdapter
