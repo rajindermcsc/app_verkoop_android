@@ -122,4 +122,8 @@
     <string name="location">Location</string>
     <string name="your_meet_up_location_and_schedule">Your meet up location and schedule</string>
     <string name="deal_location">Deal Location</string>
+    <string name="leave_without_selecting_meet_up_location">Leave without selecting meet-up location?</string>
+    <string name="selecting_a_location_helps_more_buyers_to_find_you_item_we_recommend_adding_one">Selecting a location helps more buyers to find you item. We recommend adding one.</string>
+    <string name="resume">Resume</string>
+    <string name="leave">Leave</string>
 </resources>

@@ -38,7 +38,11 @@ class FullCategoriesActivity: AppCompatActivity(), FullCategoryAdapter.SelectedC
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.full_categories_activity)
-        callCategoriesApi()
+        if (Utils.isOnline(this)) {
+            callCategoriesApi()
+        } else {
+            Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+        }
     }
 
     private fun setData() {

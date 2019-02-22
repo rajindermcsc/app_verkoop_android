@@ -218,4 +218,50 @@ import java.util.ArrayList
              }
          })
      }
+
+     fun  getItemDetailService(itemId:Int,onResponse: OnResponse) {
+         val myService =  ApiClient.getClient().create(MyService::class.java)
+         val responseCall = myService.getItemDetailsApi(itemId)
+         responseCall.enqueue(object : Callback<ItemDetailsResponse> {
+             override fun onResponse(call: Call<ItemDetailsResponse>, response: Response<ItemDetailsResponse>) {
+                 val res = response.body()
+                 Log.e("<<<Response>>>", Gson().toJson(res))
+                 if (res != null) {
+                     when {
+                         response.code() == 200 -> onResponse.onSuccess(response)
+                         else -> onResponse.onFailure(response.message())
+                     }
+                 }else {
+                     onResponse.onFailure("Something went wrong!")
+                 }
+             }
+
+             override fun onFailure(call: Call<ItemDetailsResponse>, t: Throwable) {
+                 onResponse.onFailure(t.message)
+             }
+         })
+     }
+
+     fun  getHomeDataService(userId:String,onResponse: OnResponse) {
+         val myService =  ApiClient.getClient().create(MyService::class.java)
+         val responseCall = myService.getHomeDataApi(userId)
+         responseCall.enqueue(object : Callback<HomeDataResponse> {
+             override fun onResponse(call: Call<HomeDataResponse>, response: Response<HomeDataResponse>) {
+                 val res = response.body()
+                 Log.e("<<<Response>>>", Gson().toJson(res))
+                 if (res != null) {
+                     when {
+                         response.code() == 200 -> onResponse.onSuccess(response)
+                         else -> onResponse.onFailure(response.message())
+                     }
+                 }else {
+                     onResponse.onFailure("Something went wrong!")
+                 }
+             }
+
+             override fun onFailure(call: Call<HomeDataResponse>, t: Throwable) {
+                 onResponse.onFailure(t.message)
+             }
+         })
+     }
 }

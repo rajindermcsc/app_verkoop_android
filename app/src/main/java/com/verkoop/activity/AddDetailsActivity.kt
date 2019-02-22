@@ -282,6 +282,21 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             if (resultCode === Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
             }
+
+        }
+        if (requestCode == 12) {
+            if (resultCode == Activity.RESULT_OK) {
+                val result = data!!.getStringExtra (AppConstants.ADDRESS)
+                val lat = data.getStringExtra (AppConstants.LATITUDE)
+                val lng = data.getStringExtra (AppConstants.LONGITUDE)
+                cbNearBy.isChecked = true
+                tvPlaceAddress.text=result
+                tvPlaceAddress.setTextColor(ContextCompat.getColor(this,R.color.dark_black))
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                expansionLayout.collapse(true)
+                cbNearBy.isChecked = false
+            }
         }
         if (requestCode === REQUEST_CODE && resultCode === 0) {
             val provider = Settings.Secure.getString(contentResolver, Settings.Secure.LOCATION_PROVIDERS_ALLOWED)
@@ -331,7 +346,6 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     Log.e("<<RealImagePath>>", realPath.toString())
                     if (Utils.isOnline(this@AddDetailsActivity)) {
                         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-
                         //    pbProgress.setVisibility(View.VISIBLE)
 
                         /*Api call*/

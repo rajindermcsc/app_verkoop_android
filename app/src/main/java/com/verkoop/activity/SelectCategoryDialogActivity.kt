@@ -49,9 +49,13 @@ class SelectCategoryDialogActivity : AppCompatActivity(), SubCategoryDialogAdapt
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.select_category_dialog_activity)
-        callCategoriesApi()
         setData()
         setAnimation()
+        if (Utils.isOnline(this)) {
+            callCategoriesApi()
+        } else {
+            Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+        }
     }
     private fun setAnimation() {
         ViewAnimator

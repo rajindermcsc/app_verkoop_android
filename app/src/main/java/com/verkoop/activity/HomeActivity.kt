@@ -48,13 +48,13 @@ class HomeActivity:AppCompatActivity(){
         when (id) {
             R.id.menu_button1 -> viewPager.currentItem=0
             R.id.menu_button2 -> viewPager.currentItem=1
-            R.id.menu_button3 ->  viewPager.currentItem=3
+            R.id.menu_button3 ->  viewPager.currentItem=2
         }
     }
     private fun setData() {
         val adapter = HomePagerAdapter(supportFragmentManager, 3)
         viewPager.adapter = adapter
-        viewPager.offscreenPageLimit = 3
+       // viewPager.offscreenPageLimit = 2
         setTabLayout()
         ivChat.setOnClickListener {logout()  }
         ivFavourite.setOnClickListener {logout() }

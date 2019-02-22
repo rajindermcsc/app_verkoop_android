@@ -293,6 +293,7 @@
                             android:textColor="@color/dark_black"
                             android:textSize="@dimen/sp_14" />
                         <com.verkoop.fonts.textView.GothiBoldTextView
+                            android:id="@+id/tvPlaceAddress"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dp_10"

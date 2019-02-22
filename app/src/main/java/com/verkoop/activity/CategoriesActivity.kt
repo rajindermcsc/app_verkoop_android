@@ -28,8 +28,12 @@ class CategoriesActivity : AppCompatActivity(), CategoryAdapter.SelectedCategory
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.categories_screen)
-        callCategoriesApi()
+        if (Utils.isOnline(this)) {
+            callCategoriesApi()
+        } else {
+            Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
 
+        }
     }
 
     override fun selectedCount(addItem: Int) {

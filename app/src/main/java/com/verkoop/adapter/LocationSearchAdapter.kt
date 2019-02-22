@@ -6,17 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.verkoop.R
+import com.verkoop.activity.SearchLocationActivity
+import com.verkoop.models.Location
 import com.verkoop.models.ResultLocation
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.search_location_row.*
 
 
-class LocationSearchAdapter(context: Context):RecyclerView.Adapter<LocationSearchAdapter.ViewHolder>(){
-     var layoutInflater: LayoutInflater= LayoutInflater.from(context)
-    private var searchResultList=ArrayList<ResultLocation>()
-    private var type:String = ""
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
-        val view=layoutInflater.inflate(R.layout.search_location_row,parent,false)
+class LocationSearchAdapter(private val context: Context) : RecyclerView.Adapter<LocationSearchAdapter.ViewHolder>() {
+    lateinit var selectedPlaceListener: SelectedPlaceListener
+    var layoutInflater: LayoutInflater = LayoutInflater.from(context)
+    private var searchResultList = ArrayList<ResultLocation>()
+    private var type: String = ""
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = layoutInflater.inflate(R.layout.search_location_row, parent, false)
+        selectedPlaceListener = context as SearchLocationActivity
         return ViewHolder(view)
     }
 
@@ -24,24 +29,32 @@ class LocationSearchAdapter(context: Context):RecyclerView.Adapter<LocationSearc
         return searchResultList.size
     }
 
-    override fun onBindViewHolder(holder:ViewHolder, position: Int) {
-      val modal=searchResultList[position]
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val modal = searchResultList[position]
         holder.bind(modal)
     }
-    inner  class ViewHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView),LayoutContainer{
+
+    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bind(modal: ResultLocation) {
             tvNameLocation.text = modal.name
-            if(!type.equals("search",ignoreCase = true)) {
+            if (!type.equals(context.getString(R.string.search), ignoreCase = true)) {
                 tvFullAddress.text = modal.vicinity
-            }else{
+            } else {
                 tvFullAddress.text = modal.formatted_address
+            }
+            itemView.setOnClickListener {
+                selectedPlaceListener.selectedAddress(modal.name, modal.geometry.location)
             }
         }
 
     }
 
     fun setData(results: ArrayList<ResultLocation>, comingState: String) {
-        searchResultList=results
-        type=comingState
+        searchResultList = results
+        type = comingState
+    }
+
+    interface SelectedPlaceListener {
+        fun selectedAddress(address: String, location: Location)
     }
 }

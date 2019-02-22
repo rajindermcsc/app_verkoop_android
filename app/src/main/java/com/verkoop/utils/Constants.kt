@@ -2,6 +2,8 @@ package com.verkoop.utils
 
 
 object AppConstants{
+     const val IMAGE_URL = "http://verkoopadmin.com/VerkoopApp/"
+     const val GOOGLE_API_KEY = "AIzaSyC6ezTSfIS-pq-VX9zyq2qATzKWXZaPJqc"
      const val USER_ID = "userId"
      const val USER_NAME = "userName"
      const val USER_EMAIL_ID = "userEmailId"
@@ -14,7 +16,10 @@ object AppConstants{
      const val CATEGORY_NAME = "category_name"
      const val CATEGORY_ID = "category_id"
      const val TRANSACTION = "transaction"
-     const val IMAGE_URL = "http://verkoopadmin.com/VerkoopApp/"
-     const val GOOGLE_API_KEY = "AIzaSyC6ezTSfIS-pq-VX9zyq2qATzKWXZaPJqc"
+     const val ADDRESS = "ADDRESS"
+     const val LATITUDE = "LATITUDE"
+     const val LONGITUDE = "LONGITUDE"
+     const val ITEM_ID = "item_id"
+
 
 }

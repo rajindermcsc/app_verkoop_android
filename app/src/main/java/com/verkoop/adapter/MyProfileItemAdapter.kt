@@ -10,13 +10,15 @@ import android.widget.LinearLayout
 import com.squareup.picasso.Picasso
 import com.verkoop.R
 import com.verkoop.activity.ProductDetailsActivity
+import com.verkoop.fragment.ProfileFragment
 import com.verkoop.models.Item
 import com.verkoop.utils.AppConstants
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.my_profile_row.*
 
-class MyProfileItemAdapter(private val context: Context, private val myItemsList: ArrayList<Item>,private val llProfileParent:LinearLayout) : RecyclerView.Adapter<MyProfileItemAdapter.ViewHolder>() {
+class MyProfileItemAdapter(private val context: Context, private val myItemsList: ArrayList<Item>, private val llProfileParent: LinearLayout, private val profileFragment: ProfileFragment) : RecyclerView.Adapter<MyProfileItemAdapter.ViewHolder>() {
     private var mInflater: LayoutInflater = LayoutInflater.from(context)
+    private lateinit var likeDisLikeListener: LikeDisLikeListener
     private var width=0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,6 +26,7 @@ class MyProfileItemAdapter(private val context: Context, private val myItemsList
         val params = view.layoutParams
         params.width = llProfileParent.width / 2
         width= params.width
+        likeDisLikeListener=profileFragment
      //   params.height = (params.width)+(params.width/4)
         view.layoutParams = params
         return ViewHolder(view)
@@ -62,9 +65,21 @@ class MyProfileItemAdapter(private val context: Context, private val myItemsList
             tvNameProfile.text=data.name
             tvItemPriceProfile.text="$"+data.price
             itemView.setOnClickListener {
-                val intent= Intent(context, ProductDetailsActivity::class.java)
-                context.startActivity(intent)
+                likeDisLikeListener.getItemDetailsClick(data.id)
+
+            }
+            tvLikes.setOnClickListener {
+              /*  if(data.likes.isNotEmpty()){
+
+                }else{
+
+                }
+                likeDisLikeListener.getLikeDisLikeClick(,1)*/
             }
         }
+    }
+    interface LikeDisLikeListener{
+        fun getLikeDisLikeClick(type:Int,position:Int)
+        fun getItemDetailsClick(itemId:Int)
     }
 }

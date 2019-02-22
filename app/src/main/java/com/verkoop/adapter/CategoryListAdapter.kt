@@ -1,23 +1,27 @@
 package com.verkoop.adapter
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.squareup.picasso.Picasso
 import com.verkoop.R
-import com.verkoop.models.CategoryModal
+import com.verkoop.models.Category
+import com.verkoop.utils.AppConstants
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.category_home_row.*
-import kotlinx.android.synthetic.main.category_row.*
 
 
-class CategoryListAdapter(context: Context, private var categoryList: ArrayList<CategoryModal>): RecyclerView.Adapter<CategoryListAdapter.ViewHolder>() {
+class CategoryListAdapter(private val context: Context, private var categoryList: ArrayList<Category>, private val rvCategoryHome: RecyclerView): RecyclerView.Adapter<CategoryListAdapter.ViewHolder>() {
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = mInflater.inflate(
-                R.layout.category_home_row, parent, false)
+        val view = mInflater.inflate(R.layout.category_home_row, parent, false)
+        val params = view.layoutParams
+        params.width = rvCategoryHome.width / 3
+        params.height = params.width
+        view.layoutParams = params
         return ViewHolder(view)
     }
 
@@ -33,9 +37,15 @@ class CategoryListAdapter(context: Context, private var categoryList: ArrayList<
 
     inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
             LayoutContainer {
-        fun bind(  data: CategoryModal,position: Int) {
-            tvLevelHome.text=data.itamName
-            ivItems.setImageResource(data.unselectedImage)
+        fun bind(  data: Category,position: Int) {
+            tvLevelHome.text=data.name
+            if (!TextUtils.isEmpty(data.image)) {
+                Picasso.with(context).load(AppConstants.IMAGE_URL+data.image)
+                        .resize(720, 720)
+                        .centerInside()
+                        .error(R.mipmap.setting)
+                        .into(ivItemsHome)
+            }
         }
     }
 

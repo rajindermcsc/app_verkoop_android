@@ -29,7 +29,7 @@
             android:padding="@dimen/dp_8">
 
             <com.verkoop.fonts.textView.GothiBoldTextView
-                android:id="@+id/tvCategory"
+                android:id="@+id/tvCategoryHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -43,7 +43,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/llSearch"
+            android:id="@+id/llSearchHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -125,8 +125,8 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rvCategoryHome"
                     android:layout_width="match_parent"
-                    android:layout_height="110dp"
-                    android:layout_marginStart="@dimen/dp_25" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -144,6 +144,13 @@
                     android:layout_marginRight="@dimen/dp_8" />
             </LinearLayout>
         </ScrollView>
+
+        <ProgressBar
+            android:id="@+id/pbProgressHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
 
         <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/card_view"

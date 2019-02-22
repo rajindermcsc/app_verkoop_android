@@ -105,6 +105,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/sp_12"
                     android:layout_marginEnd="@dimen/dp_10"
+                    android:padding="@dimen/dp_10"
                     android:drawableStart="@mipmap/post_like"
                     android:layout_gravity="center"
                     android:gravity="center"

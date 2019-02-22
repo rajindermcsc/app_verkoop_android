@@ -9,6 +9,7 @@ import com.verkoop.R
 import com.verkoop.adapter.FilterAdapter
 import kotlinx.android.synthetic.main.filter_activity.*
 import kotlinx.android.synthetic.main.toolbar_filter.*
+import com.verkoop.utils.Utils
 
 
 class FilterActivity : AppCompatActivity() {
@@ -45,6 +46,13 @@ class FilterActivity : AppCompatActivity() {
             tvUsed.setTextColor(ContextCompat.getColor(this, R.color.white))
             llUsed.background = ContextCompat.getDrawable(this, R.drawable.red_rectangle_shape)
         }
+        rbGroup.setOnCheckedChangeListener({ group, checkedId ->
+            if(checkedId==R.id.rbNearBy){
+                Utils.showToast(this,"rbNearBy")
+            }else if(checkedId==R.id.rbPopular){
+                Utils.showToast(this,"rbPopular")
+            }
+        })
     }
 
     private fun setSelection() {

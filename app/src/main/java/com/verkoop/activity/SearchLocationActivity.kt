@@ -1,6 +1,8 @@
 package com.verkoop.activity
 
 import android.Manifest
+import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Looper
@@ -14,18 +16,32 @@ import com.google.android.gms.location.*
 import com.verkoop.R
 import com.verkoop.VerkoopApplication
 import com.verkoop.adapter.LocationSearchAdapter
+import com.verkoop.models.Location
 import com.verkoop.models.PlaceApiResponse
 import com.verkoop.models.PlaceSearchRequest
 import com.verkoop.models.ResultLocation
 import com.verkoop.network.ServiceHelper
+import com.verkoop.utils.AppConstants
 import com.verkoop.utils.AppConstants.GOOGLE_API_KEY
+import com.verkoop.utils.SelectionListener
 import com.verkoop.utils.Utils
+import com.verkoop.utils.resumeLocationDialog
 import kotlinx.android.synthetic.main.selarch_location_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 import retrofit2.Response
 
 
-class SearchLocationActivity : AppCompatActivity() {
+class SearchLocationActivity : AppCompatActivity(), LocationSearchAdapter.SelectedPlaceListener {
+
+    override fun selectedAddress(address: String, location: Location) {
+        val returnIntent = Intent()
+        returnIntent.putExtra(AppConstants.ADDRESS, address)
+        returnIntent.putExtra(AppConstants.LATITUDE, location.lat.toString())
+        returnIntent.putExtra(AppConstants.LONGITUDE, location.lng.toString())
+        setResult(Activity.RESULT_OK, returnIntent)
+        finish()
+    }
+
     private var mFusedLocationProviderClient: FusedLocationProviderClient? = null
     private val INTERVAL: Long = 50000
     private val FASTEST_INTERVAL: Long = 1000
@@ -37,8 +53,12 @@ class SearchLocationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.selarch_location_activity)
         setAdapter()
-        getLocation()
         setData()
+        if (Utils.isOnline(this@SearchLocationActivity)) {
+            getLocation()
+        } else {
+            Utils.showSimpleMessage(this@SearchLocationActivity, getString(R.string.check_internet)).show()
+        }
     }
 
     private fun setAdapter() {
@@ -75,10 +95,47 @@ class SearchLocationActivity : AppCompatActivity() {
             locationResult.lastLocation
             // Utils.showToast(this@SearchLocationActivity,"Latitude : "+locationResult.lastLocation.latitude +" , Longitude : "+locationResult.lastLocation.longitude)
             val location = locationResult.lastLocation.latitude.toString() + "," + locationResult.lastLocation.longitude.toString()
-             getPlaceList(location)
+            if (Utils.isOnline(this@SearchLocationActivity)) {
+                getPlaceList(location)
+            } else {
+                Utils.showSimpleMessage(this@SearchLocationActivity, getString(R.string.check_internet)).show()
+            }
+
         }
     }
 
+    private fun setData() {
+        ivLeftLocation.setOnClickListener { onBackPressed() }
+        etSearchPlace.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                if (!TextUtils.isEmpty(etSearchPlace.text.toString())) {
+                    if (Utils.isOnline(this)) {
+                        searchItemApi()
+                    } else {
+                        Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+                    }
+                }
+                true
+            } else false
+        }
+    }
+
+    override fun onBackPressed() {
+        resumeActivityDialog()
+    }
+
+    private fun resumeActivityDialog() {
+        val shareDialog = resumeLocationDialog(this, object : SelectionListener {
+            override fun leaveClick() {
+                val returnIntent = Intent()
+                setResult(Activity.RESULT_CANCELED, returnIntent)
+                finish()
+            }
+        })
+        shareDialog.show()
+    }
+
+    /*get location Api from lat long*/
     private fun getPlaceList(locationLatLon: String) {
         val placeSearchRequest = PlaceSearchRequest(locationLatLon, "500", "", GOOGLE_API_KEY)
         ServiceHelper().getPlacesService(placeSearchRequest, object : ServiceHelper.OnResponse {
@@ -89,7 +146,7 @@ class SearchLocationActivity : AppCompatActivity() {
                 val searchResult = response.body() as PlaceApiResponse
                 results.clear()
                 results = searchResult.results
-                locationSearchAdapter.setData(results, "location")
+                locationSearchAdapter.setData(results, getString(R.string.location))
                 locationSearchAdapter.notifyDataSetChanged()
 
             }
@@ -103,18 +160,7 @@ class SearchLocationActivity : AppCompatActivity() {
 
     }
 
-    private fun setData() {
-        ivLeftLocation.setOnClickListener { onBackPressed() }
-        etSearchPlace.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                if (!TextUtils.isEmpty(etSearchPlace.text.toString())) {
-                    searchItemApi()
-                }
-                true
-            } else false
-        }
-    }
-
+    /*search location Api*/
     private fun searchItemApi() {
         val placeSearchRequest = PlaceSearchRequest("", "", etSearchPlace.text.toString().trim(), GOOGLE_API_KEY)
         ServiceHelper().getSearchPlaceService(placeSearchRequest, object : ServiceHelper.OnResponse {
@@ -125,7 +171,7 @@ class SearchLocationActivity : AppCompatActivity() {
                 val searchResult = response.body() as PlaceApiResponse
                 results.clear()
                 results = searchResult.results
-                locationSearchAdapter.setData(results,"search")
+                locationSearchAdapter.setData(results, getString(R.string.search))
                 locationSearchAdapter.notifyDataSetChanged()
 
             }

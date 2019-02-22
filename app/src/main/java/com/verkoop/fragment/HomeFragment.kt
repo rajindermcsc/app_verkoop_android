@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,9 +19,13 @@ import com.verkoop.activity.GalleryActivity
 import com.verkoop.activity.HomeActivity
 import com.verkoop.adapter.CategoryListAdapter
 import com.verkoop.adapter.ItemAdapter
-import com.verkoop.models.CategoryModal
+import com.verkoop.models.*
+import com.verkoop.network.ServiceHelper
+import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
+import kotlinx.android.synthetic.main.add_details_activity.*
 import kotlinx.android.synthetic.main.home_fragment.*
+import retrofit2.Response
 
 
 class HomeFragment : BaseFragment() {
@@ -46,9 +51,14 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (Utils.isOnline(homeActivity)) {
+            getHomeDataService()
+        } else {
+            Utils.showSimpleMessage(homeActivity, getString(R.string.check_internet)).show()
+        }
         setData()
-        setListData()
-        setItemList()
+     //   setItemList()
+
     }
 
     private fun setItemList() {
@@ -59,51 +69,28 @@ class HomeFragment : BaseFragment() {
         rvItemList.adapter = itemAdapter
     }
 
-    private fun setListData() {
-        val nameList = arrayOf("Women's", "men's", "Footwear", "Desktop's", "Mobiles", "Furniture", "Pets", "Car", "Books")
-        val imageList = arrayOf(R.mipmap.women_unselected, R.mipmap.men_unselected, R.mipmap.footwear_unselected, R.mipmap.desktop_unselected, R.mipmap.mobile_unselected, R.mipmap.furniture_unselected, R.mipmap.pet_unseleted, R.mipmap.car_unseleted, R.mipmap.books_unselected)
-        val imageListSelected = arrayOf(R.mipmap.women_selected, R.mipmap.men_selected, R.mipmap.footwear_selected, R.mipmap.desktop_selected, R.mipmap.mobile_selected, R.mipmap.furniture_selected, R.mipmap.pet_selected, R.mipmap.car_selected, R.mipmap.books_selected)
-        for (i in nameList.indices) {
-            val categoryModal = CategoryModal(nameList[i], imageList[i], imageListSelected[i], false)
-            categoryList.add(categoryModal)
-        }
-        setCategoryAdapter()
-    }
-
-    private fun setCategoryAdapter() {
+    private fun setCategoryAdapter(categoriesList: ArrayList<Category>) {
+        val displayMetrics = DisplayMetrics()
+        homeActivity.windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val width = displayMetrics.widthPixels
+        rvCategoryHome.layoutParams.height = width / 3
         val linearLayoutManager = LinearLayoutManager(homeActivity, LinearLayoutManager.HORIZONTAL, false)
         rvCategoryHome.layoutManager = linearLayoutManager
-        val categoryAdapter = CategoryListAdapter(homeActivity, categoryList)
+        val categoryAdapter = CategoryListAdapter(homeActivity, categoriesList,rvCategoryHome)
         rvCategoryHome.adapter = categoryAdapter
     }
 
     private fun setData() {
-        custom_indicator.setDefaultIndicatorColor(ContextCompat.getColor(homeActivity, R.color.white), ContextCompat.getColor(homeActivity, R.color.light_gray))
-        mDemoSlider.setCustomIndicator(custom_indicator)
-        val imageList = ArrayList<Int>()
-        imageList.add(R.mipmap.pic_1)
-        imageList.add(R.mipmap.pic_1)
-        imageList.add(R.mipmap.pic_1)
-        imageList.add(R.mipmap.pic_1)
-
-        for (i in 0 until imageList.size) {
-            val textSliderView = DefaultSliderView(homeActivity)
-            // initialize a SliderLayout
-            textSliderView.image(imageList[i])
-                    .setOnSliderClickListener({ slider -> }).scaleType = BaseSliderView.ScaleType.Fit
-            mDemoSlider.addSlider(textSliderView)
+        tvViewAll.setOnClickListener { Utils.showToast(homeActivity, "Work in progress.") }
+        tvCategoryHome.setOnClickListener {
+            val intent = Intent(homeActivity, FullCategoriesActivity::class.java)
+            startActivity(intent)
         }
-        mDemoSlider.setDuration(3000)
+        llSearchHome.setOnClickListener { Utils.showToast(homeActivity, "Work in progress.") }
         tvSell.setOnClickListener {
             val intent = Intent(homeActivity, GalleryActivity::class.java)
             homeActivity.startActivityForResult(intent, 2)
         }
-        tvViewAll.setOnClickListener { Utils.showToast(homeActivity, "Work in progress.") }
-        tvCategory.setOnClickListener {
-            val intent = Intent(homeActivity, FullCategoriesActivity::class.java)
-            startActivity(intent)
-        }
-        llSearch.setOnClickListener { Utils.showToast(homeActivity, "Work in progress.") }
     }
 
     companion object {
@@ -115,9 +102,39 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
+        super.onDestroy()
         mDemoSlider.stopAutoCycle()
     }
+    private fun getHomeDataService() {
+        pbProgressHome.visibility=View.VISIBLE
+        ServiceHelper().getHomeDataService(Utils.getPreferencesString(homeActivity, AppConstants.USER_ID),
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        pbProgressHome.visibility=View.GONE
+                        val homeDataResponse = response.body() as HomeDataResponse?
+                        if(homeDataResponse!=null) {
+                            setApiData(homeDataResponse.data)
+                        }
+                    }
 
+                    override fun onFailure(msg: String?) {
+                        pbProgressHome.visibility=View.GONE
+                        Utils.showSimpleMessage(homeActivity, msg!!).show()
+                    }
+                })
+    }
+
+    private fun setApiData(data: DataHome) {
+        custom_indicator.setDefaultIndicatorColor(ContextCompat.getColor(homeActivity, R.color.white), ContextCompat.getColor(homeActivity, R.color.light_gray))
+        mDemoSlider.setCustomIndicator(custom_indicator)
+        for (i in 0 until data.advertisments.size) {
+            val textSliderView = DefaultSliderView(homeActivity)
+            textSliderView.image(AppConstants.IMAGE_URL+data.advertisments[i].image)
+                    .setOnSliderClickListener({ slider -> }).scaleType = BaseSliderView.ScaleType.Fit
+            mDemoSlider.addSlider(textSliderView)
+        }
+        mDemoSlider.setDuration(3000)
+        setCategoryAdapter(data.categories)
+    }
 }

@@ -5,10 +5,13 @@
     android:orientation="vertical">
 
     <include layout="@layout/toolbar_product_details" />
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,7 +25,7 @@
                 <com.daimajia.slider.library.SliderLayout
                     android:id="@+id/mDemoSliderDetails"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_250" />
+                    android:layout_height="@dimen/dp_370" />
 
                 <com.daimajia.slider.library.Indicators.PagerIndicator
                     android:id="@+id/custom_indicator_detail"
@@ -35,10 +38,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp_10"
                 android:orientation="vertical">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -46,29 +48,29 @@
                     android:paddingEnd="@dimen/dp_8"
                     android:paddingStart="@dimen/dp_8">
 
-                    <TextView
-                        android:id="@+id/tvDetail"
+                    <com.verkoop.fonts.textView.GothiBoldTextView
+                        android:id="@+id/tvProductName"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:text="@string/casual_mens_shoes"
+
                         android:textColor="@color/dark_black"
                         android:textSize="@dimen/sp_18" />
 
-                    <TextView
+                    <com.verkoop.fonts.textView.GothiBoldTextView
                         android:id="@+id/tvLikes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/dp_10"
                         android:drawablePadding="@dimen/dp_10"
                         android:drawableStart="@mipmap/post_liked"
-                        android:text="@string/_25"
+
                         android:textColor="@color/colorAccent"
                         android:textSize="@dimen/sp_14" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tvDate"
+                <com.verkoop.fonts.textView.GothiBoldTextView
+                    android:id="@+id/tvDateDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_2"
@@ -86,7 +88,7 @@
                     android:paddingEnd="@dimen/dp_8"
                     android:paddingStart="@dimen/dp_8">
 
-                    <TextView
+                    <com.verkoop.fonts.textView.GothiBoldTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/dp_20"
@@ -94,16 +96,15 @@
                         android:textColor="@color/dark_black"
                         android:textSize="@dimen/sp_14" />
 
-                    <TextView
+                    <com.verkoop.fonts.textView.GothiBoldTextView
                         android:id="@+id/tvCategoryDetail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/shoes"
                         android:textColor="@color/dark_black"
                         android:textSize="@dimen/sp_14" />
                 </LinearLayout>
 
-                <TextView
+                <com.verkoop.fonts.textView.GothiBoldTextView
                     android:id="@+id/tvType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -124,7 +125,7 @@
                     android:paddingEnd="@dimen/dp_8"
                     android:paddingStart="@dimen/dp_8">
 
-                    <TextView
+                    <com.verkoop.fonts.textView.GothiBoldTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/dp_20"
@@ -132,16 +133,15 @@
                         android:textColor="@color/text_gray"
                         android:textSize="@dimen/sp_14" />
 
-                    <TextView
+                    <com.verkoop.fonts.textView.GothiBoldTextView
                         android:id="@+id/tvPrice"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text=" : $50"
                         android:textColor="@color/colorAccent"
                         android:textSize="@dimen/sp_14" />
                 </LinearLayout>
 
-                <TextView
+                <com.verkoop.fonts.textView.GothiBoldTextView
                     android:id="@+id/tvDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -149,7 +149,6 @@
                     android:layout_marginTop="@dimen/dp_8"
                     android:paddingEnd="@dimen/dp_8"
                     android:paddingStart="@dimen/dp_8"
-                    android:text="@string/lorem_ipsum_has_been_the_industry_s_standard_dummy_text_ever_since_the_1500s_when_an_unknown_printer"
                     android:textColor="@color/dark_black"
                     android:textSize="@dimen/sp_14" />
 
@@ -168,7 +167,7 @@
                     android:paddingEnd="@dimen/dp_8"
                     android:paddingStart="@dimen/dp_8">
 
-                    <TextView
+                    <com.verkoop.fonts.textView.GothiBoldTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -224,7 +223,7 @@
                     android:paddingEnd="@dimen/dp_8"
                     android:paddingStart="@dimen/dp_8">
 
-                    <TextView
+                    <com.verkoop.fonts.textView.GothiBoldTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/dp_20"
@@ -233,7 +232,7 @@
                         android:textColor="@color/text_gray"
                         android:textSize="@dimen/sp_14" />
 
-                    <TextView
+                    <com.verkoop.fonts.textView.GothiBoldTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/post_a_comment"
@@ -244,7 +243,7 @@
                 <com.verkoop.fonts.textView.GothiBoldTextView
                     android:id="@+id/tvSell"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/dp_10"
                     android:background="@drawable/red_rectangular_shape"
@@ -257,4 +256,11 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+    <ProgressBar
+        android:id="@+id/pbProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_gravity="center"/>
+</FrameLayout>
 </LinearLayout>

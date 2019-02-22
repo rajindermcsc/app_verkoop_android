@@ -27,6 +27,12 @@ interface MyService {
     @GET("user/profile/{userId}")
     fun getMyProfileService(@Path(value = "userId", encoded = true) fullUrl: String): Call<MyProfileResponse>
 
+    @GET("items/{itemId}")
+    fun getItemDetailsApi(@Path(value = "itemId", encoded = true) fullUrl: Int): Call<ItemDetailsResponse>
+
+    @PUT("dashboard/{userId}")
+    fun getHomeDataApi(@Path(value = "userId", encoded = true) fullUrl: String): Call<HomeDataResponse>
+
     @GET("nearbysearch/json")
     fun getDetails(@Query("location") loc: String,
                    @Query("radius") radius: String,

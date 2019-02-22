@@ -9,9 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.ksmtrivia.common.BaseFragment
 import com.verkoop.R
-import com.verkoop.VerkoopApplication
 import com.verkoop.activity.FullCategoriesActivity
 import com.verkoop.activity.HomeActivity
+import com.verkoop.activity.ProductDetailsActivity
 import com.verkoop.adapter.MyProfileItemAdapter
 import com.verkoop.models.Item
 import com.verkoop.models.MyProfileResponse
@@ -21,8 +21,18 @@ import com.verkoop.utils.Utils
 import kotlinx.android.synthetic.main.profile_fragment.*
 import retrofit2.Response
 
+class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener {
 
-class ProfileFragment : BaseFragment() {
+    override fun getItemDetailsClick(itemId: Int) {
+        val intent = Intent(context, ProductDetailsActivity::class.java)
+        intent.putExtra(AppConstants.ITEM_ID, itemId)
+        homeActivity.startActivity(intent)
+    }
+
+    override fun getLikeDisLikeClick(type: Int, position: Int) {
+        //Utils.showToast(homeActivity,"work in progress")
+    }
+
     private val TAG = ProfileFragment::class.java.simpleName.toString()
     private lateinit var homeActivity: HomeActivity
 
@@ -32,9 +42,10 @@ class ProfileFragment : BaseFragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        homeActivity=activity as HomeActivity
+        homeActivity = activity as HomeActivity
 
     }
+
     override fun getFragmentTag(): String? {
         return TAG
     }
@@ -49,15 +60,19 @@ class ProfileFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        myProfileInfoApi()
+        if (Utils.isOnline(homeActivity)) {
+            myProfileInfoApi()
+        } else {
+            Utils.showSimpleMessage(homeActivity, getString(R.string.check_internet)).show()
+        }
     }
 
     private fun setAdapter(items: ArrayList<Item>) {
         val linearLayoutManager = GridLayoutManager(context, 2)
         rvPostsList.layoutManager = linearLayoutManager
-        val itemAdapter = MyProfileItemAdapter(homeActivity, items,llProfileParent)
+        val itemAdapter = MyProfileItemAdapter(homeActivity, items, llProfileParent, this)
         rvPostsList.isNestedScrollingEnabled = false
-        rvPostsList.isFocusable=false
+        rvPostsList.isFocusable = false
         rvPostsList.adapter = itemAdapter
     }
 
@@ -78,20 +93,23 @@ class ProfileFragment : BaseFragment() {
 
     }
 
-    private fun  myProfileInfoApi() {
-        VerkoopApplication.instance.loader.show(homeActivity)
-        ServiceHelper().myProfileService(Utils.getPreferencesString(homeActivity,AppConstants.USER_ID),
+    private fun myProfileInfoApi() {
+     //   VerkoopApplication.instance.loader.show(homeActivity)
+        pbProgressProfile.visibility=View.VISIBLE
+        ServiceHelper().myProfileService(Utils.getPreferencesString(homeActivity, AppConstants.USER_ID),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
-                        VerkoopApplication.instance.loader.hide(homeActivity)
+                    //    VerkoopApplication.instance.loader.hide(homeActivity)
+                        pbProgressProfile.visibility=View.GONE
                         val myProfileResponse = response.body() as MyProfileResponse
                         setData()
                         setAdapter(myProfileResponse.data.items)
-                        tvName.text =myProfileResponse.data.username
+                        tvName.text = myProfileResponse.data.username
                     }
 
                     override fun onFailure(msg: String?) {
-                        VerkoopApplication.instance.loader.hide(homeActivity)
+                       // VerkoopApplication.instance.loader.hide(homeActivity)
+                        pbProgressProfile.visibility=View.GONE
                         Utils.showSimpleMessage(homeActivity, msg!!).show()
                     }
                 })
