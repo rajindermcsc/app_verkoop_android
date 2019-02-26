@@ -1,6 +1,7 @@
 package com.verkoop.models
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 
@@ -49,7 +50,7 @@ data class LogInResponse(
         val status: String,
         val status_code: Int,
         val message: String,
-        val data: Data
+        val data: Data?
 )
 
 data class Data(
@@ -112,21 +113,8 @@ data class MyProfileResponse(
 data class DataProfile(
     val id: Int,
     val username: String,
-    val email: String,
-    val first_name: Any,
-    val last_name: Any,
-    val mobile_no: Any,
-    val website: Any,
-    val bio: Any,
-    val profile_pic: Any,
-    val login_type: String,
-    val social_id: Any,
-    val city: Any,
-    val country: String,
-    val is_active: Int,
-    val email_verified_at: Any,
     val created_at: String,
-    val updated_at: String,
+    val profile_pic: String,
     val items: ArrayList<Item>
 )
 
@@ -137,28 +125,17 @@ data class Item(
     val name: String,
     val price: Int,
     val item_type: Int,
-    val description: String,
-    val created_at: String,
-    val updated_at: String,
+    val created_at: CreatedAtProfile,
     val likes_count: Int,
-    val items_images: List<ItemsImage>,
-    val likes: List<Likes>
-
+    val like_id: Int,
+    val is_like: Boolean,
+    val image_url: String
 )
 
-data class Likes(
-    val id: String,
-    val item_id: String,
-    val user_id: String,
-    val created_at: String,
-    val updated_at: String
-)
-data class ItemsImage(
-    val id: Int,
-    val item_id: Int,
-    val url: String,
-    val created_at: String,
-    val updated_at: String
+data class CreatedAtProfile(
+    val date: String,
+    val timezone_type: Int,
+    val timezone: String
 )
 
 
@@ -228,12 +205,13 @@ data class Photo(
 )
 
 
+
 data class ItemDetailsResponse(
     val message: String,
-    val data: DataItemDetails
+    val data: DataItems
 )
 
-data class DataItemDetails(
+data class DataItems(
     val id: Int,
     val user_id: Int,
     val category_id: Int,
@@ -244,39 +222,16 @@ data class DataItemDetails(
     val created_at: String,
     val updated_at: String,
     val items_like_count: Int,
-    val items_images: ArrayList<ItemsImageDetails>,
-    val user: User,
-    val items_like: List<Any>
-)
-
-data class ItemsImageDetails(
-    val id: Int,
-    val item_id: Int,
-    val url: String,
-    val created_at: String,
-    val updated_at: String
-)
-
-data class User(
-    val id: Int,
     val username: String,
-    val email: String,
-    val first_name: Any,
-    val last_name: Any,
-    val mobile_no: Any,
-    val website: Any,
-    val bio: Any,
-    val profile_pic: Any,
-    val login_type: String,
-    val social_id: Any,
-    val city: Any,
-    val country: String,
-    val is_active: Int,
-    val email_verified_at: Any,
-    val created_at: String,
-    val updated_at: String
+    val profile_pic: String,
+    val category_name: String,
+    val items_image: List<ItemsImage>
 )
 
+data class ItemsImage(
+    val item_id: Int,
+    val url: String
+)
 
 
 data class HomeDataResponse(
@@ -285,16 +240,9 @@ data class HomeDataResponse(
 )
 
 data class DataHome(
-    val advertisments: List<Advertisment>,
-    val categories: ArrayList<Category>,
-    val items: Items
-)
-
-data class Category(
-    val id: Int,
-    val name: String,
-    val image: String,
-    val parent_id: Int
+    val items: ArrayList<ItemHome>,
+    val advertisments: ArrayList<Advertisment>,
+    val categories: ArrayList<Category>
 )
 
 data class Advertisment(
@@ -304,44 +252,40 @@ data class Advertisment(
     val category_id: Int
 )
 
-data class Items(
-    val current_page: Int,
-    val data: List<DataImage>,
-    val first_page_url: String,
-    val from: Int,
-    val last_page: Int,
-    val last_page_url: String,
-    val next_page_url: String,
-    val path: String,
-    val per_page: Int,
-    val prev_page_url: Any,
-    val to: Int,
-    val total: Int
+data class Category(
+    val id: Int,
+    val name: String,
+    val parent_id: Int,
+    val image: String
 )
 
-data class DataImage(
-    val name: String,
-    val price: Int,
-    val item_type: Int,
+data class ItemHome(
     val id: Int,
     val user_id: Int,
     val category_id: Int,
-    val items_images: List<ItemsImageHome>,
-    val user: UserHome,
-    val likes: LikesHome?=null
+    val name: String,
+    val price: Int,
+    val item_type: Int,
+    val created_at: CreatedAtHome,
+    val likes_count: Int,
+    val like_id: Int,
+    val is_like: Boolean,
+    val image_url: String,
+    val username: String,
+    val profile_pic: String
 )
 
-data class LikesHome(
-    val item_id: Int,
-    val id: Int,
-    val user_id: Int
-)
-data class ItemsImageHome(
-    val item_id: Int,
-    val url: String
+data class CreatedAtHome(
+    val date: String,
+    val timezone_type: Int,
+    val timezone: String
 )
 
-data class UserHome(
-    val id: Int,
-    val username: String
+data class LikedResponse(
+    val message: String,
+    val like_id: Int
+)
+
+data class DisLikeResponse(
+    val message: String
 )

@@ -242,9 +242,9 @@ import java.util.ArrayList
          })
      }
 
-     fun  getHomeDataService(userId:String,onResponse: OnResponse) {
+     fun  getHomeDataService(userId:String,pageCount:Int,onResponse: OnResponse) {
          val myService =  ApiClient.getClient().create(MyService::class.java)
-         val responseCall = myService.getHomeDataApi(userId)
+         val responseCall = myService.getItemsService()
          responseCall.enqueue(object : Callback<HomeDataResponse> {
              override fun onResponse(call: Call<HomeDataResponse>, response: Response<HomeDataResponse>) {
                  val res = response.body()
@@ -260,6 +260,75 @@ import java.util.ArrayList
              }
 
              override fun onFailure(call: Call<HomeDataResponse>, t: Throwable) {
+                 onResponse.onFailure(t.message)
+             }
+         })
+     }
+
+     fun  getItemsService(pageCount:Int,userId:String,onResponse: OnResponse) {
+         val myService =  ApiClient.getClient().create(MyService::class.java)
+         val responseCall = myService.getHomeDataApi(userId,pageCount)
+         responseCall.enqueue(object : Callback<HomeDataResponse> {
+             override fun onResponse(call: Call<HomeDataResponse>, response: Response<HomeDataResponse>) {
+                 val res = response.body()
+                 Log.e("<<<Response>>>", Gson().toJson(res))
+                 if (res != null) {
+                     when {
+                         response.code() == 200 -> onResponse.onSuccess(response)
+                         else -> onResponse.onFailure(response.message())
+                     }
+                 }else {
+                     onResponse.onFailure("Something went wrong!")
+                 }
+             }
+
+             override fun onFailure(call: Call<HomeDataResponse>, t: Throwable) {
+                 onResponse.onFailure(t.message)
+             }
+         })
+     }
+
+     fun  likeService(lickedRequest: LickedRequest,onResponse: OnResponse) {
+         val myService =  ApiClient.getClient().create(MyService::class.java)
+         val responseCall = myService.likedApi(lickedRequest)
+         responseCall.enqueue(object : Callback<LikedResponse> {
+             override fun onResponse(call: Call<LikedResponse>, response: Response<LikedResponse>) {
+                 val res = response.body()
+                 Log.e("<<<Response>>>", Gson().toJson(res))
+                 if (res != null) {
+                     when {
+                         response.code() == 201 -> onResponse.onSuccess(response)
+                         else -> onResponse.onFailure(response.message())
+                     }
+                 }else {
+                     onResponse.onFailure("Something went wrong!")
+                 }
+             }
+
+             override fun onFailure(call: Call<LikedResponse>, t: Throwable) {
+                 onResponse.onFailure(t.message)
+             }
+         })
+     }
+
+     fun  disLikeService(lickedId: Int,onResponse: OnResponse) {
+         val myService =  ApiClient.getClient().create(MyService::class.java)
+         val responseCall = myService.disLikedApi(lickedId)
+         responseCall.enqueue(object : Callback<DisLikeResponse> {
+             override fun onResponse(call: Call<DisLikeResponse>, response: Response<DisLikeResponse>) {
+                 val res = response.body()
+                 Log.e("<<<Response>>>", Gson().toJson(res))
+                 if (res != null) {
+                     when {
+                         response.code() == 200 -> onResponse.onSuccess(response)
+                         else -> onResponse.onFailure(response.message())
+                     }
+                 }else {
+                     onResponse.onFailure("Something went wrong!")
+                 }
+             }
+
+             override fun onFailure(call: Call<DisLikeResponse>, t: Throwable) {
                  onResponse.onFailure(t.message)
              }
          })

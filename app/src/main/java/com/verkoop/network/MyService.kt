@@ -31,7 +31,16 @@ interface MyService {
     fun getItemDetailsApi(@Path(value = "itemId", encoded = true) fullUrl: Int): Call<ItemDetailsResponse>
 
     @PUT("dashboard/{userId}")
-    fun getHomeDataApi(@Path(value = "userId", encoded = true) fullUrl: String): Call<HomeDataResponse>
+    fun getHomeDataApi(@Path(value = "userId", encoded = true) fullUrl: String, @Query("page") pageCount: Int): Call<HomeDataResponse>
+
+    @GET("items")
+    fun getItemsService(): Call<HomeDataResponse>
+
+    @POST("likes")
+    fun likedApi(@Body request: LickedRequest): Call<LikedResponse>
+
+    @DELETE("likes/{licked_id}")
+    fun disLikedApi(@Path(value = "licked_id", encoded = true) fullUrl: Int): Call<DisLikeResponse>
 
     @GET("nearbysearch/json")
     fun getDetails(@Query("location") loc: String,

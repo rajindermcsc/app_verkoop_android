@@ -329,7 +329,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 try {
                     bmp = android.provider.MediaStore.Images.Media.getBitmap(cr, uriTemp)
                     val scaledBitmap = Utils.scaleDown(bmp, 1024f, true)
-                    uri = Utils.getImageUri(this@AddDetailsActivity, scaledBitmap)
+                    uri = Utils.getImageUri(this@AddDetailsActivity,CommonUtils.rotateImageIfRequired(this@AddDetailsActivity,scaledBitmap,Uri.parse(selectedImageList[imageCount].imageUrl)))
                     realPath.add(Utils.getRealPathFromURI(this@AddDetailsActivity, uri!!))
                 } catch (e: Exception) {
                     Log.e("<<<LOG>>>", "Failed to load", e)

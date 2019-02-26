@@ -37,3 +37,8 @@ data class PlaceSearchRequest(
     val keyword: String,
     val key: String
 )
+
+data class LickedRequest(
+    val user_id: String,
+    val item_id: Int
+)

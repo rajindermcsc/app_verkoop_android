@@ -1,15 +1,14 @@
 package com.verkoop.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.squareup.picasso.Picasso
 import com.verkoop.R
-import com.verkoop.activity.ProductDetailsActivity
 import com.verkoop.fragment.ProfileFragment
 import com.verkoop.models.Item
 import com.verkoop.utils.AppConstants
@@ -49,17 +48,24 @@ class MyProfileItemAdapter(private val context: Context, private val myItemsList
             }else{
                 llSideDividerProfile.visibility= View.GONE
             }
+            if(data.is_like){
+                tvLikesProfile.setCompoundDrawablesWithIntrinsicBounds( R.mipmap.post_liked, 0, 0, 0)
+            }else{
+                tvLikesProfile.setCompoundDrawablesWithIntrinsicBounds( R.mipmap.post_like, 0, 0, 0)
+            }
+            tvLikesProfile.text=data.likes_count.toString()
             if(data.item_type==1){
                 tvConditionProfile.text="New"
             }else{
                 tvConditionProfile.text=context.getString(R.string.used)
             }
-            if (data.items_images.isNotEmpty()) {
-                Picasso.with(context).load(AppConstants.IMAGE_URL+data.items_images[0].url)
-                        .resize(720, 720)
-                        .centerInside()
-                        .error(R.mipmap.setting)
-                        .into(ivProductImage)
+            if(!TextUtils.isEmpty(data.image_url)) {
+                    Picasso.with(context).load(AppConstants.IMAGE_URL + data.image_url)
+                            .resize(720, 720)
+                            .centerInside()
+                            .error(R.mipmap.setting)
+                            .into(ivProductImage)
+
             }
 
             tvNameProfile.text=data.name
@@ -68,18 +74,13 @@ class MyProfileItemAdapter(private val context: Context, private val myItemsList
                 likeDisLikeListener.getItemDetailsClick(data.id)
 
             }
-            tvLikes.setOnClickListener {
-              /*  if(data.likes.isNotEmpty()){
-
-                }else{
-
-                }
-                likeDisLikeListener.getLikeDisLikeClick(,1)*/
+            tvLikesProfile.setOnClickListener {
+                likeDisLikeListener.getLikeDisLikeClick(data.is_like,adapterPosition,data.like_id,data.id)
             }
         }
     }
     interface LikeDisLikeListener{
-        fun getLikeDisLikeClick(type:Int,position:Int)
+        fun getLikeDisLikeClick(type:Boolean,position:Int,lickedId:Int,itemId:Int)
         fun getItemDetailsClick(itemId:Int)
     }
 }

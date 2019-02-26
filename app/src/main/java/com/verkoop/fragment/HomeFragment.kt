@@ -10,28 +10,42 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import com.daimajia.slider.library.SliderTypes.BaseSliderView
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView
 import com.ksmtrivia.common.BaseFragment
+import com.verkoop.LikeDisLikeListener
 import com.verkoop.R
 import com.verkoop.activity.FullCategoriesActivity
 import com.verkoop.activity.GalleryActivity
 import com.verkoop.activity.HomeActivity
 import com.verkoop.adapter.CategoryListAdapter
-import com.verkoop.adapter.ItemAdapter
+import com.verkoop.adapter.ItemHomeAdapter
 import com.verkoop.models.*
 import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
-import kotlinx.android.synthetic.main.add_details_activity.*
 import kotlinx.android.synthetic.main.home_fragment.*
 import retrofit2.Response
 
 
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment(), LikeDisLikeListener {
+    private var  itemsList=ArrayList<ItemHome>()
+
+    override fun getLikeDisLikeClick(type: Boolean, position: Int, lickedId: Int, itemId: Int) {
+        if(type){
+            deleteLikeApi(position,lickedId)
+        }else{
+            lickedApi(itemId,position)
+        }
+    }
+
+    override fun getItemDetailsClick(itemId: Int) {
+    }
+
     val TAG = HomeFragment::class.java.simpleName.toString()
-    private val categoryList = ArrayList<CategoryModal>()
     private lateinit var homeActivity: HomeActivity
+    private lateinit var itemAdapter: ItemHomeAdapter
     override fun getTitle(): Int {
         return 0
     }
@@ -51,20 +65,25 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setItemList()
         if (Utils.isOnline(homeActivity)) {
-            getHomeDataService()
+            if(pbProgressHome!=null) {
+                pbProgressHome.visibility = View.VISIBLE
+            }
+                homeActivity.window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+
+            getItemService()
         } else {
             Utils.showSimpleMessage(homeActivity, getString(R.string.check_internet)).show()
         }
         setData()
-     //   setItemList()
-
     }
 
     private fun setItemList() {
         val linearLayoutManager = GridLayoutManager(context, 2)
         rvItemList.layoutManager = linearLayoutManager
-        val itemAdapter = ItemAdapter(homeActivity, categoryList)
+        itemAdapter = ItemHomeAdapter(homeActivity, rvItemList,this)
         rvItemList.isNestedScrollingEnabled = false
         rvItemList.adapter = itemAdapter
     }
@@ -76,7 +95,7 @@ class HomeFragment : BaseFragment() {
         rvCategoryHome.layoutParams.height = width / 3
         val linearLayoutManager = LinearLayoutManager(homeActivity, LinearLayoutManager.HORIZONTAL, false)
         rvCategoryHome.layoutManager = linearLayoutManager
-        val categoryAdapter = CategoryListAdapter(homeActivity, categoriesList,rvCategoryHome)
+        val categoryAdapter = CategoryListAdapter(homeActivity, categoriesList, rvCategoryHome)
         rvCategoryHome.adapter = categoryAdapter
     }
 
@@ -104,18 +123,46 @@ class HomeFragment : BaseFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        mDemoSlider.stopAutoCycle()
+        if(mDemoSlider!=null) {
+            mDemoSlider.stopAutoCycle()
+        }
     }
-    private fun getHomeDataService() {
-        pbProgressHome.visibility=View.VISIBLE
-        ServiceHelper().getHomeDataService(Utils.getPreferencesString(homeActivity, AppConstants.USER_ID),
-                object : ServiceHelper.OnResponse {
-                    override fun onSuccess(response: Response<*>) {
-                        pbProgressHome.visibility=View.GONE
-                        val homeDataResponse = response.body() as HomeDataResponse?
-                        if(homeDataResponse!=null) {
+
+
+    private fun setApiData(data: DataHome) {
+        if(custom_indicator!=null) {
+            custom_indicator.setDefaultIndicatorColor(ContextCompat.getColor(homeActivity, R.color.white), ContextCompat.getColor(homeActivity, R.color.light_gray))
+            mDemoSlider.setCustomIndicator(custom_indicator)
+        }
+        for (i in 0 until data.advertisments.size) {
+            val textSliderView = DefaultSliderView(homeActivity)
+            textSliderView.image(AppConstants.IMAGE_URL + data.advertisments[i].image)
+                    .setOnSliderClickListener({ slider -> }).scaleType = BaseSliderView.ScaleType.Fit
+            if(mDemoSlider!=null) {
+                mDemoSlider.addSlider(textSliderView)
+            }
+        }
+        if(mDemoSlider!=null) {
+            mDemoSlider.setDuration(3000)
+        }
+
+        setCategoryAdapter(data.categories)
+        itemsList.clear()
+        itemsList=data.items
+        itemAdapter.setData(itemsList)
+        itemAdapter.notifyDataSetChanged()
+    }
+
+    /* private fun getHomeDataService() {
+         pbProgressHome.visibility=View.VISIBLE
+         ServiceHelper().getHomeDataService(Utils.getPreferencesString(homeActivity, AppConstants.USER_ID),
+                 object : ServiceHelper.OnResponse {
+                     override fun onSuccess(response: Response<*>) {
+                         pbProgressHome.visibility=View.GONE
+                         val homeDataResponse = response.body() as HomeDataResponse?
+                        *//* if(homeDataResponse!=null) {
                             setApiData(homeDataResponse.data)
-                        }
+                        }*//*
                     }
 
                     override fun onFailure(msg: String?) {
@@ -123,18 +170,85 @@ class HomeFragment : BaseFragment() {
                         Utils.showSimpleMessage(homeActivity, msg!!).show()
                     }
                 })
+    }*/
+
+    private fun getItemService() {
+        ServiceHelper().getItemsService(1, Utils.getPreferencesString(homeActivity, AppConstants.USER_ID), object : ServiceHelper.OnResponse {
+            override fun onSuccess(response: Response<*>) {
+                homeActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                if(pbProgressHome!=null) {
+                    pbProgressHome.visibility = View.GONE
+                }
+                val homeDataResponse = response.body() as HomeDataResponse?
+                if (homeDataResponse != null) {
+                    setApiData(homeDataResponse.data)
+                }
+            }
+            override fun onFailure(msg: String?) {
+                homeActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                if(pbProgressHome!=null) {
+                    pbProgressHome.visibility = View.GONE
+                }
+                Utils.showSimpleMessage(homeActivity, msg!!).show()
+            }
+        })
     }
 
-    private fun setApiData(data: DataHome) {
-        custom_indicator.setDefaultIndicatorColor(ContextCompat.getColor(homeActivity, R.color.white), ContextCompat.getColor(homeActivity, R.color.light_gray))
-        mDemoSlider.setCustomIndicator(custom_indicator)
-        for (i in 0 until data.advertisments.size) {
-            val textSliderView = DefaultSliderView(homeActivity)
-            textSliderView.image(AppConstants.IMAGE_URL+data.advertisments[i].image)
-                    .setOnSliderClickListener({ slider -> }).scaleType = BaseSliderView.ScaleType.Fit
-            mDemoSlider.addSlider(textSliderView)
-        }
-        mDemoSlider.setDuration(3000)
-        setCategoryAdapter(data.categories)
+    private fun lickedApi(itemId: Int, position: Int) {
+        val lickedRequest= LickedRequest(Utils.getPreferencesString(homeActivity,AppConstants.USER_ID),itemId)
+        ServiceHelper().likeService(lickedRequest,
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        val responseLike = response.body() as LikedResponse
+                        val items= ItemHome(itemsList[position].id,
+                                itemsList[position].user_id,
+                                itemsList[position].category_id,
+                                itemsList[position].name,
+                                itemsList[position].price,
+                                itemsList[position].item_type,
+                                itemsList[position].created_at,
+                                itemsList[position].likes_count+1,
+                                responseLike.like_id,
+                                !itemsList[position].is_like,
+                                itemsList[position].image_url,
+                                itemsList[position].username,
+                                itemsList[position].profile_pic)
+                        itemsList[position] = items
+                        itemAdapter.notifyItemChanged(position)
+
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        Utils.showSimpleMessage(homeActivity, msg!!).show()
+                    }
+                })
+    }
+
+    private fun deleteLikeApi(position: Int, lickedId: Int) {
+        ServiceHelper().disLikeService(lickedId,
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        val likeResponse = response.body() as DisLikeResponse
+                        val items= ItemHome(itemsList[position].id,
+                                itemsList[position].user_id,
+                                itemsList[position].category_id,
+                                itemsList[position].name,
+                                itemsList[position].price,
+                                itemsList[position].item_type,
+                                itemsList[position].created_at,
+                                itemsList[position].likes_count-1,
+                                0,
+                                !itemsList[position].is_like,
+                                itemsList[position].image_url,
+                                itemsList[position].username,
+                                itemsList[position].profile_pic)
+                        itemsList[position] = items
+                        itemAdapter.notifyItemChanged(position)
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        Utils.showSimpleMessage(homeActivity, msg!!).show()
+                    }
+                })
     }
 }

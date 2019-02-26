@@ -253,7 +253,11 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                     override fun onSuccess(response: Response<*>) {
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
                         val loginResponse = response.body() as LogInResponse
-                        setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type)
+                        if(loginResponse.data!=null) {
+                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type)
+                        }else{
+                            Utils.showSimpleMessage(this@LoginActivity, loginResponse.message).show()
+                        }
                     }
 
                     override fun onFailure(msg: String?) {

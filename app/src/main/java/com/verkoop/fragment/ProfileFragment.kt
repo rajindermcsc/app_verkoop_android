@@ -7,14 +7,14 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import com.ksmtrivia.common.BaseFragment
 import com.verkoop.R
 import com.verkoop.activity.FullCategoriesActivity
 import com.verkoop.activity.HomeActivity
 import com.verkoop.activity.ProductDetailsActivity
 import com.verkoop.adapter.MyProfileItemAdapter
-import com.verkoop.models.Item
-import com.verkoop.models.MyProfileResponse
+import com.verkoop.models.*
 import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
@@ -22,6 +22,8 @@ import kotlinx.android.synthetic.main.profile_fragment.*
 import retrofit2.Response
 
 class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener {
+    private lateinit var myProfileItemAdapter: MyProfileItemAdapter
+    private var  itemsList=ArrayList<Item>()
 
     override fun getItemDetailsClick(itemId: Int) {
         val intent = Intent(context, ProductDetailsActivity::class.java)
@@ -29,9 +31,14 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
         homeActivity.startActivity(intent)
     }
 
-    override fun getLikeDisLikeClick(type: Int, position: Int) {
-        //Utils.showToast(homeActivity,"work in progress")
+    override fun getLikeDisLikeClick(type: Boolean, position: Int,lickedId:Int,itemId:Int) {
+        if(type){
+            deleteLikeApi(position,lickedId)
+        }else{
+            lickedApi(itemId,position)
+        }
     }
+
 
     private val TAG = ProfileFragment::class.java.simpleName.toString()
     private lateinit var homeActivity: HomeActivity
@@ -70,10 +77,10 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
     private fun setAdapter(items: ArrayList<Item>) {
         val linearLayoutManager = GridLayoutManager(context, 2)
         rvPostsList.layoutManager = linearLayoutManager
-        val itemAdapter = MyProfileItemAdapter(homeActivity, items, llProfileParent, this)
+        myProfileItemAdapter = MyProfileItemAdapter(homeActivity, items, llProfileParent, this)
         rvPostsList.isNestedScrollingEnabled = false
         rvPostsList.isFocusable = false
-        rvPostsList.adapter = itemAdapter
+        rvPostsList.adapter = myProfileItemAdapter
     }
 
     private fun setData() {
@@ -94,22 +101,86 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
     }
 
     private fun myProfileInfoApi() {
-     //   VerkoopApplication.instance.loader.show(homeActivity)
-        pbProgressProfile.visibility=View.VISIBLE
+        homeActivity.window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        if(pbProgressProfile!=null) {
+            pbProgressProfile.visibility = View.VISIBLE
+        }
         ServiceHelper().myProfileService(Utils.getPreferencesString(homeActivity, AppConstants.USER_ID),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
-                    //    VerkoopApplication.instance.loader.hide(homeActivity)
-                        pbProgressProfile.visibility=View.GONE
+                        homeActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                        if(pbProgressProfile!=null) {
+                            pbProgressProfile.visibility = View.GONE
+                        }
                         val myProfileResponse = response.body() as MyProfileResponse
                         setData()
-                        setAdapter(myProfileResponse.data.items)
+                        itemsList.clear()
+                        itemsList=myProfileResponse.data.items
+                        setAdapter(itemsList)
                         tvName.text = myProfileResponse.data.username
                     }
 
                     override fun onFailure(msg: String?) {
-                       // VerkoopApplication.instance.loader.hide(homeActivity)
-                        pbProgressProfile.visibility=View.GONE
+                        homeActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                        if(pbProgressProfile!=null) {
+                            pbProgressProfile.visibility = View.GONE
+                        }
+                        Utils.showSimpleMessage(homeActivity, msg!!).show()
+                    }
+                })
+    }
+
+
+    private fun lickedApi(itemId: Int, position: Int) {
+        val lickedRequest=LickedRequest(Utils.getPreferencesString(homeActivity,AppConstants.USER_ID),itemId)
+        ServiceHelper().likeService(lickedRequest,
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        val responseLike = response.body() as LikedResponse
+                        val items= Item(itemsList[position].id,
+                                itemsList[position].user_id,
+                                itemsList[position].category_id,
+                                itemsList[position].name,
+                                itemsList[position].price,
+                                itemsList[position].item_type,
+                                itemsList[position].created_at,
+                                itemsList[position].likes_count+1,
+                                responseLike.like_id,
+                                !itemsList[position].is_like,
+                                itemsList[position].image_url)
+                        itemsList[position] = items
+                        myProfileItemAdapter.notifyDataSetChanged()
+
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        Utils.showSimpleMessage(homeActivity, msg!!).show()
+                    }
+                })
+    }
+
+    private fun deleteLikeApi(position: Int, lickedId: Int) {
+        ServiceHelper().disLikeService(lickedId,
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        val likeResponse = response.body() as DisLikeResponse
+                        val items= Item(itemsList[position].id,
+                                itemsList[position].user_id,
+                                itemsList[position].category_id,
+                                itemsList[position].name,
+                                itemsList[position].price,
+                                itemsList[position].item_type,
+                                itemsList[position].created_at,
+                                itemsList[position].likes_count-1,
+                               0,
+                                !itemsList[position].is_like,
+                                itemsList[position].image_url)
+                        itemsList[position] = items
+                        myProfileItemAdapter.notifyDataSetChanged()
+                    }
+
+                    override fun onFailure(msg: String?) {
                         Utils.showSimpleMessage(homeActivity, msg!!).show()
                     }
                 })

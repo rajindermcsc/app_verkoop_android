@@ -37,7 +37,7 @@ class CategoryListAdapter(private val context: Context, private var categoryList
 
     inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
             LayoutContainer {
-        fun bind(  data: Category,position: Int) {
+        fun bind(data: Category, position: Int) {
             tvLevelHome.text=data.name
             if (!TextUtils.isEmpty(data.image)) {
                 Picasso.with(context).load(AppConstants.IMAGE_URL+data.image)
