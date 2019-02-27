@@ -28,7 +28,12 @@ data class AddItemRequest(
         val price: String,
         val item_type: String,
         val description: String,
-        val user_id: String
+        val user_id: String,
+        val Latitude: String,
+        val Longitude: String,
+        val Address: String,
+        val meet_up: String
+
 )
 
 data class PlaceSearchRequest(

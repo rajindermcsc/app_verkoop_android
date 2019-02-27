@@ -23,14 +23,14 @@ import java.util.ArrayList
 
 class FullCategoriesActivity: AppCompatActivity(), FullCategoryAdapter.SelectedCategory, SubCategoryAdapter.SelectedSubcategory {
     override fun subCategoryName(name: String) {
-        val intent=Intent(this,CategoryDetailsActivity::class.java)
-        startActivity(intent)
+     /*   val intent=Intent(this,CategoryDetailsActivity::class.java)
+        startActivity(intent)*/
        // Utils.showSimpleMessage(this,name).show()
     }
 
     override fun categoryName(name: String) {
-        val intent=Intent(this,CategoryDetailsActivity::class.java)
-        startActivity(intent)
+       /* val intent=Intent(this,CategoryDetailsActivity::class.java)
+        startActivity(intent)*/
     }
 
     private val categoryList=ArrayList<DataCategory>()

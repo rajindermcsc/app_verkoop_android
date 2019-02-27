@@ -10,13 +10,20 @@ import android.net.Uri
 import android.preference.PreferenceManager
 import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.widget.Toast
 import com.andrognito.flashbar.Flashbar
 import com.verkoop.R
 import java.io.ByteArrayOutputStream
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
 import java.util.regex.Matcher
 import java.util.regex.Pattern
+
+
+
 
 
 object Utils{
@@ -170,5 +177,149 @@ object Utils{
                 cursor.close()
             }
         }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun convertDate(pre: String, dateString: String, post: String): String {
+        val parseFormat = SimpleDateFormat(pre)
+        parseFormat.timeZone = TimeZone.getTimeZone("UTC")
+        var date: Date? = null
+        try {
+            date = parseFormat.parse(dateString)
+            parseFormat.timeZone = TimeZone.getDefault()
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+
+        val format = SimpleDateFormat(post)
+        format.timeZone = TimeZone.getDefault()
+       // Log.e("dateTimeStamp",date)
+
+        return format.format(date)
+
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun getDateDifference(FutureDate: String): String {
+        var totalTime = 0
+        var unit: String? = null
+        try {
+           // val netDate = java.sql.Date(java.lang.Long.parseLong(FutureDate) * 1000)
+            val parseFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss.ssssss")
+            parseFormat.timeZone = TimeZone.getTimeZone("UTC")
+            var date: Date? = null
+            try {
+                date = parseFormat.parse(FutureDate)
+            } catch (e: ParseException) {
+                e.printStackTrace()
+            }
+            val oldDate = Date()
+
+            var diff = oldDate.time - date!!.time
+
+            val days = diff / (24 * 60 * 60 * 1000)
+            diff -= days * (24 * 60 * 60 * 1000)
+
+            val hours = diff / (60 * 60 * 1000)
+            diff -= hours * (60 * 60 * 1000)
+
+            val minutes = diff / (60 * 1000)
+            diff -= minutes * (60 * 1000)
+
+            val seconds = diff / 1000
+
+            if (days != 0L) {
+                totalTime = days.toInt()
+                if (totalTime == 1) {
+                    unit = "day"
+                } else {
+                    unit = "days"
+                }
+               // unit = "day"
+            } else if (hours != 0L) {
+                totalTime = hours.toInt()
+                if (totalTime == 1) {
+                    unit = "hour"
+                } else {
+                    unit = "hours"
+                }
+            } else if (minutes != 0L) {
+                totalTime = minutes.toInt()
+                unit = "min"
+            } else if (seconds != 0L) {
+                totalTime = seconds.toInt()
+                unit = "sec"
+
+            } else {
+                totalTime = 0
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return totalTime.toString() + " " + unit
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun getDateDifferenceDetails(FutureDate: String): String {
+        var totalTime = 0
+        var unit: String? = null
+        try {
+            // val netDate = java.sql.Date(java.lang.Long.parseLong(FutureDate) * 1000)
+            val parseFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+            parseFormat.timeZone = TimeZone.getTimeZone("UTC")
+            var date: Date? = null
+            try {
+                date = parseFormat.parse(FutureDate)
+            } catch (e: ParseException) {
+                e.printStackTrace()
+            }
+            val oldDate = Date()
+
+            var diff = oldDate.time - date!!.time
+
+            val days = diff / (24 * 60 * 60 * 1000)
+            diff -= days * (24 * 60 * 60 * 1000)
+
+            val hours = diff / (60 * 60 * 1000)
+            diff -= hours * (60 * 60 * 1000)
+
+            val minutes = diff / (60 * 1000)
+            diff -= minutes * (60 * 1000)
+
+            val seconds = diff / 1000
+
+            if (days != 0L) {
+                totalTime = days.toInt()
+                if (totalTime == 1) {
+                    unit = "day"
+                } else {
+                    unit = "days"
+                }
+                // unit = "day"
+            } else if (hours != 0L) {
+                totalTime = hours.toInt()
+                if (totalTime == 1) {
+                    unit = "hour"
+                } else {
+                    unit = "hours"
+                }
+            } else if (minutes != 0L) {
+                totalTime = minutes.toInt()
+                unit = "min"
+            } else if (seconds != 0L) {
+                totalTime = seconds.toInt()
+                unit = "sec"
+
+            } else {
+                totalTime = 0
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return totalTime.toString() + " " + unit
     }
 }

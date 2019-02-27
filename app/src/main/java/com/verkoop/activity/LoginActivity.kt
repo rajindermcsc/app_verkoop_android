@@ -287,9 +287,9 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
-                        val loginResponse = response.body() as SignUpResponse
+                        val loginResponse = response.body() as SocialLoginResponse
                         Log.e("<<Log>>", "Login Successfully.")
-                        setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type)
+                        setResponseData(loginResponse.data.id.toString(), loginResponse.data.api_token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type)
                     }
 
                     override fun onFailure(msg: String?) {

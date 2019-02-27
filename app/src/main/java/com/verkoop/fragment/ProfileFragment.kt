@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +34,7 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
 
     override fun getLikeDisLikeClick(type: Boolean, position: Int,lickedId:Int,itemId:Int) {
         if(type){
+
             deleteLikeApi(position,lickedId)
         }else{
             lickedApi(itemId,position)
@@ -68,10 +70,15 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (Utils.isOnline(homeActivity)) {
-            myProfileInfoApi()
+            if (Utils.isOnline(homeActivity)) {
+                myProfileInfoApi()
+            } else {
+                Utils.showSimpleMessage(homeActivity, getString(R.string.check_internet)).show()
+            }
         } else {
             Utils.showSimpleMessage(homeActivity, getString(R.string.check_internet)).show()
         }
+
     }
 
     private fun setAdapter(items: ArrayList<Item>) {
@@ -101,6 +108,7 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
     }
 
     private fun myProfileInfoApi() {
+
         homeActivity.window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         if(pbProgressProfile!=null) {
@@ -119,6 +127,7 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
                         itemsList=myProfileResponse.data.items
                         setAdapter(itemsList)
                         tvName.text = myProfileResponse.data.username
+                        tvJoiningDate.text= StringBuffer().append(": ").append(Utils.convertDate("yyyy-MM-dd hh:mm:ss",myProfileResponse.data.created_at,"dd MMMM yyyy"))
                     }
 
                     override fun onFailure(msg: String?) {
@@ -150,12 +159,12 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
                                 !itemsList[position].is_like,
                                 itemsList[position].image_url)
                         itemsList[position] = items
-                        myProfileItemAdapter.notifyDataSetChanged()
+                        myProfileItemAdapter.notifyItemChanged(position)
 
                     }
 
                     override fun onFailure(msg: String?) {
-                        Utils.showSimpleMessage(homeActivity, msg!!).show()
+                     //   Utils.showSimpleMessage(homeActivity, msg!!).show()
                     }
                 })
     }
@@ -177,11 +186,11 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
                                 !itemsList[position].is_like,
                                 itemsList[position].image_url)
                         itemsList[position] = items
-                        myProfileItemAdapter.notifyDataSetChanged()
+                        myProfileItemAdapter.notifyItemChanged(position)
                     }
 
                     override fun onFailure(msg: String?) {
-                        Utils.showSimpleMessage(homeActivity, msg!!).show()
+                   //     Utils.showSimpleMessage(homeActivity, msg!!).show()
                     }
                 })
     }

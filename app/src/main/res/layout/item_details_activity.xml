@@ -76,7 +76,6 @@
                     android:layout_marginTop="@dimen/dp_2"
                     android:paddingEnd="@dimen/dp_8"
                     android:paddingStart="@dimen/dp_8"
-                    android:text="@string/_2_days_ago"
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/sp_14" />
 
@@ -113,7 +112,6 @@
                     android:drawableStart="@mipmap/condition_icon"
                     android:paddingEnd="@dimen/dp_8"
                     android:paddingStart="@dimen/dp_8"
-                    android:text="New"
                     android:textColor="@color/dark_black"
                     android:textSize="@dimen/sp_14" />
 

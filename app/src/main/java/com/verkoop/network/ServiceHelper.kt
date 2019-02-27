@@ -70,8 +70,8 @@ import java.util.ArrayList
     fun socialLoginService(request: LoginSocialRequest, onResponse: OnResponse) {
         val myService =  ApiClient.getClient().create(MyService::class.java)
         val responseCall = myService.userLoginApi(request)
-        responseCall.enqueue(object : Callback<SignUpResponse> {
-            override fun onResponse(call: Call<SignUpResponse>, response: Response<SignUpResponse>) {
+        responseCall.enqueue(object : Callback<SocialLoginResponse> {
+            override fun onResponse(call: Call<SocialLoginResponse>, response: Response<SocialLoginResponse>) {
                 val res = response.body()
                 Log.e("<<<Response>>>", Gson().toJson(res))
                 if (res != null) {
@@ -84,7 +84,7 @@ import java.util.ArrayList
                 }
             }
 
-            override fun onFailure(call: Call<SignUpResponse>, t: Throwable) {
+            override fun onFailure(call: Call<SocialLoginResponse>, t: Throwable) {
                 onResponse.onFailure(t.message)
             }
         })
@@ -132,7 +132,11 @@ import java.util.ArrayList
         val itemType = RequestBody.create(MediaType.parse("text/plain"), request.item_type)
         val description = RequestBody.create(MediaType.parse("text/plain"), request.description)
         val userId = RequestBody.create(MediaType.parse("text/plain"), request.user_id)
-        call = myService.addClothApi( parts, categoryId, name, price,itemType,description,userId)
+        val address = RequestBody.create(MediaType.parse("text/plain"), request.Address)
+        val lat = RequestBody.create(MediaType.parse("text/plain"), request.Latitude)
+        val lng = RequestBody.create(MediaType.parse("text/plain"), request.Longitude)
+        val meetUp = RequestBody.create(MediaType.parse("text/plain"), request.meet_up)
+        call = myService.addClothApi( parts, categoryId, name, price,itemType,description,userId,address,lat,lng,meetUp)
         call.enqueue(object : Callback<AddItemResponse> {
             override fun onResponse(call: Call<AddItemResponse>, response: Response<AddItemResponse>) {
                 Log.e("<<<<Response>>>>", Gson().toJson(response.body()))

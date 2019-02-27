@@ -47,6 +47,9 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
     private var uri: Uri? = null
     private var imageCount = 0
     private var categoryId = 0
+    private var lat=""
+    private var lng=""
+    private var address=""
     private var itemType = 1
 
     override fun selectDetailCount(count: Int, position: Int) {
@@ -286,11 +289,11 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         }
         if (requestCode == 12) {
             if (resultCode == Activity.RESULT_OK) {
-                val result = data!!.getStringExtra (AppConstants.ADDRESS)
-                val lat = data.getStringExtra (AppConstants.LATITUDE)
-                val lng = data.getStringExtra (AppConstants.LONGITUDE)
+                 address = data!!.getStringExtra (AppConstants.ADDRESS)
+                 lat = data.getStringExtra (AppConstants.LATITUDE)
+                 lng = data.getStringExtra (AppConstants.LONGITUDE)
                 cbNearBy.isChecked = true
-                tvPlaceAddress.text=result
+                tvPlaceAddress.text=address
                 tvPlaceAddress.setTextColor(ContextCompat.getColor(this,R.color.dark_black))
             }
             if (resultCode == Activity.RESULT_CANCELED) {
@@ -361,7 +364,12 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             }
 
             private fun uploadImageItem(realPath: java.util.ArrayList<String>) {
-                val addItemRequest = AddItemRequest(realPath, categoryId.toString(), etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID))
+                val addItemRequest:AddItemRequest = if(cbNearBy.isChecked){
+                    AddItemRequest(realPath, categoryId.toString(), etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID),lat,lng,address,"1")
+                }else{
+                    AddItemRequest(realPath, categoryId.toString(), etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID),"","","","0")
+                }
+
                 ServiceHelper().addItemsApi(addItemRequest,
                         object : ServiceHelper.OnResponse {
                             override fun onSuccess(response: Response<*>) {

@@ -37,7 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/pic_3"
+                    android:src="@mipmap/post_placeholder"
                     android:contentDescription="@string/image" />
             </com.github.florent37.shapeofview.shapes.RoundRectView>
         <LinearLayout
@@ -105,7 +105,7 @@
                     android:id="@+id/tvLikesProfile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/sp_12"
+                    android:textSize="@dimen/sp_14"
                     android:layout_marginEnd="@dimen/dp_10"
                     android:padding="@dimen/dp_10"
                     android:drawableStart="@mipmap/post_like"

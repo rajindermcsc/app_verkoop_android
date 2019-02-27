@@ -33,11 +33,16 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
     private var  itemsList=ArrayList<ItemHome>()
 
     override fun getLikeDisLikeClick(type: Boolean, position: Int, lickedId: Int, itemId: Int) {
-        if(type){
-            deleteLikeApi(position,lickedId)
-        }else{
-            lickedApi(itemId,position)
+        if (Utils.isOnline(homeActivity)) {
+            if(type){
+                deleteLikeApi(position,lickedId)
+            }else{
+                lickedApi(itemId,position)
+            }
+        } else {
+            Utils.showSimpleMessage(homeActivity, getString(R.string.check_internet)).show()
         }
+
     }
 
     override fun getItemDetailsClick(itemId: Int) {
@@ -207,7 +212,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
                                 itemsList[position].price,
                                 itemsList[position].item_type,
                                 itemsList[position].created_at,
-                                itemsList[position].likes_count+1,
+                                itemsList[position].items_like_count+1,
                                 responseLike.like_id,
                                 !itemsList[position].is_like,
                                 itemsList[position].image_url,
@@ -219,7 +224,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
                     }
 
                     override fun onFailure(msg: String?) {
-                        Utils.showSimpleMessage(homeActivity, msg!!).show()
+                  //      Utils.showSimpleMessage(homeActivity, msg!!).show()
                     }
                 })
     }
@@ -236,7 +241,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
                                 itemsList[position].price,
                                 itemsList[position].item_type,
                                 itemsList[position].created_at,
-                                itemsList[position].likes_count-1,
+                                itemsList[position].items_like_count-1,
                                 0,
                                 !itemsList[position].is_like,
                                 itemsList[position].image_url,
@@ -247,7 +252,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
                     }
 
                     override fun onFailure(msg: String?) {
-                        Utils.showSimpleMessage(homeActivity, msg!!).show()
+                      //  Utils.showSimpleMessage(homeActivity, msg!!).show()
                     }
                 })
     }

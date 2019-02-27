@@ -68,7 +68,6 @@
                     android:maxLines="1"
                     android:singleLine="true"
                     android:layout_marginEnd="@dimen/dp_3"
-                    android:text="Louis Wayne"
                     tools:ignore="NestedWeights" />
                     <com.verkoop.fonts.textView.GothicThinTextView
                         android:id="@+id/tvDate"
@@ -80,7 +79,6 @@
                         android:maxLines="1"
                         android:singleLine="true"
                         android:layout_marginEnd="@dimen/dp_3"
-                        android:text="2 day ago"
                         tools:ignore="NestedWeights" />
 
                 </LinearLayout>

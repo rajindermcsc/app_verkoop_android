@@ -19,7 +19,7 @@ interface MyService {
     fun userLoginApi(@Body request: LoginRequest): Call<LogInResponse>
 
     @POST("user/login")
-    fun userLoginApi(@Body request: LoginSocialRequest): Call<SignUpResponse>
+    fun userLoginApi(@Body request: LoginSocialRequest): Call<SocialLoginResponse>
 
     @GET("categories")
     fun getCategoriesService(): Call<CategoriesResponse>
@@ -59,6 +59,10 @@ interface MyService {
                     @Part("price") price: RequestBody,
                     @Part("item_type") itemType: RequestBody,
                     @Part("description") description: RequestBody,
-                    @Part("user_id") userId: RequestBody): Call<AddItemResponse>
+                    @Part("user_id") userId: RequestBody,
+                    @Part("Address") address: RequestBody,
+                    @Part("Latitude") lat: RequestBody,
+                    @Part("Longitude") lng: RequestBody,
+                    @Part("meet_up") meetUp: RequestBody): Call<AddItemResponse>
 
 }

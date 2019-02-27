@@ -267,7 +267,7 @@ data class ItemHome(
     val price: Int,
     val item_type: Int,
     val created_at: CreatedAtHome,
-    val likes_count: Int,
+    val items_like_count: Int,
     val like_id: Int,
     val is_like: Boolean,
     val image_url: String,
@@ -288,4 +288,31 @@ data class LikedResponse(
 
 data class DisLikeResponse(
     val message: String
+)
+
+data class SocialLoginResponse(
+    val status_code: Int,
+    val message: String,
+    val data: DataSocial
+)
+
+data class DataSocial(
+    val id: Int,
+    val username: String,
+    val email: String,
+    val first_name: String,
+    val last_name: String,
+    val mobile_no: String,
+    val website: String,
+    val bio: String,
+    val profile_pic: String,
+    val login_type: String,
+    val social_id: String,
+    val city: String,
+    val country: String,
+    val is_active: Int,
+    val email_verified_at: Any,
+    val created_at: String,
+    val updated_at: String,
+    val api_token: String
 )

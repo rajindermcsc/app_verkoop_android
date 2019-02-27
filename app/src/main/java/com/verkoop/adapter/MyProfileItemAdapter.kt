@@ -63,9 +63,12 @@ class MyProfileItemAdapter(private val context: Context, private val myItemsList
                     Picasso.with(context).load(AppConstants.IMAGE_URL + data.image_url)
                             .resize(720, 720)
                             .centerInside()
-                            .error(R.mipmap.setting)
+                            .error(R.mipmap.post_placeholder)
+                            .placeholder(R.mipmap.post_placeholder)
                             .into(ivProductImage)
 
+            }else{
+                ivProductImage.setImageResource(R.mipmap.post_placeholder)
             }
 
             tvNameProfile.text=data.name

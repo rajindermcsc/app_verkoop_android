@@ -18,7 +18,6 @@ import com.verkoop.utils.NonscrollRecylerview
 import com.verkoop.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_row.*
-import kotlinx.android.synthetic.main.my_profile_row.*
 
 
 class ItemHomeAdapter(private val context: Context, private  val rvItemList: NonscrollRecylerview,private val homeFragment: HomeFragment) : RecyclerView.Adapter<ItemHomeAdapter.ViewHolder>() {
@@ -26,6 +25,7 @@ class ItemHomeAdapter(private val context: Context, private  val rvItemList: Non
     private var mInflater: LayoutInflater = LayoutInflater.from(context)
     private var itemsList=ArrayList<ItemHome>()
     private var width=0
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = mInflater.inflate(R.layout.item_row, parent, false)
@@ -60,7 +60,7 @@ class ItemHomeAdapter(private val context: Context, private  val rvItemList: Non
             }else{
                 tvLikesHome.setCompoundDrawablesWithIntrinsicBounds( R.mipmap.post_like, 0, 0, 0)
             }
-            tvLikesHome.text=data.likes_count.toString()
+            tvLikesHome.text=data.items_like_count.toString()
             if(data.item_type==1){
                 tvConditionHome.text="New"
             }else{
@@ -71,13 +71,16 @@ class ItemHomeAdapter(private val context: Context, private  val rvItemList: Non
                     Picasso.with(context).load(AppConstants.IMAGE_URL + data.image_url)
                             .resize(720, 720)
                             .centerInside()
-                            .error(R.mipmap.setting)
+                            .error(R.mipmap.post_placeholder)
+                            .placeholder(R.mipmap.post_placeholder)
                             .into(ivProductImageHome)
 
             }else{
-              //  Utils.showToast(context,"error in image")
+                ivProductImageHome.setImageResource(R.mipmap.post_placeholder)
             }
-
+            tvLikesHome.setOnClickListener {
+                likeDisLikeListener.getLikeDisLikeClick(data.is_like,adapterPosition,data.like_id,data.id)
+            }
             tvProductHome.text=data.name
             tvItemPriceHome.text="$"+data.price
             itemView.setOnClickListener {
@@ -85,12 +88,11 @@ class ItemHomeAdapter(private val context: Context, private  val rvItemList: Non
                 intent.putExtra(AppConstants.ITEM_ID, data.id)
                 context.startActivity(intent)
             }
+            tvPostOn.text=StringBuilder().append(Utils.getDateDifference(data.created_at.date)).append(" ").append("ago")
         }
     }
 
     fun setData(items: ArrayList<ItemHome>) {
         itemsList=items
     }
-
-
 }

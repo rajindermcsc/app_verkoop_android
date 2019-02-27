@@ -14,6 +14,7 @@ import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
 
 import kotlinx.android.synthetic.main.item_details_activity.*
+import kotlinx.android.synthetic.main.item_row.*
 import kotlinx.android.synthetic.main.toolbar_product_details.*
 import retrofit2.Response
 
@@ -48,6 +49,8 @@ class ProductDetailsActivity:AppCompatActivity(){
         tvPrice.text=StringBuilder().append(": ").append(getString(R.string.dollar)).append(data.price)
         tvDescription.text=data.description
         tvUserName.text=data.username
+        tvDateDetails.text=StringBuilder().append(Utils.getDateDifferenceDetails(data.created_at)).append(" ").append("ago")
+        tvDate.text=StringBuilder().append(Utils.getDateDifferenceDetails(data.created_at)).append(" ").append("ago")
     }
 
     private fun getItemDetailsService(itemId: Int) {

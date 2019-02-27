@@ -26,6 +26,9 @@
     <color name="black_">#111111</color>
     <color name="black_dark">#1A1A1A</color>
     <color name="black_light">#0F0F0F</color>
+    <color name="green_light">#67CA4C</color>
+    <color name="yellow">#F9AA34</color>
+    <color name="red_light">#EB1C24</color>
 
 
     <color name="transparentBlack20">#20000000</color>
