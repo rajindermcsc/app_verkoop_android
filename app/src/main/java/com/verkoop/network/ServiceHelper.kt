@@ -8,10 +8,13 @@ import it.sephiroth.android.library.imagezoom.ImageViewTouchBase.LOG_TAG
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.json.JSONException
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
+import java.io.IOException
 import java.util.ArrayList
 
  class ServiceHelper{
@@ -25,15 +28,23 @@ import java.util.ArrayList
         val responseCall = myService.userSignUpApi(request)
         responseCall.enqueue(object : Callback<SignUpResponse> {
             override fun onResponse(call: Call<SignUpResponse>, response: Response<SignUpResponse>) {
-                val res = response.body()
-                Log.e("<<<Response>>>", Gson().toJson(res))
-                if (res != null) {
-                    when {
-                       response.code() == 200 -> onResponse.onSuccess(response)
-                        else -> onResponse.onFailure(res.message)
+              //  Log.e("<<<Response>>>", Gson().toJson(res))
+                if (response.code() == 200) {
+                    onResponse.onSuccess(response)
+                } else {
+                    if (response.errorBody() != null) {
+                        try {
+                            val messageError= JSONObject(response.errorBody()!!.string())
+                            onResponse.onFailure(messageError.getString("message"))
+                        } catch (e: JSONException) {
+                            onResponse.onFailure("Something went wrong")
+                            e.printStackTrace()
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                        }
+                    } else {
+                        onResponse.onFailure("Something went wrong")
                     }
-                }else {
-                    onResponse.onFailure("Something went wrong!")
                 }
             }
 
@@ -48,15 +59,22 @@ import java.util.ArrayList
         val responseCall = myService.userLoginApi(request)
         responseCall.enqueue(object : Callback<LogInResponse> {
             override fun onResponse(call: Call<LogInResponse>, response: Response<LogInResponse>) {
-                val res = response.body()
-                Log.e("<<<Response>>>", Gson().toJson(res))
-                if (res != null) {
-                    when {
-                       response.code() == 200 -> onResponse.onSuccess(response)
-                        else -> onResponse.onFailure(res.message)
+                if (response.code() == 200) {
+                    onResponse.onSuccess(response)
+                } else {
+                    if (response.errorBody() != null) {
+                        try {
+                            val messageError= JSONObject(response.errorBody()!!.string())
+                            onResponse.onFailure(messageError.getString("message"))
+                        } catch (e: JSONException) {
+                            onResponse.onFailure("Something went wrong")
+                            e.printStackTrace()
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                        }
+                    } else {
+                        onResponse.onFailure("Something went wrong")
                     }
-                }else {
-                    onResponse.onFailure("Something went wrong!")
                 }
             }
 
@@ -74,13 +92,22 @@ import java.util.ArrayList
             override fun onResponse(call: Call<SocialLoginResponse>, response: Response<SocialLoginResponse>) {
                 val res = response.body()
                 Log.e("<<<Response>>>", Gson().toJson(res))
-                if (res != null) {
-                    when {
-                        response.code() == 200 -> onResponse.onSuccess(response)
-                        else -> onResponse.onFailure(res.message)
+                if (response.code() == 200) {
+                    onResponse.onSuccess(response)
+                } else {
+                    if (response.errorBody() != null) {
+                        try {
+                            val messageError= JSONObject(response.errorBody()!!.string())
+                            onResponse.onFailure(messageError.getString("message"))
+                        } catch (e: JSONException) {
+                            onResponse.onFailure("Something went wrong")
+                            e.printStackTrace()
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                        }
+                    } else {
+                        onResponse.onFailure("Something went wrong")
                     }
-                }else {
-                    onResponse.onFailure("Something went wrong!")
                 }
             }
 
@@ -333,6 +360,29 @@ import java.util.ArrayList
              }
 
              override fun onFailure(call: Call<DisLikeResponse>, t: Throwable) {
+                 onResponse.onFailure(t.message)
+             }
+         })
+     }
+
+     fun  categoryPostService(categoryPostRequest: CategoryPostRequest,onResponse: OnResponse) {
+         val myService =  ApiClient.getClient().create(MyService::class.java)
+         val responseCall = myService.categoryPostApi(categoryPostRequest,categoryPostRequest.userId)
+         responseCall.enqueue(object : Callback<CategoryPostResponse> {
+             override fun onResponse(call: Call<CategoryPostResponse>, response: Response<CategoryPostResponse>) {
+                 val res = response.body()
+                 Log.e("<<<Response>>>", Gson().toJson(res))
+                 if (res != null) {
+                     when {
+                         response.code() == 200 -> onResponse.onSuccess(response)
+                         else -> onResponse.onFailure(response.message())
+                     }
+                 }else {
+                     onResponse.onFailure("Something went wrong!")
+                 }
+             }
+
+             override fun onFailure(call: Call<CategoryPostResponse>, t: Throwable) {
                  onResponse.onFailure(t.message)
              }
          })

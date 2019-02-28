@@ -34,12 +34,12 @@ class SubCategoryAdapter(private  var context: Context,private val subCategoryLi
         fun bind(subCategory: SubCategory) {
             tvSubCategory.text=subCategory.name
             tvSubCategory.setOnClickListener {
-                selectedSubcategory.subCategoryName(subCategory.id.toString())
+                selectedSubcategory.subCategoryName(subCategory.id,subCategory.name)
             }
         }
 
     }
     interface SelectedSubcategory{
-        fun subCategoryName(name:String)
+        fun subCategoryName(categoryId:Int,subCategoryName:String)
     }
 }

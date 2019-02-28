@@ -98,7 +98,7 @@ class CategoryAdapter(private var context: Context, private val categoryList: Ar
                         ivSelected.visibility = View.VISIBLE
                         selectedCategory.selectedCount(checkSelectionCount())
                     } else {
-                        Utils.showSimpleMessage(context, "You can not select more then 3 option.").show()
+                        Utils.showSimpleMessage(context, context.getString(R.string.three_category)).show()
                     }
                 }
             }

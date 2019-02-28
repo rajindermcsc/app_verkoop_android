@@ -5,32 +5,76 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.util.DisplayMetrics
+import android.view.View
+import com.verkoop.LikeDisLikeListener
 import com.verkoop.R
 import com.verkoop.adapter.DetailSubCategory
 import com.verkoop.adapter.FilterAdapter
 import com.verkoop.adapter.ItemAdapter
-import com.verkoop.models.CategoryModal
+import com.verkoop.models.*
+import com.verkoop.network.ServiceHelper
+import com.verkoop.utils.AppConstants
+import com.verkoop.utils.Utils
 import kotlinx.android.synthetic.main.category_details_activity.*
 import kotlinx.android.synthetic.main.toolbar_details_.*
+import retrofit2.Response
 
-class CategoryDetailsActivity : AppCompatActivity() {
+class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener {
+    private var isClicked: Boolean = false
+    private lateinit var itemAdapter: ItemAdapter
+    private var itemsList = ArrayList<Item>()
     private val categoryList = ArrayList<CategoryModal>()
+
+    override fun getLikeDisLikeClick(type: Boolean, position: Int, lickedId: Int, itemId: Int) {
+        if (type) {
+            if (!isClicked) {
+                isClicked = true
+                deleteLikeApi(position, lickedId)
+            }
+        } else {
+            if (!isClicked) {
+                isClicked = true
+                lickedApi(itemId, position)
+            }
+        }
+    }
+
+    override fun getItemDetailsClick(itemId: Int) {
+        val intent = Intent(this, ProductDetailsActivity::class.java)
+        intent.putExtra(AppConstants.ITEM_ID, itemId)
+        startActivity(intent)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.category_details_activity)
         setData()
-        setSubcategoryData()
-        setListData()
+        setItemList()
     }
 
-    private fun setSubcategoryData() {
+    private fun setSubcategoryData(subCategoryList: ArrayList<SubCategoryPost>) {
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val width = displayMetrics.widthPixels
+        rvSubCategory.layoutParams.height = (width / 3)
         val mManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvSubCategory.layoutManager = mManager
-        val detailSubCategoryAdapter = DetailSubCategory(this)
+        val detailSubCategoryAdapter = DetailSubCategory(this, rvSubCategory, subCategoryList)
         rvSubCategory.adapter = detailSubCategoryAdapter
     }
 
     private fun setData() {
+        val type = intent.getIntExtra(AppConstants.TYPE, 0)
+        toolbar_title.text = intent.getStringExtra(AppConstants.SUB_CATEGORY)
+        if (type == 1) {
+            llParent.visibility = View.GONE
+            getDetailsApi(intent.getIntExtra(AppConstants.CATEGORY_ID, 0), type)
+        } else {
+            tvCategorySelected.text = intent.getStringExtra(AppConstants.SUB_CATEGORY)
+            llParent.visibility = View.VISIBLE
+            getDetailsApi(intent.getIntExtra(AppConstants.CATEGORY_ID, 0), type)
+        }
         iv_left.setOnClickListener { onBackPressed() }
         ivFilter.setOnClickListener {
             val intent = Intent(this, FilterActivity::class.java)
@@ -45,19 +89,93 @@ class CategoryDetailsActivity : AppCompatActivity() {
     private fun setItemList() {
         val linearLayoutManager = GridLayoutManager(this, 2)
         rvItemListDetails.layoutManager = linearLayoutManager
-        val itemAdapter = ItemAdapter(this, categoryList)
+        itemAdapter = ItemAdapter(this, rvItemListDetails)
         rvItemListDetails.isNestedScrollingEnabled = false
         rvItemListDetails.adapter = itemAdapter
     }
 
-    private fun setListData() {
-        val nameList = arrayOf("Women's", "men's", "Footwear", "Desktop's", "Mobiles", "Furniture", "Pets", "Car", "Books")
-        val imageList = arrayOf(R.mipmap.women_unselected, R.mipmap.men_unselected, R.mipmap.footwear_unselected, R.mipmap.desktop_unselected, R.mipmap.mobile_unselected, R.mipmap.furniture_unselected, R.mipmap.pet_unseleted, R.mipmap.car_unseleted, R.mipmap.books_unselected)
-        val imageListSelected = arrayOf(R.mipmap.women_selected, R.mipmap.men_selected, R.mipmap.footwear_selected, R.mipmap.desktop_selected, R.mipmap.mobile_selected, R.mipmap.furniture_selected, R.mipmap.pet_selected, R.mipmap.car_selected, R.mipmap.books_selected)
-        for (i in nameList.indices) {
-            val categoryModal = CategoryModal(nameList[i], imageList[i], imageListSelected[i], false)
-            categoryList.add(categoryModal)
-        }
-        setItemList()
+    private fun getDetailsApi(categoryId: Int, type: Int) {
+        pvProgressDetail.visibility=View.VISIBLE
+        val lickedRequest = CategoryPostRequest(categoryId.toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID))
+        ServiceHelper().categoryPostService(lickedRequest,
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        pvProgressDetail.visibility=View.GONE
+                        val categoryPostResponse = response.body() as CategoryPostResponse
+                        if (categoryPostResponse.data.subCategoryList.size > 0) {
+                            setSubcategoryData(categoryPostResponse.data.subCategoryList)
+                        }
+                        if (categoryPostResponse.data.items.size > 0) {
+                            itemsList = categoryPostResponse.data.items
+                            itemAdapter.setData(itemsList)
+                            itemAdapter.notifyDataSetChanged()
+                        }
+
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        pvProgressDetail.visibility=View.GONE
+                        Utils.showSimpleMessage(this@CategoryDetailsActivity, msg!!).show()
+                    }
+                })
+
+    }
+
+
+    private fun lickedApi(itemId: Int, position: Int) {
+        val lickedRequest = LickedRequest(Utils.getPreferencesString(this, AppConstants.USER_ID), itemId)
+        ServiceHelper().likeService(lickedRequest,
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        isClicked = false
+                        val responseLike = response.body() as LikedResponse
+                        val items = Item(itemsList[position].id,
+                                itemsList[position].user_id,
+                                itemsList[position].category_id,
+                                itemsList[position].name,
+                                itemsList[position].price,
+                                itemsList[position].item_type,
+                                itemsList[position].created_at,
+                                itemsList[position].likes_count + 1,
+                                responseLike.like_id,
+                                !itemsList[position].is_like,
+                                itemsList[position].image_url)
+                        itemsList[position] = items
+                        itemAdapter.notifyItemChanged(position)
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        isClicked = false
+                        //Utils.showSimpleMessage(homeActivity, msg!!).show()
+                    }
+                })
+    }
+
+    private fun deleteLikeApi(position: Int, lickedId: Int) {
+        ServiceHelper().disLikeService(lickedId,
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        isClicked = false
+                        val likeResponse = response.body() as DisLikeResponse
+                        val items = Item(itemsList[position].id,
+                                itemsList[position].user_id,
+                                itemsList[position].category_id,
+                                itemsList[position].name,
+                                itemsList[position].price,
+                                itemsList[position].item_type,
+                                itemsList[position].created_at,
+                                itemsList[position].likes_count - 1,
+                                0,
+                                !itemsList[position].is_like,
+                                itemsList[position].image_url)
+                        itemsList[position] = items
+                        itemAdapter.notifyItemChanged(position)
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        isClicked = false
+                        //     Utils.showSimpleMessage(homeActivity, msg!!).show()
+                    }
+                })
     }
 }

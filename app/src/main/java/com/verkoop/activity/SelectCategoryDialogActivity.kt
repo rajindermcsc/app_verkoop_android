@@ -42,7 +42,6 @@ class SelectCategoryDialogActivity : AppCompatActivity(), SubCategoryDialogAdapt
                     overridePendingTransition(0,0)
                 }
                 .start()
-
     }
 
     private val categoryList= ArrayList<DataCategory>()

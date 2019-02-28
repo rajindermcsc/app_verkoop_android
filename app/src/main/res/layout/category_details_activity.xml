@@ -48,11 +48,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <LinearLayout
+                    android:id="@+id/llParent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:orientation="vertical">
                 <com.verkoop.fonts.textView.GothiBoldTextView
-                    android:id="@+id/tvViewAll"
+                    android:id="@+id/tvCategorySelected"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Men's categories"
                     android:layout_marginTop="@dimen/dp_10"
                     android:layout_marginStart="@dimen/dp_12"
                     android:textColor="@color/text_gray"
@@ -65,7 +70,7 @@
                     android:layout_marginStart="@dimen/dp_5"
                     android:layout_marginTop="@dimen/dp_8"
                     android:layout_marginBottom="@dimen/dp_12"
-                    android:layout_height="110dp"/>
+                    android:layout_height="wrap_content"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -75,16 +80,22 @@
                     android:layout_marginStart="@dimen/dp_8"
                     android:background="@color/light_gray" />
 
+                </LinearLayout>
+
                 <com.verkoop.utils.NonscrollRecylerview
                     android:id="@+id/rvItemListDetails"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/dp_8"
-                    android:layout_marginRight="@dimen/dp_8" />
+                    android:layout_height="match_parent"/>
 
             </LinearLayout>
         </ScrollView>
 
+        <ProgressBar
+            android:id="@+id/pvProgressDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center"/>
         <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/card_view"
             android:layout_width="wrap_content"

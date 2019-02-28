@@ -25,6 +25,7 @@ import retrofit2.Response
 class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener {
     private lateinit var myProfileItemAdapter: MyProfileItemAdapter
     private var  itemsList=ArrayList<Item>()
+    private var isClicked:Boolean = false
 
     override fun getItemDetailsClick(itemId: Int) {
         val intent = Intent(context, ProductDetailsActivity::class.java)
@@ -34,10 +35,15 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
 
     override fun getLikeDisLikeClick(type: Boolean, position: Int,lickedId:Int,itemId:Int) {
         if(type){
-
-            deleteLikeApi(position,lickedId)
+            if(!isClicked) {
+                isClicked=true
+                deleteLikeApi(position, lickedId)
+            }
         }else{
-            lickedApi(itemId,position)
+            if(!isClicked) {
+                isClicked=true
+                lickedApi(itemId, position)
+            }
         }
     }
 
@@ -146,6 +152,7 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
         ServiceHelper().likeService(lickedRequest,
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
+                        isClicked=false
                         val responseLike = response.body() as LikedResponse
                         val items= Item(itemsList[position].id,
                                 itemsList[position].user_id,
@@ -160,11 +167,11 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
                                 itemsList[position].image_url)
                         itemsList[position] = items
                         myProfileItemAdapter.notifyItemChanged(position)
-
                     }
 
                     override fun onFailure(msg: String?) {
-                     //   Utils.showSimpleMessage(homeActivity, msg!!).show()
+                        isClicked=false
+                     //Utils.showSimpleMessage(homeActivity, msg!!).show()
                     }
                 })
     }
@@ -173,6 +180,7 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
         ServiceHelper().disLikeService(lickedId,
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
+                        isClicked=false
                         val likeResponse = response.body() as DisLikeResponse
                         val items= Item(itemsList[position].id,
                                 itemsList[position].user_id,
@@ -190,6 +198,7 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
                     }
 
                     override fun onFailure(msg: String?) {
+                        isClicked=false
                    //     Utils.showSimpleMessage(homeActivity, msg!!).show()
                     }
                 })

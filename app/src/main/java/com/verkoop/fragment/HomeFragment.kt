@@ -31,13 +31,20 @@ import retrofit2.Response
 
 class HomeFragment : BaseFragment(), LikeDisLikeListener {
     private var  itemsList=ArrayList<ItemHome>()
+    private var isClicked:Boolean=false
 
     override fun getLikeDisLikeClick(type: Boolean, position: Int, lickedId: Int, itemId: Int) {
         if (Utils.isOnline(homeActivity)) {
             if(type){
-                deleteLikeApi(position,lickedId)
+                if(!isClicked) {
+                    isClicked=true
+                    deleteLikeApi(position, lickedId)
+                }
             }else{
-                lickedApi(itemId,position)
+                if(!isClicked) {
+                    isClicked=true
+                    lickedApi(itemId, position)
+                }
             }
         } else {
             Utils.showSimpleMessage(homeActivity, getString(R.string.check_internet)).show()
@@ -105,7 +112,9 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
     }
 
     private fun setData() {
-        tvViewAll.setOnClickListener { Utils.showToast(homeActivity, "Work in progress.") }
+        tvViewAll.setOnClickListener {
+            val intent = Intent(homeActivity, FullCategoriesActivity::class.java)
+            startActivity(intent) }
         tvCategoryHome.setOnClickListener {
             val intent = Intent(homeActivity, FullCategoriesActivity::class.java)
             startActivity(intent)
@@ -204,6 +213,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
         ServiceHelper().likeService(lickedRequest,
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
+                        isClicked=false
                         val responseLike = response.body() as LikedResponse
                         val items= ItemHome(itemsList[position].id,
                                 itemsList[position].user_id,
@@ -224,6 +234,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
                     }
 
                     override fun onFailure(msg: String?) {
+                        isClicked=false
                   //      Utils.showSimpleMessage(homeActivity, msg!!).show()
                     }
                 })
@@ -233,6 +244,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
         ServiceHelper().disLikeService(lickedId,
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
+                        isClicked=false
                         val likeResponse = response.body() as DisLikeResponse
                         val items= ItemHome(itemsList[position].id,
                                 itemsList[position].user_id,
@@ -252,6 +264,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
                     }
 
                     override fun onFailure(msg: String?) {
+                        isClicked=false
                       //  Utils.showSimpleMessage(homeActivity, msg!!).show()
                     }
                 })

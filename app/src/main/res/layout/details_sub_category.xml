@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <android.support.v7.widget.CardView
-        android:layout_width="@dimen/dp_110"
-        android:layout_height="@dimen/dp_110"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_margin="@dimen/dp_5"
         app:cardElevation="@dimen/dp_4"
-        app:cardCornerRadius="@dimen/dp_10">
+        app:cardCornerRadius="@dimen/dp_6">
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/ivSubCategory"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:src="@mipmap/pic_2"/>
-            <TextView
+            android:src="@mipmap/post_placeholder"/>
+            <com.verkoop.fonts.textView.GothiBoldTextView
+                android:id="@+id/tvSubCategoryPost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/sp_12"

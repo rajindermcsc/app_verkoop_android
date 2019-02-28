@@ -1,6 +1,7 @@
 package com.verkoop.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import com.verkoop.R
+import com.verkoop.activity.CategoryDetailsActivity
 import com.verkoop.models.Category
 import com.verkoop.utils.AppConstants
 import kotlinx.android.extensions.LayoutContainer
@@ -45,6 +47,13 @@ class CategoryListAdapter(private val context: Context, private var categoryList
                         .centerInside()
                         .error(R.mipmap.setting)
                         .into(ivItemsHome)
+            }
+            itemView.setOnClickListener {
+                val intent = Intent(context, CategoryDetailsActivity::class.java)
+                intent.putExtra(AppConstants.CATEGORY_ID, data.id)
+                intent.putExtra(AppConstants.TYPE, 0)
+                intent.putExtra(AppConstants.SUB_CATEGORY, data.name)
+                context.startActivity(intent)
             }
         }
     }

@@ -42,6 +42,10 @@ interface MyService {
     @DELETE("likes/{licked_id}")
     fun disLikedApi(@Path(value = "licked_id", encoded = true) fullUrl: Int): Call<DisLikeResponse>
 
+
+    @PUT("categoryFilterData/{user_id}")
+    fun categoryPostApi(@Body request: CategoryPostRequest,@Path(value = "user_id", encoded = true) userId: String): Call<CategoryPostResponse>
+
     @GET("nearbysearch/json")
     fun getDetails(@Query("location") loc: String,
                    @Query("radius") radius: String,

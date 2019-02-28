@@ -224,7 +224,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         //If the login succeed
         if (result.isSuccess) {
             val acct = result.signInAccount
-            var fullName = acct!!.displayName
+            val fullName = acct!!.displayName
 
             val email = acct.email
             if (!TextUtils.isEmpty(acct.id) && !TextUtils.isEmpty(acct.email)) {

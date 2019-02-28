@@ -47,3 +47,10 @@ data class LickedRequest(
     val user_id: String,
     val item_id: Int
 )
+
+data class CategoryPostRequest(
+    val category_id: String,
+    val type: Int,
+    val userId: String
+
+)

@@ -53,7 +53,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="@dimen/dp_10"
-                                android:src="@mipmap/close"
+                                android:src="@mipmap/close_"
                                 android:contentDescription="@string/image" />
                         </LinearLayout>
                         <android.support.v7.widget.RecyclerView

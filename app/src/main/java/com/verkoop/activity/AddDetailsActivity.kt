@@ -294,7 +294,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                  lng = data.getStringExtra (AppConstants.LONGITUDE)
                 cbNearBy.isChecked = true
                 tvPlaceAddress.text=address
-                tvPlaceAddress.setTextColor(ContextCompat.getColor(this,R.color.dark_black))
+                tvPlaceAddress.setTextColor(ContextCompat.getColor(this,R.color.colorPrimary))
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 expansionLayout.collapse(true)

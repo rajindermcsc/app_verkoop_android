@@ -42,10 +42,10 @@ class FullCategoryAdapter(private val context: Context, private var categoryList
             rvSubCategoriesName.isNestedScrollingEnabled = false
             rvSubCategoriesName.adapter = subCategoryAdapter
             tvCategoryName.text = modal.name
-            tvCategoryName.setOnClickListener {selectedCategory.categoryName(modal.id.toString())  }
+            tvCategoryName.setOnClickListener {selectedCategory.categoryName(modal.id,modal.name)  }
         }
     }
     interface SelectedCategory{
-        fun categoryName(name:String)
+        fun categoryName(categoryId:Int,categoryName:String)
     }
 }

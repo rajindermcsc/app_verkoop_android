@@ -126,4 +126,5 @@
     <string name="selecting_a_location_helps_more_buyers_to_find_you_item_we_recommend_adding_one">Selecting a location helps more buyers to find you item. We recommend adding one.</string>
     <string name="resume">Resume</string>
     <string name="leave">Leave</string>
+    <string name="three_category">You can not select more than 3 option.</string>
 </resources>

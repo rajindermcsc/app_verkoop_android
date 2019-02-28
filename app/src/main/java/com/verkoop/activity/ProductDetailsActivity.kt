@@ -15,6 +15,7 @@ import com.verkoop.utils.Utils
 
 import kotlinx.android.synthetic.main.item_details_activity.*
 import kotlinx.android.synthetic.main.item_row.*
+import kotlinx.android.synthetic.main.my_profile_row.*
 import kotlinx.android.synthetic.main.toolbar_product_details.*
 import retrofit2.Response
 
@@ -51,6 +52,12 @@ class ProductDetailsActivity:AppCompatActivity(){
         tvUserName.text=data.username
         tvDateDetails.text=StringBuilder().append(Utils.getDateDifferenceDetails(data.created_at)).append(" ").append("ago")
         tvDate.text=StringBuilder().append(Utils.getDateDifferenceDetails(data.created_at)).append(" ").append("ago")
+        tvCategoryDetail.text=StringBuilder().append(": ").append(data.category_name)
+        if(data.item_type==1){
+            tvType.text="New"
+        }else{
+            tvType.text=getString(R.string.used)
+        }
     }
 
     private fun getItemDetailsService(itemId: Int) {

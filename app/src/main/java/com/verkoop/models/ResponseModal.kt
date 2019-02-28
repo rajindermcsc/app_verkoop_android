@@ -21,9 +21,8 @@ data class ImageModal(
 )
 
 data class SignUpResponse(
-        val status: Int,
         val message: String,
-        val data: DataSignUp
+        val data: DataSignUp?
 )
 
 data class DataSignUp(
@@ -315,4 +314,36 @@ data class DataSocial(
     val created_at: String,
     val updated_at: String,
     val api_token: String
+)
+
+data class CategoryPostResponse(
+    val data: DataPost,
+    val message: String
+)
+
+data class DataPost(
+    val subCategoryList: ArrayList<SubCategoryPost>,
+    val items: ArrayList<Item>
+)
+
+data class ItemData(
+    val id: Int,
+    val user_id: Int,
+    val category_id: Int,
+    val name: String,
+    val price: Int,
+    val item_type: Int,
+    val created_at: CreatedAt,
+    val like_id: Int,
+    val is_like: Boolean,
+    val items_like_count: Int,
+    val image_url: String,
+    val username: String,
+    val profile_pic: String
+)
+
+data class SubCategoryPost(
+    val image: String,
+    val name: String,
+    val id: Int
 )
