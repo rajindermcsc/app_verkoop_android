@@ -8,17 +8,19 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import com.verkoop.R
 import com.verkoop.adapter.GalleryAdapter
 import com.verkoop.customgallery.Define
-import com.verkoop.utils.PermissionCheck
 import com.verkoop.customgallery.PickerController
 import com.verkoop.customgallery.SingleMediaScanner
+import com.verkoop.models.AddItemRequest
 import com.verkoop.models.ImageModal
 import com.verkoop.utils.AppConstants
 import com.verkoop.utils.CommonUtils
+import com.verkoop.utils.PermissionCheck
 import kotlinx.android.synthetic.main.gallery_activity.*
 import kotlinx.android.synthetic.main.toolbar_filter.*
 import java.io.File
@@ -30,12 +32,18 @@ class GalleryActivity : AppCompatActivity(), GalleryAdapter.ImageCountCallBack {
     private lateinit var itemAdapter: GalleryAdapter
     private lateinit var pickerController: PickerController
     private val imageUris = ArrayList<ImageModal>()
+    private var addItemsRequest: AddItemRequest? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.gallery_activity)
         pickerController = PickerController(this)
         setData()
         setAdapter()
+    }
+
+    override fun onResume() {
+        super.onResume()
+       // setAdapter()
     }
 
     private fun setAdapter() {
@@ -49,6 +57,7 @@ class GalleryActivity : AppCompatActivity(), GalleryAdapter.ImageCountCallBack {
     }
 
     fun setAdapterData(result: ArrayList<ImageModal>) {
+        imageUris.clear()
         imageUris.addAll(result)
         itemAdapter.setData(imageUris)
         itemAdapter.notifyDataSetChanged()
@@ -79,6 +88,7 @@ class GalleryActivity : AppCompatActivity(), GalleryAdapter.ImageCountCallBack {
             } else {
                 val intent = Intent(this, AddDetailsActivity::class.java)
                 intent.putStringArrayListExtra(AppConstants.SELECTED_LIST, selectedList)
+                intent.putExtra(AppConstants.POST_DATA, addItemsRequest)
                 startActivityForResult(intent, 1)
                 break
             }
@@ -110,13 +120,32 @@ class GalleryActivity : AppCompatActivity(), GalleryAdapter.ImageCountCallBack {
         }
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
-                val result = data!!.getIntExtra(AppConstants.TRANSACTION,0)
-                if(result==1){
+                val result = data!!.getIntExtra(AppConstants.TRANSACTION, 0)
+                if (result == 1) {
                     val returnIntent = Intent()
                     returnIntent.putExtra(AppConstants.TRANSACTION, result)
                     setResult(Activity.RESULT_OK, returnIntent)
                     finish()
-                    overridePendingTransition(0,0)
+                    overridePendingTransition(0, 0)
+                } else if (result == 2) {
+                    addItemsRequest = null
+                    addItemsRequest = data.getParcelableExtra(AppConstants.POST_DATA)
+                    /*if (addItemsRequest != null) {
+                        if (addItemsRequest!!.imageList.size > 0) {
+                            for (i in addItemsRequest!!.imageList.indices) {
+                                for (j in imageUris.indices) {
+                                    if(!TextUtils.isEmpty(addItemsRequest!!.imageList[i])) {
+                                        if (addItemsRequest!!.imageList[i] == imageUris[j].imageUrl) {
+                                            val imageModal = ImageModal(imageUris[j].imageUrl, true, false, i + 1)
+                                            imageUris[j] = imageModal
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        itemAdapter.notifyDataSetChanged()
+                    }*/
+
                 }
             }
             if (resultCode == Activity.RESULT_CANCELED) {
@@ -144,7 +173,7 @@ class GalleryActivity : AppCompatActivity(), GalleryAdapter.ImageCountCallBack {
                     } else {
                         checkPermission()
                         PermissionCheck(this).showPermissionDialog()
-                        //  finish()
+                        // finish()
                     }
                 }
             }

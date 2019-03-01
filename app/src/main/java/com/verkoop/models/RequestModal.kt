@@ -1,5 +1,7 @@
 package com.verkoop.models
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
 
 data class SignUpRequest(
@@ -21,9 +23,12 @@ data class LoginSocialRequest(
     val social_id: String,
     val login_type: String
 )
+
+@Parcelize
 data class AddItemRequest(
-        val imageList: List<String>,
+        val imageList: ArrayList<String>,
         val categoriesId: String,
+        /*val categoryName: String,*/
         val name: String,
         val price: String,
         val item_type: String,
@@ -33,8 +38,7 @@ data class AddItemRequest(
         val Longitude: String,
         val Address: String,
         val meet_up: String
-
-)
+): Parcelable
 
 data class PlaceSearchRequest(
     val loc: String,

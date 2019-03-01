@@ -21,6 +21,7 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.DisplayMetrics
 import android.util.Log
+import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.WindowManager
 import com.verkoop.BuildConfig
@@ -34,6 +35,7 @@ import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.*
 import kotlinx.android.synthetic.main.add_details_activity.*
 import kotlinx.android.synthetic.main.details_toolbar.*
+import kotlinx.android.synthetic.main.profile_fragment.*
 import retrofit2.Response
 import java.io.File
 
@@ -42,6 +44,7 @@ import java.io.File
 class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedImageCount {
     private val REQUEST_CODE = 11
     private var imageList = ArrayList<String>()
+    private var addItemRequest: AddItemRequest? =null
     private var selectedImageList = ArrayList<ImageModal>()
     private val realPath = java.util.ArrayList<String>()
     private var uri: Uri? = null
@@ -68,6 +71,60 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         setListData(imageList)
         setData()
         setSelect()
+        setIntentData()
+    }
+
+    private fun setIntentData() {
+        addItemRequest = intent.getParcelableExtra(AppConstants.POST_DATA)
+        if(addItemRequest!=null){
+            if(!TextUtils.isEmpty(addItemRequest!!.name)){
+                etNameDetail.setText(addItemRequest!!.name)
+            }
+            if(!TextUtils.isEmpty(addItemRequest!!.price)){
+                etPrice.setText(StringBuilder().append("$").append(addItemRequest!!.price))
+            }
+            if(!TextUtils.isEmpty(addItemRequest!!.description)){
+                etDescriptionDetail.setText(addItemRequest!!.description)
+            }
+            if(!TextUtils.isEmpty(addItemRequest!!.item_type)){
+                itemType=addItemRequest!!.item_type.toInt()
+                if(itemType==1){
+                    setSelect()
+                }else{
+                    setSelection()
+                    itemType = 2
+                    ivUsedDetail.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.used_active))
+                    tvUsedDetail.setTextColor(ContextCompat.getColor(this, R.color.white))
+                    llUsedDetail.background = ContextCompat.getDrawable(this, R.drawable.red_rectangle_shape)
+                }
+             }
+            if(!TextUtils.isEmpty(addItemRequest!!.Latitude)){
+                lat=addItemRequest!!.Latitude
+            }
+            if(!TextUtils.isEmpty(addItemRequest!!.Longitude)){
+                lng=addItemRequest!!.Longitude
+            }
+            if(!TextUtils.isEmpty(addItemRequest!!.Address)){
+                address=addItemRequest!!.Address
+                tvPlaceAddress.text=addItemRequest!!.Address
+            }
+            if(!TextUtils.isEmpty(addItemRequest!!.categoriesId)){
+                categoryId=addItemRequest!!.categoriesId.toInt()
+            }
+            if(!TextUtils.isEmpty(addItemRequest!!.meet_up)){
+                var meetUp=addItemRequest!!.meet_up.toInt()
+                if(meetUp==1){
+                    cbNearBy.isChecked=true
+                    tvPlaceAddress.setTextColor(ContextCompat.getColor(this,R.color.colorPrimary))
+                   expansionLayout.expand(true)
+                }else{
+                    cbNearBy.isChecked=false
+                    expansionLayout.collapse(true)
+                }
+            }
+
+        }
+
     }
 
 
@@ -436,5 +493,23 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 }
         val alert: AlertDialog = builder.create()
         alert.show()
+    }
+
+    override fun onBackPressed() {
+        val sendList=ArrayList<String>()
+        for (i in selectedImageList.indices) {
+            sendList.add(selectedImageList[i].imageUrl)
+        }
+        val addItemRequest:AddItemRequest = if(cbNearBy.isChecked){
+            AddItemRequest(sendList, categoryId.toString(), etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID),lat,lng,address,"1")
+        }else{
+            AddItemRequest(sendList, categoryId.toString(), etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID),"","","","0")
+        }
+    //   val addItemsRequest= AddItemRequest(sendList, categoryId.toString(), etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID),"","","","0")
+        val returnIntent = Intent()
+        returnIntent.putExtra(AppConstants.POST_DATA, addItemRequest)
+        returnIntent.putExtra(AppConstants.TRANSACTION, 2)
+        setResult(Activity.RESULT_OK, returnIntent)
+        finish()
     }
 }
