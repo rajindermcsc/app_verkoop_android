@@ -15,6 +15,8 @@ import com.verkoop.adapter.CategoryAdapter
 import com.verkoop.fragment.FirstCategoryFragment
 import com.verkoop.models.CategoriesResponse
 import com.verkoop.models.DataCategory
+import com.verkoop.models.LikedResponse
+import com.verkoop.models.UpdateCategoryRequest
 import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
@@ -32,7 +34,6 @@ class CategoriesActivity : AppCompatActivity(), CategoryAdapter.SelectedCategory
             callCategoriesApi()
         } else {
             Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
-
         }
     }
 
@@ -60,11 +61,18 @@ class CategoriesActivity : AppCompatActivity(), CategoryAdapter.SelectedCategory
             }
         })
         tvNext.setOnClickListener {
+            val selectedList=ArrayList<String>()
             if (selectionCount == 3) {
-                Utils.savePreferencesString(this, AppConstants.COMING_FROM, "category_screen")
-                val intent = Intent(this@CategoriesActivity, PickOptionActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
+                for (i in categoryList.indices){
+                    if(categoryList[i].isSelected){
+                        selectedList.add(categoryList[i].id.toString())
+                    }
+                }
+                if (Utils.isOnline(this)) {
+                    updateCategoryApi(selectedList)
+                } else {
+                    Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+                }
             } else {
                 Utils.showSimpleMessage(this, getString(R.string.select_three)).show()
             }
@@ -150,7 +158,7 @@ class CategoriesActivity : AppCompatActivity(), CategoryAdapter.SelectedCategory
 
         Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
     }
-
+    /*get categories Api*/
     private fun callCategoriesApi() {
         VerkoopApplication.instance.loader.show(this)
         ServiceHelper().categoriesService(
@@ -168,4 +176,28 @@ class CategoriesActivity : AppCompatActivity(), CategoryAdapter.SelectedCategory
                     }
                 })
     }
+
+
+    private fun updateCategoryApi(selectedList: ArrayList<String>) {
+        VerkoopApplication.instance.loader.show(this)
+        val request= UpdateCategoryRequest(Utils.getPreferencesString(this,AppConstants.USER_ID),selectedList.toString().replace("[","").replace("]",""))
+        ServiceHelper().updateCategoryService(request,
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        VerkoopApplication.instance.loader.hide(this@CategoriesActivity)
+                        val response = response.body() as LikedResponse
+                        Utils.showToast(this@CategoriesActivity,response.message)
+                        Utils.savePreferencesString(this@CategoriesActivity, AppConstants.COMING_FROM, "category_screen")
+                        val intent = Intent(this@CategoriesActivity, PickOptionActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        VerkoopApplication.instance.loader.hide(this@CategoriesActivity)
+                        Utils.showSimpleMessage(this@CategoriesActivity, msg!!).show()
+                    }
+                })
+    }
+
 }

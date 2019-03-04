@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Typeface
 import android.location.LocationManager
 import android.net.Uri
 import android.os.AsyncTask
@@ -21,7 +22,6 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.DisplayMetrics
 import android.util.Log
-import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.WindowManager
 import com.verkoop.BuildConfig
@@ -35,7 +35,6 @@ import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.*
 import kotlinx.android.synthetic.main.add_details_activity.*
 import kotlinx.android.synthetic.main.details_toolbar.*
-import kotlinx.android.synthetic.main.profile_fragment.*
 import retrofit2.Response
 import java.io.File
 
@@ -50,10 +49,12 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
     private var uri: Uri? = null
     private var imageCount = 0
     private var categoryId = 0
+    private var categoryName = ""
     private var lat=""
     private var lng=""
     private var address=""
     private var itemType = 1
+    private var isFocus: Boolean=false
 
     override fun selectDetailCount(count: Int, position: Int) {
         if (count > 0) {
@@ -111,8 +112,15 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             if(!TextUtils.isEmpty(addItemRequest!!.categoriesId)){
                 categoryId=addItemRequest!!.categoriesId.toInt()
             }
+            if(!TextUtils.isEmpty(addItemRequest!!.categoryName)){
+                categoryName=addItemRequest!!.categoryName
+                tvCategory.text = categoryName
+                tvCategory.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                vSelectCategory.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+            }
+
             if(!TextUtils.isEmpty(addItemRequest!!.meet_up)){
-                var meetUp=addItemRequest!!.meet_up.toInt()
+                val meetUp=addItemRequest!!.meet_up.toInt()
                 if(meetUp==1){
                     cbNearBy.isChecked=true
                     tvPlaceAddress.setTextColor(ContextCompat.getColor(this,R.color.colorPrimary))
@@ -128,7 +136,11 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
     }
 
 
+
+
     private fun setData() {
+        val font = Typeface.createFromAsset(assets, "fonts/gothicb.ttf")
+        cbNearBy.typeface = font
         llLocation.setOnClickListener {
             val intent = Intent(this, SearchLocationActivity::class.java)
             startActivityForResult(intent, 12)
@@ -189,15 +201,27 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         })
         etPrice.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
-                etPrice.setText(this@AddDetailsActivity.getString(R.string.dollar))
-                etPrice.setSelection(1)
+                isFocus=true
+                if(etPrice.text.toString().isEmpty()) {
+                    etPrice.setText(this@AddDetailsActivity.getString(R.string.dollar))
+                    etPrice.setSelection(1)
+                }
+            }else{
+                isFocus=false
+                if(etPrice.length()==1){
+                    etPrice.setSelection(0)
+                    etPrice.setText("")
+                    etPrice.hint=getString(R.string.price)
+                }
             }
         }
         etPrice.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
-                if (etPrice.length() == 0) {
-                    etPrice.setText("$")
-                    etPrice.setSelection(1)
+                if(isFocus) {
+                    if (etPrice.length() == 0) {
+                        etPrice.setText("$")
+                        etPrice.setSelection(1)
+                    }
                 }
             }
 
@@ -333,7 +357,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode === 1) {
             if (resultCode === Activity.RESULT_OK) {
-                val categoryName = data!!.getStringExtra(AppConstants.CATEGORY_NAME)
+                categoryName = data!!.getStringExtra(AppConstants.CATEGORY_NAME)
                 categoryId = data.getIntExtra(AppConstants.CATEGORY_ID, 0)
                 tvCategory.text = categoryName
                 tvCategory.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
@@ -422,9 +446,9 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
 
             private fun uploadImageItem(realPath: java.util.ArrayList<String>) {
                 val addItemRequest:AddItemRequest = if(cbNearBy.isChecked){
-                    AddItemRequest(realPath, categoryId.toString(), etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID),lat,lng,address,"1")
+                    AddItemRequest(realPath, categoryId.toString(), categoryName,etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID),lat,lng,address,"1")
                 }else{
-                    AddItemRequest(realPath, categoryId.toString(), etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID),"","","","0")
+                    AddItemRequest(realPath, categoryId.toString(), categoryName,etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID),"","","","0")
                 }
 
                 ServiceHelper().addItemsApi(addItemRequest,
@@ -501,11 +525,10 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             sendList.add(selectedImageList[i].imageUrl)
         }
         val addItemRequest:AddItemRequest = if(cbNearBy.isChecked){
-            AddItemRequest(sendList, categoryId.toString(), etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID),lat,lng,address,"1")
+            AddItemRequest(sendList, categoryId.toString(),categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID),lat,lng,address,"1")
         }else{
-            AddItemRequest(sendList, categoryId.toString(), etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID),"","","","0")
+            AddItemRequest(sendList, categoryId.toString(), categoryName,etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID),"","","","0")
         }
-    //   val addItemsRequest= AddItemRequest(sendList, categoryId.toString(), etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID),"","","","0")
         val returnIntent = Intent()
         returnIntent.putExtra(AppConstants.POST_DATA, addItemRequest)
         returnIntent.putExtra(AppConstants.TRANSACTION, 2)

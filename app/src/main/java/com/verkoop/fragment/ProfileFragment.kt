@@ -30,6 +30,7 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
     override fun getItemDetailsClick(itemId: Int) {
         val intent = Intent(context, ProductDetailsActivity::class.java)
         intent.putExtra(AppConstants.ITEM_ID, itemId)
+        intent.putExtra(AppConstants.COMING_FROM, 1)
         homeActivity.startActivity(intent)
     }
 

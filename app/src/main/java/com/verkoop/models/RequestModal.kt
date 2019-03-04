@@ -28,7 +28,7 @@ data class LoginSocialRequest(
 data class AddItemRequest(
         val imageList: ArrayList<String>,
         val categoriesId: String,
-        /*val categoryName: String,*/
+        val categoryName: String,
         val name: String,
         val price: String,
         val item_type: String,
@@ -56,5 +56,9 @@ data class CategoryPostRequest(
     val category_id: String,
     val type: Int,
     val userId: String
+)
 
+data class UpdateCategoryRequest(
+    val user_id: String,
+    val category_id: String
 )

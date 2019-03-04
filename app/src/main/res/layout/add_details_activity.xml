@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_bag"
@@ -247,15 +248,15 @@
                             android:id="@+id/cbNearBy"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/dp_8"
-                            android:layout_marginStart="@dimen/dp_10"
+                           android:paddingTop="@dimen/dp_10"
+                            android:paddingBottom="@dimen/dp_10"
+                            android:paddingStart="@dimen/dp_12"
+                            android:paddingEnd="@dimen/dp_12"
                             android:background="@null"
                             android:button="@drawable/radio_button_selector"
                             android:layoutDirection="rtl"
-                            android:paddingBottom="@dimen/dp_10"
-                            android:paddingTop="@dimen/dp_10"
                             android:text="@string/meet_up"
-                            android:textColor="@color/dark_black"
+                            android:textColor="@color/light_gray"
                             android:textSize="@dimen/sp_14" />
 
                         <View
@@ -270,10 +271,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|right"
-                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
                         android:adjustViewBounds="true"
                         android:visibility="gone"
-                        app:srcCompat="@drawable/ic_expansion_header_indicator_grey_24dp" />
+                        app:srcCompat="@drawable/ic_expansion_header_indicator_grey_24dp"
+                        tools:ignore="RtlHardcoded" />
 
 
                 </com.github.florent37.expansionpanel.ExpansionHeader>

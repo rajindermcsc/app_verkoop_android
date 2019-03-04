@@ -3,6 +3,7 @@ package com.verkoop.activity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import com.daimajia.slider.library.SliderTypes.BaseSliderView
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView
 import com.verkoop.R
@@ -25,6 +26,10 @@ class ProductDetailsActivity:AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.item_details_activity)
+        if(intent.getIntExtra(AppConstants.COMING_FROM,0)==1){
+            tvSell.visibility= View.GONE
+            ivRight.visibility= View.INVISIBLE
+        }
         if (Utils.isOnline(this)) {
             getItemDetailsService(intent.getIntExtra(AppConstants.ITEM_ID,0))
         } else {

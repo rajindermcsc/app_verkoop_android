@@ -121,7 +121,6 @@ class SelectCategoryDialogActivity : AppCompatActivity(), SubCategoryDialogAdapt
 
     }
     private fun callCategoriesApi() {
-       // VerkoopApplication.instance.loader.show(this)
         window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         pbProgress.visibility=View.VISIBLE
@@ -139,7 +138,6 @@ class SelectCategoryDialogActivity : AppCompatActivity(), SubCategoryDialogAdapt
                     override fun onFailure(msg: String?) {
                         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                         pbProgress.visibility=View.GONE
-                       // VerkoopApplication.instance.loader.hide(this@SelectCategoryDialogActivity)
                         Utils.showSimpleMessage(this@SelectCategoryDialogActivity, msg!!).show()
                     }
                 })

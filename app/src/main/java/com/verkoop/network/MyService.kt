@@ -46,6 +46,9 @@ interface MyService {
     @PUT("categoryFilterData/{user_id}")
     fun categoryPostApi(@Body request: CategoryPostRequest,@Path(value = "user_id", encoded = true) userId: String): Call<CategoryPostResponse>
 
+    @POST("user/selectedUserCategroy")
+    fun updateServiceApi(@Body request: UpdateCategoryRequest): Call<LikedResponse>
+
     @GET("nearbysearch/json")
     fun getDetails(@Query("location") loc: String,
                    @Query("radius") radius: String,

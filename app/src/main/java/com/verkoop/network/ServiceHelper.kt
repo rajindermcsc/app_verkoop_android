@@ -387,4 +387,27 @@ import java.util.ArrayList
              }
          })
      }
+
+     fun  updateCategoryService(updateCategoryRequest: UpdateCategoryRequest,onResponse: OnResponse) {
+         val myService =  ApiClient.getClient().create(MyService::class.java)
+         val responseCall = myService.updateServiceApi(updateCategoryRequest)
+         responseCall.enqueue(object : Callback<LikedResponse> {
+             override fun onResponse(call: Call<LikedResponse>, response: Response<LikedResponse>) {
+                 val res = response.body()
+                 Log.e("<<<Response>>>", Gson().toJson(res))
+                 if (res != null) {
+                     when {
+                         response.code() == 200 -> onResponse.onSuccess(response)
+                         else -> onResponse.onFailure(response.message())
+                     }
+                 }else {
+                     onResponse.onFailure("Something went wrong!")
+                 }
+             }
+
+             override fun onFailure(call: Call<LikedResponse>, t: Throwable) {
+                 onResponse.onFailure(t.message)
+             }
+         })
+     }
 }
