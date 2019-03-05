@@ -19,13 +19,14 @@ import com.verkoop.utils.Utils
 import kotlinx.android.synthetic.main.category_details_activity.*
 import kotlinx.android.synthetic.main.toolbar_details_.*
 import retrofit2.Response
+import android.app.Activity
 
+@Suppress("DEPRECATED_IDENTITY_EQUALS")
 class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener {
     private var isClicked: Boolean = false
     private lateinit var itemAdapter: ItemAdapter
     private var itemsList = ArrayList<Item>()
-    private val categoryList = ArrayList<CategoryModal>()
-
+    private var filterRequest: FilterRequest? =null
     override fun getLikeDisLikeClick(type: Boolean, position: Int, lickedId: Int, itemId: Int) {
         if (type) {
             if (!isClicked) {
@@ -65,15 +66,22 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener {
     }
 
     private fun setData() {
+        ivFavourite.setOnClickListener {
+            val intent=Intent(this,FavouritesActivity::class.java)
+            startActivity(intent)
+        }
         val type = intent.getIntExtra(AppConstants.TYPE, 0)
         toolbar_title.text = intent.getStringExtra(AppConstants.SUB_CATEGORY)
         if (type == 1) {
             llParent.visibility = View.GONE
-            getDetailsApi(intent.getIntExtra(AppConstants.CATEGORY_ID, 0), type)
+            val lickedRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID,0).toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID),"","","","","","","")
+            getDetailsApi(lickedRequest)
+
         } else {
             tvCategorySelected.text = intent.getStringExtra(AppConstants.SUB_CATEGORY)
             llParent.visibility = View.VISIBLE
-            getDetailsApi(intent.getIntExtra(AppConstants.CATEGORY_ID, 0), type)
+            val lickedRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID,0).toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID),"","","","","","","")
+            getDetailsApi(lickedRequest)
         }
         iv_left.setOnClickListener { onBackPressed() }
         ivFilter.setOnClickListener {
@@ -94,10 +102,29 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener {
         rvItemListDetails.adapter = itemAdapter
     }
 
-    private fun getDetailsApi(categoryId: Int, type: Int) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode === 1) {
+            if (resultCode === Activity.RESULT_OK) {
+                filterRequest= data!!.getParcelableExtra(AppConstants.POST_DATA)
+              //  getDetailsApi(intent.getIntExtra(AppConstants.CATEGORY_ID, 0), type)
+
+            }
+            if (resultCode === Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+
+    }
+
+    override fun onBackPressed() {
+        val returnIntent = Intent()
+        setResult(Activity.RESULT_CANCELED, returnIntent)
+        finish()
+
+    }
+    private fun getDetailsApi(request: FilterRequest) {
         pvProgressDetail.visibility=View.VISIBLE
-        val lickedRequest = CategoryPostRequest(categoryId.toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID))
-        ServiceHelper().categoryPostService(lickedRequest,
+        ServiceHelper().categoryPostService(request,
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         pvProgressDetail.visibility=View.GONE
@@ -120,7 +147,6 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener {
                 })
 
     }
-
 
     private fun lickedApi(itemId: Int, position: Int) {
         val lickedRequest = LickedRequest(Utils.getPreferencesString(this, AppConstants.USER_ID), itemId)

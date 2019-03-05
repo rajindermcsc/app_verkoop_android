@@ -1,7 +1,6 @@
 package com.verkoop.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -10,47 +9,44 @@ import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import com.verkoop.LikeDisLikeListener
 import com.verkoop.R
-import com.verkoop.activity.CategoryDetailsActivity
-import com.verkoop.activity.ProductDetailsActivity
-import com.verkoop.models.CategoryModal
-import com.verkoop.models.Item
+import com.verkoop.activity.FavouritesActivity
 import com.verkoop.models.ItemHome
 import com.verkoop.utils.AppConstants
-import com.verkoop.utils.NonscrollRecylerview
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_row.*
-import kotlinx.android.synthetic.main.my_profile_row.*
 
-
-class ItemAdapter(private val context: Context,private val rvItemListDetails:RecyclerView) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
-    private var mInflater: LayoutInflater = LayoutInflater.from(context)
-    private var itemsList=ArrayList<Item>()
-    private lateinit var likeDisLikeListener: LikeDisLikeListener
+/**
+ * Created by intel on 05-03-2019.
+ */
+class FavouritesAdapter(private val context: Context,private val rvFavourites: RecyclerView) : RecyclerView.Adapter<FavouritesAdapter.ViewHolder>() {
+    private val inflater: LayoutInflater = LayoutInflater.from(context)
+    private lateinit var likeDisLikeListener:LikeDisLikeListener
+    private var listFavourites = ArrayList<ItemHome>()
     private var width=0
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = mInflater.inflate(R.layout.item_row, parent, false)
+        val view = inflater.inflate(R.layout.item_row, parent, false)
         val params = view.layoutParams
-        params.width = rvItemListDetails.width / 2
+        params.width = rvFavourites.width / 2
         width= params.width
-        likeDisLikeListener=context as CategoryDetailsActivity
+        likeDisLikeListener=context as FavouritesActivity
         view.layoutParams = params
         return ViewHolder(view)
     }
 
     override fun getItemCount(): Int {
-        return itemsList.size
+        return listFavourites.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val data = itemsList[position]
-       holder.bind(data,position)
+        val data = listFavourites[position]
+        holder.bind(data)
     }
 
-    inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
-        fun bind( data: Item,position: Int) {
+    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+        fun bind(data: ItemHome) {
             ivProductImageHome.layoutParams.height =width-16
             tvNameHome.text=data.name
+            tvProductHome.text=data.name
             if(position %2==0){
                 llSideDividerHome.visibility=View.VISIBLE
             }else{
@@ -66,7 +62,7 @@ class ItemAdapter(private val context: Context,private val rvItemListDetails:Rec
             }else{
                 tvLikesHome.setCompoundDrawablesWithIntrinsicBounds( R.mipmap.post_like, 0, 0, 0)
             }
-            tvLikesHome.text=data.likes_count.toString()
+            tvLikesHome.text=data.items_like_count.toString()
             if(data.item_type==1){
                 tvConditionHome.text="New"
             }else{
@@ -91,12 +87,13 @@ class ItemAdapter(private val context: Context,private val rvItemListDetails:Rec
 
             }
             tvLikesHome.setOnClickListener {
-                likeDisLikeListener.getLikeDisLikeClick(data.is_like,adapterPosition,data.like_id,data.id)
+               likeDisLikeListener.getLikeDisLikeClick(data.is_like,adapterPosition,data.like_id,data.id)
             }
         }
-        }
 
-    fun setData(items: ArrayList<Item>) {
-        itemsList=items
+    }
+
+    fun setData(itemsList: ArrayList<ItemHome>) {
+        listFavourites = itemsList
     }
 }

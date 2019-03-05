@@ -30,8 +30,8 @@ interface MyService {
     @GET("items/{itemId}")
     fun getItemDetailsApi(@Path(value = "itemId", encoded = true) fullUrl: Int): Call<ItemDetailsResponse>
 
-    @PUT("dashboard/{userId}")
-    fun getHomeDataApi(@Path(value = "userId", encoded = true) fullUrl: String, @Query("page") pageCount: Int): Call<HomeDataResponse>
+    @GET("getUserFavouriteData/{userId}")
+    fun getFavouritesApi(@Path(value = "userId", encoded = true) fullUrl: String): Call<FavouritesResponse>
 
     @GET("items")
     fun getItemsService(): Call<HomeDataResponse>
@@ -44,10 +44,13 @@ interface MyService {
 
 
     @PUT("categoryFilterData/{user_id}")
-    fun categoryPostApi(@Body request: CategoryPostRequest,@Path(value = "user_id", encoded = true) userId: String): Call<CategoryPostResponse>
+    fun categoryPostApi(@Body request: FilterRequest,@Path(value = "user_id", encoded = true) userId: String): Call<CategoryPostResponse>
 
     @POST("user/selectedUserCategroy")
     fun updateServiceApi(@Body request: UpdateCategoryRequest): Call<LikedResponse>
+
+    @PUT("dashboard/{userId}")
+    fun getHomeDataApi(@Path(value = "userId", encoded = true) fullUrl: String, @Query("page") pageCount: Int): Call<HomeDataResponse>
 
     @GET("nearbysearch/json")
     fun getDetails(@Query("location") loc: String,

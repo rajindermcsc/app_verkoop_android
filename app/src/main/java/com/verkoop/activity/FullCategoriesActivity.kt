@@ -55,6 +55,10 @@ class FullCategoriesActivity : AppCompatActivity(), FullCategoryAdapter.Selected
         val fullCategoryAdapter = FullCategoryAdapter(this, categoryList)
         rvCategoryList.adapter = fullCategoryAdapter
         iv_left.setOnClickListener { onBackPressed() }
+        ivFavourite.setOnClickListener {
+            val intent=Intent(this,FavouritesActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 

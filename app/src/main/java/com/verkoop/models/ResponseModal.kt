@@ -347,3 +347,24 @@ data class SubCategoryPost(
     val name: String,
     val id: Int
 )
+
+data class FavouritesResponse(
+    val data: ArrayList<ItemHome>,
+    val message: String
+)
+
+/*data class Data(
+    val id: Int,
+    val user_id: Int,
+    val category_id: Int,
+    val name: String,
+    val price: Int,
+    val item_type: Int,
+    val created_at: CreatedAt,
+    val like_id: Int,
+    val is_like: Boolean,
+    val items_like_count: Int,
+    val image_url: String,
+    val username: String,
+    val profile_pic: String
+)*/

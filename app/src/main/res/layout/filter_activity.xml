@@ -25,7 +25,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_8" />
     </LinearLayout>
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -85,6 +87,7 @@
                     android:paddingBottom="@dimen/dp_8"
                     android:paddingTop="@dimen/dp_8"
                     android:text="@string/popular"
+                    android:checked="true"
                     android:textColor="@color/dark_black"
                     android:textSize="@dimen/sp_14" />
 
@@ -309,14 +312,15 @@
                         android:text="@string/min"
                         android:textColor="@color/dark_black" />
 
-                    <EditText
+                    <com.verkoop.fonts.editText.GothicThinEditText
                         android:id="@+id/etMinPrice"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="@drawable/item_type"
+                        android:textColor="@color/text_color"
                         android:imeOptions="actionNext"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:maxLength="10"
                         android:maxLines="1"
                         android:minLines="1"
@@ -348,14 +352,15 @@
                         android:text="@string/max"
                         android:textColor="@color/dark_black" />
 
-                    <EditText
+                    <com.verkoop.fonts.editText.GothicThinEditText
                         android:id="@+id/etMaxPrice"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="@drawable/item_type"
+                        android:textColor="@color/text_color"
                         android:imeOptions="actionDone"
-                        android:inputType="text"
+                        android:inputType="numberDecimal"
                         android:maxLength="10"
                         android:maxLines="1"
                         android:minLines="1"
@@ -385,4 +390,11 @@
                 android:textColor="@color/white" />
         </LinearLayout>
     </ScrollView>
+    <ProgressBar
+        android:id="@+id/pbPrgFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+    </FrameLayout>
 </LinearLayout>
