@@ -125,6 +125,7 @@ data class Item(
     val price: Int,
     val item_type: Int,
     val created_at: CreatedAtProfile,
+    @SerializedName("items_like_count")
     val likes_count: Int,
     val like_id: Int,
     val is_like: Boolean,
@@ -323,7 +324,7 @@ data class CategoryPostResponse(
 
 data class DataPost(
     val subCategoryList: ArrayList<SubCategoryPost>,
-    val items: ArrayList<Item>
+    val items: ArrayList<ItemHome>
 )
 
 data class ItemData(

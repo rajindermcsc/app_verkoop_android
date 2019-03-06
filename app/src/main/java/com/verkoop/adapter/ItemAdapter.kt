@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.my_profile_row.*
 
 class ItemAdapter(private val context: Context,private val rvItemListDetails:RecyclerView) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
     private var mInflater: LayoutInflater = LayoutInflater.from(context)
-    private var itemsList=ArrayList<Item>()
+    private var itemsList=ArrayList<ItemHome>()
     private lateinit var likeDisLikeListener: LikeDisLikeListener
     private var width=0
 
@@ -48,9 +48,10 @@ class ItemAdapter(private val context: Context,private val rvItemListDetails:Rec
     }
 
     inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
-        fun bind( data: Item,position: Int) {
+        fun bind( data: ItemHome,position: Int) {
             ivProductImageHome.layoutParams.height =width-16
-            tvNameHome.text=data.name
+            tvNameHome.text=data.username
+            tvProductHome.text=data.name
             if(position %2==0){
                 llSideDividerHome.visibility=View.VISIBLE
             }else{
@@ -66,7 +67,7 @@ class ItemAdapter(private val context: Context,private val rvItemListDetails:Rec
             }else{
                 tvLikesHome.setCompoundDrawablesWithIntrinsicBounds( R.mipmap.post_like, 0, 0, 0)
             }
-            tvLikesHome.text=data.likes_count.toString()
+            tvLikesHome.text=data.items_like_count.toString()
             if(data.item_type==1){
                 tvConditionHome.text="New"
             }else{
@@ -75,7 +76,7 @@ class ItemAdapter(private val context: Context,private val rvItemListDetails:Rec
             if(!TextUtils.isEmpty(data.image_url)) {
                 Picasso.with(context).load(AppConstants.IMAGE_URL + data.image_url)
                         .resize(720, 720)
-                        .centerInside()
+                        .centerCrop()
                         .error(R.mipmap.post_placeholder)
                         .placeholder(R.mipmap.post_placeholder)
                         .into(ivProductImageHome)
@@ -96,7 +97,7 @@ class ItemAdapter(private val context: Context,private val rvItemListDetails:Rec
         }
         }
 
-    fun setData(items: ArrayList<Item>) {
+    fun setData(items: ArrayList<ItemHome>) {
         itemsList=items
     }
 }

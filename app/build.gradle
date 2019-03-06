@@ -54,6 +54,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.github.florent37:expansionpanel:1.1.1'
     implementation 'com.github.florent37:viewanimator:1.1.0'
+    implementation 'ch.acra:acra:4.8.5'
 
 }
 

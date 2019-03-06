@@ -1,5 +1,6 @@
 package com.verkoop.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -19,14 +20,13 @@ import com.verkoop.utils.Utils
 import kotlinx.android.synthetic.main.category_details_activity.*
 import kotlinx.android.synthetic.main.toolbar_details_.*
 import retrofit2.Response
-import android.app.Activity
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
 class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener {
     private var isClicked: Boolean = false
     private lateinit var itemAdapter: ItemAdapter
-    private var itemsList = ArrayList<Item>()
-    private var filterRequest: FilterRequest? =null
+    private var itemsList = ArrayList<ItemHome>()
+    private var filterRequest: FilterRequest? = null
     override fun getLikeDisLikeClick(type: Boolean, position: Int, lickedId: Int, itemId: Int) {
         if (type) {
             if (!isClicked) {
@@ -66,26 +66,30 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener {
     }
 
     private fun setData() {
+        tvSell.setOnClickListener {
+            Utils.showToast(this,"work in progress.")
+        }
         ivFavourite.setOnClickListener {
-            val intent=Intent(this,FavouritesActivity::class.java)
+            val intent = Intent(this, FavouritesActivity::class.java)
             startActivity(intent)
         }
         val type = intent.getIntExtra(AppConstants.TYPE, 0)
         toolbar_title.text = intent.getStringExtra(AppConstants.SUB_CATEGORY)
         if (type == 1) {
             llParent.visibility = View.GONE
-            val lickedRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID,0).toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID),"","","","","","","")
-            getDetailsApi(lickedRequest)
+            filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID), "", "", "", "", "", "", "")
+            getDetailsApi(filterRequest!!)
 
         } else {
             tvCategorySelected.text = intent.getStringExtra(AppConstants.SUB_CATEGORY)
             llParent.visibility = View.VISIBLE
-            val lickedRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID,0).toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID),"","","","","","","")
-            getDetailsApi(lickedRequest)
+            filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID), "", "", "", "", "", "", "")
+            getDetailsApi(filterRequest!!)
         }
         iv_left.setOnClickListener { onBackPressed() }
         ivFilter.setOnClickListener {
             val intent = Intent(this, FilterActivity::class.java)
+            intent.putExtra(AppConstants.POST_DATA, filterRequest)
             startActivityForResult(intent, 1)
         }
         val mManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -105,9 +109,8 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode === 1) {
             if (resultCode === Activity.RESULT_OK) {
-                filterRequest= data!!.getParcelableExtra(AppConstants.POST_DATA)
-              //  getDetailsApi(intent.getIntExtra(AppConstants.CATEGORY_ID, 0), type)
-
+                filterRequest = data!!.getParcelableExtra(AppConstants.POST_DATA)
+                getDetailsApi(filterRequest!!)
             }
             if (resultCode === Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
@@ -122,12 +125,14 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener {
         finish()
 
     }
+
     private fun getDetailsApi(request: FilterRequest) {
-        pvProgressDetail.visibility=View.VISIBLE
+        pvProgressDetail.visibility = View.VISIBLE
         ServiceHelper().categoryPostService(request,
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
-                        pvProgressDetail.visibility=View.GONE
+                        itemsList.clear()
+                        pvProgressDetail.visibility = View.GONE
                         val categoryPostResponse = response.body() as CategoryPostResponse
                         if (categoryPostResponse.data.subCategoryList.size > 0) {
                             setSubcategoryData(categoryPostResponse.data.subCategoryList)
@@ -136,12 +141,15 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener {
                             itemsList = categoryPostResponse.data.items
                             itemAdapter.setData(itemsList)
                             itemAdapter.notifyDataSetChanged()
+                        }else{
+                            itemsList.clear()
+                            itemAdapter.notifyDataSetChanged()
                         }
 
                     }
 
                     override fun onFailure(msg: String?) {
-                        pvProgressDetail.visibility=View.GONE
+                        pvProgressDetail.visibility = View.GONE
                         Utils.showSimpleMessage(this@CategoryDetailsActivity, msg!!).show()
                     }
                 })
@@ -155,17 +163,19 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener {
                     override fun onSuccess(response: Response<*>) {
                         isClicked = false
                         val responseLike = response.body() as LikedResponse
-                        val items = Item(itemsList[position].id,
+                        val items = ItemHome(itemsList[position].id,
                                 itemsList[position].user_id,
                                 itemsList[position].category_id,
                                 itemsList[position].name,
                                 itemsList[position].price,
                                 itemsList[position].item_type,
                                 itemsList[position].created_at,
-                                itemsList[position].likes_count + 1,
+                                itemsList[position].items_like_count + 1,
                                 responseLike.like_id,
                                 !itemsList[position].is_like,
-                                itemsList[position].image_url)
+                                itemsList[position].image_url,
+                                itemsList[position].username,
+                                itemsList[position].profile_pic)
                         itemsList[position] = items
                         itemAdapter.notifyItemChanged(position)
                     }
@@ -183,17 +193,19 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener {
                     override fun onSuccess(response: Response<*>) {
                         isClicked = false
                         val likeResponse = response.body() as DisLikeResponse
-                        val items = Item(itemsList[position].id,
+                        val items = ItemHome(itemsList[position].id,
                                 itemsList[position].user_id,
                                 itemsList[position].category_id,
                                 itemsList[position].name,
                                 itemsList[position].price,
                                 itemsList[position].item_type,
                                 itemsList[position].created_at,
-                                itemsList[position].likes_count - 1,
+                                itemsList[position].items_like_count - 1,
                                 0,
                                 !itemsList[position].is_like,
-                                itemsList[position].image_url)
+                                itemsList[position].image_url,
+                                itemsList[position].username,
+                                itemsList[position].profile_pic)
                         itemsList[position] = items
                         itemAdapter.notifyItemChanged(position)
                     }

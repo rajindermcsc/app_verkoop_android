@@ -70,7 +70,7 @@ class ItemHomeAdapter(private val context: Context, private  val rvItemList: Non
             if(!TextUtils.isEmpty(data.image_url)) {
                     Picasso.with(context).load(AppConstants.IMAGE_URL + data.image_url)
                             .resize(720, 720)
-                            .centerInside()
+                            .centerCrop()
                             .error(R.mipmap.post_placeholder)
                             .placeholder(R.mipmap.post_placeholder)
                             .into(ivProductImageHome)

@@ -15,9 +15,7 @@ import com.verkoop.utils.AppConstants
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_row.*
 
-/**
- * Created by intel on 05-03-2019.
- */
+
 class FavouritesAdapter(private val context: Context,private val rvFavourites: RecyclerView) : RecyclerView.Adapter<FavouritesAdapter.ViewHolder>() {
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private lateinit var likeDisLikeListener:LikeDisLikeListener
@@ -71,7 +69,7 @@ class FavouritesAdapter(private val context: Context,private val rvFavourites: R
             if(!TextUtils.isEmpty(data.image_url)) {
                 Picasso.with(context).load(AppConstants.IMAGE_URL + data.image_url)
                         .resize(720, 720)
-                        .centerInside()
+                        .centerCrop()
                         .error(R.mipmap.post_placeholder)
                         .placeholder(R.mipmap.post_placeholder)
                         .into(ivProductImageHome)

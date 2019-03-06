@@ -3,8 +3,12 @@ package com.verkoop
 import android.app.Application
 import android.content.Context
 import com.verkoop.utils.Loading
-import com.verkoop.utils.Utils
-import okhttp3.internal.Internal.instance
+import org.acra.ACRA
+import org.acra.ReportingInteractionMode
+import org.acra.annotation.ReportsCrashes
+
+@ReportsCrashes(mailTo = "anmol@mobilecoderz.com", mode = ReportingInteractionMode.TOAST, resToastText = R.string.application_crash)// my email here
+
 
 class VerkoopApplication : Application() {
      private var loadDialog: Loading? = null
@@ -20,6 +24,11 @@ class VerkoopApplication : Application() {
          instance = this
      }
 
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        ACRA.init(this)
+
+    }
     companion object {
         lateinit var instance: VerkoopApplication
         operator fun get(context: Context): VerkoopApplication {

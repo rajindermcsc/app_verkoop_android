@@ -4,13 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import com.ksmtrivia.common.BaseFragment
 import com.verkoop.R
+import com.verkoop.activity.FavouritesActivity
 import com.verkoop.activity.FullCategoriesActivity
 import com.verkoop.activity.HomeActivity
 import com.verkoop.activity.ProductDetailsActivity
@@ -19,6 +19,7 @@ import com.verkoop.models.*
 import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
+import kotlinx.android.synthetic.main.home_fragment.*
 import kotlinx.android.synthetic.main.profile_fragment.*
 import retrofit2.Response
 
@@ -98,6 +99,10 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
     }
 
     private fun setData() {
+        llFavourite.setOnClickListener {
+            val intent=Intent(homeActivity, FavouritesActivity::class.java)
+            startActivity(intent)
+        }
         tvCategoryProfile.setOnClickListener {
             val intent = Intent(homeActivity, FullCategoriesActivity::class.java)
             startActivity(intent)

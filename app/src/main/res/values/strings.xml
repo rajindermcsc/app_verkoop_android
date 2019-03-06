@@ -127,5 +127,6 @@
     <string name="resume">Resume</string>
     <string name="leave">Leave</string>
     <string name="three_category">You can not select more than 3 option.</string>
+    <string name="application_crash">Application Crash</string>
 
 </resources>

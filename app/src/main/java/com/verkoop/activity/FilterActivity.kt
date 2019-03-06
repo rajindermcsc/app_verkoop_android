@@ -1,6 +1,7 @@
 package com.verkoop.activity
 
 import android.Manifest
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -24,37 +25,107 @@ import com.google.android.gms.location.*
 import com.verkoop.R
 import com.verkoop.adapter.FilterAdapter
 import com.verkoop.models.FilterRequest
+import com.verkoop.utils.AppConstants
 import com.verkoop.utils.PermissionCheck
 import com.verkoop.utils.Utils
+import kotlinx.android.synthetic.main.add_details_activity.*
 import kotlinx.android.synthetic.main.filter_activity.*
 import kotlinx.android.synthetic.main.toolbar_filter.*
-import kotlinx.android.synthetic.main.add_details_activity.*
-import android.app.Activity
-import com.verkoop.utils.AppConstants
 
 
 class FilterActivity : AppCompatActivity() {
-    private var sortNumber=0
+    private var sortNumber = 0
     private val REQUEST_CODE = 12
     private var mFusedLocationProviderClient: FusedLocationProviderClient? = null
     private val INTERVAL: Long = 50000
     private val FASTEST_INTERVAL: Long = 1000
     private lateinit var mLocationRequest: LocationRequest
-    private var  lat=""
-    private var  lng=""
-    private var condition:String=""
-    private var itemType:String=""
-    private var meetUp:Int=0
-    private var isFocus: Boolean=false
+    private var lat = ""
+    private var lng = ""
+    private var condition: String = ""
+    private var itemType: String = ""
+    private var meetUp: Int = 0
+    private var isFocusMax: Boolean = false
+    private var isFocus: Boolean = false
     private var filterRequest: FilterRequest? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.filter_activity)
+        setIntentData()
         setData()
         setItemList()
+    }
 
+    private fun setIntentData() {
+        filterRequest = intent.getParcelableExtra(AppConstants.POST_DATA)
+        if (filterRequest != null) {
+            if (!TextUtils.isEmpty(filterRequest!!.latitude)) {
+                lat = filterRequest!!.latitude
+            }
+            if (!TextUtils.isEmpty(filterRequest!!.longitude)) {
+                lng = filterRequest!!.longitude
+            }
+            if (!TextUtils.isEmpty(filterRequest!!.min_price)) {
+                etMinPrice.setText(filterRequest!!.min_price)
+            }
+            if (!TextUtils.isEmpty(filterRequest!!.max_price)) {
+                etMaxPrice.setText(filterRequest!!.max_price)
+            }
+            if (!TextUtils.isEmpty(filterRequest!!.meet_up)) {
+                if(filterRequest!!.meet_up.equals("1",ignoreCase = true)){
+                    meetUp=1
+                    cbNearByFilter.isChecked=true
+                }else{
+                    meetUp=0
+                    cbNearByFilter.isChecked=false
+                }
+            }else{
+                meetUp=0
+                cbNearByFilter.isChecked=false
+            }
+            if (!TextUtils.isEmpty(filterRequest!!.item_type)) {
+                when {
+                    filterRequest!!.item_type.equals("1", ignoreCase = true) -> setSelectNew()
+                    filterRequest!!.item_type.equals("2", ignoreCase = true) -> setSelectUsed()
+                    else -> setSelection()
+                }
+            } else {
+                setSelection()
+            }
+            if (!TextUtils.isEmpty(filterRequest!!.sort_no)) {
+                when {
+                    filterRequest!!.sort_no.equals("1", ignoreCase = true) -> {
+                        sortNumber = 1
+                        rbNearBy.isChecked = true
+                    }
+                    filterRequest!!.sort_no.equals("2", ignoreCase = true) -> {
+                        sortNumber = 2
+                        rbPopular.isChecked = true
+                    }
+                    filterRequest!!.sort_no.equals("3", ignoreCase = true) -> {
+                        sortNumber = 3
+                        rbRecentlyAdded.isChecked = true
+                    }
+                    filterRequest!!.sort_no.equals("4", ignoreCase = true) -> {
+                        sortNumber = 4
+                        rbPriceHigh.isChecked = true
+                    }
+                    filterRequest!!.sort_no.equals("5", ignoreCase = true) -> {
+                        sortNumber = 5
+                        rbPriceLow.isChecked = true
+                    }
+                    else -> {
+                        sortNumber = 2
+                        rbPopular.isChecked = true
+                    }
+                }
+            } else {
+                sortNumber = 2
+                rbPopular.isChecked = true
+            }
+        }
     }
 
     private fun setData() {
@@ -66,13 +137,13 @@ class FilterActivity : AppCompatActivity() {
         rbPriceLow.typeface = font
         iv_leftGallery.setOnClickListener { onBackPressed() }
         llNew.setOnClickListener {
-            if(TextUtils.isEmpty(condition)){
+            if (TextUtils.isEmpty(condition)) {
                 setSelection()
                 setSelectNew()
-            }else{
-                if(condition.equals("New",ignoreCase = true)){
+            } else {
+                if (condition.equals("New", ignoreCase = true)) {
                     setSelection()
-                }else{
+                } else {
                     setSelection()
                     setSelectNew()
                 }
@@ -80,13 +151,13 @@ class FilterActivity : AppCompatActivity() {
         }
 
         llUsed.setOnClickListener {
-            if(TextUtils.isEmpty(condition)){
+            if (TextUtils.isEmpty(condition)) {
                 setSelection()
                 setSelectUsed()
-            }else{
-                if(condition.equals(getString(R.string.used),ignoreCase = true)){
+            } else {
+                if (condition.equals(getString(R.string.used), ignoreCase = true)) {
                     setSelection()
-                }else{
+                } else {
                     setSelection()
                     setSelectUsed()
                 }
@@ -104,12 +175,12 @@ class FilterActivity : AppCompatActivity() {
             when (checkedId) {
                 R.id.rbNearBy -> {
                     checkLocationOption()
-                    sortNumber=1
+                    sortNumber = 1
                 }
-                R.id.rbPopular -> sortNumber=2
-                R.id.rbRecentlyAdded -> sortNumber=3
-                R.id.rbPriceHigh -> sortNumber=4
-                R.id.rbPriceLow -> sortNumber=5
+                R.id.rbPopular -> sortNumber = 2
+                R.id.rbRecentlyAdded -> sortNumber = 3
+                R.id.rbPriceHigh -> sortNumber = 4
+                R.id.rbPriceLow -> sortNumber = 5
             }
         })
         etMinPrice.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
@@ -129,7 +200,7 @@ class FilterActivity : AppCompatActivity() {
         }
         etMinPrice.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
-                if(isFocus) {
+                if (isFocus) {
                     if (etMinPrice.length() == 0) {
                         etMinPrice.setText("$")
                         etMinPrice.setSelection(1)
@@ -147,14 +218,15 @@ class FilterActivity : AppCompatActivity() {
         })
         etMaxPrice.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
-                isFocus = true
+                isFocusMax = true
                 if (etMaxPrice.text.toString().isEmpty()) {
                     etMaxPrice.setText(this@FilterActivity.getString(R.string.dollar))
                     etMaxPrice.setSelection(1)
                 }
             } else {
-                isFocus = false
+                isFocusMax = false
                 if (etMaxPrice.length() == 1) {
+
                     etMaxPrice.setSelection(0)
                     etMaxPrice.setText("")
                 }
@@ -162,7 +234,7 @@ class FilterActivity : AppCompatActivity() {
         }
         etMaxPrice.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
-                if(isFocus) {
+                if (isFocusMax) {
                     if (etMaxPrice.length() == 0) {
                         etMaxPrice.setText("$")
                         etMaxPrice.setSelection(1)
@@ -178,32 +250,51 @@ class FilterActivity : AppCompatActivity() {
 
             }
         })
+        tvChatGallery.setOnClickListener {
+            resetData()
+        }
         tvApply.setOnClickListener {
             itemType = when {
-                condition.equals("New",ignoreCase = true) -> "1"
-                condition.equals(getString(R.string.used),ignoreCase = true) -> "2"
+                condition.equals("New", ignoreCase = true) -> "1"
+                condition.equals(getString(R.string.used), ignoreCase = true) -> "2"
                 else -> ""
             }
-           val filterRequest = FilterRequest("ed",0,"2",sortNumber.toString(),lat,lng,itemType,meetUp.toString(),etMinPrice.text.toString(),etMaxPrice.text.toString() )
+            val filterRequestSend = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, sortNumber.toString(), lat, lng, itemType, meetUp.toString(), etMinPrice.text.toString(), etMaxPrice.text.toString())
             val returnIntent = Intent()
-            returnIntent.putExtra(AppConstants.POST_DATA, filterRequest)
+            returnIntent.putExtra(AppConstants.POST_DATA, filterRequestSend)
             setResult(Activity.RESULT_OK, returnIntent)
             finish()
         }
+    }
+
+    private fun resetData() {
+        rbPopular.isChecked=true
+        sortNumber=2
+        setSelection()
+        meetUp=0
+        cbNearByFilter.isChecked=false
+        isFocus=false
+        isFocusMax=false
+        etMaxPrice.setSelection(0)
+        etMaxPrice.setText("")
+        etMinPrice.setSelection(0)
+        etMinPrice.setText("")
+        etMinPrice.clearFocus()
+        etMaxPrice.clearFocus()
     }
 
     private fun setSelectNew() {
         ivNew.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.new_active))
         tvNew.setTextColor(ContextCompat.getColor(this, R.color.white))
         llNew.background = ContextCompat.getDrawable(this, R.drawable.red_rectangle_shape)
-        condition="New"
+        condition = "New"
     }
 
     private fun setSelectUsed() {
         ivUsed.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.used_active))
         tvUsed.setTextColor(ContextCompat.getColor(this, R.color.white))
         llUsed.background = ContextCompat.getDrawable(this, R.drawable.red_rectangle_shape)
-        condition=getString(R.string.used)
+        condition = getString(R.string.used)
     }
 
     private fun checkLocationOption() {
@@ -228,7 +319,7 @@ class FilterActivity : AppCompatActivity() {
         ivUsed.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.used_inactive))
         tvUsed.setTextColor(ContextCompat.getColor(this, R.color.gray_light))
         llUsed.background = ContextCompat.getDrawable(this, R.drawable.item_type)
-        condition=""
+        condition = ""
     }
 
     private fun setItemList() {
@@ -302,13 +393,13 @@ class FilterActivity : AppCompatActivity() {
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             locationResult.lastLocation
-            lat=locationResult.lastLocation.latitude.toString()
-            lng=locationResult.lastLocation.longitude.toString()
-            Log.e("LatLng",lat+""+lng)
-            pbPrgFilter.visibility=View.GONE
-          /*  if (mFusedLocationProviderClient != null) {
-                mFusedLocationProviderClient!!.removeLocationUpdates(this@FilterActivity.mLocationCallback)
-            }*/
+            lat = locationResult.lastLocation.latitude.toString()
+            lng = locationResult.lastLocation.longitude.toString()
+            Log.e("LatLng", lat + "" + lng)
+            pbPrgFilter.visibility = View.GONE
+            /*  if (mFusedLocationProviderClient != null) {
+                  mFusedLocationProviderClient!!.removeLocationUpdates(this@FilterActivity.mLocationCallback)
+              }*/
         }
     }
 
@@ -345,5 +436,4 @@ class FilterActivity : AppCompatActivity() {
             mFusedLocationProviderClient!!.removeLocationUpdates(mLocationCallback)
         }
     }
-
 }
