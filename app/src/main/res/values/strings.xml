@@ -51,7 +51,7 @@
     <string name="search">Search</string>
     <string name="sell">SELL</string>
     <string name="view_all">View All</string>
-    <string name="select_three">Please select atleast 3 option.</string>
+    <string name="select_three">Please select at least 3 categories.</string>
     <string name="_2_day_ago">2 day ago</string>
     <string name="louis_wayne">Louis Wayne</string>
     <string name="categories">Categories</string>
@@ -126,7 +126,9 @@
     <string name="selecting_a_location_helps_more_buyers_to_find_you_item_we_recommend_adding_one">Selecting a location helps more buyers to find you item. We recommend adding one.</string>
     <string name="resume">Resume</string>
     <string name="leave">Leave</string>
-    <string name="three_category">You can not select more than 3 option.</string>
+    <string name="three_category">You cannot select more than 3 categories.</string>
     <string name="application_crash">Application Crash</string>
+    <string name="pric">Price :</string>
+    <string name="shopr">Sort :</string>
 
 </resources>

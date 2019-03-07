@@ -77,3 +77,11 @@ data class FilterRequest(
         val min_price: String,
         val max_price: String
 ) : Parcelable
+
+@Parcelize
+data class FilterModal(
+    val FilterType: String,
+    val FilterName: String,
+    val isClicked: Boolean,
+    val type: Int
+): Parcelable

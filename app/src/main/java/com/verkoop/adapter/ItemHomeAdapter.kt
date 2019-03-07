@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import com.verkoop.LikeDisLikeListener
 import com.verkoop.R
@@ -68,7 +69,8 @@ class ItemHomeAdapter(private val context: Context, private  val rvItemList: Non
             }
 
             if(!TextUtils.isEmpty(data.image_url)) {
-                    Picasso.with(context).load(AppConstants.IMAGE_URL + data.image_url)
+                    Picasso.with(context)
+                            .load(AppConstants.IMAGE_URL + data.image_url)
                             .resize(720, 720)
                             .centerCrop()
                             .error(R.mipmap.post_placeholder)

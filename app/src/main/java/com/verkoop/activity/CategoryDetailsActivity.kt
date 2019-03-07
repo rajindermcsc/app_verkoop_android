@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.util.DisplayMetrics
 import android.view.View
 import com.verkoop.LikeDisLikeListener
@@ -22,11 +23,39 @@ import kotlinx.android.synthetic.main.toolbar_details_.*
 import retrofit2.Response
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
-class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener {
+class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, FilterAdapter.SelectFilterCallBack {
+
+    override fun onSelectingFilter() {
+        val intent = Intent(this, FilterActivity::class.java)
+        intent.putExtra(AppConstants.POST_DATA, filterRequest)
+        startActivityForResult(intent, 1)
+    }
+
+    override fun removeFilter(remove: String, position: Int) {
+        when {
+            remove.equals("Condition :",ignoreCase = true) -> {
+                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type,filterRequest!!.userId , Utils.getPreferencesString(this, AppConstants.USER_ID), filterRequest!!.latitude , filterRequest!!.longitude ,"" , filterRequest!!.meet_up , filterRequest!!.min_price , filterRequest!!.max_price )
+                getDetailsApi(filterRequest!!)
+
+            }
+            remove.equals("Deal Option :",ignoreCase = true) -> {
+                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type,filterRequest!!.userId , Utils.getPreferencesString(this, AppConstants.USER_ID), filterRequest!!.latitude , filterRequest!!.longitude ,filterRequest!!.item_type , "" , filterRequest!!.min_price , filterRequest!!.max_price )
+                getDetailsApi(filterRequest!!)
+
+            }
+            remove.equals("Price :",ignoreCase = true) -> {
+                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type,filterRequest!!.userId , Utils.getPreferencesString(this, AppConstants.USER_ID), filterRequest!!.latitude , filterRequest!!.longitude ,filterRequest!!.item_type , filterRequest!!.meet_up , "" , "" )
+                getDetailsApi(filterRequest!!)
+            }
+        }
+    }
+
     private var isClicked: Boolean = false
     private lateinit var itemAdapter: ItemAdapter
+    private lateinit var filterAdapter: FilterAdapter
     private var itemsList = ArrayList<ItemHome>()
     private var filterRequest: FilterRequest? = null
+    private var filterList = ArrayList<FilterModal>()
     override fun getLikeDisLikeClick(type: Boolean, position: Int, lickedId: Int, itemId: Int) {
         if (type) {
             if (!isClicked) {
@@ -67,7 +96,7 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener {
 
     private fun setData() {
         tvSell.setOnClickListener {
-            Utils.showToast(this,"work in progress.")
+            Utils.showToast(this, "work in progress.")
         }
         ivFavourite.setOnClickListener {
             val intent = Intent(this, FavouritesActivity::class.java)
@@ -94,8 +123,12 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener {
         }
         val mManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvFilterSelected.layoutManager = mManager
-        val filterAdapter = FilterAdapter(this)
+        filterAdapter = FilterAdapter(this)
         rvFilterSelected.adapter = filterAdapter
+        val filterModal = FilterModal(getString(R.string.shopr), getString(R.string.popular), false, 1)
+        filterList.add(filterModal)
+        filterAdapter.showData(filterList)
+        filterAdapter.notifyDataSetChanged()
     }
 
     private fun setItemList() {
@@ -110,6 +143,7 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener {
         if (requestCode === 1) {
             if (resultCode === Activity.RESULT_OK) {
                 filterRequest = data!!.getParcelableExtra(AppConstants.POST_DATA)
+                setFilter(filterRequest)
                 getDetailsApi(filterRequest!!)
             }
             if (resultCode === Activity.RESULT_CANCELED) {
@@ -117,6 +151,68 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener {
             }
         }
 
+    }
+
+    private fun setFilter(filterRequest: FilterRequest?) {
+        if (filterRequest != null) {
+            filterList.clear()
+            if (!TextUtils.isEmpty(filterRequest.sort_no)) {
+                when {
+                    filterRequest.sort_no.toInt() == 1 -> {
+                        val filterModal = FilterModal("Sort :", getString(R.string.nearby), false, 1)
+                        filterList.add(filterModal)
+                    }
+                    filterRequest.sort_no.toInt() == 2 -> {
+                        val filterModal = FilterModal("Sort :", getString(R.string.popular), false, 1)
+                        filterList.add(filterModal)
+                    }
+                    filterRequest.sort_no.toInt() == 3 -> {
+                        val filterModal = FilterModal("Sort :", getString(R.string.recently_added), false, 1)
+                        filterList.add(filterModal)
+                    }
+                    filterRequest.sort_no.toInt() == 4 -> {
+                        val filterModal = FilterModal("Sort :", getString(R.string.price_high_to_low), false, 1)
+                        filterList.add(filterModal)
+                    }
+                    filterRequest.sort_no.toInt() == 5 -> {
+                        val filterModal = FilterModal("Sort :", getString(R.string.price_high_to_low), false, 1)
+                        filterList.add(filterModal)
+                    }
+                    else -> {
+                        val filterModal = FilterModal("Sort :", getString(R.string.popular), false, 1)
+                        filterList.add(filterModal)
+                    }
+                }
+
+            }
+            if (!TextUtils.isEmpty(filterRequest.item_type)) {
+                if (filterRequest.item_type.equals("1", ignoreCase = true)) {
+                    val filterModal = FilterModal("Condition :", "New", false, 2)
+                    filterList.add(filterModal)
+                } else {
+                    val filterModal = FilterModal("Condition :", getString(R.string.used), false, 2)
+                    filterList.add(filterModal)
+                }
+            }
+            if (!TextUtils.isEmpty(filterRequest.meet_up)) {
+                if (filterRequest.meet_up.equals("1", ignoreCase = true)) {
+                    val filterModal = FilterModal("Deal Option :", "Meet-up", false, 3)
+                    filterList.add(filterModal)
+                }
+            }
+            if (!TextUtils.isEmpty(filterRequest.min_price) && !TextUtils.isEmpty(filterRequest.max_price)) {
+                val filterModal = FilterModal(getString(R.string.pric), "$" + filterRequest.min_price + " - $" + filterRequest.max_price, false, 4)
+                filterList.add(filterModal)
+            } else if (!TextUtils.isEmpty(filterRequest.min_price) && TextUtils.isEmpty(filterRequest.max_price)) {
+                val filterModal = FilterModal(getString(R.string.pric), "From $" + filterRequest.min_price, false, 4)
+                filterList.add(filterModal)
+            } else if (TextUtils.isEmpty(filterRequest.min_price) && !TextUtils.isEmpty(filterRequest.max_price)) {
+                val filterModal = FilterModal(getString(R.string.pric), "Up to $" + filterRequest.max_price, false, 4)
+                filterList.add(filterModal)
+            }
+        }
+        filterAdapter.showData(filterList)
+        filterAdapter.notifyDataSetChanged()
     }
 
     override fun onBackPressed() {
@@ -141,7 +237,7 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener {
                             itemsList = categoryPostResponse.data.items
                             itemAdapter.setData(itemsList)
                             itemAdapter.notifyDataSetChanged()
-                        }else{
+                        } else {
                             itemsList.clear()
                             itemAdapter.notifyDataSetChanged()
                         }
