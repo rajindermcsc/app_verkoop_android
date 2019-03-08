@@ -10,16 +10,12 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import com.ksmtrivia.common.BaseFragment
 import com.verkoop.R
-import com.verkoop.activity.FavouritesActivity
-import com.verkoop.activity.FullCategoriesActivity
-import com.verkoop.activity.HomeActivity
-import com.verkoop.activity.ProductDetailsActivity
+import com.verkoop.activity.*
 import com.verkoop.adapter.MyProfileItemAdapter
 import com.verkoop.models.*
 import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
-import kotlinx.android.synthetic.main.home_fragment.*
 import kotlinx.android.synthetic.main.profile_fragment.*
 import retrofit2.Response
 
@@ -78,15 +74,10 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (Utils.isOnline(homeActivity)) {
-            if (Utils.isOnline(homeActivity)) {
-                myProfileInfoApi()
-            } else {
-                Utils.showSimpleMessage(homeActivity, getString(R.string.check_internet)).show()
-            }
+            myProfileInfoApi()
         } else {
             Utils.showSimpleMessage(homeActivity, getString(R.string.check_internet)).show()
         }
-
     }
 
     private fun setAdapter(items: ArrayList<Item>) {
@@ -106,6 +97,10 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
         tvCategoryProfile.setOnClickListener {
             val intent = Intent(homeActivity, FullCategoriesActivity::class.java)
             startActivity(intent)
+        }
+        tvSellProfile.setOnClickListener {
+            val intent = Intent(homeActivity, GalleryActivity::class.java)
+            homeActivity.startActivityForResult(intent, 2)
         }
     }
 
@@ -208,5 +203,19 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
                    //     Utils.showSimpleMessage(homeActivity, msg!!).show()
                     }
                 })
+    }
+
+    fun refreshUI(from: Int) {
+        if(from==0){
+         //   rvPostsList.isFocusable=true
+         //   rvPostsList.scrollToPosition(0)
+        }else if(from==1){
+            if (Utils.isOnline(homeActivity)) {
+                myProfileInfoApi()
+            } else {
+                Utils.showSimpleMessage(homeActivity, getString(R.string.check_internet)).show()
+            }
+        }
+
     }
 }

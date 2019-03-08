@@ -30,6 +30,9 @@ import retrofit2.Response
 
 
 class HomeFragment : BaseFragment(), LikeDisLikeListener {
+    val TAG = HomeFragment::class.java.simpleName.toString()
+    private lateinit var homeActivity: HomeActivity
+    private lateinit var itemAdapter: ItemHomeAdapter
     private var  itemsList=ArrayList<ItemHome>()
     private var isClicked:Boolean=false
 
@@ -55,9 +58,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
     override fun getItemDetailsClick(itemId: Int) {
     }
 
-    val TAG = HomeFragment::class.java.simpleName.toString()
-    private lateinit var homeActivity: HomeActivity
-    private lateinit var itemAdapter: ItemHomeAdapter
+
     override fun getTitle(): Int {
         return 0
     }
@@ -114,10 +115,11 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
     private fun setData() {
         tvViewAll.setOnClickListener {
             val intent = Intent(homeActivity, FullCategoriesActivity::class.java)
-            startActivity(intent) }
+            homeActivity.startActivityForResult(intent, 2)
+        }
         tvCategoryHome.setOnClickListener {
             val intent = Intent(homeActivity, FullCategoriesActivity::class.java)
-            startActivity(intent)
+            homeActivity.startActivityForResult(intent, 2)
         }
         llSearchHome.setOnClickListener { Utils.showToast(homeActivity, "Work in progress.") }
         tvSell.setOnClickListener {
@@ -167,24 +169,6 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
         itemAdapter.notifyDataSetChanged()
     }
 
-    /* private fun getHomeDataService() {
-         pbProgressHome.visibility=View.VISIBLE
-         ServiceHelper().getHomeDataService(Utils.getPreferencesString(homeActivity, AppConstants.USER_ID),
-                 object : ServiceHelper.OnResponse {
-                     override fun onSuccess(response: Response<*>) {
-                         pbProgressHome.visibility=View.GONE
-                         val homeDataResponse = response.body() as HomeDataResponse?
-                        *//* if(homeDataResponse!=null) {
-                            setApiData(homeDataResponse.data)
-                        }*//*
-                    }
-
-                    override fun onFailure(msg: String?) {
-                        pbProgressHome.visibility=View.GONE
-                        Utils.showSimpleMessage(homeActivity, msg!!).show()
-                    }
-                })
-    }*/
 
     private fun getItemService() {
         ServiceHelper().getItemsService(1, Utils.getPreferencesString(homeActivity, AppConstants.USER_ID), object : ServiceHelper.OnResponse {

@@ -3,22 +3,21 @@ package com.verkoop.adapter
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import com.verkoop.fragment.HomeFragment
-import com.verkoop.fragment.ProfileFragment
 
 
-class HomePagerAdapter(fm: FragmentManager, private val pages: Int) : FragmentPagerAdapter(fm) {
+
+class HomePagerAdapter(fm: FragmentManager, private val pages: Int,private val fragmentList: ArrayList<Fragment>) : FragmentPagerAdapter(fm) {
     override fun getItem(position: Int): Fragment? {
         return when (position) {
-            0 -> HomeFragment.newInstance()
-            1 -> HomeFragment.newInstance()
-            2 -> ProfileFragment.newInstance()
+            0 -> fragmentList[position]
+            1 -> fragmentList[position]
+            2 -> fragmentList[position]
             else -> null
         }
     }
 
     override fun getCount(): Int {
-        return pages
+        return fragmentList.size
     }
 
 }

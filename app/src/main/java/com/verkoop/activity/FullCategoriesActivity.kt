@@ -1,5 +1,6 @@
 package com.verkoop.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -26,7 +27,7 @@ class FullCategoriesActivity : AppCompatActivity(), FullCategoryAdapter.Selected
         intent.putExtra(AppConstants.CATEGORY_ID, categoryId)
         intent.putExtra(AppConstants.SUB_CATEGORY, subCategoryName)
         intent.putExtra(AppConstants.TYPE, 1)
-        startActivity(intent)
+        startActivityForResult(intent,2)
     }
 
     override fun categoryName(categoryId: Int,categoryName:String) {
@@ -34,7 +35,7 @@ class FullCategoriesActivity : AppCompatActivity(), FullCategoryAdapter.Selected
         intent.putExtra(AppConstants.CATEGORY_ID, categoryId)
         intent.putExtra(AppConstants.SUB_CATEGORY, categoryName)
         intent.putExtra(AppConstants.TYPE, 0)
-        startActivity(intent)
+        startActivityForResult(intent,2)
     }
 
     private val categoryList = ArrayList<DataCategory>()
@@ -78,5 +79,29 @@ class FullCategoriesActivity : AppCompatActivity(), FullCategoryAdapter.Selected
                         Utils.showSimpleMessage(this@FullCategoriesActivity, msg!!).show()
                     }
                 })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == 2) {
+            if (resultCode == Activity.RESULT_OK) {
+                val result = data!!.getIntExtra(AppConstants.TRANSACTION,0)
+                if(result==1){
+                    val returnIntent = Intent()
+                    returnIntent.putExtra(AppConstants.TRANSACTION, result)
+                    setResult(Activity.RESULT_OK, returnIntent)
+                    finish()
+                    overridePendingTransition(0, 0)
+                }
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+        val returnIntent = Intent()
+        setResult(Activity.RESULT_CANCELED, returnIntent)
+        finish()
     }
 }

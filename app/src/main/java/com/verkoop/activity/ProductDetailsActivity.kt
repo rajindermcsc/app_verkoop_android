@@ -20,7 +20,6 @@ import kotlinx.android.synthetic.main.my_profile_row.*
 import kotlinx.android.synthetic.main.toolbar_product_details.*
 import retrofit2.Response
 
-
 class ProductDetailsActivity:AppCompatActivity(){
    private var imageURLLIst=ArrayList<String>()
     override fun onCreate(savedInstanceState: Bundle?) {

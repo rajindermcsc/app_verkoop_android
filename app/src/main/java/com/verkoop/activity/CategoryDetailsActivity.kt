@@ -19,6 +19,7 @@ import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
 import kotlinx.android.synthetic.main.category_details_activity.*
+import kotlinx.android.synthetic.main.home_activity.*
 import kotlinx.android.synthetic.main.toolbar_details_.*
 import retrofit2.Response
 
@@ -36,16 +37,21 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
             remove.equals("Condition :",ignoreCase = true) -> {
                 filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type,filterRequest!!.userId , Utils.getPreferencesString(this, AppConstants.USER_ID), filterRequest!!.latitude , filterRequest!!.longitude ,"" , filterRequest!!.meet_up , filterRequest!!.min_price , filterRequest!!.max_price )
                 getDetailsApi(filterRequest!!)
+                filterList.removeAt(position)
+                filterAdapter.notifyDataSetChanged()
 
             }
             remove.equals("Deal Option :",ignoreCase = true) -> {
                 filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type,filterRequest!!.userId , Utils.getPreferencesString(this, AppConstants.USER_ID), filterRequest!!.latitude , filterRequest!!.longitude ,filterRequest!!.item_type , "" , filterRequest!!.min_price , filterRequest!!.max_price )
                 getDetailsApi(filterRequest!!)
-
+                filterList.removeAt(position)
+                filterAdapter.notifyDataSetChanged()
             }
             remove.equals("Price :",ignoreCase = true) -> {
                 filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type,filterRequest!!.userId , Utils.getPreferencesString(this, AppConstants.USER_ID), filterRequest!!.latitude , filterRequest!!.longitude ,filterRequest!!.item_type , filterRequest!!.meet_up , "" , "" )
                 getDetailsApi(filterRequest!!)
+                filterList.removeAt(position)
+                filterAdapter.notifyDataSetChanged()
             }
         }
     }
@@ -96,7 +102,9 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
 
     private fun setData() {
         tvSell.setOnClickListener {
-            Utils.showToast(this, "work in progress.")
+            val intent = Intent(this, GalleryActivity::class.java)
+            startActivityForResult(intent, 2)
+
         }
         ivFavourite.setOnClickListener {
             val intent = Intent(this, FavouritesActivity::class.java)
@@ -150,6 +158,21 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
                 //Write your code if there's no result
             }
         }
+        if (requestCode == 2) {
+            if (resultCode == Activity.RESULT_OK) {
+                val result = data!!.getIntExtra(AppConstants.TRANSACTION,0)
+                if(result==1){
+                    val returnIntent = Intent()
+                    returnIntent.putExtra(AppConstants.TRANSACTION, result)
+                    setResult(Activity.RESULT_OK, returnIntent)
+                    finish()
+                    overridePendingTransition(0, 0)
+                }
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
 
     }
 
@@ -175,7 +198,7 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
                         filterList.add(filterModal)
                     }
                     filterRequest.sort_no.toInt() == 5 -> {
-                        val filterModal = FilterModal("Sort :", getString(R.string.price_high_to_low), false, 1)
+                        val filterModal = FilterModal("Sort :", getString(R.string.price_low_to_high), false, 1)
                         filterList.add(filterModal)
                     }
                     else -> {
@@ -219,7 +242,6 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
         val returnIntent = Intent()
         setResult(Activity.RESULT_CANCELED, returnIntent)
         finish()
-
     }
 
     private fun getDetailsApi(request: FilterRequest) {
@@ -312,4 +334,6 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
                     }
                 })
     }
+
+
 }

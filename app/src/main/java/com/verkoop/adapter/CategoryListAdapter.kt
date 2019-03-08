@@ -10,13 +10,14 @@ import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import com.verkoop.R
 import com.verkoop.activity.CategoryDetailsActivity
+import com.verkoop.activity.HomeActivity
 import com.verkoop.models.Category
 import com.verkoop.utils.AppConstants
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.category_home_row.*
 
 
-class CategoryListAdapter(private val context: Context, private var categoryList: ArrayList<Category>, private val rvCategoryHome: RecyclerView): RecyclerView.Adapter<CategoryListAdapter.ViewHolder>() {
+class CategoryListAdapter(private val context: HomeActivity, private var categoryList: ArrayList<Category>, private val rvCategoryHome: RecyclerView): RecyclerView.Adapter<CategoryListAdapter.ViewHolder>() {
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = mInflater.inflate(R.layout.category_home_row, parent, false)
@@ -53,7 +54,7 @@ class CategoryListAdapter(private val context: Context, private var categoryList
                 intent.putExtra(AppConstants.CATEGORY_ID, data.id)
                 intent.putExtra(AppConstants.TYPE, 0)
                 intent.putExtra(AppConstants.SUB_CATEGORY, data.name)
-                context.startActivity(intent)
+                context.startActivityForResult(intent, 2)
             }
         }
     }

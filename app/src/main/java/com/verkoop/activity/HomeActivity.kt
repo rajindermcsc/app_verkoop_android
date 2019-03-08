@@ -10,14 +10,28 @@ import com.verkoop.adapter.HomePagerAdapter
 import kotlinx.android.synthetic.main.home_activity.*
 import kotlinx.android.synthetic.main.toolbar_home.*
 import android.app.Activity
+import android.support.v4.app.Fragment
+import com.verkoop.fragment.ActivitiesFragment
+import com.verkoop.fragment.HomeFragment
+import com.verkoop.fragment.ProfileFragment
 import com.verkoop.utils.AppConstants
 
 
 class HomeActivity:AppCompatActivity(){
+     private var homeFragment:HomeFragment? = null
+     private var profileFragment:ProfileFragment? = null
+     private var activitiesFragment:ActivitiesFragment? = null
+    private var fragmentList=ArrayList<Fragment>()
     private var doubleBackToExitPressedOnce = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)
+        homeFragment=HomeFragment.newInstance()
+        profileFragment= ProfileFragment.newInstance()
+        activitiesFragment= ActivitiesFragment.newInstance()
+        fragmentList.add(homeFragment!!)
+        fragmentList.add(activitiesFragment!!)
+        fragmentList.add(profileFragment!!)
         setData()
     }
 
@@ -53,7 +67,7 @@ class HomeActivity:AppCompatActivity(){
     }
 
     private fun setData() {
-        val adapter = HomePagerAdapter(supportFragmentManager, 3)
+        val adapter = HomePagerAdapter(supportFragmentManager, 3,fragmentList)
         viewPager.adapter = adapter
        // viewPager.offscreenPageLimit = 2
         setTabLayout()
@@ -90,8 +104,22 @@ class HomeActivity:AppCompatActivity(){
             if (resultCode == Activity.RESULT_OK) {
                 val result = data.getIntExtra(AppConstants.TRANSACTION,0)
                 if(result==1){
-                    bottomTabLayout.selectTab(R.id.menu_button3)
-                    viewPager.currentItem=3
+                    when {
+                        viewPager.currentItem==0 -> {
+                            bottomTabLayout.selectTab(R.id.menu_button3)
+                            viewPager.currentItem=3
+                            profileFragment!!.refreshUI(0)
+
+                        }
+                        viewPager.currentItem==1 -> {
+                            bottomTabLayout.selectTab(R.id.menu_button3)
+                            viewPager.currentItem=3
+                        }
+                        else -> {
+                            profileFragment!!.refreshUI(1)
+                        }
+                    }
+
                 }
             }
             if (resultCode == Activity.RESULT_CANCELED) {
