@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_bag"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_location" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.verkoop.fonts.textView.GothiBoldTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_15"
+                android:paddingStart="@dimen/dp_15"
+                android:paddingTop="@dimen/dp_10"
+                android:text="@string/account_setting"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/sp_14" />
+
+            <com.verkoop.fonts.textView.GothicThinTextView
+                android:id="@+id/tvEditProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_15"
+                android:paddingStart="@dimen/dp_15"
+                android:paddingTop="@dimen/dp_10"
+                android:text="@string/edit_profile"
+                android:textColor="@color/dark_black"
+                android:textSize="@dimen/sp_16" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
+                android:background="@color/gray" />
+
+            <com.verkoop.fonts.textView.GothicThinTextView
+                android:id="@+id/tvChangePassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_15"
+                android:paddingStart="@dimen/dp_15"
+                android:paddingTop="@dimen/dp_10"
+                android:text="@string/change_password"
+                android:textColor="@color/dark_black"
+                android:textSize="@dimen/sp_16" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
+                android:background="@color/gray" />
+
+            <com.verkoop.fonts.textView.GothicThinTextView
+                android:id="@+id/tvNotification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_15"
+                android:paddingStart="@dimen/dp_15"
+                android:paddingTop="@dimen/dp_10"
+                android:text="@string/notification"
+                android:textColor="@color/dark_black"
+                android:textSize="@dimen/sp_16" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
+                android:background="@color/gray" />
+
+            <com.verkoop.fonts.textView.GothicThinTextView
+                android:id="@+id/tvPrivatePolicy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_15"
+                android:paddingStart="@dimen/dp_15"
+                android:paddingTop="@dimen/dp_10"
+                android:text="@string/date_privacy_settings"
+                android:textColor="@color/dark_black"
+                android:textSize="@dimen/sp_16" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
+                android:background="@color/gray" />
+
+            <com.verkoop.fonts.textView.GothiBoldTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_15"
+                android:paddingStart="@dimen/dp_15"
+                android:paddingTop="@dimen/dp_10"
+                android:text="@string/need_help"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/sp_14" />
+
+            <com.verkoop.fonts.textView.GothicThinTextView
+                android:id="@+id/tvHelpCenter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_15"
+                android:paddingStart="@dimen/dp_15"
+                android:paddingTop="@dimen/dp_10"
+                android:text="@string/help_center"
+                android:textColor="@color/dark_black"
+                android:textSize="@dimen/sp_16" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
+                android:background="@color/gray" />
+
+            <com.verkoop.fonts.textView.GothicThinTextView
+                android:id="@+id/tvContactUs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_15"
+                android:paddingStart="@dimen/dp_15"
+                android:paddingTop="@dimen/dp_10"
+                android:text="@string/contact_us"
+                android:textColor="@color/dark_black"
+                android:textSize="@dimen/sp_16" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
+                android:background="@color/gray" />
+
+            <com.verkoop.fonts.textView.GothicThinTextView
+                android:id="@+id/tvAboutVerkoop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_15"
+                android:paddingStart="@dimen/dp_15"
+                android:paddingTop="@dimen/dp_10"
+                android:text="@string/about_carousell"
+                android:textColor="@color/dark_black"
+                android:textSize="@dimen/sp_16" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
+                android:background="@color/gray" />
+
+            <com.verkoop.fonts.textView.GothiBoldTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_15"
+                android:paddingStart="@dimen/dp_15"
+                android:paddingTop="@dimen/dp_10"
+                android:text="@string/about_this_app"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/sp_14" />
+
+            <com.verkoop.fonts.textView.GothicThinTextView
+                android:id="@+id/tvTermsService"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_15"
+                android:paddingStart="@dimen/dp_15"
+                android:paddingTop="@dimen/dp_10"
+                android:text="@string/term_of_services"
+                android:textColor="@color/dark_black"
+                android:textSize="@dimen/sp_16" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
+                android:background="@color/gray" />
+
+            <com.verkoop.fonts.textView.GothicThinTextView
+                android:id="@+id/tvPrivacyPolicy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_15"
+                android:paddingStart="@dimen/dp_15"
+                android:paddingTop="@dimen/dp_10"
+                android:text="@string/privacy_policy"
+                android:textColor="@color/dark_black"
+                android:textSize="@dimen/sp_16" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
+                android:background="@color/gray" />
+
+            <com.verkoop.fonts.textView.GothicThinTextView
+                android:id="@+id/tvDeActivateAcct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_15"
+                android:paddingStart="@dimen/dp_15"
+                android:paddingTop="@dimen/dp_10"
+                android:text="@string/deactivate_account"
+                android:textColor="@color/dark_black"
+                android:textSize="@dimen/sp_16" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
+                android:background="@color/gray" />
+
+            <com.verkoop.fonts.textView.GothiBoldTextView
+                android:id="@+id/tvLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_8"
+                android:paddingEnd="@dimen/dp_15"
+                android:paddingStart="@dimen/dp_15"
+                android:paddingTop="@dimen/dp_8"
+                android:text="@string/logout"
+                android:textColor="@color/black_"
+                android:textSize="@dimen/sp_18" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

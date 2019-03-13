@@ -130,5 +130,23 @@
     <string name="application_crash">Application Crash</string>
     <string name="pric">Price :</string>
     <string name="shopr">Sort :</string>
+    <string name="account_setting">Account Setting</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="change_password">Change Password</string>
+    <string name="notification">Notification</string>
+    <string name="date_privacy_settings"><![CDATA[Date & Privacy Settings]]></string>
+    <string name="need_help">Need Help</string>
+    <string name="help_center">Help Center</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="about_carousell">About Verkoop</string>
+    <string name="about_this_app">About This App</string>
+    <string name="term_of_services">Term of Services</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="deactivate_account">Deactivate Account</string>
+    <string name="logout">Logout</string>
+    <string name="settings">Settings</string>
+    <string name="email_notification">Email Notification</string>
+    <string name="push_notification">Push Notification</string>
+    <string name="notifications">Notifications</string>
 
 </resources>

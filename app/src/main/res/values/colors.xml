@@ -29,6 +29,8 @@
     <color name="green_light">#67CA4C</color>
     <color name="yellow">#F9AA34</color>
     <color name="red_light">#EB1C24</color>
+    <color name="light_gry">#E2E2E2</color>
+    <color name="brown">#696969</color>
 
 
     <color name="transparentBlack20">#20000000</color>

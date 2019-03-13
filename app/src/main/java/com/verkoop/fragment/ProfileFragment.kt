@@ -102,6 +102,10 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
             val intent = Intent(homeActivity, GalleryActivity::class.java)
             homeActivity.startActivityForResult(intent, 2)
         }
+        ivSetting.setOnClickListener {
+            val intent = Intent(homeActivity, SettingActivity::class.java)
+            homeActivity.startActivity(intent)
+        }
     }
 
     companion object {

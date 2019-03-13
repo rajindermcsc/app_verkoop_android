@@ -16,4 +16,5 @@ class SearchActivity:AppCompatActivity(){
     private fun setData() {
 
     }
+
 }
