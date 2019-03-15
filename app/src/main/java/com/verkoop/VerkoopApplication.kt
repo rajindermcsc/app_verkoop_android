@@ -9,7 +9,6 @@ import org.acra.annotation.ReportsCrashes
 
 @ReportsCrashes(mailTo = "anmol@mobilecoderz.com", mode = ReportingInteractionMode.TOAST, resToastText = R.string.application_crash)// my email here
 
-
 class VerkoopApplication : Application() {
      private var loadDialog: Loading? = null
     val loader: Loading

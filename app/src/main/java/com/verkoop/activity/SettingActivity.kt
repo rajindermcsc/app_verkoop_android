@@ -7,7 +7,7 @@ import com.verkoop.R
 import kotlinx.android.synthetic.main.setting_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 
-class SettingActivity:AppCompatActivity(){
+class SettingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,31 +16,36 @@ class SettingActivity:AppCompatActivity(){
     }
 
     private fun setData() {
-        tvHeaderLoc.text=getString(R.string.settings)
+        tvHeaderLoc.text = getString(R.string.settings)
         ivLeftLocation.setOnClickListener {
             onBackPressed()
         }
         tvLogout.setOnClickListener {
             logout()
         }
-        tvEditProfile.setOnClickListener {  }
-        tvChangePassword.setOnClickListener {  }
+        tvEditProfile.setOnClickListener { }
+        tvChangePassword.setOnClickListener {
+            val intent = Intent(this, ChangePasswordActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(0, 0)
+        }
         tvNotification.setOnClickListener {
             val intent = Intent(this, NotificationActivity::class.java)
-                startActivity(intent)
+            startActivity(intent)
         }
-        tvPrivatePolicy.setOnClickListener {  }
-        tvHelpCenter.setOnClickListener {  }
-        tvContactUs.setOnClickListener {  }
-        tvAboutVerkoop.setOnClickListener {  }
-        tvTermsService.setOnClickListener {  }
-        tvPrivacyPolicy.setOnClickListener {  }
-        tvDeActivateAcct.setOnClickListener {  }
+        tvPrivatePolicy.setOnClickListener { }
+        tvHelpCenter.setOnClickListener { }
+        tvContactUs.setOnClickListener { }
+        tvAboutVerkoop.setOnClickListener { }
+        tvTermsService.setOnClickListener { }
+        tvPrivacyPolicy.setOnClickListener { }
+        tvDeActivateAcct.setOnClickListener { }
 
     }
+
     private fun logout() {
         com.verkoop.utils.Utils.clearPreferences(this@SettingActivity)
-        val intent = Intent(this@SettingActivity,WalkThroughActivity::class.java)
+        val intent = Intent(this@SettingActivity, WalkThroughActivity::class.java)
         startActivity(intent)
         finishAffinity()
     }

@@ -64,22 +64,22 @@ class SelectedImageAdapter(private val context: Activity, private var selectedIm
             }
             flClose.setOnClickListener {
                 listSize--
+                setData(modalList.imagePosition)
                 selectedImageList.remove(modalList)
 
-                setData()
             }
             flGallery.setOnClickListener {
                context.onBackPressed()
             }
         }
 
-        private fun setData() {
-            val imageModal = ImageModal("", false, true, 0)
+        private fun setData(selectPosition:Int) {
+            val imageModal = ImageModal("", false, true, 0,0)
             if (!selectedImageList.contains(imageModal)) {
                 selectedImageList.add(imageModal)
             }
             notifyDataSetChanged()
-            selectedImageCount.selectDetailCount(listSize,adapterPosition)
+            selectedImageCount.selectDetailCount(listSize,selectPosition)
         }
     }
     interface SelectedImageCount{

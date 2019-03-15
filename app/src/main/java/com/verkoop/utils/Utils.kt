@@ -7,6 +7,7 @@ import android.database.Cursor
 import android.graphics.Bitmap
 import android.net.ConnectivityManager
 import android.net.Uri
+import android.os.Environment
 import android.preference.PreferenceManager
 import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
@@ -14,7 +15,7 @@ import android.util.Log
 import android.widget.Toast
 import com.andrognito.flashbar.Flashbar
 import com.verkoop.R
-import java.io.ByteArrayOutputStream
+import java.io.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -321,5 +322,41 @@ object Utils{
         }
 
         return totalTime.toString() + " " + unit
+    }
+
+    fun saveTempBitmap(context: Context, mBitmap: Bitmap): String? {
+
+        val outputDir = context.cacheDir
+
+        var file: File? = null
+        try {
+            file = File.createTempFile("temp_post_img", ".jpg", outputDir)
+            //outputFile.getAbsolutePath();
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+        val f3 = File(Environment.getExternalStorageDirectory().toString() + "/inpaint/")
+        if (!f3.exists()) {
+            f3.mkdirs()
+        }
+        val outStream: OutputStream?
+        //File file = new File(Environment.getExternalStorageDirectory() + "/inpaint/"+"seconds"+".png");
+        try {
+            outStream = FileOutputStream(file!!)
+            mBitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream)
+            outStream.flush()
+            outStream.close()
+
+            //Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return null
+        }
+
+        //getPath( Uri.parse(file.getAbsolutePath()), context);
+
+        return file.absolutePath//getPath( Uri.parse(file.getAbsolutePath()), context);
     }
 }

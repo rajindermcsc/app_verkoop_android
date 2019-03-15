@@ -48,6 +48,12 @@ data class PlaceSearchRequest(
         val key: String
 )
 
+@Parcelize
+data class SelectedImage(
+        val imageUrl: String,
+        val adapterPosition: Int
+) : Parcelable
+
 data class LickedRequest(
         val user_id: String,
         val item_id: Int

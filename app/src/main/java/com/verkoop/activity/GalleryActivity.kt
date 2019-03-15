@@ -8,7 +8,6 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
-import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import com.verkoop.R
@@ -18,6 +17,7 @@ import com.verkoop.customgallery.PickerController
 import com.verkoop.customgallery.SingleMediaScanner
 import com.verkoop.models.AddItemRequest
 import com.verkoop.models.ImageModal
+import com.verkoop.models.SelectedImage
 import com.verkoop.utils.AppConstants
 import com.verkoop.utils.CommonUtils
 import com.verkoop.utils.PermissionCheck
@@ -39,11 +39,6 @@ class GalleryActivity : AppCompatActivity(), GalleryAdapter.ImageCountCallBack {
         pickerController = PickerController(this)
         setData()
         setAdapter()
-    }
-
-    override fun onResume() {
-        super.onResume()
-       // setAdapter()
     }
 
     private fun setAdapter() {
@@ -79,15 +74,16 @@ class GalleryActivity : AppCompatActivity(), GalleryAdapter.ImageCountCallBack {
     }
 
     private fun setIntentData() {
-        val selectedList = ArrayList<String>()
+        val selectedList = ArrayList<SelectedImage>()
         for (i in imageUris.indices) {
             if (selectedList.size < selectcount) {
                 if (imageUris[i].isSelected) {
-                    selectedList.add(imageUris[i].imageUrl)
+                    val selectedImage=SelectedImage(imageUris[i].imageUrl,i)
+                    selectedList.add(selectedImage)
                 }
             } else {
                 val intent = Intent(this, AddDetailsActivity::class.java)
-                intent.putStringArrayListExtra(AppConstants.SELECTED_LIST, selectedList)
+                intent.putParcelableArrayListExtra(AppConstants.SELECTED_LIST, selectedList)
                 intent.putExtra(AppConstants.POST_DATA, addItemsRequest)
                 startActivityForResult(intent, 1)
                 break
@@ -130,22 +126,11 @@ class GalleryActivity : AppCompatActivity(), GalleryAdapter.ImageCountCallBack {
                 } else if (result == 2) {
                     addItemsRequest = null
                     addItemsRequest = data.getParcelableExtra(AppConstants.POST_DATA)
-                    /*if (addItemsRequest != null) {
-                        if (addItemsRequest!!.imageList.size > 0) {
-                            for (i in addItemsRequest!!.imageList.indices) {
-                                for (j in imageUris.indices) {
-                                    if(!TextUtils.isEmpty(addItemsRequest!!.imageList[i])) {
-                                        if (addItemsRequest!!.imageList[i] == imageUris[j].imageUrl) {
-                                            val imageModal = ImageModal(imageUris[j].imageUrl, true, false, i + 1)
-                                            imageUris[j] = imageModal
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                    val rejectList = data.getIntegerArrayListExtra(AppConstants.REJECT_LIST)
+                    if(rejectList!=null&&rejectList.size>0) {
+                        itemAdapter.updateAdapter(rejectList)
                         itemAdapter.notifyDataSetChanged()
-                    }*/
-
+                    }
                 }
             }
             if (resultCode == Activity.RESULT_CANCELED) {
@@ -156,7 +141,7 @@ class GalleryActivity : AppCompatActivity(), GalleryAdapter.ImageCountCallBack {
     }
 
     private fun addImage(path: File) {
-        val imagemodal = ImageModal(CommonUtils.getImageContentUri(this@GalleryActivity, path).toString(), false, false, 0)
+        val imagemodal = ImageModal(CommonUtils.getImageContentUri(this@GalleryActivity, path).toString(), false, false, 0,0)
         imageUris.add(1, imagemodal)
         itemAdapter.notifyDataSetChanged()
         pickerController.setAddImagePath(Uri.fromFile(path))
@@ -180,7 +165,7 @@ class GalleryActivity : AppCompatActivity(), GalleryAdapter.ImageCountCallBack {
         }
     }
 
-    override fun imageCount(count: Int, position: Int) {
+    override fun imageCount(count: Int) {
         selectcount = count
         if (count > 0) {
             tvSelectedCount.text = StringBuilder().append(" ").append(count.toString()).append(" ").append("/ 10")

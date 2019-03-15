@@ -17,7 +17,9 @@ data class ImageModal(
         var imageUrl: String,
         var isSelected: Boolean,
         var type: Boolean,
-        var countSelect: Int
+        var countSelect: Int,
+        var imagePosition: Int
+
 )
 
 data class SignUpResponse(

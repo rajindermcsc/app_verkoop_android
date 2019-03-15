@@ -68,7 +68,7 @@ import java.util.ArrayList
             resolver.query(images, null, null, null, sort)
         }
         val imageUris = ArrayList<ImageModal>()
-        val imagemodal=ImageModal("",false,true,0)
+        val imagemodal=ImageModal("",false,true,0,0)
         imageUris.add(imagemodal)
         if (c != null) {
             try {
@@ -81,7 +81,7 @@ import java.util.ArrayList
                             continue
                         val imgId = c.getInt(c.getColumnIndex(MediaStore.MediaColumns._ID))
                         val path = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "" + imgId)
-                        val imageModal=ImageModal(path.toString(),false,false,0)
+                        val imageModal=ImageModal(path.toString(),false,false,0,0)
                         imageUris.add(imageModal)
 
                     } while (c.moveToNext())

@@ -8,7 +8,6 @@ import kotlinx.android.synthetic.main.toolbar_location.*
 
 class NotificationActivity:AppCompatActivity(){
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.notifizcatin_fragment)
@@ -27,10 +26,10 @@ class NotificationActivity:AppCompatActivity(){
         }
 */
         switchNotification.setOnStateChangeListener { process, state, jtb ->
-            if (state.equals(com.nightonke.jellytogglebutton.State.LEFT)) {
+            if (state == com.nightonke.jellytogglebutton.State.LEFT) {
                 //allCountRequest(0)
             }
-            if (state.equals(com.nightonke.jellytogglebutton.State.RIGHT)) {
+            if (state == com.nightonke.jellytogglebutton.State.RIGHT) {
                 // allCountRequest(1)
             }
         }

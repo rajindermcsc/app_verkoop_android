@@ -31,6 +31,7 @@ import com.verkoop.adapter.SelectedImageAdapter
 import com.verkoop.models.AddItemRequest
 import com.verkoop.models.AddItemResponse
 import com.verkoop.models.ImageModal
+import com.verkoop.models.SelectedImage
 import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.*
 import kotlinx.android.synthetic.main.add_details_activity.*
@@ -42,7 +43,7 @@ import java.io.File
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
 class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedImageCount {
     private val REQUEST_CODE = 11
-    private var imageList = ArrayList<String>()
+    private var imageList = ArrayList<SelectedImage>()
     private var addItemRequest: AddItemRequest? =null
     private var selectedImageList = ArrayList<ImageModal>()
     private val realPath = java.util.ArrayList<String>()
@@ -55,8 +56,10 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
     private var address=""
     private var itemType = 1
     private var isFocus: Boolean=false
+    private var rejectImageList=ArrayList<Int>()
 
     override fun selectDetailCount(count: Int, position: Int) {
+        rejectImageList.add(position)
         if (count > 0) {
             tvCountDetail.text = StringBuilder().append(" ").append(count.toString()).append(" ").append("/ 10")
         } else {
@@ -67,7 +70,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_details_activity)
-        imageList = intent.getStringArrayListExtra(AppConstants.SELECTED_LIST)
+        imageList = intent.getParcelableArrayListExtra(AppConstants.SELECTED_LIST)
         tvCountDetail.text = StringBuilder().append(" ").append(imageList.size.toString()).append(" ").append("/ 10")
         setListData(imageList)
         setData()
@@ -340,13 +343,13 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         rvImageList.adapter = selectedImageAdapter
     }
 
-    private fun setListData(imageList: ArrayList<String>) {
+    private fun setListData(imageList: ArrayList<SelectedImage>) {
         for (i in imageList.indices) {
-            val imageModal = ImageModal(imageList[i], false, false, 0)
+            val imageModal = ImageModal(imageList[i].imageUrl, false, false, 0,imageList[i].adapterPosition)
             selectedImageList.add(imageModal)
         }
         if (selectedImageList.size < 10) {
-            val imageModal = ImageModal("", false, true, 0)
+            val imageModal = ImageModal("", false, true, 0,0)
             selectedImageList.add(imageModal)
         }
         setAdapter()
@@ -411,12 +414,12 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 try {
                     bmp = android.provider.MediaStore.Images.Media.getBitmap(cr, uriTemp)
                     val scaledBitmap = Utils.scaleDown(bmp, 1024f, true)
-                    uri = Utils.getImageUri(this@AddDetailsActivity,CommonUtils.rotateImageIfRequired(this@AddDetailsActivity,scaledBitmap,Uri.parse(selectedImageList[imageCount].imageUrl)))
+                  //  uri = Utils.getImageUri(this@AddDetailsActivity,CommonUtils.rotateImageIfRequired(this@AddDetailsActivity,scaledBitmap,Uri.parse(selectedImageList[imageCount].imageUrl)))
+                    uri = Uri.parse(Utils.saveTempBitmap(this@AddDetailsActivity,CommonUtils.rotateImageIfRequired(this@AddDetailsActivity,scaledBitmap,Uri.parse(selectedImageList[imageCount].imageUrl))))
                     realPath.add(Utils.getRealPathFromURI(this@AddDetailsActivity, uri!!))
                 } catch (e: Exception) {
                     Log.e("<<<LOG>>>", "Failed to load", e)
                 }
-
                 return bmp
             }
 
@@ -520,7 +523,9 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
     override fun onBackPressed() {
         val sendList=ArrayList<String>()
         for (i in selectedImageList.indices) {
-            sendList.add(selectedImageList[i].imageUrl)
+            if(!TextUtils.isEmpty(selectedImageList[i].imageUrl)) {
+                sendList.add(selectedImageList[i].imageUrl)
+            }
         }
         val addItemRequest:AddItemRequest = if(cbNearBy.isChecked){
             AddItemRequest(sendList, categoryId.toString(),categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID),lat,lng,address,"1")
@@ -529,6 +534,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         }
         val returnIntent = Intent()
         returnIntent.putExtra(AppConstants.POST_DATA, addItemRequest)
+        returnIntent.putIntegerArrayListExtra(AppConstants.REJECT_LIST, rejectImageList)
         returnIntent.putExtra(AppConstants.TRANSACTION, 2)
         setResult(Activity.RESULT_OK, returnIntent)
         finish()

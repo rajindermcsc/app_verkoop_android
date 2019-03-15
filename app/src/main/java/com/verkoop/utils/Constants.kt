@@ -23,4 +23,5 @@ object AppConstants{
      const val TYPE = "type"
      const val SUB_CATEGORY = "sub_category"
      const val POST_DATA = "post_data"
+     const val REJECT_LIST = "REJECT_LIST"
 }

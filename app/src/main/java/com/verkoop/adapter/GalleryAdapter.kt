@@ -16,7 +16,6 @@ import com.verkoop.models.ImageModal
 import com.verkoop.customgallery.PickerController
 import com.verkoop.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.filter_activity.*
 import kotlinx.android.synthetic.main.gallery_item.*
 
 
@@ -26,7 +25,6 @@ class GalleryAdapter(private var context: Activity, private var llParent: Linear
     private lateinit var imageCountCallBack:ImageCountCallBack
     private var imageList = ArrayList<ImageModal>()
     private var selectedList = ArrayList<String>()
-    private val TYPE_HEADER = Integer.MIN_VALUE
     private var imageCount = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -81,49 +79,62 @@ class GalleryAdapter(private var context: Activity, private var llParent: Linear
                     llFrame.background = ContextCompat.getDrawable(context, R.drawable.rectangle_border_shape)
                     llSelection.visibility = View.VISIBLE
                     if (modal.isSelected) {
-                        imageCount -= 1
+                        var tempCount =  imageList[adapterPosition].countSelect
+                        imageList[adapterPosition].countSelect=0
                         selectedList.remove(modal.imageUrl)
-                        imageCountCallBack.imageCount(imageCount, position)
+                        refreshData(tempCount)
+                        imageCount -= 1
                     } else {
                         imageCount += 1
                         selectedList.add(modal.imageUrl)
-                        imageCountCallBack.imageCount(imageCount, position)
                     }
+                    modal.countSelect=imageCount
                     modal.isSelected=!modal.isSelected
-                    refreshData()
+                    notifyDataSetChanged()
                 } else {
                     if (modal.isSelected) {
+                        var tempCount =  imageList[adapterPosition].countSelect
                         modal.isSelected=!modal.isSelected
                         imageCount -= 1
                         selectedList.remove(modal.imageUrl)
-                       imageCountCallBack.imageCount(imageCount, position)
-                        refreshData()
+                        modal.countSelect=imageCount
+                        refreshData(tempCount)
                     }else {
-                        Utils.showToast(context, "Can't select more than 10 images.")
+                        Utils.showToast(context, context.getString(R.string.select_10_images))
                     }
                 }
+                imageCountCallBack.imageCount(imageCount)
             }
             flCamera.setOnClickListener {
                 pickerController.takePicture(context, saveDir)
             }
         }
 
-        private fun refreshData() {
-            for (i in selectedList.indices){
-              for (j in imageList.indices)
-                  if(!TextUtils.isEmpty(imageList[j].imageUrl)) {
-                      if (selectedList[i] == imageList[j].imageUrl) {
-                          val imagemodal = ImageModal(imageList[j].imageUrl, imageList[j].isSelected, imageList[j].type, i + 1)
-                          imageList[j] = imagemodal
-                          //break
-                      }
-                  }
 
-            }
-            notifyDataSetChanged()
-        }
     }
 
+    fun refreshData(tempCount: Int) {
+        for (j in imageList.indices){
+            if(imageList[j].isSelected&&imageList[j].countSelect>=tempCount){
+                imageList[j].countSelect-=1
+            }
+        }
+
+        /* for (i in selectedList.indices){
+           for (j in imageList.indices)
+               if(!TextUtils.isEmpty(imageList[j].imageUrl)) {
+                   if (selectedList[i] == imageList[j].imageUrl) {
+                       val imagemodal = ImageModal(imageList[j].imageUrl, imageList[j].isSelected, imageList[j].type, i + 1)
+                       imageList[j] = imagemodal
+                       //break
+                   }
+               }
+
+         }*/
+
+        notifyDataSetChanged()
+        imageCountCallBack.imageCount(imageCount)
+    }
    /* override fun getItemViewType(position: Int): Int {
         return position
     }*/
@@ -132,6 +143,18 @@ class GalleryAdapter(private var context: Activity, private var llParent: Linear
         imageList = result
     }
     interface ImageCountCallBack{
-       fun imageCount(count:Int,position: Int)
+       fun imageCount(count:Int)
+    }
+
+    fun updateAdapter(unselectedList: java.util.ArrayList<Int>) {
+      for (i in unselectedList.indices){
+          imageCount -= 1
+          val tempCount =  imageList[unselectedList[i]].countSelect
+          imageList[unselectedList[i]].countSelect=0
+          refreshData(tempCount)
+          imageList[unselectedList[i]].countSelect=imageCount
+          imageList[unselectedList[i]].isSelected=!imageList[unselectedList[i]].isSelected
+        }
+        notifyDataSetChanged()
     }
 }
