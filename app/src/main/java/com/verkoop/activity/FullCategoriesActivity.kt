@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.StaggeredGridLayoutManager
+import android.view.View
 import com.verkoop.R
 import com.verkoop.VerkoopApplication
 import com.verkoop.adapter.FullCategoryAdapter
@@ -64,18 +65,21 @@ class FullCategoriesActivity : AppCompatActivity(), FullCategoryAdapter.Selected
     }
 
     private fun callCategoriesApi() {
-        VerkoopApplication.instance.loader.show(this)
+       // VerkoopApplication.instance.loader.show(this)
+        pvProgressCat.visibility=View.VISIBLE
         ServiceHelper().categoriesService(
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
-                        VerkoopApplication.instance.loader.hide(this@FullCategoriesActivity)
+                        pvProgressCat.visibility=View.GONE
+                    //    VerkoopApplication.instance.loader.hide(this@FullCategoriesActivity)
                         val categoriesResponse = response.body() as CategoriesResponse
                         categoryList.addAll(categoriesResponse.data)
                         setData()
                     }
 
                     override fun onFailure(msg: String?) {
-                        VerkoopApplication.instance.loader.hide(this@FullCategoriesActivity)
+                        pvProgressCat.visibility=View.GONE
+                      //  VerkoopApplication.instance.loader.hide(this@FullCategoriesActivity)
                         Utils.showSimpleMessage(this@FullCategoriesActivity, msg!!).show()
                     }
                 })

@@ -244,7 +244,8 @@ data class HomeDataResponse(
 data class DataHome(
     val items: ArrayList<ItemHome>,
     val advertisments: ArrayList<Advertisment>,
-    val categories: ArrayList<Category>
+    val categories: ArrayList<Category>,
+    val totalPage: Int
 )
 
 data class Advertisment(

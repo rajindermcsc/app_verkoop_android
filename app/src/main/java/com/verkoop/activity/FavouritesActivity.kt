@@ -1,9 +1,13 @@
 package com.verkoop.activity
 
 import android.content.Intent
+import android.nfc.tech.MifareUltralight
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import com.verkoop.LikeDisLikeListener
 import com.verkoop.R
@@ -19,6 +23,7 @@ import retrofit2.Response
 
 class FavouritesActivity:AppCompatActivity(), LikeDisLikeListener {
     private var isClicked: Boolean = false
+    private  lateinit var linearLayoutManager:GridLayoutManager
     private lateinit var favouritesAdapter: FavouritesAdapter
     private var itemsList=ArrayList<ItemHome>()
 
@@ -52,13 +57,30 @@ class FavouritesActivity:AppCompatActivity(), LikeDisLikeListener {
 
 
     private fun setAdapter() {
-        val linearLayoutManager = GridLayoutManager(this, 2)
+         linearLayoutManager = GridLayoutManager(this, 2)
         rvFavouriteList.layoutManager = linearLayoutManager
         favouritesAdapter = FavouritesAdapter(this, rvFavouriteList)
         rvFavouriteList.adapter = favouritesAdapter
+        rvFavouriteList.addOnScrollListener(recyclerViewOnScrollListener)
         ivLeftLocation.setOnClickListener { onBackPressed() }
         tvHeaderLoc.text=getString(R.string.favourites)
     }
+
+
+
+private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListener() {
+    override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+        super.onScrolled(recyclerView, dx, dy)
+        val lastCompletelyVisibleItemPosition = (recyclerView!!.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+        val visibleItemCount = linearLayoutManager.findLastCompletelyVisibleItemPosition();
+        val totalItemCount = linearLayoutManager.itemCount
+        val firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition()
+     //   Log.e("LastVisibleCount", visibleItemCount.toString())
+      //  Log.e("LastVisibleCount2", lastCompletelyVisibleItemPosition.toString())
+
+
+    }
+}
 
     private fun getFavouriteApi() {
         pbProgressFav.visibility= View.VISIBLE

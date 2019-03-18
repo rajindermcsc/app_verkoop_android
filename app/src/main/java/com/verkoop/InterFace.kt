@@ -7,3 +7,7 @@ interface LikeDisLikeListener{
     fun getLikeDisLikeClick(type:Boolean,position:Int,lickedId:Int,itemId:Int)
     fun getItemDetailsClick(itemId:Int)
 }
+
+interface LoadingListener{
+    fun getLoadingCallBack()
+}
