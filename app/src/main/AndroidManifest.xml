@@ -126,6 +126,10 @@
             android:name=".activity.ChangePasswordActivity"
             android:theme="@style/TransparentCompat"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
+            android:name=".activity.CoinsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
     </application>
 
 </manifest>

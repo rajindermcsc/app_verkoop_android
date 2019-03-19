@@ -33,7 +33,6 @@ class ItemHomeAdapter(private val context: Context, private val rvItemList: Recy
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = mInflater.inflate(R.layout.item_row, parent, false)
         val params = view.layoutParams
-        loadingListener=homeFragment
         params.width = rvItemList.width / 2
         width = params.width
         likeDisLikeListener = homeFragment
@@ -48,10 +47,6 @@ class ItemHomeAdapter(private val context: Context, private val rvItemList: Recy
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = itemsList[position]
         holder.bind(data, position)
-        if (position == itemsList.size - 1) {
-            loadingListener.getLoadingCallBack()
-            Utils.showToast(context,position.toString())
-        }
     }
 
     inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {

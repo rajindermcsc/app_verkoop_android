@@ -25,6 +25,12 @@ import retrofit2.Response
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
 class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, FilterAdapter.SelectFilterCallBack {
+    private var isClicked: Boolean = false
+    private lateinit var itemAdapter: ItemAdapter
+    private lateinit var filterAdapter: FilterAdapter
+    private var itemsList = ArrayList<ItemHome>()
+    private var filterRequest: FilterRequest? = null
+    private var filterList = ArrayList<FilterModal>()
 
     override fun onSelectingFilter() {
         val intent = Intent(this, FilterActivity::class.java)
@@ -56,12 +62,6 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
         }
     }
 
-    private var isClicked: Boolean = false
-    private lateinit var itemAdapter: ItemAdapter
-    private lateinit var filterAdapter: FilterAdapter
-    private var itemsList = ArrayList<ItemHome>()
-    private var filterRequest: FilterRequest? = null
-    private var filterList = ArrayList<FilterModal>()
     override fun getLikeDisLikeClick(type: Boolean, position: Int, lickedId: Int, itemId: Int) {
         if (type) {
             if (!isClicked) {

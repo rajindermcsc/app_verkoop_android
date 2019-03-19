@@ -5,13 +5,10 @@ import android.content.Intent
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
-import android.support.v4.view.ViewCompat
-import android.support.v4.view.ViewCompat.canScrollVertically
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,16 +31,7 @@ import com.verkoop.utils.Utils
 import kotlinx.android.synthetic.main.home_fragment.*
 import retrofit2.Response
 
-
-class HomeFragment : BaseFragment(), LikeDisLikeListener, LoadingListener {
-    override fun getLoadingCallBack() {
-       /* isLoading=true
-        currentPage+=1
-        if (currentPage != totalPageCount) {
-            getItemService()
-        }*/
-    }
-
+class HomeFragment : BaseFragment(), LikeDisLikeListener {
     val TAG = HomeFragment::class.java.simpleName.toString()
     private lateinit var homeActivity: HomeActivity
     private lateinit var itemAdapter: ItemHomeAdapter
@@ -53,7 +41,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener, LoadingListener {
     private var isClicked: Boolean = false
     private var isLoading = false
     private var totalPageCount: Int? = null
-    private var currentPage = 1
+    private var currentPage = 0
 
 
     override fun getLikeDisLikeClick(type: Boolean, position: Int, lickedId: Int, itemId: Int) {
@@ -100,12 +88,11 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener, LoadingListener {
         super.onViewCreated(view, savedInstanceState)
         setItemList()
         if (Utils.isOnline(homeActivity)) {
-            if (pbProgressHome != null) {
-                pbProgressHome.visibility = View.VISIBLE
-            }
+            itemsList.clear()
+            categoriesList.clear()
+            currentPage=1
             homeActivity.window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-            currentPage=1
             getItemService()
         } else {
             Utils.showSimpleMessage(homeActivity, getString(R.string.check_internet)).show()
@@ -133,9 +120,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener, LoadingListener {
                 if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
                         && firstVisibleItemPosition >= 0
                         && totalItemCount >= PAGE_SIZE) {
-                    itemsList.clear()
-                    categoriesList.clear()
-                    currentPage = 1
+                    currentPage += 1
                     getItemService()
                 }
             }
@@ -212,6 +197,9 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener, LoadingListener {
 
 
     private fun getItemService() {
+        if (pbProgressHome != null) {
+            pbProgressHome.visibility = View.VISIBLE
+        }
         isLoading = true
         ServiceHelper().getItemsService(currentPage, Utils.getPreferencesString(homeActivity, AppConstants.USER_ID), object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {

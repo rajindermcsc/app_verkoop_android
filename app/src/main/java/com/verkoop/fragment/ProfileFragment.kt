@@ -106,6 +106,10 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
             val intent = Intent(homeActivity, SettingActivity::class.java)
             homeActivity.startActivity(intent)
         }
+        llCoins.setOnClickListener {
+            val intent = Intent(homeActivity, CoinsActivity::class.java)
+            homeActivity.startActivity(intent)
+        }
     }
 
     companion object {
