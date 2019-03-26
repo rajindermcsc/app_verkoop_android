@@ -156,6 +156,26 @@
     <string name="history">History</string>
     <string name="balance">Balance</string>
     <string name="use_coins_for_bumps_and_listing_frees">Use Coins for Bumps and listing Frees</string>
+    <string name="qr_code">QR Code</string>
+    <string name="username">Username</string>
+    <string name="public_profile">PUBLIC PROFILE</string>
+    <string name="profile_photo">Profile Photo</string>
+    <string name="private_profile">PRIVATE PROFILE</string>
+    <string name="gender">Gender</string>
+    <string name="country_prompt">Choose a country</string>
+    <string name="birthday">Birthday</string>
+    <string name="set_your_date_of_birth">Set your date of birth</string>
+    <string name="last_name">Last Name</string>
+    <string name="mycity">MyCity</string>
+    <string name="bio">Bio</string>
+    <string name="mobile">Mobile</string>
+    <string name="website">Website</string>
+    <string name="first_name">First Name</string>
+    <string name="my_profile">My Profile</string>
+    <string name="open_camera">Open Camera</string>
+    <string name="open_gallery">Open Gallery</string>
+    <string name="pick_from">Pick From</string>
 
+    <string name="gallery">gallery</string>
 
 </resources>

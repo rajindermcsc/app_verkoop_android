@@ -23,7 +23,10 @@ class SettingActivity : AppCompatActivity() {
         tvLogout.setOnClickListener {
             logout()
         }
-        tvEditProfile.setOnClickListener { }
+        tvEditProfile.setOnClickListener {
+            val intent = Intent(this, EditProfileActivity::class.java)
+            startActivity(intent)
+        }
         tvChangePassword.setOnClickListener {
             val intent = Intent(this, ChangePasswordActivity::class.java)
             startActivity(intent)

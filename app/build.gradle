@@ -57,6 +57,8 @@ dependencies {
     implementation 'com.github.florent37:viewanimator:1.1.0'
     implementation 'ch.acra:acra:4.8.5'
     implementation 'com.nightonke:jellytogglebutton:1.0.2'
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
+    //implementation 'com.github.skydoves:powermenu:2.0.5'
 }
 
 buildscript {

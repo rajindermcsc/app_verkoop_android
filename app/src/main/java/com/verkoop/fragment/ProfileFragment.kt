@@ -73,6 +73,7 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setData()
         if (Utils.isOnline(homeActivity)) {
             myProfileInfoApi()
         } else {
@@ -110,6 +111,10 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
             val intent = Intent(homeActivity, CoinsActivity::class.java)
             homeActivity.startActivity(intent)
         }
+        ivScanner.setOnClickListener {
+          //  val intent = Intent(homeActivity, QRScannerActivity::class.java)
+        //    homeActivity.startActivity(intent)
+        }
     }
 
     companion object {
@@ -137,7 +142,6 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
                             pbProgressProfile.visibility = View.GONE
                         }
                         val myProfileResponse = response.body() as MyProfileResponse
-                        setData()
                         itemsList.clear()
                         itemsList=myProfileResponse.data.items
                         setAdapter(itemsList)

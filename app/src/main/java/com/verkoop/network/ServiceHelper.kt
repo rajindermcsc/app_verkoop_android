@@ -141,7 +141,7 @@ import java.util.ArrayList
     }
 
     fun addItemsApi(request: AddItemRequest,onResponse: OnResponse) {
-       // val service = ServiceGenerator.createService(MyService::class.java, "idress", "idress")
+      //  val service = ServiceGenerator().createService(MyService::class.java, "idress", "idress")
         val myService =  ApiClient.getClient().create(MyService::class.java)
         val parts = ArrayList<MultipartBody.Part>()
         for (i in 0 until request.imageList.size) {

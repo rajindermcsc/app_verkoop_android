@@ -1,14 +1,20 @@
 package com.verkoop.utils
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.provider.MediaStore
+import android.support.v7.app.AlertDialog
+import android.view.Gravity
+import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import com.verkoop.R
 import kotlinx.android.synthetic.main.dialog_answer.*
 import kotlinx.android.synthetic.main.dialog_select_met_up.*
+import kotlinx.android.synthetic.main.select_option_dialoog.*
 
 
 interface SharePostListener{
@@ -18,6 +24,9 @@ interface SharePostListener{
 }
 interface SelectionListener{
     fun leaveClick()
+}
+interface SelectionOptionListener{
+    fun leaveClick(option:String)
 }
 
 
@@ -64,6 +73,30 @@ class resumeLocationDialog(context: Context, private val listener:SelectionListe
         }
         tvLeave.setOnClickListener {
             listener.leaveClick()
+            dismiss()
+        }
+    }
+}
+
+class selectOptionDialog(context: Context, private val listener:SelectionOptionListener)
+    :android.app.Dialog(context){
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        setContentView(R.layout.select_option_dialoog)
+        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
+        setCancelable(false)
+
+        llCamera.setOnClickListener {
+            listener.leaveClick(context.getString(R.string.camera))
+            dismiss()
+        }
+        tvGallery.setOnClickListener {
+            listener.leaveClick(context.getString(R.string.gallery))
+            dismiss()
+        }
+        llCancel.setOnClickListener {
             dismiss()
         }
     }

@@ -28,6 +28,7 @@ import java.util.concurrent.TimeUnit
         return createService(serviceClass, null, null)
     }
 
+
     fun <S> createService(
             serviceClass: Class<S>, username: String?, password: String?): S {
         if (!checkEmptyString(username) && !checkEmptyString(password)) {
@@ -38,7 +39,7 @@ import java.util.concurrent.TimeUnit
         return createService(serviceClass, null, null)
     }
 
-    fun <S> createService(
+    private fun <S> createService(
             serviceClass: Class<S>, authToken: String): S {
         if (!checkEmptyString(authToken)) {
             val interceptor = AuthenticationInterceptor(authToken)

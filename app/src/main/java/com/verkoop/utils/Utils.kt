@@ -2,6 +2,7 @@ package com.verkoop.utils
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.Context
 import android.database.Cursor
 import android.graphics.Bitmap
@@ -11,7 +12,7 @@ import android.os.Environment
 import android.preference.PreferenceManager
 import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.andrognito.flashbar.Flashbar
 import com.verkoop.R
@@ -22,6 +23,12 @@ import java.util.*
 
 import java.util.regex.Matcher
 import java.util.regex.Pattern
+import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.DatePicker
+import android.widget.EditText
+
+
 
 
 
@@ -359,4 +366,56 @@ object Utils{
 
         return file.absolutePath//getPath( Uri.parse(file.getAbsolutePath()), context);
     }
+
+    fun hideKeyboardOnOutSideTouch(view: View, activity: Activity) {
+        if (view !is EditText) {
+            view.setOnTouchListener({ v, event ->
+                hideKeyboard(activity)
+                false
+            })
+        }
+        if (view is ViewGroup) {
+            for (i in 0 until view.childCount) {
+                val innerView = view.getChildAt(i)
+                hideKeyboardOnOutSideTouch(innerView, activity)
+            }
+        }
+    }
+
+    private fun hideKeyboard(activity: Activity) {
+        val inputMethodManager = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        //Find the currently focused com.blockWorkout.view, so we can grab the correct window token from it.
+        var view = activity.currentFocus
+        //If no com.blockWorkout.view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = View(activity)
+        }
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    fun setDatePicker(context: Context, currentDate: CurrentDate) {
+        val myCalendar = Calendar.getInstance()
+        val date = { view: DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
+            currentDate.getSelectedDate(year.toString()+"-"+monthOfYear.toString()+"-"+ dayOfMonth.toString()) }
+        val picker = DatePickerDialog(context,R.style.datepicker,
+                date, myCalendar
+                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH))
+        picker.datePicker.maxDate = myCalendar.time.time
+        picker.show()
+    }
+
+    interface CurrentDate {
+        fun getSelectedDate(date: String)
+    }
+
+    @Throws(Exception::class)
+    public fun createTemporaryFile(part: String, ext: String): File {
+        var tempDir = Environment.getExternalStorageDirectory()
+        tempDir = File(tempDir.absolutePath + "/.temp/")
+        if (!tempDir.exists()) {
+            tempDir.mkdirs()
+        }
+        return File.createTempFile(part, ext, tempDir)
+    }
+
 }
