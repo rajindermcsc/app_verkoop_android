@@ -28,7 +28,6 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class EditProfileActivity : AppCompatActivity() {
     private var uriTemp: Uri? = null
     private var mCurrentPhotoPath: String? = null
@@ -39,7 +38,9 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun setData() {
+        ivRight.visibility=View.VISIBLE
         ivLeftLocation.setOnClickListener { onBackPressed() }
+        ivRight.setOnClickListener { }
         tvHeaderLoc.text = getString(R.string.my_profile)
         spinner1.setSelection(1)
         spinner1.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -60,7 +61,8 @@ class EditProfileActivity : AppCompatActivity() {
             addProfileImage()
         }
         etMyCity.setOnClickListener {
-
+            val intent=Intent(this,RegionActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -108,7 +110,6 @@ class EditProfileActivity : AppCompatActivity() {
             when (requestCode) {
                 REQUEST_TAKE_PHOTO -> {
                     val f = File(mCurrentPhotoPath!!)
-//                    uriTemp = Uri.fromFile(f)
                     uriTemp = FileProvider.getUriForFile(this, applicationContext.packageName + ".provider", f)
                     CropImage.activity(uriTemp)
                             .setGuidelines(CropImageView.Guidelines.ON)

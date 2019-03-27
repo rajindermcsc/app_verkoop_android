@@ -42,10 +42,11 @@
         android:layout_gravity="center"
         android:text="@string/deal_location"/>
         <ImageView
+            android:id="@+id/ivRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/dp_10"
-            android:src="@mipmap/back"
+            android:src="@mipmap/tick"
             android:layout_marginEnd="@dimen/dp_8"
             android:contentDescription="@string/back"
             android:visibility="invisible"

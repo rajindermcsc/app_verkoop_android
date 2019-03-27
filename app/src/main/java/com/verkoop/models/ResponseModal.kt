@@ -372,3 +372,24 @@ data class FavouritesResponse(
     val username: String,
     val profile_pic: String
 )*/
+
+data class RegionResponse(
+    val country: ArrayList<Country>
+)
+
+data class Country(
+    val id: Int,
+    val name: String,
+    val states: ArrayList<State>
+)
+
+data class State(
+    val id: Int,
+    val name: String,
+    val cities: ArrayList<City>
+)
+
+data class City(
+    val id: Int,
+    val name: String
+)
