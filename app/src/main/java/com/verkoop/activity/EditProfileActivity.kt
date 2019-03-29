@@ -10,48 +10,121 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.support.v4.content.FileProvider
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
+import android.text.TextUtils
 import android.view.View
+import android.view.WindowManager
 import android.widget.AdapterView
 import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import com.verkoop.R
-import com.verkoop.utils.PermissionCheck
-import com.verkoop.utils.SelectionOptionListener
-import com.verkoop.utils.Utils
-import com.verkoop.utils.selectOptionDialog
+import com.verkoop.models.MyProfileIngoResponse
+import com.verkoop.models.ProfileUpdateRequest
+import com.verkoop.models.ProfileUpdateResponse
+import com.verkoop.network.ServiceHelper
 import kotlinx.android.synthetic.main.edit_profile_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import com.verkoop.utils.*
+import retrofit2.Response
 
+
+@Suppress("DEPRECATED_IDENTITY_EQUALS")
 class EditProfileActivity : AppCompatActivity() {
     private var uriTemp: Uri? = null
     private var mCurrentPhotoPath: String? = null
+    private var cityName:String=""
+    private var stateName:String=""
+    private var countryName:String=""
+    private var gender:String=""
+    private var stateId:Int=0
+    private var cityId:Int=0
+    private var countryId:Int=0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.edit_profile_activity)
         setData()
+        if (Utils.isOnline(this)) {
+            getProfileDataApi()
+        } else {
+            Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+        }
+    }
+
+    private fun getProfileDataApi() {
+        window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        pbProfileProgress.visibility = View.VISIBLE
+        ServiceHelper().getMyProfileInfoService(Utils.getPreferencesString(this, AppConstants.USER_ID), object : ServiceHelper.OnResponse {
+            override fun onSuccess(response: Response<*>) {
+                window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                pbProfileProgress.visibility = View.GONE
+                val myProfileResponse = response.body() as MyProfileIngoResponse
+                if(myProfileResponse.data!=null) {
+                    etUserName.setText(myProfileResponse.data.username)
+                    etFirstName.setText(myProfileResponse.data.first_name)
+                    etLastName.setText(myProfileResponse.data.last_name)
+                    etWebsite.setText(myProfileResponse.data.website)
+                    etBio.setText(myProfileResponse.data.bio)
+                    etMobileNo.setText(myProfileResponse.data.mobile_no)
+                    tvDate.text = myProfileResponse.data.DOB
+                    when {
+                        myProfileResponse.data.gender.equals("Male",ignoreCase = true) -> spinner1.setSelection(2)
+                        myProfileResponse.data.gender.equals("Female",ignoreCase = true) -> spinner1.setSelection(1)
+                        else -> spinner1.setSelection(0)
+                    }
+                    if(!TextUtils.isEmpty(myProfileResponse.data.profile_pic)){
+                        Picasso.with(this@EditProfileActivity).load(AppConstants.IMAGE_URL+myProfileResponse.data.profile_pic)
+                                .resize(720, 720)
+                                .centerInside()
+                                .error(R.mipmap.gallery_place)
+                                .placeholder(R.mipmap.gallery_place)
+                                .into(ivProfileImage)
+                    }
+                    if(!TextUtils.isEmpty(myProfileResponse.data.state)&&!TextUtils.isEmpty(myProfileResponse.data.city)){
+                        etMyCity.text =StringBuilder().append(myProfileResponse.data.city).append("(").append(myProfileResponse.data.state).append(")")
+                    cityId=myProfileResponse.data.city_id
+                    stateId=myProfileResponse.data.state_id
+                    }
+                }
+            }
+
+            override fun onFailure(msg: String?) {
+                window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                pbProfileProgress.visibility = View.GONE
+                Utils.showSimpleMessage(this@EditProfileActivity, msg!!).show()
+            }
+        })
     }
 
     private fun setData() {
+        etEmail.setText(Utils.getPreferencesString(this,AppConstants.USER_EMAIL_ID))
         ivRight.visibility=View.VISIBLE
         ivLeftLocation.setOnClickListener { onBackPressed() }
-        ivRight.setOnClickListener { }
+        ivRight.setOnClickListener {
+            if (Utils.isOnline(this)) {
+                KeyboardUtil.hideKeyboard(this)
+                updateProfileData()
+            } else {
+                Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+            }
+        }
         tvHeaderLoc.text = getString(R.string.my_profile)
-        spinner1.setSelection(1)
         spinner1.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 Utils.hideKeyboardOnOutSideTouch(spinner1, this@EditProfileActivity)
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                Log.e("selectedPosition", position.toString())
-                Log.e("selectedString", parent!!.getItemAtPosition(position).toString())
                 Utils.hideKeyboardOnOutSideTouch(spinner1, this@EditProfileActivity)
+                gender = when (position) {
+                    1 -> "Female"
+                    2 -> "Male"
+                    else -> ""
+                }
             }
         }
         tvDate.setOnClickListener {
@@ -60,11 +133,47 @@ class EditProfileActivity : AppCompatActivity() {
         ivProfileImage.setOnClickListener {
             addProfileImage()
         }
-        etMyCity.setOnClickListener {
+        llCity.setOnClickListener {
             val intent=Intent(this,RegionActivity::class.java)
-            startActivity(intent)
+            intent.putExtra(AppConstants.CITY_ID,cityId)
+            intent.putExtra(AppConstants.STATE_ID,stateId)
+            startActivityForResult(intent,3)
         }
     }
+
+    private fun updateProfileData() {
+        val updateCategoryRequest=   ProfileUpdateRequest(
+                Utils.getPreferencesString(this,AppConstants.USER_ID),
+                if (etUserName.text?.toString() != null) etUserName.text.toString() else "",
+                if (etFirstName.text?.toString() != null) etFirstName.text.toString() else "",
+                if (etLastName.text?.toString() != null) etLastName.text.toString() else "",
+                cityName,stateName,countryName,cityId.toString(),stateId.toString(),countryId.toString(),
+                if (etWebsite.text?.toString() != null) etWebsite.text.toString() else "",
+                if (etBio.text?.toString() != null) etBio.text.toString() else "",
+                if (mCurrentPhotoPath != null) mCurrentPhotoPath!! else "" ,
+                if (etMobileNo.text?.toString() != null) etMobileNo.text.toString() else "",
+                gender  ,tvDate.text.toString())
+        window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        pbProfileProgress.visibility = View.VISIBLE
+        ServiceHelper().updateProfileService(updateCategoryRequest, object : ServiceHelper.OnResponse {
+            override fun onSuccess(response: Response<*>) {
+                window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                pbProfileProgress.visibility = View.GONE
+                val homeDataResponse = response.body() as ProfileUpdateResponse
+                Utils.showToast(this@EditProfileActivity,getString(R.string.profile_updated))
+                  onBackPressed()
+            }
+
+            override fun onFailure(msg: String?) {
+               window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                pbProfileProgress.visibility = View.GONE
+                Utils.showSimpleMessage(this@EditProfileActivity, msg!!).show()
+            }
+        })
+
+    }
+
 
     private fun addProfileImage() {
         if (checkPermission()) {
@@ -132,13 +241,28 @@ class EditProfileActivity : AppCompatActivity() {
                     Picasso.with(this).load(file)
                             .resize(720, 720)
                             .centerInside()
-                            .error(R.mipmap.setting)
+                            .error(R.mipmap.gallery_place)
                             .placeholder(R.mipmap.gallery_place)
                             .into(ivProfileImage)
                 }
             }
-
+            if (requestCode === 3) {
+                if (resultCode === Activity.RESULT_OK) {
+                     cityName = data!!.getStringExtra(AppConstants.CITY_NAME)
+                     cityId = data.getIntExtra(AppConstants.CITY_ID,0)
+                     stateName = data.getStringExtra(AppConstants.STATE_NAME)
+                     stateId = data.getIntExtra(AppConstants.STATE_ID,0)
+                     countryId = data.getIntExtra(AppConstants.COUNTRY_ID,0)
+                     countryName = data.getStringExtra(AppConstants.COUNTRY_NAME)
+                   etMyCity.text=StringBuilder().append(cityName).append("(").append(stateName).append(")")
+                }
+                if (resultCode === Activity.RESULT_CANCELED) {
+                    //Write your code if there's no result
+                }
+            }
         }
+
+
     }
 
     companion object {

@@ -24,4 +24,11 @@ object AppConstants{
      const val SUB_CATEGORY = "sub_category"
      const val POST_DATA = "post_data"
      const val REJECT_LIST = "REJECT_LIST"
+     const val CITY_LIST = "CITY_LIST"
+     const val CITY_NAME = "CITY_NAME"
+     const val CITY_ID = "CITY_ID"
+     const val STATE_NAME = "STATE_NAME"
+     const val STATE_ID = "STATE_ID"
+     const val COUNTRY_ID = "COUNTRY_ID"
+     const val COUNTRY_NAME = "COUNTRY_NAME"
 }

@@ -433,4 +433,109 @@ import java.util.ArrayList
              }
          })
      }
+
+
+
+     fun  updateProfileService(request:ProfileUpdateRequest, onResponse: OnResponse) {
+         val myService =  ApiClient.getClient().create(MyService::class.java)
+          var body: MultipartBody.Part?=null
+             if (!TextUtils.isEmpty(request.profile_pic)) {
+                 val file = File(request.profile_pic)
+                 val reqFile = RequestBody.create(MediaType.parse("image/jpg"), file)
+                 body = MultipartBody.Part.createFormData("profile_pic", file.name, reqFile)
+             }
+
+         var call: Call<ProfileUpdateResponse>?=null
+         val userId = RequestBody.create(MediaType.parse("text/plain"), request.user_id)
+         val userName = RequestBody.create(MediaType.parse("text/plain"), request.username)
+         val firstName = RequestBody.create(MediaType.parse("text/plain"), request.first_name)
+         val lastName = RequestBody.create(MediaType.parse("text/plain"), request.last_name)
+         val city = RequestBody.create(MediaType.parse("text/plain"), request.city)
+         val state = RequestBody.create(MediaType.parse("text/plain"), request.state)
+         val country = RequestBody.create(MediaType.parse("text/plain"), request.country)
+         val cityId = RequestBody.create(MediaType.parse("text/plain"), request.City_id)
+         val stateId = RequestBody.create(MediaType.parse("text/plain"), request.State_id)
+         val countryId = RequestBody.create(MediaType.parse("text/plain"), request.country_id)
+         val webSite = RequestBody.create(MediaType.parse("text/plain"), request.website)
+         val bio = RequestBody.create(MediaType.parse("text/plain"), request.bio)
+         val mobileNo = RequestBody.create(MediaType.parse("text/plain"), request.mobile_no)
+         val gender = RequestBody.create(MediaType.parse("text/plain"), request.gender)
+         val dob = RequestBody.create(MediaType.parse("text/plain"), request.DOB)
+
+         call = if(body!=null){
+             myService.editProfileWthImageApi( body,userId,userName,firstName,lastName,city,state,country,cityId,stateId,countryId,webSite,bio,mobileNo,gender,dob)
+         }else{
+             myService.editProfileWthOutImgApi( userId,userName,firstName,lastName,city,state,country,cityId,stateId,countryId,webSite,bio,mobileNo,gender,dob)
+         }
+
+         call.enqueue(object : Callback<ProfileUpdateResponse> {
+             override fun onResponse(call: Call<ProfileUpdateResponse>, response: Response<ProfileUpdateResponse>) {
+                 Log.e("<<<<Response>>>>", Gson().toJson(response.body()))
+                 if(response.code()==200){
+                     onResponse.onSuccess(response)
+                 }else{
+                     onResponse.onFailure(response.body()!!.message)
+                 }
+             }
+
+             override fun onFailure(call: Call<ProfileUpdateResponse>, t: Throwable) {
+                 Log.d(LOG_TAG, "<<<Error>>>" + t.localizedMessage)
+                 onResponse.onFailure("Something went wrong!")
+
+             }
+         })
+     }
+
+     fun  getMyProfileInfoService(userId:String,onResponse: OnResponse) {
+         val myService =  ApiClient.getClient().create(MyService::class.java)
+         val responseCall = myService.getMyProfileApi(userId)
+         responseCall.enqueue(object : Callback<MyProfileIngoResponse> {
+             override fun onResponse(call: Call<MyProfileIngoResponse>, response: Response<MyProfileIngoResponse>) {
+                 val res = response.body()
+                 Log.e("<<<Response>>>", Gson().toJson(res))
+                 if (res != null) {
+                     when {
+                         response.code() == 200 -> onResponse.onSuccess(response)
+                         else -> onResponse.onFailure(response.message())
+                     }
+                 }else {
+                     onResponse.onFailure("Something went wrong!")
+                 }
+             }
+
+             override fun onFailure(call: Call<MyProfileIngoResponse>, t: Throwable) {
+                 onResponse.onFailure(t.message)
+             }
+         })
+     }
+
+     fun updatePasswordService(request: UpdatePasswordRequest, onResponse: OnResponse) {
+         val myService = ApiClient.getClient().create(MyService::class.java)
+         val responseCall = myService.updatePasswordApi(request)
+         responseCall.enqueue(object : Callback<DisLikeResponse> {
+             override fun onResponse(call: Call<DisLikeResponse>, response: Response<DisLikeResponse>) {
+                 if (response.code() == 200) {
+                     onResponse.onSuccess(response)
+                 } else {
+                     if (response.errorBody() != null) {
+                         try {
+                             val messageError= JSONObject(response.errorBody()!!.string())
+                             onResponse.onFailure(messageError.getString("message"))
+                         } catch (e: JSONException) {
+                             onResponse.onFailure("Something went wrong")
+                             e.printStackTrace()
+                         } catch (e: IOException) {
+                             e.printStackTrace()
+                         }
+                     } else {
+                         onResponse.onFailure("Something went wrong")
+                     }
+                 }
+             }
+
+             override fun onFailure(call: Call<DisLikeResponse>, t: Throwable) {
+                 onResponse.onFailure(t.message)
+             }
+         })
+     }
 }

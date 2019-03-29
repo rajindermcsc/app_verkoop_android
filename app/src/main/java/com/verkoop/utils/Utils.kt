@@ -396,7 +396,15 @@ object Utils{
     fun setDatePicker(context: Context, currentDate: CurrentDate) {
         val myCalendar = Calendar.getInstance()
         val date = { view: DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
-            currentDate.getSelectedDate(year.toString()+"-"+monthOfYear.toString()+"-"+ dayOfMonth.toString()) }
+            var month=(monthOfYear+1).toString()
+            var day=dayOfMonth.toString()
+            if(monthOfYear < 10){
+                month= "0$month"
+            }
+            if(dayOfMonth < 10){
+                day  = "0$day"
+            }
+            currentDate.getSelectedDate(year.toString()+"-"+month+"-"+ day) }
         val picker = DatePickerDialog(context,R.style.datepicker,
                 date, myCalendar
                 .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH))

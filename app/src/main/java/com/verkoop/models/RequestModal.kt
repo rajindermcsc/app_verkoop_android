@@ -91,3 +91,30 @@ data class FilterModal(
     val isClicked: Boolean,
     val type: Int
 ): Parcelable
+
+
+
+data class ProfileUpdateRequest(
+    val user_id: String,
+    val username: String,
+    val first_name: String,
+    val last_name: String,
+    val city: String,
+    val state: String,
+    val country: String,
+    val City_id: String,
+    val State_id: String,
+    val country_id: String,
+    val website: String,
+    val bio: String,
+    val profile_pic: String,
+    val mobile_no: String,
+    val gender: String,
+    val DOB: String
+)
+
+data class UpdatePasswordRequest(
+    val user_id: String,
+    val current_password: String,
+    val new_password: String
+)

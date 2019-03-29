@@ -60,7 +60,6 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
         } else {
             Utils.showSimpleMessage(homeActivity, getString(R.string.check_internet)).show()
         }
-
     }
 
     override fun getItemDetailsClick(itemId: Int) {

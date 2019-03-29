@@ -177,5 +177,9 @@
     <string name="pick_from">Pick From</string>
 
     <string name="gallery">gallery</string>
+    <string name="region">Region</string>
+    <string name="city">City</string>
+    <string name="profile_updated">Your profile has been updated.</string>
+    <string name="changed">Password changed successfully.</string>
 
 </resources>

@@ -15,7 +15,8 @@ import com.verkoop.utils.AppConstants
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.my_profile_row.*
 
-class MyProfileItemAdapter(private val context: Context, private val myItemsList: ArrayList<Item>, private val llProfileParent: LinearLayout, private val profileFragment: ProfileFragment) : RecyclerView.Adapter<MyProfileItemAdapter.ViewHolder>() {
+class MyProfileItemAdapter(private val context: Context, private val llProfileParent: LinearLayout, private val profileFragment: ProfileFragment) : RecyclerView.Adapter<MyProfileItemAdapter.ViewHolder>() {
+    private var myItemsList= ArrayList<Item>()
     private var mInflater: LayoutInflater = LayoutInflater.from(context)
     private lateinit var likeDisLikeListener: LikeDisLikeListener
     private var width=0
@@ -85,5 +86,9 @@ class MyProfileItemAdapter(private val context: Context, private val myItemsList
     interface LikeDisLikeListener{
         fun getLikeDisLikeClick(type:Boolean,position:Int,lickedId:Int,itemId:Int)
         fun getItemDetailsClick(itemId:Int)
+    }
+
+    fun setData(data: ArrayList<Item>) {
+       myItemsList=data
     }
 }

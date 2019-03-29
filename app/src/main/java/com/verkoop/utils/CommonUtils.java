@@ -17,6 +17,8 @@ import static com.bumptech.glide.load.resource.bitmap.TransformationUtils.rotate
 
 
 public class CommonUtils {
+    String name="";
+    String check=name!=null?name:"";
     public static Uri getImageContentUri(Context context, File imageFile) {
         String filePath = imageFile.getAbsolutePath();
         Cursor cursor = context.getContentResolver().query(

@@ -2,6 +2,7 @@ package com.verkoop
 
 import android.app.Application
 import android.content.Context
+import android.support.multidex.MultiDex
 import com.verkoop.utils.Loading
 import org.acra.ACRA
 import org.acra.ReportingInteractionMode
@@ -25,6 +26,7 @@ class VerkoopApplication : Application() {
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
+        MultiDex.install(this)
         ACRA.init(this)
 
     }

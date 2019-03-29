@@ -14,6 +14,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -59,6 +60,7 @@ dependencies {
     implementation 'com.nightonke:jellytogglebutton:1.0.2'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
     compile 'com.github.claudiodegio:MsvSearch:1.0.0'
+    implementation 'com.android.support:multidex:1.0.3'
     //implementation 'com.github.skydoves:powermenu:2.0.5'
 }
 

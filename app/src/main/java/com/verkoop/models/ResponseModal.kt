@@ -386,10 +386,68 @@ data class Country(
 data class State(
     val id: Int,
     val name: String,
+    var isSelected:Boolean,
     val cities: ArrayList<City>
 )
-
+@Parcelize
 data class City(
     val id: Int,
+    var isSelected:Boolean,
     val name: String
+): Parcelable
+
+
+
+data class ProfileUpdateResponse(
+    val data: DataProfileUpdate?,
+    val message: String
+)
+
+data class DataProfileUpdate(
+    val userId: Int,
+    val email: String,
+    val username: String,
+    val first_name: String,
+    val last_name: String,
+    val login_type: String,
+    val social_id: String,
+    val country: String,
+    val mobile_no: String,
+    val website: String,
+    val city: String,
+    val bio: String,
+    val gender: String,
+    val DOB: String,
+    val profile_pic: String,
+    val is_active: Int,
+    val is_use: Int,
+    val mobile_verified: Int,
+    val created_at: CreatedAt
+)
+
+
+
+data class MyProfileIngoResponse(
+    val data: DataGetProfile?,
+    val message: String
+)
+
+data class DataGetProfile(
+    val id: Int,
+    val username: String,
+    val first_name: String,
+    val last_name: String,
+    val city: String,
+    val state: String,
+    val country: String,
+    val city_id: Int,
+    val state_id: Int,
+    val country_id: Int,
+    val website: String,
+    val bio: String,
+    val profile_pic: String,
+    val email: String,
+    val mobile_no: String,
+    val gender: String,
+    val DOB: String
 )

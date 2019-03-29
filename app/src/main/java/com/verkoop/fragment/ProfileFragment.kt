@@ -3,6 +3,7 @@ package com.verkoop.fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -74,6 +75,7 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setData()
+        setAdapter()
         if (Utils.isOnline(homeActivity)) {
             myProfileInfoApi()
         } else {
@@ -81,10 +83,10 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
         }
     }
 
-    private fun setAdapter(items: ArrayList<Item>) {
+    private fun setAdapter() {
         val linearLayoutManager = GridLayoutManager(context, 2)
         rvPostsList.layoutManager = linearLayoutManager
-        myProfileItemAdapter = MyProfileItemAdapter(homeActivity, items, llProfileParent, this)
+        myProfileItemAdapter = MyProfileItemAdapter(homeActivity, llProfileParent, this)
         rvPostsList.isNestedScrollingEnabled = false
         rvPostsList.isFocusable = false
         rvPostsList.adapter = myProfileItemAdapter
@@ -128,7 +130,6 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
     }
 
     private fun myProfileInfoApi() {
-
         homeActivity.window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         if(pbProgressProfile!=null) {
@@ -137,14 +138,14 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
         ServiceHelper().myProfileService(Utils.getPreferencesString(homeActivity, AppConstants.USER_ID),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
-                        homeActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                        if(pbProgressProfile!=null) {
                             pbProgressProfile.visibility = View.GONE
-                        }
+                        homeActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                         val myProfileResponse = response.body() as MyProfileResponse
                         itemsList.clear()
                         itemsList=myProfileResponse.data.items
-                        setAdapter(itemsList)
+                        myProfileItemAdapter.setData(itemsList)
+                        myProfileItemAdapter.notifyDataSetChanged()
+
                         tvName.text = myProfileResponse.data.username
                         tvJoiningDate.text= StringBuffer().append(": ").append(Utils.convertDate("yyyy-MM-dd hh:mm:ss",myProfileResponse.data.created_at,"dd MMMM yyyy"))
                     }
