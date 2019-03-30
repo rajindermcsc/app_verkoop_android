@@ -3,7 +3,6 @@ package com.verkoop.fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -66,6 +65,7 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

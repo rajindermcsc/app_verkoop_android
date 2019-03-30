@@ -71,7 +71,7 @@
     <string name="apply">APPLY</string>
     <string name="lorem_ipsum_has_been_the_industry_s_standard_dummy_text_ever_since_the_1500s_when_an_unknown_printer">Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer.</string>
     <string name="comments">Comments</string>
-    <string name="post_a_comment">post a Comment</string>
+    <string name="post_a_comment">Post a Comment</string>
     <string name="share">Share</string>
     <string name="casual_mens_shoes">Casual Mens Shoes</string>
     <string name="_25">25</string>
@@ -181,5 +181,7 @@
     <string name="city">City</string>
     <string name="profile_updated">Your profile has been updated.</string>
     <string name="changed">Password changed successfully.</string>
+    <string name="address">Address</string>
+    <string name="post">Post</string>
 
 </resources>

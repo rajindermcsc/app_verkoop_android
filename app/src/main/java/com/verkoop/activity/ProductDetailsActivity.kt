@@ -3,11 +3,13 @@ package com.verkoop.activity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.daimajia.slider.library.SliderTypes.BaseSliderView
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView
 import com.verkoop.R
 import com.verkoop.VerkoopApplication
+import com.verkoop.adapter.CommentListAdapter
 import com.verkoop.models.DataItems
 import com.verkoop.models.ItemDetailsResponse
 import com.verkoop.network.ServiceHelper
@@ -15,16 +17,21 @@ import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
 
 import kotlinx.android.synthetic.main.item_details_activity.*
-import kotlinx.android.synthetic.main.item_row.*
-import kotlinx.android.synthetic.main.my_profile_row.*
 import kotlinx.android.synthetic.main.toolbar_product_details.*
 import retrofit2.Response
+import android.content.Intent
+import android.app.Activity
+
+
+
 
 class ProductDetailsActivity:AppCompatActivity(){
    private var imageURLLIst=ArrayList<String>()
+    private lateinit var commentListAdapter: CommentListAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.item_details_activity)
+        setCommentAdapter()
         if(intent.getIntExtra(AppConstants.COMING_FROM,0)==1){
             tvSell.visibility= View.GONE
             ivRight.visibility= View.INVISIBLE
@@ -34,10 +41,23 @@ class ProductDetailsActivity:AppCompatActivity(){
         } else {
             Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
         }
+    }
 
+    private fun setCommentAdapter() {
+        val mManager=LinearLayoutManager(this)
+        rvPostCommentList.layoutManager=mManager
+        commentListAdapter= CommentListAdapter(this)
+        rvPostCommentList.adapter=commentListAdapter
     }
 
     private fun setData(imageURLLIst: ArrayList<String>, data: DataItems) {
+        tvPostComment.setOnClickListener {
+            if(data.id!=0) {
+                val i = Intent(this, AddCommentActivity::class.java)
+                i.putExtra(AppConstants.ITEM_ID, data.id)
+                startActivityForResult(i, 1)
+            }
+        }
         ivLeft.setOnClickListener { onBackPressed() }
         custom_indicator_detail.setDefaultIndicatorColor(ContextCompat.getColor(this, R.color.white), ContextCompat.getColor(this, R.color.light_gray))
         mDemoSliderDetails.setCustomIndicator(custom_indicator_detail)
@@ -84,4 +104,15 @@ class ProductDetailsActivity:AppCompatActivity(){
                 })
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                val result = data.getStringExtra("result")
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    }
 }

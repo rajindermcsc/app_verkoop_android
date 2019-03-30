@@ -451,3 +451,17 @@ data class DataGetProfile(
     val gender: String,
     val DOB: String
 )
+
+data class CommentResponse(
+    val message: String,
+    val data: DataComment
+)
+
+data class DataComment(
+    val id: Int,
+    val comment: String,
+    val created_at: CreatedAt,
+    val username: String,
+    val profile_pic: String
+)
+

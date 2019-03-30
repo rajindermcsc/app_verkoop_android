@@ -67,6 +67,9 @@ interface MyService {
     @GET("user/profileData/{userId}")
     fun getMyProfileApi(@Path(value = "userId", encoded = true) fullUrl: String): Call<MyProfileIngoResponse>
 
+    @POST("comments")
+    fun postCommentApi(@Body request: PostCommentRequest): Call<CommentResponse>
+
     @Multipart
     @POST("items")
     fun addClothApi(@Part files: List<MultipartBody.Part>,

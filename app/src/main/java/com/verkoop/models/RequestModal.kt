@@ -118,3 +118,10 @@ data class UpdatePasswordRequest(
     val current_password: String,
     val new_password: String
 )
+
+
+data class PostCommentRequest(
+    val user_id: String,
+    val item_id: Int,
+    val comment: String
+)
