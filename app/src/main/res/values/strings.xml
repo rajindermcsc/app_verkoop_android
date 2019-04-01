@@ -183,5 +183,11 @@
     <string name="changed">Password changed successfully.</string>
     <string name="address">Address</string>
     <string name="post">Post</string>
+    <string name="delete_comment">Delete Comment</string>
+    <string name="are_you_sure_you_want_to_delete_this_comment">Are you sure you want to delete this comment?</string>
+    <string name="yes">Yes</string>
+    <string name="deleted_successfully">Comment deleted successfully.</string>
+    <string name="this_listing_advertises_item_that_are_not_allowed_on_the_marketplace_e_g_durings_tabacco_adult_mature_content_animals_animal_product_and_more"><![CDATA[This listing advertises item that are not allowed on the marketplace(e.g:Durings & Tabacco,Adult & Mature Content, Animals & Animal Product and more.)]]></string>
+    <string name="submit">Submit</string>
 
 </resources>

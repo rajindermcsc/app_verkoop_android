@@ -125,3 +125,9 @@ data class PostCommentRequest(
     val item_id: Int,
     val comment: String
 )
+
+data class ReportUserRequest(
+    val user_id: String,
+    val item_id: Int,
+    val report_id: Int
+)

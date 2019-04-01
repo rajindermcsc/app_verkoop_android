@@ -61,7 +61,7 @@ dependencies {
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
     compile 'com.github.claudiodegio:MsvSearch:1.0.0'
     implementation 'com.android.support:multidex:1.0.3'
-    //implementation 'com.github.skydoves:powermenu:2.0.5'
+    implementation 'com.github.skydoves:powermenu:2.0.5'
 }
 
 buildscript {

@@ -68,14 +68,15 @@ data class Data(
         val token: String
 )
 
+@Parcelize
 data class CreatedAt(
         val date: String,
         val timezone_type: Int,
         val timezone: String
-)
+): Parcelable
 
 data class CategoriesResponse(
-        val data: ArrayList<DataCategory>,
+        val data: ArrayList<DataCategory>?,
         val message: String
 )
 @Parcelize
@@ -107,7 +108,7 @@ data class AddItemResponse(
 
 
 data class MyProfileResponse(
-    val data: DataProfile,
+    val data: DataProfile?,
     val message: String
 )
 
@@ -210,7 +211,7 @@ data class Photo(
 
 data class ItemDetailsResponse(
     val message: String,
-    val data: DataItems
+    val data: DataItems?
 )
 
 data class DataItems(
@@ -227,8 +228,34 @@ data class DataItems(
     val username: String,
     val profile_pic: String,
     val category_name: String,
-    val items_image: List<ItemsImage>
+    val address: String,
+    val latitude: String,
+    val longitude: String,
+    val meet_up: Int,
+    val items_image: List<ItemsImage>,
+    val comments: ArrayList<CommentModal>,
+    val reports: ArrayList<ReportResponse>
 )
+
+@Parcelize
+data class ReportResponse(
+    val id: Int,
+    val name: String,
+    val description: String,
+    val notes: String,
+    val created_at: String,
+    val updated_at: String,
+    var isSelected: Boolean
+): Parcelable
+@Parcelize
+data class CommentModal(
+    val username: String,
+    val profile_pic: String,
+    val id: Int,
+    val comment: String,
+    val created_at: String
+): Parcelable
+
 
 data class ItemsImage(
     val item_id: Int,
@@ -237,7 +264,7 @@ data class ItemsImage(
 
 
 data class HomeDataResponse(
-    val data: DataHome,
+    val data: DataHome?,
     val message: String
 )
 
@@ -296,7 +323,7 @@ data class DisLikeResponse(
 data class SocialLoginResponse(
     val status_code: Int,
     val message: String,
-    val data: DataSocial
+    val data: DataSocial?
 )
 
 data class DataSocial(
@@ -454,14 +481,15 @@ data class DataGetProfile(
 
 data class CommentResponse(
     val message: String,
-    val data: DataComment
+    val data: CommentModal?
 )
 
+@Parcelize
 data class DataComment(
     val id: Int,
     val comment: String,
     val created_at: CreatedAt,
     val username: String,
     val profile_pic: String
-)
+): Parcelable
 

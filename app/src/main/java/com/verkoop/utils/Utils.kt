@@ -270,6 +270,69 @@ object Utils{
     }
 
     @SuppressLint("SimpleDateFormat")
+    fun getDateDifferenceDiff(FutureDate: String): String {
+        var totalTime = 0
+        var unit: String? = null
+        try {
+            // val netDate = java.sql.Date(java.lang.Long.parseLong(FutureDate) * 1000)
+            val parseFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
+            parseFormat.timeZone = TimeZone.getTimeZone("UTC")
+            var date: Date? = null
+            try {
+                date = parseFormat.parse(FutureDate)
+            } catch (e: ParseException) {
+                e.printStackTrace()
+            }
+            val oldDate = Date()
+
+            var diff = oldDate.time - date!!.time
+
+            val days = diff / (24 * 60 * 60 * 1000)
+            diff -= days * (24 * 60 * 60 * 1000)
+
+            val hours = diff / (60 * 60 * 1000)
+            diff -= hours * (60 * 60 * 1000)
+
+            val minutes = diff / (60 * 1000)
+            diff -= minutes * (60 * 1000)
+
+            val seconds = diff / 1000
+
+            if (days != 0L) {
+                totalTime = days.toInt()
+                if (totalTime == 1) {
+                    unit = "day"
+                } else {
+                    unit = "days"
+                }
+                // unit = "day"
+            } else if (hours != 0L) {
+                totalTime = hours.toInt()
+                if (totalTime == 1) {
+                    unit = "hour"
+                } else {
+                    unit = "hours"
+                }
+            } else if (minutes != 0L) {
+                totalTime = minutes.toInt()
+                unit = "min"
+            } else if (seconds != 0L) {
+                totalTime = seconds.toInt()
+                unit = "sec"
+
+            } else {
+                totalTime = 0
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return totalTime.toString() + " " + unit
+    }
+
+
+    @SuppressLint("SimpleDateFormat")
     fun getDateDifferenceDetails(FutureDate: String): String {
         var totalTime = 0
         var unit: String? = null

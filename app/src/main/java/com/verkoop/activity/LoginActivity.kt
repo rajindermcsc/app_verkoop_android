@@ -64,8 +64,6 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 
         tvLogin.setOnClickListener {
             if (Utils.isOnline(this)) {
-                //      val intent = Intent(this@LoginActivity, CategoriesActivity::class.java)
-                //     startActivity(intent)
                 if (isValidate()) {
                     callLoginApi()
                 }
@@ -89,7 +87,6 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                 startActivityForResult(signInIntent, RC_SIGN_IN)
             } else {
                 Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
-
             }
         }
         tvSignUp.setOnClickListener {
@@ -289,8 +286,10 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
                         val loginResponse = response.body() as SocialLoginResponse
                         Log.e("<<Log>>", "Login Successfully.")
-                        setResponseData(loginResponse.data.id.toString(), loginResponse.data.api_token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type)
-                    }
+                        if(loginResponse.data!=null) {
+                            setResponseData(loginResponse.data.id.toString(), loginResponse.data.api_token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type)
+                        }
+                        }
 
                     override fun onFailure(msg: String?) {
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)

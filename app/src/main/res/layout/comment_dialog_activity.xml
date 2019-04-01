@@ -78,6 +78,7 @@
                             android:drawablePadding="@dimen/dp_10"
                             android:gravity="start"
                             android:hint="Type your comment"
+                            android:textCursorDrawable="@drawable/cursor_shape"
                             android:imeOptions="actionDone"
                             android:inputType="textMultiLine"
                             android:lines="8"

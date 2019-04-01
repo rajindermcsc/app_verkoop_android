@@ -70,6 +70,12 @@ interface MyService {
     @POST("comments")
     fun postCommentApi(@Body request: PostCommentRequest): Call<CommentResponse>
 
+    @DELETE("comments/{comment_id}")
+    fun deleteCommentApi(@Path(value = "comment_id", encoded = true) fullUrl: Int): Call<DisLikeResponse>
+
+    @POST("reports")
+    fun reportUserApi(@Body request: ReportUserRequest): Call<DisLikeResponse>
+
     @Multipart
     @POST("items")
     fun addClothApi(@Part files: List<MultipartBody.Part>,
@@ -79,9 +85,9 @@ interface MyService {
                     @Part("item_type") itemType: RequestBody,
                     @Part("description") description: RequestBody,
                     @Part("user_id") userId: RequestBody,
-                    @Part("Address") address: RequestBody,
-                    @Part("Latitude") lat: RequestBody,
-                    @Part("Longitude") lng: RequestBody,
+                    @Part("address") address: RequestBody,
+                    @Part("latitude") lat: RequestBody,
+                    @Part("longitude") lng: RequestBody,
                     @Part("meet_up") meetUp: RequestBody): Call<AddItemResponse>
 
 

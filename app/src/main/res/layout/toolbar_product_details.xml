@@ -46,7 +46,7 @@
                 tools:ignore="RtlSymmetry">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/ivProfileImage"
+                    android:id="@+id/ivProfileTool"
                     android:layout_width="@dimen/dp_40"
                     android:layout_height="@dimen/dp_40"
                     android:src="@mipmap/pic_placeholder"
@@ -70,7 +70,7 @@
                     android:layout_marginEnd="@dimen/dp_3"
                     tools:ignore="NestedWeights" />
                     <com.verkoop.fonts.textView.GothicThinTextView
-                        android:id="@+id/tvDate"
+                        android:id="@+id/tvDateTool"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"

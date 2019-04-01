@@ -9,7 +9,6 @@ import android.view.WindowManager
 import com.github.florent37.viewanimator.ViewAnimator
 import com.verkoop.R
 import com.verkoop.models.CommentResponse
-import com.verkoop.models.DisLikeResponse
 import com.verkoop.models.PostCommentRequest
 import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.AppConstants
@@ -17,6 +16,10 @@ import com.verkoop.utils.KeyboardUtil
 import com.verkoop.utils.Utils
 import kotlinx.android.synthetic.main.comment_dialog_activity.*
 import retrofit2.Response
+import android.app.Activity
+import android.content.Intent
+import com.verkoop.models.CommentModal
+import com.verkoop.models.DataComment
 
 
 class AddCommentActivity:AppCompatActivity(){
@@ -63,6 +66,8 @@ class AddCommentActivity:AppCompatActivity(){
                 .duration(600)
                 .onStop {
                     llParentPost.visibility = View.GONE
+                    val returnIntent = Intent()
+                    setResult(Activity.RESULT_CANCELED, returnIntent)
                     finish()
                     overridePendingTransition(0, 0)
                 }
@@ -78,9 +83,13 @@ class AddCommentActivity:AppCompatActivity(){
                     override fun onSuccess(response: Response<*>) {
                         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                         pbProgressPost.visibility = View.GONE
-                        val loginResponse = response.body() as CommentResponse
-                        Utils.showToast(this@AddCommentActivity, getString(R.string.changed))
-                        onBackPressed()
+                        val commentResponse = response.body() as CommentResponse
+                        if(commentResponse.data!= null){
+                            setBackIntent(commentResponse.data)
+                        }else{
+                            Utils.showSimpleMessage(this@AddCommentActivity,commentResponse.message).show()
+                        }
+
                     }
 
                     override fun onFailure(msg: String?) {
@@ -91,4 +100,24 @@ class AddCommentActivity:AppCompatActivity(){
                 })
 
     }
+
+    private fun setBackIntent(data: CommentModal?) {
+        ViewAnimator
+                .animate(flParentPost)
+                .translationY(0f, 2000f)
+                .duration(700)
+                .andAnimate(llParentPost)
+                .alpha(1f, 0f)
+                .duration(600)
+                .onStop {
+                    llParentPost.visibility = View.GONE
+                    val returnIntent = Intent()
+                    returnIntent.putExtra(AppConstants.COMMENT_RESULR, data)
+                    setResult(Activity.RESULT_OK, returnIntent)
+                    finish()
+                    overridePendingTransition(0, 0)
+                }
+                .start()
+    }
+
 }

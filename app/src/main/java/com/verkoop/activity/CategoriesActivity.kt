@@ -166,8 +166,10 @@ class CategoriesActivity : AppCompatActivity(), CategoryAdapter.SelectedCategory
                     override fun onSuccess(response: Response<*>) {
                         VerkoopApplication.instance.loader.hide(this@CategoriesActivity)
                         val categoriesResponse = response.body() as CategoriesResponse
-                        categoryList.addAll(categoriesResponse.data)
-                        setAdapter()
+                        if(categoriesResponse.data!=null) {
+                            categoryList.addAll(categoriesResponse.data)
+                            setAdapter()
+                        }
                     }
 
                     override fun onFailure(msg: String?) {

@@ -170,12 +170,12 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
     }
 
 
-    private fun setApiData(data: DataHome) {
+    private fun setApiData(data: DataHome?) {
         if (custom_indicator != null) {
             custom_indicator.setDefaultIndicatorColor(ContextCompat.getColor(homeActivity, R.color.white), ContextCompat.getColor(homeActivity, R.color.light_gray))
             mDemoSlider.setCustomIndicator(custom_indicator)
         }
-        for (i in 0 until data.advertisments.size) {
+        for (i in 0 until data!!.advertisments.size) {
             val textSliderView = DefaultSliderView(homeActivity)
             textSliderView.image(AppConstants.IMAGE_URL + data.advertisments[i].image)
                     .setOnSliderClickListener({ slider -> }).scaleType = BaseSliderView.ScaleType.Fit
@@ -208,7 +208,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
                     pbProgressHome.visibility = View.GONE
                 }
                 val homeDataResponse = response.body() as HomeDataResponse?
-                if (homeDataResponse != null) {
+                if (homeDataResponse!!.data != null) {
                     setApiData(homeDataResponse.data)
                 }
             }

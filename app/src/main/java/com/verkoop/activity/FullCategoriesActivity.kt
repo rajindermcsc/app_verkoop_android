@@ -73,8 +73,10 @@ class FullCategoriesActivity : AppCompatActivity(), FullCategoryAdapter.Selected
                         pvProgressCat.visibility=View.GONE
                     //    VerkoopApplication.instance.loader.hide(this@FullCategoriesActivity)
                         val categoriesResponse = response.body() as CategoriesResponse
-                        categoryList.addAll(categoriesResponse.data)
-                        setData()
+                        if(categoriesResponse.data!=null) {
+                            categoryList.addAll(categoriesResponse.data)
+                            setData()
+                        }
                     }
 
                     override fun onFailure(msg: String?) {

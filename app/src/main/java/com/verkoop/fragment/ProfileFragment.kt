@@ -141,14 +141,18 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
                             pbProgressProfile.visibility = View.GONE
                         homeActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                         val myProfileResponse = response.body() as MyProfileResponse
-                        itemsList.clear()
-                        itemsList=myProfileResponse.data.items
-                        myProfileItemAdapter.setData(itemsList)
-                        myProfileItemAdapter.notifyDataSetChanged()
+                        if(myProfileResponse.data!=null) {
+                            itemsList.clear()
+                            itemsList = myProfileResponse.data.items
+                            myProfileItemAdapter.setData(itemsList)
+                            myProfileItemAdapter.notifyDataSetChanged()
 
-                        tvName.text = myProfileResponse.data.username
-                        tvJoiningDate.text= StringBuffer().append(": ").append(Utils.convertDate("yyyy-MM-dd hh:mm:ss",myProfileResponse.data.created_at,"dd MMMM yyyy"))
-                    }
+                            tvName.text = myProfileResponse.data.username
+                            tvJoiningDate.text = StringBuffer().append(": ").append(Utils.convertDate("yyyy-MM-dd hh:mm:ss", myProfileResponse.data.created_at, "dd MMMM yyyy"))
+                        }else{
+//                            Utils.showSimpleMessage(homeActivity, myProfileResponse.message).show()
+                        }
+                        }
 
                     override fun onFailure(msg: String?) {
                         homeActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)

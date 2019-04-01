@@ -131,8 +131,10 @@ class SelectCategoryDialogActivity : AppCompatActivity(), SubCategoryDialogAdapt
                         pbProgress.visibility=View.GONE
                         VerkoopApplication.instance.loader.hide(this@SelectCategoryDialogActivity)
                         val categoriesResponse = response.body() as CategoriesResponse
-                        categoryList.addAll(categoriesResponse.data)
-                        setAdapter()
+                        if(categoriesResponse.data!=null) {
+                            categoryList.addAll(categoriesResponse.data)
+                            setAdapter()
+                        }
                     }
 
                     override fun onFailure(msg: String?) {

@@ -569,4 +569,57 @@ import java.util.ArrayList
              }
          })
      }
+
+     fun  deleteCommentService(commentId: Int,onResponse: OnResponse) {
+         val myService =  ApiClient.getClient().create(MyService::class.java)
+         val responseCall = myService.deleteCommentApi(commentId)
+         responseCall.enqueue(object : Callback<DisLikeResponse> {
+             override fun onResponse(call: Call<DisLikeResponse>, response: Response<DisLikeResponse>) {
+                 val res = response.body()
+                 Log.e("<<<Response>>>", Gson().toJson(res))
+                 if (res != null) {
+                     when {
+                         response.code() == 200 -> onResponse.onSuccess(response)
+                         else -> onResponse.onFailure(response.message())
+                     }
+                 }else {
+                     onResponse.onFailure("Something went wrong!")
+                 }
+             }
+
+             override fun onFailure(call: Call<DisLikeResponse>, t: Throwable) {
+                 onResponse.onFailure(t.message)
+             }
+         })
+     }
+
+     fun reportAddedService(request: ReportUserRequest, onResponse: OnResponse) {
+         val myService = ApiClient.getClient().create(MyService::class.java)
+         val responseCall = myService.reportUserApi(request)
+         responseCall.enqueue(object : Callback<DisLikeResponse> {
+             override fun onResponse(call: Call<DisLikeResponse>, response: Response<DisLikeResponse>) {
+                 if (response.code() == 201) {
+                     onResponse.onSuccess(response)
+                 } else {
+                     if (response.errorBody() != null) {
+                         try {
+                             val messageError= JSONObject(response.errorBody()!!.string())
+                             onResponse.onFailure(messageError.getString("message"))
+                         } catch (e: JSONException) {
+                             onResponse.onFailure("Something went wrong")
+                             e.printStackTrace()
+                         } catch (e: IOException) {
+                             e.printStackTrace()
+                         }
+                     } else {
+                         onResponse.onFailure("Something went wrong")
+                     }
+                 }
+             }
+
+             override fun onFailure(call: Call<DisLikeResponse>, t: Throwable) {
+                 onResponse.onFailure(t.message)
+             }
+         })
+     }
 }
