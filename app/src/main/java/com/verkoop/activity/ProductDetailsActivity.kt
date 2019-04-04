@@ -140,7 +140,7 @@ class ProductDetailsActivity : AppCompatActivity() {
     private fun openPowerMenu() {
         powerMenu = PowerMenu.Builder(this)
                 .addItem(PowerMenuItem("View Profile", false)) // add an item.
-                .addItem(PowerMenuItem("Report user", false)) // aad an item list.
+                .addItem(PowerMenuItem("Report listing", false)) // aad an item list.
                 .setAnimation(MenuAnimation.SHOWUP_TOP_RIGHT) // Animation start point (TOP | LEFT).
                 .setMenuRadius(1f) // sets the corner radius.
                 .setMenuShadow(10f) // sets the shadow.
@@ -164,7 +164,6 @@ class ProductDetailsActivity : AppCompatActivity() {
             startActivity(reportIntent)
         } else {
             val reportIntent = Intent(this, UserProfileActivity::class.java)
-            reportIntent.putParcelableArrayListExtra(AppConstants.REPORT_LIST, reportList)
             reportIntent.putExtra(AppConstants.USER_ID,userId)
             reportIntent.putExtra(AppConstants.USER_NAME,userName)
             startActivity(reportIntent)
@@ -200,7 +199,6 @@ class ProductDetailsActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 dataComment = data.getParcelableExtra(AppConstants.COMMENT_RESULR)

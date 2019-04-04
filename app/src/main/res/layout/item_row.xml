@@ -22,13 +22,14 @@
             android:paddingTop="@dimen/dp_8">
 
             <LinearLayout
+                android:id="@+id/llUserProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dp_8"
                 android:orientation="horizontal">
 
                 <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/ivMatch1"
+                    android:id="@+id/ivPicProfile"
                     android:layout_width="@dimen/dp_40"
                     android:layout_height="@dimen/dp_40"
                     android:src="@mipmap/pic_placeholder"
@@ -53,7 +54,6 @@
                         android:id="@+id/tvPostOn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/_2_day_ago"
                         android:textColor="@color/light_gray"
                         android:textSize="@dimen/sp_10" />
                 </LinearLayout>
@@ -128,7 +128,8 @@
                         android:orientation="horizontal"
                         android:paddingBottom="@dimen/dp_10"
                         android:paddingStart="@dimen/dp_8"
-                        android:paddingTop="@dimen/dp_10">
+                        android:paddingTop="@dimen/dp_10"
+                        tools:ignore="RtlSymmetry">
 
                         <com.verkoop.fonts.textView.GothicThinTextView
                             android:layout_width="wrap_content"

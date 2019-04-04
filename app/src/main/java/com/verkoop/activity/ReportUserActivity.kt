@@ -86,7 +86,7 @@ class ReportUserActivity:AppCompatActivity(), ReportListAdapter.OnSelectedCallBa
                         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                         pbProgressReport.visibility=View.GONE
                         val loginResponse = response.body() as DisLikeResponse
-                        Utils.showSimpleMessage(this@ReportUserActivity, "Report submitted to verkoop.").show()
+                        Utils.showToast(this@ReportUserActivity,getString(R.string.report_submitted))
                         onBackPressed()
                     }
 

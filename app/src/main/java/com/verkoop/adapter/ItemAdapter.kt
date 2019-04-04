@@ -12,11 +12,13 @@ import com.verkoop.LikeDisLikeListener
 import com.verkoop.R
 import com.verkoop.activity.CategoryDetailsActivity
 import com.verkoop.activity.ProductDetailsActivity
+import com.verkoop.activity.UserProfileActivity
 import com.verkoop.models.CategoryModal
 import com.verkoop.models.Item
 import com.verkoop.models.ItemHome
 import com.verkoop.utils.AppConstants
 import com.verkoop.utils.NonscrollRecylerview
+import com.verkoop.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_row.*
 import kotlinx.android.synthetic.main.my_profile_row.*
@@ -50,6 +52,7 @@ class ItemAdapter(private val context: Context,private val rvItemListDetails:Rec
     inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bind( data: ItemHome,position: Int) {
             ivProductImageHome.layoutParams.height =width-16
+            tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at.date)).append(" ").append("ago")
             tvNameHome.text=data.username
             tvProductHome.text=data.name
             if(position %2==0){
@@ -73,6 +76,18 @@ class ItemAdapter(private val context: Context,private val rvItemListDetails:Rec
             }else{
                 tvConditionHome.text=context.getString(R.string.used)
             }
+            if (!TextUtils.isEmpty(data.profile_pic)) {
+                Picasso.with(context)
+                        .load(AppConstants.IMAGE_URL + data.profile_pic)
+                        .resize(720, 720)
+                        .centerCrop()
+                        .error(R.mipmap.pic_placeholder)
+                        .placeholder(R.mipmap.pic_placeholder)
+                        .into(ivPicProfile)
+
+            } else {
+                ivPicProfile.setImageResource(R.mipmap.pic_placeholder)
+            }
             if(!TextUtils.isEmpty(data.image_url)) {
                 Picasso.with(context).load(AppConstants.IMAGE_URL + data.image_url)
                         .resize(720, 720)
@@ -93,6 +108,12 @@ class ItemAdapter(private val context: Context,private val rvItemListDetails:Rec
             }
             tvLikesHome.setOnClickListener {
                 likeDisLikeListener.getLikeDisLikeClick(data.is_like,adapterPosition,data.like_id,data.id)
+            }
+            llUserProfile.setOnClickListener {
+                val reportIntent = Intent(context, UserProfileActivity::class.java)
+                reportIntent.putExtra(AppConstants.USER_ID,data.user_id)
+                reportIntent.putExtra(AppConstants.USER_NAME,data.username)
+                context.startActivity(reportIntent)
             }
         }
         }

@@ -194,6 +194,8 @@
     <string name="unblock_user">Unblock User</string>
     <string name="block_sure">Are you sure you want to block this user?</string>
     <string name="unblock_sure">Are you sure you want to unblock this user?</string>
+    <string name="report_submitted">Report submitted to Verkoop!</string>
+    <string name="sold">SOLD</string>
 
 
 </resources>

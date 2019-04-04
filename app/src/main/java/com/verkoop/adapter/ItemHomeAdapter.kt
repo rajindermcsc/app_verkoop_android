@@ -12,6 +12,7 @@ import com.verkoop.LikeDisLikeListener
 import com.verkoop.LoadingListener
 import com.verkoop.R
 import com.verkoop.activity.ProductDetailsActivity
+import com.verkoop.activity.UserProfileActivity
 import com.verkoop.fragment.HomeFragment
 import com.verkoop.models.ItemHome
 import com.verkoop.utils.AppConstants
@@ -69,7 +70,18 @@ class ItemHomeAdapter(private val context: Context, private val rvItemList: Recy
             } else {
                 tvConditionHome.text = context.getString(R.string.used)
             }
+            if (!TextUtils.isEmpty(data.profile_pic)) {
+                Picasso.with(context)
+                        .load(AppConstants.IMAGE_URL + data.profile_pic)
+                        .resize(720, 720)
+                        .centerCrop()
+                        .error(R.mipmap.pic_placeholder)
+                        .placeholder(R.mipmap.pic_placeholder)
+                        .into(ivPicProfile)
 
+            } else {
+                ivPicProfile.setImageResource(R.mipmap.pic_placeholder)
+            }
             if (!TextUtils.isEmpty(data.image_url)) {
                 Picasso.with(context)
                         .load(AppConstants.IMAGE_URL + data.image_url)
@@ -94,6 +106,12 @@ class ItemHomeAdapter(private val context: Context, private val rvItemList: Recy
             }
             tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at.date)).append(" ").append("ago")
 
+            llUserProfile.setOnClickListener {
+                val reportIntent = Intent(context, UserProfileActivity::class.java)
+                reportIntent.putExtra(AppConstants.USER_ID,data.user_id)
+                reportIntent.putExtra(AppConstants.USER_NAME,data.username)
+                context.startActivity(reportIntent)
+            }
         }
 
     }
