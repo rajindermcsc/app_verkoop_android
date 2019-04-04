@@ -12,6 +12,8 @@ import android.os.Environment
 import android.preference.PreferenceManager
 import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
+import android.util.DisplayMetrics
+import android.util.TypedValue
 import android.view.View
 import android.widget.Toast
 import com.andrognito.flashbar.Flashbar
@@ -489,4 +491,8 @@ object Utils{
         return File.createTempFile(part, ext, tempDir)
     }
 
+    fun dpToPx(context: Context, valueInDp: Float): Float {
+        val metrics = context.resources.displayMetrics
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, valueInDp, metrics)
+    }
 }

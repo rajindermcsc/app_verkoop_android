@@ -622,4 +622,138 @@ import java.util.ArrayList
              }
          })
      }
+     fun followService(request: FollowRequest, onResponse: OnResponse) {
+         val myService = ApiClient.getClient().create(MyService::class.java)
+         val responseCall = myService.followApi(request)
+         responseCall.enqueue(object : Callback<FollowResponse> {
+             override fun onResponse(call: Call<FollowResponse>, response: Response<FollowResponse>) {
+                 if (response.code() == 201) {
+                     onResponse.onSuccess(response)
+                 } else {
+                     if (response.errorBody() != null) {
+                         try {
+                             val messageError= JSONObject(response.errorBody()!!.string())
+                             onResponse.onFailure(messageError.getString("message"))
+                         } catch (e: JSONException) {
+                             onResponse.onFailure("Something went wrong")
+                             e.printStackTrace()
+                         } catch (e: IOException) {
+                             e.printStackTrace()
+                         }
+                     } else {
+                         onResponse.onFailure("Something went wrong")
+                     }
+                 }
+             }
+
+             override fun onFailure(call: Call<FollowResponse>, t: Throwable) {
+                 onResponse.onFailure(t.message)
+             }
+         })
+     }
+     fun  unFollowService(followId: Int,onResponse: OnResponse) {
+         val myService =  ApiClient.getClient().create(MyService::class.java)
+         val responseCall = myService.unFollowApi(followId)
+         responseCall.enqueue(object : Callback<DisLikeResponse> {
+             override fun onResponse(call: Call<DisLikeResponse>, response: Response<DisLikeResponse>) {
+                 val res = response.body()
+                 Log.e("<<<Response>>>", Gson().toJson(res))
+                 if (res != null) {
+                     when {
+                         response.code() == 200 -> onResponse.onSuccess(response)
+                         else -> onResponse.onFailure(response.message())
+                     }
+                 }else {
+                     onResponse.onFailure("Something went wrong!")
+                 }
+             }
+
+             override fun onFailure(call: Call<DisLikeResponse>, t: Throwable) {
+                 onResponse.onFailure(t.message)
+             }
+         })
+     }
+
+     fun blockUserService(request: BlockUserRequest, onResponse: OnResponse) {
+         val myService = ApiClient.getClient().create(MyService::class.java)
+         val responseCall = myService.blockUserApi(request)
+         responseCall.enqueue(object : Callback<BlockUserResponse> {
+             override fun onResponse(call: Call<BlockUserResponse>, response: Response<BlockUserResponse>) {
+                 if (response.code() == 201) {
+                     onResponse.onSuccess(response)
+                 } else {
+                     if (response.errorBody() != null) {
+                         try {
+                             val messageError= JSONObject(response.errorBody()!!.string())
+                             onResponse.onFailure(messageError.getString("message"))
+                         } catch (e: JSONException) {
+                             onResponse.onFailure("Something went wrong")
+                             e.printStackTrace()
+                         } catch (e: IOException) {
+                             e.printStackTrace()
+                         }
+                     } else {
+                         onResponse.onFailure("Something went wrong")
+                     }
+                 }
+             }
+
+             override fun onFailure(call: Call<BlockUserResponse>, t: Throwable) {
+                 onResponse.onFailure(t.message)
+             }
+         })
+     }
+
+     fun  unBlockUserService(followId: Int,onResponse: OnResponse) {
+         val myService =  ApiClient.getClient().create(MyService::class.java)
+         val responseCall = myService.unBlockUserApi(followId)
+         responseCall.enqueue(object : Callback<DisLikeResponse> {
+             override fun onResponse(call: Call<DisLikeResponse>, response: Response<DisLikeResponse>) {
+                 val res = response.body()
+                 Log.e("<<<Response>>>", Gson().toJson(res))
+                 if (res != null) {
+                     when {
+                         response.code() == 200 -> onResponse.onSuccess(response)
+                         else -> onResponse.onFailure(response.message())
+                     }
+                 }else {
+                     onResponse.onFailure("Something went wrong!")
+                 }
+             }
+
+             override fun onFailure(call: Call<DisLikeResponse>, t: Throwable) {
+                 onResponse.onFailure(t.message)
+             }
+         })
+     }
+
+     fun userProfileService(request: FollowRequest, onResponse: OnResponse) {
+         val myService = ApiClient.getClient().create(MyService::class.java)
+         val responseCall = myService.userProfileApi(request)
+         responseCall.enqueue(object : Callback<UserProfileResponse> {
+             override fun onResponse(call: Call<UserProfileResponse>, response: Response<UserProfileResponse>) {
+                 if (response.code() == 200) {
+                     onResponse.onSuccess(response)
+                 } else {
+                     if (response.errorBody() != null) {
+                         try {
+                             val messageError= JSONObject(response.errorBody()!!.string())
+                             onResponse.onFailure(messageError.getString("message"))
+                         } catch (e: JSONException) {
+                             onResponse.onFailure("Something went wrong")
+                             e.printStackTrace()
+                         } catch (e: IOException) {
+                             e.printStackTrace()
+                         }
+                     } else {
+                         onResponse.onFailure("Something went wrong")
+                     }
+                 }
+             }
+
+             override fun onFailure(call: Call<UserProfileResponse>, t: Throwable) {
+                 onResponse.onFailure(t.message)
+             }
+         })
+     }
 }

@@ -189,5 +189,11 @@
     <string name="deleted_successfully">Comment deleted successfully.</string>
     <string name="this_listing_advertises_item_that_are_not_allowed_on_the_marketplace_e_g_durings_tabacco_adult_mature_content_animals_animal_product_and_more"><![CDATA[This listing advertises item that are not allowed on the marketplace(e.g:Durings & Tabacco,Adult & Mature Content, Animals & Animal Product and more.)]]></string>
     <string name="submit">Submit</string>
+    <string name="follow">Follow</string>
+    <string name="block_user">Block User</string>
+    <string name="unblock_user">Unblock User</string>
+    <string name="block_sure">Are you sure you want to block this user?</string>
+    <string name="unblock_sure">Are you sure you want to unblock this user?</string>
+
 
 </resources>

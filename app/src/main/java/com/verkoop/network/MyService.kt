@@ -76,6 +76,21 @@ interface MyService {
     @POST("reports")
     fun reportUserApi(@Body request: ReportUserRequest): Call<DisLikeResponse>
 
+    @POST("follows")
+    fun followApi(@Body request: FollowRequest): Call<FollowResponse>
+
+    @DELETE("follows/{follow_id}")
+    fun unFollowApi(@Path(value = "follow_id", encoded = true) fullUrl: Int): Call<DisLikeResponse>
+
+    @POST("block_users")
+    fun blockUserApi(@Body request: BlockUserRequest): Call<BlockUserResponse>
+
+    @DELETE("block_users/{block_id}")
+    fun unBlockUserApi(@Path(value = "block_id", encoded = true) fullUrl: Int): Call<DisLikeResponse>
+
+    @POST("user/itemCreateProfileData")
+    fun userProfileApi(@Body request: FollowRequest): Call<UserProfileResponse>
+
     @Multipart
     @POST("items")
     fun addClothApi(@Part files: List<MultipartBody.Part>,

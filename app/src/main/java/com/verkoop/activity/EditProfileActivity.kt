@@ -70,7 +70,10 @@ class EditProfileActivity : AppCompatActivity() {
                     etWebsite.setText(myProfileResponse.data.website)
                     etBio.setText(myProfileResponse.data.bio)
                     etMobileNo.setText(myProfileResponse.data.mobile_no)
-                    tvDate.text = myProfileResponse.data.DOB
+                    if(!TextUtils.isEmpty(myProfileResponse.data.DOB)){
+                        tvDate.text = myProfileResponse.data.DOB
+                    }
+
                     when {
                         myProfileResponse.data.gender.equals("Male",ignoreCase = true) -> spinner1.setSelection(2)
                         myProfileResponse.data.gender.equals("Female",ignoreCase = true) -> spinner1.setSelection(1)

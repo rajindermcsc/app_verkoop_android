@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.View
-import android.widget.Toast
 import com.daimajia.slider.library.SliderTypes.BaseSliderView
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView
 import com.skydoves.powermenu.MenuAnimation
@@ -29,11 +28,9 @@ import com.verkoop.models.ReportResponse
 import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
-import kotlinx.android.synthetic.main.edit_profile_activity.*
 import kotlinx.android.synthetic.main.item_details_activity.*
 import kotlinx.android.synthetic.main.toolbar_product_details.*
 import retrofit2.Response
-import android.support.v4.content.ContextCompat.startActivity
 import java.util.*
 
 
@@ -44,6 +41,8 @@ class ProductDetailsActivity : AppCompatActivity() {
     private var dataComment: CommentModal? = null
     private var powerMenu: PowerMenu? = null
     private var itemId: Int = 0
+    private var userId: Int = 0
+    private var userName: String = ""
     private lateinit var commentListAdapter: CommentListAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +50,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         setCommentAdapter()
         if (intent.getIntExtra(AppConstants.COMING_FROM, 0) == 1) {
             tvSell.visibility = View.GONE
-            ivRight.visibility = View.INVISIBLE
+            ivRightProduct.visibility = View.INVISIBLE
         }
         if (Utils.isOnline(this)) {
             getItemDetailsService(intent.getIntExtra(AppConstants.ITEM_ID, 0))
@@ -69,6 +68,8 @@ class ProductDetailsActivity : AppCompatActivity() {
 
     private fun setData(imageURLLIst: ArrayList<String>, data: DataItems) {
         itemId=data.id
+        userId=data.user_id
+        userName=data.username
         if(data.meet_up==1){
             tvAddress.text=data.address
         }else{
@@ -76,8 +77,9 @@ class ProductDetailsActivity : AppCompatActivity() {
         }
         tvAddress.setOnClickListener {
             if(!TextUtils.isEmpty(data.latitude)&&!TextUtils.isEmpty(data.longitude)){
-                val geoUri = "http://maps.google.com/maps?q=loc:$data.latitude,$data.longitude"
-                //val uri = String.format(Locale.ENGLISH, "geo:%f,%f", data.latitude, data.longitude)
+                //val geoUri = "http://maps.google.com/maps?q=loc:$data.latitude,$data.longitude"
+                val geoUri = "http://maps.google.com/maps?q=loc:" + data.latitude + "," + data.longitude /*+ "(" + classes.getName() + ")"*/
+               // val uri = String.format(Locale.ENGLISH, "geo:%f,%f", data.latitude, data.longitude)
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(geoUri))
                startActivity(intent)
             }
@@ -97,9 +99,9 @@ class ProductDetailsActivity : AppCompatActivity() {
                     .placeholder(R.mipmap.pic_placeholder)
                     .into(ivProfileTool)
         }
-        ivRight.setImageResource(R.drawable.menu_icone)
+        ivRightProduct.setImageResource(R.drawable.menu_icone)
 
-        ivRight.setOnClickListener {
+        ivRightProduct.setOnClickListener {
             openPowerMenu()
         }
         tvPostComment.setOnClickListener {
@@ -139,8 +141,8 @@ class ProductDetailsActivity : AppCompatActivity() {
         powerMenu = PowerMenu.Builder(this)
                 .addItem(PowerMenuItem("View Profile", false)) // add an item.
                 .addItem(PowerMenuItem("Report user", false)) // aad an item list.
-                .setAnimation(MenuAnimation.SHOWUP_TOP_LEFT) // Animation start point (TOP | LEFT).
-                .setMenuRadius(10f) // sets the corner radius.
+                .setAnimation(MenuAnimation.SHOWUP_TOP_RIGHT) // Animation start point (TOP | LEFT).
+                .setMenuRadius(1f) // sets the corner radius.
                 .setMenuShadow(10f) // sets the shadow.
                 .setTextColor(ContextCompat.getColor(this, R.color.black_dark))
                 .setMenuColor(Color.WHITE)
@@ -149,7 +151,7 @@ class ProductDetailsActivity : AppCompatActivity() {
                 .setSelectedMenuColor(ContextCompat.getColor(this, R.color.colorPrimary))
                 .setOnMenuItemClickListener(onMenuItemClickListener)
                 .build()
-        powerMenu!!.showAsAnchorRightTop(ivRight)
+        powerMenu!!.showAsAnchorRightTop(ivRightProduct)
     }
 
     private val onMenuItemClickListener = OnMenuItemClickListener<PowerMenuItem> { position, item ->
@@ -161,7 +163,11 @@ class ProductDetailsActivity : AppCompatActivity() {
             reportIntent.putExtra(AppConstants.ITEM_ID,itemId)
             startActivity(reportIntent)
         } else {
-
+            val reportIntent = Intent(this, UserProfileActivity::class.java)
+            reportIntent.putParcelableArrayListExtra(AppConstants.REPORT_LIST, reportList)
+            reportIntent.putExtra(AppConstants.USER_ID,userId)
+            reportIntent.putExtra(AppConstants.USER_NAME,userName)
+            startActivity(reportIntent)
         }
     }
 

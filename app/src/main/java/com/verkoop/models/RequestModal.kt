@@ -129,5 +129,18 @@ data class PostCommentRequest(
 data class ReportUserRequest(
     val user_id: String,
     val item_id: Int,
-    val report_id: Int
+    val report_id: Int,
+    val type: Int
+
+
+)
+
+data class FollowRequest(
+    val user_id: String,
+    val follower_id: Int
+)
+
+data class BlockUserRequest(
+    val user_id: String,
+    val user_block_id: Int
 )

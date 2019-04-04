@@ -117,6 +117,16 @@ data class DataProfile(
     val username: String,
     val created_at: String,
     val profile_pic: String,
+    val email: String,
+    val mobile_no: String,
+    val website: String,
+    val city: String,
+    val state: String,
+    val country: String,
+    val city_id: String,
+    val state_id: String,
+    val country_id: String,
+    val follow_id: Int,
     val items: ArrayList<Item>
 )
 
@@ -243,10 +253,13 @@ data class ReportResponse(
     val name: String,
     val description: String,
     val notes: String,
+    val type: Int,
     val created_at: String,
     val updated_at: String,
     var isSelected: Boolean
 ): Parcelable
+
+
 @Parcelize
 data class CommentModal(
     val username: String,
@@ -493,3 +506,86 @@ data class DataComment(
     val profile_pic: String
 ): Parcelable
 
+
+data class FollowResponse(
+    val message: String,
+    val data: DataFollow
+)
+
+data class DataFollow(
+    val follower_id: String,
+    val user_id: String,
+    val updated_at: String,
+    val created_at: String,
+    val id: Int
+)
+
+
+data class UserProfileResponse(
+    val data: DataUserProfile?,
+    val message: String
+)
+
+data class DataUserProfile(
+    val id: Int,
+    val username: String,
+    val created_at: String,
+    val profile_pic: String,
+    val email: String,
+    val mobile_no: String,
+    val website: String,
+    val city: String,
+    val state: String,
+    val country: String,
+    val city_id: Int,
+    val state_id: Int,
+    val country_id: Int,
+    val follow_count: Int,
+    val follower_count: Int,
+    val follower_id: Int,
+    val block_id: Int,
+    val items: ArrayList<ItemUserProfile>,
+    val reports: ArrayList<ReportResponse>
+)
+
+data class ItemUserProfile(
+    val id: Int,
+    val user_id: Int,
+    val category_id: Int,
+    val name: String,
+    val price: Int,
+    val item_type: Int,
+    val created_at: CreatedAt,
+    var like_id: Int,
+    var is_like: Boolean,
+    var items_like_count: Int,
+    val image_url: String,
+    val username: String,
+    val profile_pic: String,
+    val is_sold: String
+)
+
+
+@Parcelize
+data class Report(
+    val id: Int,
+    val name: String,
+    val description: String,
+    val notes: String,
+    val type: Int,
+    val created_at: String,
+    val updated_at: String
+): Parcelable
+
+data class BlockUserResponse(
+    val message: String,
+    val data: DataBlock?
+)
+
+data class DataBlock(
+    val user_block_id: String,
+    val user_id: String,
+    val updated_at: String,
+    val created_at: String,
+    val id: Int
+)

@@ -12,6 +12,8 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import com.verkoop.R
+import kotlinx.android.synthetic.main.delete_comment_dialog.*
+import kotlinx.android.synthetic.main.delete_comment_dialog.view.*
 import kotlinx.android.synthetic.main.dialog_answer.*
 import kotlinx.android.synthetic.main.dialog_select_met_up.*
 import kotlinx.android.synthetic.main.select_option_dialoog.*
@@ -101,7 +103,7 @@ class selectOptionDialog(context: Context, private val listener:SelectionOptionL
         }
     }
 
-    class DeleteCommentDialog(context: Context, private val listener:SelectionListener)
+    class DeleteCommentDialog(context: Context,private val header:String,private val description:String, private val listener:SelectionListener)
         :android.app.Dialog(context){
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
@@ -109,10 +111,15 @@ class selectOptionDialog(context: Context, private val listener:SelectionOptionL
             setContentView(R.layout.delete_comment_dialog)
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
-            setCancelable(false)
-
-            tvLeave.setOnClickListener {
+            setCancelable(true)
+            setCanceledOnTouchOutside(true)
+            tvHeaderDel.text=header
+            tvDescriptionDel.text=description
+            tvLeaveDelete.setOnClickListener {
                 listener.leaveClick()
+                dismiss()
+            }
+            tvNo.setOnClickListener {
                 dismiss()
             }
         }

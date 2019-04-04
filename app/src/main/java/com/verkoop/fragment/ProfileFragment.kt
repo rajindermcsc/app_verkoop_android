@@ -4,11 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import com.ksmtrivia.common.BaseFragment
+import com.squareup.picasso.Picasso
 import com.verkoop.R
 import com.verkoop.activity.*
 import com.verkoop.adapter.MyProfileItemAdapter
@@ -21,8 +23,8 @@ import retrofit2.Response
 
 class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener {
     private lateinit var myProfileItemAdapter: MyProfileItemAdapter
-    private var  itemsList=ArrayList<Item>()
-    private var isClicked:Boolean = false
+    private var itemsList = ArrayList<Item>()
+    private var isClicked: Boolean = false
 
     override fun getItemDetailsClick(itemId: Int) {
         val intent = Intent(context, ProductDetailsActivity::class.java)
@@ -31,15 +33,15 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
         homeActivity.startActivity(intent)
     }
 
-    override fun getLikeDisLikeClick(type: Boolean, position: Int,lickedId:Int,itemId:Int) {
-        if(type){
-            if(!isClicked) {
-                isClicked=true
+    override fun getLikeDisLikeClick(type: Boolean, position: Int, lickedId: Int, itemId: Int) {
+        if (type) {
+            if (!isClicked) {
+                isClicked = true
                 deleteLikeApi(position, lickedId)
             }
-        }else{
-            if(!isClicked) {
-                isClicked=true
+        } else {
+            if (!isClicked) {
+                isClicked = true
                 lickedApi(itemId, position)
             }
         }
@@ -94,7 +96,7 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
 
     private fun setData() {
         llFavourite.setOnClickListener {
-            val intent=Intent(homeActivity, FavouritesActivity::class.java)
+            val intent = Intent(homeActivity, FavouritesActivity::class.java)
             startActivity(intent)
         }
         tvCategoryProfile.setOnClickListener {
@@ -114,8 +116,8 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
             homeActivity.startActivity(intent)
         }
         ivScanner.setOnClickListener {
-          //  val intent = Intent(homeActivity, QRScannerActivity::class.java)
-        //    homeActivity.startActivity(intent)
+            //  val intent = Intent(homeActivity, QRScannerActivity::class.java)
+            //    homeActivity.startActivity(intent)
         }
     }
 
@@ -132,31 +134,25 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
     private fun myProfileInfoApi() {
         homeActivity.window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        if(pbProgressProfile!=null) {
+        if (pbProgressProfile != null) {
             pbProgressProfile.visibility = View.VISIBLE
         }
         ServiceHelper().myProfileService(Utils.getPreferencesString(homeActivity, AppConstants.USER_ID),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
-                            pbProgressProfile.visibility = View.GONE
+                        pbProgressProfile.visibility = View.GONE
                         homeActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                         val myProfileResponse = response.body() as MyProfileResponse
-                        if(myProfileResponse.data!=null) {
-                            itemsList.clear()
-                            itemsList = myProfileResponse.data.items
-                            myProfileItemAdapter.setData(itemsList)
-                            myProfileItemAdapter.notifyDataSetChanged()
-
-                            tvName.text = myProfileResponse.data.username
-                            tvJoiningDate.text = StringBuffer().append(": ").append(Utils.convertDate("yyyy-MM-dd hh:mm:ss", myProfileResponse.data.created_at, "dd MMMM yyyy"))
-                        }else{
+                        if (myProfileResponse.data != null) {
+                            setApiData(myProfileResponse.data)
+                        } else {
 //                            Utils.showSimpleMessage(homeActivity, myProfileResponse.message).show()
                         }
-                        }
+                    }
 
                     override fun onFailure(msg: String?) {
                         homeActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                        if(pbProgressProfile!=null) {
+                        if (pbProgressProfile != null) {
                             pbProgressProfile.visibility = View.GONE
                         }
                         Utils.showSimpleMessage(homeActivity, msg!!).show()
@@ -164,22 +160,46 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
                 })
     }
 
+    private fun setApiData(data: DataProfile) {
+        itemsList.clear()
+        itemsList = data.items
+        myProfileItemAdapter.setData(itemsList)
+        myProfileItemAdapter.notifyDataSetChanged()
+        tvName.text = data.username
+        tvJoiningDate.text = StringBuffer().append(": ").append(Utils.convertDate("yyyy-MM-dd hh:mm:ss", data.created_at, "dd MMMM yyyy"))
+        if (!TextUtils.isEmpty(data.profile_pic)) {
+            Picasso.with(homeActivity).load(AppConstants.IMAGE_URL + data.profile_pic)
+                    .resize(720, 720)
+                    .centerInside()
+                    .error(R.mipmap.gallery_place)
+                    .placeholder(R.mipmap.gallery_place)
+                    .into(ivProfilePic)
+        }
+        if (!TextUtils.isEmpty(data.city) && !TextUtils.isEmpty(data.state)) {
+            tvAddress.text = StringBuilder().append(data.city).append("(").append(data.state).append(")")
+            tvAddress.visibility = View.VISIBLE
+        } else {
+            tvAddress.visibility = View.GONE
+        }
+        tvCountry.text = data.country
+    }
+
 
     private fun lickedApi(itemId: Int, position: Int) {
-        val lickedRequest=LickedRequest(Utils.getPreferencesString(homeActivity,AppConstants.USER_ID),itemId)
+        val lickedRequest = LickedRequest(Utils.getPreferencesString(homeActivity, AppConstants.USER_ID), itemId)
         ServiceHelper().likeService(lickedRequest,
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
-                        isClicked=false
+                        isClicked = false
                         val responseLike = response.body() as LikedResponse
-                        val items= Item(itemsList[position].id,
+                        val items = Item(itemsList[position].id,
                                 itemsList[position].user_id,
                                 itemsList[position].category_id,
                                 itemsList[position].name,
                                 itemsList[position].price,
                                 itemsList[position].item_type,
                                 itemsList[position].created_at,
-                                itemsList[position].likes_count+1,
+                                itemsList[position].likes_count + 1,
                                 responseLike.like_id,
                                 !itemsList[position].is_like,
                                 itemsList[position].image_url)
@@ -188,8 +208,8 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
                     }
 
                     override fun onFailure(msg: String?) {
-                        isClicked=false
-                     //Utils.showSimpleMessage(homeActivity, msg!!).show()
+                        isClicked = false
+                        //Utils.showSimpleMessage(homeActivity, msg!!).show()
                     }
                 })
     }
@@ -198,17 +218,17 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
         ServiceHelper().disLikeService(lickedId,
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
-                        isClicked=false
+                        isClicked = false
                         val likeResponse = response.body() as DisLikeResponse
-                        val items= Item(itemsList[position].id,
+                        val items = Item(itemsList[position].id,
                                 itemsList[position].user_id,
                                 itemsList[position].category_id,
                                 itemsList[position].name,
                                 itemsList[position].price,
                                 itemsList[position].item_type,
                                 itemsList[position].created_at,
-                                itemsList[position].likes_count-1,
-                               0,
+                                itemsList[position].likes_count - 1,
+                                0,
                                 !itemsList[position].is_like,
                                 itemsList[position].image_url)
                         itemsList[position] = items
@@ -216,17 +236,17 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
                     }
 
                     override fun onFailure(msg: String?) {
-                        isClicked=false
-                   //     Utils.showSimpleMessage(homeActivity, msg!!).show()
+                        isClicked = false
+                        //     Utils.showSimpleMessage(homeActivity, msg!!).show()
                     }
                 })
     }
 
     fun refreshUI(from: Int) {
-        if(from==0){
-         //   rvPostsList.isFocusable=true
-         //   rvPostsList.scrollToPosition(0)
-        }else if(from==1){
+        if (from == 0) {
+            //   rvPostsList.isFocusable=true
+            //   rvPostsList.scrollToPosition(0)
+        } else if (from == 1) {
             if (Utils.isOnline(homeActivity)) {
                 myProfileInfoApi()
             } else {

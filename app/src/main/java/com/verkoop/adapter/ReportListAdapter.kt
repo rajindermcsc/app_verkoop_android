@@ -41,7 +41,7 @@ class ReportListAdapter(private val context: Context, private  val reportList: A
             }
             tvReportName.text=modal.name
             tvReportName.setOnClickListener {
-                onselectCallBack.onSelection(modal.id,modal.description)
+                onselectCallBack.onSelection(modal.id,modal.description,modal.type)
                 offSelection(adapterPosition)
             }
         }
@@ -55,7 +55,7 @@ class ReportListAdapter(private val context: Context, private  val reportList: A
     }
 
     interface OnSelectedCallBack{
-        fun onSelection(reportId:Int,description:String)
+        fun onSelection(reportId:Int,description:String,type:Int)
     }
 
 }

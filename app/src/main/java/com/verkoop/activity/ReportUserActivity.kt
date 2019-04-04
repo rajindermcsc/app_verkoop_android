@@ -21,10 +21,13 @@ import retrofit2.Response
 
 class ReportUserActivity:AppCompatActivity(), ReportListAdapter.OnSelectedCallBack {
     private var regionId:Int=0
+    private var selectedtype:Int=0
     private var itemId:Int=0
-    override fun onSelection(reportId: Int, description: String) {
+    private var comingFrom:Int=0
+    override fun onSelection(reportId: Int, description: String,type:Int) {
         tvReason.text=description
         regionId=reportId
+        selectedtype=type
     }
 
     private var reportList = ArrayList<ReportResponse>()
@@ -33,6 +36,7 @@ class ReportUserActivity:AppCompatActivity(), ReportListAdapter.OnSelectedCallBa
         setContentView(R.layout.report_user_activity)
         reportList=intent.getParcelableArrayListExtra(AppConstants.REPORT_LIST)
         itemId=intent.getIntExtra(AppConstants.ITEM_ID,0)
+        comingFrom=intent.getIntExtra(AppConstants.COMING_FROM,0)
         setAdapter()
         setData()
         setAnimation()
@@ -41,7 +45,7 @@ class ReportUserActivity:AppCompatActivity(), ReportListAdapter.OnSelectedCallBa
         ViewAnimator
                 .animate(flParentReport)
                 .translationY(1000f, 0f)
-                .duration(700)
+                .duration(400)
                 .start()
     }
     private fun setAdapter() {
@@ -75,7 +79,7 @@ class ReportUserActivity:AppCompatActivity(), ReportListAdapter.OnSelectedCallBa
         window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         pbProgressReport.visibility=View.VISIBLE
-        var reportUserResponse= ReportUserRequest(Utils.getPreferencesString(this,AppConstants.USER_ID),itemId,regionId)
+        var reportUserResponse= ReportUserRequest(Utils.getPreferencesString(this,AppConstants.USER_ID),itemId,regionId,selectedtype)
         ServiceHelper().reportAddedService(reportUserResponse,
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {

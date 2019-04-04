@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import com.squareup.picasso.Picasso
 import com.verkoop.R
+import com.verkoop.R.string.delete_comment
 import com.verkoop.models.CommentModal
 import com.verkoop.models.DisLikeResponse
 import com.verkoop.network.ServiceHelper
@@ -65,7 +66,7 @@ class CommentListAdapter(private val context: Context,private val progressBar: P
 
  }
     private fun resumeActivityDialog(adapterPosition: Int, id: Int) {
-        val shareDialog = selectOptionDialog.DeleteCommentDialog(context, object : SelectionListener {
+        val shareDialog = selectOptionDialog.DeleteCommentDialog(context,"Delete Comment","Are you sure you want to delete this comment?",object : SelectionListener {
             override fun leaveClick() {
                 deleteCommentApi(adapterPosition,id)
             }
