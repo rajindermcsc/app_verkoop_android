@@ -57,9 +57,10 @@ class UserProfileActivity:AppCompatActivity(), LikeDisLikeListener {
         }
     }
 
-    override fun getItemDetailsClick(itemId: Int) {
+    override fun getItemDetailsClick(itemId: Int,userId:Int) {
         val intent = Intent(this, ProductDetailsActivity::class.java)
         intent.putExtra(AppConstants.ITEM_ID, itemId)
+        intent.putExtra(AppConstants.USER_ID,userId)
         intent.putExtra(AppConstants.COMING_FROM, 1)
         startActivity(intent)
     }

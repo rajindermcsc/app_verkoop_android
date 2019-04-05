@@ -91,6 +91,8 @@ interface MyService {
     @POST("user/itemCreateProfileData")
     fun userProfileApi(@Body request: FollowRequest): Call<UserProfileResponse>
 
+    @PUT("markAsSold/{item_id}")
+    fun markAsSoldApi(@Path(value = "item_id", encoded = true) fullUrl: Int,@Body request: MarkAsSoldRequest): Call<DisLikeResponse>
     @Multipart
     @POST("items")
     fun addClothApi(@Part files: List<MultipartBody.Part>,

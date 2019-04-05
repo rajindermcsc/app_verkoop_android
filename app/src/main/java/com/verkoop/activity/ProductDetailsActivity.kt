@@ -21,23 +21,23 @@ import com.squareup.picasso.Picasso
 import com.verkoop.R
 import com.verkoop.VerkoopApplication
 import com.verkoop.adapter.CommentListAdapter
-import com.verkoop.models.CommentModal
-import com.verkoop.models.DataItems
-import com.verkoop.models.ItemDetailsResponse
-import com.verkoop.models.ReportResponse
+import com.verkoop.models.*
 import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.AppConstants
+import com.verkoop.utils.SelectionListener
 import com.verkoop.utils.Utils
+import com.verkoop.utils.selectOptionDialog
 import kotlinx.android.synthetic.main.item_details_activity.*
 import kotlinx.android.synthetic.main.toolbar_product_details.*
+import okhttp3.internal.Util
 import retrofit2.Response
-import java.util.*
+import kotlin.collections.ArrayList
 
-
-class ProductDetailsActivity : AppCompatActivity() {
+ class ProductDetailsActivity : AppCompatActivity() {
     private var imageURLLIst = ArrayList<String>()
     private val commentsList = ArrayList<CommentModal>()
     private val reportList = ArrayList<ReportResponse>()
+    private val  menuList=ArrayList<PowerMenuItem>()
     private var dataComment: CommentModal? = null
     private var powerMenu: PowerMenu? = null
     private var itemId: Int = 0
@@ -50,7 +50,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         setCommentAdapter()
         if (intent.getIntExtra(AppConstants.COMING_FROM, 0) == 1) {
             tvSell.visibility = View.GONE
-            ivRightProduct.visibility = View.INVISIBLE
+            ivRightProduct.visibility = View.VISIBLE
         }
         if (Utils.isOnline(this)) {
             getItemDetailsService(intent.getIntExtra(AppConstants.ITEM_ID, 0))
@@ -102,7 +102,26 @@ class ProductDetailsActivity : AppCompatActivity() {
         ivRightProduct.setImageResource(R.drawable.menu_icone)
 
         ivRightProduct.setOnClickListener {
-            openPowerMenu()
+            if(userId!=Utils.getPreferencesString(this,AppConstants.USER_ID).toInt()){
+                menuList.clear()
+              val powerMenu1=  PowerMenuItem(getString(R.string.report_listing), false)
+              val powerMenu2=  PowerMenuItem(getString(R.string.share), false)
+                menuList.add(powerMenu1)
+                menuList.add(powerMenu2)
+                openPowerMenu(menuList)
+            }else{
+                menuList.clear()
+                val powerMenu=  PowerMenuItem(getString(R.string.share), false)
+                val powerMenu1=  PowerMenuItem(getString(R.string.edit_item), false)
+                val powerMenu2=  PowerMenuItem(getString(R.string.mark_sold), false)
+                val powerMenu3=  PowerMenuItem(getString(R.string.delete_listing), false)
+                menuList.add(powerMenu)
+                menuList.add(powerMenu1)
+                menuList.add(powerMenu2)
+                menuList.add(powerMenu3)
+                openPowerMenu(menuList)
+            }
+
         }
         tvPostComment.setOnClickListener {
             if (data.id != 0) {
@@ -137,13 +156,12 @@ class ProductDetailsActivity : AppCompatActivity() {
         }
     }
 
-    private fun openPowerMenu() {
+    private fun openPowerMenu(menuList: ArrayList<PowerMenuItem>) {
         powerMenu = PowerMenu.Builder(this)
-                .addItem(PowerMenuItem("View Profile", false)) // add an item.
-                .addItem(PowerMenuItem("Report listing", false)) // aad an item list.
-                .setAnimation(MenuAnimation.SHOWUP_TOP_RIGHT) // Animation start point (TOP | LEFT).
-                .setMenuRadius(1f) // sets the corner radius.
-                .setMenuShadow(10f) // sets the shadow.
+                .addItemList(menuList)
+                .setAnimation(MenuAnimation.SHOWUP_TOP_RIGHT)
+                .setMenuRadius(1f)
+                .setMenuShadow(10f)
                 .setTextColor(ContextCompat.getColor(this, R.color.black_dark))
                 .setMenuColor(Color.WHITE)
                 .setDivider(ContextCompat.getDrawable(this, R.drawable.horizontal_line))
@@ -157,20 +175,61 @@ class ProductDetailsActivity : AppCompatActivity() {
     private val onMenuItemClickListener = OnMenuItemClickListener<PowerMenuItem> { position, item ->
         powerMenu!!.selectedPosition = position
         powerMenu!!.dismiss()
-        if (position == 1) {
+        if (item.title.equals(getString(R.string.report_listing),ignoreCase = true)) {
             val reportIntent = Intent(this, ReportUserActivity::class.java)
             reportIntent.putParcelableArrayListExtra(AppConstants.REPORT_LIST, reportList)
             reportIntent.putExtra(AppConstants.ITEM_ID,itemId)
             startActivity(reportIntent)
-        } else {
-            val reportIntent = Intent(this, UserProfileActivity::class.java)
+        } else if(item.title.equals(getString(R.string.share),ignoreCase = true)) {
+            Utils.showToast(this, "share")
+
+        }else if(item.title.equals(getString(R.string.mark_sold),ignoreCase = true)) {
+            marksSoldDialogBox()
+
+        }else if(item.title.equals(getString(R.string.delete_listing),ignoreCase = true)) {
+            Utils.showToast(this, "delete listing")
+
+        }else if(item.title.equals(getString(R.string.edit_item),ignoreCase = true)) {
+            Utils.showToast(this, "Edit listing")
+        }
+            /*val reportIntent = Intent(this, UserProfileActivity::class.java)
             reportIntent.putExtra(AppConstants.USER_ID,userId)
             reportIntent.putExtra(AppConstants.USER_NAME,userName)
-            startActivity(reportIntent)
-        }
+            startActivity(reportIntent)*/
+
     }
 
-    private fun getItemDetailsService(itemId: Int) {
+     private fun marksSoldDialogBox() {
+         val shareDialog = selectOptionDialog.DeleteCommentDialog(this,getString(R.string.confirm_sold),getString(R.string.sold_des),object : SelectionListener {
+             override fun leaveClick() {
+                 if (Utils.isOnline(this@ProductDetailsActivity)) {
+                     markAsSoldApi()
+                 } else {
+                     Utils.showSimpleMessage(this@ProductDetailsActivity, getString(R.string.check_internet)).show()
+                 }
+
+             }
+         })
+         shareDialog.show()
+     }
+     private fun markAsSoldApi() {
+         ServiceHelper().markAsSoldService(itemId,MarkAsSoldRequest(Utils.getPreferencesString(this,AppConstants.USER_ID)),
+                 object : ServiceHelper.OnResponse {
+                     override fun onSuccess(response: Response<*>) {
+                      //   val blockResponse = response.body() as DisLikeResponse
+                         Utils.showSimpleMessage(this@ProductDetailsActivity, "SoldSuccessfully.").show()
+
+
+                     }
+
+                     override fun onFailure(msg: String?) {
+                        // pbProgressReport.visibility=View.GONE
+                            Utils.showSimpleMessage(this@ProductDetailsActivity, msg!!).show()
+                     }
+                 })
+
+     }
+     private fun getItemDetailsService(itemId: Int) {
         VerkoopApplication.instance.loader.show(this)
         ServiceHelper().getItemDetailService(itemId,
                 object : ServiceHelper.OnResponse {

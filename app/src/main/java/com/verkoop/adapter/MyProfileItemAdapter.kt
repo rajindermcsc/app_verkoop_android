@@ -60,6 +60,11 @@ class MyProfileItemAdapter(private val context: Context, private val llProfilePa
             }else{
                 tvConditionProfile.text=context.getString(R.string.used)
             }
+            if(data.is_sold==1){
+                tvSold.visibility=View.VISIBLE
+            }else{
+                tvSold.visibility=View.GONE
+            }
             if(!TextUtils.isEmpty(data.image_url)) {
                     Picasso.with(context).load(AppConstants.IMAGE_URL + data.image_url)
                             .resize(720, 720)

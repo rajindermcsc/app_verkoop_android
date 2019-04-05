@@ -91,7 +91,7 @@
                 android:layout_marginEnd="@dimen/dp_8"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="@dimen/dp_10"
-                android:src="@mipmap/chat"
+                android:src="@drawable/menu_icone"
                 android:visibility="visible"
                 android:contentDescription="@string/chat" />
         </LinearLayout>

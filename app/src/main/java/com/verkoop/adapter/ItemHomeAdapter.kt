@@ -16,8 +16,6 @@ import com.verkoop.activity.UserProfileActivity
 import com.verkoop.fragment.HomeFragment
 import com.verkoop.models.ItemHome
 import com.verkoop.utils.AppConstants
-import com.verkoop.utils.NonscrollRecylerview
-import com.verkoop.utils.ScrollDisabledRecyclerView
 import com.verkoop.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_row.*
@@ -102,6 +100,7 @@ class ItemHomeAdapter(private val context: Context, private val rvItemList: Recy
             itemView.setOnClickListener {
                 val intent = Intent(context, ProductDetailsActivity::class.java)
                 intent.putExtra(AppConstants.ITEM_ID, data.id)
+                intent.putExtra(AppConstants.ITEM_ID, data.user_id)
                 context.startActivity(intent)
             }
             tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at.date)).append(" ").append("ago")

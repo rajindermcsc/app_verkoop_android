@@ -79,6 +79,17 @@
                     android:contentDescription="@string/image"
                     android:scaleType="fitXY"
                     android:src="@mipmap/post_placeholder" />
+                <com.verkoop.fonts.textView.GothiBoldTextView
+                    android:id="@+id/tvSoldFav"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_14"
+                    android:padding="@dimen/dp_6"
+                    android:paddingStart="@dimen/dp_10"
+                    android:textColor="@color/white"
+                    android:background="@color/trans_red"
+                    android:visibility="gone"
+                    android:text="@string/sold"/>
             </com.github.florent37.shapeofview.shapes.RoundRectView>
 
             <LinearLayout

@@ -202,4 +202,5 @@ class CategoriesActivity : AppCompatActivity(), CategoryAdapter.SelectedCategory
                 })
     }
 
+
 }

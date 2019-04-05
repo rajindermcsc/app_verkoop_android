@@ -196,6 +196,10 @@
     <string name="unblock_sure">Are you sure you want to unblock this user?</string>
     <string name="report_submitted">Report submitted to Verkoop!</string>
     <string name="sold">SOLD</string>
-
-
+    <string name="report_listing">Report listing</string>
+    <string name="mark_sold">Mark as Sold</string>
+    <string name="delete_listing">Delete listing</string>
+    <string name="edit_item">Edit Listing</string>
+    <string name="confirm_sold">Confirm Mark as Sold?</string>
+    <string name="sold_des">Confirm that the item has been sold? You will no longer receive offers for this listing. A SOLD badge will be added to your listing.</string>
 </resources>

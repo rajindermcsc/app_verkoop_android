@@ -756,4 +756,27 @@ import java.util.ArrayList
              }
          })
      }
+
+     fun  markAsSoldService(item_id:Int,markAsSoldRequest: MarkAsSoldRequest,onResponse: OnResponse) {
+         val myService =  ApiClient.getClient().create(MyService::class.java)
+         val responseCall = myService.markAsSoldApi(item_id,markAsSoldRequest)
+         responseCall.enqueue(object : Callback<DisLikeResponse> {
+             override fun onResponse(call: Call<DisLikeResponse>, response: Response<DisLikeResponse>) {
+                 val res = response.body()
+                 Log.e("<<<Response>>>", Gson().toJson(res))
+                 if (res != null) {
+                     when {
+                         response.code() == 200 -> onResponse.onSuccess(response)
+                         else -> onResponse.onFailure(response.message())
+                     }
+                 }else {
+                     onResponse.onFailure("Something went wrong!")
+                 }
+             }
+
+             override fun onFailure(call: Call<DisLikeResponse>, t: Throwable) {
+                 onResponse.onFailure(t.message)
+             }
+         })
+     }
 }

@@ -11,17 +11,12 @@ import com.squareup.picasso.Picasso
 import com.verkoop.LikeDisLikeListener
 import com.verkoop.R
 import com.verkoop.activity.CategoryDetailsActivity
-import com.verkoop.activity.ProductDetailsActivity
 import com.verkoop.activity.UserProfileActivity
-import com.verkoop.models.CategoryModal
-import com.verkoop.models.Item
 import com.verkoop.models.ItemHome
 import com.verkoop.utils.AppConstants
-import com.verkoop.utils.NonscrollRecylerview
 import com.verkoop.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_row.*
-import kotlinx.android.synthetic.main.my_profile_row.*
 
 
 class ItemAdapter(private val context: Context,private val rvItemListDetails:RecyclerView) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
@@ -103,7 +98,7 @@ class ItemAdapter(private val context: Context,private val rvItemListDetails:Rec
             tvNameHome.text=data.name
             tvItemPriceHome.text="$"+data.price
             itemView.setOnClickListener {
-                likeDisLikeListener.getItemDetailsClick(data.id)
+                likeDisLikeListener.getItemDetailsClick(data.id,data.user_id)
 
             }
             tvLikesHome.setOnClickListener {

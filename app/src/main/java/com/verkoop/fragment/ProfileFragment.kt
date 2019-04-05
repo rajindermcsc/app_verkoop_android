@@ -192,7 +192,11 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
                     override fun onSuccess(response: Response<*>) {
                         isClicked = false
                         val responseLike = response.body() as LikedResponse
-                        val items = Item(itemsList[position].id,
+                        itemsList[position].is_like=!itemsList[position].is_like
+                        itemsList[position].likes_count= itemsList[position].likes_count+1
+                        itemsList[position].like_id= responseLike.like_id
+                        myProfileItemAdapter.notifyItemChanged(position)
+                      /*  val items = Item(itemsList[position].id,
                                 itemsList[position].user_id,
                                 itemsList[position].category_id,
                                 itemsList[position].name,
@@ -203,8 +207,8 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
                                 responseLike.like_id,
                                 !itemsList[position].is_like,
                                 itemsList[position].image_url)
-                        itemsList[position] = items
-                        myProfileItemAdapter.notifyItemChanged(position)
+                        itemsList[position] = items*/
+
                     }
 
                     override fun onFailure(msg: String?) {
@@ -220,7 +224,11 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
                     override fun onSuccess(response: Response<*>) {
                         isClicked = false
                         val likeResponse = response.body() as DisLikeResponse
-                        val items = Item(itemsList[position].id,
+                        itemsList[position].is_like=!itemsList[position].is_like
+                        itemsList[position].likes_count= itemsList[position].likes_count-1
+                        itemsList[position].like_id= 0
+                        myProfileItemAdapter.notifyItemChanged(position)
+                      /*  val items = Item(itemsList[position].id,
                                 itemsList[position].user_id,
                                 itemsList[position].category_id,
                                 itemsList[position].name,
@@ -230,9 +238,9 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
                                 itemsList[position].likes_count - 1,
                                 0,
                                 !itemsList[position].is_like,
-                                itemsList[position].image_url)
-                        itemsList[position] = items
-                        myProfileItemAdapter.notifyItemChanged(position)
+                                itemsList[position].image_url)*/
+                      //  itemsList[position] = items
+
                     }
 
                     override fun onFailure(msg: String?) {

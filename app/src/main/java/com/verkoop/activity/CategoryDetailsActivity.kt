@@ -76,9 +76,10 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
         }
     }
 
-    override fun getItemDetailsClick(itemId: Int) {
+    override fun getItemDetailsClick(itemId: Int,userId:Int) {
         val intent = Intent(this, ProductDetailsActivity::class.java)
         intent.putExtra(AppConstants.ITEM_ID, itemId)
+        intent.putExtra(AppConstants.USER_ID, userId)
         startActivity(intent)
     }
 
@@ -281,7 +282,11 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
                     override fun onSuccess(response: Response<*>) {
                         isClicked = false
                         val responseLike = response.body() as LikedResponse
-                        val items = ItemHome(itemsList[position].id,
+                        itemsList[position].is_like=!itemsList[position].is_like
+                        itemsList[position].items_like_count= itemsList[position].items_like_count+1
+                        itemsList[position].like_id= responseLike.like_id
+                        itemAdapter.notifyItemChanged(position)
+                       /* val items = ItemHome(itemsList[position].id,
                                 itemsList[position].user_id,
                                 itemsList[position].category_id,
                                 itemsList[position].name,
@@ -294,8 +299,8 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
                                 itemsList[position].image_url,
                                 itemsList[position].username,
                                 itemsList[position].profile_pic)
-                        itemsList[position] = items
-                        itemAdapter.notifyItemChanged(position)
+                        itemsList[position] = items*/
+
                     }
 
                     override fun onFailure(msg: String?) {
@@ -311,7 +316,11 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
                     override fun onSuccess(response: Response<*>) {
                         isClicked = false
                         val likeResponse = response.body() as DisLikeResponse
-                        val items = ItemHome(itemsList[position].id,
+                        itemsList[position].is_like=!itemsList[position].is_like
+                        itemsList[position].items_like_count= itemsList[position].items_like_count-1
+                        itemsList[position].like_id= 0
+                        itemAdapter.notifyItemChanged(position)
+                       /* val items = ItemHome(itemsList[position].id,
                                 itemsList[position].user_id,
                                 itemsList[position].category_id,
                                 itemsList[position].name,
@@ -324,8 +333,8 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
                                 itemsList[position].image_url,
                                 itemsList[position].username,
                                 itemsList[position].profile_pic)
-                        itemsList[position] = items
-                        itemAdapter.notifyItemChanged(position)
+                        itemsList[position] = items*/
+
                     }
 
                     override fun onFailure(msg: String?) {

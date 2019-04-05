@@ -75,7 +75,7 @@ inner class ViewHolder(override val containerView: View?):RecyclerView.ViewHolde
          tvNameProfile.text=data.name
          tvItemPriceProfile.text="$"+data.price
          itemView.setOnClickListener {
-             likeDisLikeListener.getItemDetailsClick(data.id)
+             likeDisLikeListener.getItemDetailsClick(data.id,data.user_id)
 
          }
          tvLikesProfile.setOnClickListener {

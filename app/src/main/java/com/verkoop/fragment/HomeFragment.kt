@@ -17,7 +17,6 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView
 import com.ksmtrivia.common.BaseFragment
 import com.verkoop.LikeDisLikeListener
-import com.verkoop.LoadingListener
 import com.verkoop.R
 import com.verkoop.activity.FullCategoriesActivity
 import com.verkoop.activity.GalleryActivity
@@ -62,7 +61,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
         }
     }
 
-    override fun getItemDetailsClick(itemId: Int) {
+    override fun getItemDetailsClick(itemId: Int,userId:Int) {
     }
 
 
@@ -234,7 +233,11 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
                     override fun onSuccess(response: Response<*>) {
                         isClicked = false
                         val responseLike = response.body() as LikedResponse
-                        val items = ItemHome(itemsList[position].id,
+                        itemsList[position].is_like=!itemsList[position].is_like
+                        itemsList[position].items_like_count= itemsList[position].items_like_count+1
+                        itemsList[position].like_id= responseLike.like_id
+                        itemAdapter.notifyItemChanged(position)
+                        /*val items = ItemHome(itemsList[position].id,
                                 itemsList[position].user_id,
                                 itemsList[position].category_id,
                                 itemsList[position].name,
@@ -247,8 +250,8 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
                                 itemsList[position].image_url,
                                 itemsList[position].username,
                                 itemsList[position].profile_pic)
-                        itemsList[position] = items
-                        itemAdapter.notifyItemChanged(position)
+                        itemsList[position] = items*/
+
 
                     }
 
@@ -265,7 +268,11 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
                     override fun onSuccess(response: Response<*>) {
                         isClicked = false
                         val likeResponse = response.body() as DisLikeResponse
-                        val items = ItemHome(itemsList[position].id,
+                        itemsList[position].is_like=!itemsList[position].is_like
+                        itemsList[position].items_like_count= itemsList[position].items_like_count-1
+                        itemsList[position].like_id= 0
+                        itemAdapter.notifyItemChanged(position)
+                        /*val items = ItemHome(itemsList[position].id,
                                 itemsList[position].user_id,
                                 itemsList[position].category_id,
                                 itemsList[position].name,
@@ -278,9 +285,9 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
                                 itemsList[position].image_url,
                                 itemsList[position].username,
                                 itemsList[position].profile_pic)
-                        itemsList[position] = items
-                        itemAdapter.notifyItemChanged(position)
-                    }
+                        itemsList[position] = items*/
+
+                }
 
                     override fun onFailure(msg: String?) {
                         isClicked = false

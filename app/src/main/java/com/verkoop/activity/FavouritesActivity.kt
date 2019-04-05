@@ -41,7 +41,7 @@ class FavouritesActivity:AppCompatActivity(), LikeDisLikeListener {
         }
     }
 
-    override fun getItemDetailsClick(itemId: Int) {
+    override fun getItemDetailsClick(itemId: Int,userId:Int) {
         val intent = Intent(this, ProductDetailsActivity::class.java)
         intent.putExtra(AppConstants.ITEM_ID, itemId)
         startActivity(intent)
@@ -61,14 +61,14 @@ class FavouritesActivity:AppCompatActivity(), LikeDisLikeListener {
         rvFavouriteList.layoutManager = linearLayoutManager
         favouritesAdapter = FavouritesAdapter(this, rvFavouriteList)
         rvFavouriteList.adapter = favouritesAdapter
-        rvFavouriteList.addOnScrollListener(recyclerViewOnScrollListener)
+      //  rvFavouriteList.addOnScrollListener(recyclerViewOnScrollListener)
         ivLeftLocation.setOnClickListener { onBackPressed() }
         tvHeaderLoc.text=getString(R.string.favourites)
     }
 
 
 
-private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListener() {
+/*private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListener() {
     override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
         val lastCompletelyVisibleItemPosition = (recyclerView!!.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
@@ -80,7 +80,7 @@ private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListene
 
 
     }
-}
+}*/
 
     private fun getFavouriteApi() {
         pbProgressFav.visibility= View.VISIBLE
@@ -111,7 +111,11 @@ private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListene
                     override fun onSuccess(response: Response<*>) {
                         isClicked = false
                         val responseLike = response.body() as LikedResponse
-                        val items = ItemHome(itemsList[position].id,
+                        itemsList[position].is_like=!itemsList[position].is_like
+                        itemsList[position].items_like_count= itemsList[position].items_like_count+1
+                        itemsList[position].like_id= responseLike.like_id
+                        favouritesAdapter.notifyItemChanged(position)
+                       /* val items = ItemHome(itemsList[position].id,
                                 itemsList[position].user_id,
                                 itemsList[position].category_id,
                                 itemsList[position].name,
@@ -124,8 +128,8 @@ private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListene
                                 itemsList[position].image_url,
                                 itemsList[position].username,
                                 itemsList[position].profile_pic)
-                        itemsList[position] = items
-                        favouritesAdapter.notifyItemChanged(position)
+                        itemsList[position] = items*/
+
                     }
 
                     override fun onFailure(msg: String?) {
@@ -141,7 +145,11 @@ private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListene
                     override fun onSuccess(response: Response<*>) {
                         isClicked = false
                         val likeResponse = response.body() as DisLikeResponse
-                        val items = ItemHome(itemsList[position].id,
+                        itemsList[position].is_like=!itemsList[position].is_like
+                        itemsList[position].items_like_count= itemsList[position].items_like_count-1
+                        itemsList[position].like_id= 0
+                        favouritesAdapter.notifyItemChanged(position)
+                        /*val items = ItemHome(itemsList[position].id,
                                 itemsList[position].user_id,
                                 itemsList[position].category_id,
                                 itemsList[position].name,
@@ -154,8 +162,7 @@ private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListene
                                 itemsList[position].image_url,
                                 itemsList[position].username,
                                 itemsList[position].profile_pic)
-                        itemsList[position] = items
-                        favouritesAdapter.notifyItemChanged(position)
+                        itemsList[position] = items*/
                     }
 
                     override fun onFailure(msg: String?) {

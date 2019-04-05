@@ -110,9 +110,9 @@ class selectOptionDialog(context: Context, private val listener:SelectionOptionL
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             setContentView(R.layout.delete_comment_dialog)
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
-            setCancelable(true)
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
             setCanceledOnTouchOutside(true)
+            setCancelable(true)
             tvHeaderDel.text=header
             tvDescriptionDel.text=description
             tvLeaveDelete.setOnClickListener {

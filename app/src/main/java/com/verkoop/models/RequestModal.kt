@@ -144,3 +144,7 @@ data class BlockUserRequest(
     val user_id: String,
     val user_block_id: Int
 )
+
+data class MarkAsSoldRequest(
+    val user_id: String
+)

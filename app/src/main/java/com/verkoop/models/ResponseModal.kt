@@ -139,9 +139,10 @@ data class Item(
     val item_type: Int,
     val created_at: CreatedAtProfile,
     @SerializedName("items_like_count")
-    val likes_count: Int,
-    val like_id: Int,
-    val is_like: Boolean,
+    var likes_count: Int,
+    var like_id: Int,
+    var is_like: Boolean,
+    val is_sold :Int,
     val image_url: String
 )
 
@@ -310,9 +311,10 @@ data class ItemHome(
     val price: Int,
     val item_type: Int,
     val created_at: CreatedAtHome,
-    val items_like_count: Int,
-    val like_id: Int,
-    val is_like: Boolean,
+    var items_like_count: Int,
+    var like_id: Int,
+    var is_like: Boolean,
+    val is_sold : Int,
     val image_url: String,
     val username: String,
     val profile_pic: String
