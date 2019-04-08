@@ -20,17 +20,21 @@ import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
 import kotlinx.android.synthetic.main.profile_fragment.*
 import retrofit2.Response
+import android.app.Activity
+
+
 
 class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener {
     private lateinit var myProfileItemAdapter: MyProfileItemAdapter
     private var itemsList = ArrayList<Item>()
     private var isClicked: Boolean = false
 
-    override fun getItemDetailsClick(itemId: Int) {
+    override fun getItemDetailsClick(itemId: Int,position:Int) {
         val intent = Intent(context, ProductDetailsActivity::class.java)
         intent.putExtra(AppConstants.ITEM_ID, itemId)
         intent.putExtra(AppConstants.COMING_FROM, 1)
-        homeActivity.startActivity(intent)
+        intent.putExtra(AppConstants.ADAPTER_POSITION, position)
+        this.startActivityForResult(intent,3)
     }
 
     override fun getLikeDisLikeClick(type: Boolean, position: Int, lickedId: Int, itemId: Int) {
@@ -131,6 +135,24 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
 
     }
 
+     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+         if (requestCode == 3) {
+            if (resultCode == Activity.RESULT_OK) {
+                val adapterPosition = data!!.getIntExtra(AppConstants.ADAPTER_POSITION,0)
+                if(data.getStringExtra(AppConstants.TYPE).equals("soldItem",ignoreCase = true)){
+                    itemsList[adapterPosition].is_sold=1
+                    myProfileItemAdapter.notifyDataSetChanged()
+                }else if(data.getStringExtra(AppConstants.TYPE).equals("deleteItem",ignoreCase = true)){
+                    itemsList.removeAt(adapterPosition)
+                    myProfileItemAdapter.notifyDataSetChanged()
+                }
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    }//onActivityResult
+
     private fun myProfileInfoApi() {
         homeActivity.window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
@@ -166,6 +188,8 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
         myProfileItemAdapter.setData(itemsList)
         myProfileItemAdapter.notifyDataSetChanged()
         tvName.text = data.username
+        tvFollowers.text=data.follower_count.toString()
+        tvFollowing.text=data.follow_count.toString()
         tvJoiningDate.text = StringBuffer().append(": ").append(Utils.convertDate("yyyy-MM-dd hh:mm:ss", data.created_at, "dd MMMM yyyy"))
         if (!TextUtils.isEmpty(data.profile_pic)) {
             Picasso.with(homeActivity).load(AppConstants.IMAGE_URL + data.profile_pic)
@@ -196,19 +220,6 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
                         itemsList[position].likes_count= itemsList[position].likes_count+1
                         itemsList[position].like_id= responseLike.like_id
                         myProfileItemAdapter.notifyItemChanged(position)
-                      /*  val items = Item(itemsList[position].id,
-                                itemsList[position].user_id,
-                                itemsList[position].category_id,
-                                itemsList[position].name,
-                                itemsList[position].price,
-                                itemsList[position].item_type,
-                                itemsList[position].created_at,
-                                itemsList[position].likes_count + 1,
-                                responseLike.like_id,
-                                !itemsList[position].is_like,
-                                itemsList[position].image_url)
-                        itemsList[position] = items*/
-
                     }
 
                     override fun onFailure(msg: String?) {
@@ -228,19 +239,6 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
                         itemsList[position].likes_count= itemsList[position].likes_count-1
                         itemsList[position].like_id= 0
                         myProfileItemAdapter.notifyItemChanged(position)
-                      /*  val items = Item(itemsList[position].id,
-                                itemsList[position].user_id,
-                                itemsList[position].category_id,
-                                itemsList[position].name,
-                                itemsList[position].price,
-                                itemsList[position].item_type,
-                                itemsList[position].created_at,
-                                itemsList[position].likes_count - 1,
-                                0,
-                                !itemsList[position].is_like,
-                                itemsList[position].image_url)*/
-                      //  itemsList[position] = items
-
                     }
 
                     override fun onFailure(msg: String?) {

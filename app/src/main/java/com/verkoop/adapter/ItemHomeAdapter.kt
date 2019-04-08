@@ -100,7 +100,6 @@ class ItemHomeAdapter(private val context: Context, private val rvItemList: Recy
             itemView.setOnClickListener {
                 val intent = Intent(context, ProductDetailsActivity::class.java)
                 intent.putExtra(AppConstants.ITEM_ID, data.id)
-                intent.putExtra(AppConstants.ITEM_ID, data.user_id)
                 context.startActivity(intent)
             }
             tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at.date)).append(" ").append("ago")

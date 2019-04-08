@@ -127,6 +127,8 @@ data class DataProfile(
     val state_id: String,
     val country_id: String,
     val follow_id: Int,
+    val follow_count :Int,
+    val follower_count :Int,
     val items: ArrayList<Item>
 )
 
@@ -142,7 +144,7 @@ data class Item(
     var likes_count: Int,
     var like_id: Int,
     var is_like: Boolean,
-    val is_sold :Int,
+    var is_sold :Int,
     val image_url: String
 )
 
@@ -243,6 +245,7 @@ data class DataItems(
     val latitude: String,
     val longitude: String,
     val meet_up: Int,
+    val is_sold : Int,
     val items_image: List<ItemsImage>,
     val comments: ArrayList<CommentModal>,
     val reports: ArrayList<ReportResponse>
@@ -314,7 +317,7 @@ data class ItemHome(
     var items_like_count: Int,
     var like_id: Int,
     var is_like: Boolean,
-    val is_sold : Int,
+    var is_sold : Int,
     val image_url: String,
     val username: String,
     val profile_pic: String

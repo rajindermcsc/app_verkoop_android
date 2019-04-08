@@ -80,7 +80,7 @@ class MyProfileItemAdapter(private val context: Context, private val llProfilePa
             tvNameProfile.text=data.name
             tvItemPriceProfile.text="$"+data.price
             itemView.setOnClickListener {
-                likeDisLikeListener.getItemDetailsClick(data.id)
+                likeDisLikeListener.getItemDetailsClick(data.id,adapterPosition)
 
             }
             tvLikesProfile.setOnClickListener {
@@ -90,7 +90,7 @@ class MyProfileItemAdapter(private val context: Context, private val llProfilePa
     }
     interface LikeDisLikeListener{
         fun getLikeDisLikeClick(type:Boolean,position:Int,lickedId:Int,itemId:Int)
-        fun getItemDetailsClick(itemId:Int)
+        fun getItemDetailsClick(itemId:Int,position:Int)
     }
 
     fun setData(data: ArrayList<Item>) {

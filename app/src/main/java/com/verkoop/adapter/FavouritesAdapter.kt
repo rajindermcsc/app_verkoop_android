@@ -17,7 +17,6 @@ import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_row.*
-import kotlinx.android.synthetic.main.my_profile_row.*
 
 
 class FavouritesAdapter(private val context: Context,private val rvFavourites: RecyclerView) : RecyclerView.Adapter<FavouritesAdapter.ViewHolder>() {
@@ -101,7 +100,7 @@ class FavouritesAdapter(private val context: Context,private val rvFavourites: R
 
             tvItemPriceHome.text="$"+data.price
             itemView.setOnClickListener {
-                likeDisLikeListener.getItemDetailsClick(data.id,data.user_id)
+                likeDisLikeListener.getItemDetailsClick(data.id,adapterPosition)
 
             }
             tvLikesHome.setOnClickListener {

@@ -334,7 +334,6 @@
                                         android:id="@+id/tvFollowers"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="@string/_250"
                                         android:textColor="@color/colorPrimary"
                                         android:textSize="@dimen/sp_23" />
 
@@ -365,7 +364,6 @@
                                         android:id="@+id/tvFollowing"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="@string/_1281"
                                         android:textColor="@color/colorPrimary"
                                         android:textSize="@dimen/sp_23" />
 

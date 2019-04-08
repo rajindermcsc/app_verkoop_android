@@ -1,5 +1,6 @@
 package com.verkoop.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.nfc.tech.MifareUltralight
 import android.os.Bundle
@@ -41,10 +42,11 @@ class FavouritesActivity:AppCompatActivity(), LikeDisLikeListener {
         }
     }
 
-    override fun getItemDetailsClick(itemId: Int,userId:Int) {
+    override fun getItemDetailsClick(itemId: Int,adapterPosition:Int) {
         val intent = Intent(this, ProductDetailsActivity::class.java)
         intent.putExtra(AppConstants.ITEM_ID, itemId)
-        startActivity(intent)
+        intent.putExtra(AppConstants.ADAPTER_POSITION, adapterPosition)
+        startActivityForResult(intent,3)
     }
 
 
@@ -115,21 +117,6 @@ class FavouritesActivity:AppCompatActivity(), LikeDisLikeListener {
                         itemsList[position].items_like_count= itemsList[position].items_like_count+1
                         itemsList[position].like_id= responseLike.like_id
                         favouritesAdapter.notifyItemChanged(position)
-                       /* val items = ItemHome(itemsList[position].id,
-                                itemsList[position].user_id,
-                                itemsList[position].category_id,
-                                itemsList[position].name,
-                                itemsList[position].price,
-                                itemsList[position].item_type,
-                                itemsList[position].created_at,
-                                itemsList[position].items_like_count + 1,
-                                responseLike.like_id,
-                                !itemsList[position].is_like,
-                                itemsList[position].image_url,
-                                itemsList[position].username,
-                                itemsList[position].profile_pic)
-                        itemsList[position] = items*/
-
                     }
 
                     override fun onFailure(msg: String?) {
@@ -149,20 +136,6 @@ class FavouritesActivity:AppCompatActivity(), LikeDisLikeListener {
                         itemsList[position].items_like_count= itemsList[position].items_like_count-1
                         itemsList[position].like_id= 0
                         favouritesAdapter.notifyItemChanged(position)
-                        /*val items = ItemHome(itemsList[position].id,
-                                itemsList[position].user_id,
-                                itemsList[position].category_id,
-                                itemsList[position].name,
-                                itemsList[position].price,
-                                itemsList[position].item_type,
-                                itemsList[position].created_at,
-                                itemsList[position].items_like_count - 1,
-                                0,
-                                !itemsList[position].is_like,
-                                itemsList[position].image_url,
-                                itemsList[position].username,
-                                itemsList[position].profile_pic)
-                        itemsList[position] = items*/
                     }
 
                     override fun onFailure(msg: String?) {
@@ -171,4 +144,22 @@ class FavouritesActivity:AppCompatActivity(), LikeDisLikeListener {
                     }
                 })
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == 3) {
+            if (resultCode == Activity.RESULT_OK) {
+                val adapterPosition = data!!.getIntExtra(AppConstants.ADAPTER_POSITION,0)
+                if(data.getStringExtra(AppConstants.TYPE).equals("soldItem",ignoreCase = true)){
+                    itemsList[adapterPosition].is_sold=1
+                    favouritesAdapter.notifyDataSetChanged()
+                }else if(data.getStringExtra(AppConstants.TYPE).equals("deleteItem",ignoreCase = true)){
+                    itemsList.removeAt(adapterPosition)
+                    favouritesAdapter.notifyDataSetChanged()
+                }
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    }//onActivityResult
 }

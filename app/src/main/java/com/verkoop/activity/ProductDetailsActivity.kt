@@ -29,25 +29,26 @@ import com.verkoop.utils.Utils
 import com.verkoop.utils.selectOptionDialog
 import kotlinx.android.synthetic.main.item_details_activity.*
 import kotlinx.android.synthetic.main.toolbar_product_details.*
-import okhttp3.internal.Util
 import retrofit2.Response
-import kotlin.collections.ArrayList
 
- class ProductDetailsActivity : AppCompatActivity() {
+class ProductDetailsActivity : AppCompatActivity() {
     private var imageURLLIst = ArrayList<String>()
     private val commentsList = ArrayList<CommentModal>()
     private val reportList = ArrayList<ReportResponse>()
-    private val  menuList=ArrayList<PowerMenuItem>()
+    private val menuList = ArrayList<PowerMenuItem>()
     private var dataComment: CommentModal? = null
     private var powerMenu: PowerMenu? = null
     private var itemId: Int = 0
     private var userId: Int = 0
+    private var isSoldItem: Int = 0
+    private var adapterPosition: Int = 0
     private var userName: String = ""
     private lateinit var commentListAdapter: CommentListAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.item_details_activity)
         setCommentAdapter()
+        adapterPosition = intent.getIntExtra(AppConstants.ADAPTER_POSITION, 0)
         if (intent.getIntExtra(AppConstants.COMING_FROM, 0) == 1) {
             tvSell.visibility = View.GONE
             ivRightProduct.visibility = View.VISIBLE
@@ -62,36 +63,37 @@ import kotlin.collections.ArrayList
     private fun setCommentAdapter() {
         val mManager = LinearLayoutManager(this)
         rvPostCommentList.layoutManager = mManager
-        commentListAdapter = CommentListAdapter(this, pbProgress)
+        commentListAdapter = CommentListAdapter(this, pbProgressProduct)
         rvPostCommentList.adapter = commentListAdapter
     }
 
     private fun setData(imageURLLIst: ArrayList<String>, data: DataItems) {
-        itemId=data.id
-        userId=data.user_id
-        userName=data.username
-        if(data.meet_up==1){
-            tvAddress.text=data.address
-        }else{
+        itemId = data.id
+        userId = data.user_id
+        userName = data.username
+        isSoldItem = data.is_sold
+        if (data.meet_up == 1) {
+            tvAddress.text = data.address
+        } else {
 
         }
         tvAddress.setOnClickListener {
-            if(!TextUtils.isEmpty(data.latitude)&&!TextUtils.isEmpty(data.longitude)){
+            if (!TextUtils.isEmpty(data.latitude) && !TextUtils.isEmpty(data.longitude)) {
                 //val geoUri = "http://maps.google.com/maps?q=loc:$data.latitude,$data.longitude"
                 val geoUri = "http://maps.google.com/maps?q=loc:" + data.latitude + "," + data.longitude /*+ "(" + classes.getName() + ")"*/
-               // val uri = String.format(Locale.ENGLISH, "geo:%f,%f", data.latitude, data.longitude)
+                // val uri = String.format(Locale.ENGLISH, "geo:%f,%f", data.latitude, data.longitude)
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(geoUri))
-               startActivity(intent)
+                startActivity(intent)
             }
         }
-        if(!TextUtils.isEmpty(data.profile_pic)){
-            Picasso.with(this@ProductDetailsActivity).load(AppConstants.IMAGE_URL+data.profile_pic)
+        if (!TextUtils.isEmpty(data.profile_pic)) {
+            Picasso.with(this@ProductDetailsActivity).load(AppConstants.IMAGE_URL + data.profile_pic)
                     .resize(720, 720)
                     .centerInside()
                     .error(R.mipmap.pic_placeholder)
                     .placeholder(R.mipmap.pic_placeholder)
                     .into(ivProfileTool)
-        }else{
+        } else {
             Picasso.with(this@ProductDetailsActivity).load(R.mipmap.pic_placeholder)
                     .resize(720, 720)
                     .centerInside()
@@ -102,24 +104,31 @@ import kotlin.collections.ArrayList
         ivRightProduct.setImageResource(R.drawable.menu_icone)
 
         ivRightProduct.setOnClickListener {
-            if(userId!=Utils.getPreferencesString(this,AppConstants.USER_ID).toInt()){
+            if (userId != Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()) {
                 menuList.clear()
-              val powerMenu1=  PowerMenuItem(getString(R.string.report_listing), false)
-              val powerMenu2=  PowerMenuItem(getString(R.string.share), false)
+                val powerMenu1 = PowerMenuItem(getString(R.string.report_listing), false)
+                val powerMenu2 = PowerMenuItem(getString(R.string.share), false)
                 menuList.add(powerMenu1)
                 menuList.add(powerMenu2)
                 openPowerMenu(menuList)
-            }else{
+            } else {
                 menuList.clear()
-                val powerMenu=  PowerMenuItem(getString(R.string.share), false)
-                val powerMenu1=  PowerMenuItem(getString(R.string.edit_item), false)
-                val powerMenu2=  PowerMenuItem(getString(R.string.mark_sold), false)
-                val powerMenu3=  PowerMenuItem(getString(R.string.delete_listing), false)
-                menuList.add(powerMenu)
-                menuList.add(powerMenu1)
-                menuList.add(powerMenu2)
-                menuList.add(powerMenu3)
-                openPowerMenu(menuList)
+                val powerMenu = PowerMenuItem(getString(R.string.share), false)
+                val powerMenu1 = PowerMenuItem(getString(R.string.edit_item), false)
+                val powerMenu2 = PowerMenuItem(getString(R.string.mark_sold), false)
+                val powerMenu3 = PowerMenuItem(getString(R.string.delete_listing), false)
+                if (isSoldItem != 1) {
+                    menuList.add(powerMenu)
+                    menuList.add(powerMenu1)
+                    menuList.add(powerMenu2)
+                    menuList.add(powerMenu3)
+                    openPowerMenu(menuList)
+                } else {
+                    menuList.add(powerMenu)
+                    menuList.add(powerMenu3)
+                    openPowerMenu(menuList)
+                }
+
             }
 
         }
@@ -175,66 +184,111 @@ import kotlin.collections.ArrayList
     private val onMenuItemClickListener = OnMenuItemClickListener<PowerMenuItem> { position, item ->
         powerMenu!!.selectedPosition = position
         powerMenu!!.dismiss()
-        if (item.title.equals(getString(R.string.report_listing),ignoreCase = true)) {
+        if (item.title.equals(getString(R.string.report_listing), ignoreCase = true)) {
             val reportIntent = Intent(this, ReportUserActivity::class.java)
             reportIntent.putParcelableArrayListExtra(AppConstants.REPORT_LIST, reportList)
-            reportIntent.putExtra(AppConstants.ITEM_ID,itemId)
+            reportIntent.putExtra(AppConstants.ITEM_ID, itemId)
             startActivity(reportIntent)
-        } else if(item.title.equals(getString(R.string.share),ignoreCase = true)) {
-            Utils.showToast(this, "share")
+        } else if (item.title.equals(getString(R.string.share), ignoreCase = true)) {
+            sharePost()
 
-        }else if(item.title.equals(getString(R.string.mark_sold),ignoreCase = true)) {
+        } else if (item.title.equals(getString(R.string.mark_sold), ignoreCase = true)) {
             marksSoldDialogBox()
 
-        }else if(item.title.equals(getString(R.string.delete_listing),ignoreCase = true)) {
-            Utils.showToast(this, "delete listing")
+        } else if (item.title.equals(getString(R.string.delete_listing), ignoreCase = true)) {
+            deleteProductDialog()
 
-        }else if(item.title.equals(getString(R.string.edit_item),ignoreCase = true)) {
+        } else if (item.title.equals(getString(R.string.edit_item), ignoreCase = true)) {
             Utils.showToast(this, "Edit listing")
         }
-            /*val reportIntent = Intent(this, UserProfileActivity::class.java)
-            reportIntent.putExtra(AppConstants.USER_ID,userId)
-            reportIntent.putExtra(AppConstants.USER_NAME,userName)
-            startActivity(reportIntent)*/
+    }
+
+    private fun deleteProductDialog() {
+        val shareDialog = selectOptionDialog.DeleteCommentDialog(this, getString(R.string.delete_heading), getString(R.string.delete_des), object : SelectionListener {
+            override fun leaveClick() {
+                if (Utils.isOnline(this@ProductDetailsActivity)) {
+                    deleteItemApi()
+                } else {
+                    Utils.showSimpleMessage(this@ProductDetailsActivity, getString(R.string.check_internet)).show()
+                }
+
+            }
+        })
+        shareDialog.show()
 
     }
 
-     private fun marksSoldDialogBox() {
-         val shareDialog = selectOptionDialog.DeleteCommentDialog(this,getString(R.string.confirm_sold),getString(R.string.sold_des),object : SelectionListener {
-             override fun leaveClick() {
-                 if (Utils.isOnline(this@ProductDetailsActivity)) {
-                     markAsSoldApi()
-                 } else {
-                     Utils.showSimpleMessage(this@ProductDetailsActivity, getString(R.string.check_internet)).show()
-                 }
-
-             }
-         })
-         shareDialog.show()
-     }
-     private fun markAsSoldApi() {
-         ServiceHelper().markAsSoldService(itemId,MarkAsSoldRequest(Utils.getPreferencesString(this,AppConstants.USER_ID)),
-                 object : ServiceHelper.OnResponse {
-                     override fun onSuccess(response: Response<*>) {
-                      //   val blockResponse = response.body() as DisLikeResponse
-                         Utils.showSimpleMessage(this@ProductDetailsActivity, "SoldSuccessfully.").show()
-
-
-                     }
-
-                     override fun onFailure(msg: String?) {
-                        // pbProgressReport.visibility=View.GONE
-                            Utils.showSimpleMessage(this@ProductDetailsActivity, msg!!).show()
-                     }
-                 })
-
-     }
-     private fun getItemDetailsService(itemId: Int) {
-        VerkoopApplication.instance.loader.show(this)
-        ServiceHelper().getItemDetailService(itemId,
+    private fun deleteItemApi() {
+        pbProgressProduct.visibility=View.VISIBLE
+        ServiceHelper().deleteListingService(itemId,
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
-                        VerkoopApplication.instance.loader.hide(this@ProductDetailsActivity)
+                        pbProgressProduct.visibility=View.GONE
+                        val likeResponse = response.body() as DisLikeResponse
+                        Utils.showToast(this@ProductDetailsActivity, "Item deleted successfully.")
+                        val returnIntent = Intent()
+                        returnIntent.putExtra(AppConstants.ADAPTER_POSITION, adapterPosition)
+                        returnIntent.putExtra(AppConstants.TYPE, "deleteItem")
+                        setResult(Activity.RESULT_OK, returnIntent)
+                        finish()
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        pbProgressProduct.visibility=View.GONE
+                        Utils.showSimpleMessage(this@ProductDetailsActivity, msg!!).show()
+                    }
+                })
+    }
+
+    private fun sharePost() {
+        val i = Intent(android.content.Intent.ACTION_SEND)
+        i.type = "text/plain"
+        i.putExtra(android.content.Intent.EXTRA_SUBJECT, "Verkoop App product!")
+        i.putExtra(android.content.Intent.EXTRA_TEXT, "find text for ")
+        startActivity(Intent.createChooser(i, "Share via"))
+    }
+
+    private fun marksSoldDialogBox() {
+        val shareDialog = selectOptionDialog.DeleteCommentDialog(this, getString(R.string.confirm_sold), getString(R.string.sold_des), object : SelectionListener {
+            override fun leaveClick() {
+                if (Utils.isOnline(this@ProductDetailsActivity)) {
+                    markAsSoldApi()
+                } else {
+                    Utils.showSimpleMessage(this@ProductDetailsActivity, getString(R.string.check_internet)).show()
+                }
+
+            }
+        })
+        shareDialog.show()
+    }
+
+    private fun markAsSoldApi() {
+        ServiceHelper().markAsSoldService(itemId, MarkAsSoldRequest(Utils.getPreferencesString(this, AppConstants.USER_ID)),
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        //   val blockResponse = response.body() as DisLikeResponse
+                        Utils.showToast(this@ProductDetailsActivity, "Item marked as sold successfully.")
+                        val returnIntent = Intent()
+                        returnIntent.putExtra(AppConstants.ADAPTER_POSITION, adapterPosition)
+                        returnIntent.putExtra(AppConstants.TYPE, "soldItem")
+                        setResult(Activity.RESULT_OK, returnIntent)
+                        finish()
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        // pbProgressReport.visibility=View.GONE
+                        Utils.showSimpleMessage(this@ProductDetailsActivity, msg!!).show()
+                    }
+                })
+
+    }
+
+    private fun getItemDetailsService(itemId: Int) {
+        pbProgressProduct.visibility=View.VISIBLE
+                ServiceHelper().getItemDetailService(itemId,
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        pbProgressProduct.visibility=View.GONE
                         val detailsResponse = response.body() as ItemDetailsResponse
                         if (detailsResponse.data != null) {
                             commentsList.addAll(detailsResponse.data.comments)
@@ -251,13 +305,14 @@ import kotlin.collections.ArrayList
                     }
 
                     override fun onFailure(msg: String?) {
-                        VerkoopApplication.instance.loader.hide(this@ProductDetailsActivity)
+                        pbProgressProduct.visibility=View.GONE
                         Utils.showSimpleMessage(this@ProductDetailsActivity, msg!!).show()
                     }
                 })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 dataComment = data.getParcelableExtra(AppConstants.COMMENT_RESULR)
@@ -279,10 +334,13 @@ import kotlin.collections.ArrayList
     }
 
     override fun onBackPressed() {
-        if (powerMenu!=null&&powerMenu!!.isShowing) {
+        if (powerMenu != null && powerMenu!!.isShowing) {
             powerMenu!!.dismiss()
         } else {
-            super.onBackPressed()
+            //  super.onBackPressed()
+            val returnIntent = Intent()
+            setResult(Activity.RESULT_CANCELED, returnIntent)
+            finish()
         }
     }
 }

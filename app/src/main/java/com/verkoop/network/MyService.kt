@@ -93,6 +93,10 @@ interface MyService {
 
     @PUT("markAsSold/{item_id}")
     fun markAsSoldApi(@Path(value = "item_id", encoded = true) fullUrl: Int,@Body request: MarkAsSoldRequest): Call<DisLikeResponse>
+
+    @DELETE("items/{item_id}")
+    fun deleteListingApi(@Path(value = "item_id", encoded = true) fullUrl: Int): Call<DisLikeResponse>
+
     @Multipart
     @POST("items")
     fun addClothApi(@Part files: List<MultipartBody.Part>,
