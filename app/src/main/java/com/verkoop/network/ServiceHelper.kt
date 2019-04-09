@@ -170,7 +170,12 @@ import java.util.ArrayList
                 if(response.code()==201){
                     onResponse.onSuccess(response)
                 }else{
-                    onResponse.onFailure(response.body()!!.message)
+                    if(response.body()!=null){
+                        onResponse.onFailure(response.body()!!.message)
+                    }else{
+                        onResponse.onFailure("Something went wrong!")
+                    }
+
                 }
             }
 

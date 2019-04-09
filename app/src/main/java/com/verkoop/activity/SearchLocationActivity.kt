@@ -36,8 +36,8 @@ class SearchLocationActivity : AppCompatActivity(), LocationSearchAdapter.Select
     override fun selectedAddress(address: String, location: Location) {
         val returnIntent = Intent()
         returnIntent.putExtra(AppConstants.ADDRESS, address)
-        returnIntent.putExtra(AppConstants.LATITUDE, location.lat.toString())
-        returnIntent.putExtra(AppConstants.LONGITUDE, location.lng.toString())
+        returnIntent.putExtra(AppConstants.LATITUDE, location.lat)
+        returnIntent.putExtra(AppConstants.LONGITUDE, location.lng)
         setResult(Activity.RESULT_OK, returnIntent)
         finish()
     }

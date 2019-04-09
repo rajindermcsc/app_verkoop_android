@@ -37,6 +37,7 @@ data class DataSignUp(
         val social_id: Any,
         val country: String,
         val is_active: Int,
+        val is_use : Int,
         val created_at: CreatedAtSignUp,
         val token: String
 )
@@ -64,6 +65,7 @@ data class Data(
         val social_id: Any,
         val country: String,
         val is_active: Int,
+        val is_use : Int,
         val created_at: CreatedAt,
         val token: String
 )
@@ -359,6 +361,7 @@ data class DataSocial(
     val city: String,
     val country: String,
     val is_active: Int,
+    val is_use : Int,
     val email_verified_at: Any,
     val created_at: String,
     val updated_at: String,

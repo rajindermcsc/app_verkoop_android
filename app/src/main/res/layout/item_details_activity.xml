@@ -247,7 +247,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/dp_10"
-                            android:text="Sec-6, Noida"
                             android:textColor="@color/blue"
                             android:layout_marginStart="@dimen/dp_10"
                             android:textSize="@dimen/sp_14" />

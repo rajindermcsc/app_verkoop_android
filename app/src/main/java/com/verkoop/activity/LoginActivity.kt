@@ -20,7 +20,10 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.verkoop.R
 import com.verkoop.VerkoopApplication
-import com.verkoop.models.*
+import com.verkoop.models.LogInResponse
+import com.verkoop.models.LoginRequest
+import com.verkoop.models.LoginSocialRequest
+import com.verkoop.models.SocialLoginResponse
 import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
@@ -250,9 +253,9 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                     override fun onSuccess(response: Response<*>) {
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
                         val loginResponse = response.body() as LogInResponse
-                        if(loginResponse.data!=null) {
-                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type)
-                        }else{
+                        if (loginResponse.data != null) {
+                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use)
+                        } else {
                             Utils.showSimpleMessage(this@LoginActivity, loginResponse.message).show()
                         }
                     }
@@ -264,7 +267,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                 })
     }
 
-    private fun setResponseData(userId: String, api_token: String, firstName: String, email: String, loginType: String) {
+    private fun setResponseData(userId: String, api_token: String, firstName: String, email: String, loginType: String, firstTime: Int) {
         Utils.savePreferencesString(this@LoginActivity, AppConstants.USER_ID, userId)
         Utils.savePreferencesString(this@LoginActivity, AppConstants.API_TOKEN, api_token)
         Utils.savePreferencesString(this@LoginActivity, AppConstants.USER_NAME, firstName)
@@ -272,9 +275,16 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
             Utils.savePreferencesString(this@LoginActivity, AppConstants.USER_EMAIL_ID, email)
         }
         Utils.savePreferencesString(this@LoginActivity, AppConstants.LOGIN_TYPE, loginType)
-        val intent = Intent(this@LoginActivity, CategoriesActivity::class.java)
-        startActivity(intent)
-        finish()
+        if (firstTime == 0) {
+            val intent = Intent(this@LoginActivity, CategoriesActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else {
+            Utils.savePreferencesString(this,AppConstants.COMING_FROM,"PickOptionActivity")
+            val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
 
@@ -286,10 +296,10 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
                         val loginResponse = response.body() as SocialLoginResponse
                         Log.e("<<Log>>", "Login Successfully.")
-                        if(loginResponse.data!=null) {
-                            setResponseData(loginResponse.data.id.toString(), loginResponse.data.api_token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type)
+                        if (loginResponse.data != null) {
+                            setResponseData(loginResponse.data.id.toString(), loginResponse.data.api_token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use)
                         }
-                        }
+                    }
 
                     override fun onFailure(msg: String?) {
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)

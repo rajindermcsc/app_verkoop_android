@@ -8,7 +8,9 @@
     android:orientation="vertical">
 
     <include layout="@layout/details_toolbar" />
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -372,4 +374,11 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+    <ProgressBar
+        android:id="@+id/pbProgressAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+</FrameLayout>
 </LinearLayout>

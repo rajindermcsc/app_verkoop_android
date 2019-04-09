@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import com.squareup.picasso.Picasso
 import com.verkoop.R
-import com.verkoop.R.string.delete_comment
 import com.verkoop.models.CommentModal
 import com.verkoop.models.DisLikeResponse
 import com.verkoop.network.ServiceHelper

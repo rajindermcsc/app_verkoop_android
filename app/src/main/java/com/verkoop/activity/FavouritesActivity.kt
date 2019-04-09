@@ -91,9 +91,12 @@ class FavouritesActivity:AppCompatActivity(), LikeDisLikeListener {
                         pbProgressFav.visibility= View.GONE
                         val responseFav = response.body() as FavouritesResponse
                         if (responseFav.data.isNotEmpty()) {
-                            itemsList = responseFav.data
-                            favouritesAdapter.setData(itemsList)
-                            favouritesAdapter.notifyDataSetChanged()
+                                itemsList = responseFav.data
+                                favouritesAdapter.setData(itemsList)
+                                favouritesAdapter.notifyDataSetChanged()
+
+                        }else{
+                            Utils.showSimpleMessage(this@FavouritesActivity, "No data found.").show()
                         }
 
                     }

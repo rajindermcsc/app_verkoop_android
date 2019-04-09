@@ -17,6 +17,10 @@ import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
 import kotlinx.android.synthetic.main.signup_activity.*
 import retrofit2.Response
+import android.text.InputFilter
+import android.text.Spanned
+
+
 
 class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,11 +118,34 @@ class SignUpActivity : AppCompatActivity() {
                 }
             }
         })
+
+        val filter = object : InputFilter {
+            internal var canEnterSpace = false
+
+            override fun filter(source: CharSequence, start: Int, end: Int,
+                                dest: Spanned, dstart: Int, dend: Int): CharSequence {
+
+                if (etName.text.toString() == "") {
+                    canEnterSpace = false
+                }
+
+                val builder = StringBuilder()
+
+                for (i in start until end) {
+                    val currentChar = source[i]
+                    if (!Character.isWhitespace(currentChar) ) {
+                        builder.append(currentChar)
+                    }
+                }
+                return builder.toString()
+            }
+        }
+        etName.filters = arrayOf<InputFilter>(filter)
     }
 
     private fun isValidate(): Boolean {
         return if (TextUtils.isEmpty(etName.text.toString().trim())) {
-            Utils.showSimpleMessage(this, getString(R.string.enter_name)).show()
+            Utils.showSimpleMessage(this, getString(R.string.enter_user_name)).show()
             false
         } else if (TextUtils.isEmpty(etEmailS.text.toString())) {
             Utils.showSimpleMessage(this, getString(R.string.enter_email)).show()
@@ -159,8 +186,6 @@ class SignUpActivity : AppCompatActivity() {
                     override fun onFailure(msg: String?) {
                         VerkoopApplication.instance.loader.hide(this@SignUpActivity)
                         Utils.showSimpleMessage(this@SignUpActivity, msg!!).show()
-                        etEmailS.setText("")
-                        etEmailS.hint = "Email"
                     }
                 })
     }

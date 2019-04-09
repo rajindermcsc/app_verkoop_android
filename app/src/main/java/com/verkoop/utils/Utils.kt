@@ -323,7 +323,7 @@ object Utils{
                 unit = "sec"
 
             } else {
-                totalTime = 0
+                totalTime = 1
             }
 
         } catch (e: Exception) {

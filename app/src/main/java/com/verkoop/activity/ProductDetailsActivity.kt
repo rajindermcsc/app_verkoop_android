@@ -19,7 +19,6 @@ import com.skydoves.powermenu.PowerMenu
 import com.skydoves.powermenu.PowerMenuItem
 import com.squareup.picasso.Picasso
 import com.verkoop.R
-import com.verkoop.VerkoopApplication
 import com.verkoop.adapter.CommentListAdapter
 import com.verkoop.models.*
 import com.verkoop.network.ServiceHelper
@@ -79,9 +78,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         }
         tvAddress.setOnClickListener {
             if (!TextUtils.isEmpty(data.latitude) && !TextUtils.isEmpty(data.longitude)) {
-                //val geoUri = "http://maps.google.com/maps?q=loc:$data.latitude,$data.longitude"
-                val geoUri = "http://maps.google.com/maps?q=loc:" + data.latitude + "," + data.longitude /*+ "(" + classes.getName() + ")"*/
-                // val uri = String.format(Locale.ENGLISH, "geo:%f,%f", data.latitude, data.longitude)
+                val geoUri = "http://maps.google.com/maps?q=loc:" + data.latitude + "," + data.longitude + "(" + data.address + ")"
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(geoUri))
                 startActivity(intent)
             }
