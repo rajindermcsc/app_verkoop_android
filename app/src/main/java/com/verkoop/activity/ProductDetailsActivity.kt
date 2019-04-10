@@ -26,6 +26,7 @@ import com.verkoop.utils.AppConstants
 import com.verkoop.utils.SelectionListener
 import com.verkoop.utils.Utils
 import com.verkoop.utils.selectOptionDialog
+import kotlinx.android.synthetic.main.home_fragment.*
 import kotlinx.android.synthetic.main.item_details_activity.*
 import kotlinx.android.synthetic.main.toolbar_product_details.*
 import retrofit2.Response
@@ -41,15 +42,17 @@ class ProductDetailsActivity : AppCompatActivity() {
     private var userId: Int = 0
     private var isSoldItem: Int = 0
     private var adapterPosition: Int = 0
+    private var comingType: Int = 0
     private var userName: String = ""
     private lateinit var commentListAdapter: CommentListAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.item_details_activity)
+        comingType=intent.getIntExtra(AppConstants.COMING_TYPE,0)
         setCommentAdapter()
         adapterPosition = intent.getIntExtra(AppConstants.ADAPTER_POSITION, 0)
         if (intent.getIntExtra(AppConstants.COMING_FROM, 0) == 1) {
-            tvSell.visibility = View.GONE
+            tvSellItem.visibility = View.GONE
             ivRightProduct.visibility = View.VISIBLE
         }
         if (Utils.isOnline(this)) {
@@ -62,7 +65,7 @@ class ProductDetailsActivity : AppCompatActivity() {
     private fun setCommentAdapter() {
         val mManager = LinearLayoutManager(this)
         rvPostCommentList.layoutManager = mManager
-        commentListAdapter = CommentListAdapter(this, pbProgressProduct)
+        commentListAdapter = CommentListAdapter(this, pbProgressProduct,comingType)
         rvPostCommentList.adapter = commentListAdapter
     }
 
@@ -139,11 +142,12 @@ class ProductDetailsActivity : AppCompatActivity() {
         ivLeft.setOnClickListener { onBackPressed() }
         custom_indicator_detail.setDefaultIndicatorColor(ContextCompat.getColor(this, R.color.white), ContextCompat.getColor(this, R.color.light_gray))
         mDemoSliderDetails.setCustomIndicator(custom_indicator_detail)
+
         for (i in imageURLLIst.indices) {
             val textSliderView = DefaultSliderView(this)
             // initialize a SliderLayout
             textSliderView.image(AppConstants.IMAGE_URL + imageURLLIst[i]).setOnSliderClickListener({ slider ->
-            }).scaleType = BaseSliderView.ScaleType.Fit
+            }).scaleType = BaseSliderView.ScaleType.CenterCrop
             mDemoSliderDetails.addSlider(textSliderView)
         }
         mDemoSliderDetails.stopAutoCycle()
@@ -314,14 +318,13 @@ class ProductDetailsActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 dataComment = data.getParcelableExtra(AppConstants.COMMENT_RESULR)
                 if (dataComment != null) {
-                    val dataComment = CommentModal(dataComment!!.username, dataComment!!.profile_pic, dataComment!!.id, dataComment!!.comment, dataComment!!.created_at)
+                    val dataComment = CommentModal(dataComment!!.username, dataComment!!.profile_pic, dataComment!!.id,Utils.getPreferencesString(this,AppConstants.USER_ID).toInt() ,dataComment!!.comment, dataComment!!.created_at)
                     commentsList.add(dataComment)
                     commentListAdapter.setData(commentsList)
                     commentListAdapter.notifyDataSetChanged()
                     Handler().postDelayed({
                         scrollView.fullScroll(View.FOCUS_DOWN)
                     }, 200)
-
                 }
             }
             if (resultCode == Activity.RESULT_CANCELED) {

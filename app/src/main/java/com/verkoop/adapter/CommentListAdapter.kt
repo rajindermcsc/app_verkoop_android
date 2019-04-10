@@ -18,10 +18,12 @@ import kotlinx.android.synthetic.main.comment_row.*
 import retrofit2.Response
 
 
-class CommentListAdapter(private val context: Context,private val progressBar: ProgressBar):RecyclerView.Adapter<CommentListAdapter.ViewHolder>(){
+class CommentListAdapter(private val context: Context,private val progressBar: ProgressBar,private  val comingType:Int):RecyclerView.Adapter<CommentListAdapter.ViewHolder>(){
     private var mInflater:LayoutInflater= LayoutInflater.from(context)
     private var commentsList= ArrayList<CommentModal>()
     private var isClickedDialog:Boolean=false
+    private var selectedId: Int = 0
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
         val view=mInflater.inflate(R.layout.comment_row,parent,false)
@@ -38,6 +40,11 @@ class CommentListAdapter(private val context: Context,private val progressBar: P
     }
  inner  class ViewHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView),LayoutContainer{
      fun bind(modal: CommentModal) {
+         if(comingType!=0||modal.user_id==Utils.getPreferencesString(context,AppConstants.USER_ID).toInt()){
+             ivOption.visibility=View.VISIBLE
+         }else{
+             ivOption.visibility=View.INVISIBLE
+         }
          if(!TextUtils.isEmpty(modal.profile_pic)){
              Picasso.with(context).load(AppConstants.IMAGE_URL+modal.profile_pic)
                      .resize(720, 720)

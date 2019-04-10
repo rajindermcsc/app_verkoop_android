@@ -21,6 +21,12 @@ import com.verkoop.utils.Utils
 import kotlinx.android.synthetic.main.profile_fragment.*
 import retrofit2.Response
 import android.app.Activity
+import com.verkoop.models.MessageEvent
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.ThreadMode
+import org.greenrobot.eventbus.Subscribe
+
+
 
 
 
@@ -33,6 +39,7 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
         val intent = Intent(context, ProductDetailsActivity::class.java)
         intent.putExtra(AppConstants.ITEM_ID, itemId)
         intent.putExtra(AppConstants.COMING_FROM, 1)
+        intent.putExtra(AppConstants.COMING_TYPE, 1)
         intent.putExtra(AppConstants.ADAPTER_POSITION, position)
         this.startActivityForResult(intent,3)
     }
@@ -260,5 +267,26 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
             }
         }
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: MessageEvent) {
+        if (Utils.isOnline(homeActivity)) {
+            myProfileInfoApi()
+        } else {
+            Utils.showSimpleMessage(homeActivity, getString(R.string.check_internet)).show()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if(!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this)
+        }
     }
 }

@@ -39,7 +39,7 @@ class UserProfileActivity:AppCompatActivity(), LikeDisLikeListener {
     private var followId:Int=0
     private var blockedId:Int=0
     private var typeMenu:Int=0
-    private var following:Int=0
+    private var followers:Int=0
     private var userName:String=""
 
 
@@ -212,9 +212,9 @@ class UserProfileActivity:AppCompatActivity(), LikeDisLikeListener {
         itemsList.clear()
         itemsList = data.items
         followId = data.follower_id
-        following=data.follow_count
-        tvUserFollowers.text=data.follower_count.toString()
-        tvUserFollowing.text=following.toString()
+        followers=data.follower_count
+        tvUserFollowers.text=followers.toString()
+        tvUserFollowing.text=data.follow_count.toString()
         myProfileItemAdapter.setData(itemsList)
         myProfileItemAdapter.notifyDataSetChanged()
         tvNameUser.text = data.username
@@ -302,8 +302,8 @@ class UserProfileActivity:AppCompatActivity(), LikeDisLikeListener {
                         tvUserFollow.background=ContextCompat.getDrawable(this@UserProfileActivity,R.drawable.red_rectangular_shape)
                         tvUserFollow.text = getString(R.string.follow)
                         tvUserFollow.setPaddingRelative(Utils.dpToPx(this@UserProfileActivity,60.0f).toInt(),Utils.dpToPx(this@UserProfileActivity,10.0f).toInt(),Utils.dpToPx(this@UserProfileActivity,60.0f).toInt(),Utils.dpToPx(this@UserProfileActivity,10.0f).toInt())
-                        following -= 1
-                        tvUserFollowing.text=following.toString()
+                        followers -= 1
+                        tvUserFollowers.text=followers.toString()
                         followId=0
                     }
                     override fun onFailure(msg: String?) {
@@ -325,8 +325,8 @@ class UserProfileActivity:AppCompatActivity(), LikeDisLikeListener {
                         tvUserFollow.background=ContextCompat.getDrawable(this@UserProfileActivity,R.drawable.brown_rectangular_shape)
                         tvUserFollow.text = getString(R.string.following)
                         followId=followResponse.data.id
-                        following += 1
-                        tvUserFollowing.text=following.toString()
+                        followers += 1
+                        tvUserFollowers.text=followers.toString()
                         tvUserFollow.setPaddingRelative(Utils.dpToPx(this@UserProfileActivity,48.0f).toInt(),Utils.dpToPx(this@UserProfileActivity,10.0f).toInt(),Utils.dpToPx(this@UserProfileActivity,48.0f).toInt(),Utils.dpToPx(this@UserProfileActivity,10.0f).toInt())
                     }
 

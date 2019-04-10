@@ -271,6 +271,7 @@ data class CommentModal(
     val username: String,
     val profile_pic: String,
     val id: Int,
+    val user_id: Int,
     val comment: String,
     val created_at: String
 ): Parcelable
@@ -596,4 +597,23 @@ data class DataBlock(
     val updated_at: String,
     val created_at: String,
     val id: Int
+)
+
+data class SearchItemResponse(
+    val message: String,
+    val data: ArrayList<DataSearch>
+)
+
+data class DataSearch(
+    val id: Int,
+    val category_id: Int,
+    val name: String,
+    val category_name: String,
+    val category: CategorySearch
+)
+
+data class CategorySearch(
+    val id: Int,
+    val name: String,
+    val parent_id: Int
 )

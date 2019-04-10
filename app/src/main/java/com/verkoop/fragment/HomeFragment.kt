@@ -21,6 +21,7 @@ import com.verkoop.R
 import com.verkoop.activity.FullCategoriesActivity
 import com.verkoop.activity.GalleryActivity
 import com.verkoop.activity.HomeActivity
+import com.verkoop.activity.SearchActivity
 import com.verkoop.adapter.CategoryListAdapter
 import com.verkoop.adapter.ItemHomeAdapter
 import com.verkoop.models.*
@@ -145,7 +146,11 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
             val intent = Intent(homeActivity, FullCategoriesActivity::class.java)
             homeActivity.startActivityForResult(intent, 2)
         }
-        llSearchHome.setOnClickListener { Utils.showToast(homeActivity, "Work in progress.") }
+        llSearchHome.setOnClickListener {
+            Utils.showToast(homeActivity, "Work in progress.")
+          /*  val intent = Intent(homeActivity, SearchActivity::class.java)
+            homeActivity.startActivityForResult(intent, 2)*/
+        }
         tvSell.setOnClickListener {
             val intent = Intent(homeActivity, GalleryActivity::class.java)
             homeActivity.startActivityForResult(intent, 2)

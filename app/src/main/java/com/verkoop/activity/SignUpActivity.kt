@@ -189,6 +189,7 @@ class SignUpActivity : AppCompatActivity() {
                     }
                 })
     }
+
     private fun setResponseData(userId: String, api_token: String, firstName: String, email: String, loginType: String) {
         Utils.savePreferencesString(this@SignUpActivity, AppConstants.USER_ID, userId)
         Utils.savePreferencesString(this@SignUpActivity, AppConstants.API_TOKEN, api_token)

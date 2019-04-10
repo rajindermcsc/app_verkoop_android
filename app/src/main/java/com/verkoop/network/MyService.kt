@@ -97,6 +97,9 @@ interface MyService {
     @DELETE("items/{item_id}")
     fun deleteListingApi(@Path(value = "item_id", encoded = true) fullUrl: Int): Call<DisLikeResponse>
 
+    @POST("searchKeywordData")
+    fun searchItemApi(@Body request: SearchItemRequest): Call<SearchItemResponse>
+
     @Multipart
     @POST("items")
     fun addClothApi(@Part files: List<MultipartBody.Part>,

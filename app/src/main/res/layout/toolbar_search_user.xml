@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimaryDark"
+    android:contentInsetEnd="0dp"
+    android:contentInsetLeft="0dp"
+    android:contentInsetRight="0dp"
+    android:contentInsetStart="0dp"
+    android:minHeight="?attr/actionBarSize"
+    app:contentInsetEnd="0dp"
+    app:contentInsetLeft="0dp"
+    app:contentInsetRight="0dp"
+    app:contentInsetStart="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:paddingEnd="@dimen/dp_8"
+        android:paddingStart="@dimen/dp_8">
+
+        <ImageView
+            android:id="@+id/iv_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="@dimen/dp_10"
+            android:src="@mipmap/back" />
+
+        <com.verkoop.fonts.editText.GothiBoldEditText
+            android:id="@+id/etSearchHeader"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dp_8"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:paddingStart="@dimen/dp_10"
+            android:paddingEnd="@dimen/dp_20"
+            android:gravity="center_vertical"
+            android:textColor="@color/light_gray"
+            android:drawableEnd="@mipmap/search"
+            android:maxLines="1"
+            android:minLines="1"
+            android:inputType="text"
+            android:hint="@string/search_verkoop"
+            android:imeOptions="actionSearch"
+            android:background="@drawable/white_rectangular_shape"
+            android:textSize="@dimen/sp_14"/>
+    </LinearLayout>
+</android.support.v7.widget.Toolbar>

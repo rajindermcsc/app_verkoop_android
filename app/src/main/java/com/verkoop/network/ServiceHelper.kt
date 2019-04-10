@@ -807,4 +807,35 @@ import java.util.ArrayList
              }
          })
      }
+
+     fun searchItemService(request: SearchItemRequest, onResponse: OnResponse) {
+         val myService = ApiClient.getClient().create(MyService::class.java)
+         val responseCall = myService.searchItemApi(request)
+         responseCall.enqueue(object : Callback<SearchItemResponse> {
+             override fun onResponse(call: Call<SearchItemResponse>, response: Response<SearchItemResponse>) {
+                 //  Log.e("<<<Response>>>", Gson().toJson(res))
+                 if (response.code() == 200) {
+                     onResponse.onSuccess(response)
+                 } else {
+                     if (response.errorBody() != null) {
+                         try {
+                             val messageError= JSONObject(response.errorBody()!!.string())
+                             onResponse.onFailure(messageError.getString("message"))
+                         } catch (e: JSONException) {
+                             onResponse.onFailure("Something went wrong")
+                             e.printStackTrace()
+                         } catch (e: IOException) {
+                             e.printStackTrace()
+                         }
+                     } else {
+                         onResponse.onFailure("Something went wrong")
+                     }
+                 }
+             }
+
+             override fun onFailure(call: Call<SearchItemResponse>, t: Throwable) {
+                 onResponse.onFailure(t.message)
+             }
+         })
+     }
 }

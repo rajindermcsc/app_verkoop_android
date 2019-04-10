@@ -1,91 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
-   <!-- <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FF0000"
-        android:elevation="8dp"
-        android:minHeight="?attr/actionBarSize"
-        app:contentInsetStart="0dp"
-        app:contentInsetStartWithNavigation="0dp">
+   <include layout="@layout/toolbar_search_user" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/et_searchUser"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginEnd="30dp"
-                android:layout_marginStart="45dp"
-                android:background="@drawable/white_rectangular_shape"
-                android:cursorVisible="false"
-                android:drawableEnd="@mipmap/seach"
-                android:drawablePadding="15dp"
-                android:hint="Search user instead"
-                android:padding="10dp"
-                android:paddingEnd="25dp"
-                android:paddingLeft="25dp"
-                android:paddingRight="25dp"
-                android:paddingStart="25dp"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/back_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_gravity="start|center"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:src="@mipmap/back" />
-        </FrameLayout>
-    </android.support.v7.widget.Toolbar>-->
-
-   <!-- <LinearLayout
-        android:id="@+id/ll_searchForVerkoop"
+    <LinearLayout
+        android:id="@+id/ll_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:padding="@dimen/dp_10"
         android:orientation="horizontal"
-        android:paddingLeft="5dp">
+        android:paddingStart="@dimen/dp_5"
+        tools:ignore="RtlSymmetry">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:src="@mipmap/user" />
+            android:padding="@dimen/dp_10"
+            android:src="@mipmap/user"
+            android:contentDescription="@string/image" />
 
-        <TextView
+        <com.verkoop.fonts.textView.GothicThinTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="2dp"
-            android:text="Search from Verkoop"
-            android:textColor="#000000" />
+            android:paddingStart="@dimen/dp_10"
+            android:text="@string/search_user_instead"
+            android:textSize="@dimen/sp_18"
+            android:textColor="@color/text_gray_" />
 
     </LinearLayout>
 
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginStart="15dp"
-        android:background="#000000" />
+        android:layout_height="@dimen/dp_.5"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:layout_marginStart="@dimen/dp_10"
+        android:background="@color/light_gray" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerSearchUser"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="15dp" />-->
-
+        android:layout_height="match_parent">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvSearchList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+        <ProgressBar
+            android:id="@+id/pbProgressSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+    </FrameLayout>
 </LinearLayout>

@@ -148,3 +148,11 @@ data class BlockUserRequest(
 data class MarkAsSoldRequest(
     val user_id: String
 )
+
+class MessageEvent(
+        val updateUi:String
+)
+
+data class SearchItemRequest(
+    val name: String
+)

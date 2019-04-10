@@ -295,7 +295,7 @@
             </LinearLayout>
         </ScrollView>
         <com.verkoop.fonts.textView.GothiBoldTextView
-            android:id="@+id/tvSell"
+            android:id="@+id/tvSellItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"

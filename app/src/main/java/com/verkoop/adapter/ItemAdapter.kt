@@ -95,7 +95,7 @@ class ItemAdapter(private val context: Context,private val rvItemListDetails:Rec
                 ivProductImageHome.setImageResource(R.mipmap.post_placeholder)
             }
 
-            tvNameHome.text=data.name
+
             tvItemPriceHome.text="$"+data.price
             itemView.setOnClickListener {
                 likeDisLikeListener.getItemDetailsClick(data.id,data.user_id)
