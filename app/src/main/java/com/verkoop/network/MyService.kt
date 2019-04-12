@@ -100,6 +100,9 @@ interface MyService {
     @POST("searchKeywordData")
     fun searchItemApi(@Body request: SearchItemRequest): Call<SearchItemResponse>
 
+    @PUT("user/searchByUserName/{user_id}")
+    fun searchByUserApi(@Path(value = "user_id", encoded = true) fullUrl: Int,@Body request: SearchUserRequest): Call<SearchByUserResponse>
+
     @Multipart
     @POST("items")
     fun addClothApi(@Part files: List<MultipartBody.Part>,

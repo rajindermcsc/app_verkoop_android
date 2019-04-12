@@ -617,3 +617,16 @@ data class CategorySearch(
     val name: String,
     val parent_id: Int
 )
+
+data class SearchByUserResponse(
+    val message: String,
+    val data: ArrayList<DataUser>
+)
+
+data class DataUser(
+    val id: Int,
+    val username: String,
+    val profile_pic: String,
+    var follower_id: Int,
+    var isClicked:Boolean
+)

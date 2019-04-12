@@ -278,7 +278,7 @@ object Utils{
         try {
             // val netDate = java.sql.Date(java.lang.Long.parseLong(FutureDate) * 1000)
             val parseFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
-            parseFormat.timeZone = TimeZone.getTimeZone("UTC")
+
             var date: Date? = null
             try {
                 date = parseFormat.parse(FutureDate)

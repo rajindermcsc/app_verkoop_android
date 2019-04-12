@@ -31,7 +31,7 @@
             android:paddingStart="@dimen/dp_10"
             android:text="@string/search_user_instead"
             android:textSize="@dimen/sp_18"
-            android:textColor="@color/text_gray_" />
+            android:textColor="@color/dark_black" />
 
     </LinearLayout>
 
@@ -56,5 +56,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:visibility="gone" />
+        <com.verkoop.fonts.textView.GothicThinTextView
+            android:id="@+id/tvDemoText"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/light_gray"
+            android:text="@string/no_result_found"
+            />
     </FrameLayout>
 </LinearLayout>

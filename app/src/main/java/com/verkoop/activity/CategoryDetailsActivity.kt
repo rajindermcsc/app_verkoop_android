@@ -286,21 +286,6 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
                         itemsList[position].items_like_count= itemsList[position].items_like_count+1
                         itemsList[position].like_id= responseLike.like_id
                         itemAdapter.notifyItemChanged(position)
-                       /* val items = ItemHome(itemsList[position].id,
-                                itemsList[position].user_id,
-                                itemsList[position].category_id,
-                                itemsList[position].name,
-                                itemsList[position].price,
-                                itemsList[position].item_type,
-                                itemsList[position].created_at,
-                                itemsList[position].items_like_count + 1,
-                                responseLike.like_id,
-                                !itemsList[position].is_like,
-                                itemsList[position].image_url,
-                                itemsList[position].username,
-                                itemsList[position].profile_pic)
-                        itemsList[position] = items*/
-
                     }
 
                     override fun onFailure(msg: String?) {
@@ -320,21 +305,6 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
                         itemsList[position].items_like_count= itemsList[position].items_like_count-1
                         itemsList[position].like_id= 0
                         itemAdapter.notifyItemChanged(position)
-                       /* val items = ItemHome(itemsList[position].id,
-                                itemsList[position].user_id,
-                                itemsList[position].category_id,
-                                itemsList[position].name,
-                                itemsList[position].price,
-                                itemsList[position].item_type,
-                                itemsList[position].created_at,
-                                itemsList[position].items_like_count - 1,
-                                0,
-                                !itemsList[position].is_like,
-                                itemsList[position].image_url,
-                                itemsList[position].username,
-                                itemsList[position].profile_pic)
-                        itemsList[position] = items*/
-
                     }
 
                     override fun onFailure(msg: String?) {

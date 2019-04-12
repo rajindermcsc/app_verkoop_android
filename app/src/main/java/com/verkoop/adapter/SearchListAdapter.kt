@@ -1,17 +1,21 @@
 package com.verkoop.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.verkoop.R
+import com.verkoop.activity.CategoryDetailsActivity
 import com.verkoop.models.DataSearch
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.row_search_item.*
+import com.verkoop.activity.SearchActivity
+import com.verkoop.utils.AppConstants
 
 
-class SearchListAdapter(context:Context):RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+open class SearchListAdapter(private val context:Context):RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         private val mLayoutInflater:LayoutInflater= LayoutInflater.from(context)
     private var searchItemList= ArrayList<DataSearch>()
 
@@ -32,10 +36,22 @@ class SearchListAdapter(context:Context):RecyclerView.Adapter<RecyclerView.ViewH
         fun bind(modal: DataSearch) {
             tvHeading.text=modal.name
             tvCategorySearch.text=modal.category_name
+            itemView.setOnClickListener {
+            val intent=Intent(context,CategoryDetailsActivity::class.java)
+                intent.putExtra(AppConstants.CATEGORY_ID, modal.category_id)
+                intent.putExtra(AppConstants.SUB_CATEGORY, modal.category.name)
+                if(modal.category.parent_id>0) {
+                    intent.putExtra(AppConstants.TYPE, 1)
+                }
+                ( context as SearchActivity).startActivityForResult(intent,2)
+
+            }
         }
     }
 
     fun setData(searchItem: ArrayList<DataSearch>) {
         searchItemList=searchItem
     }
+
+
 }

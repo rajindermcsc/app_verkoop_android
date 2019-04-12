@@ -26,7 +26,6 @@ import com.verkoop.utils.AppConstants
 import com.verkoop.utils.SelectionListener
 import com.verkoop.utils.Utils
 import com.verkoop.utils.selectOptionDialog
-import kotlinx.android.synthetic.main.home_fragment.*
 import kotlinx.android.synthetic.main.item_details_activity.*
 import kotlinx.android.synthetic.main.toolbar_product_details.*
 import retrofit2.Response

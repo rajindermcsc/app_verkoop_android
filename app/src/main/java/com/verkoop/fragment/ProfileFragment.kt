@@ -202,8 +202,8 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
             Picasso.with(homeActivity).load(AppConstants.IMAGE_URL + data.profile_pic)
                     .resize(720, 720)
                     .centerInside()
-                    .error(R.mipmap.gallery_place)
-                    .placeholder(R.mipmap.gallery_place)
+                    .error(R.mipmap.pic_placeholder)
+                    .placeholder(R.mipmap.pic_placeholder)
                     .into(ivProfilePic)
         }
         if (!TextUtils.isEmpty(data.city) && !TextUtils.isEmpty(data.state)) {

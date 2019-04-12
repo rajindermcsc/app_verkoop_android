@@ -154,5 +154,9 @@ class MessageEvent(
 )
 
 data class SearchItemRequest(
-    val name: String
+    val name: String,
+    val user_id: Int
+)
+data class SearchUserRequest(
+        val username: String
 )

@@ -23,9 +23,11 @@ class HomeActivity:AppCompatActivity(){
      private var activitiesFragment:ActivitiesFragment? = null
     private var fragmentList=ArrayList<Fragment>()
     private var doubleBackToExitPressedOnce = false
+    private var  comingFrom:Int=0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)
+        comingFrom=intent.getIntExtra(AppConstants.COMING_FROM,0)
         homeFragment=HomeFragment.newInstance()
         profileFragment= ProfileFragment.newInstance()
         activitiesFragment= ActivitiesFragment.newInstance()
@@ -33,6 +35,7 @@ class HomeActivity:AppCompatActivity(){
         fragmentList.add(activitiesFragment!!)
         fragmentList.add(profileFragment!!)
         setData()
+
     }
 
     private fun setTabLayout() {
@@ -77,15 +80,25 @@ class HomeActivity:AppCompatActivity(){
           val intent=Intent(this,FavouritesActivity::class.java)
             startActivity(intent)
         }
+        if(comingFrom==1){
+            when {
+                viewPager.currentItem==0 -> {
+                    bottomTabLayout.selectTab(R.id.menu_button3)
+                    viewPager.currentItem=3
+                    profileFragment!!.refreshUI(0)
 
+                }
+                viewPager.currentItem==1 -> {
+                    bottomTabLayout.selectTab(R.id.menu_button3)
+                    viewPager.currentItem=3
+                }
+                else -> {
+                    profileFragment!!.refreshUI(1)
+                }
+            }
+        }
     }
 
-    private fun logout() {
-        com.verkoop.utils.Utils.clearPreferences(this@HomeActivity)
-        val intent = Intent(this@HomeActivity,WalkThroughActivity::class.java)
-        startActivity(intent)
-        finishAffinity()
-    }
 
     override fun onBackPressed() {
         if (doubleBackToExitPressedOnce) {

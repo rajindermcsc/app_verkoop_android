@@ -234,8 +234,8 @@ class UserProfileActivity:AppCompatActivity(), LikeDisLikeListener {
             Picasso.with(this).load(AppConstants.IMAGE_URL + data.profile_pic)
                     .resize(720, 720)
                     .centerInside()
-                    .error(R.mipmap.gallery_place)
-                    .placeholder(R.mipmap.gallery_place)
+                    .error(R.mipmap.pic_placeholder)
+                    .placeholder(R.mipmap.pic_placeholder)
                     .into(ivUserPic)
         }
         if (!TextUtils.isEmpty(data.city) && !TextUtils.isEmpty(data.state)) {
@@ -246,6 +246,7 @@ class UserProfileActivity:AppCompatActivity(), LikeDisLikeListener {
         }
         tvCountryUser.text = data.country
     }
+
     override fun onBackPressed() {
         if (powerMenu!=null&&powerMenu!!.isShowing) {
             powerMenu!!.dismiss()
