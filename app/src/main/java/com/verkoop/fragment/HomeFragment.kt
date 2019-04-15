@@ -130,11 +130,13 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
         val displayMetrics = DisplayMetrics()
         homeActivity.windowManager.defaultDisplay.getMetrics(displayMetrics)
         val width = displayMetrics.widthPixels
-        rvCategoryHome.layoutParams.height = width / 3
-        val linearLayoutManager = LinearLayoutManager(homeActivity, LinearLayoutManager.HORIZONTAL, false)
-        rvCategoryHome.layoutManager = linearLayoutManager
-        val categoryAdapter = CategoryListAdapter(homeActivity, categoriesList, rvCategoryHome)
-        rvCategoryHome.adapter = categoryAdapter
+        if(rvCategoryHome!=null) {
+            rvCategoryHome.layoutParams.height = width / 3
+            val linearLayoutManager = LinearLayoutManager(homeActivity, LinearLayoutManager.HORIZONTAL, false)
+            rvCategoryHome.layoutManager = linearLayoutManager
+            val categoryAdapter = CategoryListAdapter(homeActivity, categoriesList, rvCategoryHome)
+            rvCategoryHome.adapter = categoryAdapter
+        }
     }
 
     private fun setData() {
@@ -147,7 +149,6 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
             homeActivity.startActivityForResult(intent, 2)
         }
         llSearchHome.setOnClickListener {
-            //Utils.showToast(homeActivity, "Work in progress.")
             val intent = Intent(homeActivity, SearchActivity::class.java)
             homeActivity.startActivityForResult(intent, 2)
         }

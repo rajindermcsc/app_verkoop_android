@@ -12,9 +12,12 @@ import android.os.Environment
 import android.preference.PreferenceManager
 import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
-import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.View
+import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.DatePicker
+import android.widget.EditText
 import android.widget.Toast
 import com.andrognito.flashbar.Flashbar
 import com.verkoop.R
@@ -22,21 +25,11 @@ import java.io.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
-
 import java.util.regex.Matcher
 import java.util.regex.Pattern
-import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import android.widget.DatePicker
-import android.widget.EditText
 
 
-
-
-
-
-
-object Utils{
+object Utils {
     private const val GIF_PATTERN = "(.+?)\\.gif$"
     fun savePreferencesString(context: Context, key: String, value: String): String {
 
@@ -104,7 +97,7 @@ object Utils{
         } else !str.isEmpty()
     }
 
-    fun showSimpleMessage(context:Context,text:String) :Flashbar{
+    fun showSimpleMessage(context: Context, text: String): Flashbar {
         return Flashbar.Builder(context as AppCompatActivity)
                 .gravity(Flashbar.Gravity.TOP)
                 .messageSizeInSp(16f)
@@ -203,7 +196,7 @@ object Utils{
 
         val format = SimpleDateFormat(post)
         format.timeZone = TimeZone.getDefault()
-       // Log.e("dateTimeStamp",date)
+        // Log.e("dateTimeStamp",date)
 
         return format.format(date)
 
@@ -214,7 +207,7 @@ object Utils{
         var totalTime = 0
         var unit: String? = null
         try {
-           // val netDate = java.sql.Date(java.lang.Long.parseLong(FutureDate) * 1000)
+            // val netDate = java.sql.Date(java.lang.Long.parseLong(FutureDate) * 1000)
             val parseFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss.ssssss")
             parseFormat.timeZone = TimeZone.getTimeZone("UTC")
             var date: Date? = null
@@ -227,6 +220,15 @@ object Utils{
 
             var diff = oldDate.time - date!!.time
 
+            val year = diff / (24 * 60 * 60 * 24 * 365 * 1000L)
+            diff -= year * (24 * 60 * 60 * 24 * 365 * 1000L)
+
+            val month = diff / (24 * 60 * 60 * 30 * 1000L)
+            diff -= month * (24 * 60 * 60 * 30 * 1000L)
+
+            val week = diff / (24 * 60 * 60 * 7 * 1000)
+            diff -= week * (24 * 60 * 60 * 7 * 1000)
+
             val days = diff / (24 * 60 * 60 * 1000)
             diff -= days * (24 * 60 * 60 * 1000)
 
@@ -238,14 +240,38 @@ object Utils{
 
             val seconds = diff / 1000
 
-            if (days != 0L) {
+            if (year != 0L) {
+                totalTime = year.toInt()
+                if (totalTime == 1) {
+                    unit = "year"
+                } else {
+                    unit = "years"
+                }
+                // unit = "day"
+            } else if (month != 0L) {
+                totalTime = month.toInt()
+                if (totalTime == 1) {
+                    unit = "month"
+                } else {
+                    unit = "months"
+                }
+                // unit = "day"
+            } else if (week != 0L) {
+                totalTime = week.toInt()
+                if (totalTime == 1) {
+                    unit = "week"
+                } else {
+                    unit = "weeks"
+                }
+                // unit = "day"
+            } else if (days != 0L) {
                 totalTime = days.toInt()
                 if (totalTime == 1) {
                     unit = "day"
                 } else {
                     unit = "days"
                 }
-               // unit = "day"
+                // unit = "day"
             } else if (hours != 0L) {
                 totalTime = hours.toInt()
                 if (totalTime == 1) {
@@ -278,7 +304,7 @@ object Utils{
         try {
             // val netDate = java.sql.Date(java.lang.Long.parseLong(FutureDate) * 1000)
             val parseFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
-
+            parseFormat.timeZone = TimeZone.getTimeZone("UTC")
             var date: Date? = null
             try {
                 date = parseFormat.parse(FutureDate)
@@ -288,6 +314,15 @@ object Utils{
             val oldDate = Date()
 
             var diff = oldDate.time - date!!.time
+
+            val year = diff / (24 * 60 * 60 * 24 * 365 * 1000L)
+            diff -= year * (24 * 60 * 60 * 24 * 365 * 1000L)
+
+            val month = diff / (24 * 60 * 60 * 30 * 1000L)
+            diff -= month * (24 * 60 * 60 * 30 * 1000L)
+
+            val week = diff / (24 * 60 * 60 * 7 * 1000)
+            diff -= week * (24 * 60 * 60 * 7 * 1000)
 
             val days = diff / (24 * 60 * 60 * 1000)
             diff -= days * (24 * 60 * 60 * 1000)
@@ -300,7 +335,32 @@ object Utils{
 
             val seconds = diff / 1000
 
-            if (days != 0L) {
+
+            if (year != 0L) {
+                totalTime = year.toInt()
+                if (totalTime == 1) {
+                    unit = "year"
+                } else {
+                    unit = "years"
+                }
+                // unit = "day"
+            } else if (month != 0L) {
+                totalTime = month.toInt()
+                if (totalTime == 1) {
+                    unit = "month"
+                } else {
+                    unit = "months"
+                }
+                // unit = "day"
+            } else if (week != 0L) {
+                totalTime = week.toInt()
+                if (totalTime == 1) {
+                    unit = "week"
+                } else {
+                    unit = "weeks"
+                }
+                // unit = "day"
+            } else if (days != 0L) {
                 totalTime = days.toInt()
                 if (totalTime == 1) {
                     unit = "day"
@@ -461,16 +521,17 @@ object Utils{
     fun setDatePicker(context: Context, currentDate: CurrentDate) {
         val myCalendar = Calendar.getInstance()
         val date = { view: DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
-            var month=(monthOfYear+1).toString()
-            var day=dayOfMonth.toString()
-            if(monthOfYear < 10){
-                month= "0$month"
+            var month = (monthOfYear + 1).toString()
+            var day = dayOfMonth.toString()
+            if (monthOfYear < 10) {
+                month = "0$month"
             }
-            if(dayOfMonth < 10){
-                day  = "0$day"
+            if (dayOfMonth < 10) {
+                day = "0$day"
             }
-            currentDate.getSelectedDate(year.toString()+"-"+month+"-"+ day) }
-        val picker = DatePickerDialog(context,R.style.datepicker,
+            currentDate.getSelectedDate(year.toString() + "-" + month + "-" + day)
+        }
+        val picker = DatePickerDialog(context, R.style.datepicker,
                 date, myCalendar
                 .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH))
         picker.datePicker.maxDate = myCalendar.time.time

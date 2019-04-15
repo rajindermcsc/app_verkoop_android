@@ -56,6 +56,7 @@
             android:padding="@dimen/dp_8">
 
             <com.verkoop.fonts.textView.GothiBoldTextView
+                android:id="@+id/llSearchProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -300,7 +301,7 @@
                                         android:text="150"
                                         android:layout_gravity="center"
                                         android:drawablePadding="@dimen/dp_10"
-                                        android:textColor="@color/green_light"
+                                        android:textColor="@color/red_light"
                                         android:textSize="@dimen/sp_23" />
                                 </LinearLayout>
 

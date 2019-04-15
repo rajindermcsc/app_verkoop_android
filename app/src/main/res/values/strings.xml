@@ -8,6 +8,7 @@
 
     <string name="password">Password</string>
     <string name="forgot_password">Forgot Password?</string>
+    <string name="forgot_pass">Forgot Password</string>
     <string name="or">OR</string>
     <string name="login_with">Login with</string>
     <string name="facebook">Facebook</string>
@@ -210,4 +211,8 @@
     <string name="search_user_instead">Search user instead</string>
     <string name="search_verkoop">Search Verkoop</string>
     <string name="no_result_found">No result found</string>
+    <string name="forgot_password_">FORGOT PASSWORD</string>
+    <string name="please_enter_the_email_address_of_your_account">Please enter the email address of your account</string>
+    <string name="enter_your_email_address">Enter your email address</string>
+    <string name="send">SEND</string>
 </resources>

@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.profile_fragment.*
 import retrofit2.Response
 import android.app.Activity
 import com.verkoop.models.MessageEvent
+import kotlinx.android.synthetic.main.home_fragment.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.ThreadMode
 import org.greenrobot.eventbus.Subscribe
@@ -125,6 +126,10 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
         llCoins.setOnClickListener {
             val intent = Intent(homeActivity, CoinsActivity::class.java)
             homeActivity.startActivity(intent)
+        }
+        llSearchProfile.setOnClickListener {
+            val intent = Intent(homeActivity, SearchActivity::class.java)
+            homeActivity.startActivityForResult(intent, 2)
         }
         ivScanner.setOnClickListener {
             //  val intent = Intent(homeActivity, QRScannerActivity::class.java)

@@ -166,7 +166,7 @@
                         android:drawablePadding="@dimen/sp_8"
                         android:drawableStart="@mipmap/post_like"
                         android:gravity="center"
-                        android:padding="@dimen/dp_14"
+                        android:padding="@dimen/dp_10"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/sp_14" />
                 </LinearLayout>

@@ -22,13 +22,14 @@
                 android:orientation="vertical">
 
                 <FrameLayout
+                    android:id="@+id/flImageFrame"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
 
                     <com.daimajia.slider.library.SliderLayout
                         android:id="@+id/mDemoSliderDetails"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_370" />
+                        android:layout_height="match_parent" />
 
                     <com.daimajia.slider.library.Indicators.PagerIndicator
                         android:id="@+id/custom_indicator_detail"

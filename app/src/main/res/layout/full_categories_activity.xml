@@ -18,6 +18,7 @@
         android:paddingStart="@dimen/dp_18">
 
         <com.verkoop.fonts.textView.GothiBoldTextView
+            android:id="@+id/etSearchFull"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

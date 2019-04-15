@@ -61,17 +61,19 @@ class FullCategoriesActivity : AppCompatActivity(), FullCategoryAdapter.Selected
             val intent=Intent(this,FavouritesActivity::class.java)
             startActivity(intent)
         }
+        etSearchFull.setOnClickListener {
+            val intent = Intent(this, SearchActivity::class.java)
+            startActivityForResult(intent, 2)
+        }
 
     }
 
     private fun callCategoriesApi() {
-       // VerkoopApplication.instance.loader.show(this)
         pvProgressCat.visibility=View.VISIBLE
         ServiceHelper().categoriesService(
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         pvProgressCat.visibility=View.GONE
-                    //    VerkoopApplication.instance.loader.hide(this@FullCategoriesActivity)
                         val categoriesResponse = response.body() as CategoriesResponse
                         if(categoriesResponse.data!=null) {
                             categoryList.addAll(categoriesResponse.data)
@@ -81,7 +83,6 @@ class FullCategoriesActivity : AppCompatActivity(), FullCategoryAdapter.Selected
 
                     override fun onFailure(msg: String?) {
                         pvProgressCat.visibility=View.GONE
-                      //  VerkoopApplication.instance.loader.hide(this@FullCategoriesActivity)
                         Utils.showSimpleMessage(this@FullCategoriesActivity, msg!!).show()
                     }
                 })

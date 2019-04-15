@@ -285,7 +285,7 @@
                                         android:layout_gravity="center"
                                         android:drawablePadding="@dimen/dp_10"
                                         android:text="150"
-                                        android:textColor="@color/green_light"
+                                        android:textColor="@color/red_light"
                                         android:textSize="@dimen/sp_23" />
                                 </LinearLayout>
 

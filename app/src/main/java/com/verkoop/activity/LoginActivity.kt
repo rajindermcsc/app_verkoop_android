@@ -96,7 +96,11 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
-        tvForgotPassword.setOnClickListener { Utils.showToast(this, "Work in progress.") }
+        tvForgotPassword.setOnClickListener {
+            val intent = Intent(this, ForgotPasswordActivity::class.java)
+            startActivity(intent)
+        }
+
         etEmail.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
             }

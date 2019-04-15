@@ -19,7 +19,6 @@ import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
 import kotlinx.android.synthetic.main.category_details_activity.*
-import kotlinx.android.synthetic.main.home_activity.*
 import kotlinx.android.synthetic.main.toolbar_details_.*
 import retrofit2.Response
 
@@ -40,21 +39,21 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
 
     override fun removeFilter(remove: String, position: Int) {
         when {
-            remove.equals("Condition :",ignoreCase = true) -> {
-                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type,filterRequest!!.userId , Utils.getPreferencesString(this, AppConstants.USER_ID), filterRequest!!.latitude , filterRequest!!.longitude ,"" , filterRequest!!.meet_up , filterRequest!!.min_price , filterRequest!!.max_price )
+            remove.equals("Condition :", ignoreCase = true) -> {
+                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, Utils.getPreferencesString(this, AppConstants.USER_ID), filterRequest!!.latitude, filterRequest!!.longitude, "", filterRequest!!.meet_up, filterRequest!!.min_price, filterRequest!!.max_price)
                 getDetailsApi(filterRequest!!)
                 filterList.removeAt(position)
                 filterAdapter.notifyDataSetChanged()
 
             }
-            remove.equals("Deal Option :",ignoreCase = true) -> {
-                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type,filterRequest!!.userId , Utils.getPreferencesString(this, AppConstants.USER_ID), filterRequest!!.latitude , filterRequest!!.longitude ,filterRequest!!.item_type , "" , filterRequest!!.min_price , filterRequest!!.max_price )
+            remove.equals("Deal Option :", ignoreCase = true) -> {
+                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, Utils.getPreferencesString(this, AppConstants.USER_ID), filterRequest!!.latitude, filterRequest!!.longitude, filterRequest!!.item_type, "", filterRequest!!.min_price, filterRequest!!.max_price)
                 getDetailsApi(filterRequest!!)
                 filterList.removeAt(position)
                 filterAdapter.notifyDataSetChanged()
             }
-            remove.equals("Price :",ignoreCase = true) -> {
-                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type,filterRequest!!.userId , Utils.getPreferencesString(this, AppConstants.USER_ID), filterRequest!!.latitude , filterRequest!!.longitude ,filterRequest!!.item_type , filterRequest!!.meet_up , "" , "" )
+            remove.equals("Price :", ignoreCase = true) -> {
+                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, Utils.getPreferencesString(this, AppConstants.USER_ID), filterRequest!!.latitude, filterRequest!!.longitude, filterRequest!!.item_type, filterRequest!!.meet_up, "", "")
                 getDetailsApi(filterRequest!!)
                 filterList.removeAt(position)
                 filterAdapter.notifyDataSetChanged()
@@ -76,7 +75,7 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
         }
     }
 
-    override fun getItemDetailsClick(itemId: Int,userId:Int) {
+    override fun getItemDetailsClick(itemId: Int, userId: Int) {
         val intent = Intent(this, ProductDetailsActivity::class.java)
         intent.putExtra(AppConstants.ITEM_ID, itemId)
         intent.putExtra(AppConstants.USER_ID, userId)
@@ -113,6 +112,10 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
         }
         val type = intent.getIntExtra(AppConstants.TYPE, 0)
         toolbar_title.text = intent.getStringExtra(AppConstants.SUB_CATEGORY)
+        toolbar_title.setOnClickListener {
+            val intent = Intent(this, SearchActivity::class.java)
+            startActivityForResult(intent, 2)
+        }
         if (type == 1) {
             llParent.visibility = View.GONE
             filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID), "", "", "", "", "", "", "")
@@ -161,8 +164,8 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
         }
         if (requestCode == 2) {
             if (resultCode == Activity.RESULT_OK) {
-                val result = data!!.getIntExtra(AppConstants.TRANSACTION,0)
-                if(result==1){
+                val result = data!!.getIntExtra(AppConstants.TRANSACTION, 0)
+                if (result == 1) {
                     val returnIntent = Intent()
                     returnIntent.putExtra(AppConstants.TRANSACTION, result)
                     setResult(Activity.RESULT_OK, returnIntent)
@@ -282,9 +285,9 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
                     override fun onSuccess(response: Response<*>) {
                         isClicked = false
                         val responseLike = response.body() as LikedResponse
-                        itemsList[position].is_like=!itemsList[position].is_like
-                        itemsList[position].items_like_count= itemsList[position].items_like_count+1
-                        itemsList[position].like_id= responseLike.like_id
+                        itemsList[position].is_like = !itemsList[position].is_like
+                        itemsList[position].items_like_count = itemsList[position].items_like_count + 1
+                        itemsList[position].like_id = responseLike.like_id
                         itemAdapter.notifyItemChanged(position)
                     }
 
@@ -301,9 +304,9 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
                     override fun onSuccess(response: Response<*>) {
                         isClicked = false
                         val likeResponse = response.body() as DisLikeResponse
-                        itemsList[position].is_like=!itemsList[position].is_like
-                        itemsList[position].items_like_count= itemsList[position].items_like_count-1
-                        itemsList[position].like_id= 0
+                        itemsList[position].is_like = !itemsList[position].is_like
+                        itemsList[position].items_like_count = itemsList[position].items_like_count - 1
+                        itemsList[position].like_id = 0
                         itemAdapter.notifyItemChanged(position)
                     }
 

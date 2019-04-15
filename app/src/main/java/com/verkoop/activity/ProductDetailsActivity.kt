@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
+import android.util.DisplayMetrics
 import android.view.View
 import com.daimajia.slider.library.SliderTypes.BaseSliderView
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView
@@ -42,12 +43,17 @@ class ProductDetailsActivity : AppCompatActivity() {
     private var isSoldItem: Int = 0
     private var adapterPosition: Int = 0
     private var comingType: Int = 0
+    private var screenHeight: Int = 0
     private var userName: String = ""
     private lateinit var commentListAdapter: CommentListAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.item_details_activity)
-        comingType=intent.getIntExtra(AppConstants.COMING_TYPE,0)
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        screenHeight = displayMetrics.heightPixels
+        mDemoSliderDetails.minimumHeight = (screenHeight / 2) + 100
+        comingType = intent.getIntExtra(AppConstants.COMING_TYPE, 0)
         setCommentAdapter()
         adapterPosition = intent.getIntExtra(AppConstants.ADAPTER_POSITION, 0)
         if (intent.getIntExtra(AppConstants.COMING_FROM, 0) == 1) {
@@ -64,7 +70,7 @@ class ProductDetailsActivity : AppCompatActivity() {
     private fun setCommentAdapter() {
         val mManager = LinearLayoutManager(this)
         rvPostCommentList.layoutManager = mManager
-        commentListAdapter = CommentListAdapter(this, pbProgressProduct,comingType)
+        commentListAdapter = CommentListAdapter(this, pbProgressProduct, comingType)
         rvPostCommentList.adapter = commentListAdapter
     }
 
@@ -141,7 +147,6 @@ class ProductDetailsActivity : AppCompatActivity() {
         ivLeft.setOnClickListener { onBackPressed() }
         custom_indicator_detail.setDefaultIndicatorColor(ContextCompat.getColor(this, R.color.white), ContextCompat.getColor(this, R.color.light_gray))
         mDemoSliderDetails.setCustomIndicator(custom_indicator_detail)
-
         for (i in imageURLLIst.indices) {
             val textSliderView = DefaultSliderView(this)
             // initialize a SliderLayout
@@ -199,7 +204,10 @@ class ProductDetailsActivity : AppCompatActivity() {
             deleteProductDialog()
 
         } else if (item.title.equals(getString(R.string.edit_item), ignoreCase = true)) {
-            Utils.showToast(this, "Edit listing")
+           /* val intent = Intent(this, AddDetailsActivity::class.java)
+            intent.putParcelableArrayListExtra(AppConstants.SELECTED_LIST, selectedList)
+            intent.putExtra(AppConstants.POST_DATA, addItemsRequest)
+            startActivityForResult(intent, 1)*/
         }
     }
 
@@ -219,11 +227,11 @@ class ProductDetailsActivity : AppCompatActivity() {
     }
 
     private fun deleteItemApi() {
-        pbProgressProduct.visibility=View.VISIBLE
+        pbProgressProduct.visibility = View.VISIBLE
         ServiceHelper().deleteListingService(itemId,
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
-                        pbProgressProduct.visibility=View.GONE
+                        pbProgressProduct.visibility = View.GONE
                         val likeResponse = response.body() as DisLikeResponse
                         Utils.showToast(this@ProductDetailsActivity, "Item deleted successfully.")
                         val returnIntent = Intent()
@@ -234,7 +242,7 @@ class ProductDetailsActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(msg: String?) {
-                        pbProgressProduct.visibility=View.GONE
+                        pbProgressProduct.visibility = View.GONE
                         Utils.showSimpleMessage(this@ProductDetailsActivity, msg!!).show()
                     }
                 })
@@ -284,11 +292,11 @@ class ProductDetailsActivity : AppCompatActivity() {
     }
 
     private fun getItemDetailsService(itemId: Int) {
-        pbProgressProduct.visibility=View.VISIBLE
-                ServiceHelper().getItemDetailService(itemId,
+        pbProgressProduct.visibility = View.VISIBLE
+        ServiceHelper().getItemDetailService(itemId,
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
-                        pbProgressProduct.visibility=View.GONE
+                        pbProgressProduct.visibility = View.GONE
                         val detailsResponse = response.body() as ItemDetailsResponse
                         if (detailsResponse.data != null) {
                             commentsList.addAll(detailsResponse.data.comments)
@@ -305,7 +313,7 @@ class ProductDetailsActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(msg: String?) {
-                        pbProgressProduct.visibility=View.GONE
+                        pbProgressProduct.visibility = View.GONE
                         Utils.showSimpleMessage(this@ProductDetailsActivity, msg!!).show()
                     }
                 })
@@ -317,7 +325,7 @@ class ProductDetailsActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 dataComment = data.getParcelableExtra(AppConstants.COMMENT_RESULR)
                 if (dataComment != null) {
-                    val dataComment = CommentModal(dataComment!!.username, dataComment!!.profile_pic, dataComment!!.id,Utils.getPreferencesString(this,AppConstants.USER_ID).toInt() ,dataComment!!.comment, dataComment!!.created_at)
+                    val dataComment = CommentModal(dataComment!!.username, dataComment!!.profile_pic, dataComment!!.id, Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), dataComment!!.comment, dataComment!!.created_at)
                     commentsList.add(dataComment)
                     commentListAdapter.setData(commentsList)
                     commentListAdapter.notifyDataSetChanged()

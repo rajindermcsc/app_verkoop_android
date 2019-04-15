@@ -466,16 +466,11 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                                 val categoriesResponse = response.body() as AddItemResponse
                                 Utils.showToast(this@AddDetailsActivity, categoriesResponse.message)
                                 // shareDialog()
-                                val intent=Intent(this@AddDetailsActivity,HomeActivity::class.java)
-                                intent.putExtra(AppConstants.COMING_FROM,1)
-                               // intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                startActivity(intent)
-                                overridePendingTransition(0,0)
 
-                               /* val returnIntent = Intent()
+                                val returnIntent = Intent()
                                 returnIntent.putExtra(AppConstants.TRANSACTION, 1)
                                 setResult(Activity.RESULT_OK, returnIntent)
-                                finish()*/
+                                finish()
                             }
 
                             override fun onFailure(msg: String?) {

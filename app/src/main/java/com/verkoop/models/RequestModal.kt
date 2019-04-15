@@ -160,3 +160,7 @@ data class SearchItemRequest(
 data class SearchUserRequest(
         val username: String
 )
+
+data class ForgotPasswordRequest(
+    val email: String
+)

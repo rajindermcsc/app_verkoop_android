@@ -160,8 +160,14 @@ class SearchActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         if (requestCode == 2) {
             if (resultCode == Activity.RESULT_OK) {
-                val result = data.getStringExtra("result")
-
+                val result = data.getIntExtra(AppConstants.TRANSACTION,0)
+                if(result==1){
+                    val returnIntent = Intent()
+                    returnIntent.putExtra(AppConstants.TRANSACTION, result)
+                    setResult(Activity.RESULT_OK, returnIntent)
+                    finish()
+                    overridePendingTransition(0, 0)
+                }
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 val returnIntent = Intent()
