@@ -5,9 +5,6 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
-import retrofit2.http.GET
-
-
 
 
 interface MyService {
@@ -47,7 +44,7 @@ interface MyService {
 
 
     @PUT("categoryFilterData/{user_id}")
-    fun categoryPostApi(@Body request: FilterRequest,@Path(value = "user_id", encoded = true) userId: String): Call<CategoryPostResponse>
+    fun categoryPostApi(@Body request: FilterRequest, @Path(value = "user_id", encoded = true) userId: String): Call<CategoryPostResponse>
 
     @POST("user/selectedUserCategroy")
     fun updateServiceApi(@Body request: UpdateCategoryRequest): Call<LikedResponse>
@@ -62,7 +59,7 @@ interface MyService {
 
     @GET("textsearch/json")
     fun getSearchPlaceApi(@Query("query") keyWord: String,
-                   @Query("key") key: String): Call<PlaceApiResponse>
+                          @Query("key") key: String): Call<PlaceApiResponse>
 
     @GET("user/profileData/{userId}")
     fun getMyProfileApi(@Path(value = "userId", encoded = true) fullUrl: String): Call<MyProfileIngoResponse>
@@ -92,7 +89,7 @@ interface MyService {
     fun userProfileApi(@Body request: FollowRequest): Call<UserProfileResponse>
 
     @PUT("markAsSold/{item_id}")
-    fun markAsSoldApi(@Path(value = "item_id", encoded = true) fullUrl: Int,@Body request: MarkAsSoldRequest): Call<DisLikeResponse>
+    fun markAsSoldApi(@Path(value = "item_id", encoded = true) fullUrl: Int, @Body request: MarkAsSoldRequest): Call<DisLikeResponse>
 
     @DELETE("items/{item_id}")
     fun deleteListingApi(@Path(value = "item_id", encoded = true) fullUrl: Int): Call<DisLikeResponse>
@@ -101,7 +98,7 @@ interface MyService {
     fun searchItemApi(@Body request: SearchItemRequest): Call<SearchItemResponse>
 
     @PUT("user/searchByUserName/{user_id}")
-    fun searchByUserApi(@Path(value = "user_id", encoded = true) fullUrl: Int,@Body request: SearchUserRequest): Call<SearchByUserResponse>
+    fun searchByUserApi(@Path(value = "user_id", encoded = true) fullUrl: Int, @Body request: SearchUserRequest): Call<SearchByUserResponse>
 
     @POST("user/forgot_password")
     fun forgotPasswordApi(@Body request: ForgotPasswordRequest): Call<AddItemResponse>
@@ -122,41 +119,72 @@ interface MyService {
 
 
     @Multipart
+    @POST("updateItem")
+    fun updateProductApi(@Part files: List<MultipartBody.Part>,
+                         @Part("image_remove_id") deleteList: RequestBody,
+                         @Part("item_id") itemId: RequestBody,
+                         @Part("category_id") categoryId: RequestBody,
+                         @Part("name") name: RequestBody,
+                         @Part("price") price: RequestBody,
+                         @Part("item_type") itemType: RequestBody,
+                         @Part("description") description: RequestBody,
+                         @Part("user_id") userId: RequestBody,
+                         @Part("address") address: RequestBody,
+                         @Part("latitude") lat: RequestBody,
+                         @Part("longitude") lng: RequestBody,
+                         @Part("meet_up") meetUp: RequestBody): Call<AddItemResponse>
+
+    @Multipart
+    @POST("updateItem")
+    fun updateWithoutImageApi( @Part("image_remove_id") deleteList: RequestBody,
+                         @Part("item_id") itemId: RequestBody,
+                         @Part("category_id") categoryId: RequestBody,
+                         @Part("name") name: RequestBody,
+                         @Part("price") price: RequestBody,
+                         @Part("item_type") itemType: RequestBody,
+                         @Part("description") description: RequestBody,
+                         @Part("user_id") userId: RequestBody,
+                         @Part("address") address: RequestBody,
+                         @Part("latitude") lat: RequestBody,
+                         @Part("longitude") lng: RequestBody,
+                         @Part("meet_up") meetUp: RequestBody): Call<AddItemResponse>
+
+    @Multipart
     @POST("user/profileUpdate")
-     fun editProfileWthOutImgApi(@Part("user_id") userId: RequestBody,
-                                      @Part("username") userName: RequestBody,
-                                      @Part("first_name") firstName: RequestBody,
-                                      @Part("last_name") lastName: RequestBody,
-                                      @Part("city") city: RequestBody,
-                                      @Part("state") state: RequestBody,
-                                      @Part("country") country: RequestBody,
-                                      @Part("city_id") cityId: RequestBody,
-                                      @Part("state_id") stateId: RequestBody,
-                                      @Part("country_id") countryId: RequestBody,
-                                      @Part("website") webSite: RequestBody,
-                                      @Part("bio") bio: RequestBody,
-                                      @Part("mobile_no") mobileNo: RequestBody,
-                                      @Part("gender") gender: RequestBody,
-                                      @Part("DOB") dob: RequestBody): Call<ProfileUpdateResponse>
+    fun editProfileWthOutImgApi(@Part("user_id") userId: RequestBody,
+                                @Part("username") userName: RequestBody,
+                                @Part("first_name") firstName: RequestBody,
+                                @Part("last_name") lastName: RequestBody,
+                                @Part("city") city: RequestBody,
+                                @Part("state") state: RequestBody,
+                                @Part("country") country: RequestBody,
+                                @Part("city_id") cityId: RequestBody,
+                                @Part("state_id") stateId: RequestBody,
+                                @Part("country_id") countryId: RequestBody,
+                                @Part("website") webSite: RequestBody,
+                                @Part("bio") bio: RequestBody,
+                                @Part("mobile_no") mobileNo: RequestBody,
+                                @Part("gender") gender: RequestBody,
+                                @Part("DOB") dob: RequestBody): Call<ProfileUpdateResponse>
 
 
     @Multipart
     @POST("user/profileUpdate")
-     fun editProfileWthImageApi(@Part files: MultipartBody.Part,
-                                      @Part("user_id") userId: RequestBody,
-                                      @Part("username") userName: RequestBody,
-                                      @Part("first_name") firstName: RequestBody,
-                                      @Part("last_name") lastName: RequestBody,
-                                      @Part("city") city: RequestBody,
-                                      @Part("state") state: RequestBody,
-                                      @Part("country") country: RequestBody,
-                                      @Part("city_id") cityId: RequestBody,
-                                      @Part("state_id") stateId: RequestBody,
-                                      @Part("country_id") countryId: RequestBody,
-                                      @Part("website") webSite: RequestBody,
-                                      @Part("bio") bio: RequestBody,
-                                      @Part("mobile_no") mobileNo: RequestBody,
-                                      @Part("gender") gender: RequestBody,
-                                      @Part("DOB") dob: RequestBody): Call<ProfileUpdateResponse>
+    fun editProfileWthImageApi(@Part files: MultipartBody.Part,
+                               @Part("user_id") userId: RequestBody,
+                               @Part("username") userName: RequestBody,
+                               @Part("first_name") firstName: RequestBody,
+                               @Part("last_name") lastName: RequestBody,
+                               @Part("city") city: RequestBody,
+                               @Part("state") state: RequestBody,
+                               @Part("country") country: RequestBody,
+                               @Part("city_id") cityId: RequestBody,
+                               @Part("state_id") stateId: RequestBody,
+                               @Part("country_id") countryId: RequestBody,
+                               @Part("website") webSite: RequestBody,
+                               @Part("bio") bio: RequestBody,
+                               @Part("mobile_no") mobileNo: RequestBody,
+                               @Part("gender") gender: RequestBody,
+                               @Part("DOB") dob: RequestBody): Call<ProfileUpdateResponse>
 
 }

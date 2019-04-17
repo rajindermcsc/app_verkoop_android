@@ -209,6 +209,7 @@ import java.util.ArrayList
              }
          })
      }
+
      fun  getPlacesService(placeSearchRequest: PlaceSearchRequest,onResponse: OnResponse) {
          val service = ApiClientLocation.client
          val responseCall = service.getDetails(placeSearchRequest.loc,placeSearchRequest.radius,placeSearchRequest.key)
@@ -895,6 +896,59 @@ import java.util.ArrayList
 
              override fun onFailure(call: Call<AddItemResponse>, t: Throwable) {
                  onResponse.onFailure(t.message)
+             }
+         })
+     }
+
+     fun editItemsApi(request: EditItemRequest,onResponse: OnResponse) {
+         //  val service = ServiceGenerator().createService(MyService::class.java, "idress", "idress")
+         val myService =  ApiClient.getClient().create(MyService::class.java)
+         val parts = ArrayList<MultipartBody.Part>()
+         for (i in 0 until request.imageList.size) {
+             if (!TextUtils.isEmpty(request.imageList[i])) {
+                 val file = File(request.imageList[i])
+                 val reqFile = RequestBody.create(MediaType.parse("image/jpg"), file)
+                 val body = MultipartBody.Part.createFormData("image[]", file.name, reqFile)
+                 parts.add(body)
+             }
+         }
+         val call: Call<AddItemResponse>
+         val categoryId = RequestBody.create(MediaType.parse("text/plain"), request.categoriesId)
+         val name = RequestBody.create(MediaType.parse("text/plain"), request.name)
+         val price = RequestBody.create(MediaType.parse("text/plain"), request.price)
+         val itemType = RequestBody.create(MediaType.parse("text/plain"), request.item_type)
+         val description = RequestBody.create(MediaType.parse("text/plain"), request.description)
+         val userId = RequestBody.create(MediaType.parse("text/plain"), request.user_id)
+         val address = RequestBody.create(MediaType.parse("text/plain"), request.Address)
+         val lat = RequestBody.create(MediaType.parse("text/plain"), request.Latitude)
+         val lng = RequestBody.create(MediaType.parse("text/plain"), request.Longitude)
+         val meetUp = RequestBody.create(MediaType.parse("text/plain"), request.meet_up)
+         val itemId = RequestBody.create(MediaType.parse("text/plain"), request.item_id.toString())
+         val deleteImageId = RequestBody.create(MediaType.parse("text/plain"), request.deleteImageList)
+      if(request.imageList.size>0) {
+          call = myService.updateProductApi(parts, deleteImageId, itemId, categoryId, name, price, itemType, description, userId, address, lat, lng, meetUp)
+      }else{
+          call = myService.updateWithoutImageApi( deleteImageId, itemId, categoryId, name, price, itemType, description, userId, address, lat, lng, meetUp)
+      }
+         call.enqueue(object : Callback<AddItemResponse> {
+             override fun onResponse(call: Call<AddItemResponse>, response: Response<AddItemResponse>) {
+                 Log.e("<<<<Response>>>>", Gson().toJson(response.body()))
+                 if(response.code()==200){
+                     onResponse.onSuccess(response)
+                 }else{
+                     if(response.body()!=null){
+                         onResponse.onFailure(response.body()!!.message)
+                     }else{
+                         onResponse.onFailure("Something went wrong!")
+                     }
+
+                 }
+             }
+
+             override fun onFailure(call: Call<AddItemResponse>, t: Throwable) {
+                 Log.d(LOG_TAG, "<<<Error>>>" + t.localizedMessage)
+                 onResponse.onFailure("Something went wrong!")
+
              }
          })
      }

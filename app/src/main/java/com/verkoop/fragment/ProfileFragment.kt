@@ -22,7 +22,6 @@ import kotlinx.android.synthetic.main.profile_fragment.*
 import retrofit2.Response
 import android.app.Activity
 import com.verkoop.models.MessageEvent
-import kotlinx.android.synthetic.main.home_fragment.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.ThreadMode
 import org.greenrobot.eventbus.Subscribe
@@ -157,6 +156,12 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
                 }else if(data.getStringExtra(AppConstants.TYPE).equals("deleteItem",ignoreCase = true)){
                     itemsList.removeAt(adapterPosition)
                     myProfileItemAdapter.notifyDataSetChanged()
+                }else if(data.getStringExtra(AppConstants.TYPE).equals("UpdateItem",ignoreCase = true)){
+                    if (Utils.isOnline(homeActivity)) {
+                        myProfileInfoApi()
+                    } else {
+                        Utils.showSimpleMessage(homeActivity, getString(R.string.check_internet)).show()
+                    }
                 }
             }
             if (resultCode == Activity.RESULT_CANCELED) {

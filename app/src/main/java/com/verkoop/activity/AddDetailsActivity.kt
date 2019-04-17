@@ -28,10 +28,7 @@ import android.view.WindowManager
 import com.verkoop.BuildConfig
 import com.verkoop.R
 import com.verkoop.adapter.SelectedImageAdapter
-import com.verkoop.models.AddItemRequest
-import com.verkoop.models.AddItemResponse
-import com.verkoop.models.ImageModal
-import com.verkoop.models.SelectedImage
+import com.verkoop.models.*
 import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.*
 import kotlinx.android.synthetic.main.add_details_activity.*
@@ -45,11 +42,14 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
     private val REQUEST_CODE = 11
     private var imageList = ArrayList<SelectedImage>()
     private var addItemRequest: AddItemRequest? = null
+    private var dataIntent: DataItems? = null
     private var selectedImageList = ArrayList<ImageModal>()
     private val realPath = java.util.ArrayList<String>()
     private var uri: Uri? = null
     private var imageCount = 0
+    private var   comingFrom = 0
     private var categoryId = 0
+    private var itemId = 0
     private var categoryName = ""
     private var lat :Double=0.0
     private var lng :Double=0.0
@@ -57,9 +57,13 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
     private var itemType = 1
     private var isFocus: Boolean = false
     private var rejectImageList = ArrayList<Int>()
+    private var imageIdList=ArrayList<String>()
 
-    override fun selectDetailCount(count: Int, position: Int) {
+    override fun selectDetailCount(count: Int, position: Int,imageId:Int) {
         rejectImageList.add(position)
+        if(imageId>0){
+            imageIdList.add(imageId.toString())
+        }
         if (count > 0) {
             tvCountDetail.text = StringBuilder().append(" ").append(count.toString()).append(" ").append("/ 10")
         } else {
@@ -70,15 +74,93 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_details_activity)
-        imageList = intent.getParcelableArrayListExtra(AppConstants.SELECTED_LIST)
-        tvCountDetail.text = StringBuilder().append(" ").append(imageList.size.toString()).append(" ").append("/ 10")
-        setListData(imageList)
+        comingFrom=intent.getIntExtra(AppConstants.COMING_FROM,0)
         setData()
         setSelect()
-        setIntentData()
+        if(comingFrom==1){
+          setEditItemDetail()
+        }else{
+            setIntentData()
+        }
+    }
+
+    private fun setEditItemDetail() {
+        dataIntent = intent.getParcelableExtra(AppConstants.PRODUCT_DETAIL)
+        tvCountDetail.text = StringBuilder().append(" ").append(dataIntent!!.items_image.size.toString()).append(" ").append("/ 10")
+        //setListData(imageList)
+        itemId=dataIntent!!.id
+        if (dataIntent != null) {
+            if (!TextUtils.isEmpty(dataIntent!!.name)) {
+                etNameDetail.setText(dataIntent!!.name)
+            }
+            if (!TextUtils.isEmpty(dataIntent!!.price.toString())) {
+                etPrice.setText(StringBuilder().append("$").append(dataIntent!!.price))
+            }
+            if (!TextUtils.isEmpty(dataIntent!!.description)) {
+                etDescriptionDetail.setText(dataIntent!!.description)
+            }
+            if (!TextUtils.isEmpty(dataIntent!!.item_type.toString())) {
+                itemType = dataIntent!!.item_type
+                if (itemType == 1) {
+                    setSelect()
+                } else {
+                    setSelection()
+                    itemType = 2
+                    ivUsedDetail.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.used_active))
+                    tvUsedDetail.setTextColor(ContextCompat.getColor(this, R.color.white))
+                    llUsedDetail.background = ContextCompat.getDrawable(this, R.drawable.red_rectangle_shape)
+                }
+            }
+            if (!TextUtils.isEmpty(dataIntent!!.latitude)) {
+                lat = dataIntent!!.latitude.toDouble()
+
+
+            }
+            if (!TextUtils.isEmpty(dataIntent!!.longitude)) {
+                lng = dataIntent!!.longitude.toDouble()
+            }
+            if (!TextUtils.isEmpty(dataIntent!!.address)) {
+                address = dataIntent!!.address!!
+                tvPlaceAddress.text = dataIntent!!.address
+            }
+            if (!TextUtils.isEmpty(dataIntent!!.category_id.toString())) {
+                categoryId = dataIntent!!.category_id
+            }
+            if (!TextUtils.isEmpty(dataIntent!!.category_name)) {
+                categoryName = dataIntent!!.category_name
+                tvCategory.text = categoryName
+                tvCategory.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                vSelectCategory.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+            }
+
+            if (!TextUtils.isEmpty(dataIntent!!.meet_up.toString())) {
+                val meetUp = dataIntent!!.meet_up
+                if (meetUp == 1) {
+                    cbNearBy.isChecked = true
+                    tvPlaceAddress.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                    expansionLayout.expand(true)
+                } else {
+                    cbNearBy.isChecked = false
+                    expansionLayout.collapse(true)
+                }
+            }
+            if(dataIntent!!.items_image.isNotEmpty()){
+             val imageList= ArrayList<SelectedImage>()
+                for (i in dataIntent!!.items_image.indices){
+                    val selectedImage=SelectedImage(dataIntent!!.items_image[i].url,0,false,dataIntent!!.items_image[i].image_id)
+                    imageList.add(selectedImage)
+                }
+                setListData(imageList,1)
+            }
+
+        }
+
     }
 
     private fun setIntentData() {
+        imageList = intent.getParcelableArrayListExtra(AppConstants.SELECTED_LIST)
+        tvCountDetail.text = StringBuilder().append(" ").append(imageList.size.toString()).append(" ").append("/ 10")
+        setListData(imageList,0)
         addItemRequest = intent.getParcelableExtra(AppConstants.POST_DATA)
         if (addItemRequest != null) {
             if (!TextUtils.isEmpty(addItemRequest!!.name)) {
@@ -159,12 +241,15 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         tvSave.setOnClickListener {
             if (Utils.isOnline(this@AddDetailsActivity)) {
                 if (isValidate()) {
-                    window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                    //  pbProgress.setVisibility(View.VISIBLE)
-                    imageCount = 0
-                    realPath.clear()
-                    grabImage()
+                    if(comingFrom!=1) {
+                        window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                        imageCount = 0
+                        realPath.clear()
+                        grabImage(comingFrom)
+                    }else{
+                        updateProductDetail()
+                    }
                 }
             } else {
                 Utils.showSimpleMessage(this@AddDetailsActivity, getString(R.string.check_internet)).show()
@@ -259,6 +344,29 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         })
     }
 
+    private fun updateProductDetail() {
+        val sampleList=ArrayList<ImageModal>()
+        for (i in selectedImageList.indices){
+            if(TextUtils.isEmpty(selectedImageList[i].imageUrl)||selectedImageList[i].iseditable) {
+                sampleList.add(selectedImageList[i])
+            }
+        }
+        selectedImageList.clear()
+        selectedImageList.addAll(sampleList)
+        Log.e("<<UpLoadList>>",selectedImageList.size.toString())
+        window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        if(selectedImageList.size==1) {
+            pbProgressAdd.visibility = View.VISIBLE
+            val realPath =ArrayList<String>()
+            updateProductApi(realPath)
+        }else{
+            imageCount = 0
+            realPath.clear()
+            grabImage(comingFrom)
+        }
+    }
+
     private fun checkLocationOption() {
         val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -335,27 +443,28 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         llNewDetails.background = ContextCompat.getDrawable(this, R.drawable.red_rectangle_shape)
     }
 
-    private fun setAdapter() {
+    private fun setAdapter(comingFrom: Int) {
         val displayMetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(displayMetrics)
         val width = displayMetrics.widthPixels
         rvImageList.layoutParams.height = width / 3
         val mManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvImageList.layoutManager = mManager
-        val selectedImageAdapter = SelectedImageAdapter(this, selectedImageList, flList, imageList.size)
+        val selectedImageAdapter = SelectedImageAdapter(this, selectedImageList, flList, imageList.size,comingFrom)
         rvImageList.adapter = selectedImageAdapter
     }
 
-    private fun setListData(imageList: ArrayList<SelectedImage>) {
+    private fun setListData(imageList: ArrayList<SelectedImage>,comingFrom:Int) {
+        selectedImageList.clear()
         for (i in imageList.indices) {
-            val imageModal = ImageModal(imageList[i].imageUrl, false, false, 0, imageList[i].adapterPosition)
+            val imageModal = ImageModal(imageList[i].imageUrl, false, false, 0, imageList[i].adapterPosition,imageList[i].isEditable,imageList[i].imageId)
             selectedImageList.add(imageModal)
         }
         if (selectedImageList.size < 10) {
-            val imageModal = ImageModal("", false, true, 0, 0)
+            val imageModal = ImageModal("", false, true, 0, 0,false,0)
             selectedImageList.add(imageModal)
         }
-        setAdapter()
+        setAdapter(comingFrom)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -372,6 +481,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             }
 
         }
+
         if (requestCode == 12) {
             if (resultCode == Activity.RESULT_OK) {
                 address = data!!.getStringExtra(AppConstants.ADDRESS)
@@ -400,15 +510,25 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 cbNearBy.isChecked = false
             }
         }
+        if (requestCode === 2) {
+            if (resultCode === Activity.RESULT_OK) {
+                imageList.clear()
+                imageList = data!!.getParcelableArrayListExtra(AppConstants.SELECTED_LIST)
+                tvCountDetail.text = StringBuilder().append(" ").append(imageList.size.toString()).append(" ").append("/ 10")
+                setListData(imageList,1)
+            }
+            if (resultCode === Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
 
+        }
     }
 
-    fun grabImage() {
+    fun grabImage(comingFrom: Int) {
         class Converter : AsyncTask<Void, Void, Bitmap>() {
 
             override fun onPreExecute() {
                 super.onPreExecute()
-                // VerkoopApplication.instance.loader.show(this@AddDetailsActivity)
                 pbProgressAdd.visibility = View.VISIBLE
             }
 
@@ -436,52 +556,84 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     imageCount = 0
                     Log.e("<<RealImagePath>>", realPath.toString())
                     if (Utils.isOnline(this@AddDetailsActivity)) {
-                        //  window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                        //    pbProgress.setVisibility(View.VISIBLE)
-
-                        /*Api call*/
-                        uploadImageItem(realPath)
+                        if(comingFrom!=1) {
+                            /*Api call*/
+                            uploadImageItem(realPath)
+                        }else{
+                            updateProductApi(realPath)
+                        }
                     } else {
                         Utils.showSimpleMessage(this@AddDetailsActivity, getString(R.string.check_internet)).show()
                     }
 
                 } else if (imageCount < selectedImageList.size - 1) {
                     imageCount++
-                    grabImage()
+                    grabImage(comingFrom)
                 }
             }
 
-            private fun uploadImageItem(realPath: java.util.ArrayList<String>) {
-                val addItemRequest: AddItemRequest = if (cbNearBy.isChecked) {
-                    AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "1")
-                } else {
-                    AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), "0.0", "0.0", "", "0")
-                }
-
-                ServiceHelper().addItemsApi(addItemRequest,
-                        object : ServiceHelper.OnResponse {
-                            override fun onSuccess(response: Response<*>) {
-                                pbProgressAdd.visibility = View.GONE
-                                window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                                val categoriesResponse = response.body() as AddItemResponse
-                                Utils.showToast(this@AddDetailsActivity, categoriesResponse.message)
-                                // shareDialog()
-
-                                val returnIntent = Intent()
-                                returnIntent.putExtra(AppConstants.TRANSACTION, 1)
-                                setResult(Activity.RESULT_OK, returnIntent)
-                                finish()
-                            }
-
-                            override fun onFailure(msg: String?) {
-                                pbProgressAdd.visibility = View.GONE
-                                window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                                Utils.showSimpleMessage(this@AddDetailsActivity, msg!!).show()
-                            }
-                        })
-            }
         }
         Converter().execute()
+    }
+    private fun updateProductApi(realPath: java.util.ArrayList<String>) {
+        var meetUp="0"
+        if(cbNearBy.isChecked&&lat!=0.0&&lng!=0.0){
+            meetUp="1"
+        }
+        val editItemRequest=EditItemRequest(realPath,imageIdList.toString().replace("[","").replace("]","") ,categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, meetUp,itemId)
+
+        ServiceHelper().editItemsApi(editItemRequest,
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        pbProgressAdd.visibility = View.GONE
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                        val categoriesResponse = response.body() as AddItemResponse
+                       // Utils.showToast(this@AddDetailsActivity, categoriesResponse.message)
+                        // shareDialog()
+                        Utils.showToast(this@AddDetailsActivity, categoriesResponse.message)
+                        val returnIntent = Intent()
+                        returnIntent.putExtra(AppConstants.TYPE, "UpdateItem")
+                        setResult(Activity.RESULT_OK, returnIntent)
+                        finish()
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        pbProgressAdd.visibility = View.GONE
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                        Utils.showSimpleMessage(this@AddDetailsActivity, msg!!).show()
+                    }
+                })
+
+    }
+
+    private fun uploadImageItem(realPath: java.util.ArrayList<String>) {
+        val addItemRequest: AddItemRequest = if (cbNearBy.isChecked) {
+            AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "1")
+        } else {
+            AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), "0.0", "0.0", "", "0")
+        }
+
+        ServiceHelper().addItemsApi(addItemRequest,
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        pbProgressAdd.visibility = View.GONE
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                        val categoriesResponse = response.body() as AddItemResponse
+                        Utils.showToast(this@AddDetailsActivity, categoriesResponse.message)
+                        // shareDialog()
+
+                        val returnIntent = Intent()
+                        returnIntent.putExtra(AppConstants.TRANSACTION, 1)
+                        setResult(Activity.RESULT_OK, returnIntent)
+                        finish()
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        pbProgressAdd.visibility = View.GONE
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                        Utils.showSimpleMessage(this@AddDetailsActivity, msg!!).show()
+                    }
+                })
     }
 
     private fun checkPermission(): Boolean {
@@ -515,7 +667,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
 
     private fun buildAlertMessageNoGps() {
         val builder = AlertDialog.Builder(this)
-        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+        builder.setMessage(getString(R.string.gps_permission))
                 .setCancelable(false)
                 .setPositiveButton("Yes") { _, _ ->
                     startActivityForResult(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)

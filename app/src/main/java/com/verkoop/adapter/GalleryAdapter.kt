@@ -24,8 +24,9 @@ class GalleryAdapter(private var context: Activity, private var llParent: Linear
     private var mInflater: LayoutInflater = LayoutInflater.from(context)
     private lateinit var imageCountCallBack:ImageCountCallBack
     private var imageList = ArrayList<ImageModal>()
-    private var selectedList = ArrayList<String>()
+   // private var selectedList = ArrayList<String>()
     private var imageCount = 0
+    private var totalSize = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val  view = mInflater.inflate(R.layout.gallery_item, parent, false)
@@ -75,18 +76,18 @@ class GalleryAdapter(private var context: Activity, private var llParent: Linear
 
            }
             flItem.setOnClickListener {
-                if (imageCount < 10) {
+                if ((imageCount+totalSize) < 10) {
                     llFrame.background = ContextCompat.getDrawable(context, R.drawable.rectangle_border_shape)
                     llSelection.visibility = View.VISIBLE
                     if (modal.isSelected) {
-                        var tempCount =  imageList[adapterPosition].countSelect
+                        val tempCount =  imageList[adapterPosition].countSelect
                         imageList[adapterPosition].countSelect=0
-                        selectedList.remove(modal.imageUrl)
+                  //      selectedList.remove(modal.imageUrl)
                         refreshData(tempCount)
                         imageCount -= 1
                     } else {
                         imageCount += 1
-                        selectedList.add(modal.imageUrl)
+                 //       selectedList.add(modal.imageUrl)
                     }
                     modal.countSelect=imageCount
                     modal.isSelected=!modal.isSelected
@@ -96,7 +97,7 @@ class GalleryAdapter(private var context: Activity, private var llParent: Linear
                         var tempCount =  imageList[adapterPosition].countSelect
                         modal.isSelected=!modal.isSelected
                         imageCount -= 1
-                        selectedList.remove(modal.imageUrl)
+                       // selectedList.remove(modal.imageUrl)
                         modal.countSelect=imageCount
                         refreshData(tempCount)
                     }else {
@@ -156,5 +157,10 @@ class GalleryAdapter(private var context: Activity, private var llParent: Linear
           imageList[unselectedList[i]].isSelected=!imageList[unselectedList[i]].isSelected
         }
         notifyDataSetChanged()
+    }
+
+    fun updateImageCount(selectCount: Int, listLise: Int) {
+        imageCount=selectCount
+        totalSize=listLise
     }
 }

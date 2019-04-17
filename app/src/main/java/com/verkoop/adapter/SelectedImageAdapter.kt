@@ -1,6 +1,7 @@
 package com.verkoop.adapter
 
 import android.app.Activity
+import android.content.Intent
 import android.net.Uri
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
@@ -11,12 +12,13 @@ import android.widget.FrameLayout
 import com.bumptech.glide.Glide
 import com.verkoop.R
 import com.verkoop.activity.AddDetailsActivity
+import com.verkoop.activity.GalleryActivity
 import com.verkoop.models.ImageModal
-import com.verkoop.utils.Utils
+import com.verkoop.utils.AppConstants
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.image_list_row.*
 
-class SelectedImageAdapter(private val context: Activity, private var selectedImageList: ArrayList<ImageModal>, private var flList: FrameLayout,private var listSize: Int) : RecyclerView.Adapter<SelectedImageAdapter.ViewHolder>() {
+class SelectedImageAdapter(private val context: Activity, private var selectedImageList: ArrayList<ImageModal>, private var flList: FrameLayout,private var listSize: Int,private var comingFrom:Int) : RecyclerView.Adapter<SelectedImageAdapter.ViewHolder>() {
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
     private lateinit var  selectedImageCount:SelectedImageCount
 
@@ -50,39 +52,58 @@ class SelectedImageAdapter(private val context: Activity, private var selectedIm
                 flImage.visibility = View.VISIBLE
                 flClose.visibility = View.VISIBLE
             }
-            if (!TextUtils.isEmpty(modalList.imageUrl)) {
-                Glide.with(context).load(Uri.parse(modalList.imageUrl))
-                        .centerCrop()
-                        .placeholder(R.mipmap.gallery_place)
-                        .error(R.mipmap.gallery_place)
-                        .override(750, 750)
-                        .into(ivImageDetail)
+            if(modalList.iseditable) {
+                if (!TextUtils.isEmpty(modalList.imageUrl)) {
+                    Glide.with(context).load(Uri.parse(modalList.imageUrl))
+                            .centerCrop()
+                            .placeholder(R.mipmap.gallery_place)
+                            .error(R.mipmap.gallery_place)
+                            .override(750, 750)
+                            .into(ivImageDetail)
 
+                }
+            }else{
+                if (!TextUtils.isEmpty(modalList.imageUrl)) {
+                    Glide.with(context).load(Uri.parse( AppConstants.IMAGE_URL+modalList.imageUrl))
+                            .centerCrop()
+                            .placeholder(R.mipmap.gallery_place)
+                            .error(R.mipmap.gallery_place)
+                            .override(750, 750)
+                            .into(ivImageDetail)
+
+                }
             }
-            flGallery.setOnClickListener {
+            /*flGallery.setOnClickListener {
                 Utils.showToast(context, "cameraClick")
-            }
+            }*/
             flClose.setOnClickListener {
                 listSize--
-                setData(modalList.imagePosition)
+                setData(modalList.imagePosition,modalList.imageId)
                 selectedImageList.remove(modalList)
 
             }
             flGallery.setOnClickListener {
-               context.onBackPressed()
+                if(comingFrom==1) {
+                    val intent = Intent(context, GalleryActivity::class.java)
+                    intent.putParcelableArrayListExtra(AppConstants.SELECTED_LIST, selectedImageList)
+                    intent.putExtra(AppConstants.COMING_FROM, comingFrom)
+                    context.startActivityForResult(intent, 2)
+                }else {
+                    context.onBackPressed()
+                }
             }
         }
 
-        private fun setData(selectPosition:Int) {
-            val imageModal = ImageModal("", false, true, 0,0)
+        private fun setData(selectPosition: Int, imageId: Int) {
+            val imageModal = ImageModal("", false, true, 0,0,false,0)
             if (!selectedImageList.contains(imageModal)) {
                 selectedImageList.add(imageModal)
             }
             notifyDataSetChanged()
-            selectedImageCount.selectDetailCount(listSize,selectPosition)
+            selectedImageCount.selectDetailCount(listSize,selectPosition,imageId)
         }
     }
     interface SelectedImageCount{
-        fun selectDetailCount(count:Int,position:Int)
+        fun selectDetailCount(count:Int,position:Int,imageId:Int)
     }
 }

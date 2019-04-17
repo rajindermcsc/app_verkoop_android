@@ -41,6 +41,25 @@ data class AddItemRequest(
         val meet_up: String
 ) : Parcelable
 
+@Parcelize
+data class EditItemRequest(
+        val imageList: ArrayList<String>,
+        val deleteImageList: String,
+        val categoriesId: String,
+        val categoryName: String,
+        val name: String,
+        val price: String,
+        val item_type: String,
+        val description: String,
+        val user_id: String,
+        val Latitude: String,
+        val Longitude: String,
+        val Address: String,
+        val meet_up: String,
+        val item_id: Int
+) : Parcelable
+
+
 data class PlaceSearchRequest(
         val loc: String,
         val radius: String,
@@ -51,7 +70,9 @@ data class PlaceSearchRequest(
 @Parcelize
 data class SelectedImage(
         val imageUrl: String,
-        val adapterPosition: Int
+        val adapterPosition: Int,
+        val isEditable:Boolean,
+        val imageId:Int
 ) : Parcelable
 
 data class LickedRequest(

@@ -13,14 +13,17 @@ data class CategoryModal(
         var selectedPosition: Boolean
 ) : Parcelable
 
+@Parcelize
 data class ImageModal(
         var imageUrl: String,
         var isSelected: Boolean,
         var type: Boolean,
         var countSelect: Int,
-        var imagePosition: Int
+        var imagePosition: Int,
+        var iseditable: Boolean,
+        var imageId: Int
 
-)
+): Parcelable
 
 data class SignUpResponse(
         val message: String,
@@ -229,6 +232,7 @@ data class ItemDetailsResponse(
     val data: DataItems?
 )
 
+@Parcelize
 data class DataItems(
     val id: Int,
     val user_id: Int,
@@ -243,15 +247,15 @@ data class DataItems(
     val username: String,
     val profile_pic: String,
     val category_name: String,
-    val address: String,
+    val address: String?,
     val latitude: String,
     val longitude: String,
     val meet_up: Int,
     val is_sold : Int,
     val items_image: List<ItemsImage>,
-    val comments: ArrayList<CommentModal>,
-    val reports: ArrayList<ReportResponse>
-)
+    var comments: ArrayList<CommentModal>?,
+    var reports: ArrayList<ReportResponse>?
+): Parcelable
 
 @Parcelize
 data class ReportResponse(
@@ -277,10 +281,12 @@ data class CommentModal(
 ): Parcelable
 
 
+@Parcelize
 data class ItemsImage(
     val item_id: Int,
+    val image_id : Int,
     val url: String
-)
+): Parcelable
 
 
 data class HomeDataResponse(

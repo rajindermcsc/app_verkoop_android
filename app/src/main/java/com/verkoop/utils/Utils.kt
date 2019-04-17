@@ -287,7 +287,8 @@ object Utils {
                 unit = "sec"
 
             } else {
-                totalTime = 0
+                totalTime = 1
+                unit = "sec"
             }
 
         } catch (e: Exception) {
@@ -384,6 +385,7 @@ object Utils {
 
             } else {
                 totalTime = 1
+                unit = "sec"
             }
 
         } catch (e: Exception) {

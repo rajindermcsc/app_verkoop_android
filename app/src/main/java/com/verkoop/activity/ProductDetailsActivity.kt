@@ -37,6 +37,7 @@ class ProductDetailsActivity : AppCompatActivity() {
     private val reportList = ArrayList<ReportResponse>()
     private val menuList = ArrayList<PowerMenuItem>()
     private var dataComment: CommentModal? = null
+    private var dataIntent: DataItems? = null
     private var powerMenu: PowerMenu? = null
     private var itemId: Int = 0
     private var userId: Int = 0
@@ -204,10 +205,14 @@ class ProductDetailsActivity : AppCompatActivity() {
             deleteProductDialog()
 
         } else if (item.title.equals(getString(R.string.edit_item), ignoreCase = true)) {
-           /* val intent = Intent(this, AddDetailsActivity::class.java)
-            intent.putParcelableArrayListExtra(AppConstants.SELECTED_LIST, selectedList)
-            intent.putExtra(AppConstants.POST_DATA, addItemsRequest)
-            startActivityForResult(intent, 1)*/
+          //   val commentsList= ArrayList<CommentModal>()
+          //   val reportsList=ArrayList<ReportResponse>()
+          //  dataIntent!!.comments=commentsList
+          //  dataIntent!!.reports=reportsList
+            val intent = Intent(this, AddDetailsActivity::class.java)
+            intent.putExtra(AppConstants.COMING_FROM, 1)
+            intent.putExtra(AppConstants.PRODUCT_DETAIL, dataIntent!!)
+            startActivityForResult(intent,2)
         }
     }
 
@@ -299,10 +304,11 @@ class ProductDetailsActivity : AppCompatActivity() {
                         pbProgressProduct.visibility = View.GONE
                         val detailsResponse = response.body() as ItemDetailsResponse
                         if (detailsResponse.data != null) {
-                            commentsList.addAll(detailsResponse.data.comments)
+                            dataIntent=detailsResponse.data
+                            commentsList.addAll(detailsResponse.data.comments!!)
                             commentListAdapter.setData(commentsList)
                             commentListAdapter.notifyDataSetChanged()
-                            reportList.addAll(detailsResponse.data.reports)
+                            reportList.addAll(detailsResponse.data.reports!!)
                             for (i in detailsResponse.data.items_image.indices) {
                                 imageURLLIst.add(detailsResponse.data.items_image[i].url)
                             }
@@ -338,7 +344,24 @@ class ProductDetailsActivity : AppCompatActivity() {
                 //Write your code if there's no result
             }
         }
-    }
+        if (requestCode == 2) {
+            if (resultCode == Activity.RESULT_OK) {
+                val type = data.getStringExtra(AppConstants.TYPE)
+                if (type.equals("UpdateItem", ignoreCase = true)) {
+                     val returnIntent = Intent()
+                    returnIntent.putExtra(AppConstants.TYPE, "UpdateItem")
+                    setResult(Activity.RESULT_OK, returnIntent)
+                    finish()
+                    overridePendingTransition(0,0)
+                }
+            }
+
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+
 
     override fun onBackPressed() {
         if (powerMenu != null && powerMenu!!.isShowing) {
