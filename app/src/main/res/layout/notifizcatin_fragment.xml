@@ -72,10 +72,10 @@
             app:jtbDuration="600"
             app:jtbJelly="lazy_tremble_head_fatty"
             app:jtbLeftBackgroundColor="@color/light_gry"
-            app:jtbLeftThumbColor="@color/brown"
+            app:jtbLeftThumbColor="@color/red_light"
+            app:jtbRightThumbColor="@color/red_light"
             app:jtbRightBackgroundColor="@color/light_gry"
-            app:jtbRightTextColor="@color/light_gry"
-            app:jtbRightThumbColor="@color/brown" />
+            app:jtbRightTextColor="@color/light_gry" />
     </LinearLayout>
 
     <View

@@ -19,7 +19,6 @@ import retrofit2.Response
 import android.app.Activity
 import android.content.Intent
 import com.verkoop.models.CommentModal
-import com.verkoop.models.DataComment
 
 
 class AddCommentActivity:AppCompatActivity(){

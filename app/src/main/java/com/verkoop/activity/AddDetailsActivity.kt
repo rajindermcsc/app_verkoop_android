@@ -111,13 +111,13 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     llUsedDetail.background = ContextCompat.getDrawable(this, R.drawable.red_rectangle_shape)
                 }
             }
-            if (!TextUtils.isEmpty(dataIntent!!.latitude)) {
-                lat = dataIntent!!.latitude.toDouble()
+            if (dataIntent!!.latitude!=0.0) {
+                lat = dataIntent!!.latitude
 
 
             }
-            if (!TextUtils.isEmpty(dataIntent!!.longitude)) {
-                lng = dataIntent!!.longitude.toDouble()
+            if (dataIntent!!.longitude!=0.0) {
+                lng = dataIntent!!.longitude
             }
             if (!TextUtils.isEmpty(dataIntent!!.address)) {
                 address = dataIntent!!.address!!

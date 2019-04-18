@@ -248,8 +248,8 @@ data class DataItems(
     val profile_pic: String,
     val category_name: String,
     val address: String?,
-    val latitude: String,
-    val longitude: String,
+    val latitude: Double,
+    val longitude: Double,
     val meet_up: Int,
     val is_sold : Int,
     val items_image: List<ItemsImage>,
@@ -577,7 +577,7 @@ data class ItemUserProfile(
     val image_url: String,
     val username: String,
     val profile_pic: String,
-    val is_sold: String
+    val is_sold: Int
 )
 
 

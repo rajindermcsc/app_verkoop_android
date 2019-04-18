@@ -494,7 +494,7 @@
                                     <com.verkoop.fonts.textView.GothiBoldTextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginStart="@dimen/dp_18"
+                                        android:layout_marginStart="@dimen/dp_12"
                                         android:drawableEnd="@mipmap/arrow_right"
                                         android:drawablePadding="@dimen/dp_10"
                                         android:text="@string/favourites"

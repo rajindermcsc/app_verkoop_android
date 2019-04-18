@@ -24,7 +24,6 @@ import android.view.View
 import com.google.android.gms.location.*
 import com.verkoop.R
 import com.verkoop.adapter.FilterAdapter
-import com.verkoop.models.FilterModal
 import com.verkoop.models.FilterRequest
 import com.verkoop.utils.AppConstants
 import com.verkoop.utils.PermissionCheck

@@ -50,6 +50,7 @@ class ProductDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.item_details_activity)
+        tvSellItem.visibility = View.GONE
         val displayMetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(displayMetrics)
         screenHeight = displayMetrics.heightPixels
@@ -80,13 +81,22 @@ class ProductDetailsActivity : AppCompatActivity() {
         userId = data.user_id
         userName = data.username
         isSoldItem = data.is_sold
-        if (data.meet_up == 1) {
+        if (data.meet_up == 1&&data.latitude!=0.0&&data.longitude!=0.0) {
             tvAddress.text = data.address
+            llMeetUp.visibility=View.VISIBLE
+            viewMeetUp.visibility=View.VISIBLE
         } else {
-
+            llMeetUp.visibility=View.GONE
+            viewMeetUp.visibility=View.GONE
         }
+        if (data.is_sold == 1||data.user_id==Utils.getPreferencesString(this,AppConstants.USER_ID).toInt()) {
+            tvSellItem.visibility = View.GONE
+        } else {
+            tvSellItem.visibility = View.VISIBLE
+        }
+
         tvAddress.setOnClickListener {
-            if (!TextUtils.isEmpty(data.latitude) && !TextUtils.isEmpty(data.longitude)) {
+            if (data.latitude!=0.0 && data.longitude!=0.0) {
                 val geoUri = "http://maps.google.com/maps?q=loc:" + data.latitude + "," + data.longitude + "(" + data.address + ")"
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(geoUri))
                 startActivity(intent)
@@ -205,14 +215,14 @@ class ProductDetailsActivity : AppCompatActivity() {
             deleteProductDialog()
 
         } else if (item.title.equals(getString(R.string.edit_item), ignoreCase = true)) {
-          //   val commentsList= ArrayList<CommentModal>()
-          //   val reportsList=ArrayList<ReportResponse>()
-          //  dataIntent!!.comments=commentsList
-          //  dataIntent!!.reports=reportsList
+            //   val commentsList= ArrayList<CommentModal>()
+            //   val reportsList=ArrayList<ReportResponse>()
+            //  dataIntent!!.comments=commentsList
+            //  dataIntent!!.reports=reportsList
             val intent = Intent(this, AddDetailsActivity::class.java)
             intent.putExtra(AppConstants.COMING_FROM, 1)
             intent.putExtra(AppConstants.PRODUCT_DETAIL, dataIntent!!)
-            startActivityForResult(intent,2)
+            startActivityForResult(intent, 2)
         }
     }
 
@@ -304,7 +314,7 @@ class ProductDetailsActivity : AppCompatActivity() {
                         pbProgressProduct.visibility = View.GONE
                         val detailsResponse = response.body() as ItemDetailsResponse
                         if (detailsResponse.data != null) {
-                            dataIntent=detailsResponse.data
+                            dataIntent = detailsResponse.data
                             commentsList.addAll(detailsResponse.data.comments!!)
                             commentListAdapter.setData(commentsList)
                             commentListAdapter.notifyDataSetChanged()
@@ -348,19 +358,19 @@ class ProductDetailsActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 val type = data.getStringExtra(AppConstants.TYPE)
                 if (type.equals("UpdateItem", ignoreCase = true)) {
-                     val returnIntent = Intent()
+                    val returnIntent = Intent()
                     returnIntent.putExtra(AppConstants.TYPE, "UpdateItem")
                     setResult(Activity.RESULT_OK, returnIntent)
                     finish()
-                    overridePendingTransition(0,0)
+                    overridePendingTransition(0, 0)
                 }
             }
 
-            }
-            if (resultCode == Activity.RESULT_CANCELED) {
-                //Write your code if there's no result
-            }
         }
+        if (resultCode == Activity.RESULT_CANCELED) {
+            //Write your code if there's no result
+        }
+    }
 
 
     override fun onBackPressed() {

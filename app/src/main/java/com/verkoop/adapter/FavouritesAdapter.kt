@@ -108,10 +108,12 @@ class FavouritesAdapter(private val context: Context,private val rvFavourites: R
             }
             tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at.date)).append(" ").append("ago")
             llUserProfile.setOnClickListener {
-                val reportIntent = Intent(context, UserProfileActivity::class.java)
-                reportIntent.putExtra(AppConstants.USER_ID,data.user_id)
-                reportIntent.putExtra(AppConstants.USER_NAME,data.username)
-                context.startActivity(reportIntent)
+                if(Utils.getPreferencesString(context,AppConstants.USER_ID).toInt()!=data.user_id) {
+                    val reportIntent = Intent(context, UserProfileActivity::class.java)
+                    reportIntent.putExtra(AppConstants.USER_ID, data.user_id)
+                    reportIntent.putExtra(AppConstants.USER_NAME, data.username)
+                    context.startActivity(reportIntent)
+                }
             }
         }
 
