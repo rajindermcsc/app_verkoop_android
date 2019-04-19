@@ -19,6 +19,8 @@ open class SearchListAdapter(private val context:Context):RecyclerView.Adapter<R
         private val mLayoutInflater:LayoutInflater= LayoutInflater.from(context)
     private var searchItemList= ArrayList<DataSearch>()
 
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view=mLayoutInflater.inflate(R.layout.row_search_item,parent,false)
         return SearchKeyWordHolder(view)

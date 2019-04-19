@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -69,6 +68,62 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvHomeList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ProgressBar
+            android:id="@+id/pbProgressHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@drawable/gradation_black"
+            android:layout_gravity="bottom|center">
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_20"
+                card_view:cardCornerRadius="@dimen/dp_20"
+                card_view:cardElevation="@dimen/dp_8">
+
+                <com.verkoop.fonts.textView.GothiBoldTextView
+                    android:id="@+id/tvSell"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/red_rectangular_shape"
+                    android:gravity="center"
+                    android:padding="@dimen/dp_10"
+                    android:paddingEnd="@dimen/dp_35"
+                    android:paddingStart="@dimen/dp_35"
+                    android:text="@string/sell"
+                    android:textColor="@color/white" />
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:contentDescription="@string/category"
+            android:src="@mipmap/ar_" />
+    </FrameLayout>
+
+
+<!--    <FrameLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -91,9 +146,9 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <!--<FrameLayout
+                        &lt;!&ndash;<FrameLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">-->
+                            android:layout_height="wrap_content">&ndash;&gt;
 
 
 
@@ -154,7 +209,7 @@
                             android:layout_marginEnd="@dimen/dp_10"
                             android:layout_marginStart="@dimen/dp_10"
                             android:background="@color/light_gray" />
-                        <!--  </FrameLayout>-->
+                        &lt;!&ndash;  </FrameLayout>&ndash;&gt;
                     </LinearLayout>
                 </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -211,6 +266,6 @@
             android:layout_marginBottom="@dimen/dp_20"
             android:contentDescription="@string/category"
             android:src="@mipmap/ar_" />
-    </FrameLayout>
+    </FrameLayout>-->
 
 </LinearLayout>

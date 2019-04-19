@@ -4,17 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import com.daimajia.slider.library.SliderTypes.BaseSliderView
-import com.daimajia.slider.library.SliderTypes.DefaultSliderView
 import com.ksmtrivia.common.BaseFragment
 import com.verkoop.LikeDisLikeListener
 import com.verkoop.R
@@ -22,8 +17,7 @@ import com.verkoop.activity.FullCategoriesActivity
 import com.verkoop.activity.GalleryActivity
 import com.verkoop.activity.HomeActivity
 import com.verkoop.activity.SearchActivity
-import com.verkoop.adapter.CategoryListAdapter
-import com.verkoop.adapter.ItemHomeAdapter
+import com.verkoop.adapter.HomeAdapter
 import com.verkoop.models.*
 import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.AppConstants
@@ -34,15 +28,13 @@ import retrofit2.Response
 class HomeFragment : BaseFragment(), LikeDisLikeListener {
     val TAG = HomeFragment::class.java.simpleName.toString()
     private lateinit var homeActivity: HomeActivity
-    private lateinit var itemAdapter: ItemHomeAdapter
+    private lateinit var homeAdapter: HomeAdapter
     private lateinit var linearLayoutManager: GridLayoutManager
     private var itemsList = ArrayList<ItemHome>()
-    private var categoriesList= ArrayList<Category>()
     private var isClicked: Boolean = false
     private var isLoading = false
     private var totalPageCount: Int? = null
     private var currentPage = 0
-
 
     override fun getLikeDisLikeClick(type: Boolean, position: Int, lickedId: Int, itemId: Int) {
         if (Utils.isOnline(homeActivity)) {
@@ -87,8 +79,6 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
         super.onViewCreated(view, savedInstanceState)
         setItemList()
         if (Utils.isOnline(homeActivity)) {
-            itemsList.clear()
-            categoriesList.clear()
             currentPage=1
             homeActivity.window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
@@ -100,12 +90,21 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
     }
 
     private fun setItemList() {
-        linearLayoutManager =  GridLayoutManager(homeActivity,2)
-        rvItemList.layoutManager = linearLayoutManager
-        rvItemList.setHasFixedSize(false)
-        itemAdapter = ItemHomeAdapter(homeActivity, rvItemList, this)
-        rvItemList.adapter = itemAdapter
-         rvItemList.addOnScrollListener(recyclerViewOnScrollListener)
+        linearLayoutManager =  GridLayoutManager(homeActivity,2 )
+        linearLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return when (homeAdapter.getItemViewType(position)) {
+                    homeAdapter.CATEGORY_LIST_ROW -> 2
+                    homeAdapter.PROPERTIES_ROW -> 2
+                    else -> 1
+                }
+            }
+        }
+        rvHomeList.layoutManager = linearLayoutManager
+        rvHomeList.setHasFixedSize(false)
+        homeAdapter = HomeAdapter(homeActivity, rvHomeList,this)
+        rvHomeList.adapter = homeAdapter
+        rvHomeList.addOnScrollListener(recyclerViewOnScrollListener)
     }
 
     private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListener() {
@@ -126,24 +125,8 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
         }
     }
 
-    private fun setCategoryAdapter(categoriesList: ArrayList<Category>) {
-        val displayMetrics = DisplayMetrics()
-        homeActivity.windowManager.defaultDisplay.getMetrics(displayMetrics)
-        val width = displayMetrics.widthPixels
-        if(rvCategoryHome!=null) {
-            rvCategoryHome.layoutParams.height = width / 3
-            val linearLayoutManager = LinearLayoutManager(homeActivity, LinearLayoutManager.HORIZONTAL, false)
-            rvCategoryHome.layoutManager = linearLayoutManager
-            val categoryAdapter = CategoryListAdapter(homeActivity, categoriesList, rvCategoryHome)
-            rvCategoryHome.adapter = categoryAdapter
-        }
-    }
-
     private fun setData() {
-        tvViewAll.setOnClickListener {
-            val intent = Intent(homeActivity, FullCategoriesActivity::class.java)
-            homeActivity.startActivityForResult(intent, 2)
-        }
+
         tvCategoryHome.setOnClickListener {
             val intent = Intent(homeActivity, FullCategoriesActivity::class.java)
             homeActivity.startActivityForResult(intent, 2)
@@ -167,36 +150,17 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        if (mDemoSlider != null) {
-            mDemoSlider.stopAutoCycle()
-        }
-    }
+
 
 
     private fun setApiData(data: DataHome?) {
-        if (custom_indicator != null) {
-            custom_indicator.setDefaultIndicatorColor(ContextCompat.getColor(homeActivity, R.color.white), ContextCompat.getColor(homeActivity, R.color.light_gray))
-            mDemoSlider.setCustomIndicator(custom_indicator)
+        if(data!!.categories.size>0&&data.advertisments.size>0) {
+            homeAdapter.setCategoryAndAddsData(data.advertisments, data.categories)
         }
-        for (i in 0 until data!!.advertisments.size) {
-            val textSliderView = DefaultSliderView(homeActivity)
-            textSliderView.image(AppConstants.IMAGE_URL + data.advertisments[i].image)
-                    .setOnSliderClickListener({ slider -> }).scaleType = BaseSliderView.ScaleType.Fit
-            if (mDemoSlider != null) {
-                mDemoSlider.addSlider(textSliderView)
-            }
-        }
-        if (mDemoSlider != null) {
-            mDemoSlider.setDuration(3000)
-        }
-        categoriesList.addAll(data.categories)
-        setCategoryAdapter(categoriesList)
         totalPageCount = data.totalPage
         itemsList.addAll(data.items)
-        itemAdapter.setData(itemsList)
-        itemAdapter.notifyDataSetChanged()
+        homeAdapter.setData(itemsList)
+        homeAdapter.notifyDataSetChanged()
     }
 
 
@@ -242,7 +206,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
                         itemsList[position].is_like=!itemsList[position].is_like
                         itemsList[position].items_like_count= itemsList[position].items_like_count+1
                         itemsList[position].like_id= responseLike.like_id
-                        itemAdapter.notifyItemChanged(position)
+                        homeAdapter.notifyItemChanged(position+2)
                     }
 
                     override fun onFailure(msg: String?) {
@@ -261,7 +225,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
                         itemsList[position].is_like=!itemsList[position].is_like
                         itemsList[position].items_like_count= itemsList[position].items_like_count-1
                         itemsList[position].like_id= 0
-                        itemAdapter.notifyItemChanged(position)
+                        homeAdapter.notifyItemChanged(position+2)
                 }
 
                     override fun onFailure(msg: String?) {
