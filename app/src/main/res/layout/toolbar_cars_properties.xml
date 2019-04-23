@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/colorPrimaryDark"
+    android:contentInsetEnd="0dp"
+    android:contentInsetLeft="0dp"
+    android:contentInsetRight="0dp"
+    android:contentInsetStart="0dp"
+    android:elevation="@dimen/dp_8"
+    android:minHeight="?attr/actionBarSize"
+    app:contentInsetEnd="0dp"
+    app:contentInsetLeft="0dp"
+    app:contentInsetRight="0dp"
+    app:contentInsetStart="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:orientation="horizontal"
+            android:paddingEnd="@dimen/dp_8"
+            android:paddingStart="@dimen/dp_8">
+
+            <ImageView
+                android:id="@+id/iv_leftCar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="@dimen/dp_10"
+                android:src="@mipmap/back"
+                android:contentDescription="@string/back" />
+
+            <com.verkoop.fonts.textView.GothiBoldTextView
+                android:id="@+id/tvHeaderCar"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/dp_10"
+                android:text="@string/cars"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_18"
+                tools:ignore="RtlSymmetry" />
+
+            <ImageView
+                android:id="@+id/ivFavouriteCar"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/dp_5"
+                android:contentDescription="@string/favourite"
+                android:padding="@dimen/dp_10"
+                android:src="@mipmap/favourites" />
+
+            <ImageView
+                android:id="@+id/ivChatCar"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:contentDescription="@string/chat"
+                android:padding="@dimen/dp_10"
+                android:src="@mipmap/chat" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/dp_10"
+            android:paddingEnd="@dimen/dp_18"
+            android:paddingStart="@dimen/dp_18">
+
+            <com.verkoop.fonts.textView.GothiBoldTextView
+                android:id="@+id/etSearchFullCar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/white_rectangular_shape"
+                android:drawableEnd="@mipmap/search"
+                android:paddingBottom="@dimen/dp_8"
+                android:paddingEnd="@dimen/dp_12"
+                android:paddingStart="@dimen/dp_12"
+                android:paddingTop="@dimen/dp_8"
+                android:text="@string/search_cars"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/sp_14" />
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.Toolbar>

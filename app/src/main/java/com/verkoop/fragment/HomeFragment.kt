@@ -79,6 +79,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
         super.onViewCreated(view, savedInstanceState)
         setItemList()
         if (Utils.isOnline(homeActivity)) {
+            itemsList.clear()
             currentPage=1
             homeActivity.window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
@@ -175,6 +176,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
                 homeActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                 if (pbProgressHome != null) {
                     pbProgressHome.visibility = View.GONE
+                    rvHomeList.visibility=View.VISIBLE
                 }
                 val homeDataResponse = response.body() as HomeDataResponse?
                 if (homeDataResponse!!.data != null) {

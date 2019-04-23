@@ -1,36 +1,38 @@
 package com.verkoop.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.verkoop.R
 import com.verkoop.adapter.HomePagerAdapter
-import kotlinx.android.synthetic.main.home_activity.*
-import kotlinx.android.synthetic.main.toolbar_home.*
-import android.app.Activity
-import android.support.v4.app.Fragment
 import com.verkoop.fragment.ActivitiesFragment
 import com.verkoop.fragment.HomeFragment
 import com.verkoop.fragment.ProfileFragment
 import com.verkoop.utils.AppConstants
+import kotlinx.android.synthetic.main.home_activity.*
+import kotlinx.android.synthetic.main.toolbar_home.*
 
 
-class HomeActivity:AppCompatActivity(){
-     private var homeFragment:HomeFragment? = null
-     private var profileFragment:ProfileFragment? = null
-     private var activitiesFragment:ActivitiesFragment? = null
-    private var fragmentList=ArrayList<Fragment>()
+class HomeActivity : AppCompatActivity() {
+    private var homeFragment: HomeFragment? = null
+    private var profileFragment: ProfileFragment? = null
+    private var activitiesFragment: ActivitiesFragment? = null
+    private var fragmentList = ArrayList<Fragment>()
     private var doubleBackToExitPressedOnce = false
-    private var  comingFrom:Int=0
+    private var comingFrom: Int = 0
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)
-        comingFrom=intent.getIntExtra(AppConstants.COMING_FROM,0)
-        homeFragment=HomeFragment.newInstance()
-        profileFragment= ProfileFragment.newInstance()
-        activitiesFragment= ActivitiesFragment.newInstance()
+        comingFrom = intent.getIntExtra(AppConstants.COMING_FROM, 0)
+        homeFragment = HomeFragment.newInstance()
+        profileFragment = ProfileFragment.newInstance()
+        activitiesFragment = ActivitiesFragment.newInstance()
         fragmentList.add(homeFragment!!)
         fragmentList.add(activitiesFragment!!)
         fragmentList.add(profileFragment!!)
@@ -46,9 +48,9 @@ class HomeActivity:AppCompatActivity(){
         bottomTabLayout.setListener { id ->
             switchFragment(id)
         }
-       /* bottomTabLayout.setListener { position ->
-            viewPager.currentItem = position
-        }*/
+        /* bottomTabLayout.setListener { position ->
+             viewPager.currentItem = position
+         }*/
         bottomTabLayout.setSelectedTab(R.id.menu_button1)
         //enable indicator
         bottomTabLayout.setIndicatorVisible(true)
@@ -63,34 +65,35 @@ class HomeActivity:AppCompatActivity(){
 
     private fun switchFragment(id: Int) {
         when (id) {
-            R.id.menu_button1 -> viewPager.currentItem=0
-            R.id.menu_button2 -> viewPager.currentItem=1
-            R.id.menu_button3 ->  viewPager.currentItem=2
+            R.id.menu_button1 -> viewPager.currentItem = 0
+            R.id.menu_button2 -> viewPager.currentItem = 1
+            R.id.menu_button3 -> viewPager.currentItem = 2
         }
     }
 
     private fun setData() {
-        val adapter = HomePagerAdapter(supportFragmentManager, 3,fragmentList)
+        val adapter = HomePagerAdapter(supportFragmentManager, 3, fragmentList)
         viewPager.adapter = adapter
-       // viewPager.offscreenPageLimit = 2
+        // viewPager.offscreenPageLimit = 2
         setTabLayout()
-        ivChat.setOnClickListener {//logout()
+        ivChat.setOnClickListener {
+            //logout()
         }
         ivFavourite.setOnClickListener {
-          val intent=Intent(this,FavouritesActivity::class.java)
+            val intent = Intent(this, FavouritesActivity::class.java)
             startActivity(intent)
         }
-        if(comingFrom==1){
+        if (comingFrom == 1) {
             when {
-                viewPager.currentItem==0 -> {
+                viewPager.currentItem == 0 -> {
                     bottomTabLayout.selectTab(R.id.menu_button3)
-                    viewPager.currentItem=3
+                    viewPager.currentItem = 3
                     profileFragment!!.refreshUI(0)
 
                 }
-                viewPager.currentItem==1 -> {
+                viewPager.currentItem == 1 -> {
                     bottomTabLayout.selectTab(R.id.menu_button3)
-                    viewPager.currentItem=3
+                    viewPager.currentItem = 3
                 }
                 else -> {
                     profileFragment!!.refreshUI(1)
@@ -117,18 +120,18 @@ class HomeActivity:AppCompatActivity(){
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 2) {
             if (resultCode == Activity.RESULT_OK) {
-                val result = data.getIntExtra(AppConstants.TRANSACTION,0)
-                if(result==1){
+                val result = data.getIntExtra(AppConstants.TRANSACTION, 0)
+                if (result == 1) {
                     when {
-                        viewPager.currentItem==0 -> {
+                        viewPager.currentItem == 0 -> {
                             bottomTabLayout.selectTab(R.id.menu_button3)
-                            viewPager.currentItem=3
+                            viewPager.currentItem = 3
                             profileFragment!!.refreshUI(0)
 
                         }
-                        viewPager.currentItem==1 -> {
+                        viewPager.currentItem == 1 -> {
                             bottomTabLayout.selectTab(R.id.menu_button3)
-                            viewPager.currentItem=3
+                            viewPager.currentItem = 3
                         }
                         else -> {
                             profileFragment!!.refreshUI(1)

@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorAccent"
-    android:elevation="@dimen/dp_8"
     android:minHeight="?attr/actionBarSize"
     app:contentInsetStart="0dp"
     app:contentInsetStartWithNavigation="0dp">

@@ -4,7 +4,11 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal">
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
     <com.github.florent37.shapeofview.shapes.RoundRectView
         android:id="@+id/roundRectView2"
         android:layout_width="match_parent"
@@ -23,11 +27,13 @@
         app:shape_roundRect_topLeftRadius="@dimen/dp_6"
         app:shape_roundRect_topRightRadius="@dimen/dp_6">
         <ImageView
+            android:id="@+id/ivBuyCar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:scaleType="centerCrop"
-            android:src="@mipmap/cars"/>
+            android:src="@mipmap/cars"
+            android:contentDescription="@string/image" />
     </com.github.florent37.shapeofview.shapes.RoundRectView>
     <com.github.florent37.shapeofview.shapes.RoundRectView
         android:id="@+id/roundRectView3"
@@ -47,12 +53,20 @@
         app:shape_roundRect_topLeftRadius="@dimen/dp_6"
         app:shape_roundRect_topRightRadius="@dimen/dp_6">
         <ImageView
+            android:id="@+id/ivBuyProperty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:scaleType="centerCrop"
-            android:src="@mipmap/property"/>
+            android:src="@mipmap/property"
+            android:contentDescription="@string/image" />
     </com.github.florent37.shapeofview.shapes.RoundRectView>
-
-
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_gravity="end"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:layout_marginStart="@dimen/dp_10"
+        android:background="@color/gray_back" />
 </LinearLayout>

@@ -2,72 +2,60 @@ package com.verkoop.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.daimajia.slider.library.SliderTypes.BaseSliderView
-import com.daimajia.slider.library.SliderTypes.DefaultSliderView
 import com.squareup.picasso.Picasso
 import com.verkoop.LikeDisLikeListener
 import com.verkoop.R
-import com.verkoop.activity.*
-import com.verkoop.fragment.HomeFragment
-import com.verkoop.models.Advertisment
-import com.verkoop.models.Category
+import com.verkoop.activity.BuyCarsActivity
+import com.verkoop.activity.HomeActivity
+import com.verkoop.activity.ProductDetailsActivity
+import com.verkoop.activity.UserProfileActivity
 import com.verkoop.models.ItemHome
 import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.adds_category_row.*
-import kotlinx.android.synthetic.main.cars_properties_row.*
+import kotlinx.android.synthetic.main.car_filter_row.*
 import kotlinx.android.synthetic.main.item_row.*
-import okhttp3.internal.Util
 
-
-class HomeAdapter(private val context: Context, private val rvItemList: RecyclerView, private val homeFragment: HomeFragment) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class BuyCarsAdapter(private val context: Context, private var rvItemList: RecyclerView) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(context)
     private lateinit var likeDisLikeListener: LikeDisLikeListener
-    val CATEGORY_LIST_ROW = 0
-    val PROPERTIES_ROW = 1
+   val CATEGORY_LIST_ROW = 0
     val ITEMS_ROW = 2
     private var width = 0
     private var widthOrg = 0
     private var itemsList = ArrayList<ItemHome>()
-    private var categoryList = ArrayList<Category>()
-    private var advertismentsList = ArrayList<Advertisment>()
+
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {
             0 -> CATEGORY_LIST_ROW
-            1 -> PROPERTIES_ROW
             else -> ITEMS_ROW
         }
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View
         return when (viewType) {
             CATEGORY_LIST_ROW -> {
-                view = mLayoutInflater.inflate(R.layout.adds_category_row, parent, false)
+                view = mLayoutInflater.inflate(R.layout.car_filter_row, parent, false)
                 val params = view.layoutParams
                 params.width = rvItemList.width
                 widthOrg = params.width
-                AddsAndItemsHolder(view)
-            }
-            PROPERTIES_ROW -> {
-                view = mLayoutInflater.inflate(R.layout.cars_properties_row, parent, false)
-                CarAndPropertiesHolder(view)
+                CarFilterHolder(view)
             }
             else -> {
                 view = mLayoutInflater.inflate(R.layout.item_row, parent, false)
                 val params = view.layoutParams
                 params.width = rvItemList.width / 2
                 width = params.width
-                likeDisLikeListener = homeFragment
+                likeDisLikeListener = context as BuyCarsActivity
                 //view.layoutParams = params
                 ItemsHolder(view)
             }
@@ -75,62 +63,16 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
     }
 
     override fun getItemCount(): Int {
-        return itemsList.size + 2
+        return 10
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (position == CATEGORY_LIST_ROW) {
-            (holder as AddsAndItemsHolder).bind(categoryList, advertismentsList)
-        } else if (position == PROPERTIES_ROW) {
-            (holder as CarAndPropertiesHolder).bind()
+            (holder as CarFilterHolder).bind()
         } else {
-            val modal = itemsList[position - 2]
-            (holder as ItemsHolder).bind(modal)
+            //    val modal = itemsList[position - 2]
+            //     (holder as ItemsHolder).bind(modal)
         }
-    }
-
-    inner class AddsAndItemsHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
-        fun bind(categoryList: ArrayList<Category>, advertismentsList: ArrayList<Advertisment>) {
-            mDemoSlider.removeAllSliders()
-            custom_indicator.setDefaultIndicatorColor(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.light_gray))
-            mDemoSlider.setCustomIndicator(custom_indicator)
-            for (i in 0 until advertismentsList.size) {
-                val textSliderView = DefaultSliderView(context)
-                textSliderView.image(AppConstants.IMAGE_URL + advertismentsList[i].image)
-                        .setOnSliderClickListener({ slider -> }).scaleType = BaseSliderView.ScaleType.Fit
-                if (mDemoSlider != null) {
-                    mDemoSlider.addSlider(textSliderView)
-                }
-            }
-            mDemoSlider.setDuration(3000)
-
-            rvCategoryHome.layoutParams.height = widthOrg / 3
-            val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            rvCategoryHome.layoutManager = linearLayoutManager
-            val categoryAdapter = CategoryListAdapter(context as HomeActivity, categoryList, rvCategoryHome)
-            rvCategoryHome.adapter = categoryAdapter
-            rvCategoryHome.adapter.notifyDataSetChanged()
-            tvViewAll.setOnClickListener {
-                val intent = Intent(context, FullCategoriesActivity::class.java)
-                context.startActivityForResult(intent, 2)
-            }
-
-        }
-
-    }
-
-    inner class CarAndPropertiesHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
-        fun bind() {
-            ivBuyCar.setOnClickListener {
-                Utils.showToast(context,"work in progress.")
-           //     val intent = Intent(context, BuyCarsActivity::class.java)
-           //     context.startActivity(intent)
-            }
-            ivBuyProperty.setOnClickListener {
-                Utils.showToast(context,"work in progress.")
-            }
-        }
-
     }
 
     inner class ItemsHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
@@ -198,12 +140,24 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
         }
     }
 
-    fun setData(items: ArrayList<ItemHome>) {
-        itemsList = items
-    }
+    inner class CarFilterHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+        fun bind() {
+            rvBrands.layoutParams.height = widthOrg / 3
+            val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            rvBrands.layoutManager = linearLayoutManager
+            val brandListAdapter = BrandListAdapter(context, rvBrands)
+            rvBrands.adapter = brandListAdapter
+            rvBrands.adapter.notifyDataSetChanged()
+            rvCarBodyType.layoutParams.height = (width / 3)
+            val mManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            rvCarBodyType.layoutManager = mManager
+            val carBodyTypeAdapter = CarBodyTypeAdapter(context, rvCarBodyType)
+            rvCarBodyType.adapter = carBodyTypeAdapter
+            tvViewAllBrands.setOnClickListener {
+                //  val intent = Intent(context, FullCategoriesActivity::class.java)
+                //  context.startActivityForResult(intent, 2)
+            }
 
-    fun setCategoryAndAddsData(advertisments: ArrayList<Advertisment>, categories: ArrayList<Category>) {
-        categoryList = categories
-        advertismentsList = advertisments
+        }
     }
 }

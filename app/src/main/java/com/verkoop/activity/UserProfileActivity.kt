@@ -239,7 +239,8 @@ class UserProfileActivity:AppCompatActivity(), LikeDisLikeListener {
                     .into(ivUserPic)
         }
         if (!TextUtils.isEmpty(data.city) && !TextUtils.isEmpty(data.state)) {
-            tvAddressUser.text = StringBuilder().append(data.city).append("(").append(data.state).append(")")
+            tvAddressUser.text = StringBuilder().append(data.state).append(", ").append(data.city)
+
             tvAddressUser.visibility = View.VISIBLE
         } else {
             tvAddressUser.visibility = View.GONE

@@ -176,17 +176,17 @@
 
         <LinearLayout
             android:id="@+id/llSideDividerHome"
-            android:layout_width="@dimen/dp_.5"
+            android:layout_width="@dimen/dp_1"
             android:layout_height="match_parent"
             android:layout_gravity="end"
-            android:background="@color/light_gray"
+            android:background="@color/gray_back"
             android:orientation="horizontal" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_.5"
+            android:layout_height="@dimen/dp_1"
             android:layout_gravity="bottom"
-            android:background="@color/light_gray" />
+            android:background="@color/gray_back" />
     </FrameLayout>
 
 </LinearLayout>

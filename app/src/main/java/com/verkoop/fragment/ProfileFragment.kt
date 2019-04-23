@@ -28,8 +28,6 @@ import org.greenrobot.eventbus.Subscribe
 
 
 
-
-
 class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener {
     private lateinit var myProfileItemAdapter: MyProfileItemAdapter
     private var itemsList = ArrayList<Item>()
@@ -217,7 +215,7 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
                     .into(ivProfilePic)
         }
         if (!TextUtils.isEmpty(data.city) && !TextUtils.isEmpty(data.state)) {
-            tvAddress.text = StringBuilder().append(data.city).append("(").append(data.state).append(")")
+            tvAddress.text = StringBuilder().append(data.state).append(", ").append(data.city)
             tvAddress.visibility = View.VISIBLE
         } else {
             tvAddress.visibility = View.GONE

@@ -89,7 +89,7 @@ class EditProfileActivity : AppCompatActivity() {
                                 .into(ivProfileImage)
                     }
                     if (!TextUtils.isEmpty(myProfileResponse.data.state) && !TextUtils.isEmpty(myProfileResponse.data.city)) {
-                        etMyCity.text = StringBuilder().append(myProfileResponse.data.city).append("(").append(myProfileResponse.data.state).append(")")
+                        etMyCity.text = StringBuilder().append(myProfileResponse.data.state).append(", ").append(myProfileResponse.data.city)
                         cityId = myProfileResponse.data.city_id
                         stateId = myProfileResponse.data.state_id
                         cityName = myProfileResponse.data.city
@@ -262,7 +262,7 @@ class EditProfileActivity : AppCompatActivity() {
                     stateId = data.getIntExtra(AppConstants.STATE_ID, 0)
                     countryId = data.getIntExtra(AppConstants.COUNTRY_ID, 0)
                     countryName = data.getStringExtra(AppConstants.COUNTRY_NAME)
-                    etMyCity.text = StringBuilder().append(cityName).append("(").append(stateName).append(")")
+                    etMyCity.text = StringBuilder().append(stateName).append(", ").append(cityName)
                 }
                 if (resultCode === Activity.RESULT_CANCELED) {
                     //Write your code if there's no result

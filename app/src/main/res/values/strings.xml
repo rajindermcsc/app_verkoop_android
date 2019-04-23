@@ -51,6 +51,7 @@
     <string name="chat">chat</string>
     <string name="category">Category</string>
     <string name="search">Search</string>
+    <string name="search_cars">Search cars</string>
     <string name="sell">SELL</string>
     <string name="view_all">View All</string>
     <string name="select_three">Please select at least 3 categories.</string>
@@ -216,4 +217,13 @@
     <string name="enter_your_email_address">Enter your email address</string>
     <string name="send">SEND</string>
     <string name="gps_permission">Your GPS seems to be disabled, do you want to enable it?</string>
+    <string name="cars">Cars</string>
+    <string name="car_body_type">Car body type</string>
+    <string name="budget_filter">Budget filter</string>
+    <string name="brands">Brands</string>
+    <string name="household_income">Household income</string>
+    <string name="_15k_month"><![CDATA[<15k / Month]]></string>
+    <string name="_15_month"><![CDATA[>15 / Month]]></string>
+    <string name="_25_month"><![CDATA[<25 / Month]]></string>
+    <string name="_25_month_"><![CDATA[>25 / Month]]></string>
 </resources>
