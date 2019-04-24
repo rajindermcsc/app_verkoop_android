@@ -25,25 +25,29 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.adds_category_row.*
 import kotlinx.android.synthetic.main.cars_properties_row.*
 import kotlinx.android.synthetic.main.item_row.*
-import okhttp3.internal.Util
+import kotlinx.android.synthetic.main.your_daily_picks.*
 
 
 class HomeAdapter(private val context: Context, private val rvItemList: RecyclerView, private val homeFragment: HomeFragment) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(context)
     private lateinit var likeDisLikeListener: LikeDisLikeListener
     val CATEGORY_LIST_ROW = 0
-    val PROPERTIES_ROW = 1
-    val ITEMS_ROW = 2
+    val PROPERTIES_ROW = 2
+    val ITEMS_ROW = 3
+    val YOUR_DAILY_PICKS = 1
     private var width = 0
     private var widthOrg = 0
+    private var widthDaily = 0
     private var itemsList = ArrayList<ItemHome>()
+    private var dailyPicksList = ArrayList<ItemHome>()
     private var categoryList = ArrayList<Category>()
     private var advertismentsList = ArrayList<Advertisment>()
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {
             0 -> CATEGORY_LIST_ROW
-            1 -> PROPERTIES_ROW
+            1 -> YOUR_DAILY_PICKS
+            2 -> PROPERTIES_ROW
             else -> ITEMS_ROW
         }
     }
@@ -57,6 +61,14 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
                 params.width = rvItemList.width
                 widthOrg = params.width
                 AddsAndItemsHolder(view)
+            }
+            YOUR_DAILY_PICKS -> {
+                view = mLayoutInflater.inflate(R.layout.your_daily_picks, parent, false)
+                val params = view.layoutParams
+                params.width = rvItemList.width
+                widthDaily = params.width
+                likeDisLikeListener = homeFragment
+                YourDailyPickHolder(view)
             }
             PROPERTIES_ROW -> {
                 view = mLayoutInflater.inflate(R.layout.cars_properties_row, parent, false)
@@ -75,16 +87,18 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
     }
 
     override fun getItemCount(): Int {
-        return itemsList.size + 2
+        return itemsList.size + 3
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (position == CATEGORY_LIST_ROW) {
             (holder as AddsAndItemsHolder).bind(categoryList, advertismentsList)
+        } else if (position == YOUR_DAILY_PICKS) {
+            (holder as YourDailyPickHolder).bind()
         } else if (position == PROPERTIES_ROW) {
             (holder as CarAndPropertiesHolder).bind()
         } else {
-            val modal = itemsList[position - 2]
+            val modal = itemsList[position - 3]
             (holder as ItemsHolder).bind(modal)
         }
     }
@@ -123,8 +137,8 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
         fun bind() {
             ivBuyCar.setOnClickListener {
                 Utils.showToast(context,"work in progress.")
-           //     val intent = Intent(context, BuyCarsActivity::class.java)
-           //     context.startActivity(intent)
+                //     val intent = Intent(context, BuyCarsActivity::class.java)
+                //     context.startActivity(intent)
             }
             ivBuyProperty.setOnClickListener {
                 Utils.showToast(context,"work in progress.")
@@ -137,11 +151,11 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
         fun bind(data: ItemHome) {
             ivProductImageHome.layoutParams.height = width - 16
             tvNameHome.text = data.username
-            if (adapterPosition % 2 == 0) {
+           /* if (adapterPosition % 2 == 0) {
                 llSideDividerHome.visibility = View.VISIBLE
             } else {
                 llSideDividerHome.visibility = View.GONE
-            }
+            }*/
             if (data.is_like) {
                 tvLikesHome.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_liked, 0, 0, 0)
             } else {
@@ -178,7 +192,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
                 ivProductImageHome.setImageResource(R.mipmap.post_placeholder)
             }
             tvLikesHome.setOnClickListener {
-                likeDisLikeListener.getLikeDisLikeClick(data.is_like, adapterPosition - 2, data.like_id, data.id)
+                likeDisLikeListener.getLikeDisLikeClick(data.is_like, adapterPosition - 3, data.like_id, data.id)
             }
             tvProductHome.text = data.name
             tvItemPriceHome.text = "$" + data.price
@@ -198,6 +212,24 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
         }
     }
 
+    inner class YourDailyPickHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+        fun bind() {
+            llParent.layoutParams.height = widthDaily
+            val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            rvYourDailyPicks.layoutManager = linearLayoutManager
+            val dailyPicksAdapter = YourDailyPicksAdapter(context , rvYourDailyPicks,itemsList)
+            rvYourDailyPicks.adapter = dailyPicksAdapter
+
+            tvViewAllDailyPicks.setOnClickListener {
+                Utils.showToast(context,"work in progress.")
+               // val intent = Intent(context, FullCategoriesActivity::class.java)
+             //   context.startActivity(intent)
+            }
+        }
+
+    }
+
+
     fun setData(items: ArrayList<ItemHome>) {
         itemsList = items
     }
@@ -205,5 +237,8 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
     fun setCategoryAndAddsData(advertisments: ArrayList<Advertisment>, categories: ArrayList<Category>) {
         categoryList = categories
         advertismentsList = advertisments
+    }
+    fun updateDailyPicksData(itemsDaily: ArrayList<ItemHome>) {
+        dailyPicksList = itemsDaily
     }
 }

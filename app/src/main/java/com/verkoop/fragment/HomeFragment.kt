@@ -96,6 +96,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
             override fun getSpanSize(position: Int): Int {
                 return when (homeAdapter.getItemViewType(position)) {
                     homeAdapter.CATEGORY_LIST_ROW -> 2
+                    homeAdapter.YOUR_DAILY_PICKS -> 2
                     homeAdapter.PROPERTIES_ROW -> 2
                     else -> 1
                 }
@@ -153,11 +154,14 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
 
 
 
-
     private fun setApiData(data: DataHome?) {
         if(data!!.categories.size>0&&data.advertisments.size>0) {
             homeAdapter.setCategoryAndAddsData(data.advertisments, data.categories)
         }
+        if(data.daily_pic.size>0) {
+            homeAdapter.updateDailyPicksData(data.daily_pic)
+        }
+
         totalPageCount = data.totalPage
         itemsList.addAll(data.items)
         homeAdapter.setData(itemsList)
@@ -208,7 +212,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
                         itemsList[position].is_like=!itemsList[position].is_like
                         itemsList[position].items_like_count= itemsList[position].items_like_count+1
                         itemsList[position].like_id= responseLike.like_id
-                        homeAdapter.notifyItemChanged(position+2)
+                        homeAdapter.notifyItemChanged(position+3)
                     }
 
                     override fun onFailure(msg: String?) {
@@ -227,7 +231,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
                         itemsList[position].is_like=!itemsList[position].is_like
                         itemsList[position].items_like_count= itemsList[position].items_like_count-1
                         itemsList[position].like_id= 0
-                        homeAdapter.notifyItemChanged(position+2)
+                        homeAdapter.notifyItemChanged(position+3)
                 }
 
                     override fun onFailure(msg: String?) {

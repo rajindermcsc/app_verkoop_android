@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
+    android:layout_marginBottom="@dimen/dp_8"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <LinearLayout
@@ -62,11 +63,5 @@
             android:contentDescription="@string/image" />
     </com.github.florent37.shapeofview.shapes.RoundRectView>
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_1"
-        android:layout_gravity="end"
-        android:layout_marginEnd="@dimen/dp_10"
-        android:layout_marginStart="@dimen/dp_10"
-        android:background="@color/gray_back" />
+
 </LinearLayout>

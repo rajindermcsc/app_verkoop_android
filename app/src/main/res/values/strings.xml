@@ -226,4 +226,5 @@
     <string name="_15_month"><![CDATA[>15 / Month]]></string>
     <string name="_25_month"><![CDATA[<25 / Month]]></string>
     <string name="_25_month_"><![CDATA[>25 / Month]]></string>
+    <string name="your_daily_picks">Your Daily Picks</string>
 </resources>
