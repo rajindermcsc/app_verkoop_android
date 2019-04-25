@@ -11,7 +11,7 @@ import com.verkoop.models.SubCategory
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.sub_category_dialog_row.*
 
-class SubCategoryDialogAdapter(private val context: Context, private val subCategoryList: List<SubCategory>) : RecyclerView.Adapter<SubCategoryDialogAdapter.ViewHolder>() {
+class SubCategoryDialogAdapter(private val context: Context, private val subCategoryList: List<SubCategory>,private val categoryId:Int) : RecyclerView.Adapter<SubCategoryDialogAdapter.ViewHolder>() {
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
     private lateinit var selectedCategory: SelectedCategory
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -38,7 +38,7 @@ class SubCategoryDialogAdapter(private val context: Context, private val subCate
             }
             tvSubCategoryName.text=modal.name
             itemView.setOnClickListener {
-                selectedCategory.subCategoryName(modal.name,modal.id)
+                selectedCategory.subCategoryName(modal.name,modal.id,categoryId)
             }
         }
 
@@ -47,6 +47,6 @@ class SubCategoryDialogAdapter(private val context: Context, private val subCate
         return position
     }
     interface SelectedCategory{
-        fun subCategoryName(name:String,position: Int)
+        fun subCategoryName(name:String,subCategoryId: Int,categoryId:Int)
     }
 }

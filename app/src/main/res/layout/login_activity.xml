@@ -105,6 +105,7 @@
                         android:maxLength="80"
                         android:maxLines="1"
                         android:padding="@dimen/dp_10"
+                        android:textColor="@color/colorPrimary"
                         app:drawable_hide="@mipmap/password_hide"
                         app:drawable_show="@mipmap/password_show" />
                 </LinearLayout>

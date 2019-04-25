@@ -952,4 +952,34 @@ import java.util.ArrayList
              }
          })
      }
-}
+
+     fun  getCarBrandService(comingFrom:Int,onResponse: OnResponse) {
+         val myService =  ApiClient.getClient().create(MyService::class.java)
+         val responseCall: Call<CarBrandResponse>
+         responseCall = if(comingFrom!=0) {
+             myService.getCarTypeApi()
+
+         }else{
+             myService.getCarBrandApi()
+         }
+         responseCall.enqueue(object : Callback<CarBrandResponse> {
+             override fun onResponse(call: Call<CarBrandResponse>, response: Response<CarBrandResponse>) {
+                 val res = response.body()
+                 Log.e("<<<Response>>>", Gson().toJson(res))
+                 if (res != null) {
+                     when {
+                         response.code() == 200 -> onResponse.onSuccess(response)
+                         else -> onResponse.onFailure(response.message())
+                     }
+                 }else {
+                     onResponse.onFailure("Something went wrong!")
+                 }
+             }
+
+             override fun onFailure(call: Call<CarBrandResponse>, t: Throwable) {
+                 onResponse.onFailure(t.message)
+             }
+         })
+     }
+
+ }

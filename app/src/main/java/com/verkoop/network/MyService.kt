@@ -103,6 +103,12 @@ interface MyService {
     @POST("user/forgot_password")
     fun forgotPasswordApi(@Body request: ForgotPasswordRequest): Call<AddItemResponse>
 
+    @GET("brands")
+    fun getCarBrandApi(): Call<CarBrandResponse>
+
+    @GET("carsType")
+    fun getCarTypeApi(): Call<CarBrandResponse>
+
     @Multipart
     @POST("items")
     fun addClothApi(@Part files: List<MultipartBody.Part>,

@@ -51,7 +51,7 @@ class CategoryDialogAdapter(private val context: Context, private val categoryLi
             tvCategoryNameDialog.text = modal.name
             val mManager = LinearLayoutManager(context)
             rvSubCategory.layoutManager = mManager
-            val subCategoryAdapter = SubCategoryDialogAdapter(context, modal.sub_category)
+            val subCategoryAdapter = SubCategoryDialogAdapter(context, modal.sub_category,modal.id)
             rvSubCategory.isFocusable = false
             rvSubCategory.adapter = subCategoryAdapter
 

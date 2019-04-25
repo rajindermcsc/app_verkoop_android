@@ -24,7 +24,7 @@ import retrofit2.Response
 
 class SelectCategoryDialogActivity : AppCompatActivity(), SubCategoryDialogAdapter.SelectedCategory {
 
-    override fun subCategoryName(name: String, position: Int) {
+    override fun subCategoryName(name: String, subCategoryId: Int,categoryId:Int) {
         ViewAnimator
                 .animate(flParent)
                 .translationY(0f, 2000f)
@@ -36,7 +36,8 @@ class SelectCategoryDialogActivity : AppCompatActivity(), SubCategoryDialogAdapt
                     llParent.visibility= View.GONE
                     val returnIntent = Intent()
                     returnIntent.putExtra(AppConstants.CATEGORY_NAME, name)
-                    returnIntent.putExtra(AppConstants.CATEGORY_ID, position)
+                    returnIntent.putExtra(AppConstants.SUB_CATEGORY_ID, subCategoryId)
+                    returnIntent.putExtra(AppConstants.CATEGORY_ID, categoryId)
                     setResult(Activity.RESULT_OK, returnIntent)
                     finish()
                     overridePendingTransition(0,0)
@@ -60,7 +61,7 @@ class SelectCategoryDialogActivity : AppCompatActivity(), SubCategoryDialogAdapt
         ViewAnimator
                 .animate(flParent)
                 .translationY(1000f, 0f)
-                .duration(700)
+                .duration(400)
                 .start()
     }
     private fun setAdapter() {

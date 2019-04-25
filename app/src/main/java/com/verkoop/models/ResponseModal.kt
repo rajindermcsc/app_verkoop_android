@@ -637,3 +637,17 @@ data class DataUser(
         var follower_id: Int,
         var isClicked: Boolean
 )
+
+data class CarBrandResponse(
+    val data: ArrayList<DataCarBrand>,
+    val message: String
+)
+
+data class DataCarBrand(
+    val id: Int,
+    val name: String,
+    val image: String,
+    val created_at: String,
+    val updated_at: String,
+    var isSelected: Boolean
+)

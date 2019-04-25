@@ -227,4 +227,15 @@
     <string name="_25_month"><![CDATA[<25 / Month]]></string>
     <string name="_25_month_"><![CDATA[>25 / Month]]></string>
     <string name="your_daily_picks">Your Daily Picks</string>
+    <string name="select_brand">Select Brand</string>
+    <string name="registration_year">Registration Year</string>
+    <string name="direct_owner">Direct owner</string>
+    <string name="select_zone">Select Zone</string>
+    <string name="street_name">Street name</string>
+    <string name="postal_code">Postal code</string>
+    <string name="area">Area</string>
+    <string name="bedroom">Bedroom</string>
+    <string name="bathroom">Bathroom</string>
+    <string name="car_brand">Car Brand</string>
+    <string name="car_type">Car Type</string>
 </resources>

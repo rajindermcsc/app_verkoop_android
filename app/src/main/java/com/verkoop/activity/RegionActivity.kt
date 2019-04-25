@@ -140,28 +140,6 @@ class RegionActivity : AppCompatActivity(), RegionAdapter.ClickEventCallBack {
           setSupportActionBar(toolbarRegion)*/
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        val item = menu.findItem(R.id.action_search)
-        // searchView.setMenuItem(item)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        val id = item.itemId
-
-        // Display menu item's title by using a Toast.
-        if (id == R.id.action_search) {
-            Toast.makeText(applicationContext, "Search Menu", Toast.LENGTH_SHORT).show()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {

@@ -95,8 +95,8 @@ class CityListAdapter(private val context: Context) : RecyclerView.Adapter<CityL
     }
 
     fun setData(data: ArrayList<City>) {
-        this.cityList = data
-        this.mFilteredList = data
+       cityList = data
+       mFilteredList = data
     }
 
     interface ClickEventCallBack {

@@ -10,7 +10,6 @@ import android.widget.Filterable
 import com.verkoop.R
 import com.verkoop.activity.RegionActivity
 import com.verkoop.models.City
-import com.verkoop.models.Country
 import com.verkoop.models.State
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.region_row.*
@@ -21,6 +20,7 @@ class RegionAdapter(private val context: Context, private val coming: Int) : Rec
     private var mFilteredList = ArrayList<State>()
     private lateinit var clickEventCallBack: ClickEventCallBack
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
+
     override fun getFilter(): Filter {
 
         return object : Filter() {

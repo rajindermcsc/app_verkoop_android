@@ -16,6 +16,7 @@ import com.verkoop.adapter.FavouritesAdapter
 import com.verkoop.models.*
 import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.AppConstants
+import com.verkoop.utils.KeyboardUtil
 import com.verkoop.utils.Utils
 import kotlinx.android.synthetic.main.favourites_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
@@ -54,7 +55,12 @@ class FavouritesActivity:AppCompatActivity(), LikeDisLikeListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.favourites_activity)
         setAdapter()
-        getFavouriteApi()
+        if (Utils.isOnline(this)) {
+            getFavouriteApi()
+        } else {
+            Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+        }
+
     }
 
 

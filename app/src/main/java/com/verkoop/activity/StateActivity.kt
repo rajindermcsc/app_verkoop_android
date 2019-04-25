@@ -8,7 +8,6 @@ import android.text.TextWatcher
 import android.util.Log
 import com.verkoop.R
 import com.verkoop.adapter.CityListAdapter
-import com.verkoop.adapter.RegionAdapter
 import com.verkoop.models.City
 import com.verkoop.utils.AppConstants
 import kotlinx.android.synthetic.main.selarch_location_activity.*

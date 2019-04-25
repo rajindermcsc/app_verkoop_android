@@ -15,6 +15,7 @@ object AppConstants{
      const val SELECTED_LIST = "selected_list"
      const val CATEGORY_NAME = "category_name"
      const val CATEGORY_ID = "category_id"
+     const val SUB_CATEGORY_ID = "SUB_CATEGORY_ID"
      const val TRANSACTION = "transaction"
      const val ADDRESS = "ADDRESS"
      const val LATITUDE = "LATITUDE"
@@ -36,4 +37,8 @@ object AppConstants{
      const val ADAPTER_POSITION = "ADAPTER_POSITION"
      const val COMING_TYPE = "COMING_TYPE"
      const val PRODUCT_DETAIL = "PRODUCT_DETAIL"
+     const val CAR_BRAND_NAME = "CAR_BRAND_NAME"
+     const val CAR_BRAND_ID = "CAR_BRAND_ID"
+     const val CAR_TYPE = "CAR_TYPE"
+     const val CAR_TYPE_ID = "CAR_TYPE_ID"
 }
