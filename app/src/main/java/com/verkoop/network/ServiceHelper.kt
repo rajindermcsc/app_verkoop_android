@@ -16,6 +16,9 @@ import retrofit2.Response
 import java.io.File
 import java.io.IOException
 import java.util.ArrayList
+import com.google.gson.GsonBuilder
+
+
 
  class ServiceHelper{
     interface OnResponse{
@@ -163,7 +166,20 @@ import java.util.ArrayList
         val lat = RequestBody.create(MediaType.parse("text/plain"), request.Latitude)
         val lng = RequestBody.create(MediaType.parse("text/plain"), request.Longitude)
         val meetUp = RequestBody.create(MediaType.parse("text/plain"), request.meet_up)
-        call = myService.addClothApi( parts, categoryId, name, price,itemType,description,userId,address,lat,lng,meetUp)
+        val type = RequestBody.create(MediaType.parse("text/plain"), request.type.toString())
+        val carBrandId = RequestBody.create(MediaType.parse("text/plain"), request.brand_id.toString())
+        val carType = RequestBody.create(MediaType.parse("text/plain"), request.car_type_id.toString())
+      //  val additionalInfo = RequestBody.create(MediaType.parse("text/plain"), request.additional_info.toString())
+      /*  val gson = Gson()
+      val  defectResponse = gson.toJson(request.additional_info)*/
+
+        val prettyGson = GsonBuilder().setPrettyPrinting().create()
+        val prettyJson = prettyGson.toJson(request.additional_info)
+
+        Log.e("<<stringRequest>>",prettyJson)
+        val additionalInfo = RequestBody.create(okhttp3.MultipartBody.FORM, prettyJson)
+      //  val additionalInfo = RequestBody.create(MediaType.parse("text/plain"), defectResponse.toString())
+        call = myService.addClothApi( parts, categoryId, name, price,itemType,description,userId,address,lat,lng,meetUp,type,carBrandId,carType,additionalInfo)
         call.enqueue(object : Callback<AddItemResponse> {
             override fun onResponse(call: Call<AddItemResponse>, response: Response<AddItemResponse>) {
                 Log.e("<<<<Response>>>>", Gson().toJson(response.body()))

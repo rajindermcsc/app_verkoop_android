@@ -41,4 +41,6 @@ object AppConstants{
      const val CAR_BRAND_ID = "CAR_BRAND_ID"
      const val CAR_TYPE = "CAR_TYPE"
      const val CAR_TYPE_ID = "CAR_TYPE_ID"
+     const val ZONE = "ZONE"
+     const val ZONE_ID = "ZONE_ID"
 }

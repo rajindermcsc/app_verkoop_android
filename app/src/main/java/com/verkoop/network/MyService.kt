@@ -121,7 +121,12 @@ interface MyService {
                     @Part("address") address: RequestBody,
                     @Part("latitude") lat: RequestBody,
                     @Part("longitude") lng: RequestBody,
-                    @Part("meet_up") meetUp: RequestBody): Call<AddItemResponse>
+                    @Part("meet_up") meetUp: RequestBody,
+                    @Part("type") type: RequestBody,
+                    @Part("brand_id") brandId: RequestBody,
+                    @Part("car_type_id") carTypeId: RequestBody,
+                    @Part("additional_info") additionalInfo: RequestBody
+    ): Call<AddItemResponse>
 
 
     @Multipart

@@ -324,12 +324,13 @@
 
                                 <com.verkoop.fonts.textView.GothiBoldTextView
                                     android:id="@+id/tvBedRoomCount"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="@dimen/dp_30"
                                     android:layout_height="wrap_content"
-                                    android:padding="@dimen/dp_10"
                                     android:text="0"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
                                     android:textColor="@color/dark_black"
-                                    android:textSize="@dimen/sp_18" />
+                                    android:textSize="@dimen/sp_14" />
 
                                 <ImageView
                                     android:id="@+id/ivAddBedRoom"
@@ -374,12 +375,13 @@
 
                                 <com.verkoop.fonts.textView.GothiBoldTextView
                                     android:id="@+id/tvBathroomCount"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="@dimen/dp_30"
                                     android:layout_height="wrap_content"
-                                    android:padding="@dimen/dp_10"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
                                     android:text="0"
                                     android:textColor="@color/dark_black"
-                                    android:textSize="@dimen/sp_18" />
+                                    android:textSize="@dimen/sp_14" />
 
                                 <ImageView
                                     android:id="@+id/ivAddBathRoom"
@@ -407,8 +409,8 @@
                             android:drawablePadding="@dimen/dp_10"
                             android:hint="@string/registration_year"
                             android:imeOptions="actionNext"
-                            android:inputType="text"
-                            android:maxLength="80"
+                            android:inputType="number"
+                            android:maxLength="4"
                             android:maxLines="1"
                             android:minLines="1"
                             android:padding="@dimen/dp_8"
@@ -441,7 +443,7 @@
                                 android:textSize="@dimen/sp_16" />
 
                             <com.nightonke.jellytogglebutton.JellyToggleButton
-                                android:id="@+id/switchNotification"
+                                android:id="@+id/switchDirectOwner"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="@dimen/dp_10"

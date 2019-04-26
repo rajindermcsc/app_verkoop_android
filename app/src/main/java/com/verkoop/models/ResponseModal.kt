@@ -254,7 +254,8 @@ data class DataItems(
         val is_sold: Int,
         val items_image: List<ItemsImage>,
         var comments: ArrayList<CommentModal>?,
-        var reports: ArrayList<ReportResponse>?
+        var reports: ArrayList<ReportResponse>?,
+        var type:Int=0
 ) : Parcelable
 
 @Parcelize
@@ -646,8 +647,8 @@ data class CarBrandResponse(
 data class DataCarBrand(
     val id: Int,
     val name: String,
-    val image: String,
-    val created_at: String,
-    val updated_at: String,
-    var isSelected: Boolean
+    val image: String?=null,
+    val created_at: String?=null,
+    val updated_at: String?=null,
+    var isSelected: Boolean=false
 )

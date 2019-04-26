@@ -16,8 +16,10 @@ import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.AppConstants
 import com.verkoop.utils.KeyboardUtil
 import com.verkoop.utils.Utils
+import kotlinx.android.synthetic.main.add_details_activity.*
 import kotlinx.android.synthetic.main.car_brand_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
+import okhttp3.internal.Util
 import retrofit2.Response
 
 class
@@ -28,7 +30,10 @@ CarBrandActivity : AppCompatActivity() {
     private var carBrand:String=""
     private var carBrandId:Int=0
     private var carType:String=""
+    private var zone:String=""
+    private var zoneId:Int=0
     private var carTypeId:Int=0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,24 +55,43 @@ CarBrandActivity : AppCompatActivity() {
         }
         setAdapter(comingFrom)
         setData()
-        if (Utils.isOnline(this)) {
-            KeyboardUtil.hideKeyboard(this)
-            getCarBrandApi()
-        } else {
-            Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+        if(comingFrom!=3) {
+            if (Utils.isOnline(this)) {
+                KeyboardUtil.hideKeyboard(this)
+                getCarBrandApi()
+            } else {
+                Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+            }
+        }else{
+            setZoneList()
         }
+    }
+
+    private fun setZoneList() {
+        zone=intent.getStringExtra(AppConstants.ZONE)
+        zoneId=intent.getIntExtra(AppConstants.ZONE_ID,0)
+        val nameList = arrayOf("East", "West", "North East", "North", "Central")
+        val subList = arrayOf(1,2,3,4,5)
+        for (i in nameList.indices){
+            val dataCar=DataCarBrand(subList[i],nameList[i])
+            carBrandList.add(dataCar)
+        }
+        if(zoneId>0){
+            carBrandList[zoneId-1].isSelected=true
+        }
+        carBrandAdapter.setData(carBrandList)
+        carBrandAdapter.notifyDataSetChanged()
     }
 
     private fun setAdapter(comingFrom: Int) {
         val mManager = LinearLayoutManager(this)
         rvCarBrand.layoutManager = mManager
         // carBrandAdapter = RegionAdapter(this, 0)
-        carBrandAdapter = CarBrandAdapter(this, comingFrom,carBrand,carBrandId)
+        carBrandAdapter = CarBrandAdapter(this, comingFrom,carBrand,carBrandId,carTypeId)
         rvCarBrand.adapter = carBrandAdapter
     }
 
     private fun setData() {
-
         ivLeftLocation.setOnClickListener {
             onBackPressed()
         }
@@ -118,6 +142,24 @@ CarBrandActivity : AppCompatActivity() {
                 val responseFav = response.body() as CarBrandResponse
                 if (responseFav.data.isNotEmpty()) {
                     carBrandList = responseFav.data
+                    if(comingFrom==0){
+                        if(carBrandId>0){
+                            for(i in carBrandList.indices){
+                                if(carBrandId==carBrandList[i].id){
+                                    carBrandList[i].isSelected=true
+                                }
+                            }
+                        }
+                    }else{
+                        if(carTypeId>0){
+                            for(i in carBrandList.indices){
+                                if(carTypeId==carBrandList[i].id){
+                                    carBrandList[i].isSelected=true
+                                }
+                            }
+                        }
+                    }
+
                     carBrandAdapter.setData(carBrandList)
                     carBrandAdapter.notifyDataSetChanged()
 

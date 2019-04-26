@@ -33,8 +33,10 @@ import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.*
 import kotlinx.android.synthetic.main.add_details_activity.*
 import kotlinx.android.synthetic.main.details_toolbar.*
+import kotlinx.android.synthetic.main.notifizcatin_fragment.*
 import retrofit2.Response
 import java.io.File
+import java.time.ZoneId
 
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
@@ -42,6 +44,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
     private val REQUEST_CODE = 11
     private var imageList = ArrayList<SelectedImage>()
     private var addItemRequest: AddItemRequest? = null
+    private var additionalInfo: AdditionalInfo? =null
     private var dataIntent: DataItems? = null
     private var selectedImageList = ArrayList<ImageModal>()
     private val realPath = java.util.ArrayList<String>()
@@ -60,9 +63,15 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
     private var carType=""
     private var carBrandId=0
     private var carTypeId=0
+    private var zoneName=""
+    private var zoneId=0
     private var isFocus: Boolean = false
     private var rejectImageList = ArrayList<Int>()
     private var imageIdList = ArrayList<String>()
+    private var  screenType=0
+    private var directOwner=0
+    private var totalBadRoom:Int=0
+    private var totalBatchRoom:Int=0
 
     override fun selectDetailCount(count: Int, position: Int, imageId: Int) {
         rejectImageList.add(position)
@@ -87,9 +96,6 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         } else {
             setIntentData()
         }
-        val intent = Intent(this, SelectCategoryDialogActivity::class.java)
-        startActivityForResult(intent, 1)
-        overridePendingTransition(0, 0)
     }
 
     private fun setEditItemDetail() {
@@ -97,6 +103,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         tvCountDetail.text = StringBuilder().append(" ").append(dataIntent!!.items_image.size.toString()).append(" ").append("/ 10")
         //setListData(imageList)
         itemId = dataIntent!!.id
+
         if (dataIntent != null) {
             if (!TextUtils.isEmpty(dataIntent!!.name)) {
                 etNameDetail.setText(dataIntent!!.name)
@@ -160,7 +167,8 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 }
                 setListData(imageList, 1)
             }
-
+            screenType=dataIntent!!.type
+            setScreenType(screenType)
         }
 
     }
@@ -193,15 +201,15 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 }
             }
             if (!TextUtils.isEmpty(addItemRequest!!.Latitude)) {
-                lat = addItemRequest!!.Latitude.toDouble()
+                lat = addItemRequest!!.Latitude!!.toDouble()
 
 
             }
             if (!TextUtils.isEmpty(addItemRequest!!.Longitude)) {
-                lng = addItemRequest!!.Longitude.toDouble()
+                lng = addItemRequest!!.Longitude!!.toDouble()
             }
             if (!TextUtils.isEmpty(addItemRequest!!.Address)) {
-                address = addItemRequest!!.Address
+                address = addItemRequest!!.Address!!
                 tvPlaceAddress.text = addItemRequest!!.Address
             }
             if (!TextUtils.isEmpty(addItemRequest!!.categoriesId)) {
@@ -215,7 +223,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             }
 
             if (!TextUtils.isEmpty(addItemRequest!!.meet_up)) {
-                val meetUp = addItemRequest!!.meet_up.toInt()
+                val meetUp = addItemRequest!!.meet_up!!.toInt()
                 if (meetUp == 1) {
                     cbNearBy.isChecked = true
                     tvPlaceAddress.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
@@ -225,12 +233,110 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     expansionLayout.collapse(true)
                 }
             }
+            screenType=addItemRequest!!.type
+            setScreenType(screenType)
+            if(addItemRequest!!.type==1){
+                additionalInfo=addItemRequest!!.additional_info
+                if (!TextUtils.isEmpty(additionalInfo!!.brand_name)) {
+                    carBrandName = additionalInfo!!.brand_name!!
+                    carType = additionalInfo!!.car_type!!
+                    tvBrand.text = carBrandName+", "+carType
+                    carBrandId=additionalInfo!!.car_brand_id
+                    carTypeId=additionalInfo!!.car_type_id
+                    tvBrand.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                    vBrand.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+                }
 
+                if (!TextUtils.isEmpty(additionalInfo!!.registration_year)) {
+                    etRegistrationYear.setText(additionalInfo!!.registration_year)
+                }
+                directOwner=additionalInfo!!.direct_owner
+                if(directOwner==1){
+                    switchDirectOwner.setChecked(true,false )
+                }else{
+                    switchDirectOwner.setChecked(false,false )
+                }
+
+            }
+            else if(addItemRequest!!.type==2){
+                additionalInfo=addItemRequest!!.additional_info
+                if (!TextUtils.isEmpty(additionalInfo!!.zone)) {
+                    zoneName = additionalInfo!!.zone!!
+                    tvZone.text = zoneName
+                    zoneId=additionalInfo!!.zoneId
+                    tvZone.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                    vZone.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+                }
+
+                if (!TextUtils.isEmpty(additionalInfo!!.street_name)) {
+                    etStreetName.setText(additionalInfo!!.street_name)
+                }
+                if (!TextUtils.isEmpty(additionalInfo!!.postal_code.toString())) {
+                    etPostalCode.setText(additionalInfo!!.postal_code.toString())
+                }
+                if (!TextUtils.isEmpty(additionalInfo!!.area)) {
+                    etArea.setText(additionalInfo!!.area)
+                }
+                totalBadRoom=additionalInfo!!.bedroom
+                totalBatchRoom=additionalInfo!!.bathroom
+                tvBathroomCount.text=totalBatchRoom.toString()
+                tvBedRoomCount.text=totalBadRoom.toString()
+            }
+        }else{
+            val intent = Intent(this, SelectCategoryDialogActivity::class.java)
+            startActivityForResult(intent, 1)
+            overridePendingTransition(0, 0)
         }
 
     }
 
     private fun setData() {
+        ivMinusBedroom.setOnClickListener {
+            if(totalBadRoom!=0) {
+                totalBadRoom -= 1
+                tvBedRoomCount.text=totalBadRoom.toString()
+            }
+
+        }
+        ivAddBedRoom.setOnClickListener {
+           if(totalBadRoom<=9) {
+               totalBadRoom += 1
+               tvBedRoomCount.text = totalBadRoom.toString()
+           }
+        }
+        ivMinusBathRoom.setOnClickListener {
+            if(totalBatchRoom!=0) {
+                totalBatchRoom -= 1
+                tvBathroomCount.text=totalBatchRoom.toString()
+            }
+
+        }
+
+        ivAddBathRoom.setOnClickListener {
+            if(totalBatchRoom<=9) {
+                totalBatchRoom += 1
+                tvBathroomCount.text = totalBatchRoom.toString()
+            }
+        }
+        llSelectZone.setOnClickListener {
+            val intent = Intent(this, CarBrandActivity::class.java)
+            intent.putExtra(AppConstants.TYPE, 3)
+            intent.putExtra(AppConstants.CAR_TYPE,carType)
+            intent.putExtra(AppConstants.CAR_TYPE_ID,carTypeId)
+            intent.putExtra(AppConstants.CAR_BRAND_NAME,carBrandName)
+            intent.putExtra(AppConstants.CAR_BRAND_ID,carBrandId)
+            intent.putExtra(AppConstants.ZONE,zoneName)
+            intent.putExtra(AppConstants.ZONE_ID,zoneId)
+            startActivityForResult(intent, 14)
+        }
+        switchDirectOwner.setOnStateChangeListener { process, state, jtb ->
+            if (state == com.nightonke.jellytogglebutton.State.LEFT) {
+                directOwner=0
+            }
+            if (state == com.nightonke.jellytogglebutton.State.RIGHT) {
+                directOwner=1
+            }
+        }
         val font = Typeface.createFromAsset(assets, "fonts/gothicb.ttf")
         cbNearBy.typeface = font
         llSelectBrand.setOnClickListener {
@@ -256,17 +362,17 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
 
         tvSave.setOnClickListener {
             if (Utils.isOnline(this@AddDetailsActivity)) {
-                if (isValidate()) {
-                    if (comingFrom != 1) {
-                        window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                        imageCount = 0
-                        realPath.clear()
-                        grabImage(comingFrom)
-                    } else {
-                        updateProductDetail()
+                    if (isValidate()) {
+                        if (comingFrom != 1) {
+                            window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                            imageCount = 0
+                            realPath.clear()
+                            grabImage(comingFrom,screenType)
+                        } else {
+                            updateProductDetail()
+                        }
                     }
-                }
             } else {
                 Utils.showSimpleMessage(this@AddDetailsActivity, getString(R.string.check_internet)).show()
             }
@@ -441,7 +547,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         } else {
             imageCount = 0
             realPath.clear()
-            grabImage(comingFrom)
+            grabImage(comingFrom,screenType)
         }
     }
 
@@ -466,12 +572,40 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 Utils.showSimpleMessage(this, getString(R.string.enter_category_name)).show()
                 false
             }
-            TextUtils.isEmpty(etPrice.text.toString().trim()) -> {
+            screenType==1&&carBrandId == 0&&carTypeId==0 -> {
+                Utils.showSimpleMessage(this, "Please select car brand and type.").show()
+                false
+            }  screenType==2&&zoneId == 0 -> {
+                Utils.showSimpleMessage(this, "Please select zone.").show()
+                false
+            }
+            screenType==2&&TextUtils.isEmpty(etStreetName.text.toString().trim()) -> {
+                Utils.showSimpleMessage(this, "Please enter street name.").show()
+                false
+            }   screenType==2&&TextUtils.isEmpty(etPostalCode.text.toString().trim()) -> {
+                Utils.showSimpleMessage(this, "Please enter postal code.").show()
+                false
+            } TextUtils.isEmpty(etPrice.text.toString().trim()) -> {
                 Utils.showSimpleMessage(this, getString(R.string.enter_price)).show()
                 false
             }
             etPrice.text.toString().trim().length <= 1 -> {
                 Utils.showSimpleMessage(this, getString(R.string.enter_price)).show()
+                false
+            }
+            screenType==2&&TextUtils.isEmpty(etArea.text.toString().trim()) -> {
+                Utils.showSimpleMessage(this, "Please enter area.").show()
+                false
+            } screenType==2&&totalBadRoom<=0 -> {
+                Utils.showSimpleMessage(this, "Please enter bedroom count.").show()
+                false
+            }
+            screenType==2&&totalBatchRoom<=0 -> {
+                Utils.showSimpleMessage(this, "Please enter bathroom count.").show()
+                false
+            }
+            screenType==1&& TextUtils.isEmpty(etRegistrationYear.text.toString().trim()) -> {
+                Utils.showSimpleMessage(this, "Please enter registration year.").show()
                 false
             }
             TextUtils.isEmpty(etDescriptionDetail.text.toString().trim()) -> {
@@ -556,6 +690,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 vSelectCategory.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
                 when (parentId) {
                     85 -> {
+                        screenType=1
                         llSelectBrand.visibility = View.VISIBLE
                         vBrand.visibility = View.VISIBLE
                         llCarFields.visibility = View.VISIBLE
@@ -571,6 +706,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
 
                     }
                     24 -> {
+                        screenType=2
                         llProperties.visibility = View.VISIBLE
                         llProperty.visibility = View.VISIBLE
 
@@ -585,6 +721,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                         exLayout.visibility = View.GONE
                     }
                     else -> {
+                        screenType=0
                         llSelectBrand.visibility = View.GONE
                         vBrand.visibility = View.GONE
                         llCarFields.visibility = View.GONE
@@ -629,6 +766,22 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 carBrandId = data.getIntExtra(AppConstants.CAR_BRAND_ID,0)
                 carTypeId = data.getIntExtra(AppConstants.CAR_TYPE_ID,0)
                 tvBrand.text=carBrandName+", "+carType
+                tvBrand.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                vBrand.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                expansionLayout.collapse(true)
+                cbNearBy.isChecked = false
+            }
+        }
+        if (requestCode == 14) {
+            if (resultCode == Activity.RESULT_OK) {
+                zoneName = data!!.getStringExtra(AppConstants.ZONE)
+                zoneId = data.getIntExtra(AppConstants.ZONE_ID,0)
+                tvZone.text=zoneName
+                tvZone.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                vZone.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
 
             }
             if (resultCode == Activity.RESULT_CANCELED) {
@@ -662,7 +815,58 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         }
     }
 
-    fun grabImage(comingFrom: Int) {
+    private fun setScreenType(parentId: Int) {
+        when (parentId) {
+            1 -> {
+                screenType=1
+                llSelectBrand.visibility = View.VISIBLE
+                vBrand.visibility = View.VISIBLE
+                llCarFields.visibility = View.VISIBLE
+
+                llProperties.visibility = View.GONE
+                llProperty.visibility = View.GONE
+
+                llItemCondition.visibility = View.GONE
+                tvItemCondition.visibility = View.GONE
+
+                tvDealOption.visibility = View.GONE
+                exLayout.visibility = View.GONE
+
+            }
+            2 -> {
+                screenType=2
+                llProperties.visibility = View.VISIBLE
+                llProperty.visibility = View.VISIBLE
+
+                llItemCondition.visibility = View.GONE
+                tvItemCondition.visibility = View.GONE
+
+                llSelectBrand.visibility = View.GONE
+                vBrand.visibility = View.GONE
+                llCarFields.visibility = View.GONE
+
+                tvDealOption.visibility = View.GONE
+                exLayout.visibility = View.GONE
+            }
+            else -> {
+                screenType=0
+                llSelectBrand.visibility = View.GONE
+                vBrand.visibility = View.GONE
+                llCarFields.visibility = View.GONE
+
+                llProperties.visibility = View.GONE
+                llProperty.visibility = View.GONE
+
+                llItemCondition.visibility = View.VISIBLE
+                tvItemCondition.visibility = View.VISIBLE
+
+                tvDealOption.visibility = View.VISIBLE
+                exLayout.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    fun grabImage(comingFrom: Int,screenType:Int) {
         class Converter : AsyncTask<Void, Void, Bitmap>() {
 
             override fun onPreExecute() {
@@ -696,7 +900,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     if (Utils.isOnline(this@AddDetailsActivity)) {
                         if (comingFrom != 1) {
                             /*Api call*/
-                            uploadImageItem(realPath)
+                            uploadImageItem(realPath,screenType)
                         } else {
                             updateProductApi(realPath)
                         }
@@ -706,7 +910,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
 
                 } else if (imageCount < selectedImageList.size - 1) {
                     imageCount++
-                    grabImage(comingFrom)
+                    grabImage(comingFrom,screenType)
                 }
             }
 
@@ -745,11 +949,22 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
 
     }
 
-    private fun uploadImageItem(realPath: java.util.ArrayList<String>) {
-        val addItemRequest: AddItemRequest = if (cbNearBy.isChecked) {
-            AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "1")
-        } else {
-            AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), "0.0", "0.0", "", "0")
+    private fun uploadImageItem(realPath: java.util.ArrayList<String>,screenType: Int) {
+        var addItemRequest: AddItemRequest? =null
+      if(screenType==1){
+          val additionalInfo=AdditionalInfo(carBrandId,carBrandName,carType,carTypeId,etRegistrationYear.text.toString(),directOwner)
+              addItemRequest= AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "0", screenType,additionalInfo,carBrandId,carTypeId)
+
+      }else if(screenType==2){
+          val additionalInfo=AdditionalInfo(carBrandId,carBrandName,carType,carTypeId,etRegistrationYear.text.toString(),directOwner,zoneName,zoneId,etStreetName.text.toString(),(etPostalCode.text.toString()).toInt(),etArea.text.toString(),totalBadRoom,totalBatchRoom)
+           addItemRequest= AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "0", screenType,additionalInfo)
+
+      }else{
+           if (cbNearBy.isChecked) {
+               addItemRequest= AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "1", screenType)
+            } else {
+               addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), "0.0", "0.0", "", "0", screenType)
+            }
         }
 
         ServiceHelper().addItemsApi(addItemRequest,
@@ -827,11 +1042,19 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 sendList.add(selectedImageList[i].imageUrl)
             }
         }
-        val addItemRequest: AddItemRequest = if (cbNearBy.isChecked) {
-            AddItemRequest(sendList, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "1")
-        } else {
-            AddItemRequest(sendList, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), "0.0", "0.0", "", "0")
-        }
+       // val additionalInfo=AdditionalInfo(carBrandId,carBrandName,carType,carTypeId,etRegistrationYear.text.toString(),directOwner)
+        val addItemRequest:AddItemRequest
+       if(screenType!=0){
+           val additionalInfo=AdditionalInfo(carBrandId,carBrandName,carType,carTypeId,etRegistrationYear.text.toString(),directOwner,zoneName,zoneId,etStreetName.text.toString(),(etPostalCode.text.toString()).toInt(),etArea.text.toString(),totalBadRoom,totalBatchRoom)
+          addItemRequest=AddItemRequest(sendList, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "1", screenType, additionalInfo)
+
+       }else {
+           if (cbNearBy.isChecked) {
+               addItemRequest=AddItemRequest(sendList, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "1", screenType)
+           } else {
+               addItemRequest=AddItemRequest(sendList, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), "0.0", "0.0", "", "0", screenType)
+           }
+       }
         val returnIntent = Intent()
         returnIntent.putExtra(AppConstants.POST_DATA, addItemRequest)
         returnIntent.putIntegerArrayListExtra(AppConstants.REJECT_LIST, rejectImageList)

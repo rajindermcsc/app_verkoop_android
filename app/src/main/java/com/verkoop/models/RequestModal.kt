@@ -35,12 +35,55 @@ data class AddItemRequest(
         val item_type: String,
         val description: String,
         val user_id: String,
-        val Latitude: String,
-        val Longitude: String,
-        val Address: String,
-        val meet_up: String
+        val Latitude: String?=null,
+        val Longitude: String?=null,
+        val Address: String?=null,
+        val meet_up: String?=null,
+        val type: Int=0,
+        val additional_info: AdditionalInfo? =null,
+        val brand_id:Int=0,
+        val car_type_id:Int=0
+
 ) : Parcelable
 
+@Parcelize
+data class AdditionalInfo(
+        val car_brand_id: Int=0,
+        val brand_name: String? =null,
+        val car_type: String? =null,
+        val car_type_id: Int=0,
+        val registration_year: String? =null,
+        val direct_owner: Int=0,
+        val zone: String? =null,
+        val zoneId: Int =0,
+        val street_name: String? =null,
+        val postal_code: Int=0,
+        val area: String? =null,
+        val bedroom: Int=0,
+        val bathroom: Int=0
+): Parcelable{
+    var carTypee: Int = 0
+
+    init {
+        carTypee = car_type_id
+
+
+
+    }
+}
+class Person(fName: String, personAge: Int) {
+    val firstName: String
+    var age: Int
+
+    // initializer block
+    init {
+        firstName = fName.capitalize()
+        age = personAge
+
+        println("First Name = $firstName")
+        println("Age = $age")
+    }
+}
 @Parcelize
 data class EditItemRequest(
         val imageList: ArrayList<String>,

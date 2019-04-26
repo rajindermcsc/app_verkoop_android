@@ -17,7 +17,7 @@ import com.verkoop.utils.AppConstants
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.region_row.*
 
-class CarBrandAdapter(private var context: Context, private val coming: Int,private val carBrand:String,private val carBrandId:Int) : RecyclerView.Adapter<CarBrandAdapter.ViewHolder>(), Filterable {
+class CarBrandAdapter(private var context: Context, private val coming: Int,private val carBrand:String,private val carBrandId:Int,private  val carTypeId:Int) : RecyclerView.Adapter<CarBrandAdapter.ViewHolder>(), Filterable {
     private var carBrandList = ArrayList<DataCarBrand>()
     private var mFilteredList = ArrayList<DataCarBrand>()
     private lateinit var selectBrandCallBack: SelectBrandCallBack
@@ -79,21 +79,33 @@ class CarBrandAdapter(private var context: Context, private val coming: Int,priv
             cbRegion.text = data.name
             cbRegion.setOnClickListener {
                 refreshList(adapterPosition)
-                if (coming == 0) {
-                    val intent = Intent(context, CarBrandActivity::class.java)
-                    intent.putExtra(AppConstants.TYPE, 1)
-                    intent.putExtra(AppConstants.CAR_BRAND_NAME,data.name)
-                    intent.putExtra(AppConstants.CAR_BRAND_ID,data.id)
-                    (context as CarBrandActivity).startActivityForResult(intent, 3)
-                } else {
-                    val returnIntent = Intent()
-                    returnIntent.putExtra(AppConstants.CAR_TYPE,data.name)
-                    returnIntent.putExtra(AppConstants.CAR_TYPE_ID,data.id)
-                    returnIntent.putExtra(AppConstants.CAR_BRAND_NAME,carBrand)
-                    returnIntent.putExtra(AppConstants.CAR_BRAND_ID,carBrandId)
-                    (context as CarBrandActivity).setResult(Activity.RESULT_OK, returnIntent)
-                    (context as CarBrandActivity).finish()
-                    (context as CarBrandActivity).overridePendingTransition(0, 0)
+                when (coming) {
+                    3 -> {
+                        val returnIntent = Intent()
+                        returnIntent.putExtra(AppConstants.ZONE,data.name)
+                        returnIntent.putExtra(AppConstants.ZONE_ID,data.id)
+                        (context as CarBrandActivity).setResult(Activity.RESULT_OK, returnIntent)
+                        (context as CarBrandActivity).finish()
+                        (context as CarBrandActivity).overridePendingTransition(0, 0)
+                    }
+                    0 -> {
+                        val intent = Intent(context, CarBrandActivity::class.java)
+                        intent.putExtra(AppConstants.TYPE, 1)
+                        intent.putExtra(AppConstants.CAR_BRAND_NAME,data.name)
+                        intent.putExtra(AppConstants.CAR_TYPE_ID,carTypeId)
+                        intent.putExtra(AppConstants.CAR_BRAND_ID,data.id)
+                        (context as CarBrandActivity).startActivityForResult(intent, 3)
+                    }
+                    else -> {
+                        val returnIntent = Intent()
+                        returnIntent.putExtra(AppConstants.CAR_TYPE,data.name)
+                        returnIntent.putExtra(AppConstants.CAR_TYPE_ID,data.id)
+                        returnIntent.putExtra(AppConstants.CAR_BRAND_NAME,carBrand)
+                        returnIntent.putExtra(AppConstants.CAR_BRAND_ID,carBrandId)
+                        (context as CarBrandActivity).setResult(Activity.RESULT_OK, returnIntent)
+                        (context as CarBrandActivity).finish()
+                        (context as CarBrandActivity).overridePendingTransition(0, 0)
+                    }
                 }
             }
         }
