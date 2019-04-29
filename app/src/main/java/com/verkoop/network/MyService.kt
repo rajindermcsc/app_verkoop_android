@@ -50,7 +50,10 @@ interface MyService {
     fun updateServiceApi(@Body request: UpdateCategoryRequest): Call<LikedResponse>
 
     @PUT("dashboard/{userId}")
-    fun getHomeDataApi(@Path(value = "userId", encoded = true) fullUrl: String, @Query("page") pageCount: Int): Call<HomeDataResponse>
+    fun getHomeDataApi(@Body request: HomeRequest,@Path(value = "userId", encoded = true) fullUrl: String, @Query("page") pageCount: Int): Call<HomeDataResponse>
+
+    @PUT("dashboard/{userId}")
+    fun getBuyCarDataApi(@Body request: HomeRequest,@Path(value = "userId", encoded = true) fullUrl: String, @Query("page") pageCount: Int): Call<BuyCarResponse>
 
     @GET("nearbysearch/json")
     fun getDetails(@Query("location") loc: String,
@@ -125,7 +128,8 @@ interface MyService {
                     @Part("type") type: RequestBody,
                     @Part("brand_id") brandId: RequestBody,
                     @Part("car_type_id") carTypeId: RequestBody,
-                    @Part("additional_info") additionalInfo: RequestBody
+                    @Part("additional_info") additionalInfo: RequestBody,
+                    @Part("zone_id") zoneId: RequestBody
     ): Call<AddItemResponse>
 
 

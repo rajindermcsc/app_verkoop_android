@@ -226,7 +226,7 @@
                             android:hint="@string/postal_code"
                             android:imeOptions="actionNext"
                             android:inputType="number"
-                            android:maxLength="80"
+                            android:maxLength="6"
                             android:maxLines="1"
                             android:minLines="1"
                             android:padding="@dimen/dp_8"
@@ -278,8 +278,8 @@
                             android:drawablePadding="@dimen/dp_10"
                             android:hint="@string/area"
                             android:imeOptions="actionNext"
-                            android:inputType="numberDecimal"
-                            android:maxLength="80"
+                            android:inputType="text"
+                            android:maxLength="150"
                             android:maxLines="1"
                             android:minLines="1"
                             android:padding="@dimen/dp_8"
@@ -559,7 +559,6 @@
                         android:textSize="@dimen/sp_14" />
 
                     <com.github.florent37.expansionpanel.ExpansionHeader
-                       android:id="@+id/exLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:expansion_headerIndicator="@id/headerIndicator"
@@ -567,6 +566,7 @@
                         app:expansion_toggleOnClick="true">
 
                         <LinearLayout
+                            android:id="@+id/exLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">

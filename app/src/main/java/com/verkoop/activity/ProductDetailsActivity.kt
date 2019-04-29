@@ -47,6 +47,7 @@ class ProductDetailsActivity : AppCompatActivity() {
     private var screenHeight: Int = 0
     private var userName: String = ""
     private lateinit var commentListAdapter: CommentListAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.item_details_activity)
@@ -81,22 +82,22 @@ class ProductDetailsActivity : AppCompatActivity() {
         userId = data.user_id
         userName = data.username
         isSoldItem = data.is_sold
-        if (data.meet_up == 1&&data.latitude!=0.0&&data.longitude!=0.0) {
+        if (data.meet_up == 1 && data.latitude != 0.0 && data.longitude != 0.0) {
             tvAddress.text = data.address
-            llMeetUp.visibility=View.VISIBLE
-            viewMeetUp.visibility=View.VISIBLE
+            llMeetUp.visibility = View.VISIBLE
+            viewMeetUp.visibility = View.VISIBLE
         } else {
-            llMeetUp.visibility=View.GONE
-            viewMeetUp.visibility=View.GONE
+            llMeetUp.visibility = View.GONE
+            viewMeetUp.visibility = View.GONE
         }
-        if (data.is_sold == 1||data.user_id==Utils.getPreferencesString(this,AppConstants.USER_ID).toInt()) {
+        if (data.is_sold == 1 || data.user_id == Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()) {
             tvSellItem.visibility = View.GONE
         } else {
             tvSellItem.visibility = View.VISIBLE
         }
 
         tvAddress.setOnClickListener {
-            if (data.latitude!=0.0 && data.longitude!=0.0) {
+            if (data.latitude != 0.0 && data.longitude != 0.0) {
                 val geoUri = "http://maps.google.com/maps?q=loc:" + data.latitude + "," + data.longitude + "(" + data.address + ")"
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(geoUri))
                 startActivity(intent)
@@ -178,6 +179,39 @@ class ProductDetailsActivity : AppCompatActivity() {
             tvType.text = "New"
         } else {
             tvType.text = getString(R.string.used)
+        }
+        if (data.type == 1) {
+            llCarDetails.visibility = View.VISIBLE
+            CommonView.visibility = View.VISIBLE
+            llPropertyDetails.visibility = View.GONE
+            if (data.additional_info != null) {
+                tvRegistrationYear.text = StringBuilder().append(": ").append(data.additional_info!!.registration_year)
+                tvCarBrand.text = StringBuilder().append(": ").append(data.additional_info!!.brand_name)
+                tvCarType.text = StringBuilder().append(": ").append(data.additional_info!!.car_type)
+                if (data.additional_info!!.direct_owner.equals("1", ignoreCase = true)) {
+                    tvDirectOwner.text = StringBuilder().append(": ").append(getString(R.string.res))
+                } else {
+                    tvDirectOwner.text = StringBuilder().append(": ").append(getString(R.string.no))
+                }
+            }
+
+        } else if (data.type == 2) {
+            llPropertyDetails.visibility = View.VISIBLE
+            CommonView.visibility = View.VISIBLE
+            llCarDetails.visibility = View.GONE
+            if (data.additional_info != null) {
+                tvStreetName.text = StringBuilder().append(": ").append(data.additional_info!!.street_name)
+                tvPostalCode.text = StringBuilder().append(": ").append(data.additional_info!!.postal_code)
+                tvBedRoom.text = StringBuilder().append(": ").append(data.additional_info!!.bedroom)
+                tvBathRoom.text = StringBuilder().append(": ").append(data.additional_info!!.bathroom)
+                tvZone.text = StringBuilder().append(": ").append(data.additional_info!!.zone)
+                tvArea.text = StringBuilder().append(": ").append(data.additional_info!!.area)
+            }
+        } else {
+            llCarDetails.visibility = View.GONE
+            llPropertyDetails.visibility = View.GONE
+            CommonView.visibility = View.GONE
+
         }
     }
 

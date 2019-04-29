@@ -174,7 +174,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
             pbProgressHome.visibility = View.VISIBLE
         }
         isLoading = true
-        ServiceHelper().getItemsService(currentPage, Utils.getPreferencesString(homeActivity, AppConstants.USER_ID), object : ServiceHelper.OnResponse {
+        ServiceHelper().getItemsService(HomeRequest(0),currentPage, Utils.getPreferencesString(homeActivity, AppConstants.USER_ID), object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
                 isLoading = false
                 homeActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)

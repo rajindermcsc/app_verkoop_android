@@ -68,6 +68,7 @@ CarBrandActivity : AppCompatActivity() {
     }
 
     private fun setZoneList() {
+        tvHeaderLoc.text = getString(R.string.zone)
         zone=intent.getStringExtra(AppConstants.ZONE)
         zoneId=intent.getIntExtra(AppConstants.ZONE_ID,0)
         val nameList = arrayOf("East", "West", "North East", "North", "Central")

@@ -17,54 +17,42 @@ import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.car_brand_row.*
 import kotlinx.android.synthetic.main.car_filter_row.*
 import kotlinx.android.synthetic.main.item_row.*
 import retrofit2.Response
 
-class BuyCarsAdapter(private val context: Context, private var rvItemList: RecyclerView) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+class BuyPropertyAdapter(private val context: Context, private val rvProperty: RecyclerView) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(context)
-    val BRAND_LIST_ROW = 0
-    val CATEGORY_LIST_ROW = 1
-    val ITEMS_ROW = 2
+    val CATEGORY_LIST_ROW = 0
+    val ITEMS_ROW = 1
     private var width = 0
     private var widthOrg = 0
     private var widthOrgCarType = 0
     private var itemsList = ArrayList<ItemHome>()
-    private var brandsList = ArrayList<Brand>()
-    private var carTypeLIst = ArrayList<CarType>()
-
+    private var zoneList = ArrayList<CarType>()
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {
-            0 -> BRAND_LIST_ROW
-            1 -> CATEGORY_LIST_ROW
+            0 -> CATEGORY_LIST_ROW
             else -> ITEMS_ROW
         }
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View
         return when (viewType) {
-            BRAND_LIST_ROW -> {
-                view = mLayoutInflater.inflate(R.layout.car_brand_row, parent, false)
-                val params = view.layoutParams
-                params.width = rvItemList.width
-                widthOrg = params.width
-                CarBrandHolder(view)
-            }
             CATEGORY_LIST_ROW -> {
                 view = mLayoutInflater.inflate(R.layout.car_filter_row, parent, false)
                 val params = view.layoutParams
-                params.width = rvItemList.width
+                params.width = rvProperty.width
                 widthOrgCarType = params.width
                 CarFilterHolder(view)
             }
             else -> {
                 view = mLayoutInflater.inflate(R.layout.item_row, parent, false)
                 val params = view.layoutParams
-                params.width = rvItemList.width / 2
+                params.width = rvProperty.width / 2
                 width = params.width
                 //view.layoutParams = params
                 ItemsHolder(view)
@@ -73,17 +61,25 @@ class BuyCarsAdapter(private val context: Context, private var rvItemList: Recyc
     }
 
     override fun getItemCount(): Int {
-        return itemsList.size + 2
+        return itemsList.size + 1
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (position == BRAND_LIST_ROW) {
-            (holder as CarBrandHolder).bind(brandsList)
-        } else if (position == CATEGORY_LIST_ROW) {
-            (holder as CarFilterHolder).bind(carTypeLIst)
+        if (position == CATEGORY_LIST_ROW) {
+            (holder as CarFilterHolder).bind(zoneList)
         } else {
-            val modal = itemsList[position - 2]
+            val modal = itemsList[position - 1]
             (holder as ItemsHolder).bind(modal)
+        }
+    }
+
+    inner class CarFilterHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+        fun bind(carTypeLIst: ArrayList<CarType>) {
+            llCarFilter.layoutParams.height = widthOrgCarType - 60
+            val mManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            rvCarBodyType.layoutManager = mManager
+            val carBodyTypeAdapter = CarBodyTypeAdapter(context, rvCarBodyType, carTypeLIst)
+            rvCarBodyType.adapter = carBodyTypeAdapter
         }
     }
 
@@ -135,10 +131,10 @@ class BuyCarsAdapter(private val context: Context, private var rvItemList: Recyc
                 if (!data.isClicked) {
                     if (data.like_id > 0) {
                         data.isClicked = !data.isClicked
-                        deleteLikeApi( adapterPosition-2,data.like_id)
+                        deleteLikeApi(adapterPosition - 1, data.like_id)
                     } else {
                         data.isClicked = !data.isClicked
-                        lickedApi( data.id,adapterPosition-2)
+                        lickedApi(data.id, adapterPosition - 1)
                     }
                 }
 
@@ -161,40 +157,6 @@ class BuyCarsAdapter(private val context: Context, private var rvItemList: Recyc
         }
     }
 
-    inner class CarFilterHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
-        fun bind(carTypeLIst: ArrayList<CarType>) {
-            llCarFilter.layoutParams.height = widthOrgCarType-60
-            val mManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            rvCarBodyType.layoutManager = mManager
-            val carBodyTypeAdapter = CarBodyTypeAdapter(context, rvCarBodyType, carTypeLIst)
-            rvCarBodyType.adapter = carBodyTypeAdapter
-        }
-    }
-
-    inner class CarBrandHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
-        fun bind(brandList: ArrayList<Brand>) {
-            llBuyCar.layoutParams.height = widthOrg / 3
-            val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            rvBrands.layoutManager = linearLayoutManager
-            val brandListAdapter = BrandListAdapter(context, rvBrands, brandList)
-            rvBrands.adapter = brandListAdapter
-            tvViewAllBrands.setOnClickListener {
-                //  val intent = Intent(context, FullCategoriesActivity::class.java)
-                //  context.startActivityForResult(intent, 2)
-            }
-
-        }
-    }
-
-    fun setData(itemsData: ArrayList<ItemHome>) {
-        itemsList = itemsData
-    }
-
-    fun setBrandAndTypeList(brands: ArrayList<Brand>, car_types: ArrayList<CarType>) {
-        brandsList = brands
-        carTypeLIst = car_types
-    }
-
     private fun lickedApi(itemId: Int, position: Int) {
         val lickedRequest = LickedRequest(Utils.getPreferencesString(context, AppConstants.USER_ID), itemId)
         ServiceHelper().likeService(lickedRequest,
@@ -202,15 +164,15 @@ class BuyCarsAdapter(private val context: Context, private var rvItemList: Recyc
                     override fun onSuccess(response: Response<*>) {
                         itemsList[position].isClicked = !itemsList[position].isClicked
                         val responseLike = response.body() as LikedResponse
-                        itemsList[position].is_like=!itemsList[position].is_like
-                        itemsList[position].items_like_count= itemsList[position].items_like_count+1
-                        itemsList[position].like_id= responseLike.like_id
-                        notifyItemChanged(position+1)
+                        itemsList[position].is_like = !itemsList[position].is_like
+                        itemsList[position].items_like_count = itemsList[position].items_like_count + 1
+                        itemsList[position].like_id = responseLike.like_id
+                        notifyItemChanged(position + 1)
                     }
 
                     override fun onFailure(msg: String?) {
                         itemsList[position].isClicked = !itemsList[position].isClicked
-                        notifyItemChanged(position+1)
+                        notifyItemChanged(position + 1)
                         //      Utils.showSimpleMessage(homeActivity, msg!!).show()
                     }
                 })
@@ -222,16 +184,24 @@ class BuyCarsAdapter(private val context: Context, private var rvItemList: Recyc
                     override fun onSuccess(response: Response<*>) {
                         itemsList[position].isClicked = !itemsList[position].isClicked
                         val likeResponse = response.body() as DisLikeResponse
-                        itemsList[position].is_like=!itemsList[position].is_like
-                        itemsList[position].items_like_count= itemsList[position].items_like_count-1
-                        itemsList[position].like_id= 0
-                        notifyItemChanged(position+1)
+                        itemsList[position].is_like = !itemsList[position].is_like
+                        itemsList[position].items_like_count = itemsList[position].items_like_count - 1
+                        itemsList[position].like_id = 0
+                        notifyItemChanged(position + 1)
                     }
 
                     override fun onFailure(msg: String?) {
                         itemsList[position].isClicked = !itemsList[position].isClicked
-                        notifyItemChanged(position+1)
+                        notifyItemChanged(position + 1)
                     }
                 })
+    }
+
+    fun setData(itemsData: ArrayList<ItemHome>) {
+        itemsList = itemsData
+    }
+
+    fun setZoneType(zoneData: ArrayList<CarType>) {
+        zoneList = zoneData
     }
 }

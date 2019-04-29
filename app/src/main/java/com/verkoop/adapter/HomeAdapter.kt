@@ -27,7 +27,6 @@ import kotlinx.android.synthetic.main.cars_properties_row.*
 import kotlinx.android.synthetic.main.item_row.*
 import kotlinx.android.synthetic.main.your_daily_picks.*
 
-
 class HomeAdapter(private val context: Context, private val rvItemList: RecyclerView, private val homeFragment: HomeFragment) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(context)
     private lateinit var likeDisLikeListener: LikeDisLikeListener
@@ -136,12 +135,12 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
     inner class CarAndPropertiesHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bind() {
             ivBuyCar.setOnClickListener {
-                Utils.showToast(context,"work in progress.")
-                //     val intent = Intent(context, BuyCarsActivity::class.java)
-                //     context.startActivity(intent)
+                val intent = Intent(context, BuyCarsActivity::class.java)
+                context.startActivity(intent)
             }
             ivBuyProperty.setOnClickListener {
-                Utils.showToast(context,"work in progress.")
+                val intent = Intent(context, BuyPropertiesActivity::class.java)
+                context.startActivity(intent)
             }
         }
 
@@ -151,11 +150,11 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
         fun bind(data: ItemHome) {
             ivProductImageHome.layoutParams.height = width - 16
             tvNameHome.text = data.username
-           /* if (adapterPosition % 2 == 0) {
-                llSideDividerHome.visibility = View.VISIBLE
-            } else {
-                llSideDividerHome.visibility = View.GONE
-            }*/
+            /* if (adapterPosition % 2 == 0) {
+                 llSideDividerHome.visibility = View.VISIBLE
+             } else {
+                 llSideDividerHome.visibility = View.GONE
+             }*/
             if (data.is_like) {
                 tvLikesHome.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_liked, 0, 0, 0)
             } else {
@@ -217,13 +216,13 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
             llParent.layoutParams.height = widthDaily
             val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             rvYourDailyPicks.layoutManager = linearLayoutManager
-            val dailyPicksAdapter = YourDailyPicksAdapter(context , rvYourDailyPicks,itemsList)
+            val dailyPicksAdapter = YourDailyPicksAdapter(context, rvYourDailyPicks, itemsList)
             rvYourDailyPicks.adapter = dailyPicksAdapter
 
             tvViewAllDailyPicks.setOnClickListener {
-                Utils.showToast(context,"work in progress.")
-               // val intent = Intent(context, FullCategoriesActivity::class.java)
-             //   context.startActivity(intent)
+                Utils.showToast(context, "work in progress.")
+                // val intent = Intent(context, FullCategoriesActivity::class.java)
+                //   context.startActivity(intent)
             }
         }
 
@@ -238,6 +237,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
         categoryList = categories
         advertismentsList = advertisments
     }
+
     fun updateDailyPicksData(itemsDaily: ArrayList<ItemHome>) {
         dailyPicksList = itemsDaily
     }

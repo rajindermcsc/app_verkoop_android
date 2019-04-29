@@ -255,8 +255,28 @@ data class DataItems(
         val items_image: List<ItemsImage>,
         var comments: ArrayList<CommentModal>?,
         var reports: ArrayList<ReportResponse>?,
-        var type:Int=0
+        var type:Int=0,
+        var brand_id :Int=0,
+        var car_type_id : Int=0,
+        var additional_info:AdditionalInfoResponse?
 ) : Parcelable
+
+@Parcelize
+data class AdditionalInfoResponse(
+    val area: String,
+    val bathroom: String,
+    val bedroom: String,
+    val brand_name: String,
+    val car_brand_id: String,
+    val car_type: String,
+    val car_type_id: String,
+    val direct_owner: String,
+    val postal_code: String,
+    val registration_year: String,
+    val street_name: String,
+    val zone: String,
+    val zoneId: String
+): Parcelable
 
 @Parcelize
 data class ReportResponse(
@@ -651,4 +671,32 @@ data class DataCarBrand(
     val created_at: String?=null,
     val updated_at: String?=null,
     var isSelected: Boolean=false
+)
+
+data class BuyCarResponse(
+    val data: DataCarResponse?,
+    val message: String
+)
+
+data class DataCarResponse(
+    val items: ArrayList<ItemHome>,
+    val totalPage: Int,
+    val brands: ArrayList<Brand>,
+    val car_types: ArrayList<CarType>
+)
+
+data class CarType(
+    val id: Int,
+    val name: String,
+    val image: String,
+    val created_at: String?=null,
+    val updated_at: String?=null
+)
+
+data class Brand(
+    val id: Int,
+    val name: String,
+    val image: String,
+    val created_at: String?=null,
+    val updated_at: String?=null
 )

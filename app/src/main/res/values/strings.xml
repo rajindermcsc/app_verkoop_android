@@ -238,4 +238,16 @@
     <string name="bathroom">Bathroom</string>
     <string name="car_brand">Car Brand</string>
     <string name="car_type">Car Type</string>
+    <string name="zone">Zone</string>
+    <string name="direct_owner_">Direct Owner</string>
+    <string name="car_details">Car Details</string>
+    <string name="property_details">Property Details</string>
+    <string name="street_name_">Street Name</string>
+    <string name="postal_code_">postal Code</string>
+    <string name="brand">Brand</string>
+    <string name="type">Type</string>
+    <string name="res">Yes</string>
+    <string name="no">No</string>
+    <string name="properties">Property</string>
+    <string name="search_properties">Search Properties</string>
 </resources>

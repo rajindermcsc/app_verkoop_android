@@ -1,5 +1,6 @@
 package com.verkoop.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.nfc.tech.MifareUltralight
 import android.os.Bundle
@@ -9,7 +10,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.WindowManager
 import com.verkoop.R
-import com.verkoop.adapter.BuyCarsAdapter
+import com.verkoop.adapter.BuyPropertyAdapter
 import com.verkoop.models.*
 import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.AppConstants
@@ -17,20 +18,15 @@ import com.verkoop.utils.Utils
 import kotlinx.android.synthetic.main.buy_cars_activity.*
 import kotlinx.android.synthetic.main.toolbar_cars_properties.*
 import retrofit2.Response
-import android.app.Activity
 
-
-
-
-class BuyCarsActivity:AppCompatActivity() {
+class BuyPropertiesActivity:AppCompatActivity(){
     private var itemsList = ArrayList<ItemHome>()
     private var isLoading = false
     private var totalPageCount: Int? = null
     private var currentPage = 0
     private lateinit var linearLayoutManager: GridLayoutManager
-    private lateinit var buyCarsAdapter:BuyCarsAdapter
-
-
+    private lateinit var buyPropertyAdapter: BuyPropertyAdapter
+    private var carBrandList = ArrayList<CarType>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.buy_cars_activity)
@@ -46,8 +42,9 @@ class BuyCarsActivity:AppCompatActivity() {
             Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
         }
     }
-
     private fun setData() {
+        etSearchFullCar.text=getString(R.string.search_properties)
+        tvHeaderCar.text=getString(R.string.properties)
         iv_leftCar.setOnClickListener { onBackPressed() }
         ivFavouriteCar.setOnClickListener {
             val intent = Intent(this, FavouritesActivity::class.java)
@@ -59,25 +56,24 @@ class BuyCarsActivity:AppCompatActivity() {
         }
         tvSellCar.setOnClickListener {
             val intent = Intent(this, GalleryActivity::class.java)
-             startActivityForResult(intent, 2)
+            startActivityForResult(intent, 2)
         }
     }
 
     private fun setBuyCarAdapter() {
-            linearLayoutManager =  GridLayoutManager(this,2 )
-            linearLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                override fun getSpanSize(position: Int): Int {
-                    return when (buyCarsAdapter.getItemViewType(position)) {
-                        buyCarsAdapter.BRAND_LIST_ROW -> 2
-                        buyCarsAdapter.CATEGORY_LIST_ROW -> 2
-                        else -> 1
-                    }
+        linearLayoutManager =  GridLayoutManager(this,2 )
+        linearLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return when (buyPropertyAdapter.getItemViewType(position)) {
+                    buyPropertyAdapter.CATEGORY_LIST_ROW -> 2
+                    else -> 1
                 }
             }
+        }
         rvBuyCarList.layoutManager = linearLayoutManager
         rvBuyCarList.setHasFixedSize(false)
-        buyCarsAdapter = BuyCarsAdapter(this, rvBuyCarList)
-        rvBuyCarList.adapter = buyCarsAdapter
+        buyPropertyAdapter = BuyPropertyAdapter(this, rvBuyCarList)
+        rvBuyCarList.adapter = buyPropertyAdapter
         rvBuyCarList.addOnScrollListener(recyclerViewOnScrollListener)
 
     }
@@ -103,17 +99,16 @@ class BuyCarsActivity:AppCompatActivity() {
     private fun getItemService() {
         pbCars.visibility = View.VISIBLE
         isLoading = true
-        ServiceHelper().getBuyCarService(HomeRequest(1),currentPage, Utils.getPreferencesString(this, AppConstants.USER_ID), object : ServiceHelper.OnResponse {
+        ServiceHelper().getBuyCarService(HomeRequest(2),currentPage, Utils.getPreferencesString(this, AppConstants.USER_ID), object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
                 isLoading = false
-              window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                 pbCars.visibility = View.GONE
                 rvBuyCarList.visibility= View.VISIBLE
 
                 val homeDataResponse = response.body() as BuyCarResponse?
                 if (homeDataResponse!!.data != null) {
                     setApiData(homeDataResponse.data)
-
                 }
             }
 
@@ -122,21 +117,27 @@ class BuyCarsActivity:AppCompatActivity() {
                     currentPage -= 1
                 }
                 isLoading = false
-              window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                 pbCars.visibility = View.GONE
-                Utils.showSimpleMessage(this@BuyCarsActivity, msg!!).show()
+                Utils.showSimpleMessage(this@BuyPropertiesActivity, msg!!).show()
             }
         })
     }
 
     private fun setApiData(data: DataCarResponse?) {
-        if(data!!.brands.size>0&&data.car_types.size>0) {
-          buyCarsAdapter.setBrandAndTypeList(data.brands, data.car_types)
+        val nameList = arrayOf("East", "West", "North East", "North", "Central")
+        val subList = arrayOf(1,2,3,4,5)
+        val image=arrayOf("public/images/zones/d_east.png", "public/images/zones/d_west.png", "public/images/zones/d_south.png", "public/images/zones/d_north.png", "public/images/zones/d_east.png")
+        for (i in nameList.indices){
+            val dataCar= CarType(subList[i],nameList[i],image[i])
+            carBrandList.add(dataCar)
         }
-        totalPageCount = data.totalPage
+        buyPropertyAdapter.setZoneType(carBrandList)
+
+        totalPageCount = data!!.totalPage
         itemsList.addAll(data.items)
-        buyCarsAdapter.setData(itemsList)
-        buyCarsAdapter.notifyDataSetChanged()
+        buyPropertyAdapter.setData(itemsList)
+        buyPropertyAdapter.notifyDataSetChanged()
     }
 
     override fun onBackPressed() {

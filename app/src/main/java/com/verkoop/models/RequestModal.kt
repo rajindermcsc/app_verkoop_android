@@ -41,6 +41,7 @@ data class AddItemRequest(
         val meet_up: String?=null,
         val type: Int=0,
         val additional_info: AdditionalInfo? =null,
+        val zone_id:Int=0,
         val brand_id:Int=0,
         val car_type_id:Int=0
 
@@ -55,22 +56,14 @@ data class AdditionalInfo(
         val registration_year: String? =null,
         val direct_owner: Int=0,
         val zone: String? =null,
-        val zoneId: Int =0,
+        val zone_id: Int =0,
         val street_name: String? =null,
         val postal_code: Int=0,
         val area: String? =null,
         val bedroom: Int=0,
         val bathroom: Int=0
-): Parcelable{
-    var carTypee: Int = 0
+): Parcelable
 
-    init {
-        carTypee = car_type_id
-
-
-
-    }
-}
 class Person(fName: String, personAge: Int) {
     val firstName: String
     var age: Int
@@ -227,4 +220,8 @@ data class SearchUserRequest(
 
 data class ForgotPasswordRequest(
     val email: String
+)
+
+data class HomeRequest(
+    val type: Int
 )
