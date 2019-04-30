@@ -249,5 +249,8 @@
     <string name="res">Yes</string>
     <string name="no">No</string>
     <string name="properties">Property</string>
-    <string name="search_properties">Search Properties</string>
+    <string name="search_properties">Search Property</string>
+    <string name="brand_">brand</string>
+    <string name="cost_filter">Cost filter</string>
+    <string name="car_brands">Car Brands</string>
 </resources>

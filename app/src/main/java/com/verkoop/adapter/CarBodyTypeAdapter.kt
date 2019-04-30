@@ -1,6 +1,7 @@
 package com.verkoop.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -8,19 +9,20 @@ import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import com.verkoop.R
+import com.verkoop.activity.CarsFilterActivity
 import com.verkoop.models.CarType
 import com.verkoop.utils.AppConstants
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.details_sub_category.*
 
 
-class CarBodyTypeAdapter(private val context: Context, private val recyclerView: RecyclerView,private val carTypeLIst: ArrayList<CarType>):RecyclerView.Adapter<CarBodyTypeAdapter.ViewHolder>(){
+class CarBodyTypeAdapter(private val context: Context, private val recyclerView: Int,private val carTypeLIst: ArrayList<CarType>,private val comingFrom:Int):RecyclerView.Adapter<CarBodyTypeAdapter.ViewHolder>(){
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
         val view=mLayoutInflater.inflate(R.layout.details_sub_category,parent,false)
         val params = view.layoutParams
-        params.width = (recyclerView.width-60 )/ 3
+        params.width = (recyclerView-60 )/ 3
         params.height = params.width
         view.layoutParams = params
         return ViewHolder(view)
@@ -46,11 +48,19 @@ class CarBodyTypeAdapter(private val context: Context, private val recyclerView:
                         .into(ivSubCategory)
             }
             itemView.setOnClickListener {
-                /*  val intent = Intent(context, CategoryDetailsActivity::class.java)
-                  intent.putExtra(AppConstants.CATEGORY_ID, data.id)
-                  intent.putExtra(AppConstants.TYPE, 0)
-                  intent.putExtra(AppConstants.SUB_CATEGORY, data.name)
-                  context.startActivityForResult(intent, 2)*/
+                if(comingFrom!=1) {
+                    val intent = Intent(context, CarsFilterActivity::class.java)
+                    intent.putExtra(AppConstants.FILTER_ID, data.id)
+                    intent.putExtra(AppConstants.FILTER_TYPE, context.getString(R.string.brand))
+                    intent.putExtra(AppConstants.TYPE, 1)
+                    context.startActivity(intent)
+                }else{
+                    val intent = Intent(context, CarsFilterActivity::class.java)
+                    intent.putExtra(AppConstants.FILTER_ID, data.id)
+                    intent.putExtra(AppConstants.FILTER_TYPE, context.getString(R.string.zone))
+                    intent.putExtra(AppConstants.TYPE, 2)
+                    context.startActivity(intent)
+                }
             }
         }
 

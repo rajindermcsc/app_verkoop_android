@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import com.verkoop.R
+import com.verkoop.activity.CarsFilterActivity
 import com.verkoop.activity.ProductDetailsActivity
 import com.verkoop.activity.UserProfileActivity
 import com.verkoop.models.*
@@ -78,8 +79,36 @@ class BuyPropertyAdapter(private val context: Context, private val rvProperty: R
             llCarFilter.layoutParams.height = widthOrgCarType - 60
             val mManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             rvCarBodyType.layoutManager = mManager
-            val carBodyTypeAdapter = CarBodyTypeAdapter(context, rvCarBodyType, carTypeLIst)
+            val carBodyTypeAdapter = CarBodyTypeAdapter(context, widthOrgCarType, carTypeLIst,1)
             rvCarBodyType.adapter = carBodyTypeAdapter
+            ll15PerMonth.setOnClickListener {
+                val intent = Intent(context, CarsFilterActivity::class.java)
+                intent.putExtra(AppConstants.FILTER_ID, 1)
+                intent.putExtra(AppConstants.FILTER_TYPE, context.getString(R.string.cost_filter))
+                intent.putExtra(AppConstants.TYPE, 2)
+                context.startActivity(intent)
+            }
+            llMore15PerMonth.setOnClickListener {
+                val intent = Intent(context, CarsFilterActivity::class.java)
+                intent.putExtra(AppConstants.FILTER_ID, 2)
+                intent.putExtra(AppConstants.FILTER_TYPE, context.getString(R.string.cost_filter))
+                intent.putExtra(AppConstants.TYPE, 2)
+                context.startActivity(intent)
+            }
+            ll25PerMonth.setOnClickListener {
+                val intent = Intent(context, CarsFilterActivity::class.java)
+                intent.putExtra(AppConstants.FILTER_ID, 3)
+                intent.putExtra(AppConstants.FILTER_TYPE, context.getString(R.string.cost_filter))
+                intent.putExtra(AppConstants.TYPE, 2)
+                context.startActivity(intent)
+            }
+            llMore25PerMonth.setOnClickListener {
+                val intent = Intent(context, CarsFilterActivity::class.java)
+                intent.putExtra(AppConstants.FILTER_ID, 4)
+                intent.putExtra(AppConstants.FILTER_TYPE, context.getString(R.string.cost_filter))
+                intent.putExtra(AppConstants.TYPE, 2)
+                context.startActivity(intent)
+            }
         }
     }
 
@@ -87,11 +116,6 @@ class BuyPropertyAdapter(private val context: Context, private val rvProperty: R
         fun bind(data: ItemHome) {
             ivProductImageHome.layoutParams.height = width - 16
             tvNameHome.text = data.username
-            if (adapterPosition % 2 == 0) {
-                llSideDividerHome.visibility = View.VISIBLE
-            } else {
-                llSideDividerHome.visibility = View.GONE
-            }
             if (data.is_like) {
                 tvLikesHome.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_liked, 0, 0, 0)
             } else {

@@ -693,10 +693,11 @@ data class CarType(
     val updated_at: String?=null
 )
 
+@Parcelize
 data class Brand(
     val id: Int,
     val name: String,
     val image: String,
     val created_at: String?=null,
     val updated_at: String?=null
-)
+): Parcelable

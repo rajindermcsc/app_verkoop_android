@@ -2,6 +2,7 @@ package com.verkoop.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.support.v4.app.ActivityCompat.startActivityForResult
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -11,17 +12,22 @@ import com.squareup.picasso.Picasso
 import com.verkoop.LikeDisLikeListener
 import com.verkoop.R
 import com.verkoop.activity.FavouritesActivity
+import com.verkoop.activity.ProductDetailsActivity
 import com.verkoop.activity.UserProfileActivity
+import com.verkoop.models.DisLikeResponse
 import com.verkoop.models.ItemHome
+import com.verkoop.models.LickedRequest
+import com.verkoop.models.LikedResponse
+import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_row.*
+import retrofit2.Response
 
 
-class FavouritesAdapter(private val context: Context,private val rvFavourites: RecyclerView) : RecyclerView.Adapter<FavouritesAdapter.ViewHolder>() {
+class FavouritesAdapter(private val context: Context,private val rvFavourites: RecyclerView,private val comingFrom:Int) : RecyclerView.Adapter<FavouritesAdapter.ViewHolder>() {
     private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private lateinit var likeDisLikeListener:LikeDisLikeListener
     private var listFavourites = ArrayList<ItemHome>()
     private var width=0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,7 +35,7 @@ class FavouritesAdapter(private val context: Context,private val rvFavourites: R
         val params = view.layoutParams
         params.width = rvFavourites.width / 2
         width= params.width
-        likeDisLikeListener=context as FavouritesActivity
+       // likeDisLikeListener=context as FavouritesActivity
         view.layoutParams = params
         return ViewHolder(view)
     }
@@ -100,11 +106,31 @@ class FavouritesAdapter(private val context: Context,private val rvFavourites: R
 
             tvItemPriceHome.text="$"+data.price
             itemView.setOnClickListener {
-                likeDisLikeListener.getItemDetailsClick(data.id,adapterPosition)
+               // likeDisLikeListener.getItemDetailsClick(data.id,adapterPosition)
+                if(comingFrom!=0) {
+                    val intent = Intent(context, ProductDetailsActivity::class.java)
+                    intent.putExtra(AppConstants.ITEM_ID, data.id)
+                    intent.putExtra(AppConstants.ADAPTER_POSITION, adapterPosition)
+                    context.startActivity(intent)
+                }else{
+                    val intent = Intent(context, ProductDetailsActivity::class.java)
+                    intent.putExtra(AppConstants.ITEM_ID, data.id)
+                    intent.putExtra(AppConstants.ADAPTER_POSITION, adapterPosition)
+                    (context as FavouritesActivity).startActivityForResult(intent, 3)
+                }
 
             }
             tvLikesHome.setOnClickListener {
-               likeDisLikeListener.getLikeDisLikeClick(data.is_like,adapterPosition,data.like_id,data.id)
+           //    likeDisLikeListener.getLikeDisLikeClick(data.is_like,adapterPosition,data.like_id,data.id)
+                if (!data.isClicked) {
+                    if (data.like_id > 0) {
+                        data.isClicked = !data.isClicked
+                        deleteLikeApi(adapterPosition , data.like_id)
+                    } else {
+                        data.isClicked = !data.isClicked
+                        lickedApi(data.id, adapterPosition )
+                    }
+                }
             }
             tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at.date)).append(" ").append("ago")
             llUserProfile.setOnClickListener {
@@ -117,6 +143,46 @@ class FavouritesAdapter(private val context: Context,private val rvFavourites: R
             }
         }
 
+    }
+
+    private fun lickedApi(itemId: Int, position: Int) {
+        val lickedRequest = LickedRequest(Utils.getPreferencesString(context, AppConstants.USER_ID), itemId)
+        ServiceHelper().likeService(lickedRequest,
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        listFavourites[position].isClicked = !listFavourites[position].isClicked
+                        val responseLike = response.body() as LikedResponse
+                        listFavourites[position].is_like = !listFavourites[position].is_like
+                        listFavourites[position].items_like_count = listFavourites[position].items_like_count + 1
+                        listFavourites[position].like_id = responseLike.like_id
+                        notifyItemChanged(position )
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        listFavourites[position].isClicked = !listFavourites[position].isClicked
+                        notifyItemChanged(position )
+                        //      Utils.showSimpleMessage(homeActivity, msg!!).show()
+                    }
+                })
+    }
+
+    private fun deleteLikeApi(position: Int, lickedId: Int) {
+        ServiceHelper().disLikeService(lickedId,
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        listFavourites[position].isClicked = !listFavourites[position].isClicked
+                        val likeResponse = response.body() as DisLikeResponse
+                        listFavourites[position].is_like = !listFavourites[position].is_like
+                        listFavourites[position].items_like_count = listFavourites[position].items_like_count - 1
+                        listFavourites[position].like_id = 0
+                        notifyItemChanged(position )
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        listFavourites[position].isClicked = !listFavourites[position].isClicked
+                        notifyItemChanged(position )
+                    }
+                })
     }
 
     fun setData(itemsList: ArrayList<ItemHome>) {

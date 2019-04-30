@@ -136,11 +136,11 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
         fun bind() {
             ivBuyCar.setOnClickListener {
                 val intent = Intent(context, BuyCarsActivity::class.java)
-                context.startActivity(intent)
+                (context as HomeActivity).startActivityForResult(intent,2)
             }
             ivBuyProperty.setOnClickListener {
                 val intent = Intent(context, BuyPropertiesActivity::class.java)
-                context.startActivity(intent)
+                (context as HomeActivity).startActivityForResult(intent,2)
             }
         }
 
@@ -220,9 +220,9 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
             rvYourDailyPicks.adapter = dailyPicksAdapter
 
             tvViewAllDailyPicks.setOnClickListener {
-                Utils.showToast(context, "work in progress.")
-                // val intent = Intent(context, FullCategoriesActivity::class.java)
-                //   context.startActivity(intent)
+                val intent = Intent(context, FavouritesActivity::class.java)
+                    intent.putExtra(AppConstants.COMING_FROM,1)
+                    context.startActivity(intent)
             }
         }
 

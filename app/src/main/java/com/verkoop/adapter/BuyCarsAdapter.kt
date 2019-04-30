@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import com.verkoop.R
+import com.verkoop.activity.CarBrandsActivity
+import com.verkoop.activity.CarsFilterActivity
 import com.verkoop.activity.ProductDetailsActivity
 import com.verkoop.activity.UserProfileActivity
 import com.verkoop.models.*
@@ -166,8 +168,36 @@ class BuyCarsAdapter(private val context: Context, private var rvItemList: Recyc
             llCarFilter.layoutParams.height = widthOrgCarType-60
             val mManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             rvCarBodyType.layoutManager = mManager
-            val carBodyTypeAdapter = CarBodyTypeAdapter(context, rvCarBodyType, carTypeLIst)
+            val carBodyTypeAdapter = CarBodyTypeAdapter(context, widthOrgCarType, carTypeLIst,0)
             rvCarBodyType.adapter = carBodyTypeAdapter
+            ll15PerMonth.setOnClickListener {
+                val intent = Intent(context, CarsFilterActivity::class.java)
+                intent.putExtra(AppConstants.FILTER_ID, 1)
+                intent.putExtra(AppConstants.FILTER_TYPE, context.getString(R.string.cost_filter))
+                intent.putExtra(AppConstants.TYPE, 1)
+                context.startActivity(intent)
+            }
+            llMore15PerMonth.setOnClickListener {
+                val intent = Intent(context, CarsFilterActivity::class.java)
+                intent.putExtra(AppConstants.FILTER_ID, 2)
+                intent.putExtra(AppConstants.FILTER_TYPE, context.getString(R.string.cost_filter))
+                intent.putExtra(AppConstants.TYPE, 1)
+                context.startActivity(intent)
+            }
+            ll25PerMonth.setOnClickListener {
+                val intent = Intent(context, CarsFilterActivity::class.java)
+                intent.putExtra(AppConstants.FILTER_ID, 3)
+                intent.putExtra(AppConstants.FILTER_TYPE, context.getString(R.string.cost_filter))
+                intent.putExtra(AppConstants.TYPE, 1)
+                context.startActivity(intent)
+            }
+            llMore25PerMonth.setOnClickListener {
+                val intent = Intent(context, CarsFilterActivity::class.java)
+                intent.putExtra(AppConstants.FILTER_ID, 4)
+                intent.putExtra(AppConstants.FILTER_TYPE, context.getString(R.string.cost_filter))
+                intent.putExtra(AppConstants.TYPE, 1)
+                context.startActivity(intent)
+            }
         }
     }
 
@@ -176,11 +206,12 @@ class BuyCarsAdapter(private val context: Context, private var rvItemList: Recyc
             llBuyCar.layoutParams.height = widthOrg / 3
             val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             rvBrands.layoutManager = linearLayoutManager
-            val brandListAdapter = BrandListAdapter(context, rvBrands, brandList)
+            val brandListAdapter = BrandListAdapter(context, widthOrg, brandList)
             rvBrands.adapter = brandListAdapter
             tvViewAllBrands.setOnClickListener {
-                //  val intent = Intent(context, FullCategoriesActivity::class.java)
-                //  context.startActivityForResult(intent, 2)
+                 val intent = Intent(context, CarBrandsActivity::class.java)
+                 intent.putParcelableArrayListExtra(AppConstants.CAR_BRAND_LIST,brandList)
+                  context.startActivity(intent)
             }
 
         }

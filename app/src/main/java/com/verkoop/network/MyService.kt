@@ -112,6 +112,9 @@ interface MyService {
     @GET("carsType")
     fun getCarTypeApi(): Call<CarBrandResponse>
 
+    @PUT("carAndPropertyFilterData/{user_id}")
+    fun carsFilterApi(@Path(value = "user_id", encoded = true) fullUrl: Int, @Body request: CarsFilterRequest): Call<FavouritesResponse>
+
     @Multipart
     @POST("items")
     fun addClothApi(@Part files: List<MultipartBody.Part>,

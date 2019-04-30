@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.buy_cars_activity.*
 import kotlinx.android.synthetic.main.toolbar_cars_properties.*
 import retrofit2.Response
 
-class BuyPropertiesActivity:AppCompatActivity(){
+class BuyPropertiesActivity : AppCompatActivity() {
     private var itemsList = ArrayList<ItemHome>()
     private var isLoading = false
     private var totalPageCount: Int? = null
@@ -34,7 +34,7 @@ class BuyPropertiesActivity:AppCompatActivity(){
         setBuyCarAdapter()
         if (Utils.isOnline(this)) {
             itemsList.clear()
-            currentPage=1
+            currentPage = 1
             window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
             getItemService()
@@ -42,9 +42,10 @@ class BuyPropertiesActivity:AppCompatActivity(){
             Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
         }
     }
+
     private fun setData() {
-        etSearchFullCar.text=getString(R.string.search_properties)
-        tvHeaderCar.text=getString(R.string.properties)
+        etSearchFullCar.text = getString(R.string.search_properties)
+        tvHeaderCar.text = getString(R.string.properties)
         iv_leftCar.setOnClickListener { onBackPressed() }
         ivFavouriteCar.setOnClickListener {
             val intent = Intent(this, FavouritesActivity::class.java)
@@ -52,7 +53,7 @@ class BuyPropertiesActivity:AppCompatActivity(){
         }
         etSearchFullCar.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
-            this.startActivityForResult(intent, 2)
+            startActivityForResult(intent, 2)
         }
         tvSellCar.setOnClickListener {
             val intent = Intent(this, GalleryActivity::class.java)
@@ -61,7 +62,7 @@ class BuyPropertiesActivity:AppCompatActivity(){
     }
 
     private fun setBuyCarAdapter() {
-        linearLayoutManager =  GridLayoutManager(this,2 )
+        linearLayoutManager = GridLayoutManager(this, 2)
         linearLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return when (buyPropertyAdapter.getItemViewType(position)) {
@@ -99,12 +100,12 @@ class BuyPropertiesActivity:AppCompatActivity(){
     private fun getItemService() {
         pbCars.visibility = View.VISIBLE
         isLoading = true
-        ServiceHelper().getBuyCarService(HomeRequest(2),currentPage, Utils.getPreferencesString(this, AppConstants.USER_ID), object : ServiceHelper.OnResponse {
+        ServiceHelper().getBuyCarService(HomeRequest(2), currentPage, Utils.getPreferencesString(this, AppConstants.USER_ID), object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
                 isLoading = false
                 window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                 pbCars.visibility = View.GONE
-                rvBuyCarList.visibility= View.VISIBLE
+                rvBuyCarList.visibility = View.VISIBLE
 
                 val homeDataResponse = response.body() as BuyCarResponse?
                 if (homeDataResponse!!.data != null) {
@@ -113,7 +114,7 @@ class BuyPropertiesActivity:AppCompatActivity(){
             }
 
             override fun onFailure(msg: String?) {
-                if(currentPage>=2){
+                if (currentPage >= 2) {
                     currentPage -= 1
                 }
                 isLoading = false
@@ -126,13 +127,15 @@ class BuyPropertiesActivity:AppCompatActivity(){
 
     private fun setApiData(data: DataCarResponse?) {
         val nameList = arrayOf("East", "West", "North East", "North", "Central")
-        val subList = arrayOf(1,2,3,4,5)
-        val image=arrayOf("public/images/zones/d_east.png", "public/images/zones/d_west.png", "public/images/zones/d_south.png", "public/images/zones/d_north.png", "public/images/zones/d_east.png")
-        for (i in nameList.indices){
-            val dataCar= CarType(subList[i],nameList[i],image[i])
+        val subList = arrayOf(1, 2, 3, 4, 5)
+        val image = arrayOf("public/images/zones/d_east.png", "public/images/zones/d_west.png", "public/images/zones/d_south.png", "public/images/zones/d_north.png", "public/images/zones/d_east.png")
+        for (i in nameList.indices) {
+            val dataCar = CarType(subList[i], nameList[i], image[i])
             carBrandList.add(dataCar)
         }
-        buyPropertyAdapter.setZoneType(carBrandList)
+        if (currentPage <= 1) {
+            buyPropertyAdapter.setZoneType(carBrandList)
+        }
 
         totalPageCount = data!!.totalPage
         itemsList.addAll(data.items)
@@ -144,5 +147,23 @@ class BuyPropertiesActivity:AppCompatActivity(){
         val returnIntent = Intent()
         setResult(Activity.RESULT_CANCELED, returnIntent)
         finish()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == 2) {
+            if (resultCode == Activity.RESULT_OK) {
+                val result = data!!.getIntExtra(AppConstants.TRANSACTION, 0)
+                if (result == 1) {
+                    val returnIntent = Intent()
+                    returnIntent.putExtra(AppConstants.TRANSACTION, result)
+                    setResult(Activity.RESULT_OK, returnIntent)
+                    finish()
+                    overridePendingTransition(0, 0)
+                }
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
     }
 }

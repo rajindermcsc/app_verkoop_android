@@ -64,19 +64,6 @@ data class AdditionalInfo(
         val bathroom: Int=0
 ): Parcelable
 
-class Person(fName: String, personAge: Int) {
-    val firstName: String
-    var age: Int
-
-    // initializer block
-    init {
-        firstName = fName.capitalize()
-        age = personAge
-
-        println("First Name = $firstName")
-        println("Age = $age")
-    }
-}
 @Parcelize
 data class EditItemRequest(
         val imageList: ArrayList<String>,
@@ -224,4 +211,11 @@ data class ForgotPasswordRequest(
 
 data class HomeRequest(
     val type: Int
+)
+data class CarsFilterRequest(
+    val type: Int,
+    val brand_id: Int=0,
+    val car_type_id: Int=0,
+    val price_no: Int=0,
+    val zone_id: Int=0
 )

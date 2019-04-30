@@ -1017,5 +1017,27 @@ class ServiceHelper {
             }
         })
     }
+    fun getCarFilterService(userId: Int,carFilterRequest: CarsFilterRequest ,onResponse: OnResponse) {
+        val myService = ApiClient.getClient().create(MyService::class.java)
+        val responseCall = myService.carsFilterApi(userId,carFilterRequest)
+        responseCall.enqueue(object : Callback<FavouritesResponse> {
+            override fun onResponse(call: Call<FavouritesResponse>, response: Response<FavouritesResponse>) {
+                val res = response.body()
+                Log.e("<<<Response>>>", Gson().toJson(res))
+                if (res != null) {
+                    when {
+                        response.code() == 200 -> onResponse.onSuccess(response)
+                        else -> onResponse.onFailure(response.message())
+                    }
+                } else {
+                    onResponse.onFailure("Something went wrong!")
+                }
+            }
+
+            override fun onFailure(call: Call<FavouritesResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
 
 }

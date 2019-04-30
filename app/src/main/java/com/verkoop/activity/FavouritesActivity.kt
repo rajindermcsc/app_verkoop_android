@@ -2,58 +2,32 @@ package com.verkoop.activity
 
 import android.app.Activity
 import android.content.Intent
-import android.nfc.tech.MifareUltralight
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
-import com.verkoop.LikeDisLikeListener
 import com.verkoop.R
 import com.verkoop.adapter.FavouritesAdapter
 import com.verkoop.models.*
 import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.AppConstants
-import com.verkoop.utils.KeyboardUtil
 import com.verkoop.utils.Utils
 import kotlinx.android.synthetic.main.favourites_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 import retrofit2.Response
 
 
-class FavouritesActivity:AppCompatActivity(), LikeDisLikeListener {
-    private var isClicked: Boolean = false
+class FavouritesActivity:AppCompatActivity() {
     private  lateinit var linearLayoutManager:GridLayoutManager
     private lateinit var favouritesAdapter: FavouritesAdapter
     private var itemsList=ArrayList<ItemHome>()
-
-    override fun getLikeDisLikeClick(type: Boolean, position: Int, lickedId: Int, itemId: Int) {
-        if (type) {
-            if (!isClicked) {
-                isClicked = true
-                deleteLikeApi(position, lickedId)
-            }
-        } else {
-            if (!isClicked) {
-                isClicked = true
-                lickedApi(itemId, position)
-            }
-        }
-    }
-
-    override fun getItemDetailsClick(itemId: Int,adapterPosition:Int) {
-        val intent = Intent(this, ProductDetailsActivity::class.java)
-        intent.putExtra(AppConstants.ITEM_ID, itemId)
-        intent.putExtra(AppConstants.ADAPTER_POSITION, adapterPosition)
-        startActivityForResult(intent,3)
-    }
+    private var comingFrom=0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.favourites_activity)
+        comingFrom=intent.getIntExtra(AppConstants.COMING_FROM,0)
         setAdapter()
         if (Utils.isOnline(this)) {
             getFavouriteApi()
@@ -67,11 +41,15 @@ class FavouritesActivity:AppCompatActivity(), LikeDisLikeListener {
     private fun setAdapter() {
          linearLayoutManager = GridLayoutManager(this, 2)
         rvFavouriteList.layoutManager = linearLayoutManager
-        favouritesAdapter = FavouritesAdapter(this, rvFavouriteList)
+        favouritesAdapter = FavouritesAdapter(this, rvFavouriteList,0)
         rvFavouriteList.adapter = favouritesAdapter
       //  rvFavouriteList.addOnScrollListener(recyclerViewOnScrollListener)
         ivLeftLocation.setOnClickListener { onBackPressed() }
-        tvHeaderLoc.text=getString(R.string.favourites)
+        if(comingFrom!=1) {
+            tvHeaderLoc.text = getString(R.string.favourites)
+        }else{
+            tvHeaderLoc.text = getString(R.string.your_daily_picks)
+        }
     }
 
 
@@ -113,45 +91,6 @@ class FavouritesActivity:AppCompatActivity(), LikeDisLikeListener {
                     }
                 })
 
-    }
-
-    private fun lickedApi(itemId: Int, position: Int) {
-        val lickedRequest = LickedRequest(Utils.getPreferencesString(this, AppConstants.USER_ID), itemId)
-        ServiceHelper().likeService(lickedRequest,
-                object : ServiceHelper.OnResponse {
-                    override fun onSuccess(response: Response<*>) {
-                        isClicked = false
-                        val responseLike = response.body() as LikedResponse
-                        itemsList[position].is_like=!itemsList[position].is_like
-                        itemsList[position].items_like_count= itemsList[position].items_like_count+1
-                        itemsList[position].like_id= responseLike.like_id
-                        favouritesAdapter.notifyItemChanged(position)
-                    }
-
-                    override fun onFailure(msg: String?) {
-                        isClicked = false
-                        //Utils.showSimpleMessage(homeActivity, msg!!).show()
-                    }
-                })
-    }
-
-    private fun deleteLikeApi(position: Int, lickedId: Int) {
-        ServiceHelper().disLikeService(lickedId,
-                object : ServiceHelper.OnResponse {
-                    override fun onSuccess(response: Response<*>) {
-                        isClicked = false
-                        val likeResponse = response.body() as DisLikeResponse
-                        itemsList[position].is_like=!itemsList[position].is_like
-                        itemsList[position].items_like_count= itemsList[position].items_like_count-1
-                        itemsList[position].like_id= 0
-                        favouritesAdapter.notifyItemChanged(position)
-                    }
-
-                    override fun onFailure(msg: String?) {
-                        isClicked = false
-                        //     Utils.showSimpleMessage(homeActivity, msg!!).show()
-                    }
-                })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -13,39 +13,38 @@ import com.verkoop.activity.CarsFilterActivity
 import com.verkoop.models.Brand
 import com.verkoop.utils.AppConstants
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.category_home_row.*
+import kotlinx.android.synthetic.main.full_car_brand_row.*
 
 
-class BrandListAdapter(private val context: Context, private val rvBrandList: Int, private val brandsList: ArrayList<Brand>) : RecyclerView.Adapter<BrandListAdapter.ViewHolder>() {
-    private val mInflater: LayoutInflater = LayoutInflater.from(context)
-
+class CarBrandsAdapter(private val context: Context, private val rvFavoutire: RecyclerView, private val brandList: ArrayList<Brand>) : RecyclerView.Adapter<CarBrandsAdapter.ViewHolder>() {
+    private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = mInflater.inflate(R.layout.category_home_row, parent, false)
+        val view = layoutInflater.inflate(R.layout.full_car_brand_row, parent, false)
         val params = view.layoutParams
-        params.width = (rvBrandList - 60) / 3
-        params.height = params.width - 60
+        params.width = (rvFavoutire.width) / 3
+        params.height = params.width
         view.layoutParams = params
         return ViewHolder(view)
     }
 
     override fun getItemCount(): Int {
-        return brandsList.size
+        return brandList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val data = brandsList[position]
-        holder.bind(data, position)
+        val modal = brandList[position]
+        holder.bind(modal)
     }
 
     inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
-        fun bind(data: Brand, position: Int) {
-            tvLevelHome.text = data.name
+        fun bind(data: Brand) {
+            tvLevelBrand.text = data.name
             if (!TextUtils.isEmpty(data.image)) {
                 Picasso.with(context).load(AppConstants.IMAGE_URL + data.image)
                         .resize(720, 720)
                         .centerInside()
                         .error(R.mipmap.setting)
-                        .into(ivItemsHome)
+                        .into(ivItemsBrand)
             }
             itemView.setOnClickListener {
                 val intent = Intent(context, CarsFilterActivity::class.java)
