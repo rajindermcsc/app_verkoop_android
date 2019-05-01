@@ -258,24 +258,25 @@ data class DataItems(
         var type:Int=0,
         var brand_id :Int=0,
         var car_type_id : Int=0,
-        var additional_info:AdditionalInfoResponse?
+        var additional_info:AdditionalInfoResponse?=null,
+        val zone_id:Int=0
 ) : Parcelable
 
 @Parcelize
 data class AdditionalInfoResponse(
-    val area: String,
-    val bathroom: String,
-    val bedroom: String,
-    val brand_name: String,
-    val car_brand_id: String,
-    val car_type: String,
-    val car_type_id: String,
-    val direct_owner: String,
-    val postal_code: String,
-    val registration_year: String,
-    val street_name: String,
-    val zone: String,
-    val zoneId: String
+    val area: String?=null,
+    val bathroom: Int,
+    val bedroom: Int,
+    val brand_name: String?=null,
+    val car_brand_id: Int,
+    val car_type: String?=null,
+    val car_type_id: Int,
+    val direct_owner: Int,
+    val postal_code: String?=null,
+    val registration_year: String?=null,
+    val street_name: String?=null,
+    val zone: String?=null,
+    val zoneId: Int
 ): Parcelable
 
 @Parcelize
@@ -368,6 +369,38 @@ data class LikedResponse(
 
 data class DisLikeResponse(
         val message: String
+)
+
+data class SocialGoogleResponse(
+    val data: DataGoogle?,
+    val message: String
+)
+
+data class DataGoogle(
+    val userId: Int,
+    val email: String,
+    val username: String,
+    val first_name: String,
+    val last_name: String,
+    val login_type: String,
+    val social_id: String,
+    val mobile_no: String,
+    val website: String,
+    val city: String,
+    val state: String,
+    val country: String,
+    val city_id: Int,
+    val state_id: Int,
+    val country_id: Int,
+    val bio: String,
+    val gender: String,
+    val DOB: String,
+    val profile_pic: String,
+    val is_active: Int,
+    val is_use: Int,
+    val mobile_verified: Int,
+    val created_at: CreatedAt,
+    val token: String
 )
 
 data class SocialLoginResponse(

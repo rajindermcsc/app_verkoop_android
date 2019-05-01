@@ -1,5 +1,6 @@
 package com.verkoop.fragment
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -19,13 +20,10 @@ import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
 import kotlinx.android.synthetic.main.profile_fragment.*
-import retrofit2.Response
-import android.app.Activity
-import com.verkoop.models.MessageEvent
 import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.ThreadMode
 import org.greenrobot.eventbus.Subscribe
-
+import org.greenrobot.eventbus.ThreadMode
+import retrofit2.Response
 
 
 class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener {
@@ -33,13 +31,13 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
     private var itemsList = ArrayList<Item>()
     private var isClicked: Boolean = false
 
-    override fun getItemDetailsClick(itemId: Int,position:Int) {
+    override fun getItemDetailsClick(itemId: Int, position: Int) {
         val intent = Intent(context, ProductDetailsActivity::class.java)
         intent.putExtra(AppConstants.ITEM_ID, itemId)
         intent.putExtra(AppConstants.COMING_FROM, 1)
         intent.putExtra(AppConstants.COMING_TYPE, 1)
         intent.putExtra(AppConstants.ADAPTER_POSITION, position)
-        this.startActivityForResult(intent,3)
+        this.startActivityForResult(intent, 3)
     }
 
     override fun getLikeDisLikeClick(type: Boolean, position: Int, lickedId: Int, itemId: Int) {
@@ -104,6 +102,18 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
     }
 
     private fun setData() {
+        llFollowers.setOnClickListener {
+            val intent=Intent(homeActivity,FollowFollowingActivity::class.java)
+            intent.putExtra(AppConstants.COMING_FROM,0)
+            intent.putExtra(AppConstants.USER_ID,Utils.getPreferencesString(homeActivity,AppConstants.USER_ID).toInt())
+            startActivity(intent)
+        }
+        llFollowing.setOnClickListener {
+            val intent=Intent(homeActivity,FollowFollowingActivity::class.java)
+            intent.putExtra(AppConstants.COMING_FROM,1)
+            intent.putExtra(AppConstants.USER_ID,Utils.getPreferencesString(homeActivity,AppConstants.USER_ID).toInt())
+            startActivity(intent)
+        }
         llFavourite.setOnClickListener {
             val intent = Intent(homeActivity, FavouritesActivity::class.java)
             startActivity(intent)
@@ -144,17 +154,17 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
 
     }
 
-     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-         if (requestCode == 3) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == 3) {
             if (resultCode == Activity.RESULT_OK) {
-                val adapterPosition = data!!.getIntExtra(AppConstants.ADAPTER_POSITION,0)
-                if(data.getStringExtra(AppConstants.TYPE).equals("soldItem",ignoreCase = true)){
-                    itemsList[adapterPosition].is_sold=1
+                val adapterPosition = data!!.getIntExtra(AppConstants.ADAPTER_POSITION, 0)
+                if (data.getStringExtra(AppConstants.TYPE).equals("soldItem", ignoreCase = true)) {
+                    itemsList[adapterPosition].is_sold = 1
                     myProfileItemAdapter.notifyDataSetChanged()
-                }else if(data.getStringExtra(AppConstants.TYPE).equals("deleteItem",ignoreCase = true)){
+                } else if (data.getStringExtra(AppConstants.TYPE).equals("deleteItem", ignoreCase = true)) {
                     itemsList.removeAt(adapterPosition)
                     myProfileItemAdapter.notifyDataSetChanged()
-                }else if(data.getStringExtra(AppConstants.TYPE).equals("UpdateItem",ignoreCase = true)){
+                } else if (data.getStringExtra(AppConstants.TYPE).equals("UpdateItem", ignoreCase = true)) {
                     if (Utils.isOnline(homeActivity)) {
                         myProfileInfoApi()
                     } else {
@@ -203,8 +213,8 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
         myProfileItemAdapter.setData(itemsList)
         myProfileItemAdapter.notifyDataSetChanged()
         tvName.text = data.username
-        tvFollowers.text=data.follower_count.toString()
-        tvFollowing.text=data.follow_count.toString()
+        tvFollowers.text = data.follower_count.toString()
+        tvFollowing.text = data.follow_count.toString()
         tvJoiningDate.text = StringBuffer().append(": ").append(Utils.convertDate("yyyy-MM-dd hh:mm:ss", data.created_at, "dd MMMM yyyy"))
         if (!TextUtils.isEmpty(data.profile_pic)) {
             Picasso.with(homeActivity).load(AppConstants.IMAGE_URL + data.profile_pic)
@@ -231,9 +241,9 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
                     override fun onSuccess(response: Response<*>) {
                         isClicked = false
                         val responseLike = response.body() as LikedResponse
-                        itemsList[position].is_like=!itemsList[position].is_like
-                        itemsList[position].likes_count= itemsList[position].likes_count+1
-                        itemsList[position].like_id= responseLike.like_id
+                        itemsList[position].is_like = !itemsList[position].is_like
+                        itemsList[position].likes_count = itemsList[position].likes_count + 1
+                        itemsList[position].like_id = responseLike.like_id
                         myProfileItemAdapter.notifyItemChanged(position)
                     }
 
@@ -250,9 +260,9 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
                     override fun onSuccess(response: Response<*>) {
                         isClicked = false
                         val likeResponse = response.body() as DisLikeResponse
-                        itemsList[position].is_like=!itemsList[position].is_like
-                        itemsList[position].likes_count= itemsList[position].likes_count-1
-                        itemsList[position].like_id= 0
+                        itemsList[position].is_like = !itemsList[position].is_like
+                        itemsList[position].likes_count = itemsList[position].likes_count - 1
+                        itemsList[position].like_id = 0
                         myProfileItemAdapter.notifyItemChanged(position)
                     }
 
@@ -293,7 +303,7 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
 
     override fun onStart() {
         super.onStart()
-        if(!EventBus.getDefault().isRegistered(this)) {
+        if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this)
         }
     }

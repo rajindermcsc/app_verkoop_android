@@ -23,6 +23,7 @@ import com.verkoop.utils.AppConstants
 import com.verkoop.utils.SelectionListener
 import com.verkoop.utils.Utils
 import com.verkoop.utils.selectOptionDialog
+import kotlinx.android.synthetic.main.profile_fragment.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 import kotlinx.android.synthetic.main.user_profile_activity.*
 import retrofit2.Response
@@ -87,6 +88,18 @@ class UserProfileActivity:AppCompatActivity(), LikeDisLikeListener {
         rvUserPostsList.adapter = myProfileItemAdapter
     }
     private fun setData() {
+        llFollowersUser.setOnClickListener {
+            val intent=Intent(this,FollowFollowingActivity::class.java)
+            intent.putExtra(AppConstants.COMING_FROM,0)
+            intent.putExtra(AppConstants.USER_ID,userId)
+            startActivity(intent)
+        }
+        llFollowingUser.setOnClickListener {
+            val intent=Intent(this,FollowFollowingActivity::class.java)
+            intent.putExtra(AppConstants.COMING_FROM,1)
+            intent.putExtra(AppConstants.USER_ID,userId)
+            startActivity(intent)
+        }
         ivRight.setImageResource(R.drawable.menu_icone)
         ivRight.visibility= View.VISIBLE
         tvHeaderLoc.text=userName

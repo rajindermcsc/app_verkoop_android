@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llParentItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/llParentItem"
     android:layout_marginTop="@dimen/dp_1"
     android:background="@color/white"
     android:orientation="vertical">
@@ -20,7 +20,7 @@
             android:layout_marginEnd="@dimen/dp_8"
             android:layout_marginStart="@dimen/dp_8"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/dp_8"
+            android:paddingBottom="@dimen/dp_5"
             android:paddingTop="@dimen/dp_8">
 
             <LinearLayout
@@ -81,17 +81,19 @@
                     android:contentDescription="@string/image"
                     android:scaleType="fitXY"
                     android:src="@mipmap/post_placeholder" />
+
                 <com.verkoop.fonts.textView.GothiBoldTextView
                     android:id="@+id/tvSoldFav"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/sp_14"
+                    android:background="@color/trans_red"
                     android:padding="@dimen/dp_6"
                     android:paddingStart="@dimen/dp_10"
+                    android:text="@string/sold"
                     android:textColor="@color/white"
-                    android:background="@color/trans_red"
+                    android:textSize="@dimen/sp_14"
                     android:visibility="gone"
-                    android:text="@string/sold"/>
+                    tools:ignore="RtlSymmetry" />
             </com.github.florent37.shapeofview.shapes.RoundRectView>
 
             <LinearLayout
@@ -109,6 +111,7 @@
                     android:textSize="@dimen/sp_12" />
 
                 <LinearLayout
+                    android:id="@+id/ll_condition"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_6"
@@ -132,6 +135,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <LinearLayout

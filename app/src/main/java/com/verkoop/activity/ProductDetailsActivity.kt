@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.View
 import com.daimajia.slider.library.SliderTypes.BaseSliderView
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView
@@ -45,6 +46,7 @@ class ProductDetailsActivity : AppCompatActivity() {
     private var adapterPosition: Int = 0
     private var comingType: Int = 0
     private var screenHeight: Int = 0
+    private var categoryType: Int = 0
     private var userName: String = ""
     private lateinit var commentListAdapter: CommentListAdapter
 
@@ -78,6 +80,7 @@ class ProductDetailsActivity : AppCompatActivity() {
     }
 
     private fun setData(imageURLLIst: ArrayList<String>, data: DataItems) {
+
         itemId = data.id
         userId = data.user_id
         userName = data.username
@@ -95,7 +98,14 @@ class ProductDetailsActivity : AppCompatActivity() {
         } else {
             tvSellItem.visibility = View.VISIBLE
         }
-
+        llChatDetails.setOnClickListener {
+            if(Utils.getPreferencesString(this,AppConstants.USER_ID).toInt()!=data.user_id) {
+                val reportIntent = Intent(this, UserProfileActivity::class.java)
+                reportIntent.putExtra(AppConstants.USER_ID, data.user_id)
+                reportIntent.putExtra(AppConstants.USER_NAME, data.username)
+                startActivity(reportIntent)
+            }
+        }
         tvAddress.setOnClickListener {
             if (data.latitude != 0.0 && data.longitude != 0.0) {
                 val geoUri = "http://maps.google.com/maps?q=loc:" + data.latitude + "," + data.longitude + "(" + data.address + ")"
@@ -175,12 +185,16 @@ class ProductDetailsActivity : AppCompatActivity() {
         tvDateDetails.text = StringBuilder().append(Utils.getDateDifferenceDetails(data.created_at)).append(" ").append("ago")
         tvDateTool.text = StringBuilder().append(Utils.getDateDifferenceDetails(data.created_at)).append(" ").append("ago")
         tvCategoryDetail.text = StringBuilder().append(": ").append(data.category_name)
+
         if (data.item_type == 1) {
             tvType.text = "New"
         } else {
             tvType.text = getString(R.string.used)
         }
+        categoryType=data.type
+        Log.e("actegoryType=",data.type.toString())
         if (data.type == 1) {
+            tvType.visibility=View.GONE
             llCarDetails.visibility = View.VISIBLE
             CommonView.visibility = View.VISIBLE
             llPropertyDetails.visibility = View.GONE
@@ -188,7 +202,7 @@ class ProductDetailsActivity : AppCompatActivity() {
                 tvRegistrationYear.text = StringBuilder().append(": ").append(data.additional_info!!.registration_year)
                 tvCarBrand.text = StringBuilder().append(": ").append(data.additional_info!!.brand_name)
                 tvCarType.text = StringBuilder().append(": ").append(data.additional_info!!.car_type)
-                if (data.additional_info!!.direct_owner.equals("1", ignoreCase = true)) {
+                if (data.additional_info!!.direct_owner==1) {
                     tvDirectOwner.text = StringBuilder().append(": ").append(getString(R.string.res))
                 } else {
                     tvDirectOwner.text = StringBuilder().append(": ").append(getString(R.string.no))
@@ -196,6 +210,7 @@ class ProductDetailsActivity : AppCompatActivity() {
             }
 
         } else if (data.type == 2) {
+            tvType.visibility=View.GONE
             llPropertyDetails.visibility = View.VISIBLE
             CommonView.visibility = View.VISIBLE
             llCarDetails.visibility = View.GONE
@@ -208,6 +223,7 @@ class ProductDetailsActivity : AppCompatActivity() {
                 tvArea.text = StringBuilder().append(": ").append(data.additional_info!!.area)
             }
         } else {
+            tvType.visibility=View.VISIBLE
             llCarDetails.visibility = View.GONE
             llPropertyDetails.visibility = View.GONE
             CommonView.visibility = View.GONE
@@ -253,10 +269,12 @@ class ProductDetailsActivity : AppCompatActivity() {
             //   val reportsList=ArrayList<ReportResponse>()
             //  dataIntent!!.comments=commentsList
             //  dataIntent!!.reports=reportsList
-            val intent = Intent(this, AddDetailsActivity::class.java)
-            intent.putExtra(AppConstants.COMING_FROM, 1)
-            intent.putExtra(AppConstants.PRODUCT_DETAIL, dataIntent!!)
-            startActivityForResult(intent, 2)
+            //    Log.e("<<clicked>>","clicked")
+                val intent = Intent(this, AddDetailsActivity::class.java)
+                intent.putExtra(AppConstants.COMING_FROM, 1)
+                intent.putExtra(AppConstants.PRODUCT_DETAIL, dataIntent!!)
+                startActivityForResult(intent, 2)
+
         }
     }
 

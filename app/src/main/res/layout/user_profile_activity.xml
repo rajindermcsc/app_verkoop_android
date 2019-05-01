@@ -308,6 +308,7 @@
                                 android:padding="@dimen/dp_10">
 
                                 <LinearLayout
+                                    android:id="@+id/llFollowersUser"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
@@ -338,6 +339,7 @@
                                     android:background="@color/colorPrimary" />
 
                                 <LinearLayout
+                                    android:id="@+id/llFollowingUser"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"

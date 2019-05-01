@@ -1,6 +1,7 @@
 package com.verkoop.adapter
 
 import android.content.Context
+import android.graphics.Typeface
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +20,9 @@ class CityListAdapter(private val context: Context) : RecyclerView.Adapter<CityL
     private var cityList = ArrayList<City>()
     private var mFilteredList = ArrayList<City>()
     private lateinit var clickEventCallBack: ClickEventCallBack
+    val font = Typeface.createFromAsset(context.assets, "fonts/gothic.ttf")
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
+
     override fun getFilter(): Filter {
 
         return object : Filter() {
@@ -73,6 +76,7 @@ class CityListAdapter(private val context: Context) : RecyclerView.Adapter<CityL
 
     inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bind(data: City) {
+            cbRegion.typeface = font
             cbRegion.isChecked = data.isSelected
             cbRegion.text = data.name
             cbRegion.setOnClickListener {

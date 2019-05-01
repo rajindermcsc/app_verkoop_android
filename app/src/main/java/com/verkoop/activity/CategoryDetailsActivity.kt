@@ -118,13 +118,13 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
         }
         if (type == 1) {
             llParent.visibility = View.GONE
-            filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID), "", "", "", "", "", "", "")
+            filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID), "2", "", "", "", "", "", "")
             getDetailsApi(filterRequest!!)
 
         } else {
             tvCategorySelected.text = intent.getStringExtra(AppConstants.SUB_CATEGORY)
             llParent.visibility = View.VISIBLE
-            filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID), "", "", "", "", "", "", "")
+            filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID), "2", "", "", "", "", "", "")
             getDetailsApi(filterRequest!!)
         }
         iv_left.setOnClickListener { onBackPressed() }

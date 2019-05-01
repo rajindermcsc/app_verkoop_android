@@ -16,7 +16,7 @@ interface MyService {
     fun userLoginApi(@Body request: LoginRequest): Call<LogInResponse>
 
     @POST("user/login")
-    fun userLoginApi(@Body request: LoginSocialRequest): Call<SocialLoginResponse>
+    fun userLoginApi(@Body request: LoginSocialRequest): Call<SocialGoogleResponse>
 
     @POST("user/changePassword")
     fun updatePasswordApi(@Body request: UpdatePasswordRequest): Call<DisLikeResponse>
@@ -50,10 +50,10 @@ interface MyService {
     fun updateServiceApi(@Body request: UpdateCategoryRequest): Call<LikedResponse>
 
     @PUT("dashboard/{userId}")
-    fun getHomeDataApi(@Body request: HomeRequest,@Path(value = "userId", encoded = true) fullUrl: String, @Query("page") pageCount: Int): Call<HomeDataResponse>
+    fun getHomeDataApi(@Body request: HomeRequest, @Path(value = "userId", encoded = true) fullUrl: String, @Query("page") pageCount: Int): Call<HomeDataResponse>
 
     @PUT("dashboard/{userId}")
-    fun getBuyCarDataApi(@Body request: HomeRequest,@Path(value = "userId", encoded = true) fullUrl: String, @Query("page") pageCount: Int): Call<BuyCarResponse>
+    fun getBuyCarDataApi(@Body request: HomeRequest, @Path(value = "userId", encoded = true) fullUrl: String, @Query("page") pageCount: Int): Call<BuyCarResponse>
 
     @GET("nearbysearch/json")
     fun getDetails(@Query("location") loc: String,
@@ -115,6 +115,9 @@ interface MyService {
     @PUT("carAndPropertyFilterData/{user_id}")
     fun carsFilterApi(@Path(value = "user_id", encoded = true) fullUrl: Int, @Body request: CarsFilterRequest): Call<FavouritesResponse>
 
+    @PUT("getUserListFollow/{user_id}")
+    fun followFollowingApi(@Path(value = "user_id", encoded = true) fullUrl: Int, @Body request: HomeRequest): Call<SearchByUserResponse>
+
     @Multipart
     @POST("items")
     fun addClothApi(@Part files: List<MultipartBody.Part>,
@@ -150,22 +153,34 @@ interface MyService {
                          @Part("address") address: RequestBody,
                          @Part("latitude") lat: RequestBody,
                          @Part("longitude") lng: RequestBody,
-                         @Part("meet_up") meetUp: RequestBody): Call<AddItemResponse>
+                         @Part("meet_up") meetUp: RequestBody,
+                         @Part("type") type: RequestBody,
+                        @Part("brand_id") brandId: RequestBody,
+                        @Part("car_type_id") carTypeId: RequestBody,
+                        @Part("additional_info") additionalInfo: RequestBody,
+                         @Part("zone_id") zoneId: RequestBody
+    ): Call<AddItemResponse>
 
     @Multipart
     @POST("updateItem")
-    fun updateWithoutImageApi( @Part("image_remove_id") deleteList: RequestBody,
-                         @Part("item_id") itemId: RequestBody,
-                         @Part("category_id") categoryId: RequestBody,
-                         @Part("name") name: RequestBody,
-                         @Part("price") price: RequestBody,
-                         @Part("item_type") itemType: RequestBody,
-                         @Part("description") description: RequestBody,
-                         @Part("user_id") userId: RequestBody,
-                         @Part("address") address: RequestBody,
-                         @Part("latitude") lat: RequestBody,
-                         @Part("longitude") lng: RequestBody,
-                         @Part("meet_up") meetUp: RequestBody): Call<AddItemResponse>
+    fun updateWithoutImageApi(@Part("image_remove_id") deleteList: RequestBody,
+                              @Part("item_id") itemId: RequestBody,
+                              @Part("category_id") categoryId: RequestBody,
+                              @Part("name") name: RequestBody,
+                              @Part("price") price: RequestBody,
+                              @Part("item_type") itemType: RequestBody,
+                              @Part("description") description: RequestBody,
+                              @Part("user_id") userId: RequestBody,
+                              @Part("address") address: RequestBody,
+                              @Part("latitude") lat: RequestBody,
+                              @Part("longitude") lng: RequestBody,
+                              @Part("meet_up") meetUp: RequestBody,
+                              @Part("type") type: RequestBody,
+                              @Part("brand_id") brandId: RequestBody,
+                              @Part("car_type_id") carTypeId: RequestBody,
+                              @Part("additional_info") additionalInfo: RequestBody,
+                              @Part("zone_id") zoneId: RequestBody
+    ): Call<AddItemResponse>
 
     @Multipart
     @POST("user/profileUpdate")

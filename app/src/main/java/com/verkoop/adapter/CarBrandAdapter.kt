@@ -3,6 +3,7 @@ package com.verkoop.adapter
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Typeface
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.verkoop.models.City
 import com.verkoop.models.DataCarBrand
 import com.verkoop.utils.AppConstants
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.filter_activity.*
 import kotlinx.android.synthetic.main.region_row.*
 
 class CarBrandAdapter(private var context: Context, private val coming: Int,private val carBrand:String,private val carBrandId:Int,private  val carTypeId:Int) : RecyclerView.Adapter<CarBrandAdapter.ViewHolder>(), Filterable {
@@ -22,6 +24,7 @@ class CarBrandAdapter(private var context: Context, private val coming: Int,priv
     private var mFilteredList = ArrayList<DataCarBrand>()
     private lateinit var selectBrandCallBack: SelectBrandCallBack
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
+    val font = Typeface.createFromAsset(context.assets, "fonts/gothic.ttf")
 
     override fun getFilter(): Filter {
 
@@ -75,6 +78,7 @@ class CarBrandAdapter(private var context: Context, private val coming: Int,priv
 
     inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bind(data: DataCarBrand) {
+            cbRegion.typeface = font
             cbRegion.isChecked = data.isSelected
             cbRegion.text = data.name
             cbRegion.setOnClickListener {

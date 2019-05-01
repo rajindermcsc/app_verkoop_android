@@ -23,7 +23,7 @@ class BrandListAdapter(private val context: Context, private val rvBrandList: In
         val view = mInflater.inflate(R.layout.category_home_row, parent, false)
         val params = view.layoutParams
         params.width = (rvBrandList - 60) / 3
-        params.height = params.width - 60
+        params.height = params.width - 40
         view.layoutParams = params
         return ViewHolder(view)
     }

@@ -19,6 +19,7 @@ import android.content.Intent
 class StateActivity:AppCompatActivity(), CityListAdapter.ClickEventCallBack {
     private var cityList=ArrayList<City>()
     private lateinit var cityListAdapter: CityListAdapter
+
     override fun onSelectRegion(regionName: String, regionId: Int) {
         val returnIntent = Intent()
         returnIntent.putExtra(AppConstants.CITY_NAME, regionName)

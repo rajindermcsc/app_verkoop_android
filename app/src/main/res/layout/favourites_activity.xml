@@ -19,5 +19,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"/>
+        <com.verkoop.fonts.textView.GothiBoldTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/text_gray"
+            android:visibility="gone"
+            android:text="@string/no_data_found"/>
     </FrameLayout>
 </LinearLayout>

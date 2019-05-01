@@ -37,6 +37,5 @@ class CarBrandsActivity:AppCompatActivity(){
         rvFavouriteList.layoutManager = linearLayoutManager
         carBrandsAdapter = CarBrandsAdapter(this, rvFavouriteList,brandList)
         rvFavouriteList.adapter = carBrandsAdapter
-        ivLeftLocation.setOnClickListener { onBackPressed() }
     }
 }

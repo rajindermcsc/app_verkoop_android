@@ -19,11 +19,14 @@ data class LoginRequest(
 )
 
 data class LoginSocialRequest(
-        val first_name: String,
+        val username: String,
         val email: String,
         val social_id: String,
         val login_type: String
 )
+
+
+
 
 @Parcelize
 data class AddItemRequest(
@@ -79,7 +82,12 @@ data class EditItemRequest(
         val Longitude: String,
         val Address: String,
         val meet_up: String,
-        val item_id: Int
+        val item_id: Int,
+        val type: Int=0,
+        val additional_info: AdditionalInfo? =null,
+        val zone_id:Int=0,
+        val brand_id:Int=0,
+        val car_type_id:Int=0
 ) : Parcelable
 
 

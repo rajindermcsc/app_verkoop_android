@@ -223,9 +223,9 @@
     <string name="brands">Brands</string>
     <string name="household_income">Household income</string>
     <string name="_15k_month"><![CDATA[<15k / Month]]></string>
-    <string name="_15_month"><![CDATA[>15 / Month]]></string>
-    <string name="_25_month"><![CDATA[<25 / Month]]></string>
-    <string name="_25_month_"><![CDATA[>25 / Month]]></string>
+    <string name="_15_month"><![CDATA[>15K / Month]]></string>
+    <string name="_25_month"><![CDATA[<25K / Month]]></string>
+    <string name="_25_month_"><![CDATA[>25K / Month]]></string>
     <string name="your_daily_picks">Your Daily Picks</string>
     <string name="select_brand">Select Brand</string>
     <string name="registration_year">Registration Year</string>
@@ -253,4 +253,7 @@
     <string name="brand_">brand</string>
     <string name="cost_filter">Cost filter</string>
     <string name="car_brands">Car Brands</string>
+    <string name="server_client_id">AIzaSyC6ezTSfIS-pq-VX9zyq2qATzKWXZaPJqc</string>
+    <string name="no_data_found">No data Found.</string>
+    <string name="search_user">Search user instead</string>
 </resources>

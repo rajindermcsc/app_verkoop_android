@@ -1,6 +1,7 @@
 package com.verkoop.adapter
 
 import android.content.Context
+import android.graphics.Typeface
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,7 @@ class RegionAdapter(private val context: Context, private val coming: Int) : Rec
     private var mFilteredList = ArrayList<State>()
     private lateinit var clickEventCallBack: ClickEventCallBack
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
+    val font = Typeface.createFromAsset(context.assets, "fonts/gothic.ttf")
 
     override fun getFilter(): Filter {
 
@@ -74,6 +76,7 @@ class RegionAdapter(private val context: Context, private val coming: Int) : Rec
 
     inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bind(data: State) {
+            cbRegion.typeface = font
             cbRegion.isChecked = data.isSelected
             cbRegion.text = data.name
             cbRegion.setOnClickListener {

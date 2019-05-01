@@ -91,6 +91,7 @@ class BuyCarsAdapter(private val context: Context, private var rvItemList: Recyc
 
     inner class ItemsHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bind(data: ItemHome) {
+            ll_condition.visibility=View.GONE
             ivProductImageHome.layoutParams.height = width - 16
             tvNameHome.text = data.username
             if (adapterPosition % 2 == 0) {
@@ -165,7 +166,7 @@ class BuyCarsAdapter(private val context: Context, private var rvItemList: Recyc
 
     inner class CarFilterHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bind(carTypeLIst: ArrayList<CarType>) {
-            llCarFilter.layoutParams.height = widthOrgCarType-60
+            llCarFilter.layoutParams.height = widthOrgCarType-20
             val mManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             rvCarBodyType.layoutManager = mManager
             val carBodyTypeAdapter = CarBodyTypeAdapter(context, widthOrgCarType, carTypeLIst,0)
@@ -236,12 +237,12 @@ class BuyCarsAdapter(private val context: Context, private var rvItemList: Recyc
                         itemsList[position].is_like=!itemsList[position].is_like
                         itemsList[position].items_like_count= itemsList[position].items_like_count+1
                         itemsList[position].like_id= responseLike.like_id
-                        notifyItemChanged(position+1)
+                        notifyItemChanged(position+2)
                     }
 
                     override fun onFailure(msg: String?) {
                         itemsList[position].isClicked = !itemsList[position].isClicked
-                        notifyItemChanged(position+1)
+                        notifyItemChanged(position+2)
                         //      Utils.showSimpleMessage(homeActivity, msg!!).show()
                     }
                 })
@@ -256,12 +257,12 @@ class BuyCarsAdapter(private val context: Context, private var rvItemList: Recyc
                         itemsList[position].is_like=!itemsList[position].is_like
                         itemsList[position].items_like_count= itemsList[position].items_like_count-1
                         itemsList[position].like_id= 0
-                        notifyItemChanged(position+1)
+                        notifyItemChanged(position+2)
                     }
 
                     override fun onFailure(msg: String?) {
                         itemsList[position].isClicked = !itemsList[position].isClicked
-                        notifyItemChanged(position+1)
+                        notifyItemChanged(position+2)
                     }
                 })
     }

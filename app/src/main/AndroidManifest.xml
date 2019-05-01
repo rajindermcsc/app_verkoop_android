@@ -22,14 +22,19 @@
     <application
         android:name=".VerkoopApplication"
         android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
         <activity android:name=".activity.MainActivity" />
+
+        <meta-data android:name="com.google.android.gms.games.APP_ID"
+            android:value="1:211429009365:android:ae937c5479056f67" />
+        <meta-data android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -199,6 +204,10 @@
         <activity android:name=".activity.CarBrandsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+
+        <activity android:name=".activity.FollowFollowingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"  />
     </application>
 
 </manifest>

@@ -38,6 +38,7 @@ class SearchActivity : AppCompatActivity() {
        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         if(intent.getIntExtra(AppConstants.COMING_FROM,0)==1){
             ll_search.visibility=View.GONE
+            etSearchHeader.hint=getString(R.string.search_user)
             comingFrom=1
             setUserSearchAdapter()
         }else{

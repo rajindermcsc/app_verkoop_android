@@ -4,6 +4,7 @@ import android.text.TextUtils
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.verkoop.activity.FollowFollowingActivity
 import com.verkoop.models.*
 import it.sephiroth.android.library.imagezoom.ImageViewTouchBase.LOG_TAG
 import okhttp3.MediaType
@@ -90,8 +91,8 @@ class ServiceHelper {
     fun socialLoginService(request: LoginSocialRequest, onResponse: OnResponse) {
         val myService = ApiClient.getClient().create(MyService::class.java)
         val responseCall = myService.userLoginApi(request)
-        responseCall.enqueue(object : Callback<SocialLoginResponse> {
-            override fun onResponse(call: Call<SocialLoginResponse>, response: Response<SocialLoginResponse>) {
+        responseCall.enqueue(object : Callback<SocialGoogleResponse> {
+            override fun onResponse(call: Call<SocialGoogleResponse>, response: Response<SocialGoogleResponse>) {
                 val res = response.body()
                 Log.e("<<<Response>>>", Gson().toJson(res))
                 if (response.code() == 200) {
@@ -113,7 +114,7 @@ class ServiceHelper {
                 }
             }
 
-            override fun onFailure(call: Call<SocialLoginResponse>, t: Throwable) {
+            override fun onFailure(call: Call<SocialGoogleResponse>, t: Throwable) {
                 onResponse.onFailure(t.message)
             }
         })
@@ -961,10 +962,19 @@ class ServiceHelper {
         val meetUp = RequestBody.create(MediaType.parse("text/plain"), request.meet_up)
         val itemId = RequestBody.create(MediaType.parse("text/plain"), request.item_id.toString())
         val deleteImageId = RequestBody.create(MediaType.parse("text/plain"), request.deleteImageList)
+
+        val type = RequestBody.create(MediaType.parse("text/plain"), request.type.toString())
+        val carBrandId = RequestBody.create(MediaType.parse("text/plain"), request.brand_id.toString())
+        val carType = RequestBody.create(MediaType.parse("text/plain"), request.car_type_id.toString())
+        val zoneId = RequestBody.create(MediaType.parse("text/plain"), request.zone_id.toString())
+
+        val prettyGson = GsonBuilder().setPrettyPrinting().create()
+        val prettyJson = prettyGson.toJson(request.additional_info)
+        val additionalInfo = RequestBody.create(okhttp3.MultipartBody.FORM, prettyJson)
         if (request.imageList.size > 0) {
-            call = myService.updateProductApi(parts, deleteImageId, itemId, categoryId, name, price, itemType, description, userId, address, lat, lng, meetUp)
+            call = myService.updateProductApi(parts, deleteImageId, itemId, categoryId, name, price, itemType, description, userId, address, lat, lng, meetUp,type,carBrandId,carType,additionalInfo,zoneId)
         } else {
-            call = myService.updateWithoutImageApi(deleteImageId, itemId, categoryId, name, price, itemType, description, userId, address, lat, lng, meetUp)
+            call = myService.updateWithoutImageApi(deleteImageId, itemId, categoryId, name, price, itemType, description, userId, address, lat, lng, meetUp,type,carBrandId,carType,additionalInfo,zoneId)
         }
         call.enqueue(object : Callback<AddItemResponse> {
             override fun onResponse(call: Call<AddItemResponse>, response: Response<AddItemResponse>) {
@@ -1040,4 +1050,34 @@ class ServiceHelper {
         })
     }
 
+    fun followFollowingService(UserId: Int, request: HomeRequest, onResponse: OnResponse) {
+        val myService = ApiClient.getClient().create(MyService::class.java)
+        val responseCall = myService.followFollowingApi(UserId, request)
+        responseCall.enqueue(object : Callback<SearchByUserResponse> {
+            override fun onResponse(call: Call<SearchByUserResponse>, response: Response<SearchByUserResponse>) {
+                //  Log.e("<<<Response>>>", Gson().toJson(res))
+                if (response.code() == 200) {
+                    onResponse.onSuccess(response)
+                } else {
+                    if (response.errorBody() != null) {
+                        try {
+                            val messageError = JSONObject(response.errorBody()!!.string())
+                            onResponse.onFailure(messageError.getString("message"))
+                        } catch (e: JSONException) {
+                            onResponse.onFailure("Something went wrong")
+                            e.printStackTrace()
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                        }
+                    } else {
+                        onResponse.onFailure("Something went wrong")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<SearchByUserResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
 }
