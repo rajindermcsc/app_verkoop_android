@@ -23,25 +23,29 @@ import kotlinx.android.synthetic.main.search_activity.*
 import kotlinx.android.synthetic.main.toolbar_search_user.*
 import retrofit2.Response
 
-
 class SearchActivity : AppCompatActivity() {
     private lateinit var searchListAdapter: SearchListAdapter
     private lateinit var searchByUserAdapter: SearchByUserAdapter
     private val searchItemList = ArrayList<DataSearch>()
     private val searchByUserList = ArrayList<DataUser>()
-    private var comingFrom:Int=0
+    private var comingFrom: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.search_activity)
         etSearchHeader.requestFocus()
-       window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
-        if(intent.getIntExtra(AppConstants.COMING_FROM,0)==1){
-            ll_search.visibility=View.GONE
-            etSearchHeader.hint=getString(R.string.search_user)
-            comingFrom=1
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+        if (intent.getStringExtra(AppConstants.CATEGORY_NAME) != null) {
+            etSearchHeader.hint = intent.getStringExtra(AppConstants.CATEGORY_NAME)
+        } else {
+            etSearchHeader.hint = getString(R.string.search_verkoop)
+        }
+        if (intent.getIntExtra(AppConstants.COMING_FROM, 0) == 1) {
+            ll_search.visibility = View.GONE
+            etSearchHeader.hint = getString(R.string.search_user)
+            comingFrom = 1
             setUserSearchAdapter()
-        }else{
+        } else {
             setAdapter()
         }
         setData()
@@ -65,13 +69,13 @@ class SearchActivity : AppCompatActivity() {
     private fun setData() {
         iv_left.setOnClickListener { onBackPressed() }
         ll_search.setOnClickListener {
-            val intent=Intent(this,SearchActivity::class.java)
-            intent.putExtra(AppConstants.COMING_FROM,1)
+            val intent = Intent(this, SearchActivity::class.java)
+            intent.putExtra(AppConstants.COMING_FROM, 1)
             startActivity(intent)
         }
         etSearchHeader.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                if(comingFrom==1) {
+                if (comingFrom == 1) {
                     if (!TextUtils.isEmpty(etSearchHeader.text.toString())) {
                         if (Utils.isOnline(this)) {
                             searchByUserNameApi(etSearchHeader.text.toString())
@@ -88,7 +92,7 @@ class SearchActivity : AppCompatActivity() {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
 
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                if(comingFrom!=1) {
+                if (comingFrom != 1) {
                     if (Utils.isOnline(this@SearchActivity)) {
                         if (!TextUtils.isEmpty(charSequence.toString().trim())) {
                             callSearchApi(charSequence.toString())
@@ -100,8 +104,8 @@ class SearchActivity : AppCompatActivity() {
                     } else {
                         Utils.showSimpleMessage(this@SearchActivity, getString(R.string.check_internet)).show()
                     }
-                }else{
-                    tvDemoText.visibility=View.GONE
+                } else {
+                    tvDemoText.visibility = View.GONE
                 }
             }
 
@@ -110,7 +114,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun callSearchApi(searchItem: String) {
-        ServiceHelper().searchItemService(SearchItemRequest(searchItem,Utils.getPreferencesString(this,AppConstants.USER_ID).toInt()),
+        ServiceHelper().searchItemService(SearchItemRequest(searchItem, Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         val searchItemResponse = response.body() as SearchItemResponse?
@@ -130,11 +134,11 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun searchByUserNameApi(searchItem: String) {
-        pbProgressSearch.visibility=View.VISIBLE
-        ServiceHelper().searchByUserService(Utils.getPreferencesString(this,AppConstants.USER_ID).toInt(),SearchUserRequest(searchItem),
+        pbProgressSearch.visibility = View.VISIBLE
+        ServiceHelper().searchByUserService(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), SearchUserRequest(searchItem),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
-                        pbProgressSearch.visibility=View.GONE
+                        pbProgressSearch.visibility = View.GONE
                         val searchItemResponse = response.body() as SearchByUserResponse?
                         if (searchItemResponse != null) {
                             searchByUserList.clear()
@@ -142,17 +146,17 @@ class SearchActivity : AppCompatActivity() {
                             searchByUserAdapter.setData(searchByUserList)
                             searchByUserAdapter.notifyDataSetChanged()
                         }
-                        if(searchByUserList.size>0){
-                            tvDemoText.visibility=View.GONE
-                        }else{
-                            tvDemoText.visibility=View.VISIBLE
+                        if (searchByUserList.size > 0) {
+                            tvDemoText.visibility = View.GONE
+                        } else {
+                            tvDemoText.visibility = View.VISIBLE
                         }
 
                     }
 
                     override fun onFailure(msg: String?) {
                         Utils.showSimpleMessage(this@SearchActivity, msg!!).show()
-                        pbProgressSearch.visibility=View.GONE
+                        pbProgressSearch.visibility = View.GONE
                     }
                 })
     }
@@ -161,8 +165,8 @@ class SearchActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         if (requestCode == 2) {
             if (resultCode == Activity.RESULT_OK) {
-                val result = data.getIntExtra(AppConstants.TRANSACTION,0)
-                if(result==1){
+                val result = data.getIntExtra(AppConstants.TRANSACTION, 0)
+                if (result == 1) {
                     val returnIntent = Intent()
                     returnIntent.putExtra(AppConstants.TRANSACTION, result)
                     setResult(Activity.RESULT_OK, returnIntent)
@@ -174,7 +178,7 @@ class SearchActivity : AppCompatActivity() {
                 val returnIntent = Intent()
                 setResult(Activity.RESULT_CANCELED, returnIntent)
                 finish()
-                overridePendingTransition(0,0)
+                overridePendingTransition(0, 0)
             }
         }
     }//onActivityResult
@@ -184,6 +188,6 @@ class SearchActivity : AppCompatActivity() {
         val returnIntent = Intent()
         setResult(Activity.RESULT_CANCELED, returnIntent)
         finish()
-        overridePendingTransition(0,0)
+        overridePendingTransition(0, 0)
     }
 }

@@ -133,7 +133,8 @@ data class FilterRequest(
         val item_type: String,
         val meet_up: String,
         val min_price: String,
-        val max_price: String
+        val max_price: String,
+        val item_id:Int=0
 ) : Parcelable
 
 @Parcelize

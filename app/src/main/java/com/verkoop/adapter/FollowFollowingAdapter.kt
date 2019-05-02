@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.user_search_row.*
 import retrofit2.Response
 
 
-class FollowFollowingAdapter(private val context: Context) : RecyclerView.Adapter<FollowFollowingAdapter.ViewHolder>(), Filterable {
+class FollowFollowingAdapter(private val context: Context,private val userId:Int,private val comingFrom:Int) : RecyclerView.Adapter<FollowFollowingAdapter.ViewHolder>(), Filterable {
     private var layoutInflater: LayoutInflater = LayoutInflater.from(context)
     private var searchByUserList = ArrayList<DataUser>()
     private var mFilteredList = ArrayList<DataUser>()
@@ -82,7 +82,13 @@ class FollowFollowingAdapter(private val context: Context) : RecyclerView.Adapte
 
     inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bind(modal: DataUser) {
+            if(comingFrom==0){
+                tvFollow.visibility=View.GONE
+            }else{
+                tvFollow.visibility=View.VISIBLE
+            }
             tvSearchUserName.text = modal.username
+
             if (!TextUtils.isEmpty(modal.profile_pic)) {
                 Picasso.with(context)
                         .load(AppConstants.IMAGE_URL + modal.profile_pic)
@@ -103,13 +109,15 @@ class FollowFollowingAdapter(private val context: Context) : RecyclerView.Adapte
                 tvFollow.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
             }
             tvFollow.setOnClickListener {
-                if (!modal.isClicked) {
-                    if (modal.follower_id > 0) {
-                        modal.isClicked = !modal.isClicked
-                        callUnFollowApi(modal.follower_id, adapterPosition)
-                    } else {
-                        modal.isClicked = !modal.isClicked
-                        callFollowApi( modal.id,adapterPosition)
+                if(Utils.getPreferencesString(context,AppConstants.USER_ID).toInt()==userId) {
+                    if (!modal.isClicked) {
+                        if (modal.follower_id > 0) {
+                            modal.isClicked = !modal.isClicked
+                            callUnFollowApi(modal.follower_id, adapterPosition)
+                        } else {
+                            modal.isClicked = !modal.isClicked
+                            callFollowApi(modal.id, adapterPosition)
+                        }
                     }
                 }
             }

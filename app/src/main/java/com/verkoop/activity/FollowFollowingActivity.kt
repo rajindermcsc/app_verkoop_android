@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.search_activity.*
 import kotlinx.android.synthetic.main.toolbar_search_user.*
 import retrofit2.Response
 
-
 class FollowFollowingActivity : AppCompatActivity() {
     private lateinit var searchByUserAdapter: FollowFollowingAdapter
     private var comingFrom = 0
@@ -49,7 +48,7 @@ class FollowFollowingActivity : AppCompatActivity() {
     private fun setUserSearchAdapter() {
         val mManager = LinearLayoutManager(this)
         rvSearchList.layoutManager = mManager
-        searchByUserAdapter = FollowFollowingAdapter(this)
+        searchByUserAdapter = FollowFollowingAdapter(this,userId,comingFrom)
         rvSearchList.adapter = searchByUserAdapter
     }
 

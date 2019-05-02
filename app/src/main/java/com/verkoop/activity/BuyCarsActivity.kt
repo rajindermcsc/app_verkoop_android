@@ -20,8 +20,6 @@ import retrofit2.Response
 import android.app.Activity
 
 
-
-
 class BuyCarsActivity:AppCompatActivity() {
     private var itemsList = ArrayList<ItemHome>()
     private var isLoading = false
@@ -55,6 +53,7 @@ class BuyCarsActivity:AppCompatActivity() {
         }
         etSearchFullCar.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
+            intent.putExtra(AppConstants.CATEGORY_NAME,getString(R.string.search_cars))
             startActivityForResult(intent, 2)
         }
         tvSellCar.setOnClickListener {

@@ -53,6 +53,7 @@ class BuyPropertiesActivity : AppCompatActivity() {
         }
         etSearchFullCar.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
+            intent.putExtra(AppConstants.CATEGORY_NAME,getString(R.string.search_properties))
             startActivityForResult(intent, 2)
         }
         tvSellCar.setOnClickListener {

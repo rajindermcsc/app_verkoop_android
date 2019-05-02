@@ -41,6 +41,7 @@ open class SearchListAdapter(private val context:Context):RecyclerView.Adapter<R
             itemView.setOnClickListener {
             val intent=Intent(context,CategoryDetailsActivity::class.java)
                 intent.putExtra(AppConstants.CATEGORY_ID, modal.category_id)
+                intent.putExtra(AppConstants.ITEM_ID, modal.id)
                 intent.putExtra(AppConstants.SUB_CATEGORY, modal.category.name)
                 if(modal.category.parent_id>0) {
                     intent.putExtra(AppConstants.TYPE, 1)

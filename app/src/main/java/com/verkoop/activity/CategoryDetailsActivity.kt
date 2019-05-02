@@ -114,11 +114,12 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
         toolbar_title.text = intent.getStringExtra(AppConstants.SUB_CATEGORY)
         toolbar_title.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
+                intent.putExtra(AppConstants.CATEGORY_NAME, toolbar_title.text.toString())
             startActivityForResult(intent, 2)
         }
         if (type == 1) {
             llParent.visibility = View.GONE
-            filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID), "2", "", "", "", "", "", "")
+            filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID), "2", "", "", "", "", "", "",intent.getIntExtra(AppConstants.ITEM_ID,0))
             getDetailsApi(filterRequest!!)
 
         } else {

@@ -113,7 +113,7 @@ CarBrandActivity : AppCompatActivity() {
                  carType = data.getStringExtra(AppConstants.CAR_TYPE)
                  carBrand = data.getStringExtra(AppConstants.CAR_BRAND_NAME)
                  carTypeId = data.getIntExtra(AppConstants.CAR_TYPE_ID, 0)
-                 carBrandId = data.getIntExtra(AppConstants.CAR_TYPE_ID, 0)
+                 carBrandId = data.getIntExtra(AppConstants.CAR_BRAND_ID, 0)
                 val returnIntent = Intent()
                 returnIntent.putExtra(AppConstants.CAR_BRAND_NAME,carBrand)
                 returnIntent.putExtra(AppConstants.CAR_BRAND_ID,carBrandId)
