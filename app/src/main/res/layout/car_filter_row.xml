@@ -14,6 +14,7 @@
         android:layout_marginTop="@dimen/dp_10">
 
         <com.verkoop.fonts.textView.GothiBoldTextView
+            android:id="@+id/tvCarBodyType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/car_body_type"

@@ -28,7 +28,6 @@ class BuyPropertyAdapter(private val context: Context, private val rvProperty: R
     val CATEGORY_LIST_ROW = 0
     val ITEMS_ROW = 1
     private var width = 0
-    private var widthOrg = 0
     private var widthOrgCarType = 0
     private var itemsList = ArrayList<ItemHome>()
     private var zoneList = ArrayList<CarType>()
@@ -76,6 +75,7 @@ class BuyPropertyAdapter(private val context: Context, private val rvProperty: R
 
     inner class CarFilterHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bind(carTypeLIst: ArrayList<CarType>) {
+            tvCarBodyType.text=context.getString(R.string.quick_filter)
             llCarFilter.layoutParams.height = widthOrgCarType - 20
             val mManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             rvCarBodyType.layoutManager = mManager
