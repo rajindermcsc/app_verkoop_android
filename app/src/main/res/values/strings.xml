@@ -262,5 +262,7 @@
     <string name="buying">BUYING</string>
     <string name="all">ALL</string>
     <string name="selling">SELLING</string>
+    <string name="chat_">CHAT</string>
+    <string name="make_offer_">MAKE OFFER</string>
 
 </resources>

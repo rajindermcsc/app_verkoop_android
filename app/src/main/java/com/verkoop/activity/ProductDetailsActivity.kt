@@ -2,6 +2,7 @@ package com.verkoop.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -13,6 +14,7 @@ import android.text.TextUtils
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.daimajia.slider.library.SliderTypes.BaseSliderView
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView
 import com.skydoves.powermenu.MenuAnimation
@@ -69,6 +71,10 @@ class ProductDetailsActivity : AppCompatActivity() {
             getItemDetailsService(intent.getIntExtra(AppConstants.ITEM_ID, 0))
         } else {
             Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+        }
+        llChat.setOnClickListener {
+            val intent=Intent(this,ChatActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -435,4 +441,8 @@ class ProductDetailsActivity : AppCompatActivity() {
             finish()
         }
     }
+
+
+
+
 }

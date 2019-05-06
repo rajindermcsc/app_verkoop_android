@@ -37,19 +37,19 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp_10"
                     android:text="@string/all"
-                    android:textColor="@color/text_gray_"
-                    android:textSize="@dimen/sp_14" />
+                    android:textColor="@color/dark_black"
+                    android:textSize="@dimen/sp_12" />
 
                 <View
                     android:id="@+id/vAll"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_4"
+                    android:layout_height="@dimen/dp_5"
                     android:background="@color/colorPrimary" />
             </LinearLayout>
 
 
             <View
-                android:layout_width="@dimen/dp_1"
+                android:layout_width="@dimen/dp_.5"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_10"
@@ -71,18 +71,18 @@
                     android:padding="@dimen/dp_10"
                     android:text="@string/buying"
                     android:textColor="@color/light_gray"
-                    android:textSize="@dimen/sp_14" />
+                    android:textSize="@dimen/sp_12" />
 
                 <View
                     android:id="@+id/vBuying"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_4"
+                    android:layout_height="@dimen/dp_5"
                     android:background="@color/colorPrimary"
                     android:visibility="invisible" />
             </LinearLayout>
 
             <View
-                android:layout_width="@dimen/dp_1"
+                android:layout_width="@dimen/dp_.5"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_10"
@@ -104,12 +104,12 @@
                     android:padding="@dimen/dp_10"
                     android:text="@string/selling"
                     android:textColor="@color/light_gray"
-                    android:textSize="@dimen/sp_14" />
+                    android:textSize="@dimen/sp_12" />
 
                 <View
                     android:id="@+id/vSelling"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_4"
+                    android:layout_height="@dimen/dp_5"
                     android:background="@color/colorPrimary"
                     android:visibility="invisible" />
             </LinearLayout>
@@ -123,19 +123,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <!--<FrameLayout
-        android:id="@+id/ll"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvInboxList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-<ProgressBar
-    android:id="@+id/pbChatLoader"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:visibility="gone"/>
-    </FrameLayout>-->
 </LinearLayout>

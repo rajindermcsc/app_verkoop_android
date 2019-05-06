@@ -77,7 +77,8 @@ class HomeActivity : AppCompatActivity() {
         // viewPager.offscreenPageLimit = 2
         setTabLayout()
         ivChat.setOnClickListener {
-            //logout()
+            val intent = Intent(this, ChatInboxActivity::class.java)
+            startActivity(intent)
         }
         ivFavourite.setOnClickListener {
             val intent = Intent(this, FavouritesActivity::class.java)
