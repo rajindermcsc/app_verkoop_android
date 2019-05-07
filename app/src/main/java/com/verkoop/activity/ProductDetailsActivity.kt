@@ -50,6 +50,7 @@ class ProductDetailsActivity : AppCompatActivity() {
     private var screenHeight: Int = 0
     private var categoryType: Int = 0
     private var userName: String = ""
+    private var profilePic: String = ""
     private lateinit var commentListAdapter: CommentListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,6 +75,10 @@ class ProductDetailsActivity : AppCompatActivity() {
         }
         llChat.setOnClickListener {
             val intent=Intent(this,ChatActivity::class.java)
+                intent.putExtra(AppConstants.USER_ID,userId)
+                intent.putExtra(AppConstants.USER_NAME,userName)
+                intent.putExtra(AppConstants.ITEM_ID,itemId)
+                intent.putExtra(AppConstants.PROFILE_URL,profilePic)
             startActivity(intent)
         }
     }
@@ -120,6 +125,7 @@ class ProductDetailsActivity : AppCompatActivity() {
             }
         }
         if (!TextUtils.isEmpty(data.profile_pic)) {
+            profilePic=data.profile_pic
             Picasso.with(this@ProductDetailsActivity).load(AppConstants.IMAGE_URL + data.profile_pic)
                     .resize(720, 720)
                     .centerInside()
@@ -188,8 +194,8 @@ class ProductDetailsActivity : AppCompatActivity() {
         tvPrice.text = StringBuilder().append(": ").append(getString(R.string.dollar)).append(data.price)
         tvDescription.text = data.description
         tvUserName.text = data.username
-        tvDateDetails.text = StringBuilder().append(Utils.getDateDifferenceDetails(data.created_at)).append(" ").append("ago")
-        tvDateTool.text = StringBuilder().append(Utils.getDateDifferenceDetails(data.created_at)).append(" ").append("ago")
+        tvDateDetails.text = StringBuilder().append(Utils.getDateDifferenceDiff(data.created_at)).append(" ").append("ago")
+        tvDateTool.text = StringBuilder().append(Utils.getDateDifferenceDiff(data.created_at)).append(" ").append("ago")
         tvCategoryDetail.text = StringBuilder().append(": ").append(data.category_name)
 
         if (data.item_type == 1) {
@@ -366,7 +372,7 @@ class ProductDetailsActivity : AppCompatActivity() {
 
     private fun getItemDetailsService(itemId: Int) {
         pbProgressProduct.visibility = View.VISIBLE
-        ServiceHelper().getItemDetailService(itemId,
+        ServiceHelper().getItemDetailService(itemId,Utils.getPreferencesString(this,AppConstants.USER_ID).toInt(),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         pbProgressProduct.visibility = View.GONE

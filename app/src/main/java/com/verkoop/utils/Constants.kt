@@ -46,4 +46,11 @@ object AppConstants{
      const val FILTER_ID = "FILTER_ID"
      const val FILTER_TYPE = "FILTER_TYPE"
      const val CAR_BRAND_LIST = "CAR_BRAND_LIST"
+     const val PROFILE_URL = "PROFILE_URL"
+
+
+   /*Socket constant*/
+     const val SOCKET_URL = "http://verkoopadmin.com:3000/"
+     const val SOCKET_CONNECT = "SOCKET_CONNECT"
+     const val SEND_MESSAGES = "messages"
 }

@@ -259,7 +259,10 @@ data class DataItems(
         var brand_id :Int=0,
         var car_type_id : Int=0,
         var additional_info:AdditionalInfoResponse?=null,
-        val zone_id:Int=0
+        val zone_id:Int=0,
+        val offer_price:Int= 0,
+        val chat_count:Int=0,
+        val make_offer:Boolean= false
 ) : Parcelable
 
 @Parcelize

@@ -27,8 +27,8 @@ interface MyService {
     @GET("user/profile/{userId}")
     fun getMyProfileService(@Path(value = "userId", encoded = true) fullUrl: String): Call<MyProfileResponse>
 
-    @GET("items/{itemId}")
-    fun getItemDetailsApi(@Path(value = "itemId", encoded = true) fullUrl: Int): Call<ItemDetailsResponse>
+    @GET("item_details/{itemId}/{userId}")
+    fun getItemDetailsApi(@Path(value = "itemId", encoded = true) fullUrl: Int,@Path(value = "userId", encoded = true) userId: Int): Call<ItemDetailsResponse>
 
     @GET("getUserFavouriteData/{userId}")
     fun getFavouritesApi(@Path(value = "userId", encoded = true) fullUrl: String): Call<FavouritesResponse>

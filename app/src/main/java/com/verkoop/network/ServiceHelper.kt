@@ -6,6 +6,8 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.verkoop.activity.FollowFollowingActivity
 import com.verkoop.models.*
+import com.verkoop.utils.AppConstants
+import com.verkoop.utils.Utils
 import it.sephiroth.android.library.imagezoom.ImageViewTouchBase.LOG_TAG
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -268,9 +270,9 @@ class ServiceHelper {
         })
     }
 
-    fun getItemDetailService(itemId: Int, onResponse: OnResponse) {
+    fun getItemDetailService(itemId: Int,userId:Int, onResponse: OnResponse) {
         val myService = ApiClient.getClient().create(MyService::class.java)
-        val responseCall = myService.getItemDetailsApi(itemId)
+        val responseCall = myService.getItemDetailsApi(itemId,userId)
         responseCall.enqueue(object : Callback<ItemDetailsResponse> {
             override fun onResponse(call: Call<ItemDetailsResponse>, response: Response<ItemDetailsResponse>) {
                 val res = response.body()

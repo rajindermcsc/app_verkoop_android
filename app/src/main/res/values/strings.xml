@@ -264,5 +264,7 @@
     <string name="selling">SELLING</string>
     <string name="chat_">CHAT</string>
     <string name="make_offer_">MAKE OFFER</string>
-
+    <string name="enter_here">Enter here...</string>
+    <string name="view_seller">View Seller</string>
+    <string name="enter_mssg">Please enter message.</string>
 </resources>
