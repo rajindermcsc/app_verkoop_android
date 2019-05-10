@@ -20,7 +20,6 @@ object AppConstants{
      const val ADDRESS = "ADDRESS"
      const val LATITUDE = "LATITUDE"
      const val LONGITUDE = "LONGITUDE"
-     const val ITEM_ID = "item_id"
      const val TYPE = "type"
      const val SUB_CATEGORY = "sub_category"
      const val POST_DATA = "post_data"
@@ -47,10 +46,24 @@ object AppConstants{
      const val FILTER_TYPE = "FILTER_TYPE"
      const val CAR_BRAND_LIST = "CAR_BRAND_LIST"
      const val PROFILE_URL = "PROFILE_URL"
+     const val PRODUCT_URL = "PRODUCT_URL"
+     const val PRODUCT_PRICE = "PRODUCT_PRICE"
+     const val PRODUCT_NAME = "PRODUCT_NAME"
 
 
    /*Socket constant*/
      const val SOCKET_URL = "http://verkoopadmin.com:3000/"
      const val SOCKET_CONNECT = "SOCKET_CONNECT"
      const val SEND_MESSAGES = "messages"
+     const val CHAT_LIST = "messagelists"
+     const val MAKE_OFFER_EVENT = "makeOffer"
+     const val INIT_USER_ID = "init"
+     const val RECEIVE_MESSAGE = "receiveMessage"
+     const val INBOX_LIST_EVENT = "inboxList"
+     const val ARCHIVE_CHAT_EVENT = "archiveChat"
+     const val DELETE_CHAT_EVENT = "deleteChat"
+
+     const val SENDER_ID = "sender_id"
+     const val ITEM_ID = "item_id"
+
 }

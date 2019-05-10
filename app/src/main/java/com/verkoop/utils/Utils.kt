@@ -558,4 +558,28 @@ object Utils {
         val metrics = context.resources.displayMetrics
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, valueInDp, metrics)
     }
+
+    fun setDate(date: String): String {
+        val dateNow = Date()
+        val calNow = GregorianCalendar.getInstance()
+        calNow.time = dateNow
+        calNow.set(Calendar.HOUR_OF_DAY, 0)
+        calNow.set(Calendar.MINUTE, 0)
+        calNow.set(Calendar.SECOND, 0)
+        val timeFormat: SimpleDateFormat
+        val dateServ = Date(java.lang.Long.parseLong(date))
+
+        if (dateServ.after(calNow.time)) {
+            timeFormat = SimpleDateFormat("hh:mm aa")
+
+        } else {
+            calNow.add(Calendar.DATE, -1)
+            if (dateServ.after(calNow.time)) {
+                return "YESTERDAY"
+            } else {
+                timeFormat = SimpleDateFormat("dd/MM/yy")
+            }
+        }
+        return timeFormat.format(dateServ)
+    }
 }

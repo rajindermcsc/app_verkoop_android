@@ -6,15 +6,27 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.widget.Toast
+import com.github.nkzawa.socketio.client.Ack
+import com.github.nkzawa.socketio.client.Socket
+import com.google.gson.Gson
 import com.verkoop.R
+import com.verkoop.VerkoopApplication
 import com.verkoop.adapter.HomePagerAdapter
 import com.verkoop.fragment.ActivitiesFragment
 import com.verkoop.fragment.HomeFragment
 import com.verkoop.fragment.ProfileFragment
+import com.verkoop.models.SocketCheckConnectionEvent
 import com.verkoop.utils.AppConstants
+import com.verkoop.utils.Utils
 import kotlinx.android.synthetic.main.home_activity.*
 import kotlinx.android.synthetic.main.toolbar_home.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+import org.json.JSONException
+import org.json.JSONObject
 
 
 class HomeActivity : AppCompatActivity() {
@@ -24,6 +36,7 @@ class HomeActivity : AppCompatActivity() {
     private var fragmentList = ArrayList<Fragment>()
     private var doubleBackToExitPressedOnce = false
     private var comingFrom: Int = 0
+    private var socket: Socket? = VerkoopApplication.getAppSocket()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +50,7 @@ class HomeActivity : AppCompatActivity() {
         fragmentList.add(activitiesFragment!!)
         fragmentList.add(profileFragment!!)
         setData()
+        callInit()
 
     }
 
@@ -145,5 +159,40 @@ class HomeActivity : AppCompatActivity() {
                 //Write your code if there's no result
             }
         }
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: SocketCheckConnectionEvent) {
+        /* Do something */
+        callInit()
+
+    }
+
+    private fun callInit() {
+        socket?.emit(AppConstants.INIT_USER_ID, getObj(), Ack {
+            Log.e("<<<ACKRESPONSE--5>>>", Gson().toJson(it[0]))
+        })
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+    private fun getObj(): Any {
+        val jsonObject: JSONObject?
+        jsonObject = JSONObject()
+        try {
+            jsonObject.put("user_id", Utils.getPreferencesString(applicationContext,AppConstants.USER_ID).toInt())
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        return jsonObject
     }
 }

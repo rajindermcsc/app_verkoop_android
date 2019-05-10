@@ -267,4 +267,8 @@
     <string name="enter_here">Enter here...</string>
     <string name="view_seller">View Seller</string>
     <string name="enter_mssg">Please enter message.</string>
+    <string name="you_are_offring">You are offering</string>
+    <string name="delete">Delete</string>
+    <string name="arch_chat">Archived Chats</string>
+    <string name="un_arciver">UnArchive</string>
 </resources>

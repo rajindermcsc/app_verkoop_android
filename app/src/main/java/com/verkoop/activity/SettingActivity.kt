@@ -4,9 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.verkoop.R
+import com.verkoop.utils.DeleteCommentDialog
 import com.verkoop.utils.SelectionListener
 import com.verkoop.utils.Utils
-import com.verkoop.utils.selectOptionDialog
 import kotlinx.android.synthetic.main.setting_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 
@@ -51,7 +51,7 @@ class SettingActivity : AppCompatActivity() {
     }
 
     private fun logOutDialogBox() {
-        val shareDialog = selectOptionDialog.DeleteCommentDialog(this, getString(R.string.logout_heading), getString(R.string.logout_des), object : SelectionListener {
+        val shareDialog = DeleteCommentDialog(this, getString(R.string.logout_heading), getString(R.string.logout_des), object : SelectionListener {
             override fun leaveClick() {
                 if (Utils.isOnline(this@SettingActivity)) {
                     logout()

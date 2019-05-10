@@ -72,7 +72,7 @@ class CommentListAdapter(private val context: Context,private val progressBar: P
 
  }
     private fun resumeActivityDialog(adapterPosition: Int, id: Int) {
-        val shareDialog = selectOptionDialog.DeleteCommentDialog(context,"Delete Comment","Are you sure you want to delete this comment?",object : SelectionListener {
+        val shareDialog = DeleteCommentDialog(context,"Delete Comment","Are you sure you want to delete this comment?",object : SelectionListener {
             override fun leaveClick() {
                 deleteCommentApi(adapterPosition,id)
             }

@@ -25,7 +25,7 @@ import com.verkoop.utils.AppConstants
 import com.verkoop.utils.AppConstants.GOOGLE_API_KEY
 import com.verkoop.utils.SelectionListener
 import com.verkoop.utils.Utils
-import com.verkoop.utils.resumeLocationDialog
+import com.verkoop.utils.ResumeLocationDialog
 import kotlinx.android.synthetic.main.selarch_location_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 import retrofit2.Response
@@ -125,7 +125,7 @@ class SearchLocationActivity : AppCompatActivity(), LocationSearchAdapter.Select
     }
 
     private fun resumeActivityDialog() {
-        val shareDialog = resumeLocationDialog(this, object : SelectionListener {
+        val shareDialog = ResumeLocationDialog(this, object : SelectionListener {
             override fun leaveClick() {
                 val returnIntent = Intent()
                 setResult(Activity.RESULT_CANCELED, returnIntent)

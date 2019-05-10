@@ -4,16 +4,27 @@ import android.app.Application
 import android.content.Context
 import android.support.multidex.MultiDex
 import android.util.Log
+import com.github.nkzawa.socketio.client.Ack
 import com.github.nkzawa.socketio.client.IO
 import com.github.nkzawa.socketio.client.Socket
 import com.google.gson.Gson
+import com.verkoop.models.ChatData
 import com.verkoop.models.SocketCheckConnectionEvent
+import com.verkoop.models.SocketOnReceiveEvent
 import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Loading
+import com.verkoop.utils.Utils
+import io.realm.Realm
+import io.realm.RealmConfiguration
 import org.acra.ACRA
 import org.acra.ReportingInteractionMode
 import org.acra.annotation.ReportsCrashes
 import org.greenrobot.eventbus.EventBus
+import org.json.JSONException
+import org.json.JSONObject
+
+
+
 
 
 @ReportsCrashes(mailTo = "anmol@mobilecoderz.com", mode = ReportingInteractionMode.TOAST, resToastText = R.string.application_crash)// my email here
@@ -32,6 +43,13 @@ class VerkoopApplication : Application() {
          super.onCreate()
          instance = this
          initSocket()
+         Realm.init(this)
+         val config = RealmConfiguration.Builder()
+                 .deleteRealmIfMigrationNeeded()
+                 .name("verkoop.db")
+                 .schemaVersion(0)
+                 .build()
+         Realm.setDefaultConfiguration(config)
      }
 
     override fun attachBaseContext(base: Context) {
@@ -61,8 +79,17 @@ class VerkoopApplication : Application() {
             socket.on(Socket.EVENT_CONNECT) { _ ->
                         Log.e("<<<<<SOCKET>>>>>", "CONNECTED")
                         /* Socket Init */
-                        EventBus.getDefault().post(SocketCheckConnectionEvent("connect",AppConstants.SOCKET_CONNECT))
 
+               /* socket.emit(AppConstants.INIT_USER_ID, getObj(), Ack {
+                    Log.e("<<<ACKRESPONSE--5>>>", Gson().toJson(it[0]))
+                })*/
+                EventBus.getDefault().post(SocketCheckConnectionEvent("connect",AppConstants.SOCKET_CONNECT))
+
+                    }
+                    .on(AppConstants.RECEIVE_MESSAGE){
+                        //* Room event listener *//*
+                        Log.e("<<<receiveChat>>>",  Gson().toJson(it[0]))
+                        EventBus.getDefault().post(SocketOnReceiveEvent(it,AppConstants.RECEIVE_MESSAGE))
                     }
                    /* .on(Constants.ROOM_EVENTS){
                         *//* Room event listener *//*
@@ -95,5 +122,6 @@ class VerkoopApplication : Application() {
             socket.connect()
         }
     }
+
 
 }

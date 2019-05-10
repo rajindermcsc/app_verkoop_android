@@ -59,6 +59,5 @@ class ChatInboxFragment:BaseFragment(){
             fragment.arguments=bundle
             return fragment
         }
-
     }
 }

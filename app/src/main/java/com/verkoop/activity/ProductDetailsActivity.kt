@@ -2,8 +2,8 @@ package com.verkoop.activity
 
 import android.app.Activity
 import android.content.Intent
-import android.content.res.Configuration
 import android.graphics.Color
+import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -14,27 +14,31 @@ import android.text.TextUtils
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
-import android.widget.Toast
+import android.view.ViewTreeObserver
 import com.daimajia.slider.library.SliderTypes.BaseSliderView
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView
+import com.github.nkzawa.socketio.client.Ack
+import com.github.nkzawa.socketio.client.Socket
+import com.google.gson.Gson
 import com.skydoves.powermenu.MenuAnimation
 import com.skydoves.powermenu.OnMenuItemClickListener
 import com.skydoves.powermenu.PowerMenu
 import com.skydoves.powermenu.PowerMenuItem
 import com.squareup.picasso.Picasso
 import com.verkoop.R
+import com.verkoop.VerkoopApplication
 import com.verkoop.adapter.CommentListAdapter
 import com.verkoop.models.*
 import com.verkoop.network.ServiceHelper
-import com.verkoop.utils.AppConstants
-import com.verkoop.utils.SelectionListener
-import com.verkoop.utils.Utils
-import com.verkoop.utils.selectOptionDialog
+import com.verkoop.utils.*
 import kotlinx.android.synthetic.main.item_details_activity.*
 import kotlinx.android.synthetic.main.toolbar_product_details.*
+import org.json.JSONException
+import org.json.JSONObject
 import retrofit2.Response
 
 class ProductDetailsActivity : AppCompatActivity() {
+    private val socket: Socket? = VerkoopApplication.getAppSocket()
     private var imageURLLIst = ArrayList<String>()
     private val commentsList = ArrayList<CommentModal>()
     private val reportList = ArrayList<ReportResponse>()
@@ -51,12 +55,17 @@ class ProductDetailsActivity : AppCompatActivity() {
     private var categoryType: Int = 0
     private var userName: String = ""
     private var profilePic: String = ""
+    private var price: Double = 0.0
+    private var productName: String = ""
+    private var productImage: String = ""
     private lateinit var commentListAdapter: CommentListAdapter
+    private  lateinit var shareDialog:CreatOfferDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.item_details_activity)
-        tvSellItem.visibility = View.GONE
+        initKeyBoardListener()
+        llBuying.visibility = View.GONE
         val displayMetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(displayMetrics)
         screenHeight = displayMetrics.heightPixels
@@ -65,7 +74,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         setCommentAdapter()
         adapterPosition = intent.getIntExtra(AppConstants.ADAPTER_POSITION, 0)
         if (intent.getIntExtra(AppConstants.COMING_FROM, 0) == 1) {
-            tvSellItem.visibility = View.GONE
+            llChat.visibility = View.GONE
             ivRightProduct.visibility = View.VISIBLE
         }
         if (Utils.isOnline(this)) {
@@ -79,6 +88,9 @@ class ProductDetailsActivity : AppCompatActivity() {
                 intent.putExtra(AppConstants.USER_NAME,userName)
                 intent.putExtra(AppConstants.ITEM_ID,itemId)
                 intent.putExtra(AppConstants.PROFILE_URL,profilePic)
+                intent.putExtra(AppConstants.PRODUCT_URL,productImage)
+                intent.putExtra(AppConstants.PRODUCT_PRICE,price)
+                intent.putExtra(AppConstants.PRODUCT_NAME,productName)
             startActivity(intent)
         }
     }
@@ -91,7 +103,6 @@ class ProductDetailsActivity : AppCompatActivity() {
     }
 
     private fun setData(imageURLLIst: ArrayList<String>, data: DataItems) {
-
         itemId = data.id
         userId = data.user_id
         userName = data.username
@@ -105,9 +116,11 @@ class ProductDetailsActivity : AppCompatActivity() {
             viewMeetUp.visibility = View.GONE
         }
         if (data.is_sold == 1 || data.user_id == Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()) {
-            tvSellItem.visibility = View.GONE
+            llBuying.visibility = View.GONE
+            llChat.visibility = View.VISIBLE
         } else {
-            tvSellItem.visibility = View.VISIBLE
+            llBuying.visibility = View.VISIBLE
+            llChat.visibility = View.VISIBLE
         }
         llChatDetails.setOnClickListener {
             if(Utils.getPreferencesString(this,AppConstants.USER_ID).toInt()!=data.user_id) {
@@ -190,6 +203,9 @@ class ProductDetailsActivity : AppCompatActivity() {
         }
         mDemoSliderDetails.stopAutoCycle()
         tvProductName.text = data.name
+        price= data.price
+        productName=data.name
+        productImage=data.items_image[0].url
         tvLikes.text = data.items_like_count.toString()
         tvPrice.text = StringBuilder().append(": ").append(getString(R.string.dollar)).append(data.price)
         tvDescription.text = data.description
@@ -241,6 +257,11 @@ class ProductDetailsActivity : AppCompatActivity() {
             CommonView.visibility = View.GONE
 
         }
+        if(!data.make_offer){
+            llBuying.setOnClickListener {
+                makeOffer(data.price)
+            }
+        }
     }
 
     private fun openPowerMenu(menuList: ArrayList<PowerMenuItem>) {
@@ -291,7 +312,7 @@ class ProductDetailsActivity : AppCompatActivity() {
     }
 
     private fun deleteProductDialog() {
-        val shareDialog = selectOptionDialog.DeleteCommentDialog(this, getString(R.string.delete_heading), getString(R.string.delete_des), object : SelectionListener {
+        val shareDialog = DeleteCommentDialog(this, getString(R.string.delete_heading), getString(R.string.delete_des), object : SelectionListener {
             override fun leaveClick() {
                 if (Utils.isOnline(this@ProductDetailsActivity)) {
                     deleteItemApi()
@@ -336,7 +357,7 @@ class ProductDetailsActivity : AppCompatActivity() {
     }
 
     private fun marksSoldDialogBox() {
-        val shareDialog = selectOptionDialog.DeleteCommentDialog(this, getString(R.string.confirm_sold), getString(R.string.sold_des), object : SelectionListener {
+        val shareDialog = DeleteCommentDialog(this, getString(R.string.confirm_sold), getString(R.string.sold_des), object : SelectionListener {
             override fun leaveClick() {
                 if (Utils.isOnline(this@ProductDetailsActivity)) {
                     markAsSoldApi()
@@ -448,7 +469,96 @@ class ProductDetailsActivity : AppCompatActivity() {
         }
     }
 
+private fun makeOffer(price:Double){
+     shareDialog = CreatOfferDialog(price,this, object : MakeOfferListener {
+        override fun makeOfferClick(offerPrice:Double) {
+        Utils.showToast(this@ProductDetailsActivity,offerPrice.toString())
+        makeOfferEvent(price)
+        }
 
+    })
+    shareDialog.show()
+}
 
+    private fun makeOfferEvent(price: Double) {
+        val jsonObject = JSONObject()
+        try {
+            jsonObject.put("sender_id",Utils.getPreferencesString(this,AppConstants.USER_ID))
+            jsonObject.put("receiver_id", userId)
+            jsonObject.put("item_id", itemId)
+            jsonObject.put("message","Make offer")
+            jsonObject.put("type",2 )
+            jsonObject.put("price",price )
+            Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
+            socket?.emit(AppConstants.MAKE_OFFER_EVENT, jsonObject, Ack {
+                Log.e("<<<Response>>>", Gson().toJson(it[0]))
+                val data = it[0] as JSONObject
+                runOnUiThread {
+                    if (data.getString("status") == "1") {
+                        runOnUiThread {
+                            val intent=Intent(this,ChatActivity::class.java)
+                            intent.putExtra(AppConstants.USER_ID,userId)
+                            intent.putExtra(AppConstants.USER_NAME,userName)
+                            intent.putExtra(AppConstants.ITEM_ID,itemId)
+                            intent.putExtra(AppConstants.PROFILE_URL,profilePic)
+                            intent.putExtra(AppConstants.PRODUCT_URL,productImage)
+                            intent.putExtra(AppConstants.PRODUCT_PRICE,price)
+                            intent.putExtra(AppConstants.PRODUCT_NAME,productName)
+                            startActivity(intent)
+                         /*   try {
+                                val chatData = ChatData(data.getInt("message_id"),
+                                        data.getInt("sender_id"),
+                                        data.getInt("receiver_id"),
+                                        data.getString("message"),
+                                        data.getString("timestamp"),
+                                        data.getInt("type"),
+                                        data.getInt("item_id"),
+                                        data.getInt("chat_user_id"))
+                                etMssg.text = null
+                            } catch (e: JSONException) {
+                                e.printStackTrace()
+                            }*/
+                        }
+                    } else {
+
+                    }
+                }
+            })
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun initKeyBoardListener() {
+        // Threshold for minimal keyboard height.
+        val MIN_KEYBOARD_HEIGHT_PX = 150
+        // Top-level window decor view.
+        val decorView = window.decorView
+        // Register global layout listener.
+        decorView.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            // Retrieve visible rectangle inside window.
+            private val windowVisibleDisplayFrame = Rect()
+            private var lastVisibleDecorViewHeight: Int = 0
+
+            override fun onGlobalLayout() {
+                decorView.getWindowVisibleDisplayFrame(windowVisibleDisplayFrame)
+                val visibleDecorViewHeight = windowVisibleDisplayFrame.height()
+
+                if (lastVisibleDecorViewHeight != 0) {
+                    if (lastVisibleDecorViewHeight > visibleDecorViewHeight + MIN_KEYBOARD_HEIGHT_PX) {
+                        Log.e("Pasha", "SHOW")
+                        shareDialog.showDialog(1)
+
+                    } else if (lastVisibleDecorViewHeight + MIN_KEYBOARD_HEIGHT_PX < visibleDecorViewHeight) {
+                        Log.e("Pasha", "HIDE")
+                        shareDialog.showDialog(0)
+                    }
+
+                }
+                // Save current decor view height for the next call.
+                lastVisibleDecorViewHeight = visibleDecorViewHeight
+            }
+        })
+    }
 
 }

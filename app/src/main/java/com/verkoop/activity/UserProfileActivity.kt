@@ -19,10 +19,7 @@ import com.verkoop.R
 import com.verkoop.adapter.UserProfileItemAdapter
 import com.verkoop.models.*
 import com.verkoop.network.ServiceHelper
-import com.verkoop.utils.AppConstants
-import com.verkoop.utils.SelectionListener
-import com.verkoop.utils.Utils
-import com.verkoop.utils.selectOptionDialog
+import com.verkoop.utils.*
 import kotlinx.android.synthetic.main.profile_fragment.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 import kotlinx.android.synthetic.main.user_profile_activity.*
@@ -171,7 +168,7 @@ class UserProfileActivity:AppCompatActivity(), LikeDisLikeListener {
     }
 
     private fun unBlockUserDialog() {
-        val shareDialog = selectOptionDialog.DeleteCommentDialog(this,getString(R.string.unblock_user),getString(R.string.unblock_sure),object : SelectionListener {
+        val shareDialog = DeleteCommentDialog(this,getString(R.string.unblock_user),getString(R.string.unblock_sure),object : SelectionListener {
             override fun leaveClick() {
                 isBlockClick=true
                 unBockUserApi()
@@ -183,7 +180,7 @@ class UserProfileActivity:AppCompatActivity(), LikeDisLikeListener {
 
 
     private fun blockUserDialog() {
-        val shareDialog = selectOptionDialog.DeleteCommentDialog(this,getString(R.string.block_user),getString(R.string.block_sure),object : SelectionListener {
+        val shareDialog = DeleteCommentDialog(this,getString(R.string.block_user),getString(R.string.block_sure),object : SelectionListener {
             override fun leaveClick() {
                 isBlockClick=true
                bockUserApi()

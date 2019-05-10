@@ -1,8 +1,9 @@
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
-
+apply plugin: 'realm-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -64,6 +65,7 @@ dependencies {
     implementation 'com.github.skydoves:powermenu:2.0.5'
     implementation 'org.greenrobot:eventbus:3.1.1'
     implementation 'com.github.nkzawa:socket.io-client:0.3.0'
+    implementation 'com.daimajia.swipelayout:library:1.2.0@aar'
 }
 
 buildscript {

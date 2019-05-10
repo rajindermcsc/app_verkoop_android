@@ -66,17 +66,18 @@
                 android:orientation="vertical">
 
                 <com.verkoop.fonts.textView.GothiBoldTextView
+                    android:id="@+id/tvProductDes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Hyundai i30 1.6GLS 5-Dr Auto"
                     android:textColor="@color/dark_black"
                     android:textSize="@dimen/sp_16" />
 
                 <com.verkoop.fonts.textView.GothiBoldTextView
+                    android:id="@+id/tvProducePrice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_4"
-                    android:text="$330"
+
                     android:textColor="@color/text_gray__"
                     android:textSize="@dimen/sp_16" />
 
@@ -97,6 +98,7 @@
             android:orientation="horizontal">
 
             <com.verkoop.fonts.textView.GothiBoldTextView
+                android:id="@+id/tvViewProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -112,11 +114,13 @@
                 android:background="@color/light_gray_chat" />
 
             <com.verkoop.fonts.textView.GothiBoldTextView
+                android:id="@+id/tvMakeOffer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:gravity="center"
                 android:text="@string/make_offer"
+                android:padding="@dimen/dp_10"
                 android:textColor="@color/blue"
                 android:textSize="@dimen/sp_14" />
         </LinearLayout>

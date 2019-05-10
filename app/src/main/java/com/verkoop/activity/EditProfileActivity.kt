@@ -208,7 +208,7 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun openPopUp() {
-        val shareDialog = selectOptionDialog(this, object : SelectionOptionListener {
+        val shareDialog = SelectOptionDialog(this, object : SelectionOptionListener {
             override fun leaveClick(option: String) {
                 if (option.equals(getString(R.string.camera), ignoreCase = true)) {
                     takePicture()

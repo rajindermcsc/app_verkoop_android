@@ -4,10 +4,9 @@ import android.text.TextUtils
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.verkoop.activity.FollowFollowingActivity
+
 import com.verkoop.models.*
-import com.verkoop.utils.AppConstants
-import com.verkoop.utils.Utils
+
 import it.sephiroth.android.library.imagezoom.ImageViewTouchBase.LOG_TAG
 import okhttp3.MediaType
 import okhttp3.MultipartBody
