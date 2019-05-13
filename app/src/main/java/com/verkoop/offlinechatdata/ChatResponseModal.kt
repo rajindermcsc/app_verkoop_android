@@ -26,3 +26,18 @@ open class ChatInboxRealmResponse: RealmObject(){
      var offer_status: Int=0
      var url: String?=null
 }
+
+
+
+open class ChatResponse: RealmObject(){
+     var sender_id: Int=0
+     var receiver_id: Int=0
+     var message_id: Int=0
+     var timestamp: String?=null
+     var is_read: Int=0
+     var id: Int=0
+     var message: String?=null
+     var chat_user_id: Int=0
+     var type: Int=0
+     var item_id: Int=0
+}

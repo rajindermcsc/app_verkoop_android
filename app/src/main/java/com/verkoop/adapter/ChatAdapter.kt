@@ -54,7 +54,7 @@ class ChatAdapter(private  val context:Context):RecyclerView.Adapter<RecyclerVie
         if(chatHistoryList[position].type==0&&chatHistoryList[position].senderId==Utils.getPreferencesString(context,AppConstants.USER_ID).toInt()){
             (holder as RightTextHolder).bind(chatHistoryList[position])
         }else{
-         //   (holder as LeftTextHolder).bindLeft(chatHistoryList[position])
+            (holder as LeftTextHolder).bindLeft(chatHistoryList[position])
         }
     }
 

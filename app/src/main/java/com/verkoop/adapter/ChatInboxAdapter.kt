@@ -1,6 +1,8 @@
 package com.verkoop.adapter
 
 import android.content.Context
+import android.content.Intent
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -14,6 +16,7 @@ import com.daimajia.swipe.util.Attributes
 import com.squareup.picasso.Picasso
 import com.verkoop.R
 import com.verkoop.activity.ArchivedChatActivity
+import com.verkoop.activity.ChatActivity
 import com.verkoop.activity.ChatInboxActivity
 import com.verkoop.models.ChatInboxResponse
 import com.verkoop.utils.AppConstants
@@ -138,7 +141,24 @@ class ChatInboxAdapter(private val context: Context, private val chatInboxType: 
                 mItemManger.closeAllItems()
                 deleteChatCallBack.deleteChat(data.sender_id,data.receiver_id,data.item_id,1,adapterPosition,swipe)
             }
+            llParentChat.setOnClickListener {
 
+                val intent= Intent(context, ChatActivity::class.java)
+                if(data.sender_id==Utils.getPreferencesString(context,AppConstants.USER_ID).toInt()){
+                    intent.putExtra(AppConstants.USER_ID,data.receiver_id)
+                }else{
+                    intent.putExtra(AppConstants.USER_ID,data.sender_id)
+                }
+
+                intent.putExtra(AppConstants.USER_NAME,data.username)
+                intent.putExtra(AppConstants.ITEM_ID,data.item_id)
+                intent.putExtra(AppConstants.PROFILE_URL,data.profile_pic)
+                intent.putExtra(AppConstants.PRODUCT_URL,data.url)
+             //   intent.putExtra(AppConstants.PRODUCT_PRICE,data.)
+                intent.putExtra(AppConstants.PRODUCT_NAME,data.item_name)
+                context.startActivity(intent)
+
+            }
         }
 
     }

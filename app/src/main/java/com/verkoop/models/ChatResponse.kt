@@ -9,9 +9,9 @@ data class ChatData(
         val timeStamp: String,
         val type: Int,
         val item_id: Int,
-        val chat_user_id: Int
+        val chat_user_id: Int,
+        val is_read: Int
 )
-
 
 data class ChatInboxResponse(
     val is_archive: Int,

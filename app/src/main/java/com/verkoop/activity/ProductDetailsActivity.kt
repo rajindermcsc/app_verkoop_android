@@ -83,15 +83,21 @@ class ProductDetailsActivity : AppCompatActivity() {
             Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
         }
         llChat.setOnClickListener {
-            val intent=Intent(this,ChatActivity::class.java)
-                intent.putExtra(AppConstants.USER_ID,userId)
-                intent.putExtra(AppConstants.USER_NAME,userName)
-                intent.putExtra(AppConstants.ITEM_ID,itemId)
-                intent.putExtra(AppConstants.PROFILE_URL,profilePic)
-                intent.putExtra(AppConstants.PRODUCT_URL,productImage)
-                intent.putExtra(AppConstants.PRODUCT_PRICE,price)
-                intent.putExtra(AppConstants.PRODUCT_NAME,productName)
-            startActivity(intent)
+            if(userId!=Utils.getPreferencesString(this,AppConstants.USER_ID).toInt()) {
+                val intent = Intent(this, ChatActivity::class.java)
+                intent.putExtra(AppConstants.USER_ID, userId)
+                intent.putExtra(AppConstants.USER_NAME, userName)
+                intent.putExtra(AppConstants.ITEM_ID, itemId)
+                intent.putExtra(AppConstants.PROFILE_URL, profilePic)
+                intent.putExtra(AppConstants.PRODUCT_URL, productImage)
+                intent.putExtra(AppConstants.PRODUCT_PRICE, price)
+                intent.putExtra(AppConstants.PRODUCT_NAME, productName)
+                startActivity(intent)
+            }else{
+                val intent = Intent(this, ChatInboxActivity::class.java)
+                intent.putExtra(AppConstants.ITEM_ID, itemId)
+                startActivity(intent)
+            }
         }
     }
 
@@ -118,9 +124,12 @@ class ProductDetailsActivity : AppCompatActivity() {
         if (data.is_sold == 1 || data.user_id == Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()) {
             llBuying.visibility = View.GONE
             llChat.visibility = View.VISIBLE
+            tvAll.text=StringBuilder().append("View Chats").append("[").append(data.chat_count).append("]")
         } else {
             llBuying.visibility = View.VISIBLE
             llChat.visibility = View.VISIBLE
+
+
         }
         llChatDetails.setOnClickListener {
             if(Utils.getPreferencesString(this,AppConstants.USER_ID).toInt()!=data.user_id) {

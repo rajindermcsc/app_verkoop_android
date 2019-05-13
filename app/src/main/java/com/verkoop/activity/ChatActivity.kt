@@ -19,10 +19,13 @@ import com.verkoop.VerkoopApplication
 import com.verkoop.adapter.ChatAdapter
 import com.verkoop.models.ChatData
 import com.verkoop.models.SocketOnReceiveEvent
+import com.verkoop.offlinechatdata.ChatResponse
+import com.verkoop.offlinechatdata.DbHelper
 import com.verkoop.utils.AppConstants
 import com.verkoop.utils.CreatOfferDialog
 import com.verkoop.utils.MakeOfferListener
 import com.verkoop.utils.Utils
+import io.realm.RealmResults
 import kotlinx.android.synthetic.main.chat_activity.*
 import kotlinx.android.synthetic.main.toolbar_bottom.*
 import kotlinx.android.synthetic.main.toolbar_product_details.*
@@ -44,6 +47,8 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var chatAdapter: ChatAdapter
     private var shareDialog: CreatOfferDialog? = null
     private var chatList = ArrayList<ChatData>()
+    private var dbHelper: DbHelper? = null
+    private var chatHistoryModels: RealmResults<ChatResponse>? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,17 +61,51 @@ class ChatActivity : AppCompatActivity() {
         profileUrl = intent.getStringExtra(AppConstants.PROFILE_URL)
         productUrl = intent.getStringExtra(AppConstants.PRODUCT_URL)
         productName = intent.getStringExtra(AppConstants.PRODUCT_NAME)
+        dbHelper = DbHelper()
         initKeyBoardListener()
         setData()
         setAdapter()
-        getChatHistory()
+        if (Utils.isOnline(this)) {
+            setOfflineHistory()
+            getChatHistory()
+        } else {
+            Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+            setOfflineHistory()
+        }
+
+    }
+
+    private fun setOfflineHistory() {
+        chatList.clear()
+        chatHistoryModels = dbHelper!!.getChatHistoryList(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), senderId,itemId)
+        for (i in chatHistoryModels!!.indices) {
+            val chatData = ChatData(chatHistoryModels!![i]!!.message_id,
+                    chatHistoryModels!![i]!!.sender_id,
+                    chatHistoryModels!![i]!!.receiver_id,
+                    chatHistoryModels!![i]!!.message!!,
+                    chatHistoryModels!![i]!!.timestamp!!,
+                    chatHistoryModels!![i]!!.type,
+                    chatHistoryModels!![i]!!.item_id,
+                    chatHistoryModels!![i]!!.chat_user_id,
+                    chatHistoryModels!![i]!!.is_read)
+            chatList.add(chatData)
+        }
+        chatAdapter.setData(chatList)
+        chatAdapter.notifyDataSetChanged()
+        rvChatList.scrollToPosition(chatList.size - 1)
+
     }
 
     private fun getChatHistory() {
+        chatHistoryModels = dbHelper!!.getChatHistoryList( Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), senderId,itemId)
         val jsonObject = JSONObject()
         try {
             jsonObject.put("user_id", Utils.getPreferencesString(this, AppConstants.USER_ID))
-            jsonObject.put("message_id", 0)
+            if (chatHistoryModels!!.size > 0) {
+                jsonObject.put("message_id", chatHistoryModels!![chatHistoryModels!!.size - 1]!!.message_id)
+            } else {
+                jsonObject.put("message_id", "0")
+            }
             jsonObject.put("item_id", itemId)
             Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
             socket?.emit(AppConstants.CHAT_LIST, jsonObject, Ack {
@@ -74,6 +113,7 @@ class ChatActivity : AppCompatActivity() {
                 val data = it[0] as JSONObject
                 runOnUiThread {
                     if (data.getString("status") == "1") {
+                        chatList.clear()
                         runOnUiThread {
                             try {
                                 val listdata = java.util.ArrayList<JSONObject>()
@@ -97,18 +137,20 @@ class ChatActivity : AppCompatActivity() {
                                                 data2.getString("message"),
                                                 data2.getString("timestamp"),
                                                 data2.getInt("type"),
-                                                0,
-                                                data2.getInt("chat_user_id"))
+                                                itemId,
+                                                data2.getInt("chat_user_id"),
+                                                data2.getInt("is_read"))
                                         chatList.add(chatData)
                                     } catch (e: JSONException) {
                                         e.printStackTrace()
                                     }
 
                                 }
+                                dbHelper!!.chatHistoryInsertData(chatList)
                                 chatAdapter.setData(chatList)
                                 chatAdapter.notifyDataSetChanged()
                                 rvChatList.scrollToPosition(chatList.size - 1)
-
+                                setOfflineHistory()
                             } catch (e: JSONException) {
                                 e.printStackTrace()
                             }
@@ -123,11 +165,16 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
+
     private fun setAdapter() {
         val layoutManager = LinearLayoutManager(this)
         rvChatList.layoutManager = layoutManager
         chatAdapter = ChatAdapter(this)
         rvChatList.adapter = chatAdapter
+        rvChatList.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+            if (bottom < oldBottom)
+                layoutManager.smoothScrollToPosition(rvChatList, null, chatAdapter.itemCount)
+        }
 
     }
 
@@ -175,7 +222,7 @@ class ChatActivity : AppCompatActivity() {
         ivSend.setOnClickListener {
             if (!TextUtils.isEmpty(etMssg.text.toString().trim())) {
                 if (socket!!.connected()) {
-                    sendMssgEvent()
+                   sendMssgEvent()
                 } else {
                     Utils.showSimpleMessage(this, "Socket Disconnected.").show()
                 }
@@ -255,15 +302,15 @@ class ChatActivity : AppCompatActivity() {
             jsonObject.put("item_id", itemId)
             jsonObject.put("message", etMssg.text.toString().trim())
             jsonObject.put("type", 0)
-            etMssg.isEnabled = false
+            ivSend.isEnabled = false
             Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
             socket?.emit(AppConstants.SEND_MESSAGES, jsonObject, Ack {
                 Log.e("<<<Response>>>", Gson().toJson(it[0]))
                 val data = it[0] as JSONObject
                 runOnUiThread {
-                    etMssg.isEnabled = true
+                    ivSend.isEnabled = true
                     if (data.getString("status") == "1") {
-                        runOnUiThread {
+                        saveDataToDb(data)
                             try {
                                 val chatData = ChatData(data.getInt("message_id"),
                                         data.getInt("sender_id"),
@@ -271,8 +318,8 @@ class ChatActivity : AppCompatActivity() {
                                         data.getString("message"),
                                         data.getString("timestamp"),
                                         data.getInt("type"),
-                                        data.getInt("item_id"),
-                                        data.getInt("chat_user_id"))
+                                        itemId,
+                                        data.getInt("chat_user_id"),0)
                                 chatList.add(chatData)
                                 chatAdapter.setData(chatList)
                                 chatAdapter.notifyDataSetChanged()
@@ -281,9 +328,8 @@ class ChatActivity : AppCompatActivity() {
                             } catch (e: JSONException) {
                                 e.printStackTrace()
                             }
-                        }
                     } else {
-                        etMssg.isEnabled = true
+                        ivSend.isEnabled = true
                     }
                 }
             })
@@ -292,34 +338,58 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
+    private fun saveDataToDb(data: JSONObject) {
+        val addToDb=ArrayList<ChatData>()
+        try {
+            val chatData = ChatData(data.getInt("message_id"),
+                    data.getInt("sender_id"),
+                    data.getInt("receiver_id"),
+                    data.getString("message"),
+                    data.getString("timestamp"),
+                    data.getInt("type"),
+                    itemId,
+                    data.getInt("chat_user_id"),
+                    0)
+            addToDb.add(chatData)
+            dbHelper!!.chatHistoryInsertData( addToDb)
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
+    }
+
     @Subscribe
     fun onEventReceived(model: SocketOnReceiveEvent) {
         val tag = model.tag
         when (tag) {
             AppConstants.RECEIVE_MESSAGE -> {
                 val data = model.args[0] as JSONObject
+                Log.e("<<<ReceiveResponse>>>", Gson().toJson(model.args[0]))
                 runOnUiThread {
                     try {
-                        val chatHistory = data.getJSONObject("messages")
-                        if (chatHistory.getString("senderId").equals(senderId)) {
-                            val chatData = ChatData(chatHistory.getInt("message_id"),
-                                    chatHistory.getInt("sender_id"),
-                                    chatHistory.getInt("receiver_id"),
-                                    chatHistory.getString("message"),
-                                    chatHistory.getString("timestamp"),
-                                    chatHistory.getInt("type"),
-                                    0,
-                                    chatHistory.getInt("chat_user_id"))
+                        saveDataToDb(data)
+                     //   val chatHistory = data.getJSONObject("messages")
+                       // if (data.getString("sender_id").equals(senderId)) {
+                            val chatData = ChatData(data.getInt("message_id"),
+                                    data.getInt("sender_id"),
+                                    data.getInt("receiver_id"),
+                                    data.getString("message"),
+                                    data.getString("timestamp"),
+                                    data.getInt("type"),
+                                    itemId,
+                                    data.getInt("chat_user_id"),
+                                   0)
                             chatList.add(chatData)
                             chatAdapter.setData(chatList)
                             chatAdapter.notifyDataSetChanged()
                             rvChatList.scrollToPosition(chatList.size - 1)
-                        } else {
-                            /* val mNotificationManager = KSMNotificationManager(applicationContext)
+
+                       /* } else {
+                            *//* val mNotificationManager = KSMNotificationManager(applicationContext)
                              val intent = Intent(this, SplashActivity::class.java)
                              intent.putExtra("type", "1")
-                             mNotificationManager.showSmallNotification(chatHistory.getString("senderName"), StringEscapeUtils.unescapeJava(chatHistory.getString("message")), intent)*/
-                        }
+                             mNotificationManager.showSmallNotification(chatHistory.getString("senderName"), StringEscapeUtils.unescapeJava(chatHistory.getString("message")), intent)*//*
+                        }*/
                     } catch (e: JSONException) {
                         e.printStackTrace()
                     }

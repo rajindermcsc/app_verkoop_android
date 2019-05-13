@@ -61,6 +61,7 @@ object AppConstants{
      const val RECEIVE_MESSAGE = "receiveMessage"
      const val INBOX_LIST_EVENT = "inboxList"
      const val ARCHIVE_CHAT_EVENT = "archiveChat"
+     const val UN_ARCHIVE_CHAT_EVENT = "unarchiveChat"
      const val DELETE_CHAT_EVENT = "deleteChat"
 
      const val SENDER_ID = "sender_id"

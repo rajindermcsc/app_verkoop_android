@@ -22,6 +22,8 @@ import com.verkoop.fragment.SellingFragment
 import com.verkoop.models.ChatInboxResponse
 import com.verkoop.offlinechatdata.DbHelper
 import com.verkoop.utils.AppConstants
+import com.verkoop.utils.DeleteCommentDialog
+import com.verkoop.utils.SelectionListener
 import com.verkoop.utils.Utils
 import kotlinx.android.synthetic.main.chat_inbox_activity.*
 import kotlinx.android.synthetic.main.toolbar_chat.*
@@ -40,85 +42,29 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
     private var dbHelper: DbHelper?=null
     private var chatInboxAllList = ArrayList<ChatInboxResponse>()
     private var adapterInboxAllList = ArrayList<ChatInboxResponse>()
-    private val archivedChatList = ArrayList<ChatInboxResponse>()
-    private val sellerList = ArrayList<ChatInboxResponse>()
-    private val buyerList = ArrayList<ChatInboxResponse>()
+    private var itemId=0
+
 
     override fun deleteChat(senderId: Int, receiverId: Int, itemId: Int, type: Int, adapterPosition: Int,swipe: SwipeLayout) {
         if (Utils.isOnline(this)) {
           if(type==0){
-              deleteChatDialogBox(senderId,receiverId,itemId,adapterPosition,swipe)
+              removeChatDialog(senderId,receiverId,itemId,adapterPosition,swipe)
           }else if(type==1){
-              setArchiveChatEvent(senderId,receiverId,itemId,adapterPosition,swipe)
+              if(socket!!.connected()) {
+                  setArchiveChatEvent(senderId,receiverId,itemId,adapterPosition,swipe)
+              }
+
           }
         } else {
             Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
         }
     }
 
-    private fun setArchiveChatEvent(senderId: Int, receiverId: Int, itemId: Int, adapterPosition: Int, swipe: SwipeLayout) {
-        val jsonObject = JSONObject()
-        try {
-            jsonObject.put("sender_id",senderId)
-            jsonObject.put("receiver_id", receiverId)
-            jsonObject.put("item_id", itemId)
-            Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
-            socket?.emit(AppConstants.ARCHIVE_CHAT_EVENT, jsonObject, Ack {
-                Log.e("<<<Response>>>", Gson().toJson(it[0]))
-                val data = it[0] as JSONObject
-                runOnUiThread {
-                    if (data.getString("status") == "1") {
-                        runOnUiThread {
-                            Utils.showToast(this, "offerCreated")
-                           // DbHelper.deleteAllChatMessage(realm, unFriendFriendRequest.getUser_id(), unFriendFriendRequest.getFriend_id())
-                          //  DbHelper.updateChatAllTable(realm, userId)
-                            chatInboxAdapter.mItemManger.removeShownLayouts(swipe)
-                            adapterInboxAllList.removeAt(adapterPosition)
-                            chatInboxAdapter.notifyItemRemoved(adapterPosition)
-                            chatInboxAdapter.notifyItemRangeChanged(adapterPosition, adapterInboxAllList.size)
-                        }
-                    } else {
-
-                    }
-                }
-            })
-        } catch (e: JSONException) {
-            e.printStackTrace()
-        }
-    }
-
-    private fun deleteChatDialogBox(senderId: Int, receiverId: Int, itemId: Int, adapterPosition: Int, swipe: SwipeLayout) {
-        val jsonObject = JSONObject()
-        try {
-            jsonObject.put("sender_id",senderId)
-            jsonObject.put("receiver_id", receiverId)
-            jsonObject.put("item_id", itemId)
-            Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
-            socket?.emit(AppConstants.DELETE_CHAT_EVENT, jsonObject, Ack {
-                Log.e("<<<Response>>>", Gson().toJson(it[0]))
-                val data = it[0] as JSONObject
-                runOnUiThread {
-                    if (data.getString("status") == "1") {
-                        runOnUiThread {
-                            chatInboxAdapter.mItemManger.removeShownLayouts(swipe)
-                            adapterInboxAllList.removeAt(adapterPosition)
-                            chatInboxAdapter.notifyItemRemoved(adapterPosition)
-                            chatInboxAdapter.notifyItemRangeChanged(adapterPosition, adapterInboxAllList.size)
-
-                        }
-                    } else {
-
-                    }
-                }
-            })
-        } catch (e: JSONException) {
-            e.printStackTrace()
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.chat_inbox_activity)
+        itemId=intent.getIntExtra(AppConstants.ITEM_ID,0)
         dbHelper=DbHelper()
         chatInboxFragment = ChatInboxFragment.newInstance()
         buyingFragment = BuyingFragment.newInstance()
@@ -132,13 +78,15 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
             getChatHistory()
         } else {
             Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
-            setOfflineData()
+           if(socket!!.connected()) {
+               setOfflineData()
+           }
         }
     }
 
     private fun setOfflineData() {
         val  chatInboxList= ArrayList<ChatInboxResponse>()
-        val result = dbHelper!!.getAddChatList()
+        val result = dbHelper!!.getAddChatList(itemId)
         for (i in result.indices) {
             val dataBean =ChatInboxResponse(
                   result[i]!!.is_archive,
@@ -169,7 +117,7 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
         val jsonObject = JSONObject()
         try {
             jsonObject.put(AppConstants.SENDER_ID, Utils.getPreferencesString(this, AppConstants.USER_ID))
-            jsonObject.put(AppConstants.ITEM_ID, 0)
+            jsonObject.put(AppConstants.ITEM_ID, itemId)
             Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
             socket?.emit(AppConstants.INBOX_LIST_EVENT, jsonObject, Ack {
                 Log.e("<<<Response>>>", Gson().toJson(it[0]))
@@ -236,22 +184,23 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
     }
 
     private fun getArchiveLIst(chatInboxList: ArrayList<ChatInboxResponse>) {
+        chatInboxAllList.clear()
         for (i in chatInboxList.indices) {
-            if (chatInboxList[i].is_archive == 1) {
-                archivedChatList.add(chatInboxList[i])
-            } else {
+            if (chatInboxList[i].is_archive != 1) {
                 chatInboxAllList.add(chatInboxList[i])
-                if (chatInboxList[i].user_id == Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()) {
+            } else {
+
+              /*  if (chatInboxList[i].user_id == Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()) {
                     sellerList.add(chatInboxList[i])
                 } else {
                     buyerList.add(chatInboxList[i])
-                }
+                }*/
             }
         }
+        adapterInboxAllList.clear()
         adapterInboxAllList.addAll(chatInboxAllList)
        chatInboxAdapter.setData(adapterInboxAllList)
        chatInboxAdapter.notifyDataSetChanged()
-
     }
 
     private fun setAdapter() {
@@ -273,10 +222,7 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
             vAll.visibility = View.VISIBLE
             chatInboxType = 0
             chatInboxAdapter.mItemManger.closeAllItems()
-            adapterInboxAllList.clear()
-            adapterInboxAllList.addAll(chatInboxAllList)
-            chatInboxAdapter.setData(adapterInboxAllList)
-            chatInboxAdapter.notifyDataSetChanged()
+            setOfflineData()
         }
         llBuying.setOnClickListener {
             setNothing()
@@ -284,10 +230,7 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
             vBuying.visibility = View.VISIBLE
             chatInboxType = 1
             chatInboxAdapter.mItemManger.closeAllItems()
-            adapterInboxAllList.clear()
-            adapterInboxAllList.addAll(buyerList)
-            chatInboxAdapter.setData(adapterInboxAllList)
-            chatInboxAdapter.notifyDataSetChanged()
+            getChatBuyerList()
         }
         llSelling.setOnClickListener {
             setNothing()
@@ -295,10 +238,140 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
             vSelling.visibility = View.VISIBLE
             chatInboxType = 2
             chatInboxAdapter.mItemManger.closeAllItems()
-            adapterInboxAllList.clear()
-            adapterInboxAllList.addAll(sellerList)
-            chatInboxAdapter.setData(adapterInboxAllList)
-            chatInboxAdapter.notifyDataSetChanged()
+            getChatSellerList()
+        }
+    }
+
+    private fun getChatSellerList() {
+        val sellerList = ArrayList<ChatInboxResponse>()
+        val result = dbHelper!!.getSellerList(Utils.getPreferencesString(this,AppConstants.USER_ID).toInt(),itemId)
+        for (i in result.indices) {
+            val dataBean = ChatInboxResponse(
+                    result[i]!!.is_archive,
+                    result[i]!!.is_delete,
+                    result[i]!!.chat_user_id!!,
+                    result[i]!!.timestamp!!,
+                    result[i]!!.types,
+                    result[i]!!.unread_count,
+                    result[i]!!.sender_id,
+                    result[i]!!.receiver_id,
+                    result[i]!!.item_id,
+                    result[i]!!.message_id,
+                    result[i]!!.username!!,
+                    result[i]!!.profile_pic!!,
+                    result[i]!!.message!!,
+                    result[i]!!.user_id,
+                    result[i]!!.is_sold,
+                    result[i]!!.item_name!!,
+                    result[i]!!.offer_status,
+                    result[i]!!.url!!
+            )
+            sellerList.add(dataBean)
+        }
+        adapterInboxAllList.clear()
+        adapterInboxAllList.addAll(sellerList)
+        chatInboxAdapter.setData(adapterInboxAllList)
+        chatInboxAdapter.notifyDataSetChanged()
+    }
+
+    private fun getChatBuyerList() {
+        val buyerList = ArrayList<ChatInboxResponse>()
+        val result = dbHelper!!.getBuyerList(Utils.getPreferencesString(this,AppConstants.USER_ID).toInt(),itemId)
+        for (i in result.indices) {
+            val dataBean = ChatInboxResponse(
+                    result[i]!!.is_archive,
+                    result[i]!!.is_delete,
+                    result[i]!!.chat_user_id!!,
+                    result[i]!!.timestamp!!,
+                    result[i]!!.types,
+                    result[i]!!.unread_count,
+                    result[i]!!.sender_id,
+                    result[i]!!.receiver_id,
+                    result[i]!!.item_id,
+                    result[i]!!.message_id,
+                    result[i]!!.username!!,
+                    result[i]!!.profile_pic!!,
+                    result[i]!!.message!!,
+                    result[i]!!.user_id,
+                    result[i]!!.is_sold,
+                    result[i]!!.item_name!!,
+                    result[i]!!.offer_status,
+                    result[i]!!.url!!
+            )
+            buyerList.add(dataBean)
+        }
+        adapterInboxAllList.clear()
+        adapterInboxAllList.addAll(buyerList)
+        chatInboxAdapter.setData(adapterInboxAllList)
+        chatInboxAdapter.notifyDataSetChanged()
+    }
+
+    private fun setArchiveChatEvent(senderId: Int, receiverId: Int, itemId: Int, adapterPosition: Int, swipe: SwipeLayout) {
+        val jsonObject = JSONObject()
+        try {
+            jsonObject.put("sender_id",senderId)
+            jsonObject.put("receiver_id", receiverId)
+            jsonObject.put("item_id", itemId)
+            Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
+            socket?.emit(AppConstants.ARCHIVE_CHAT_EVENT, jsonObject, Ack {
+                Log.e("<<<Response>>>", Gson().toJson(it[0]))
+                val data = it[0] as JSONObject
+                runOnUiThread {
+                    if (data.getString("status") == "1") {
+                        runOnUiThread {
+                            dbHelper!!.archiveChat(senderId,receiverId,itemId)
+                            chatInboxAdapter.mItemManger.removeShownLayouts(swipe)
+                            adapterInboxAllList.removeAt(adapterPosition)
+                            chatInboxAdapter.notifyItemRemoved(adapterPosition)
+                            chatInboxAdapter.notifyItemRangeChanged(adapterPosition, adapterInboxAllList.size)
+                        }
+                    } else {
+
+                    }
+                }
+            })
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun removeChatDialog(senderId:Int,receiverId:Int,itemId:Int,adapterPosition:Int,swipe:SwipeLayout) {
+        val shareDialog = DeleteCommentDialog(this,"Delete Chat","Are you sure you want to delete this Chat?",object : SelectionListener {
+            override fun leaveClick() {
+                if(socket!!.connected()) {
+                    deleteChatEvent(senderId,receiverId,itemId,adapterPosition,swipe)
+                }
+            }
+        })
+        shareDialog.show()
+    }
+
+    private fun deleteChatEvent(senderId: Int, receiverId: Int, itemId: Int, adapterPosition: Int, swipe: SwipeLayout) {
+        val jsonObject = JSONObject()
+        try {
+            jsonObject.put("sender_id",senderId)
+            jsonObject.put("receiver_id", receiverId)
+            jsonObject.put("item_id", itemId)
+            Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
+            socket?.emit(AppConstants.DELETE_CHAT_EVENT, jsonObject, Ack {
+                Log.e("<<<Response>>>", Gson().toJson(it[0]))
+                val data = it[0] as JSONObject
+                runOnUiThread {
+                    if (data.getString("status") == "1") {
+                        runOnUiThread {
+                            dbHelper!!.deleteChat(senderId,receiverId,itemId)
+                            chatInboxAdapter.mItemManger.removeShownLayouts(swipe)
+                            adapterInboxAllList.removeAt(adapterPosition)
+                            chatInboxAdapter.notifyItemRemoved(adapterPosition)
+                            chatInboxAdapter.notifyItemRangeChanged(adapterPosition, adapterInboxAllList.size)
+                        }
+                    } else {
+
+                    }
+                }
+            })
+        } catch (e: JSONException) {
+            e.printStackTrace()
         }
     }
 
