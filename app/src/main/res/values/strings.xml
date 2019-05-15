@@ -266,9 +266,22 @@
     <string name="make_offer_">MAKE OFFER</string>
     <string name="enter_here">Enter here...</string>
     <string name="view_seller">View Seller</string>
+    <string name="accept_offer">Accept Offer</string>
+    <string name="decline_offer">Decline Offer</string>
+    <string name="edit_offer">Edit Offer</string>
+    <string name="cancel_offer">Cancel Offer</string>
+    <string name="leave_review">Leave Review For Buyer</string>
+    <string name="leave_review_seller">Leave Review For Seller</string>
     <string name="enter_mssg">Please enter message.</string>
     <string name="you_are_offring">You are offering</string>
     <string name="delete">Delete</string>
     <string name="arch_chat">Archived Chats</string>
     <string name="un_arciver">UnArchive</string>
+    <string name="confirm_accpt_offer">Confirm accept offer?</string>
+    <string name="accepetd">Accepted</string>
+    <string name="declined">Declined</string>
+    <string name="archive">Archive</string>
+    <string name="cancelled_offer">CANCELLED OFFER</string>
+    <string name="view_offer">VIEW OFFER</string>
+
 </resources>

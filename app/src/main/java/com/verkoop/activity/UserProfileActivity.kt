@@ -146,6 +146,7 @@ class UserProfileActivity:AppCompatActivity(), LikeDisLikeListener {
                 .build()
         powerMenu!!.showAsAnchorRightTop(ivRight)
     }
+
     private val onMenuItemClickListener = OnMenuItemClickListener<PowerMenuItem> { position, item ->
         powerMenu!!.selectedPosition = position
         powerMenu!!.dismiss()

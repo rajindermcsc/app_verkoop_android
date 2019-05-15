@@ -31,5 +31,7 @@ data class ChatInboxResponse(
     val is_sold: Int,
     val item_name: String,
     val offer_status: Int,
-    val url: String
+    val url: String,
+    val offer_price:String,
+    val item_price: String
 )

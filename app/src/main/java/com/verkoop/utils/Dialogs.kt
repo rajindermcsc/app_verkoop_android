@@ -120,6 +120,9 @@ class DeleteCommentDialog(context: Context,private val header:String,private val
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
         setCanceledOnTouchOutside(true)
         setCancelable(true)
+        if(header.equals(context.getString(R.string.confirm_accpt_offer),ignoreCase = true)||header.equals(context.getString(R.string.cancel_offer),ignoreCase = true)){
+            flParentDel.background=ContextCompat.getDrawable(context,R.drawable.white_rectangular_shape)
+        }
         tvHeaderDel.text=header
         tvDescriptionDel.text=description
         tvLeaveDelete.setOnClickListener {

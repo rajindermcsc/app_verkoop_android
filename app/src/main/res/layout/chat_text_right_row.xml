@@ -17,22 +17,20 @@
         android:layout_marginTop="@dimen/dp_8"
         android:background="@drawable/blue_rectangle_shape"
         android:padding="@dimen/dp_10">
-        <TextView
+        <com.verkoop.fonts.textView.GothicThinTextView
             android:id="@+id/tvRightMssg"
             android:textColor="@color/dark_black"
             android:textSize="@dimen/sp_14"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="hi can we help?]"/>
+            android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/tvrightTime"
+        <com.verkoop.fonts.textView.GothicThinTextView
+            android:id="@+id/tvRightTime"
             android:textColor="@color/light_gray"
-            android:textSize="@dimen/sp_12"
+            android:textSize="@dimen/sp_10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:layout_marginTop="@dimen/dp_4"
-            android:text="7:20 PM"/>
+            android:layout_marginTop="@dimen/dp_4" />
     </LinearLayout>
 </LinearLayout>

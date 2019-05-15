@@ -33,6 +33,8 @@ class DbHelper{
                 allChatRealModel.item_name=AllChatList[i].item_name
                 allChatRealModel.offer_status=AllChatList[i].offer_status
                 allChatRealModel.url=AllChatList[i].url
+                allChatRealModel.offer_price=AllChatList[i].offer_price
+                allChatRealModel.item_price=AllChatList[i].item_price
             }
         }
     }
@@ -150,7 +152,20 @@ class DbHelper{
 
     fun getChatHistoryList(senderId: Int, receiverId: Int,itemId:Int): RealmResults<ChatResponse> {
         return realm.where(ChatResponse::class.java)
+                        .equalTo("item_id",itemId)
+                        .and()
+                        .beginGroup()
+                        .equalTo("receiver_id", receiverId).or()
+                        .equalTo("sender_id", senderId).and()
+                        .equalTo("receiver_id", senderId).or()
+                        .equalTo("sender_id", receiverId)
+                .endGroup()
+                .findAll()
+    }
+    fun getOfferPriceLast(senderId: Int, receiverId: Int,itemId:Int,type:Int): ChatResponse? {
+        return realm.where(ChatResponse::class.java)
                 .equalTo("item_id",itemId)
+                .equalTo("type",type)
                 .and()
                 .beginGroup()
                 .equalTo("receiver_id", receiverId).or()
@@ -159,5 +174,6 @@ class DbHelper{
                 .equalTo("sender_id", receiverId)
                 .endGroup()
                 .findAll()
+                .last(null)
     }
 }

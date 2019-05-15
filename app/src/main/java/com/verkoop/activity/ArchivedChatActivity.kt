@@ -74,7 +74,9 @@ class ArchivedChatActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCal
                     result[i]!!.is_sold,
                     result[i]!!.item_name!!,
                     result[i]!!.offer_status,
-                    result[i]!!.url!!
+                    result[i]!!.url!!,
+                    result[i]!!.offer_price!!,
+                    result[i]!!.item_price!!
             )
             chatInboxList.add(dataBean)
         }

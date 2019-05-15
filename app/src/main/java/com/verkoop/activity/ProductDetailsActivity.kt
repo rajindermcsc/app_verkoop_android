@@ -30,6 +30,7 @@ import com.verkoop.VerkoopApplication
 import com.verkoop.adapter.CommentListAdapter
 import com.verkoop.models.*
 import com.verkoop.network.ServiceHelper
+import com.verkoop.offlinechatdata.DbHelper
 import com.verkoop.utils.*
 import kotlinx.android.synthetic.main.item_details_activity.*
 import kotlinx.android.synthetic.main.toolbar_product_details.*
@@ -58,13 +59,17 @@ class ProductDetailsActivity : AppCompatActivity() {
     private var price: Double = 0.0
     private var productName: String = ""
     private var productImage: String = ""
+    private var dbHelper: DbHelper? = null
+    private var dataResponse: DataItems?=null
+
     private lateinit var commentListAdapter: CommentListAdapter
-    private  lateinit var shareDialog:CreatOfferDialog
+    private lateinit var shareDialog: CreatOfferDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.item_details_activity)
         initKeyBoardListener()
+        dbHelper = DbHelper()
         llBuying.visibility = View.GONE
         val displayMetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(displayMetrics)
@@ -83,7 +88,7 @@ class ProductDetailsActivity : AppCompatActivity() {
             Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
         }
         llChat.setOnClickListener {
-            if(userId!=Utils.getPreferencesString(this,AppConstants.USER_ID).toInt()) {
+            if (userId != Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()) {
                 val intent = Intent(this, ChatActivity::class.java)
                 intent.putExtra(AppConstants.USER_ID, userId)
                 intent.putExtra(AppConstants.USER_NAME, userName)
@@ -93,7 +98,7 @@ class ProductDetailsActivity : AppCompatActivity() {
                 intent.putExtra(AppConstants.PRODUCT_PRICE, price)
                 intent.putExtra(AppConstants.PRODUCT_NAME, productName)
                 startActivity(intent)
-            }else{
+            } else {
                 val intent = Intent(this, ChatInboxActivity::class.java)
                 intent.putExtra(AppConstants.ITEM_ID, itemId)
                 startActivity(intent)
@@ -109,6 +114,7 @@ class ProductDetailsActivity : AppCompatActivity() {
     }
 
     private fun setData(imageURLLIst: ArrayList<String>, data: DataItems) {
+        dataResponse=data
         itemId = data.id
         userId = data.user_id
         userName = data.username
@@ -124,7 +130,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         if (data.is_sold == 1 || data.user_id == Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()) {
             llBuying.visibility = View.GONE
             llChat.visibility = View.VISIBLE
-            tvAll.text=StringBuilder().append("View Chats").append("[").append(data.chat_count).append("]")
+            tvAll.text = StringBuilder().append("View Chats").append("[").append(data.chat_count).append("]")
         } else {
             llBuying.visibility = View.VISIBLE
             llChat.visibility = View.VISIBLE
@@ -132,7 +138,7 @@ class ProductDetailsActivity : AppCompatActivity() {
 
         }
         llChatDetails.setOnClickListener {
-            if(Utils.getPreferencesString(this,AppConstants.USER_ID).toInt()!=data.user_id) {
+            if (Utils.getPreferencesString(this, AppConstants.USER_ID).toInt() != data.user_id) {
                 val reportIntent = Intent(this, UserProfileActivity::class.java)
                 reportIntent.putExtra(AppConstants.USER_ID, data.user_id)
                 reportIntent.putExtra(AppConstants.USER_NAME, data.username)
@@ -147,7 +153,7 @@ class ProductDetailsActivity : AppCompatActivity() {
             }
         }
         if (!TextUtils.isEmpty(data.profile_pic)) {
-            profilePic=data.profile_pic
+            profilePic = data.profile_pic
             Picasso.with(this@ProductDetailsActivity).load(AppConstants.IMAGE_URL + data.profile_pic)
                     .resize(720, 720)
                     .centerInside()
@@ -212,9 +218,9 @@ class ProductDetailsActivity : AppCompatActivity() {
         }
         mDemoSliderDetails.stopAutoCycle()
         tvProductName.text = data.name
-        price= data.price
-        productName=data.name
-        productImage=data.items_image[0].url
+        price = data.price
+        productName = data.name
+        productImage = data.items_image[0].url
         tvLikes.text = data.items_like_count.toString()
         tvPrice.text = StringBuilder().append(": ").append(getString(R.string.dollar)).append(data.price)
         tvDescription.text = data.description
@@ -228,10 +234,10 @@ class ProductDetailsActivity : AppCompatActivity() {
         } else {
             tvType.text = getString(R.string.used)
         }
-        categoryType=data.type
-        Log.e("actegoryType=",data.type.toString())
+        categoryType = data.type
+        Log.e("actegoryType=", data.type.toString())
         if (data.type == 1) {
-            tvType.visibility=View.GONE
+            tvType.visibility = View.GONE
             llCarDetails.visibility = View.VISIBLE
             CommonView.visibility = View.VISIBLE
             llPropertyDetails.visibility = View.GONE
@@ -239,7 +245,7 @@ class ProductDetailsActivity : AppCompatActivity() {
                 tvRegistrationYear.text = StringBuilder().append(": ").append(data.additional_info!!.registration_year)
                 tvCarBrand.text = StringBuilder().append(": ").append(data.additional_info!!.brand_name)
                 tvCarType.text = StringBuilder().append(": ").append(data.additional_info!!.car_type)
-                if (data.additional_info!!.direct_owner==1) {
+                if (data.additional_info!!.direct_owner == 1) {
                     tvDirectOwner.text = StringBuilder().append(": ").append(getString(R.string.res))
                 } else {
                     tvDirectOwner.text = StringBuilder().append(": ").append(getString(R.string.no))
@@ -247,7 +253,7 @@ class ProductDetailsActivity : AppCompatActivity() {
             }
 
         } else if (data.type == 2) {
-            tvType.visibility=View.GONE
+            tvType.visibility = View.GONE
             llPropertyDetails.visibility = View.VISIBLE
             CommonView.visibility = View.VISIBLE
             llCarDetails.visibility = View.GONE
@@ -260,17 +266,25 @@ class ProductDetailsActivity : AppCompatActivity() {
                 tvArea.text = StringBuilder().append(": ").append(data.additional_info!!.area)
             }
         } else {
-            tvType.visibility=View.VISIBLE
+            tvType.visibility = View.VISIBLE
             llCarDetails.visibility = View.GONE
             llPropertyDetails.visibility = View.GONE
             CommonView.visibility = View.GONE
 
         }
-        if(!data.make_offer){
-            llBuying.setOnClickListener {
+        if (!data.make_offer) {
+            tvBuying.text=getString(R.string.make_offer_)
+        } else {
+            tvBuying.text=getString(R.string.view_offer)
+        }
+        llBuying.setOnClickListener {
+            if (!data.make_offer) {
                 makeOffer(data.price)
+            } else {
+                makeOffer(data.offer_price)
             }
         }
+
     }
 
     private fun openPowerMenu(menuList: ArrayList<PowerMenuItem>) {
@@ -312,10 +326,10 @@ class ProductDetailsActivity : AppCompatActivity() {
             //  dataIntent!!.comments=commentsList
             //  dataIntent!!.reports=reportsList
             //    Log.e("<<clicked>>","clicked")
-                val intent = Intent(this, AddDetailsActivity::class.java)
-                intent.putExtra(AppConstants.COMING_FROM, 1)
-                intent.putExtra(AppConstants.PRODUCT_DETAIL, dataIntent!!)
-                startActivityForResult(intent, 2)
+            val intent = Intent(this, AddDetailsActivity::class.java)
+            intent.putExtra(AppConstants.COMING_FROM, 1)
+            intent.putExtra(AppConstants.PRODUCT_DETAIL, dataIntent!!)
+            startActivityForResult(intent, 2)
 
         }
     }
@@ -402,7 +416,7 @@ class ProductDetailsActivity : AppCompatActivity() {
 
     private fun getItemDetailsService(itemId: Int) {
         pbProgressProduct.visibility = View.VISIBLE
-        ServiceHelper().getItemDetailService(itemId,Utils.getPreferencesString(this,AppConstants.USER_ID).toInt(),
+        ServiceHelper().getItemDetailService(itemId, Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         pbProgressProduct.visibility = View.GONE
@@ -478,26 +492,26 @@ class ProductDetailsActivity : AppCompatActivity() {
         }
     }
 
-private fun makeOffer(price:Double){
-     shareDialog = CreatOfferDialog(price,this, object : MakeOfferListener {
-        override fun makeOfferClick(offerPrice:Double) {
-        Utils.showToast(this@ProductDetailsActivity,offerPrice.toString())
-        makeOfferEvent(price)
-        }
+    private fun makeOffer(price: Double) {
+        shareDialog = CreatOfferDialog(price, this, object : MakeOfferListener {
+            override fun makeOfferClick(offerPrice: Double) {
+                // Utils.showToast(this@ProductDetailsActivity,offerPrice.toString())
+                makeOfferEvent(offerPrice)
+            }
 
-    })
-    shareDialog.show()
-}
+        })
+        shareDialog.show()
+    }
 
-    private fun makeOfferEvent(price: Double) {
+    private fun makeOfferEvent(Offerprice: Double) {
         val jsonObject = JSONObject()
         try {
-            jsonObject.put("sender_id",Utils.getPreferencesString(this,AppConstants.USER_ID))
+            jsonObject.put("sender_id", Utils.getPreferencesString(this, AppConstants.USER_ID))
             jsonObject.put("receiver_id", userId)
             jsonObject.put("item_id", itemId)
-            jsonObject.put("message","Make offer")
-            jsonObject.put("type",2 )
-            jsonObject.put("price",price )
+            jsonObject.put("message", Offerprice)
+            jsonObject.put("type", 2)
+            jsonObject.put("price", Offerprice)
             Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
             socket?.emit(AppConstants.MAKE_OFFER_EVENT, jsonObject, Ack {
                 Log.e("<<<Response>>>", Gson().toJson(it[0]))
@@ -505,28 +519,20 @@ private fun makeOffer(price:Double){
                 runOnUiThread {
                     if (data.getString("status") == "1") {
                         runOnUiThread {
-                            val intent=Intent(this,ChatActivity::class.java)
-                            intent.putExtra(AppConstants.USER_ID,userId)
-                            intent.putExtra(AppConstants.USER_NAME,userName)
-                            intent.putExtra(AppConstants.ITEM_ID,itemId)
-                            intent.putExtra(AppConstants.PROFILE_URL,profilePic)
-                            intent.putExtra(AppConstants.PRODUCT_URL,productImage)
-                            intent.putExtra(AppConstants.PRODUCT_PRICE,price)
-                            intent.putExtra(AppConstants.PRODUCT_NAME,productName)
+                            saveDataToDb(data)
+                            val intent = Intent(this, ChatActivity::class.java)
+                            intent.putExtra(AppConstants.USER_ID, userId)
+                            intent.putExtra(AppConstants.USER_NAME, userName)
+                            intent.putExtra(AppConstants.ITEM_ID, itemId)
+                            intent.putExtra(AppConstants.PROFILE_URL, profilePic)
+                            intent.putExtra(AppConstants.PRODUCT_URL, productImage)
+                            intent.putExtra(AppConstants.PRODUCT_PRICE, price)
+                            intent.putExtra(AppConstants.OFFERED_PRICE, Offerprice)
+                            intent.putExtra(AppConstants.IS_SOLD, isSoldItem)
+                            intent.putExtra(AppConstants.PRODUCT_NAME, productName)
                             startActivity(intent)
-                         /*   try {
-                                val chatData = ChatData(data.getInt("message_id"),
-                                        data.getInt("sender_id"),
-                                        data.getInt("receiver_id"),
-                                        data.getString("message"),
-                                        data.getString("timestamp"),
-                                        data.getInt("type"),
-                                        data.getInt("item_id"),
-                                        data.getInt("chat_user_id"))
-                                etMssg.text = null
-                            } catch (e: JSONException) {
-                                e.printStackTrace()
-                            }*/
+                            dataResponse!!.make_offer=dataResponse!!.make_offer
+                            dataResponse!!.offer_price=Offerprice
                         }
                     } else {
 
@@ -537,7 +543,25 @@ private fun makeOffer(price:Double){
             e.printStackTrace()
         }
     }
+    private fun saveDataToDb(data: JSONObject) {
+        val addToDb=ArrayList<ChatData>()
+        try {
+            val chatData = ChatData(data.getInt("message_id"),
+                    data.getInt("sender_id"),
+                    data.getInt("receiver_id"),
+                    data.getString("message"),
+                    data.getString("timestamp"),
+                    data.getInt("type"),
+                    data.getInt("item_id"),
+                    data.getInt("chat_user_id"),
+                    0)
+            addToDb.add(chatData)
+            dbHelper!!.chatHistoryInsertData( addToDb)
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
 
+    }
     private fun initKeyBoardListener() {
         // Threshold for minimal keyboard height.
         val MIN_KEYBOARD_HEIGHT_PX = 150

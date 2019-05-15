@@ -48,7 +48,10 @@ object AppConstants{
      const val PROFILE_URL = "PROFILE_URL"
      const val PRODUCT_URL = "PRODUCT_URL"
      const val PRODUCT_PRICE = "PRODUCT_PRICE"
+     const val OFFERED_PRICE = "OFFERED_PRICE"
      const val PRODUCT_NAME = "PRODUCT_NAME"
+     const val IS_MY_PRODUCT = "IS_MY_PRODUCT"
+     const val IS_SOLD = "IS_SOLD"
 
 
    /*Socket constant*/
@@ -63,6 +66,11 @@ object AppConstants{
      const val ARCHIVE_CHAT_EVENT = "archiveChat"
      const val UN_ARCHIVE_CHAT_EVENT = "unarchiveChat"
      const val DELETE_CHAT_EVENT = "deleteChat"
+     const val ACCEPT_OFFER_EVENT = "acceptOffer"
+     const val CANCEL_OFFER_EVENT = "cancelledOffer"
+     const val DECLINE_OFFER_EVENT = "declineOffer"
+     const val EDIT_OFFER_EVENT = "editOffer"
+     const val DIRECT_CHAT = "directChat"
 
      const val SENDER_ID = "sender_id"
      const val ITEM_ID = "item_id"
