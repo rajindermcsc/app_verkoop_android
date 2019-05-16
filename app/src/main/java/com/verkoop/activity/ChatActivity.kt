@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -38,7 +39,6 @@ import org.greenrobot.eventbus.Subscribe
 import org.json.JSONException
 import org.json.JSONObject
 
-
 class ChatActivity : AppCompatActivity() {
     private val socket: Socket? = VerkoopApplication.getAppSocket()
     private var powerMenu: PowerMenu? = null
@@ -51,7 +51,7 @@ class ChatActivity : AppCompatActivity() {
     private var productUrl = ""
     private var productName = ""
     private lateinit var chatAdapter: ChatAdapter
-    private var shareDialog: CreatOfferDialog? = null
+    private  var createOfferDialog: CreatOfferDialog?=null
     private var chatList = ArrayList<ChatData>()
     private var dbHelper: DbHelper? = null
     private var chatHistoryModels: RealmResults<ChatResponse>? = null
@@ -88,7 +88,9 @@ class ChatActivity : AppCompatActivity() {
             setOfflineHistory()
             getChatHistory()
         } else {
-            Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+            Handler().postDelayed(Runnable {
+                Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+            },300)
             setOfflineHistory()
         }
 
@@ -181,7 +183,7 @@ class ChatActivity : AppCompatActivity() {
                                                 data2.getString("message"),
                                                 data2.getString("timestamp"),
                                                 data2.getInt("type"),
-                                                data.getInt("item_id"),
+                                                data2.getInt("item_id"),
                                                 data2.getInt("chat_user_id"),
                                                 data2.getInt("is_read"))
                                         chatList.add(chatData)
@@ -198,11 +200,7 @@ class ChatActivity : AppCompatActivity() {
                             } catch (e: JSONException) {
                                 e.printStackTrace()
                             }
-                       // if(isSold!=1){
                             makeOfferManage(data.getInt("offer_status"),data.getInt("is_block"))
-                           // llViewOffer.visibility=View.VISIBLE
-                      // }
-
                     } else {
 
                     }
@@ -273,7 +271,7 @@ class ChatActivity : AppCompatActivity() {
     private fun setData() {
         tvUserName.text = userName
         tvProductDes.text = productName
-        tvProducePrice.text = price.toString()
+        tvProducePrice.text = StringBuilder().append("$ ").append(price.toString())
         if (!TextUtils.isEmpty(productUrl)) {
             Picasso.with(this@ChatActivity).load(AppConstants.IMAGE_URL + productUrl)
                     .resize(720, 720)
@@ -420,7 +418,7 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun acceptOfferDialogBox(price:String) {
-        val shareDialog = DeleteCommentDialog(this,getString(R.string.confirm_accpt_offer),"Are you sure you want to delete this Chat?",object : SelectionListener {
+        val shareDialog = DeleteCommentDialog(this,getString(R.string.confirm_accpt_offer),"Once the offer is accepted, the product will be marked as sold.",object : SelectionListener {
             override fun leaveClick() {
                 if(socket!!.connected()) {
                     acceptOfferEvent(price)
@@ -433,21 +431,19 @@ class ChatActivity : AppCompatActivity() {
 
 
     private fun makeOffer(type:Int,priceOffer:Double) {
-        shareDialog = CreatOfferDialog(priceOffer, this, object : MakeOfferListener {
+        createOfferDialog = CreatOfferDialog(priceOffer, this, object : MakeOfferListener {
             override fun makeOfferClick(offerPrice: Double) {
-                Utils.showToast(this@ChatActivity, offerPrice.toString())
                 if(socket!!.connected()) {
                     if(type!=1) {
                         makeOfferEvent(offerPrice)
                     }else{
-                      //  val  lastOffer = dbHelper!!.getOfferPriceLast( Utils.getPreferencesString(this@ChatActivity, AppConstants.USER_ID).toInt(), senderId,itemId,2)
                         editOfferEvent(offerPrice)
                     }
                 }
             }
 
         })
-        shareDialog!!.show()
+        createOfferDialog!!.show()
     }
 
     private fun declineOfferEvent(price:String) {
@@ -838,16 +834,18 @@ class ChatActivity : AppCompatActivity() {
                     if (lastVisibleDecorViewHeight > visibleDecorViewHeight + MIN_KEYBOARD_HEIGHT_PX) {
                         Log.e("Pasha", "SHOW")
                         llParentChat.visibility = View.GONE
-                        if (shareDialog != null) {
-                            shareDialog!!.showDialog(1)
+                        if(createOfferDialog!=null) {
+                            createOfferDialog!!.showDialog(1)
                         }
+
 
                     } else if (lastVisibleDecorViewHeight + MIN_KEYBOARD_HEIGHT_PX < visibleDecorViewHeight) {
                         Log.e("Pasha", "HIDE")
                         llParentChat.visibility = View.VISIBLE
-                        if (shareDialog != null) {
-                            shareDialog!!.showDialog(0)
+                        if(createOfferDialog!= null) {
+                            createOfferDialog!!.showDialog(0)
                         }
+
 
                     }
 

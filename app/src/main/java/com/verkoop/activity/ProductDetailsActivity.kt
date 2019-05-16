@@ -60,10 +60,11 @@ class ProductDetailsActivity : AppCompatActivity() {
     private var productName: String = ""
     private var productImage: String = ""
     private var dbHelper: DbHelper? = null
-    private var dataResponse: DataItems?=null
+    private var dataResponse: DataItems? = null
 
     private lateinit var commentListAdapter: CommentListAdapter
-    private lateinit var shareDialog: CreatOfferDialog
+    private lateinit var shareDialog: DeleteCommentDialog
+    private  var createOfferDialog: CreatOfferDialog?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -114,7 +115,7 @@ class ProductDetailsActivity : AppCompatActivity() {
     }
 
     private fun setData(imageURLLIst: ArrayList<String>, data: DataItems) {
-        dataResponse=data
+        dataResponse = data
         itemId = data.id
         userId = data.user_id
         userName = data.username
@@ -273,9 +274,9 @@ class ProductDetailsActivity : AppCompatActivity() {
 
         }
         if (!data.make_offer) {
-            tvBuying.text=getString(R.string.make_offer_)
+            tvBuying.text = getString(R.string.make_offer_)
         } else {
-            tvBuying.text=getString(R.string.view_offer)
+            tvBuying.text = getString(R.string.view_offer)
         }
         llBuying.setOnClickListener {
             if (!data.make_offer) {
@@ -335,7 +336,7 @@ class ProductDetailsActivity : AppCompatActivity() {
     }
 
     private fun deleteProductDialog() {
-        val shareDialog = DeleteCommentDialog(this, getString(R.string.delete_heading), getString(R.string.delete_des), object : SelectionListener {
+        shareDialog = DeleteCommentDialog(this, getString(R.string.delete_heading), getString(R.string.delete_des), object : SelectionListener {
             override fun leaveClick() {
                 if (Utils.isOnline(this@ProductDetailsActivity)) {
                     deleteItemApi()
@@ -346,7 +347,6 @@ class ProductDetailsActivity : AppCompatActivity() {
             }
         })
         shareDialog.show()
-
     }
 
     private fun deleteItemApi() {
@@ -493,14 +493,15 @@ class ProductDetailsActivity : AppCompatActivity() {
     }
 
     private fun makeOffer(price: Double) {
-        shareDialog = CreatOfferDialog(price, this, object : MakeOfferListener {
+        createOfferDialog = CreatOfferDialog(price, this, object : MakeOfferListener {
             override fun makeOfferClick(offerPrice: Double) {
                 // Utils.showToast(this@ProductDetailsActivity,offerPrice.toString())
                 makeOfferEvent(offerPrice)
             }
 
         })
-        shareDialog.show()
+        createOfferDialog!!.show()
+        createOfferDialog!!.showDialog(0)
     }
 
     private fun makeOfferEvent(Offerprice: Double) {
@@ -531,8 +532,8 @@ class ProductDetailsActivity : AppCompatActivity() {
                             intent.putExtra(AppConstants.IS_SOLD, isSoldItem)
                             intent.putExtra(AppConstants.PRODUCT_NAME, productName)
                             startActivity(intent)
-                            dataResponse!!.make_offer=dataResponse!!.make_offer
-                            dataResponse!!.offer_price=Offerprice
+                            dataResponse!!.make_offer = dataResponse!!.make_offer
+                            dataResponse!!.offer_price = Offerprice
                         }
                     } else {
 
@@ -543,8 +544,9 @@ class ProductDetailsActivity : AppCompatActivity() {
             e.printStackTrace()
         }
     }
+
     private fun saveDataToDb(data: JSONObject) {
-        val addToDb=ArrayList<ChatData>()
+        val addToDb = ArrayList<ChatData>()
         try {
             val chatData = ChatData(data.getInt("message_id"),
                     data.getInt("sender_id"),
@@ -556,12 +558,13 @@ class ProductDetailsActivity : AppCompatActivity() {
                     data.getInt("chat_user_id"),
                     0)
             addToDb.add(chatData)
-            dbHelper!!.chatHistoryInsertData( addToDb)
+            dbHelper!!.chatHistoryInsertData(addToDb)
         } catch (e: JSONException) {
             e.printStackTrace()
         }
 
     }
+
     private fun initKeyBoardListener() {
         // Threshold for minimal keyboard height.
         val MIN_KEYBOARD_HEIGHT_PX = 150
@@ -580,11 +583,16 @@ class ProductDetailsActivity : AppCompatActivity() {
                 if (lastVisibleDecorViewHeight != 0) {
                     if (lastVisibleDecorViewHeight > visibleDecorViewHeight + MIN_KEYBOARD_HEIGHT_PX) {
                         Log.e("Pasha", "SHOW")
-                        shareDialog.showDialog(1)
+                        if(createOfferDialog!=null) {
+                            createOfferDialog!!.showDialog(1)
+                        }
 
                     } else if (lastVisibleDecorViewHeight + MIN_KEYBOARD_HEIGHT_PX < visibleDecorViewHeight) {
                         Log.e("Pasha", "HIDE")
-                        shareDialog.showDialog(0)
+                        if(createOfferDialog!=null) {
+                            createOfferDialog!!.showDialog(0)
+                        }
+
                     }
 
                 }

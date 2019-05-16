@@ -117,9 +117,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
             val firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition()
 
             if (!isLoading && currentPage != totalPageCount) {
-                if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
-                        && firstVisibleItemPosition >= 0
-                        && totalItemCount >= PAGE_SIZE) {
+                if (visibleItemCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0 && totalItemCount >= PAGE_SIZE) {
                     currentPage += 1
                     getItemService()
                 }

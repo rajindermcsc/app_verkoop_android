@@ -3,6 +3,7 @@ package com.verkoop.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
@@ -80,12 +81,14 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
     override fun onResume() {
         super.onResume()
         if (Utils.isOnline(this)) {
-            getChatHistory()
-        } else {
-            Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
-            if (socket!!.connected()) {
-                setOfflineData()
+            if(socket!!.connected()) {
+                getChatHistory()
             }
+        } else {
+            Handler().postDelayed(Runnable {
+                Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+            },300)
+                setOfflineData()
         }
     }
 

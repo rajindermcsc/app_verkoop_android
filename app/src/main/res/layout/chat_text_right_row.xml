@@ -1,36 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="end"
-    android:orientation="vertical"
-    android:background="@color/transparent">
-
+    android:layout_marginTop="@dimen/dp_5"
+    android:layout_marginBottom="@dimen/dp_5"
+    android:background="@color/transparent"
+    android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_gravity="end"
-        android:layout_marginEnd="@dimen/dp_8"
-        android:layout_marginTop="@dimen/dp_8"
-        android:background="@drawable/blue_rectangle_shape"
-        android:padding="@dimen/dp_10">
-        <com.verkoop.fonts.textView.GothicThinTextView
-            android:id="@+id/tvRightMssg"
-            android:textColor="@color/dark_black"
-            android:textSize="@dimen/sp_14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <com.verkoop.fonts.textView.GothicThinTextView
-            android:id="@+id/tvRightTime"
-            android:textColor="@color/light_gray"
-            android:textSize="@dimen/sp_10"
+        android:gravity="end">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:layout_weight="2">
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginTop="@dimen/dp_4" />
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/dp_8"
+            android:layout_marginTop="@dimen/dp_8"
+            android:background="@drawable/blue_rectangle_shape"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_10">
+
+            <com.verkoop.fonts.textView.GothicThinTextView
+                android:id="@+id/tvRightMssg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dark_black"
+                android:textSize="@dimen/sp_14" />
+
+            <com.verkoop.fonts.textView.GothicThinTextView
+                android:id="@+id/tvRightTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="@dimen/dp_4"
+                android:textColor="@color/light_gray"
+                android:textSize="@dimen/sp_10" />
+        </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>
