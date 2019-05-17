@@ -32,8 +32,8 @@ import com.verkoop.utils.*
 import io.realm.RealmResults
 import kotlinx.android.synthetic.main.chat_activity.*
 import kotlinx.android.synthetic.main.toolbar_bottom.*
-import kotlinx.android.synthetic.main.toolbar_location.*
 import kotlinx.android.synthetic.main.toolbar_product_details.*
+import org.apache.commons.lang3.StringEscapeUtils
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.json.JSONException
@@ -693,7 +693,7 @@ class ChatActivity : AppCompatActivity() {
             jsonObject.put("sender_id", Utils.getPreferencesString(this, AppConstants.USER_ID).toInt())
             jsonObject.put("receiver_id", senderId)
             jsonObject.put("item_id", itemId)
-            jsonObject.put("message", etMssg.text.toString().trim())
+            jsonObject.put("message", StringEscapeUtils.escapeJava(etMssg.text.toString().trim()))
             jsonObject.put("type", 0)
             jsonObject.put("chat_user_id", chatUserId)
             ivSend.isEnabled = false
@@ -773,7 +773,7 @@ class ChatActivity : AppCompatActivity() {
                         }
 
                      //   val chatHistory = data.getJSONObject("messages")
-                       // if (data.getString("sender_id").equals(senderId)) {
+                        if (data.getInt("sender_id") == senderId) {
                             val chatData = ChatData(data.getInt("message_id"),
                                     data.getInt("sender_id"),
                                     data.getInt("receiver_id"),
@@ -788,12 +788,12 @@ class ChatActivity : AppCompatActivity() {
                             chatAdapter.notifyDataSetChanged()
                             rvChatList.scrollToPosition(chatList.size - 1)
 
-                       /* } else {
-                            *//* val mNotificationManager = KSMNotificationManager(applicationContext)
+                        } else {
+                        /*     val mNotificationManager = KSMNotificationManager(applicationContext)
                              val intent = Intent(this, SplashActivity::class.java)
                              intent.putExtra("type", "1")
-                             mNotificationManager.showSmallNotification(chatHistory.getString("senderName"), StringEscapeUtils.unescapeJava(chatHistory.getString("message")), intent)*//*
-                        }*/
+                             mNotificationManager.showSmallNotification(chatHistory.getString("senderName"), StringEscapeUtils.unescapeJava(chatHistory.getString("message")), intent)*/
+                        }
                     } catch (e: JSONException) {
                         e.printStackTrace()
                     }
@@ -845,10 +845,7 @@ class ChatActivity : AppCompatActivity() {
                         if(createOfferDialog!= null) {
                             createOfferDialog!!.showDialog(0)
                         }
-
-
                     }
-
                 }
                 // Save current decor view height for the next call.
                 lastVisibleDecorViewHeight = visibleDecorViewHeight

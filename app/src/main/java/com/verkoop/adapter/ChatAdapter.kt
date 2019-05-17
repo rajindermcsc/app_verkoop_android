@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.chat_offer_left_row.*
 import kotlinx.android.synthetic.main.chat_offer_right_row.*
 import kotlinx.android.synthetic.main.chat_text_left_row.*
 import kotlinx.android.synthetic.main.chat_text_right_row.*
+import org.apache.commons.lang3.StringEscapeUtils
 
 
 class ChatAdapter(private val context:Context ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -117,7 +118,7 @@ class ChatAdapter(private val context:Context ) : RecyclerView.Adapter<RecyclerV
 
     inner class LeftTextHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bindLeft(chatData: ChatData) {
-            tvLeftMssg.text = chatData.message
+            tvLeftMssg.text = StringEscapeUtils.unescapeJava(chatData.message)
             tvLeftTime.text = Utils.setDate(chatData.timeStamp)
         }
 
@@ -125,9 +126,8 @@ class ChatAdapter(private val context:Context ) : RecyclerView.Adapter<RecyclerV
 
   inner  class RightTextHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bind(chatData: ChatData) {
-            tvRightMssg.text = chatData.message
+            tvRightMssg.text = StringEscapeUtils.unescapeJava(chatData.message)
             tvRightTime.text = Utils.setDate(chatData.timeStamp)
-
         }
 
     }

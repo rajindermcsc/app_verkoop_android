@@ -24,6 +24,7 @@ import com.verkoop.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.chat_inbox_row.*
 import kotlinx.android.synthetic.main.chat_offer_right_row.*
+import org.apache.commons.lang3.StringEscapeUtils
 
 
 class ChatInboxAdapter(private val context: Context, private val chatInboxType: Int) : RecyclerView.Adapter<ChatInboxAdapter.ViewHolder>(), SwipeAdapterInterface, SwipeItemMangerInterface {
@@ -172,7 +173,8 @@ class ChatInboxAdapter(private val context: Context, private val chatInboxType: 
             }else if (data.types == 5) {
                 tvLastMssg.text  = "CANCELLED OFFER"
             }else{
-                tvLastMssg.text  = data.message
+                tvLastMssg.text =  StringEscapeUtils.unescapeJava(data.message)
+              //  tvLastMssg.text  = data.message
             }
             if (data.user_id==Utils.getPreferencesString(context,AppConstants.USER_ID).toInt()&&data.offer_status == 0) {
                 tvOfferDes.text=StringBuilder().append("Offered you $").append(data.offer_price)

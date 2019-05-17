@@ -85,7 +85,7 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
                 getChatHistory()
             }
         } else {
-            Handler().postDelayed(Runnable {
+            Handler().postDelayed({
                 Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
             },300)
                 setOfflineData()

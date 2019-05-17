@@ -101,20 +101,24 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
     }
 
     private fun setData() {
+        ivChatDetail.setOnClickListener {
+            val intent = Intent(this, ChatInboxActivity::class.java)
+            startActivity(intent)
+        }
         tvSell.setOnClickListener {
             val intent = Intent(this, GalleryActivity::class.java)
             startActivityForResult(intent, 2)
 
         }
-        ivFavourite.setOnClickListener {
+        ivFavouriteDetail.setOnClickListener {
             val intent = Intent(this, FavouritesActivity::class.java)
             startActivity(intent)
         }
         val type = intent.getIntExtra(AppConstants.TYPE, 0)
-        toolbar_title.text = intent.getStringExtra(AppConstants.SUB_CATEGORY)
-        toolbar_title.setOnClickListener {
+        toolbar_title_.text = intent.getStringExtra(AppConstants.SUB_CATEGORY)
+        toolbar_title_.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
-                intent.putExtra(AppConstants.CATEGORY_NAME, toolbar_title.text.toString())
+                intent.putExtra(AppConstants.CATEGORY_NAME, toolbar_title_.text.toString())
             startActivityForResult(intent, 2)
         }
         if (type == 1) {
@@ -128,7 +132,7 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
             filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID), "2", "", "", "", "", "", "")
             getDetailsApi(filterRequest!!)
         }
-        iv_left.setOnClickListener { onBackPressed() }
+        iv_left_detail.setOnClickListener { onBackPressed() }
         ivFilter.setOnClickListener {
             val intent = Intent(this, FilterActivity::class.java)
             intent.putExtra(AppConstants.POST_DATA, filterRequest)

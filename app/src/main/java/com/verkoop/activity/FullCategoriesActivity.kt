@@ -52,6 +52,10 @@ class FullCategoriesActivity : AppCompatActivity(), FullCategoryAdapter.Selected
     }
 
     private fun setData() {
+        ivChat.setOnClickListener {
+            val intent = Intent(this, ChatInboxActivity::class.java)
+            startActivity(intent)
+        }
         val mManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
         rvCategoryList.layoutManager = mManager
         val fullCategoryAdapter = FullCategoryAdapter(this, categoryList)

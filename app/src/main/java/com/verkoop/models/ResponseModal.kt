@@ -262,7 +262,8 @@ data class DataItems(
         val zone_id:Int=0,
         var offer_price:Double= 0.0,
         val chat_count:Int=0,
-        var make_offer:Boolean= false
+        var make_offer:Boolean= false,
+        var message_count:Int= 0
 
 ) : Parcelable
 

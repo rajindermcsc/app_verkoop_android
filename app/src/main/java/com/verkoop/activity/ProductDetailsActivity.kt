@@ -97,6 +97,8 @@ class ProductDetailsActivity : AppCompatActivity() {
                 intent.putExtra(AppConstants.PROFILE_URL, profilePic)
                 intent.putExtra(AppConstants.PRODUCT_URL, productImage)
                 intent.putExtra(AppConstants.PRODUCT_PRICE, price)
+               //intent.putExtra(AppConstants.OFFERED_PRICE, Offerprice)
+                intent.putExtra(AppConstants.IS_SOLD, isSoldItem)
                 intent.putExtra(AppConstants.PRODUCT_NAME, productName)
                 startActivity(intent)
             } else {
@@ -131,7 +133,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         if (data.is_sold == 1 || data.user_id == Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()) {
             llBuying.visibility = View.GONE
             llChat.visibility = View.VISIBLE
-            tvAll.text = StringBuilder().append("View Chats").append("[").append(data.chat_count).append("]")
+
         } else {
             llBuying.visibility = View.VISIBLE
             llChat.visibility = View.VISIBLE
@@ -277,6 +279,11 @@ class ProductDetailsActivity : AppCompatActivity() {
             tvBuying.text = getString(R.string.make_offer_)
         } else {
             tvBuying.text = getString(R.string.view_offer)
+        }
+        if(data.make_offer&&data.user_id==Utils.getPreferencesString(this,AppConstants.USER_ID).toInt()){
+            tvAll.text = StringBuilder().append("View Chats").append("[").append(data.chat_count).append("]")
+        }else if(data.make_offer&&data.user_id!=Utils.getPreferencesString(this,AppConstants.USER_ID).toInt()){
+            tvAll.text = StringBuilder().append("View Chats").append("[").append(data.message_count).append("]")
         }
         llBuying.setOnClickListener {
             if (!data.make_offer) {

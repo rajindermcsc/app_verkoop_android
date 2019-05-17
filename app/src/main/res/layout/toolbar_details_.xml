@@ -23,7 +23,7 @@
         android:paddingStart="@dimen/dp_8">
 
         <ImageView
-            android:id="@+id/iv_left"
+            android:id="@+id/iv_left_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -31,7 +31,7 @@
             android:src="@mipmap/back" />
 
         <com.verkoop.fonts.textView.GothiBoldTextView
-            android:id="@+id/toolbar_title"
+            android:id="@+id/toolbar_title_"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/dp_8"
@@ -46,7 +46,7 @@
             android:textSize="@dimen/sp_14"/>
 
         <ImageView
-            android:id="@+id/ivFavourite"
+            android:id="@+id/ivFavouriteDetail"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/dp_5"
@@ -55,7 +55,7 @@
             android:src="@mipmap/favourites" />
 
         <ImageView
-            android:id="@+id/ivChat"
+            android:id="@+id/ivChatDetail"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/dp_8"
