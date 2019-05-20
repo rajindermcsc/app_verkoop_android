@@ -119,6 +119,7 @@ interface MyService {
     fun followFollowingApi(@Path(value = "user_id", encoded = true) fullUrl: Int, @Body request: HomeRequest): Call<SearchByUserResponse>
 
     @Multipart
+    @Headers("Accept: application/json")
     @POST("items")
     fun addClothApi(@Part files: List<MultipartBody.Part>,
                     @Part("category_id") categoryId: RequestBody,

@@ -117,6 +117,8 @@
     <string name="enter_item_name">Please enter item name.</string>
     <string name="enter_category_name">Please select category.</string>
     <string name="enter_price">Please enter price.</string>
+    <string name="enter_min">Please enter min price.</string>
+    <string name="enter_max">Please enter max price.</string>
     <string name="enter_description">Please enter description.</string>
     <string name="upload_image">Please upload atleast one item image.</string>
     <string name="deal_option">Deal Option</string>
@@ -283,5 +285,7 @@
     <string name="archive">Archive</string>
     <string name="cancelled_offer">CANCELLED OFFER</string>
     <string name="view_offer">VIEW OFFER</string>
+    <string name="province">Province</string>
+    <string name="property_type">Property Type</string>
 
 </resources>

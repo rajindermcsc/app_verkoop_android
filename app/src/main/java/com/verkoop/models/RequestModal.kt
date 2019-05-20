@@ -64,7 +64,11 @@ data class AdditionalInfo(
         val postal_code: Int=0,
         val area: String? =null,
         val bedroom: Int=0,
-        val bathroom: Int=0
+        val bathroom: Int=0,
+        val min_price:Double=0.0,
+        val max_price:Double=0.0,
+        val property_type:String?=null,
+        val parking_type:Int?=0
 ): Parcelable
 
 @Parcelize
@@ -227,4 +231,8 @@ data class CarsFilterRequest(
     val car_type_id: Int=0,
     val price_no: Int=0,
     val zone_id: Int=0
+)
+data class PropertyTypeRequest(
+        val name: String,
+        var isSelected: Boolean
 )

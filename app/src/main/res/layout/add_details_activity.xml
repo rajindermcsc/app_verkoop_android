@@ -122,7 +122,7 @@
                         android:background="@color/light_gray" />
 
                     <LinearLayout
-                            android:id="@+id/llSelectBrand"
+                        android:id="@+id/llSelectBrand"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -163,34 +163,74 @@
                         android:orientation="vertical"
                         android:visibility="gone">
 
-                        <LinearLayout
-                            android:id="@+id/llSelectZone"
+                        <!--  <LinearLayout
+                              android:id="@+id/llSelectZone"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:visibility="gone"
+                              android:orientation="horizontal">
+
+                            &lt;!&ndash;  <com.verkoop.fonts.textView.GothiBoldTextView
+                                  android:id="@+id/tvZone"
+                                  android:layout_width="0dp"
+                                  android:layout_height="wrap_content"
+                                  android:layout_weight="1"
+                                  android:padding="@dimen/dp_10"
+                                  android:text="@string/select_zone"
+                                  android:textColor="@color/light_gray"
+                                  android:textSize="@dimen/sp_16" />&ndash;&gt;
+
+
+
+                              <ImageView
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:layout_gravity="center"
+                                  android:layout_marginEnd="@dimen/dp_10"
+                                  android:contentDescription="@string/image"
+                                  android:padding="@dimen/dp_10"
+                                  android:src="@mipmap/drop_down" />
+                          </LinearLayout>-->
+                        <com.verkoop.fonts.editText.GothiBoldEditText
+                            android:id="@+id/tvZone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <com.verkoop.fonts.textView.GothiBoldTextView
-                                android:id="@+id/tvZone"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:padding="@dimen/dp_10"
-                                android:text="@string/select_zone"
-                                android:textColor="@color/light_gray"
-                                android:textSize="@dimen/sp_16" />
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginEnd="@dimen/dp_10"
-                                android:contentDescription="@string/image"
-                                android:padding="@dimen/dp_10"
-                                android:src="@mipmap/drop_down" />
-                        </LinearLayout>
+                            android:background="@null"
+                            android:drawablePadding="@dimen/dp_10"
+                            android:hint="@string/province"
+                            android:imeOptions="actionNext"
+                            android:inputType="text"
+                            android:maxLength="80"
+                            android:maxLines="1"
+                            android:minLines="1"
+                            android:padding="@dimen/dp_8"
+                            android:textColor="@color/text_color"
+                            android:textColorHint="@color/light_gray" />
 
                         <View
                             android:id="@+id/vZone"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_1"
+                            android:background="@color/light_gray" />
+
+                        <com.verkoop.fonts.editText.GothiBoldEditText
+                            android:id="@+id/etArea"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:drawablePadding="@dimen/dp_10"
+                            android:hint="City"
+                            android:imeOptions="actionNext"
+                            android:inputType="text"
+                            android:maxLength="150"
+                            android:maxLines="1"
+                            android:minLines="1"
+                            android:padding="@dimen/dp_8"
+                            android:textColor="@color/text_color"
+                            android:textColorHint="@color/light_gray" />
+
+                        <View
+                            android:id="@+id/vArea"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp_1"
                             android:background="@color/light_gray" />
@@ -239,58 +279,55 @@
                             android:layout_height="@dimen/dp_1"
                             android:background="@color/light_gray" />
 
-                    </LinearLayout>
-
-                    <com.verkoop.fonts.editText.GothiBoldEditText
-                        android:id="@+id/etPrice"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:drawablePadding="@dimen/dp_10"
-                        android:hint="@string/price"
-                        android:imeOptions="actionNext"
-                        android:inputType="numberDecimal"
-                        android:maxLength="80"
-                        android:maxLines="1"
-                        android:minLines="1"
-                        android:padding="@dimen/dp_8"
-                        android:textColor="@color/text_color"
-                        android:textColorHint="@color/light_gray" />
-
-                    <View
-                        android:id="@+id/vPrice"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_1"
-                        android:background="@color/light_gray" />
-
-                    <LinearLayout
-                        android:id="@+id/llProperty"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:orientation="vertical">
-
-                        <com.verkoop.fonts.editText.GothiBoldEditText
-                            android:id="@+id/etArea"
+                        <RadioGroup
+                            android:id="@+id/radioGroup"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@null"
-                            android:drawablePadding="@dimen/dp_10"
-                            android:hint="@string/area"
-                            android:imeOptions="actionNext"
-                            android:inputType="text"
-                            android:maxLength="150"
-                            android:maxLines="1"
-                            android:minLines="1"
-                            android:padding="@dimen/dp_8"
-                            android:textColor="@color/text_color"
-                            android:textColorHint="@color/light_gray" />
+                            android:layout_marginTop="@dimen/dp_8"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/rbParking"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/dp_8"
+                                android:layout_marginStart="@dimen/dp_10"
+                                android:layout_weight="2"
+                                android:background="@null"
+                                android:button="@drawable/radio_button_selector"
+                                android:checked="true"
+                                android:layoutDirection="rtl"
+                                android:paddingBottom="@dimen/dp_8"
+                                android:paddingTop="@dimen/dp_8"
+                                android:text="Parking"
+                                android:textColor="@color/dark_black"
+                                android:textSize="@dimen/sp_14" />
+
+                            <RadioButton
+                                android:id="@+id/rbGarage"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/dp_8"
+                                android:layout_marginStart="@dimen/dp_10"
+                                android:layout_weight="2"
+                                android:background="@null"
+                                android:button="@drawable/radio_button_selector"
+                                android:checked="true"
+                                android:layoutDirection="rtl"
+                                android:paddingBottom="@dimen/dp_8"
+                                android:paddingTop="@dimen/dp_8"
+                                android:text="Garage"
+                                android:textColor="@color/dark_black"
+                                android:textSize="@dimen/sp_14" />
+                        </RadioGroup>
 
                         <View
-                            android:id="@+id/vArea"
+                            android:id="@+id/viewParking"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp_1"
-                            android:background="@color/light_gray" />
+                            android:layout_marginTop="@dimen/dp_8"
+                            android:background="@color/colorPrimary" />
+
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -326,9 +363,9 @@
                                     android:id="@+id/tvBedRoomCount"
                                     android:layout_width="@dimen/dp_30"
                                     android:layout_height="wrap_content"
-                                    android:text="0"
                                     android:layout_gravity="center"
                                     android:gravity="center"
+                                    android:text="0"
                                     android:textColor="@color/dark_black"
                                     android:textSize="@dimen/sp_14" />
 
@@ -392,6 +429,281 @@
 
                             </LinearLayout>
                         </LinearLayout>
+
+                        <com.verkoop.fonts.textView.GothiBoldTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dp_10"
+                            android:layout_marginStart="@dimen/dp_8"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:text="Price"
+                            android:textColor="@color/light_gray"
+                            android:textSize="@dimen/sp_14" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dp_10"
+                            android:layout_marginStart="@dimen/dp_8"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:orientation="horizontal">
+
+                                <com.verkoop.fonts.textView.GothicThinTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginEnd="@dimen/dp_8"
+                                    android:text="@string/min"
+                                    android:textColor="@color/dark_black" />
+
+                                <com.verkoop.fonts.editText.GothicThinEditText
+                                    android:id="@+id/etMinPriceAdd"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/item_type"
+                                    android:imeOptions="actionNext"
+                                    android:inputType="numberDecimal"
+                                    android:maxLength="10"
+                                    android:maxLines="1"
+                                    android:minLines="1"
+                                    android:padding="@dimen/dp_8"
+                                    android:textColor="@color/text_color"
+                                    tools:ignore="LabelFor" />
+                            </LinearLayout>
+
+                            <com.verkoop.fonts.textView.GothicThinTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:padding="@dimen/dp_10"
+                                android:text=" - "
+                                android:textSize="@dimen/sp_14" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:orientation="horizontal">
+
+                                <com.verkoop.fonts.textView.GothicThinTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginEnd="@dimen/dp_8"
+                                    android:text="@string/max"
+                                    android:textColor="@color/dark_black" />
+
+                                <com.verkoop.fonts.editText.GothicThinEditText
+                                    android:id="@+id/etMaxPriceAdd"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/item_type"
+                                    android:imeOptions="actionDone"
+                                    android:inputType="numberDecimal"
+                                    android:maxLength="10"
+                                    android:maxLines="1"
+                                    android:minLines="1"
+                                    android:padding="@dimen/dp_8"
+                                    android:textColor="@color/text_color" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_1"
+                            android:layout_marginTop="@dimen/dp_8"
+                            android:background="@color/light_gray" />
+
+                        <com.verkoop.fonts.textView.GothiBoldTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dp_10"
+                            android:layout_marginStart="@dimen/dp_8"
+                            android:layout_marginTop="@dimen/dp_8"
+                            android:text="@string/property_type"
+                            android:textColor="@color/light_gray"
+                            android:textSize="@dimen/sp_14" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rvPropertyType"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dp_10" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_.5"
+                            android:layout_gravity="end"
+                            android:layout_marginBottom="@dimen/dp_20"
+                            android:background="@color/light_gray" />
+                    </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/llPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+                    <com.verkoop.fonts.editText.GothiBoldEditText
+                        android:id="@+id/etPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:hint="@string/price"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:maxLength="80"
+                        android:maxLines="1"
+                        android:minLines="1"
+                        android:padding="@dimen/dp_8"
+                        android:textColor="@color/text_color"
+                        android:textColorHint="@color/light_gray" />
+
+                    <View
+                        android:id="@+id/vPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_1"
+                        android:background="@color/light_gray" />
+                </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/llProperty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <!-- <com.verkoop.fonts.editText.GothiBoldEditText
+                             android:id="@+id/etArea"
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             android:background="@null"
+                             android:drawablePadding="@dimen/dp_10"
+                             android:hint="@string/area"
+                             android:imeOptions="actionNext"
+                             android:inputType="text"
+                             android:maxLength="150"
+                             android:maxLines="1"
+                             android:minLines="1"
+                             android:padding="@dimen/dp_8"
+                             android:textColor="@color/text_color"
+                             android:textColorHint="@color/light_gray" />
+
+                         <View
+                             android:id="@+id/vArea"
+                             android:layout_width="match_parent"
+                             android:layout_height="@dimen/dp_1"
+                             android:background="@color/light_gray" />
+
+                         <LinearLayout
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             android:gravity="center"
+                             android:orientation="horizontal">
+
+                             <com.verkoop.fonts.textView.GothiBoldTextView
+                                 android:layout_width="0dp"
+                                 android:layout_height="wrap_content"
+                                 android:layout_weight="2"
+                                 android:paddingBottom="@dimen/dp_10"
+                                 android:paddingEnd="@dimen/dp_10"
+                                 android:paddingStart="@dimen/dp_10"
+                                 android:paddingTop="@dimen/dp_10"
+                                 android:text="@string/bedroom"
+                                 android:textColor="@color/dark_black"
+                                 android:textSize="@dimen/sp_16" />
+
+                             <LinearLayout
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:orientation="horizontal">
+
+                                 <ImageView
+                                     android:id="@+id/ivMinusBedroom"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:layout_gravity="center"
+                                     android:src="@mipmap/minimum" />
+
+                                 <com.verkoop.fonts.textView.GothiBoldTextView
+                                     android:id="@+id/tvBedRoomCount"
+                                     android:layout_width="@dimen/dp_30"
+                                     android:layout_height="wrap_content"
+                                     android:text="0"
+                                     android:layout_gravity="center"
+                                     android:gravity="center"
+                                     android:textColor="@color/dark_black"
+                                     android:textSize="@dimen/sp_14" />
+
+                                 <ImageView
+                                     android:id="@+id/ivAddBedRoom"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:layout_gravity="center"
+                                     android:src="@mipmap/maximum" />
+
+                             </LinearLayout>
+                         </LinearLayout>
+
+                         <LinearLayout
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             android:layout_marginTop="@dimen/dp_5"
+                             android:gravity="center"
+                             android:orientation="horizontal">
+
+                             <com.verkoop.fonts.textView.GothiBoldTextView
+                                 android:layout_width="0dp"
+                                 android:layout_height="wrap_content"
+                                 android:layout_weight="2"
+                                 android:paddingBottom="@dimen/dp_10"
+                                 android:paddingEnd="@dimen/dp_10"
+                                 android:paddingStart="@dimen/dp_10"
+                                 android:paddingTop="@dimen/dp_10"
+                                 android:text="@string/bathroom"
+                                 android:textColor="@color/dark_black"
+                                 android:textSize="@dimen/sp_16" />
+
+                             <LinearLayout
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:orientation="horizontal">
+
+                                 <ImageView
+                                     android:id="@+id/ivMinusBathRoom"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:layout_gravity="center"
+                                     android:src="@mipmap/minimum" />
+
+                                 <com.verkoop.fonts.textView.GothiBoldTextView
+                                     android:id="@+id/tvBathroomCount"
+                                     android:layout_width="@dimen/dp_30"
+                                     android:layout_height="wrap_content"
+                                     android:layout_gravity="center"
+                                     android:gravity="center"
+                                     android:text="0"
+                                     android:textColor="@color/dark_black"
+                                     android:textSize="@dimen/sp_14" />
+
+                                 <ImageView
+                                     android:id="@+id/ivAddBathRoom"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:layout_gravity="center"
+                                     android:src="@mipmap/maximum" />
+
+                             </LinearLayout>
+                         </LinearLayout>-->
+
                     </LinearLayout>
 
                     <LinearLayout

@@ -105,6 +105,7 @@ class HomeActivity : AppCompatActivity() {
                     viewPager.currentItem = 3
                     profileFragment!!.refreshUI(0)
 
+
                 }
                 viewPager.currentItem == 1 -> {
                     bottomTabLayout.selectTab(R.id.menu_button3)
@@ -132,7 +133,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 2) {
             if (resultCode == Activity.RESULT_OK) {
                 val result = data.getIntExtra(AppConstants.TRANSACTION, 0)
