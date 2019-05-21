@@ -14,6 +14,7 @@ import com.verkoop.adapter.ChatInboxAdapter
 import com.verkoop.models.ChatInboxResponse
 import com.verkoop.offlinechatdata.DbHelper
 import com.verkoop.utils.AppConstants
+import com.verkoop.utils.Utils
 import kotlinx.android.synthetic.main.favourites_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 import org.json.JSONException
@@ -24,7 +25,12 @@ class ArchivedChatActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCal
     private var chatInboxList = ArrayList<ChatInboxResponse>()
     override fun deleteChat(senderId: Int, receiverId: Int, itemId: Int, type: Int, adapterPosition: Int, swipe: SwipeLayout) {
         if(socket!!.connected()) {
-            setArchiveChatEvent(senderId, receiverId, itemId, adapterPosition, swipe)
+            if(senderId==Utils.getPreferencesString(this@ArchivedChatActivity,AppConstants.USER_ID).toInt()){
+                setArchiveChatEvent(senderId, receiverId, itemId, adapterPosition, swipe)
+            }else{
+                setArchiveChatEvent(receiverId,senderId, itemId, adapterPosition, swipe)
+            }
+
         }
     }
 
@@ -36,8 +42,13 @@ class ArchivedChatActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCal
         setContentView(R.layout.favourites_activity)
         dbHelper= DbHelper()
         steAdapter()
-        if(socket!!.connected()) {
+        if (Utils.isOnline(this)) {
+            if(socket!!.connected()) {
+                setOfflineData()
+            }
+        } else {
             setOfflineData()
+            Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
         }
     }
 

@@ -58,17 +58,19 @@ data class AdditionalInfo(
         val car_type_id: Int=0,
         val registration_year: String? =null,
         val direct_owner: Int=0,
-        val zone: String? =null,
+        val location: String? =null,
         val zone_id: Int =0,
         val street_name: String? =null,
         val postal_code: Int=0,
-        val area: String? =null,
+        val city: String? =null,
         val bedroom: Int=0,
         val bathroom: Int=0,
-        val min_price:Double=0.0,
-        val max_price:Double=0.0,
+        val min_price:String?=null,
+        val max_price:String?=null,
         val property_type:String?=null,
-        val parking_type:Int?=0
+        val parking_type:Int=0,
+        val from_year:Int?=0,
+        val to_year:Int?=0
 ): Parcelable
 
 @Parcelize

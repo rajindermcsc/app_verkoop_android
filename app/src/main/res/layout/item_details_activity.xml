@@ -232,7 +232,31 @@
                                 android:textColor="@color/dark_black"
                                 android:textSize="@dimen/sp_14" />
                         </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:orientation="horizontal"
+                            android:paddingEnd="@dimen/dp_8"
+                            android:paddingStart="@dimen/dp_8">
 
+                            <com.verkoop.fonts.textView.GothiBoldTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/dp_20"
+                                android:layout_weight="1.3"
+                                android:text="@string/location"
+                                android:textColor="@color/dark_black"
+                                android:textSize="@dimen/sp_14" />
+
+                            <com.verkoop.fonts.textView.GothiBoldTextView
+                                android:id="@+id/tvCarLocation"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textColor="@color/dark_black"
+                                android:textSize="@dimen/sp_14" />
+                        </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -285,7 +309,6 @@
                                 android:textSize="@dimen/sp_14" />
                         </LinearLayout>
 
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -317,6 +340,54 @@
                             <com.verkoop.fonts.textView.GothiBoldTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1.3"
+                                android:text="@string/property_type"
+                                android:textColor="@color/dark_black"
+                                android:textSize="@dimen/sp_14" />
+
+                            <com.verkoop.fonts.textView.GothiBoldTextView
+                                android:id="@+id/tvPropertyType"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textColor="@color/dark_black"
+                                android:textSize="@dimen/sp_14" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingEnd="@dimen/dp_8"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:paddingStart="@dimen/dp_8">
+
+                            <com.verkoop.fonts.textView.GothiBoldTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.3"
+                                android:text="@string/parking_type"
+                                android:textColor="@color/dark_black"
+                                android:textSize="@dimen/sp_14" />
+
+                            <com.verkoop.fonts.textView.GothiBoldTextView
+                                android:id="@+id/tvParking"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textColor="@color/dark_black"
+                                android:textSize="@dimen/sp_14" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingEnd="@dimen/dp_8"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:paddingStart="@dimen/dp_8">
+
+                            <com.verkoop.fonts.textView.GothiBoldTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:text="@string/street_name_"
                                 android:layout_weight="1.3"
                                 android:textColor="@color/dark_black"
@@ -334,9 +405,9 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp_10"
                             android:orientation="horizontal"
                             android:paddingEnd="@dimen/dp_8"
+                            android:layout_marginTop="@dimen/dp_10"
                             android:paddingStart="@dimen/dp_8">
 
                             <com.verkoop.fonts.textView.GothiBoldTextView
@@ -416,7 +487,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                               android:layout_weight="1.3"
-                                android:text="@string/zone"
+                                android:text="@string/location"
                                 android:textColor="@color/dark_black"
                                 android:textSize="@dimen/sp_14" />
 
@@ -441,7 +512,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                android:layout_weight="1.3"
-                                android:text="@string/area"
+                                android:text="@string/city"
                                 android:textColor="@color/dark_black"
                                 android:textSize="@dimen/sp_14" />
 
@@ -453,7 +524,6 @@
                                 android:textColor="@color/dark_black"
                                 android:textSize="@dimen/sp_14" />
                         </LinearLayout>
-
 
                     </LinearLayout>
 

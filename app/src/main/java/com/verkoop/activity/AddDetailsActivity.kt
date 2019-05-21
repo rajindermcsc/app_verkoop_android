@@ -200,25 +200,36 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     tvBrand.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
                     vBrand.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
                 }
-
-                if (!TextUtils.isEmpty(additionalEditInfo!!.registration_year)) {
-                    etRegistrationYear.setText(additionalEditInfo!!.registration_year)
-                }
                 directOwner = additionalEditInfo!!.direct_owner
+
                 if (directOwner == 1) {
-                    switchDirectOwner.setChecked(true, false)
+                    rbDealership.isChecked=true
                 } else {
-                    switchDirectOwner.setChecked(false, false)
+                    rbPrivate.isChecked=true
+                }
+
+                if (!TextUtils.isEmpty(additionalEditInfo!!.location)) {
+                    etLocation.setText(additionalEditInfo!!.location)
+                }
+                if (!TextUtils.isEmpty(additionalEditInfo!!.from_year.toString())) {
+                    etRegFrom.setText(additionalEditInfo!!.from_year.toString())
+                }
+                if (!TextUtils.isEmpty(additionalEditInfo!!.to_year.toString())) {
+                    etRegTo.setText(additionalEditInfo!!.to_year.toString())
+                }
+                if (!TextUtils.isEmpty(additionalEditInfo!!.min_price.toString())) {
+                    etMinPriceCar.setText(StringBuilder().append("$").append(additionalEditInfo!!.min_price.toString()))
+                }
+                if (!TextUtils.isEmpty(additionalEditInfo!!.max_price.toString())) {
+                    etMaxPriceCar.setText(StringBuilder().append("$").append(additionalEditInfo!!.max_price.toString()))
                 }
 
             } else if (dataIntent!!.type == 2) {
                 zoneId = dataIntent!!.zone_id
                 additionalEditInfo = dataIntent!!.additional_info
-                if (!TextUtils.isEmpty(additionalEditInfo!!.zone)) {
-                    zoneName = additionalEditInfo!!.zone!!
+                if (!TextUtils.isEmpty(additionalEditInfo!!.location)) {
+                    zoneName = additionalEditInfo!!.location!!
                     tvZone.setText(zoneName)
-
-                    //   tvZone.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
                     vZone.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
                 }
 
@@ -228,13 +239,37 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 if (!TextUtils.isEmpty(additionalEditInfo!!.postal_code.toString())) {
                     etPostalCode.setText(additionalEditInfo!!.postal_code.toString())
                 }
-                if (!TextUtils.isEmpty(additionalEditInfo!!.area)) {
-                    etArea.setText(additionalEditInfo!!.area)
+                if (!TextUtils.isEmpty(additionalEditInfo!!.city)) {
+                    etArea.setText(additionalEditInfo!!.city)
                 }
                 totalBadRoom = additionalEditInfo!!.bedroom
                 totalBatchRoom = additionalEditInfo!!.bathroom
                 tvBathroomCount.text = totalBatchRoom.toString()
                 tvBedRoomCount.text = totalBadRoom.toString()
+                if (additionalEditInfo!!.parking_type == 0) {
+                    rbParking.isChecked = true
+                } else {
+                    rbGarage.isChecked = true
+                }
+                if (!TextUtils.isEmpty(additionalEditInfo!!.min_price.toString())) {
+                    etMinPriceAdd.setText(StringBuilder().append("$").append(additionalEditInfo!!.min_price.toString()))
+                }
+                if (!TextUtils.isEmpty(additionalEditInfo!!.max_price.toString())) {
+                    etMaxPriceAdd.setText(StringBuilder().append("$").append(additionalEditInfo!!.max_price.toString()))
+                }
+                if (!TextUtils.isEmpty(additionalEditInfo!!.property_type)) {
+                    if (additionalEditInfo!!.property_type.equals("House", ignoreCase = true)) {
+                        setRemaining(0)
+                    } else if (additionalEditInfo!!.property_type.equals("Flat", ignoreCase = true)) {
+                        setRemaining(1)
+                    } else if (additionalEditInfo!!.property_type.equals("Townhouse", ignoreCase = true)) {
+                        setRemaining(2)
+                    } else if (additionalEditInfo!!.property_type.equals("Land", ignoreCase = true)) {
+                        setRemaining(3)
+                    } else if (additionalEditInfo!!.property_type.equals("Farm", ignoreCase = true)) {
+                        setRemaining(4)
+                    }
+                }
             }
 
             if (dataIntent!!.items_image.isNotEmpty()) {
@@ -248,7 +283,6 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             screenType = dataIntent!!.type
             setScreenType(screenType)
         }
-
     }
 
     private fun setIntentData() {
@@ -325,20 +359,31 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     vBrand.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
                 }
 
-                if (!TextUtils.isEmpty(additionalInfo!!.registration_year)) {
-                    etRegistrationYear.setText(additionalInfo!!.registration_year)
-                }
                 directOwner = additionalInfo!!.direct_owner
                 if (directOwner == 1) {
-                    switchDirectOwner.setChecked(true, false)
+                    rbDealership.isChecked=true
                 } else {
-                    switchDirectOwner.setChecked(false, false)
+                    rbPrivate.isChecked=true
                 }
-
+                if (!TextUtils.isEmpty(additionalInfo!!.location)) {
+                    etLocation.setText(additionalInfo!!.location)
+                }
+                if (!TextUtils.isEmpty(additionalInfo!!.from_year.toString())&& !additionalInfo!!.from_year.toString().equals("0",ignoreCase = true)) {
+                    etRegFrom.setText(additionalInfo!!.from_year.toString())
+                }
+                if (!TextUtils.isEmpty(additionalInfo!!.to_year.toString())&& !additionalInfo!!.from_year.toString().equals("0",ignoreCase = true)) {
+                    etRegTo.setText(additionalInfo!!.to_year.toString())
+                }
+                if (!TextUtils.isEmpty(additionalInfo!!.min_price.toString())) {
+                    etMinPriceCar.setText(StringBuilder().append("$").append(additionalInfo!!.min_price.toString()))
+                }
+                if (!TextUtils.isEmpty(additionalInfo!!.max_price.toString())) {
+                    etMaxPriceCar.setText(StringBuilder().append("$").append(additionalInfo!!.max_price.toString()))
+                }
             } else if (addItemRequest!!.type == 2) {
                 additionalInfo = addItemRequest!!.additional_info
-                if (!TextUtils.isEmpty(additionalInfo!!.zone)) {
-                    zoneName = additionalInfo!!.zone!!
+                if (!TextUtils.isEmpty(additionalInfo!!.location)) {
+                    zoneName = additionalInfo!!.location!!
                     tvZone.setText(zoneName)
                     zoneId = additionalInfo!!.zone_id
                     //  tvZone.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
@@ -348,20 +393,20 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 if (!TextUtils.isEmpty(additionalInfo!!.street_name)) {
                     etStreetName.setText(additionalInfo!!.street_name)
                 }
-                if (!TextUtils.isEmpty(additionalInfo!!.postal_code.toString())) {
+                if (!TextUtils.isEmpty(additionalInfo!!.postal_code.toString())&&additionalInfo!!.postal_code!=0) {
                     etPostalCode.setText(additionalInfo!!.postal_code.toString())
                 }
-                if (!TextUtils.isEmpty(additionalInfo!!.area)) {
-                    etArea.setText(additionalInfo!!.area)
+                if (!TextUtils.isEmpty(additionalInfo!!.city)) {
+                    etArea.setText(additionalInfo!!.city)
                 }
                 totalBadRoom = additionalInfo!!.bedroom
                 totalBatchRoom = additionalInfo!!.bathroom
                 tvBathroomCount.text = totalBatchRoom.toString()
                 tvBedRoomCount.text = totalBadRoom.toString()
                 if (additionalInfo!!.parking_type == 0) {
-                    rbParking.isSelected = true
+                    rbParking.isChecked = true
                 } else {
-                    rbGarage.isSelected = true
+                    rbGarage.isChecked = true
                 }
                 if (!TextUtils.isEmpty(additionalInfo!!.min_price.toString())) {
                     etMinPriceAdd.setText(StringBuilder().append("$").append(additionalInfo!!.min_price.toString()))
@@ -393,7 +438,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
 
     private fun setRemaining(position: Int) {
         for (i in propertyTypeList.indices) {
-            propertyTypeList[i].isSelected = i==position
+            propertyTypeList[i].isSelected = i == position
         }
         propertyTypeAdapter.notifyDataSetChanged()
     }
@@ -437,16 +482,23 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             intent.putExtra(AppConstants.ZONE_ID, zoneId)
             startActivityForResult(intent, 14)
         }*/
-        switchDirectOwner.setOnStateChangeListener { process, state, jtb ->
-            if (state == com.nightonke.jellytogglebutton.State.LEFT) {
-                directOwner = 0
+        rgPrivate.setOnCheckedChangeListener({ group, checkedId ->
+            when (checkedId) {
+                R.id.rbPrivate -> {
+                    directOwner = 0
+                }
+                R.id.rbDealership -> {
+                    directOwner = 1
+                }
             }
-            if (state == com.nightonke.jellytogglebutton.State.RIGHT) {
-                directOwner = 1
-            }
-        }
+        })
+
         val font = Typeface.createFromAsset(assets, "fonts/gothicb.ttf")
         cbNearBy.typeface = font
+        rbDealership.typeface = font
+        rbPrivate.typeface = font
+        rbParking.typeface = font
+        rbGarage.typeface = font
         llSelectBrand.setOnClickListener {
             val intent = Intent(this, CarBrandActivity::class.java)
             intent.putExtra(AppConstants.TYPE, 0)
@@ -519,21 +571,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             }
         })
 
-        etRegistrationYear.addTextChangedListener(object : TextWatcher {
-            override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
-            }
 
-            override fun beforeTextChanged(arg0: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
-            }
-
-            override fun afterTextChanged(arg0: Editable) {
-                if (arg0.isNotEmpty()) {
-                    vRegistrationYear.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
-                } else {
-                    vRegistrationYear.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.light_gray))
-                }
-            }
-        })
         etStreetName.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
             }
@@ -576,6 +614,21 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     vArea.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
                 } else {
                     vArea.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.light_gray))
+                }
+            }
+        })
+        etLocation.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
+            }
+
+            override fun beforeTextChanged(arg0: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
+            }
+
+            override fun afterTextChanged(arg0: Editable) {
+                if (arg0.isNotEmpty()) {
+                    vLocation.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+                } else {
+                    vLocation.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.light_gray))
                 }
             }
         })
@@ -664,11 +717,11 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             }
 
             override fun afterTextChanged(arg0: Editable) {
-              /*  if (arg0.isNotEmpty()) {
-                    vPrice.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
-                } else {
-                    vPrice.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.light_gray))
-                }*/
+                /*  if (arg0.isNotEmpty()) {
+                      vPrice.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+                  } else {
+                      vPrice.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.light_gray))
+                  }*/
             }
         })
         etMaxPriceAdd.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
@@ -702,11 +755,87 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             }
 
             override fun afterTextChanged(arg0: Editable) {
-              /*  if (arg0.isNotEmpty()) {
-                    vPrice.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
-                } else {
-                    vPrice.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.light_gray))
-                }*/
+                /*  if (arg0.isNotEmpty()) {
+                      vPrice.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+                  } else {
+                      vPrice.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.light_gray))
+                  }*/
+            }
+        })
+        etMinPriceCar.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                isFocus = true
+                if (etMinPriceCar.text.toString().isEmpty()) {
+                    etMinPriceCar.setText(this@AddDetailsActivity.getString(R.string.dollar))
+                    etMinPriceCar.setSelection(1)
+                }
+            } else {
+                isFocus = false
+                if (etMinPriceCar.length() == 1) {
+                    etMinPriceCar.setSelection(0)
+                    etMinPriceCar.setText("")
+                    etMinPriceCar.hint = getString(R.string.price)
+                }
+            }
+        }
+        etMinPriceCar.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
+                if (isFocus) {
+                    if (etMinPriceCar.length() == 0) {
+                        etMinPriceCar.setText("$")
+                        etMinPriceCar.setSelection(1)
+                    }
+                }
+            }
+
+            override fun beforeTextChanged(arg0: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
+
+            }
+
+            override fun afterTextChanged(arg0: Editable) {
+                /*  if (arg0.isNotEmpty()) {
+                      vPrice.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+                  } else {
+                      vPrice.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.light_gray))
+                  }*/
+            }
+        })
+        etMaxPriceCar.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                isFocus = true
+                if (etMaxPriceCar.text.toString().isEmpty()) {
+                    etMaxPriceCar.setText(this@AddDetailsActivity.getString(R.string.dollar))
+                    etMaxPriceCar.setSelection(1)
+                }
+            } else {
+                isFocus = false
+                if (etMaxPriceCar.length() == 1) {
+                    etMaxPriceCar.setSelection(0)
+                    etMaxPriceCar.setText("")
+                    etMaxPriceCar.hint = getString(R.string.price)
+                }
+            }
+        }
+        etMaxPriceCar.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
+                if (isFocus) {
+                    if (etMaxPriceCar.length() == 0) {
+                        etMaxPriceCar.setText("$")
+                        etMaxPriceCar.setSelection(1)
+                    }
+                }
+            }
+
+            override fun beforeTextChanged(arg0: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
+
+            }
+
+            override fun afterTextChanged(arg0: Editable) {
+                /*  if (arg0.isNotEmpty()) {
+                      vPrice.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+                  } else {
+                      vPrice.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.light_gray))
+                  }*/
             }
         })
 
@@ -786,7 +915,11 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 Utils.showSimpleMessage(this, "Please select car brand and type.").show()
                 false
             }
-            screenType == 2 && TextUtils.isEmpty(tvZone.text.toString().trim())  -> {
+            screenType == 1 &&  TextUtils.isEmpty(etLocation.text.toString().trim()) -> {
+                Utils.showSimpleMessage(this, "Please enter location").show()
+                false
+            }
+            screenType == 2 && TextUtils.isEmpty(tvZone.text.toString().trim()) -> {
                 Utils.showSimpleMessage(this, "Please enter province.").show()
                 false
             }
@@ -798,11 +931,11 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 Utils.showSimpleMessage(this, "Please enter postal code.").show()
                 false
             }
-            screenType != 2 && TextUtils.isEmpty(etPrice.text.toString().trim()) -> {
+            screenType != 2 && screenType != 1 &&TextUtils.isEmpty(etPrice.text.toString().trim()) -> {
                 Utils.showSimpleMessage(this, getString(R.string.enter_price)).show()
                 false
             }
-            screenType != 2 && etPrice.text.toString().trim().length <= 1 -> {
+            screenType != 2&&screenType != 1 && etPrice.text.toString().trim().length <= 1 -> {
                 Utils.showSimpleMessage(this, getString(R.string.enter_price)).show()
                 false
             }
@@ -834,8 +967,27 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 Utils.showSimpleMessage(this, getString(R.string.enter_max)).show()
                 false
             }
-            screenType == 1 && TextUtils.isEmpty(etRegistrationYear.text.toString().trim()) -> {
+            screenType == 1 && TextUtils.isEmpty(etRegFrom.text.toString().trim()) -> {
                 Utils.showSimpleMessage(this, "Please enter registration year.").show()
+                false
+            }screenType == 1 && TextUtils.isEmpty(etRegTo.text.toString().trim()) -> {
+                Utils.showSimpleMessage(this, "Please enter registration year.").show()
+                false
+            }
+            screenType == 1 && TextUtils.isEmpty(etMinPriceCar.text.toString().trim()) -> {
+                Utils.showSimpleMessage(this, getString(R.string.enter_min)).show()
+                false
+            }
+            screenType == 1 && etMinPriceCar.text.toString().trim().length <= 1 -> {
+                Utils.showSimpleMessage(this, getString(R.string.enter_min)).show()
+                false
+            }
+            screenType == 1 && TextUtils.isEmpty(etMaxPriceCar.text.toString().trim()) -> {
+                Utils.showSimpleMessage(this, getString(R.string.enter_max)).show()
+                false
+            }
+            screenType == 1 && etMaxPriceCar.text.toString().trim().length <= 1 -> {
+                Utils.showSimpleMessage(this, getString(R.string.enter_max)).show()
                 false
             }
             TextUtils.isEmpty(etDescriptionDetail.text.toString().trim()) -> {
@@ -921,13 +1073,13 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 when (parentId) {
                     85 -> {
                         screenType = 1
-                        llSelectBrand.visibility = View.VISIBLE
-                        vBrand.visibility = View.VISIBLE
+
                         llCarFields.visibility = View.VISIBLE
 
-                        llProperties.visibility = View.GONE
-                        llProperty.visibility = View.GONE
 
+                        llProperties.visibility = View.GONE
+
+                        llPrice.visibility=View.GONE
                         llItemCondition.visibility = View.GONE
                         tvItemCondition.visibility = View.GONE
 
@@ -938,13 +1090,12 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     24 -> {
                         screenType = 2
                         llProperties.visibility = View.VISIBLE
-                        llProperty.visibility = View.VISIBLE
+
 
                         llItemCondition.visibility = View.GONE
                         tvItemCondition.visibility = View.GONE
 
-                        llSelectBrand.visibility = View.GONE
-                        vBrand.visibility = View.GONE
+                        llPrice.visibility=View.GONE
                         llCarFields.visibility = View.GONE
 
                         tvDealOption.visibility = View.GONE
@@ -952,13 +1103,12 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     }
                     else -> {
                         screenType = 0
-                        llSelectBrand.visibility = View.GONE
-                        vBrand.visibility = View.GONE
+
                         llCarFields.visibility = View.GONE
 
                         llProperties.visibility = View.GONE
-                        llProperty.visibility = View.GONE
 
+                        llPrice.visibility=View.VISIBLE
                         llItemCondition.visibility = View.VISIBLE
                         tvItemCondition.visibility = View.VISIBLE
 
@@ -1049,13 +1199,11 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         when (parentId) {
             1 -> {
                 screenType = 1
-                llSelectBrand.visibility = View.VISIBLE
-                vBrand.visibility = View.VISIBLE
-                llCarFields.visibility = View.VISIBLE
-                llPrice.visibility=View.VISIBLE
 
+                llCarFields.visibility = View.VISIBLE
+
+                llPrice.visibility = View.GONE
                 llProperties.visibility = View.GONE
-                llProperty.visibility = View.GONE
 
                 llItemCondition.visibility = View.GONE
                 tvItemCondition.visibility = View.GONE
@@ -1068,14 +1216,13 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             2 -> {
                 screenType = 2
                 llProperties.visibility = View.VISIBLE
-                llProperty.visibility = View.VISIBLE
 
-                llPrice.visibility=View.GONE
+
+                llPrice.visibility = View.GONE
                 llItemCondition.visibility = View.GONE
                 tvItemCondition.visibility = View.GONE
 
-                llSelectBrand.visibility = View.GONE
-                vBrand.visibility = View.GONE
+
                 llCarFields.visibility = View.GONE
 
                 tvDealOption.visibility = View.GONE
@@ -1084,15 +1231,14 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             }
             else -> {
                 screenType = 0
-                llSelectBrand.visibility = View.GONE
-                vBrand.visibility = View.GONE
+
                 llCarFields.visibility = View.GONE
 
 
                 llProperties.visibility = View.GONE
-                llProperty.visibility = View.GONE
 
-                llPrice.visibility=View.VISIBLE
+
+                llPrice.visibility = View.VISIBLE
                 llItemCondition.visibility = View.VISIBLE
                 tvItemCondition.visibility = View.VISIBLE
 
@@ -1162,11 +1308,17 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         }
         val editItemRequest: EditItemRequest?
         if (screenType == 1) {
-            val additionalInfo = AdditionalInfo(carBrandId, carBrandName, carType, carTypeId, etRegistrationYear.text.toString(), directOwner)
+            val additionalInfo = AdditionalInfo(car_brand_id =  carBrandId,brand_name =  carBrandName,car_type =  carType,car_type_id =  carTypeId,direct_owner =  directOwner,location = etLocation.text.toString(),from_year = (etRegFrom.text.toString()).toInt(),to_year =(etRegTo.text.toString()).toInt() ,min_price =etMinPriceCar.text.toString().replace("$",""),max_price =etMaxPriceCar.text.toString().replace("$",""))
             editItemRequest = EditItemRequest(realPath, imageIdList.toString().replace("[", "").replace("]", ""), categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "0", itemId, screenType, additionalInfo, zoneId, carBrandId, carTypeId)
 
         } else if (screenType == 2) {
-            val additionalInfo = AdditionalInfo(carBrandId, carBrandName, carType, carTypeId, etRegistrationYear.text.toString(), directOwner, tvZone.text.toString(), zoneId, etStreetName.text.toString(), (etPostalCode.text.toString()).toInt(), etArea.text.toString(), totalBadRoom, totalBatchRoom)
+            var property_ = ""
+            for (i in propertyTypeList.indices) {
+                if (propertyTypeList[i].isSelected) {
+                    property_ = propertyTypeList[i].name
+                }
+            }
+            val additionalInfo = AdditionalInfo(location =  tvZone.text.toString(),zone_id =  zoneId,street_name =  etStreetName.text.toString(),postal_code =  (etPostalCode.text.toString()).toInt(), city = etArea.text.toString(),bedroom =  totalBadRoom,bathroom =  totalBatchRoom, min_price = (etMinPriceAdd.text.toString().replace("$", "")), max_price = (etMaxPriceAdd.text.toString().replace("$", "")), property_type = property_, parking_type = parkingType)
             editItemRequest = EditItemRequest(realPath, imageIdList.toString().replace("[", "").replace("]", ""), categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "0", itemId, screenType, additionalInfo, zoneId)
 
         } else {
@@ -1208,8 +1360,9 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
     private fun uploadImageItem(realPath: java.util.ArrayList<String>, screenType: Int) {
         var addItemRequest: AddItemRequest? = null
         if (screenType == 1) {
-            val additionalInfo = AdditionalInfo(carBrandId, carBrandName, carType, carTypeId, etRegistrationYear.text.toString(), directOwner)
-            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId, carBrandId, carTypeId)
+            //val additionalInfo = AdditionalInfo(carBrandId, carBrandName, carType, carTypeId, etRegistrationYear.text.toString(), directOwner)
+            val additionalInfo = AdditionalInfo(car_brand_id =  carBrandId,brand_name =  carBrandName,car_type =  carType,car_type_id =  carTypeId,direct_owner =  directOwner,location = etLocation.text.toString(),from_year = (etRegFrom.text.toString()).toInt(),to_year =(etRegTo.text.toString()).toInt() ,min_price =etMinPriceCar.text.toString().replace("$",""),max_price =etMaxPriceCar.text.toString().replace("$",""))
+            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceCar.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId, carBrandId, carTypeId)
 
         } else if (screenType == 2) {
             var property_ = ""
@@ -1218,7 +1371,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     property_ = propertyTypeList[i].name
                 }
             }
-            val additionalInfo = AdditionalInfo(zone = tvZone.text.toString(), zone_id = 0, street_name = etStreetName.text.toString(), postal_code = (etPostalCode.text.toString()).toInt(), area = etArea.text.toString(), bedroom = totalBadRoom, bathroom = totalBatchRoom, min_price = (etMinPriceAdd.text.toString().replace("$","")).toDouble(), max_price = (etMaxPriceAdd.text.toString().replace("$","")).toDouble(), property_type = property_, parking_type = parkingType)
+            val additionalInfo = AdditionalInfo(location = tvZone.text.toString(), zone_id = 0, street_name = etStreetName.text.toString(), postal_code = (etPostalCode.text.toString()).toInt(), city = etArea.text.toString(), bedroom = totalBadRoom, bathroom = totalBatchRoom, min_price = (etMinPriceAdd.text.toString().replace("$", "")), max_price = (etMaxPriceAdd.text.toString().replace("$", "")), property_type = property_, parking_type = parkingType)
             addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceAdd.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId)
         } else {
             if (cbNearBy.isChecked) {
@@ -1307,8 +1460,11 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             }
         }
         // val additionalInfo=AdditionalInfo(carBrandId,carBrandName,carType,carTypeId,etRegistrationYear.text.toString(),directOwner)
-        val addItemRequest: AddItemRequest
-        if (screenType != 0) {
+
+
+
+      //  val addItemRequest: AddItemRequest
+        /*if (screenType != 0) {
             if (!TextUtils.isEmpty(etPostalCode.text.toString())) {
                 postalCode = (etPostalCode.text.toString()).toInt()
             }
@@ -1318,10 +1474,38 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     property_ = propertyTypeList[i].name
                 }
             }
-            val additionalInfo = AdditionalInfo(carBrandId, carBrandName, carType, carTypeId, etRegistrationYear.text.toString(), directOwner, tvZone.text.toString(), zoneId, etStreetName.text.toString(), postalCode, etArea.text.toString(), totalBadRoom, totalBatchRoom, (etMinPriceAdd.text.toString().replace("$","")).toDouble(), (etMaxPriceAdd.text.toString().replace("$","")).toDouble(), property_, parkingType)
+            val additionalInfo = AdditionalInfo(carBrandId, carBrandName, carType, carTypeId, etRegistrationYear.text.toString(), directOwner, tvZone.text.toString(), zoneId, etStreetName.text.toString(), postalCode, etArea.text.toString(), totalBadRoom, totalBatchRoom, (etMinPriceAdd.text.toString().replace("$", "")), (etMaxPriceAdd.text.toString().replace("$", "")), property_, parkingType)
             addItemRequest = AddItemRequest(sendList, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "1", screenType, additionalInfo)
 
-        } else {
+        }*/
+        val addItemRequest: AddItemRequest?
+        if (screenType == 1) {
+            var fromYear=0
+            if(!TextUtils.isEmpty(etRegFrom.text.toString())){
+                fromYear=(etRegFrom.text.toString()).toInt()
+            }
+            var toYear=0
+            if(!TextUtils.isEmpty(etRegTo.text.toString())){
+                toYear=(etRegTo.text.toString()).toInt()
+            }
+            //val additionalInfo = AdditionalInfo(carBrandId, carBrandName, carType, carTypeId, etRegistrationYear.text.toString(), directOwner)
+            val additionalInfo = AdditionalInfo(car_brand_id =  carBrandId,brand_name =  carBrandName,car_type =  carType,car_type_id =  carTypeId,direct_owner =  directOwner,location = etLocation.text.toString(),from_year = fromYear,to_year =toYear ,min_price =etMinPriceCar.text.toString().replace("$", ""),max_price =etMaxPriceCar.text.toString().replace("$", ""))
+            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceCar.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId, carBrandId, carTypeId)
+
+        } else if (screenType == 2) {
+            var property_ = ""
+            for (i in propertyTypeList.indices) {
+                if (propertyTypeList[i].isSelected) {
+                    property_ = propertyTypeList[i].name
+                }
+            }
+            var postalCode=0
+            if(!TextUtils.isEmpty(etPostalCode.text.toString())){
+                postalCode=(etPostalCode.text.toString()).toInt()
+            }
+            val additionalInfo = AdditionalInfo(location = tvZone.text.toString(), zone_id = 0, street_name = etStreetName.text.toString(), postal_code = postalCode, city = etArea.text.toString(), bedroom = totalBadRoom, bathroom = totalBatchRoom, min_price = (etMinPriceAdd.text.toString().replace("$", "")), max_price = (etMaxPriceAdd.text.toString().replace("$", "")), property_type = property_, parking_type = parkingType)
+            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceAdd.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId)
+        }else {
             if (cbNearBy.isChecked) {
                 addItemRequest = AddItemRequest(sendList, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "1", screenType)
             } else {

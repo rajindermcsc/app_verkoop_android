@@ -245,13 +245,14 @@ class ProductDetailsActivity : AppCompatActivity() {
             CommonView.visibility = View.VISIBLE
             llPropertyDetails.visibility = View.GONE
             if (data.additional_info != null) {
-                tvRegistrationYear.text = StringBuilder().append(": ").append(data.additional_info!!.registration_year)
+                tvRegistrationYear.text = StringBuilder().append(": ").append(data.additional_info!!.from_year.toString()).append(" - ").append(data.additional_info!!.to_year.toString())
                 tvCarBrand.text = StringBuilder().append(": ").append(data.additional_info!!.brand_name)
                 tvCarType.text = StringBuilder().append(": ").append(data.additional_info!!.car_type)
-                if (data.additional_info!!.direct_owner == 1) {
-                    tvDirectOwner.text = StringBuilder().append(": ").append(getString(R.string.res))
+                tvCarLocation.text = StringBuilder().append(": ").append(data.additional_info!!.location)
+                if (data.additional_info!!.direct_owner == 0) {
+                    tvDirectOwner.text = StringBuilder().append(": ").append("Private")
                 } else {
-                    tvDirectOwner.text = StringBuilder().append(": ").append(getString(R.string.no))
+                    tvDirectOwner.text = StringBuilder().append(": ").append("Dealership")
                 }
             }
 
@@ -265,8 +266,14 @@ class ProductDetailsActivity : AppCompatActivity() {
                 tvPostalCode.text = StringBuilder().append(": ").append(data.additional_info!!.postal_code)
                 tvBedRoom.text = StringBuilder().append(": ").append(data.additional_info!!.bedroom)
                 tvBathRoom.text = StringBuilder().append(": ").append(data.additional_info!!.bathroom)
-                tvZone.text = StringBuilder().append(": ").append(data.additional_info!!.zone)
-                tvArea.text = StringBuilder().append(": ").append(data.additional_info!!.area)
+                tvZone.text = StringBuilder().append(": ").append(data.additional_info!!.location)
+                tvArea.text = StringBuilder().append(": ").append(data.additional_info!!.city)
+                tvPropertyType.text = StringBuilder().append(": ").append(data.additional_info!!.property_type)
+                if(data.additional_info!!.parking_type==0){
+                    tvParking.text = StringBuilder().append(": ").append(getString(R.string.parking))
+                }else{
+                    tvParking.text = StringBuilder().append(": ").append(getString(R.string.garage))
+                }
             }
         } else {
             tvType.visibility = View.VISIBLE

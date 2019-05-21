@@ -52,7 +52,12 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
                 removeChatDialog(senderId, receiverId, itemId, adapterPosition, swipe)
             } else if (type == 1) {
                 if (socket!!.connected()) {
-                    setArchiveChatEvent(senderId, receiverId, itemId, adapterPosition, swipe)
+                    if(senderId==Utils.getPreferencesString(this@ChatInboxActivity,AppConstants.USER_ID).toInt()){
+                        setArchiveChatEvent(senderId, receiverId, itemId, adapterPosition, swipe)
+                    }else{
+                        setArchiveChatEvent(receiverId,senderId, itemId, adapterPosition, swipe)
+                    }
+
                 }
 
             }
@@ -131,10 +136,14 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
             Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
             socket?.emit(AppConstants.INBOX_LIST_EVENT, jsonObject, Ack {
                 Log.e("<<<Response>>>", Gson().toJson(it[0]))
-                val data = it[0] as JSONObject
+                var data: JSONObject?=null
+                try {
+                    data = it[0] as JSONObject?
+                } catch (e: Exception) {
+                }
                 runOnUiThread {
                     val chatInboxList = ArrayList<ChatInboxResponse>()
-                    if (data.getString("status") == "1") {
+                    if (data?.getString("status") == "1") {
                         runOnUiThread {
                             try {
                                 val listdata = java.util.ArrayList<JSONObject>()
@@ -355,7 +364,12 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
         val shareDialog = DeleteCommentDialog(this, "Delete Chat", "Are you sure you want to delete this Chat?", object : SelectionListener {
             override fun leaveClick() {
                 if (socket!!.connected()) {
-                    deleteChatEvent(senderId, receiverId, itemId, adapterPosition, swipe)
+                    if(senderId==Utils.getPreferencesString(this@ChatInboxActivity,AppConstants.USER_ID).toInt()){
+                        deleteChatEvent(senderId, receiverId, itemId, adapterPosition, swipe)
+                    }else{
+                        deleteChatEvent(receiverId,senderId, itemId, adapterPosition, swipe)
+                    }
+
                 }
             }
         })

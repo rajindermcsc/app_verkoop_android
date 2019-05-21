@@ -103,15 +103,17 @@ class DbHelper{
         val value=0
         val archiveChat= realm.where(ChatInboxRealmResponse::class.java)
                 .equalTo("is_delete", value)
-                .equalTo("sender_id",senderId)
-                .and()
-                .equalTo("receiver_id",receiverId)
                 .and()
                 .equalTo("item_id",itemId)
                 .and()
+                .beginGroup()
+                .equalTo("receiver_id", receiverId).and()
+                .equalTo("sender_id", senderId).or()
+                .equalTo("receiver_id", senderId).and()
+                .equalTo("sender_id", receiverId)
                 .findFirst()
         realm.executeTransaction { realm1 ->
-            archiveChat!!.is_archive=1
+            archiveChat?.is_archive=1
         }
 
     }
@@ -120,34 +122,37 @@ class DbHelper{
         val value=0
         val archiveChat= realm.where(ChatInboxRealmResponse::class.java)
                 .equalTo("is_delete", value)
-                .equalTo("sender_id",senderId)
-                .and()
-                .equalTo("receiver_id",receiverId)
                 .and()
                 .equalTo("item_id",itemId)
                 .and()
+                .beginGroup()
+                .equalTo("receiver_id", receiverId).and()
+                .equalTo("sender_id", senderId).or()
+                .equalTo("receiver_id", senderId).and()
+                .equalTo("sender_id", receiverId)
                 .findFirst()
         realm.executeTransaction { realm1 ->
-            archiveChat!!.is_archive=0
+            archiveChat?.is_archive=0
         }
 
     }
     fun deleteChat(senderId:Int,receiverId:Int,itemId:Int) {
         val value=0
         val archiveChat= realm.where(ChatInboxRealmResponse::class.java)
-                .equalTo("is_delete", value)
-                .equalTo("sender_id",senderId)
-                .and()
-                .equalTo("receiver_id",receiverId)
-                .and()
                 .equalTo("item_id",itemId)
                 .and()
+                .equalTo("is_delete", value)
+                .and()
+                .beginGroup()
+                .equalTo("receiver_id", receiverId).and()
+                .equalTo("sender_id", senderId).or()
+                .equalTo("receiver_id", senderId).and()
+                .equalTo("sender_id", receiverId)
+                .endGroup()
                 .findFirst()
         realm.executeTransaction { realm1 ->
-            archiveChat!!.deleteFromRealm()
+            archiveChat?.deleteFromRealm()
         }
-
-
     }
 
     fun getChatHistoryList(senderId: Int, receiverId: Int,itemId:Int): RealmResults<ChatResponse> {

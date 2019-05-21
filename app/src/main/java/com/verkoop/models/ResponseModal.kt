@@ -269,7 +269,7 @@ data class DataItems(
 
 @Parcelize
 data class AdditionalInfoResponse(
-    val area: String?=null,
+    val city: String?=null,
     val bathroom: Int,
     val bedroom: Int,
     val brand_name: String?=null,
@@ -280,8 +280,14 @@ data class AdditionalInfoResponse(
     val postal_code: String?=null,
     val registration_year: String?=null,
     val street_name: String?=null,
-    val zone: String?=null,
-    val zoneId: Int
+    val location: String?=null,
+    val zoneId: Int,
+    val min_price:Double=0.0,
+    val max_price:Double=0.0,
+    val property_type:String?=null,
+    val parking_type:Int?=0,
+    val from_year:Int?=0,
+    val to_year:Int?=0
 ): Parcelable
 
 @Parcelize

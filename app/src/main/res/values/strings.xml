@@ -288,4 +288,17 @@
     <string name="province">Province</string>
     <string name="property_type">Property Type</string>
 
+
+    <string name="dealership">Dealership</string>
+    <string name="registraction_year">Registration Year</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="price_">Price</string>
+    <string name="parking">Parking</string>
+    <string name="garage">Garage</string>
+    <string name="year_range_of_car">Year range of car:</string>
+    <string name="parking_type">Parking Type</string>
+
+
+
 </resources>
