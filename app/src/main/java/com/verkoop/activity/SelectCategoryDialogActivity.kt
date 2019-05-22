@@ -34,10 +34,21 @@ class SelectCategoryDialogActivity : AppCompatActivity(), SubCategoryDialogAdapt
                 .duration(400)
                 .onStop {
                     llParent.visibility= View.GONE
+                    var screnType:Int
+                    if(categoryId==85){
+                        screnType=1
+                    }else if(categoryId==24 &&subCategoryId!=103){
+                        screnType=2
+                    }else if(categoryId==24 &&subCategoryId==103){
+                        screnType=3
+                    }else{
+                        screnType=0
+                    }
                     val returnIntent = Intent()
                     returnIntent.putExtra(AppConstants.CATEGORY_NAME, name)
                     returnIntent.putExtra(AppConstants.SUB_CATEGORY_ID, subCategoryId)
                     returnIntent.putExtra(AppConstants.CATEGORY_ID, categoryId)
+                    returnIntent.putExtra(AppConstants.SCREEN_TYPE, screnType)
                     setResult(Activity.RESULT_OK, returnIntent)
                     finish()
                     overridePendingTransition(0,0)

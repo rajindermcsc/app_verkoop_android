@@ -168,6 +168,11 @@ class EditProfileActivity : AppCompatActivity() {
                 window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                 pbProfileProgress.visibility = View.GONE
                 val homeDataResponse = response.body() as ProfileUpdateResponse
+                if(homeDataResponse.data!=null) {
+                    if (!TextUtils.isEmpty(homeDataResponse.data.mobile_no)) {
+                        Utils.savePreferencesString(this@EditProfileActivity, AppConstants.MOBILE_NO, homeDataResponse.data.mobile_no)
+                    }
+                }
                 Utils.showToast(this@EditProfileActivity, getString(R.string.profile_updated))
                  EventBus.getDefault().post( MessageEvent("update"))
                 onBackPressed()

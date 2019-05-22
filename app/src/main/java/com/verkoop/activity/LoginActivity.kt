@@ -255,7 +255,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
                         val loginResponse = response.body() as LogInResponse
                         if (loginResponse.data != null) {
-                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use)
+                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use,loginResponse.data.mobile_no)
                         } else {
                             Utils.showSimpleMessage(this@LoginActivity, loginResponse.message).show()
                         }
@@ -268,10 +268,15 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                 })
     }
 
-    private fun setResponseData(userId: String, api_token: String, firstName: String, email: String, loginType: String, firstTime: Int) {
+    private fun setResponseData(userId: String, api_token: String, firstName: String, email: String, loginType: String, firstTime: Int,mobileNo:String) {
         Utils.savePreferencesString(this@LoginActivity, AppConstants.USER_ID, userId)
         Utils.savePreferencesString(this@LoginActivity, AppConstants.API_TOKEN, api_token)
         Utils.savePreferencesString(this@LoginActivity, AppConstants.USER_NAME, firstName)
+
+
+        if (!TextUtils.isEmpty(mobileNo)) {
+            Utils.savePreferencesString(this@LoginActivity, AppConstants.MOBILE_NO, mobileNo)
+        }
         if (!TextUtils.isEmpty(email)) {
             Utils.savePreferencesString(this@LoginActivity, AppConstants.USER_EMAIL_ID, email)
         }
@@ -298,7 +303,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                         val loginResponse = response.body() as SocialGoogleResponse
                         Log.e("<<Log>>", "Login Successfully.")
                         if (loginResponse.data != null) {
-                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use)
+                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use,"")
                         }
                     }
 

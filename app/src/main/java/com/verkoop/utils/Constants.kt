@@ -52,6 +52,8 @@ object AppConstants{
      const val PRODUCT_NAME = "PRODUCT_NAME"
      const val IS_MY_PRODUCT = "IS_MY_PRODUCT"
      const val IS_SOLD = "IS_SOLD"
+     const val SCREEN_TYPE = "SCREEN_TYPE"
+     const val MOBILE_NO = "MOBILE_NO"
 
 
    /*Socket constant*/

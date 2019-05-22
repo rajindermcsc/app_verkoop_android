@@ -360,8 +360,7 @@ class ChatActivity : AppCompatActivity() {
         powerMenu = PowerMenu.Builder(this)
                 .addItem(PowerMenuItem("Block user", false)) // add an item.
                 .addItem(PowerMenuItem("Report user", false)) // aad an item list.
-                .addItem(PowerMenuItem("Archive Chat", false)) // aad an item list.
-                .addItem(PowerMenuItem("Delete Chat", false)) // aad an item list.
+
                 .setAnimation(MenuAnimation.SHOWUP_TOP_RIGHT) // Animation start point (TOP | LEFT).
                 .setMenuRadius(1f) // sets the corner radius.
                 .setMenuShadow(10f) // sets the shadow.

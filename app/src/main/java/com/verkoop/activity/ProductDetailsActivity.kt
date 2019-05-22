@@ -249,14 +249,14 @@ class ProductDetailsActivity : AppCompatActivity() {
                 tvCarBrand.text = StringBuilder().append(": ").append(data.additional_info!!.brand_name)
                 tvCarType.text = StringBuilder().append(": ").append(data.additional_info!!.car_type)
                 tvCarLocation.text = StringBuilder().append(": ").append(data.additional_info!!.location)
-                if (data.additional_info!!.direct_owner == 0) {
+                if (data.additional_info!!.direct_owner == 1) {
                     tvDirectOwner.text = StringBuilder().append(": ").append("Private")
                 } else {
                     tvDirectOwner.text = StringBuilder().append(": ").append("Dealership")
                 }
             }
 
-        } else if (data.type == 2) {
+        } else if (data.type == 2||data.type == 3) {
             tvType.visibility = View.GONE
             llPropertyDetails.visibility = View.VISIBLE
             CommonView.visibility = View.VISIBLE
@@ -269,10 +269,21 @@ class ProductDetailsActivity : AppCompatActivity() {
                 tvZone.text = StringBuilder().append(": ").append(data.additional_info!!.location)
                 tvArea.text = StringBuilder().append(": ").append(data.additional_info!!.city)
                 tvPropertyType.text = StringBuilder().append(": ").append(data.additional_info!!.property_type)
-                if(data.additional_info!!.parking_type==0){
+                if(data.additional_info!!.parking_type==1){
                     tvParking.text = StringBuilder().append(": ").append(getString(R.string.parking))
                 }else{
                     tvParking.text = StringBuilder().append(": ").append(getString(R.string.garage))
+                }
+                if(data.type == 3){
+                    llFurnish.visibility=View.VISIBLE
+                    if(data.additional_info!!.furnished==1){
+                        tvFurnished.text = StringBuilder().append(": ").append(getString(R.string.yes))
+                    }else{
+                        tvFurnished.text = StringBuilder().append(": ").append(getString(R.string.no))
+                    }
+
+                }else{
+                    llFurnish.visibility=View.GONE
                 }
             }
         } else {

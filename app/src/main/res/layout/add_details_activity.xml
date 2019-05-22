@@ -90,6 +90,37 @@
                         android:background="@color/light_gray" />
 
                     <LinearLayout
+                        android:id="@+id/llMobileNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.verkoop.fonts.textView.GothiBoldTextView
+                            android:id="@+id/tvMobileNo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="@dimen/dp_10"
+                            android:text="@string/mobile"
+                            android:textColor="@color/light_gray"
+                            android:textSize="@dimen/sp_16" />
+
+                        <com.verkoop.fonts.textView.GothiBoldTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/dp_10"
+                            android:text="@string/change"
+                            android:textColor="@color/blue"
+                            android:textSize="@dimen/sp_16" />
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/vMobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_1"
+                        android:background="@color/light_gray" />
+
+                    <LinearLayout
                         android:id="@+id/llSelectCategory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -125,6 +156,7 @@
                         android:id="@+id/llCarFields"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -585,7 +617,55 @@
                             android:layout_height="@dimen/dp_1"
                             android:layout_marginTop="@dimen/dp_8"
                             android:background="@color/colorPrimary" />
+                        <RadioGroup
+                            android:id="@+id/rgFurnish"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_8"
+                            android:visibility="gone"
+                            android:orientation="horizontal">
 
+                            <RadioButton
+                                android:id="@+id/rbFurnish"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/dp_8"
+                                android:layout_marginStart="@dimen/dp_10"
+                                android:layout_weight="2"
+                                android:background="@null"
+                                android:button="@drawable/radio_button_selector"
+                                android:checked="true"
+                                android:layoutDirection="rtl"
+                                android:paddingBottom="@dimen/dp_8"
+                                android:paddingTop="@dimen/dp_8"
+                                android:text="@string/furnish"
+                                android:textColor="@color/dark_black"
+                                android:textSize="@dimen/sp_14" />
+
+                            <RadioButton
+                                android:id="@+id/rbUnFurnish"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/dp_8"
+                                android:layout_marginStart="@dimen/dp_10"
+                                android:layout_weight="2"
+                                android:background="@null"
+                                android:button="@drawable/radio_button_selector"
+                                android:layoutDirection="rtl"
+                                android:paddingBottom="@dimen/dp_8"
+                                android:paddingTop="@dimen/dp_8"
+                                android:text="@string/unfurnish"
+                                android:textColor="@color/dark_black"
+                                android:textSize="@dimen/sp_14" />
+                        </RadioGroup>
+
+                        <View
+                            android:id="@+id/viewFurnish"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_1"
+                            android:layout_marginTop="@dimen/dp_8"
+                            android:background="@color/colorPrimary" />
 
                         <LinearLayout
                             android:layout_width="match_parent"

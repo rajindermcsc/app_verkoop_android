@@ -70,7 +70,8 @@ data class Data(
         val is_active: Int,
         val is_use: Int,
         val created_at: CreatedAt,
-        val token: String
+        val token: String,
+        val mobile_no: String
 )
 
 @Parcelize
@@ -287,7 +288,8 @@ data class AdditionalInfoResponse(
     val property_type:String?=null,
     val parking_type:Int?=0,
     val from_year:Int?=0,
-    val to_year:Int?=0
+    val to_year:Int?=0,
+    val furnished:Int?=0
 ): Parcelable
 
 @Parcelize

@@ -56,8 +56,8 @@ class CategoryDialogAdapter(private val context: Context, private val categoryLi
             rvSubCategory.adapter = subCategoryAdapter
 
             tvCategoryNameDialog.setOnClickListener {
-
                 updateList(adapterPosition)
+
             }
         }
     }

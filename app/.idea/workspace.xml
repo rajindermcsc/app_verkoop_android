@@ -22,12 +22,16 @@
     <list default="true" id="bc66ae77-f916-47ea-a965-a0a0204e65ae" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/ArchivedChatActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/ArchivedChatActivity.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/ChatInboxActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/ChatInboxActivity.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/ChatActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/ChatActivity.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/EditProfileActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/EditProfileActivity.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/LoginActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/LoginActivity.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/SelectCategoryDialogActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/SelectCategoryDialogActivity.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/CategoryDialogAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/CategoryDialogAdapter.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/PropertyTypeAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/PropertyTypeAdapter.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/models/RequestModal.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoop/models/RequestModal.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/models/ResponseModal.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoop/models/ResponseModal.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/offlinechatdata/DbHelper.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoop/offlinechatdata/DbHelper.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/utils/Constants.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoop/utils/Constants.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/add_details_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/add_details_activity.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/item_details_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/item_details_activity.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" />
@@ -127,188 +131,124 @@
       <file leaf-file-name="add_details_activity.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/res/layout/add_details_activity.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="184" column="54" lean-forward="false" selection-start-line="184" selection-start-column="45" selection-end-line="184" selection-end-column="54" />
+            <state relative-caret-position="1019">
+              <caret line="841" column="48" lean-forward="false" selection-start-line="841" selection-start-column="48" selection-end-line="841" selection-end-column="48" />
               <folding>
-                <element signature="e#5999#7409#0" expanded="false" />
-                <element signature="e#14428#14913#0" expanded="false" />
-                <element signature="e#19785#20270#0" expanded="false" />
-                <element signature="e#22734#24274#0" expanded="false" />
-                <element signature="e#37942#42398#0" expanded="false" />
-                <element signature="e#40124#40609#0" expanded="false" />
-                <element signature="e#44079#45538#0" expanded="false" />
-                <marker date="1558426077650" expanded="false" signature="45578:49332" ph="..." />
-                <marker date="1558426077650" expanded="false" signature="46261:46275" ph="&quot;10dp&quot;" />
-                <marker date="1558426077650" expanded="false" signature="46317:46344" ph="&quot;Registration Year&quot;" />
-                <marker date="1558426077650" expanded="false" signature="46652:46665" ph="&quot;8dp&quot;" />
-                <marker date="1558426077650" expanded="false" signature="47014:47027" ph="&quot;1dp&quot;" />
-                <marker date="1558426077650" expanded="false" signature="47753:47767" ph="&quot;10dp&quot;" />
-                <marker date="1558426077650" expanded="false" signature="47819:47833" ph="&quot;15dp&quot;" />
-                <marker date="1558426077650" expanded="false" signature="47887:47901" ph="&quot;10dp&quot;" />
-                <marker date="1558426077650" expanded="false" signature="47953:47967" ph="&quot;10dp&quot;" />
-                <marker date="1558426077650" expanded="false" signature="48013:48035" ph="&quot;Direct owner&quot;" />
-                <marker date="1558426077650" expanded="false" signature="48155:48169" ph="&quot;16sp&quot;" />
-                <marker date="1558426077650" expanded="false" signature="48515:48529" ph="&quot;10dp&quot;" />
-                <marker date="1558426077650" expanded="false" signature="49220:49233" ph="&quot;1dp&quot;" />
+                <element signature="e#4698#4712#0" expanded="true" />
+                <element signature="e#4882#4896#0" expanded="true" />
+                <element signature="e#5144#5158#0" expanded="true" />
+                <element signature="e#5200#5216#0" expanded="true" />
+                <element signature="e#5322#5336#0" expanded="true" />
+                <element signature="e#5559#5572#0" expanded="true" />
+                <element signature="e#5660#6990#0" expanded="false" />
+                <element signature="e#7283#23995#0" expanded="false" />
+                <element signature="e#10503#12873#0" expanded="false" />
+                <element signature="e#16032#16517#0" expanded="false" />
+                <element signature="e#21389#21874#0" expanded="false" />
+                <element signature="e#24338#25878#0" expanded="false" />
+                <element signature="e#33383#35813#0" expanded="false" />
+                <element signature="e#33633#33646#0" expanded="true" />
+                <element signature="e#34059#34072#0" expanded="true" />
+                <element signature="e#34132#34146#0" expanded="true" />
+                <element signature="e#34516#34529#0" expanded="true" />
+                <element signature="e#34581#34594#0" expanded="true" />
+                <element signature="e#34640#34657#0" expanded="true" />
+                <element signature="e#34777#34791#0" expanded="true" />
+                <element signature="e#35093#35106#0" expanded="true" />
+                <element signature="e#35166#35180#0" expanded="true" />
+                <element signature="e#35495#35508#0" expanded="true" />
+                <element signature="e#35560#35573#0" expanded="true" />
+                <element signature="e#35619#35638#0" expanded="true" />
+                <element signature="e#35758#35772#0" expanded="true" />
+                <element signature="e#36071#36084#0" expanded="true" />
+                <element signature="e#36138#36151#0" expanded="true" />
+                <element signature="e#44592#45077#0" expanded="false" />
+                <element signature="e#48547#50006#0" expanded="false" />
+                <marker date="1558522359970" expanded="false" signature="50046:53800" ph="..." />
+                <marker date="1558522359970" expanded="false" signature="50729:50743" ph="&quot;10dp&quot;" />
+                <marker date="1558522359970" expanded="false" signature="50785:50812" ph="&quot;Registration Year&quot;" />
+                <marker date="1558522359970" expanded="false" signature="51120:51133" ph="&quot;8dp&quot;" />
+                <marker date="1558522359970" expanded="false" signature="51482:51495" ph="&quot;1dp&quot;" />
+                <marker date="1558522359970" expanded="false" signature="52221:52235" ph="&quot;10dp&quot;" />
+                <marker date="1558522359970" expanded="false" signature="52287:52301" ph="&quot;15dp&quot;" />
+                <marker date="1558522359970" expanded="false" signature="52355:52369" ph="&quot;10dp&quot;" />
+                <marker date="1558522359970" expanded="false" signature="52421:52435" ph="&quot;10dp&quot;" />
+                <marker date="1558522359970" expanded="false" signature="52481:52503" ph="&quot;Direct owner&quot;" />
+                <marker date="1558522359970" expanded="false" signature="52623:52637" ph="&quot;16sp&quot;" />
+                <marker date="1558522359970" expanded="false" signature="52983:52997" ph="&quot;10dp&quot;" />
+                <marker date="1558522359970" expanded="false" signature="53688:53701" ph="&quot;1dp&quot;" />
               </folding>
             </state>
           </provider>
           <provider editor-type-id="android-designer2">
             <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProductDetailsActivity.kt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="243">
+              <caret line="279" column="101" lean-forward="false" selection-start-line="279" selection-start-column="101" selection-end-line="279" selection-end-column="101" />
+              <folding>
+                <element signature="e#13603#13625#1" expanded="true" />
+                <element signature="e#27647#29219#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EditProfileActivity.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/EditProfileActivity.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="286">
+              <caret line="174" column="17" lean-forward="false" selection-start-line="174" selection-start-column="17" selection-end-line="174" selection-end-column="17" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="AddDetailsActivity.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="489" column="38" lean-forward="false" selection-start-line="489" selection-start-column="38" selection-end-line="489" selection-end-column="38" />
+            <state relative-caret-position="34">
+              <caret line="1397" column="0" lean-forward="false" selection-start-line="1397" selection-start-column="0" selection-end-line="1397" selection-end-column="0" />
               <folding>
-                <element signature="e#3332#3360#1" expanded="true" />
-                <element signature="e#24550#24584#1" expanded="true" />
-                <element signature="e#29767#29817#1" expanded="true" />
-                <element signature="e#30098#30123#0" expanded="true" />
-                <element signature="e#31313#31363#1" expanded="true" />
-                <element signature="e#31674#31699#0" expanded="true" />
-                <element signature="e#32926#32976#1" expanded="true" />
-                <element signature="e#33287#33312#0" expanded="true" />
-                <element signature="e#34539#34589#1" expanded="true" />
-                <element signature="e#34900#34925#0" expanded="true" />
-                <element signature="e#36152#36202#1" expanded="true" />
-                <element signature="e#36513#36538#0" expanded="true" />
-                <element signature="e#40007#40042#1" expanded="true" />
-                <element signature="e#40166#40205#1" expanded="true" />
-                <element signature="e#41418#41449#1" expanded="true" />
-                <element signature="e#41636#41667#1" expanded="true" />
-                <element signature="e#42397#42426#1" expanded="true" />
-                <element signature="e#42602#42631#1" expanded="true" />
-                <element signature="e#42814#42843#1" expanded="true" />
-                <element signature="e#43019#43048#1" expanded="true" />
-                <element signature="e#43640#43669#1" expanded="true" />
-                <element signature="e#43845#43874#1" expanded="true" />
-                <element signature="e#44057#44086#1" expanded="true" />
-                <element signature="e#44262#44291#1" expanded="true" />
-                <element signature="e#44461#44498#1" expanded="true" />
-                <element signature="e#44633#44665#1" expanded="true" />
-                <element signature="e#56880#56914#1" expanded="true" />
-                <element signature="e#58089#58139#1" expanded="true" />
-                <element signature="e#59336#59386#1" expanded="true" />
-                <element signature="e#60011#60061#1" expanded="true" />
-                <element signature="e#60643#60693#1" expanded="true" />
-                <element signature="e#63552#63602#1" expanded="true" />
-                <element signature="e#64731#64781#1" expanded="true" />
-                <element signature="e#65337#65387#1" expanded="true" />
-                <element signature="e#65901#65951#1" expanded="true" />
-                <element signature="e#68445#68479#1" expanded="true" />
-                <element signature="e#71729#71779#1" expanded="true" />
-                <element signature="e#73055#73105#1" expanded="true" />
-                <element signature="e#73545#73595#1" expanded="true" />
-                <element signature="e#73978#74028#1" expanded="true" />
+                <element signature="e#63749#63799#1" expanded="true" />
+                <element signature="e#70320#70370#1" expanded="true" />
+                <element signature="e#80095#80145#1" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProductDetailsActivity.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt">
+      <file leaf-file-name="RequestModal.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/models/RequestModal.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
-              <caret line="250" column="20" lean-forward="false" selection-start-line="250" selection-start-column="20" selection-end-line="250" selection-end-column="20" />
-              <folding>
-                <element signature="e#13055#13082#1" expanded="true" />
-                <element signature="e#13180#13206#1" expanded="true" />
-                <element signature="e#27131#28703#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GalleryActivity.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/GalleryActivity.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="477">
-              <caret line="125" column="4" lean-forward="false" selection-start-line="125" selection-start-column="4" selection-end-line="125" selection-end-column="4" />
+            <state relative-caret-position="181">
+              <caret line="63" column="12" lean-forward="false" selection-start-line="63" selection-start-column="12" selection-end-line="63" selection-end-column="12" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ResponseModal.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/models/ResponseModal.kt">
+      <file leaf-file-name="PropertyTypeAdapter.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/adapter/PropertyTypeAdapter.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="288" column="8" lean-forward="false" selection-start-line="288" selection-start-column="8" selection-end-line="288" selection-end-column="8" />
+            <state relative-caret-position="88">
+              <caret line="40" column="37" lean-forward="false" selection-start-line="40" selection-start-column="37" selection-end-line="40" selection-end-column="37" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="item_details_activity.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout/item_details_activity.xml">
+      <file leaf-file-name="ReportListAdapter.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/adapter/ReportListAdapter.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="121">
-              <caret line="234" column="37" lean-forward="false" selection-start-line="234" selection-start-column="37" selection-end-line="234" selection-end-column="37" />
+            <state relative-caret-position="-104">
+              <caret line="15" column="6" lean-forward="false" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
               <folding>
-                <element signature="e#12164#12178#0" expanded="true" />
-                <element signature="e#12287#12300#0" expanded="true" />
-                <element signature="e#12350#12363#0" expanded="true" />
-                <element signature="e#12634#12648#0" expanded="true" />
-                <element signature="e#12754#12772#0" expanded="true" />
-                <element signature="e#12892#12906#0" expanded="true" />
-                <element signature="e#13363#13377#0" expanded="true" />
-                <element signature="e#17712#17725#0" expanded="true" />
-                <element signature="e#17775#17788#0" expanded="true" />
-                <element signature="e#18107#18130#0" expanded="true" />
-                <element signature="e#18250#18264#0" expanded="true" />
-                <element signature="e#18722#18736#0" expanded="true" />
-                <element signature="e#19055#19068#0" expanded="true" />
-                <element signature="e#19122#19136#0" expanded="true" />
-                <element signature="e#19186#19199#0" expanded="true" />
-                <element signature="e#19518#19540#0" expanded="true" />
-                <element signature="e#19660#19674#0" expanded="true" />
-                <element signature="e#20127#20141#0" expanded="true" />
-                <element signature="e#20527#20541#0" expanded="true" />
-                <element signature="e#21936#21950#0" expanded="true" />
-                <element signature="e#23222#23236#0" expanded="true" />
-                <element signature="e#26541#26559#0" expanded="true" />
-                <element signature="e#27939#27953#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ChatInboxActivity.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ChatInboxActivity.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="145" column="59" lean-forward="false" selection-start-line="145" selection-start-column="59" selection-end-line="145" selection-end-column="59" />
-              <folding>
-                <element signature="e#17519#17894#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DbHelper.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/offlinechatdata/DbHelper.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2522">
-              <caret line="101" column="17" lean-forward="false" selection-start-line="101" selection-start-column="17" selection-end-line="101" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ArchivedChatActivity.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ArchivedChatActivity.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="28" column="19" lean-forward="false" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="19" />
-              <folding>
-                <element signature="e#2011#2045#1" expanded="true" />
+                <element signature="e#29#454#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -317,8 +257,28 @@
       <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="300" column="0" lean-forward="false" selection-start-line="300" selection-start-column="0" selection-end-line="300" selection-end-column="0" />
+            <state relative-caret-position="162">
+              <caret line="251" column="18" lean-forward="false" selection-start-line="251" selection-start-column="18" selection-end-line="251" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ChatActivity.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ChatActivity.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1143">
+              <caret line="362" column="0" lean-forward="false" selection-start-line="362" selection-start-column="0" selection-end-line="362" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ChatAdapter.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/adapter/ChatAdapter.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2106">
+              <caret line="97" column="45" lean-forward="false" selection-start-line="97" selection-start-column="45" selection-end-line="97" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -339,21 +299,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>isValiodate()</find>
-      <find>additionalInfo</find>
-      <find>radio</find>
-      <find>rbParking</find>
-      <find>AdditionalInfo</find>
-      <find>property_</find>
-      <find>llProperty</find>
-      <find>llPrice</find>
-      <find>location</find>
-      <find>switchDirectOwner</find>
-      <find>price</find>
-      <find>vLocation</find>
-      <find>city</find>
-      <find>etRegistrationYear</find>
-      <find>addItemRequest</find>
       <find>isVali</find>
       <find>etLocation</find>
       <find>etMaxPriceAdd</find>
@@ -362,13 +307,28 @@
       <find>AddItemRequest</find>
       <find>isValidate</find>
       <find>etRegFrom</find>
-      <find>parking_type</find>
       <find>setData</find>
       <find>postalCode</find>
       <find>dbHelper</find>
       <find>deleteChat</find>
       <find>RadioButton</find>
+      <find>parentId</find>
+      <find>isVa</find>
+      <find>activityRe</find>
+      <find>rgFurnish</find>
+      <find>setScreenType</find>
+      <find>rbFurnish</find>
+      <find>direct_owner</find>
+      <find>totalBadRoom</find>
+      <find>parkingType</find>
+      <find>bedroom</find>
+      <find>furnished</find>
+      <find>checkedId</find>
       <find>directOwner</find>
+      <find>setResponseData</find>
+      <find>mobile</find>
+      <find>parking_type</find>
+      <find>etPrice</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -2310,10 +2270,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/models/AllChatRealModel.kt" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/chat_inbox_activity.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/VerkoopApplication.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/offlinechatdata/ChatInboxRealModal.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoop/fragment/ChatInboxFragment.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoop/fonts/textView/CustomTextViewFontClass.kt" />
         <option value="$PROJECT_DIR$/src/main/res/layout/delete_comment_dialog.xml" />
@@ -2327,7 +2283,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/verkoop/fcm/KSMNotificationManager.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoop/offlinechatdata/ChatResponseModal.kt" />
         <option value="$PROJECT_DIR$/src/main/res/layout/dialog_create_offer.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/utils/Constants.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoop/fragment/HomeFragment.kt" />
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/ChatInboxAdapter.kt" />
@@ -2341,7 +2296,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/verkoop/activity/FullCategoriesActivity.kt" />
         <option value="$PROJECT_DIR$/src/main/res/layout/toolbar_details_.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoop/activity/CategoryDetailsActivity.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/activity/ChatActivity.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoop/models/events.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoop/activity/HomeActivity.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/PropertyTypeAdapter.java" />
@@ -2349,18 +2303,24 @@
         <option value="$PROJECT_DIR$/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/src/main/res/drawable/gray_rectangular_shape.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/row_property.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/PropertyTypeAdapter.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoop/network/MyService.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/models/ResponseModal.kt" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/add_details_activity.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/models/RequestModal.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoop/offlinechatdata/DbHelper.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoop/activity/ArchivedChatActivity.kt" />
-        <option value="$PROJECT_DIR$/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoop/activity/ChatInboxActivity.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/CategoryDialogAdapter.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/activity/SelectCategoryDialogActivity.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/models/RequestModal.kt" />
         <option value="$PROJECT_DIR$/src/main/res/layout/item_details_activity.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/add_details_activity.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/models/ResponseModal.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/utils/Constants.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/activity/LoginActivity.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/activity/EditProfileActivity.kt" />
+        <option value="$PROJECT_DIR$/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/activity/ChatActivity.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/PropertyTypeAdapter.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt" />
       </list>
     </option>
   </component>
@@ -2387,84 +2347,6 @@
     <panes>
       <pane id="PackagesPane" />
       <pane id="Scratches" />
-      <pane id="AndroidView">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="verkoop_app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Gradle Scripts" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidBuildScriptsGroupNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="verkoop_app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="verkoop_app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="verkoop_app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="verkoop" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="verkoop_app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="verkoop" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="activity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -2507,6 +2389,138 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="build" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="AndroidView">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoop_app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Gradle Scripts" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidBuildScriptsGroupNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoop_app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoop_app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="values" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoop_app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoop_app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoop_app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoop" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoop_app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoop" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="adapter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoop_app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoop" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="activity" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2682,7 +2696,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1558448122075" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1558534410771" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2730,7 +2744,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1558448122075" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1558534410772" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2916,7 +2930,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1558448122076" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1558534410775" />
       </method>
     </configuration>
     <list size="3">
@@ -2975,44 +2989,43 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="1" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.66898954" sideWeight="0.5537879" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27121213" sideWeight="1.0" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5386364" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8519164" sideWeight="0.46136364" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.9738676" sideWeight="0.5416667" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.45833334" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12878788" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.475" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.475" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.58536583" sideWeight="0.46742424" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.46742424" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" x="1262" y="92" width="12" height="11" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2719697" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31707317" sideWeight="0.4909091" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23409091" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31707317" sideWeight="0.4909091" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.81358886" sideWeight="0.46212122" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8292683" sideWeight="0.46212122" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23863636" sideWeight="0.0" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Android WiFi ADB" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.79616725" sideWeight="0.5325758" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Assistant" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" x="1262" y="92" width="12" height="11" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.66898954" sideWeight="0.5537879" order="7" side_tool="false" content_ui="tabs" />
@@ -3732,31 +3745,31 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/EditProfileActivity.kt</url>
-          <line>187</line>
+          <line>192</line>
           <properties />
           <option name="timeStamp" value="544" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/EditProfileActivity.kt</url>
-          <line>186</line>
+          <line>191</line>
           <properties />
           <option name="timeStamp" value="545" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/EditProfileActivity.kt</url>
-          <line>202</line>
+          <line>207</line>
           <properties />
           <option name="timeStamp" value="546" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/EditProfileActivity.kt</url>
-          <line>203</line>
+          <line>208</line>
           <properties />
           <option name="timeStamp" value="547" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/EditProfileActivity.kt</url>
-          <line>205</line>
+          <line>210</line>
           <properties />
           <option name="timeStamp" value="548" />
         </line-breakpoint>
@@ -3888,25 +3901,25 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt</url>
-          <line>415</line>
+          <line>426</line>
           <properties />
           <option name="timeStamp" value="641" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt</url>
-          <line>416</line>
+          <line>427</line>
           <properties />
           <option name="timeStamp" value="642" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt</url>
-          <line>418</line>
+          <line>429</line>
           <properties />
           <option name="timeStamp" value="643" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt</url>
-          <line>419</line>
+          <line>430</line>
           <properties />
           <option name="timeStamp" value="644" />
         </line-breakpoint>
@@ -3942,37 +3955,37 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt</url>
-          <line>417</line>
+          <line>428</line>
           <properties />
           <option name="timeStamp" value="657" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt</url>
-          <line>373</line>
+          <line>384</line>
           <properties />
           <option name="timeStamp" value="658" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt</url>
-          <line>374</line>
+          <line>385</line>
           <properties />
           <option name="timeStamp" value="659" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt</url>
-          <line>375</line>
+          <line>386</line>
           <properties />
           <option name="timeStamp" value="660" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt</url>
-          <line>376</line>
+          <line>387</line>
           <properties />
           <option name="timeStamp" value="661" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt</url>
-          <line>382</line>
+          <line>393</line>
           <properties />
           <option name="timeStamp" value="662" />
         </line-breakpoint>
@@ -4098,7 +4111,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
-          <line>83</line>
+          <line>84</line>
           <properties />
           <option name="timeStamp" value="793" />
         </line-breakpoint>
@@ -4248,7 +4261,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
-          <line>81</line>
+          <line>82</line>
           <properties />
           <option name="timeStamp" value="875" />
         </line-breakpoint>
@@ -4272,25 +4285,25 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
-          <line>382</line>
+          <line>390</line>
           <properties />
           <option name="timeStamp" value="915" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
-          <line>383</line>
+          <line>391</line>
           <properties />
           <option name="timeStamp" value="917" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
-          <line>384</line>
+          <line>392</line>
           <properties />
           <option name="timeStamp" value="918" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
-          <line>385</line>
+          <line>393</line>
           <properties />
           <option name="timeStamp" value="919" />
         </line-breakpoint>
@@ -4494,111 +4507,105 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/LoginActivity.kt</url>
-          <line>293</line>
+          <line>298</line>
           <properties />
           <option name="timeStamp" value="963" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/LoginActivity.kt</url>
-          <line>305</line>
+          <line>310</line>
           <properties />
           <option name="timeStamp" value="964" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/LoginActivity.kt</url>
-          <line>306</line>
+          <line>311</line>
           <properties />
           <option name="timeStamp" value="965" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/LoginActivity.kt</url>
-          <line>296</line>
+          <line>301</line>
           <properties />
           <option name="timeStamp" value="966" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/LoginActivity.kt</url>
-          <line>297</line>
+          <line>302</line>
           <properties />
           <option name="timeStamp" value="967" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
-          <line>189</line>
+          <line>190</line>
           <properties />
           <option name="timeStamp" value="986" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
-          <line>1389</line>
+          <line>1475</line>
           <properties />
           <option name="timeStamp" value="994" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
-          <line>1392</line>
+          <line>1478</line>
           <properties />
           <option name="timeStamp" value="995" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
-          <line>1386</line>
+          <line>1472</line>
           <properties />
           <option name="timeStamp" value="996" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
-          <line>282</line>
+          <line>290</line>
           <properties />
           <option name="timeStamp" value="997" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
-          <line>283</line>
+          <line>291</line>
           <properties />
           <option name="timeStamp" value="998" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
-          <line>1360</line>
+          <line>1437</line>
           <properties />
           <option name="timeStamp" value="999" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
-          <line>1361</line>
+          <line>1438</line>
           <properties />
           <option name="timeStamp" value="1000" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
-          <line>1324</line>
+          <line>1401</line>
           <properties />
           <option name="timeStamp" value="1001" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
-          <line>1326</line>
+          <line>1403</line>
           <properties />
           <option name="timeStamp" value="1002" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
-          <line>1327</line>
+          <line>1404</line>
           <properties />
           <option name="timeStamp" value="1003" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
-          <line>1329</line>
+          <line>1406</line>
           <properties />
           <option name="timeStamp" value="1004" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
-          <line>1335</line>
-          <properties />
-          <option name="timeStamp" value="1005" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/CarBrandsActivity.kt</url>
@@ -4677,12 +4684,6 @@
           <line>132</line>
           <properties />
           <option name="timeStamp" value="1060" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt</url>
-          <line>134</line>
-          <properties />
-          <option name="timeStamp" value="1061" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt</url>
@@ -4860,7 +4861,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ChatActivity.kt</url>
-          <line>563</line>
+          <line>562</line>
           <properties />
           <option name="timeStamp" value="1182" />
         </line-breakpoint>
@@ -4872,19 +4873,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ChatActivity.kt</url>
-          <line>737</line>
+          <line>736</line>
           <properties />
           <option name="timeStamp" value="1187" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ChatActivity.kt</url>
-          <line>738</line>
+          <line>737</line>
           <properties />
           <option name="timeStamp" value="1188" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ChatActivity.kt</url>
-          <line>739</line>
+          <line>738</line>
           <properties />
           <option name="timeStamp" value="1189" />
         </line-breakpoint>
@@ -4896,25 +4897,25 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ChatActivity.kt</url>
-          <line>743</line>
+          <line>742</line>
           <properties />
           <option name="timeStamp" value="1203" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt</url>
-          <line>294</line>
+          <line>305</line>
           <properties />
           <option name="timeStamp" value="1205" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt</url>
-          <line>296</line>
+          <line>307</line>
           <properties />
           <option name="timeStamp" value="1206" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ChatActivity.kt</url>
-          <line>439</line>
+          <line>438</line>
           <properties />
           <option name="timeStamp" value="1208" />
         </line-breakpoint>
@@ -4932,25 +4933,25 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ChatActivity.kt</url>
-          <line>435</line>
+          <line>434</line>
           <properties />
           <option name="timeStamp" value="1211" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ChatActivity.kt</url>
-          <line>436</line>
+          <line>435</line>
           <properties />
           <option name="timeStamp" value="1212" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ChatActivity.kt</url>
-          <line>437</line>
+          <line>436</line>
           <properties />
           <option name="timeStamp" value="1213" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt</url>
-          <line>395</line>
+          <line>406</line>
           <properties />
           <option name="timeStamp" value="1216" />
         </line-breakpoint>
@@ -4992,25 +4993,25 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
-          <line>1477</line>
+          <line>1563</line>
           <properties />
           <option name="timeStamp" value="1223" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
-          <line>1476</line>
+          <line>1562</line>
           <properties />
           <option name="timeStamp" value="1224" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt</url>
-          <line>453</line>
+          <line>464</line>
           <properties />
           <option name="timeStamp" value="1225" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt</url>
-          <line>454</line>
+          <line>465</line>
           <properties />
           <option name="timeStamp" value="1226" />
         </line-breakpoint>
@@ -5022,15 +5023,129 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
-          <line>204</line>
+          <line>205</line>
           <properties />
           <option name="timeStamp" value="1228" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
-          <line>202</line>
+          <line>203</line>
           <properties />
           <option name="timeStamp" value="1229" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
+          <line>1100</line>
+          <properties />
+          <option name="timeStamp" value="1231" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
+          <line>1102</line>
+          <properties />
+          <option name="timeStamp" value="1232" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/SelectCategoryDialogActivity.kt</url>
+          <line>47</line>
+          <properties />
+          <option name="timeStamp" value="1234" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/SelectCategoryDialogActivity.kt</url>
+          <line>48</line>
+          <properties />
+          <option name="timeStamp" value="1235" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
+          <line>1101</line>
+          <properties />
+          <option name="timeStamp" value="1237" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/SelectCategoryDialogActivity.kt</url>
+          <line>42</line>
+          <properties />
+          <option name="timeStamp" value="1238" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/SelectCategoryDialogActivity.kt</url>
+          <line>40</line>
+          <properties />
+          <option name="timeStamp" value="1239" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/SelectCategoryDialogActivity.kt</url>
+          <line>39</line>
+          <properties />
+          <option name="timeStamp" value="1240" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/SelectCategoryDialogActivity.kt</url>
+          <line>38</line>
+          <properties />
+          <option name="timeStamp" value="1241" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/SelectCategoryDialogActivity.kt</url>
+          <line>50</line>
+          <properties />
+          <option name="timeStamp" value="1242" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
+          <line>1140</line>
+          <properties />
+          <option name="timeStamp" value="1243" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
+          <line>1141</line>
+          <properties />
+          <option name="timeStamp" value="1244" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
+          <line>1125</line>
+          <properties />
+          <option name="timeStamp" value="1245" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
+          <line>1126</line>
+          <properties />
+          <option name="timeStamp" value="1246" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
+          <line>1589</line>
+          <properties />
+          <option name="timeStamp" value="1251" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
+          <line>1588</line>
+          <properties />
+          <option name="timeStamp" value="1252" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
+          <line>1600</line>
+          <properties />
+          <option name="timeStamp" value="1253" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
+          <line>1601</line>
+          <properties />
+          <option name="timeStamp" value="1254" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt</url>
+          <line>1602</line>
+          <properties />
+          <option name="timeStamp" value="1255" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoop/utils/CommonUtils.java</url>
@@ -5093,114 +5208,15 @@
           <option name="timeStamp" value="672" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="1231" />
+      <option name="time" value="1256" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/adapter/ChatAdapter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1836">
-          <caret line="81" column="67" lean-forward="false" selection-start-line="81" selection-start-column="67" selection-end-line="81" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/full_categories_activity.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="7" column="40" lean-forward="false" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/toolbar_category.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="33" column="24" lean-forward="false" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/toolbar_details_.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="25" column="24" lean-forward="false" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/category_details_activity.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="13" column="40" lean-forward="false" selection-start-line="13" selection-start-column="40" selection-end-line="13" selection-end-column="40" />
-          <folding>
-            <element signature="e#411#425#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/CategoryDetailsActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="50" column="46" lean-forward="true" selection-start-line="50" selection-start-column="46" selection-end-line="50" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ChatActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18824">
-          <caret line="777" column="48" lean-forward="false" selection-start-line="777" selection-start-column="48" selection-end-line="777" selection-end-column="48" />
-          <folding>
-            <element signature="e#31#1463#0" expanded="false" />
-            <element signature="e#16565#17652#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/utils/Dialogs.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1586">
-          <caret line="159" column="20" lean-forward="true" selection-start-line="159" selection-start-column="20" selection-end-line="159" selection-end-column="20" />
-          <folding>
-            <element signature="e#1285#2133#0" expanded="false" />
-            <element signature="e#2252#2851#0" expanded="false" />
-            <element signature="e#2974#3749#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/models/events.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/models/ChatResponse.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="520">
           <caret line="20" column="13" lean-forward="false" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/LoginActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="232" column="18" lean-forward="true" selection-start-line="232" selection-start-column="18" selection-end-line="232" selection-end-column="18" />
           <folding />
         </state>
       </provider>
@@ -5344,14 +5360,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="13" column="27" lean-forward="false" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/drawable/gray_rectangular_shape.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
@@ -5391,14 +5399,6 @@
       </provider>
       <provider editor-type-id="android-designer2">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/adapter/PropertyTypeAdapter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="17" column="47" lean-forward="false" selection-start-line="17" selection-start-column="47" selection-end-line="17" selection-end-column="47" />
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/FilterActivity.kt">
@@ -5450,14 +5450,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/models/RequestModal.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="59" column="24" lean-forward="false" selection-start-line="59" selection-start-column="12" selection-end-line="59" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/adapter/ChatInboxAdapter.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="310">
@@ -5470,41 +5462,28 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2522">
           <caret line="101" column="17" lean-forward="false" selection-start-line="101" selection-start-column="17" selection-end-line="101" selection-end-column="17" />
-          <folding />
+          <folding>
+            <element signature="e#37#193#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ArchivedChatActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
+        <state relative-caret-position="260">
           <caret line="28" column="19" lean-forward="false" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="19" />
           <folding>
-            <element signature="e#2011#2045#1" expanded="true" />
+            <element signature="e#30#772#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="300" column="0" lean-forward="false" selection-start-line="300" selection-start-column="0" selection-end-line="300" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/models/ResponseModal.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="288" column="8" lean-forward="false" selection-start-line="288" selection-start-column="8" selection-end-line="288" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ChatInboxActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
+        <state relative-caret-position="3042">
           <caret line="145" column="59" lean-forward="false" selection-start-line="145" selection-start-column="59" selection-end-line="145" selection-end-column="59" />
           <folding>
+            <element signature="e#31#1158#0" expanded="false" />
             <element signature="e#17519#17894#0" expanded="false" />
           </folding>
         </state>
@@ -5512,110 +5491,101 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/GalleryActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="477">
+        <state relative-caret-position="2626">
           <caret line="125" column="4" lean-forward="false" selection-start-line="125" selection-start-column="4" selection-end-line="125" selection-end-column="4" />
+          <folding>
+            <element signature="e#30#949#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/adapter/SubCategoryDialogAdapter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="13" column="30" lean-forward="false" selection-start-line="13" selection-start-column="30" selection-end-line="13" selection-end-column="30" />
+          <folding>
+            <element signature="e#29#425#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/adapter/CategoryDialogAdapter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="53" column="57" lean-forward="false" selection-start-line="53" selection-start-column="57" selection-end-line="53" selection-end-column="57" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/add_details_activity.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/SelectCategoryDialogActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="184" column="54" lean-forward="false" selection-start-line="184" selection-start-column="45" selection-end-line="184" selection-end-column="54" />
-          <folding>
-            <element signature="e#5999#7409#0" expanded="false" />
-            <element signature="e#14428#14913#0" expanded="false" />
-            <element signature="e#19785#20270#0" expanded="false" />
-            <element signature="e#22734#24274#0" expanded="false" />
-            <element signature="e#37942#42398#0" expanded="false" />
-            <element signature="e#40124#40609#0" expanded="false" />
-            <element signature="e#44079#45538#0" expanded="false" />
-            <marker date="1558426077650" expanded="false" signature="45578:49332" ph="..." />
-            <marker date="1558426077650" expanded="false" signature="46261:46275" ph="&quot;10dp&quot;" />
-            <marker date="1558426077650" expanded="false" signature="46317:46344" ph="&quot;Registration Year&quot;" />
-            <marker date="1558426077650" expanded="false" signature="46652:46665" ph="&quot;8dp&quot;" />
-            <marker date="1558426077650" expanded="false" signature="47014:47027" ph="&quot;1dp&quot;" />
-            <marker date="1558426077650" expanded="false" signature="47753:47767" ph="&quot;10dp&quot;" />
-            <marker date="1558426077650" expanded="false" signature="47819:47833" ph="&quot;15dp&quot;" />
-            <marker date="1558426077650" expanded="false" signature="47887:47901" ph="&quot;10dp&quot;" />
-            <marker date="1558426077650" expanded="false" signature="47953:47967" ph="&quot;10dp&quot;" />
-            <marker date="1558426077650" expanded="false" signature="48013:48035" ph="&quot;Direct owner&quot;" />
-            <marker date="1558426077650" expanded="false" signature="48155:48169" ph="&quot;16sp&quot;" />
-            <marker date="1558426077650" expanded="false" signature="48515:48529" ph="&quot;10dp&quot;" />
-            <marker date="1558426077650" expanded="false" signature="49220:49233" ph="&quot;1dp&quot;" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="489" column="38" lean-forward="false" selection-start-line="489" selection-start-column="38" selection-end-line="489" selection-end-column="38" />
-          <folding>
-            <element signature="e#3332#3360#1" expanded="true" />
-            <element signature="e#24550#24584#1" expanded="true" />
-            <element signature="e#29767#29817#1" expanded="true" />
-            <element signature="e#30098#30123#0" expanded="true" />
-            <element signature="e#31313#31363#1" expanded="true" />
-            <element signature="e#31674#31699#0" expanded="true" />
-            <element signature="e#32926#32976#1" expanded="true" />
-            <element signature="e#33287#33312#0" expanded="true" />
-            <element signature="e#34539#34589#1" expanded="true" />
-            <element signature="e#34900#34925#0" expanded="true" />
-            <element signature="e#36152#36202#1" expanded="true" />
-            <element signature="e#36513#36538#0" expanded="true" />
-            <element signature="e#40007#40042#1" expanded="true" />
-            <element signature="e#40166#40205#1" expanded="true" />
-            <element signature="e#41418#41449#1" expanded="true" />
-            <element signature="e#41636#41667#1" expanded="true" />
-            <element signature="e#42397#42426#1" expanded="true" />
-            <element signature="e#42602#42631#1" expanded="true" />
-            <element signature="e#42814#42843#1" expanded="true" />
-            <element signature="e#43019#43048#1" expanded="true" />
-            <element signature="e#43640#43669#1" expanded="true" />
-            <element signature="e#43845#43874#1" expanded="true" />
-            <element signature="e#44057#44086#1" expanded="true" />
-            <element signature="e#44262#44291#1" expanded="true" />
-            <element signature="e#44461#44498#1" expanded="true" />
-            <element signature="e#44633#44665#1" expanded="true" />
-            <element signature="e#56880#56914#1" expanded="true" />
-            <element signature="e#58089#58139#1" expanded="true" />
-            <element signature="e#59336#59386#1" expanded="true" />
-            <element signature="e#60011#60061#1" expanded="true" />
-            <element signature="e#60643#60693#1" expanded="true" />
-            <element signature="e#63552#63602#1" expanded="true" />
-            <element signature="e#64731#64781#1" expanded="true" />
-            <element signature="e#65337#65387#1" expanded="true" />
-            <element signature="e#65901#65951#1" expanded="true" />
-            <element signature="e#68445#68479#1" expanded="true" />
-            <element signature="e#71729#71779#1" expanded="true" />
-            <element signature="e#73055#73105#1" expanded="true" />
-            <element signature="e#73545#73595#1" expanded="true" />
-            <element signature="e#73978#74028#1" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="250" column="20" lean-forward="false" selection-start-line="250" selection-start-column="20" selection-end-line="250" selection-end-column="20" />
-          <folding>
-            <element signature="e#13055#13082#1" expanded="true" />
-            <element signature="e#13180#13206#1" expanded="true" />
-            <element signature="e#27131#28703#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="90">
+          <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/item_details_activity.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="234" column="37" lean-forward="false" selection-start-line="234" selection-start-column="37" selection-end-line="234" selection-end-column="37" />
+        <state relative-caret-position="291">
+          <caret line="319" column="48" lean-forward="false" selection-start-line="319" selection-start-column="48" selection-end-line="319" selection-end-column="48" />
           <folding>
+            <element signature="e#1688#1702#0" expanded="true" />
+            <element signature="e#1923#1937#0" expanded="true" />
+            <element signature="e#2246#2259#0" expanded="true" />
+            <element signature="e#2305#2318#0" expanded="true" />
+            <element signature="e#2737#2751#0" expanded="true" />
+            <element signature="e#3062#3076#0" expanded="true" />
+            <element signature="e#3129#3143#0" expanded="true" />
+            <element signature="e#3328#3342#0" expanded="true" />
+            <element signature="e#3675#3688#0" expanded="true" />
+            <element signature="e#3732#3745#0" expanded="true" />
+            <element signature="e#3791#3804#0" expanded="true" />
+            <element signature="e#3907#3921#0" expanded="true" />
+            <element signature="e#4130#4144#0" expanded="true" />
+            <element signature="e#4245#4258#0" expanded="true" />
+            <element signature="e#4304#4317#0" expanded="true" />
+            <element signature="e#4572#4586#0" expanded="true" />
+            <element signature="e#4628#4646#0" expanded="true" />
+            <element signature="e#4758#4772#0" expanded="true" />
+            <element signature="e#5150#5164#0" expanded="true" />
+            <element signature="e#5490#5503#0" expanded="true" />
+            <element signature="e#5552#5566#0" expanded="true" />
+            <element signature="e#5681#5694#0" expanded="true" />
+            <element signature="e#5740#5753#0" expanded="true" />
+            <element signature="e#5857#5871#0" expanded="true" />
+            <element signature="e#6080#6094#0" expanded="true" />
+            <element signature="e#6195#6208#0" expanded="true" />
+            <element signature="e#6254#6267#0" expanded="true" />
+            <element signature="e#6522#6536#0" expanded="true" />
+            <element signature="e#6578#6593#0" expanded="true" />
+            <element signature="e#6704#6718#0" expanded="true" />
+            <element signature="e#7088#7102#0" expanded="true" />
+            <element signature="e#7435#7449#0" expanded="true" />
+            <element signature="e#7499#7512#0" expanded="true" />
+            <element signature="e#7556#7569#0" expanded="true" />
+            <element signature="e#7615#7628#0" expanded="true" />
+            <element signature="e#7732#7746#0" expanded="true" />
+            <element signature="e#7883#7897#0" expanded="true" />
+            <element signature="e#8000#8014#0" expanded="true" />
+            <element signature="e#8342#8356#0" expanded="true" />
+            <element signature="e#8779#8793#0" expanded="true" />
+            <element signature="e#8841#8854#0" expanded="true" />
+            <element signature="e#8904#8917#0" expanded="true" />
+            <element signature="e#8959#8980#0" expanded="true" />
+            <element signature="e#9091#9105#0" expanded="true" />
+            <element signature="e#9385#9398#0" expanded="true" />
+            <element signature="e#9448#9461#0" expanded="true" />
+            <element signature="e#9732#9746#0" expanded="true" />
+            <element signature="e#9852#9879#0" expanded="true" />
+            <element signature="e#9999#10013#0" expanded="true" />
+            <element signature="e#10475#10489#0" expanded="true" />
+            <element signature="e#10754#10768#0" expanded="true" />
+            <element signature="e#10877#10890#0" expanded="true" />
+            <element signature="e#10940#10953#0" expanded="true" />
+            <element signature="e#11272#11295#0" expanded="true" />
+            <element signature="e#11415#11429#0" expanded="true" />
+            <element signature="e#11886#11900#0" expanded="true" />
             <element signature="e#12164#12178#0" expanded="true" />
             <element signature="e#12287#12300#0" expanded="true" />
             <element signature="e#12350#12363#0" expanded="true" />
@@ -5623,27 +5593,322 @@
             <element signature="e#12754#12772#0" expanded="true" />
             <element signature="e#12892#12906#0" expanded="true" />
             <element signature="e#13363#13377#0" expanded="true" />
+            <element signature="e#13641#13655#0" expanded="true" />
+            <element signature="e#13764#13777#0" expanded="true" />
+            <element signature="e#13827#13840#0" expanded="true" />
+            <element signature="e#14111#14125#0" expanded="true" />
+            <element signature="e#14231#14246#0" expanded="true" />
+            <element signature="e#14366#14380#0" expanded="true" />
+            <element signature="e#14834#14848#0" expanded="true" />
+            <element signature="e#15113#15127#0" expanded="true" />
+            <element signature="e#15236#15249#0" expanded="true" />
+            <element signature="e#15299#15312#0" expanded="true" />
+            <element signature="e#15583#15597#0" expanded="true" />
+            <element signature="e#15703#15717#0" expanded="true" />
+            <element signature="e#15837#15851#0" expanded="true" />
+            <element signature="e#16304#16318#0" expanded="true" />
+            <element signature="e#16664#16678#0" expanded="true" />
+            <element signature="e#17101#17115#0" expanded="true" />
+            <element signature="e#17163#17176#0" expanded="true" />
+            <element signature="e#17226#17239#0" expanded="true" />
+            <element signature="e#17281#17307#0" expanded="true" />
+            <element signature="e#17418#17432#0" expanded="true" />
+            <element signature="e#17461#18779#0" expanded="false" />
             <element signature="e#17712#17725#0" expanded="true" />
             <element signature="e#17775#17788#0" expanded="true" />
             <element signature="e#18107#18130#0" expanded="true" />
             <element signature="e#18250#18264#0" expanded="true" />
             <element signature="e#18722#18736#0" expanded="true" />
+            <element signature="e#18804#20184#0" expanded="false" />
             <element signature="e#19055#19068#0" expanded="true" />
             <element signature="e#19122#19136#0" expanded="true" />
             <element signature="e#19186#19199#0" expanded="true" />
             <element signature="e#19518#19540#0" expanded="true" />
             <element signature="e#19660#19674#0" expanded="true" />
             <element signature="e#20127#20141#0" expanded="true" />
+            <element signature="e#20460#20473#0" expanded="true" />
             <element signature="e#20527#20541#0" expanded="true" />
+            <element signature="e#20591#20604#0" expanded="true" />
+            <element signature="e#20863#20885#0" expanded="true" />
+            <element signature="e#21065#21079#0" expanded="true" />
+            <element signature="e#21535#21549#0" expanded="true" />
+            <element signature="e#21618#23001#0" expanded="false" />
+            <element signature="e#21869#21882#0" expanded="true" />
             <element signature="e#21936#21950#0" expanded="true" />
+            <element signature="e#22000#22013#0" expanded="true" />
+            <element signature="e#22272#22294#0" expanded="true" />
+            <element signature="e#22474#22488#0" expanded="true" />
+            <element signature="e#22944#22958#0" expanded="true" />
+            <element signature="e#23026#24401#0" expanded="false" />
             <element signature="e#23222#23236#0" expanded="true" />
-            <element signature="e#26541#26559#0" expanded="true" />
-            <element signature="e#27939#27953#0" expanded="true" />
+            <element signature="e#23345#23358#0" expanded="true" />
+            <element signature="e#23408#23421#0" expanded="true" />
+            <element signature="e#23740#23757#0" expanded="true" />
+            <element signature="e#23877#23891#0" expanded="true" />
+            <element signature="e#24344#24358#0" expanded="true" />
+            <element signature="e#24427#25803#0" expanded="false" />
+            <element signature="e#24623#24637#0" expanded="true" />
+            <element signature="e#24746#24759#0" expanded="true" />
+            <element signature="e#24809#24822#0" expanded="true" />
+            <element signature="e#25140#25158#0" expanded="true" />
+            <element signature="e#25278#25292#0" expanded="true" />
+            <element signature="e#25746#25760#0" expanded="true" />
+            <element signature="e#25828#27315#0" expanded="false" />
+            <element signature="e#26135#26148#0" expanded="true" />
+            <element signature="e#26202#26216#0" expanded="true" />
+            <element signature="e#26320#26333#0" expanded="true" />
+            <element signature="e#26592#26609#0" expanded="true" />
+            <element signature="e#26789#26803#0" expanded="true" />
+            <element signature="e#27258#27272#0" expanded="true" />
+            <element signature="e#27536#27550#0" expanded="true" />
+            <element signature="e#27659#27672#0" expanded="true" />
+            <element signature="e#27722#27735#0" expanded="true" />
+            <element signature="e#28052#28070#0" expanded="true" />
+            <element signature="e#28190#28204#0" expanded="true" />
+            <element signature="e#28654#28668#0" expanded="true" />
+            <element signature="e#28933#28947#0" expanded="true" />
+            <element signature="e#29056#29069#0" expanded="true" />
+            <element signature="e#29119#29132#0" expanded="true" />
+            <element signature="e#29450#29464#0" expanded="true" />
+            <element signature="e#29584#29598#0" expanded="true" />
+            <element signature="e#30048#30062#0" expanded="true" />
+            <element signature="e#30329#30343#0" expanded="true" />
+            <element signature="e#30496#30510#0" expanded="true" />
+            <element signature="e#30782#30796#0" expanded="true" />
+            <element signature="e#30897#30910#0" expanded="true" />
+            <element signature="e#30956#30969#0" expanded="true" />
+            <element signature="e#31275#31289#0" expanded="true" />
+            <element signature="e#31385#31400#0" expanded="true" />
+            <element signature="e#31511#31525#0" expanded="true" />
+            <element signature="e#32060#32075#0" expanded="true" />
+            <element signature="e#32124#32137#0" expanded="true" />
+            <element signature="e#32506#32521#0" expanded="true" />
+            <element signature="e#32570#32583#0" expanded="true" />
+            <element signature="e#32950#32965#0" expanded="true" />
+            <element signature="e#33014#33027#0" expanded="true" />
+            <element signature="e#33300#33314#0" expanded="true" />
+            <element signature="e#33417#33431#0" expanded="true" />
+            <element signature="e#33756#33769#0" expanded="true" />
+            <element signature="e#33819#33832#0" expanded="true" />
+            <element signature="e#34190#34207#0" expanded="true" />
+            <element signature="e#34318#34332#0" expanded="true" />
+            <element signature="e#34589#34602#0" expanded="true" />
+            <element signature="e#34655#34669#0" expanded="true" />
+            <element signature="e#34779#34796#0" expanded="true" />
+            <element signature="e#34907#34921#0" expanded="true" />
+            <element signature="e#35236#35250#0" expanded="true" />
+            <element signature="e#35295#35309#0" expanded="true" />
+            <element signature="e#35415#35429#0" expanded="true" />
+            <element signature="e#35655#35669#0" expanded="true" />
+            <element signature="e#35772#35786#0" expanded="true" />
+            <element signature="e#36058#36072#0" expanded="true" />
+            <element signature="e#36173#36186#0" expanded="true" />
+            <element signature="e#36232#36245#0" expanded="true" />
+            <element signature="e#36491#36505#0" expanded="true" />
+            <element signature="e#36610#36624#0" expanded="true" />
+            <element signature="e#36672#36686#0" expanded="true" />
+            <element signature="e#36728#36746#0" expanded="true" />
+            <element signature="e#36857#36871#0" expanded="true" />
+            <element signature="e#37188#37202#0" expanded="true" />
+            <element signature="e#37253#37267#0" expanded="true" />
+            <element signature="e#37315#37329#0" expanded="true" />
+            <element signature="e#37371#37395#0" expanded="true" />
+            <element signature="e#37508#37522#0" expanded="true" />
+            <element signature="e#38109#38123#0" expanded="true" />
+            <element signature="e#38208#38221#0" expanded="true" />
+            <element signature="e#39101#39115#0" expanded="true" />
+            <element signature="e#39153#39168#0" expanded="true" />
+            <element signature="e#39272#39286#0" expanded="true" />
+            <element signature="e#40040#40054#0" expanded="true" />
+            <element signature="e#40092#40113#0" expanded="true" />
+            <element signature="e#40212#40226#0" expanded="true" />
+            <element signature="e#40593#40607#0" expanded="true" />
+            <element signature="e#40645#40659#0" expanded="true" />
+            <element signature="e#40828#40842#0" expanded="true" />
+            <element signature="e#40874#40888#0" expanded="true" />
+            <element signature="e#40922#40936#0" expanded="true" />
+            <element signature="e#40962#40982#0" expanded="true" />
           </folding>
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="37" column="21" lean-forward="false" selection-start-line="37" selection-start-column="17" selection-end-line="37" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/utils/Constants.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="55" column="24" lean-forward="false" selection-start-line="55" selection-start-column="15" selection-end-line="55" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/models/ResponseModal.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="525" column="12" lean-forward="false" selection-start-line="525" selection-start-column="12" selection-end-line="525" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/LoginActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="276" column="7" lean-forward="false" selection-start-line="276" selection-start-column="7" selection-end-line="278" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/VerkoopApplication.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/EditProfileActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="174" column="17" lean-forward="false" selection-start-line="174" selection-start-column="17" selection-end-line="174" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ChatActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1143">
+          <caret line="362" column="0" lean-forward="false" selection-start-line="362" selection-start-column="0" selection-end-line="362" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/adapter/ChatAdapter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2106">
+          <caret line="97" column="45" lean-forward="false" selection-start-line="97" selection-start-column="45" selection-end-line="97" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/adapter/ReportListAdapter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-104">
+          <caret line="15" column="6" lean-forward="false" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+          <folding>
+            <element signature="e#29#454#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="251" column="18" lean-forward="false" selection-start-line="251" selection-start-column="18" selection-end-line="251" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/adapter/PropertyTypeAdapter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="40" column="37" lean-forward="false" selection-start-line="40" selection-start-column="37" selection-end-line="40" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/add_details_activity.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1019">
+          <caret line="841" column="48" lean-forward="false" selection-start-line="841" selection-start-column="48" selection-end-line="841" selection-end-column="48" />
+          <folding>
+            <element signature="e#4698#4712#0" expanded="true" />
+            <element signature="e#4882#4896#0" expanded="true" />
+            <element signature="e#5144#5158#0" expanded="true" />
+            <element signature="e#5200#5216#0" expanded="true" />
+            <element signature="e#5322#5336#0" expanded="true" />
+            <element signature="e#5559#5572#0" expanded="true" />
+            <element signature="e#5660#6990#0" expanded="false" />
+            <element signature="e#7283#23995#0" expanded="false" />
+            <element signature="e#10503#12873#0" expanded="false" />
+            <element signature="e#16032#16517#0" expanded="false" />
+            <element signature="e#21389#21874#0" expanded="false" />
+            <element signature="e#24338#25878#0" expanded="false" />
+            <element signature="e#33383#35813#0" expanded="false" />
+            <element signature="e#33633#33646#0" expanded="true" />
+            <element signature="e#34059#34072#0" expanded="true" />
+            <element signature="e#34132#34146#0" expanded="true" />
+            <element signature="e#34516#34529#0" expanded="true" />
+            <element signature="e#34581#34594#0" expanded="true" />
+            <element signature="e#34640#34657#0" expanded="true" />
+            <element signature="e#34777#34791#0" expanded="true" />
+            <element signature="e#35093#35106#0" expanded="true" />
+            <element signature="e#35166#35180#0" expanded="true" />
+            <element signature="e#35495#35508#0" expanded="true" />
+            <element signature="e#35560#35573#0" expanded="true" />
+            <element signature="e#35619#35638#0" expanded="true" />
+            <element signature="e#35758#35772#0" expanded="true" />
+            <element signature="e#36071#36084#0" expanded="true" />
+            <element signature="e#36138#36151#0" expanded="true" />
+            <element signature="e#44592#45077#0" expanded="false" />
+            <element signature="e#48547#50006#0" expanded="false" />
+            <marker date="1558522359970" expanded="false" signature="50046:53800" ph="..." />
+            <marker date="1558522359970" expanded="false" signature="50729:50743" ph="&quot;10dp&quot;" />
+            <marker date="1558522359970" expanded="false" signature="50785:50812" ph="&quot;Registration Year&quot;" />
+            <marker date="1558522359970" expanded="false" signature="51120:51133" ph="&quot;8dp&quot;" />
+            <marker date="1558522359970" expanded="false" signature="51482:51495" ph="&quot;1dp&quot;" />
+            <marker date="1558522359970" expanded="false" signature="52221:52235" ph="&quot;10dp&quot;" />
+            <marker date="1558522359970" expanded="false" signature="52287:52301" ph="&quot;15dp&quot;" />
+            <marker date="1558522359970" expanded="false" signature="52355:52369" ph="&quot;10dp&quot;" />
+            <marker date="1558522359970" expanded="false" signature="52421:52435" ph="&quot;10dp&quot;" />
+            <marker date="1558522359970" expanded="false" signature="52481:52503" ph="&quot;Direct owner&quot;" />
+            <marker date="1558522359970" expanded="false" signature="52623:52637" ph="&quot;16sp&quot;" />
+            <marker date="1558522359970" expanded="false" signature="52983:52997" ph="&quot;10dp&quot;" />
+            <marker date="1558522359970" expanded="false" signature="53688:53701" ph="&quot;1dp&quot;" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/models/RequestModal.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="63" column="12" lean-forward="false" selection-start-line="63" selection-start-column="12" selection-end-line="63" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="1397" column="0" lean-forward="false" selection-start-line="1397" selection-start-column="0" selection-end-line="1397" selection-end-column="0" />
+          <folding>
+            <element signature="e#63749#63799#1" expanded="true" />
+            <element signature="e#70320#70370#1" expanded="true" />
+            <element signature="e#80095#80145#1" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="279" column="101" lean-forward="false" selection-start-line="279" selection-start-column="101" selection-end-line="279" selection-end-column="101" />
+          <folding>
+            <element signature="e#13603#13625#1" expanded="true" />
+            <element signature="e#27647#29219#0" expanded="false" />
+          </folding>
+        </state>
       </provider>
     </entry>
   </component>

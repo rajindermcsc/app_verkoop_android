@@ -38,7 +38,7 @@ class PropertyTypeAdapter(private val context:Context,private val propertyList:A
                 tvName.setTextColor(ContextCompat.getColor(context,R.color.dark_black))
             }
             tvName.setOnClickListener {
-                modal.isSelected=!modal.isSelected
+                modal.isSelected=true
                 setDeselection(adapterPosition)
                 tvName.background=ContextCompat.getDrawable(context,R.drawable.gray_rectangular_shape)
                 tvName.setTextColor(ContextCompat.getColor(context,R.color.dark_black))

@@ -298,7 +298,9 @@
     <string name="garage">Garage</string>
     <string name="year_range_of_car">Year range of car:</string>
     <string name="parking_type">Parking Type</string>
-
+    <string name="furnish">Furnished</string>
+    <string name="unfurnish">Unfurnished</string>
+    <string name="change">Change</string>
 
 
 </resources>
