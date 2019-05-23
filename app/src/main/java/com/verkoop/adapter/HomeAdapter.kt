@@ -192,6 +192,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
             }
             tvLikesHome.setOnClickListener {
                 likeDisLikeListener.getLikeDisLikeClick(data.is_like, adapterPosition - 3, data.like_id, data.id)
+
             }
             tvProductHome.text = data.name
             tvItemPriceHome.text = "$" + data.price

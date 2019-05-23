@@ -1,12 +1,15 @@
 package com.verkoop.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.verkoop.R
+import com.verkoop.activity.CategoryDetailsActivity
 import com.verkoop.models.SubCategoryPost
+import com.verkoop.utils.AppConstants
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.details_sub_category.*
 
@@ -33,6 +36,13 @@ class DetailSubCategory(private val context:Context,private val recyclerView: Re
     inner class ViewHolder(override val containerView: View):RecyclerView.ViewHolder(containerView),LayoutContainer{
         fun bind(data: SubCategoryPost) {
             tvSubCategoryPost.text=data.name
+            itemView.setOnClickListener {
+                val intent = Intent(context, CategoryDetailsActivity::class.java)
+                intent.putExtra(AppConstants.CATEGORY_ID, data.id)
+                intent.putExtra(AppConstants.SUB_CATEGORY, data.name)
+                intent.putExtra(AppConstants.TYPE, 1)
+                (context as CategoryDetailsActivity).startActivityForResult(intent,2)
+            }
         }
     }
 }

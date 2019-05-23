@@ -20,7 +20,10 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.verkoop.R
 import com.verkoop.VerkoopApplication
-import com.verkoop.models.*
+import com.verkoop.models.LogInResponse
+import com.verkoop.models.LoginRequest
+import com.verkoop.models.LoginSocialRequest
+import com.verkoop.models.SocialGoogleResponse
 import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
@@ -225,12 +228,18 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         //If the login succeed
         if (result.isSuccess) {
             val acct = result.signInAccount
-            val fullName = acct!!.displayName
-
-            val email = acct.email
+            var fullName = ""
+            var email = ""
+            if (!TextUtils.isEmpty(acct!!.displayName)) {
+                fullName = acct.displayName!!
+            }
+            if (!TextUtils.isEmpty(acct.email)) {
+                email = acct.email!!
+            }
             if (!TextUtils.isEmpty(acct.id) && !TextUtils.isEmpty(acct.email)) {
                 if (Utils.isOnline(this@LoginActivity)) {
-                    callSocialLoginApi(email!!, fullName!!, acct.id.toString())
+
+                    callSocialLoginApi(email, fullName, acct.id.toString())
                 } else {
                     Utils.showSimpleMessage(this@LoginActivity, getString(R.string.check_internet)).show()
                 }
@@ -255,7 +264,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
                         val loginResponse = response.body() as LogInResponse
                         if (loginResponse.data != null) {
-                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use,loginResponse.data.mobile_no)
+                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use, loginResponse.data.mobile_no)
                         } else {
                             Utils.showSimpleMessage(this@LoginActivity, loginResponse.message).show()
                         }
@@ -268,7 +277,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                 })
     }
 
-    private fun setResponseData(userId: String, api_token: String, firstName: String, email: String, loginType: String, firstTime: Int,mobileNo:String) {
+    private fun setResponseData(userId: String, api_token: String, firstName: String, email: String, loginType: String, firstTime: Int, mobileNo: String) {
         Utils.savePreferencesString(this@LoginActivity, AppConstants.USER_ID, userId)
         Utils.savePreferencesString(this@LoginActivity, AppConstants.API_TOKEN, api_token)
         Utils.savePreferencesString(this@LoginActivity, AppConstants.USER_NAME, firstName)
@@ -286,7 +295,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
             startActivity(intent)
             finish()
         } else {
-            Utils.savePreferencesString(this,AppConstants.COMING_FROM,"PickOptionActivity")
+            Utils.savePreferencesString(this, AppConstants.COMING_FROM, "PickOptionActivity")
             val intent = Intent(this@LoginActivity, HomeActivity::class.java)
             startActivity(intent)
             finish()
@@ -303,7 +312,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                         val loginResponse = response.body() as SocialGoogleResponse
                         Log.e("<<Log>>", "Login Successfully.")
                         if (loginResponse.data != null) {
-                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use,"")
+                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use, "")
                         }
                     }
 

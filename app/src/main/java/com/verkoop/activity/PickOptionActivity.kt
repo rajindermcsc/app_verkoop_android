@@ -21,6 +21,7 @@ class PickOptionActivity : AppCompatActivity() {
         tvSellNow.setOnClickListener {
             Utils.savePreferencesString(this,AppConstants.COMING_FROM,"PickOptionActivity")
             val intent = Intent(this@PickOptionActivity, HomeActivity::class.java)
+            intent.putExtra(AppConstants.PICK_OPTION,1)
             startActivity(intent)
             finish()
         }

@@ -51,7 +51,11 @@ class HomeActivity : AppCompatActivity() {
         fragmentList.add(profileFragment!!)
         setData()
         callInit()
-
+        val picOption=intent.getIntExtra(AppConstants.PICK_OPTION,0)
+        if(picOption==1){
+            val intent = Intent(this, GalleryActivity::class.java)
+            startActivityForResult(intent, 2)
+        }
     }
 
     private fun setTabLayout() {

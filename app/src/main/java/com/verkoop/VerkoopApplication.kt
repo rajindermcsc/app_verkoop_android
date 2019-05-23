@@ -25,8 +25,6 @@ import org.json.JSONObject
 
 
 
-
-
 @ReportsCrashes(mailTo = "anmol@mobilecoderz.com", mode = ReportingInteractionMode.TOAST, resToastText = R.string.application_crash)// my email here
 
 class VerkoopApplication : Application() {
@@ -75,7 +73,7 @@ class VerkoopApplication : Application() {
     }
 
     private fun initSocket() {
-        if (socket != null /*&& AppPreferences.isLoggedIn*/) {
+        if (socket != null ) {
             socket.on(Socket.EVENT_CONNECT) { _ ->
                         Log.e("<<<<<SOCKET>>>>>", "CONNECTED")
                         /* Socket Init */
@@ -91,30 +89,6 @@ class VerkoopApplication : Application() {
                         Log.e("<<<receiveChat>>>",  Gson().toJson(it[0]))
                         EventBus.getDefault().post(SocketOnReceiveEvent(it,AppConstants.RECEIVE_MESSAGE))
                     }
-                   /* .on(Constants.ROOM_EVENTS){
-                        *//* Room event listener *//*
-                        Log.e("<<<ACKRESPONSE--4>>>",  Gson().toJson(it[0]))
-                        EventBus.getDefault().post(SocketOnReceiveEvent(it,Constants.ROOM_EVENTS))
-                    }
-                    .on(Constants.TIMER_EVENT){
-                        *//* timer listener *//*
-                        Log.e("<<<ACKRESPONSE--3>>>",  Gson().toJson(it[0]))
-                        EventBus.getDefault().post(SocketOnReceiveEvent(it,Constants.TIMER_EVENT))
-                    }
-                    .on(Constants.QUES_EVENT){
-                        *//* question listener *//*
-                        Log.e("<<<ACKRESPONSE--2>>>",  Gson().toJson(it[0]))
-                        EventBus.getDefault().post(SocketOnReceiveEvent(it,Constants.QUES_EVENT))
-                    }
-                    .on(Constants.ANS_EVENT){
-                        *//* myAnswer listener *//*
-                        Log.e("<<<ACKRESPONSE--1>>>",  Gson().toJson(it[0]))
-                        EventBus.getDefault().post(SocketOnReceiveEvent(it,Constants.ANS_EVENT))
-                    }.on(Constants.RECEIVE_MESSAGE){
-                        *//* myAnswer listener *//*
-                        Log.e("<<<ACKRESPONSE--->>>",  Gson().toJson(it[0]))
-                        EventBus.getDefault().post(SocketOnReceiveEvent(it,Constants.RECEIVE_MESSAGE))
-                    }*/
                     .on(Socket.EVENT_DISCONNECT) { _ ->
                         /* Socket disconnect listener */
                         Log.e("<<<<<SOCKET>>>>>", "DISCONNECTED")

@@ -177,7 +177,7 @@ class GalleryActivity : AppCompatActivity(), GalleryAdapter.ImageCountCallBack {
     private fun checkPermission(): Boolean {
         val permissionCheck = PermissionCheck(this)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (permissionCheck.checkStoragePermission())
+            if (permissionCheck.checkGalleryPermission())
                 return true
         } else
             return true
