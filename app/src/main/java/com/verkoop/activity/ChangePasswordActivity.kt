@@ -70,7 +70,7 @@ class ChangePasswordActivity : AppCompatActivity() {
         ViewAnimator
                 .animate(flParentPass)
                 .translationY(1000f, 0f)
-                .duration(700)
+                .duration(400)
                 .start()
     }
 
@@ -78,10 +78,10 @@ class ChangePasswordActivity : AppCompatActivity() {
         ViewAnimator
                 .animate(flParentPass)
                 .translationY(0f, 2000f)
-                .duration(700)
+                .duration(400)
                 .andAnimate(llParentPass)
                 .alpha(1f, 0f)
-                .duration(600)
+                .duration(500)
                 .onStop {
                     llParentPass.visibility = View.GONE
                     finish()

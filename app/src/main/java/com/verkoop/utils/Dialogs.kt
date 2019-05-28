@@ -178,3 +178,31 @@ class CreatOfferDialog(private val realPrice:Double,context: Context, private va
     }
 
 }
+
+class WarningDialog(context: Context, private val header:String, private val categoryType: String , private val listener:SharePostListener)
+    :android.app.Dialog(context){
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        setContentView(R.layout.warning_dialog)
+        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
+        setCancelable(false)
+
+        ivFinishDialog.setOnClickListener {
+            dismiss()
+        }
+        ivWhatAppShareDialog.setOnClickListener {
+            listener.onWhatAppClick()
+            dismiss()
+        }
+        tvFacebookShareDialog.setOnClickListener {
+            listener.onFacebookClick()
+            dismiss()
+        }
+        tvShareDialog.setOnClickListener {
+            listener.onShareClick()
+            dismiss()
+        }
+    }
+}

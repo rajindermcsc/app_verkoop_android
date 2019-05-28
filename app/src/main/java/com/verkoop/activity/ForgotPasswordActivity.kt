@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.forgot_password_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 import retrofit2.Response
 
-
 class ForgotPasswordActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
