@@ -239,3 +239,8 @@ data class PropertyTypeRequest(
         val name: String,
         var isSelected: Boolean
 )
+data class AddMoneyRequest(
+    val user_id:Int,
+    val amount:Double,
+    val token:String
+)

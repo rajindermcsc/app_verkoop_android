@@ -225,8 +225,10 @@ class ChatActivity : AppCompatActivity() {
                 tvMakeOffer.text = getString(R.string.accept_offer)
             } else if (!isMyProduct && offerStatus == 0) {
                 llViewOffer.visibility = View.VISIBLE
-                tvViewProfile.text = getString(R.string.edit_offer)
-                tvMakeOffer.text = getString(R.string.cancel_offer)
+              /*  tvViewProfile.text = getString(R.string.edit_offer)
+                tvMakeOffer.text = getString(R.string.cancel_offer) */
+                tvMakeOffer.text = getString(R.string.edit_offer)
+                tvViewProfile.text = getString(R.string.cancel_offer)
             } else if (isMyProduct && offerStatus == 1) {
                 llViewOffer.visibility = View.VISIBLE
                 tvMakeOffer.visibility = View.GONE
@@ -327,9 +329,10 @@ class ChatActivity : AppCompatActivity() {
             }else if(tvMakeOffer.text.toString().equals(getString(R.string.accept_offer),ignoreCase = true)){
               val  lastOffer = dbHelper!!.getOfferPriceLast( Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), senderId,itemId,2)
                 acceptOfferDialogBox(lastOffer!!.message!!)
-            }else if(tvMakeOffer.text.toString().equals(getString(R.string.cancel_offer),ignoreCase = true)){
-                val  lastOffer = dbHelper!!.getOfferPriceLast( Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), senderId,itemId,2)
-                cancelOfferDialogBox(lastOffer!!.message!!)
+            }else if(tvMakeOffer.text.toString().equals(getString(R.string.edit_offer),ignoreCase = true)){
+                /*1=Edit an offer*/
+                val  lastOffer = dbHelper!!.getOfferPriceLast( Utils.getPreferencesString(this@ChatActivity, AppConstants.USER_ID).toInt(), senderId,itemId,2)
+                makeOffer(1,lastOffer!!.message!!.toDouble())
             }
         }
 
@@ -342,10 +345,9 @@ class ChatActivity : AppCompatActivity() {
             }else if(tvViewProfile.text.toString().equals(getString(R.string.decline_offer),ignoreCase = true)){
                 val  lastOffer = dbHelper!!.getOfferPriceLast( Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), senderId,itemId,2)
                declineOfferDialogBox(lastOffer!!.message!!)
-            }else if(tvViewProfile.text.toString().equals(getString(R.string.edit_offer),ignoreCase = true)){
-                /*1=Edit an offer*/
-                val  lastOffer = dbHelper!!.getOfferPriceLast( Utils.getPreferencesString(this@ChatActivity, AppConstants.USER_ID).toInt(), senderId,itemId,2)
-                makeOffer(1,lastOffer!!.message!!.toDouble())
+            }else if(tvViewProfile.text.toString().equals(getString(R.string.cancel_offer),ignoreCase = true)){
+                val  lastOffer = dbHelper!!.getOfferPriceLast( Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), senderId,itemId,2)
+                cancelOfferDialogBox(lastOffer!!.message!!)
             }else if(tvViewProfile.text.toString().equals(getString(R.string.leave_review),ignoreCase = true)){
 
             }

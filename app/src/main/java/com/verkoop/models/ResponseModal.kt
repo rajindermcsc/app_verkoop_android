@@ -747,3 +747,18 @@ data class Brand(
     val created_at: String?=null,
     val updated_at: String?=null
 ): Parcelable
+
+data class WalletHistoryResponse(
+    var data: ArrayList<DataWallet>,
+    var message: String
+)
+
+data class DataWallet(
+    var id: Int,
+    var user_id: Int,
+    var token: Int,
+    var amount: Int,
+    var status: Int,
+    var created_at: String,
+    var updated_at: String
+)

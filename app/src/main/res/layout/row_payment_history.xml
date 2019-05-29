@@ -43,6 +43,7 @@
                     android:text="@string/added_to_verkoop"/>
 
                 <com.verkoop.fonts.textView.GothiBoldTextView
+                    android:id="@+id/tvData"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/sp_14"
@@ -55,16 +56,16 @@
                 android:layout_gravity="center"
                 android:orientation="vertical">
                 <com.verkoop.fonts.textView.GothiBoldTextView
+                    android:id="@+id/tvPriceWallet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$50"
                     android:layout_gravity="end"
                     android:textColor="@color/accept_offer"
                     android:textSize="@dimen/sp_18"/>
                 <com.verkoop.fonts.textView.GothiBoldTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Success"
+                    android:text="@string/success"
                     android:textColor="@color/accept_offer"
                     android:textSize="@dimen/sp_14"/>
             </LinearLayout>

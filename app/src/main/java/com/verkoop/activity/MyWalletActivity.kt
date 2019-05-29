@@ -8,6 +8,13 @@ import com.verkoop.R
 import com.verkoop.adapter.PaymentHistoryAdapter
 import kotlinx.android.synthetic.main.my_wallet_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
+import android.app.Activity
+import android.view.View
+import com.verkoop.models.WalletHistoryResponse
+import com.verkoop.network.ServiceHelper
+import com.verkoop.utils.AppConstants
+import com.verkoop.utils.Utils
+import retrofit2.Response
 
 
 class MyWalletActivity : AppCompatActivity() {
@@ -18,6 +25,12 @@ class MyWalletActivity : AppCompatActivity() {
         setContentView(R.layout.my_wallet_activity)
         setAdapter()
         setData()
+        if (Utils.isOnline(this)) {
+                getWalletHistoryApi()
+
+        } else {
+            Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+        }
     }
 
     private fun setAdapter() {
@@ -32,9 +45,44 @@ class MyWalletActivity : AppCompatActivity() {
         tvHeaderLoc.text = getString(R.string.my_wallet)
         tvAddMoney.setOnClickListener {
             val intent = Intent(this, AddMoneyDialogActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent,2)
         }
-
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                val result = data.getStringExtra(AppConstants.INTENT_RESULT)
+                getWalletHistoryApi()
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    }//on
+
+    private fun getWalletHistoryApi() {
+        pbProgressWallet.visibility= View.VISIBLE
+        ServiceHelper().getWalletHistoryService(Utils.getPreferencesString(this,AppConstants.USER_ID),object : ServiceHelper.OnResponse {
+            override fun onSuccess(response: Response<*>) {
+                pbProgressWallet.visibility= View.GONE
+                val responseWallet = response.body() as WalletHistoryResponse
+                if (responseWallet.data.isNotEmpty()) {
+                    paymentHistoryAdapter.setData(responseWallet.data)
+                    paymentHistoryAdapter.notifyDataSetChanged()
+
+                }else{
+                    Utils.showSimpleMessage(this@MyWalletActivity, "No data found.").show()
+                }
+
+            }
+
+            override fun onFailure(msg: String?) {
+                pbProgressWallet.visibility= View.GONE
+                Utils.showSimpleMessage(this@MyWalletActivity, msg!!).show()
+            }
+        })
+
+    }
 }

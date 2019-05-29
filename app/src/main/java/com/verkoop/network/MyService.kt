@@ -28,7 +28,7 @@ interface MyService {
     fun getMyProfileService(@Path(value = "userId", encoded = true) fullUrl: String): Call<MyProfileResponse>
 
     @GET("item_details/{itemId}/{userId}")
-    fun getItemDetailsApi(@Path(value = "itemId", encoded = true) fullUrl: Int,@Path(value = "userId", encoded = true) userId: Int): Call<ItemDetailsResponse>
+    fun getItemDetailsApi(@Path(value = "itemId", encoded = true) fullUrl: Int, @Path(value = "userId", encoded = true) userId: Int): Call<ItemDetailsResponse>
 
     @GET("getUserFavouriteData/{userId}")
     fun getFavouritesApi(@Path(value = "userId", encoded = true) fullUrl: String): Call<FavouritesResponse>
@@ -118,6 +118,13 @@ interface MyService {
     @PUT("getUserListFollow/{user_id}")
     fun followFollowingApi(@Path(value = "user_id", encoded = true) fullUrl: Int, @Body request: HomeRequest): Call<SearchByUserResponse>
 
+    @POST("payments")
+    fun addMoneyApi(@Body request: AddMoneyRequest): Call<DisLikeResponse>
+
+
+    @GET("payments")
+    fun getWalletHistoryApi(@Query(value = "user_id") userId: Int): Call<WalletHistoryResponse>
+
     @Multipart
     @Headers("Accept: application/json")
     @POST("items")
@@ -141,6 +148,7 @@ interface MyService {
 
 
     @Multipart
+    @Headers("Accept: application/json")
     @POST("updateItem")
     fun updateProductApi(@Part files: List<MultipartBody.Part>,
                          @Part("image_remove_id") deleteList: RequestBody,
@@ -156,13 +164,14 @@ interface MyService {
                          @Part("longitude") lng: RequestBody,
                          @Part("meet_up") meetUp: RequestBody,
                          @Part("type") type: RequestBody,
-                        @Part("brand_id") brandId: RequestBody,
-                        @Part("car_type_id") carTypeId: RequestBody,
-                        @Part("additional_info") additionalInfo: RequestBody,
+                         @Part("brand_id") brandId: RequestBody,
+                         @Part("car_type_id") carTypeId: RequestBody,
+                         @Part("additional_info") additionalInfo: RequestBody,
                          @Part("zone_id") zoneId: RequestBody
     ): Call<AddItemResponse>
 
     @Multipart
+    @Headers("Accept: application/json")
     @POST("updateItem")
     fun updateWithoutImageApi(@Part("image_remove_id") deleteList: RequestBody,
                               @Part("item_id") itemId: RequestBody,
@@ -184,6 +193,7 @@ interface MyService {
     ): Call<AddItemResponse>
 
     @Multipart
+    @Headers("Accept: application/json")
     @POST("user/profileUpdate")
     fun editProfileWthOutImgApi(@Part("user_id") userId: RequestBody,
                                 @Part("username") userName: RequestBody,
@@ -203,6 +213,7 @@ interface MyService {
 
 
     @Multipart
+    @Headers("Accept: application/json")
     @POST("user/profileUpdate")
     fun editProfileWthImageApi(@Part files: MultipartBody.Part,
                                @Part("user_id") userId: RequestBody,

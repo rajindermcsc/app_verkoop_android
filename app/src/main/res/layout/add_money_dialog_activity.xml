@@ -156,7 +156,7 @@
                 </LinearLayout>
 
                 <ProgressBar
-                    android:id="@+id/pbProgressChange"
+                    android:id="@+id/pbProgressAddMoney"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

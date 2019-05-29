@@ -1081,4 +1081,57 @@ class ServiceHelper {
             }
         })
     }
+
+    fun addMoneyService(request: AddMoneyRequest, onResponse: OnResponse) {
+        val myService = ApiClient.getClient().create(MyService::class.java)
+        val responseCall = myService.addMoneyApi(request)
+        responseCall.enqueue(object : Callback<DisLikeResponse> {
+            override fun onResponse(call: Call<DisLikeResponse>, response: Response<DisLikeResponse>) {
+                if (response.code() == 200) {
+                    onResponse.onSuccess(response)
+                } else {
+                    if (response.errorBody() != null) {
+                        try {
+                            val messageError = JSONObject(response.errorBody()!!.string())
+                            onResponse.onFailure(messageError.getString("message"))
+                        } catch (e: JSONException) {
+                            onResponse.onFailure("Something went wrong")
+                            e.printStackTrace()
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                        }
+                    } else {
+                        onResponse.onFailure("Something went wrong")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<DisLikeResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
+
+    fun getWalletHistoryService(userId: String, onResponse: OnResponse) {
+        val myService = ApiClient.getClient().create(MyService::class.java)
+        val responseCall = myService.getWalletHistoryApi(userId.toInt())
+        responseCall.enqueue(object : Callback<WalletHistoryResponse> {
+            override fun onResponse(call: Call<WalletHistoryResponse>, response: Response<WalletHistoryResponse>) {
+                val res = response.body()
+                Log.e("<<<Response>>>", Gson().toJson(res))
+                if (res != null) {
+                    when {
+                        response.code() == 200 -> onResponse.onSuccess(response)
+                        else -> onResponse.onFailure(response.message())
+                    }
+                } else {
+                    onResponse.onFailure("Something went wrong!")
+                }
+            }
+
+            override fun onFailure(call: Call<WalletHistoryResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
 }

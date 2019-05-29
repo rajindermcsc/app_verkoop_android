@@ -18,7 +18,6 @@ import com.verkoop.utils.PermissionCheck
 import com.verkoop.utils.SelectOptionDialog
 import com.verkoop.utils.SelectionOptionListener
 import com.verkoop.utils.Utils
-import kotlinx.android.synthetic.main.edit_profile_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 import kotlinx.android.synthetic.main.upload_banner_activity.*
 import java.io.File
