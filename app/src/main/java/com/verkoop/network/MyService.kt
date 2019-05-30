@@ -125,6 +125,12 @@ interface MyService {
     @GET("payments")
     fun getWalletHistoryApi(@Query(value = "user_id") userId: Int): Call<WalletHistoryResponse>
 
+    @GET("coin_plans")
+    fun getCoinPlanApi(): Call<CoinPlanResponse>
+
+    @GET("advertisment_plans")
+    fun getAdvertPlanApi(): Call<AdvertPlanActivity>
+
     @Multipart
     @Headers("Accept: application/json")
     @POST("items")

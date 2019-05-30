@@ -762,3 +762,32 @@ data class DataWallet(
     var created_at: String,
     var updated_at: String
 )
+
+data class CoinPlanResponse(
+    var data: ArrayList<CoinPlan>,
+    var message: String
+)
+
+data class CoinPlan(
+    var id: Int,
+    var amount: Int,
+    var coin: Int,
+    var is_active: Int,
+    var created_at: String,
+    var updated_at: String
+)
+
+data class AdvertPlanActivity(
+    var data: ArrayList<DataAdvert>,
+    var message: String
+)
+
+data class DataAdvert(
+    var id: Int,
+    var name: String,
+    var day: Int,
+    var coin: Int,
+    var is_active: Int,
+    var created_at: String,
+    var updated_at: String
+)

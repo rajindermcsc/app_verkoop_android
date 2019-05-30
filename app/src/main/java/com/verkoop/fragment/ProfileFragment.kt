@@ -64,7 +64,7 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        homeActivity = activity as HomeActivity
+        homeActivity = context as HomeActivity
 
     }
 

@@ -1134,4 +1134,50 @@ class ServiceHelper {
             }
         })
     }
+
+    fun getCoinPlanService( onResponse: OnResponse) {
+        val myService = ApiClient.getClient().create(MyService::class.java)
+        val responseCall = myService.getCoinPlanApi()
+        responseCall.enqueue(object : Callback<CoinPlanResponse> {
+            override fun onResponse(call: Call<CoinPlanResponse>, response: Response<CoinPlanResponse>) {
+                val res = response.body()
+                Log.e("<<<Response>>>", Gson().toJson(res))
+                if (res != null) {
+                    when {
+                        response.code() == 200 -> onResponse.onSuccess(response)
+                        else -> onResponse.onFailure(response.message())
+                    }
+                } else {
+                    onResponse.onFailure("Something went wrong!")
+                }
+            }
+
+            override fun onFailure(call: Call<CoinPlanResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
+
+    fun getAdvertisementPlanService( onResponse: OnResponse) {
+        val myService = ApiClient.getClient().create(MyService::class.java)
+        val responseCall = myService.getAdvertPlanApi()
+        responseCall.enqueue(object : Callback<AdvertPlanActivity> {
+            override fun onResponse(call: Call<AdvertPlanActivity>, response: Response<AdvertPlanActivity>) {
+                val res = response.body()
+                Log.e("<<<Response>>>", Gson().toJson(res))
+                if (res != null) {
+                    when {
+                        response.code() == 200 -> onResponse.onSuccess(response)
+                        else -> onResponse.onFailure(response.message())
+                    }
+                } else {
+                    onResponse.onFailure("Something went wrong!")
+                }
+            }
+
+            override fun onFailure(call: Call<AdvertPlanActivity>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
 }

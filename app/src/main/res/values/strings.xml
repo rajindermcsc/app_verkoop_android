@@ -318,6 +318,13 @@
     <string name="upload_banner">Upload Banner</string>
     <string name="rate_this_buyer">Rate this Buyer</string>
     <string name="success">Success</string>
+    <string name="add">Advertisement Packages</string>
+    <string name="plans">Plans</string>
+    <string name="use_coins_for_advertise_your_banner_on_top">Use coins for advertise your banner on top</string>
+    <string name="advert_list">Advertise List</string>
+    <string name="expired">Expired</string>
+    <string name="renew"><u>Renew</u></string>
+    <string name="delete_"><u>Delete</u></string>
 
 
 </resources>

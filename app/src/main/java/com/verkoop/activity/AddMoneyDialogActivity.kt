@@ -68,8 +68,7 @@ class AddMoneyDialogActivity:AppCompatActivity(){
                         returnIntent.putExtra(AppConstants.INTENT_RESULT, "success")
                         setResult(Activity.RESULT_OK, returnIntent)
                         finish()
-                        Utils.showToast(this@AddMoneyDialogActivity, getString(R.string.changed))
-                        onBackPressed()
+                      //  onBackPressed()
                     }
 
                     override fun onFailure(msg: String?) {

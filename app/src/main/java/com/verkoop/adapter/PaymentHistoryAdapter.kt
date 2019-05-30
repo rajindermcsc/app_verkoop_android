@@ -32,9 +32,7 @@ class PaymentHistoryAdapter(context: Context) : RecyclerView.Adapter<PaymentHist
         fun build(modal: DataWallet) {
             tvPriceWallet.text = StringBuilder().append("$").append(modal.amount)
             tvData.text = StringBuilder().append(Utils.getDateDifferenceDetails(modal.created_at)).append(" ").append("ago")
-
         }
-
     }
 
     fun setData(responseWalletList: ArrayList<DataWallet>) {

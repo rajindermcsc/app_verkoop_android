@@ -16,7 +16,8 @@
             <com.daimajia.slider.library.SliderLayout
                 android:id="@+id/mDemoSlider"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_180" />
+                android:layout_height=
+                    "@dimen/dp_180" />
 
             <com.daimajia.slider.library.Indicators.PagerIndicator
                 android:id="@+id/custom_indicator"

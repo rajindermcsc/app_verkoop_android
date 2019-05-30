@@ -41,7 +41,7 @@ class SettingActivity : AppCompatActivity() {
             startActivity(intent)
         }
         tvBanner.setOnClickListener {
-            val intent = Intent(this, UploadBannerActivity::class.java)
+            val intent = Intent(this, ViewAllBannerActivity::class.java)
             startActivity(intent)
         }
         tvPrivatePolicy.setOnClickListener { }

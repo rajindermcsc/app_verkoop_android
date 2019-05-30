@@ -9,6 +9,7 @@ import com.verkoop.adapter.PaymentHistoryAdapter
 import kotlinx.android.synthetic.main.my_wallet_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 import android.app.Activity
+import android.util.Log
 import android.view.View
 import com.verkoop.models.WalletHistoryResponse
 import com.verkoop.network.ServiceHelper
@@ -27,7 +28,6 @@ class MyWalletActivity : AppCompatActivity() {
         setData()
         if (Utils.isOnline(this)) {
                 getWalletHistoryApi()
-
         } else {
             Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
         }
@@ -50,11 +50,15 @@ class MyWalletActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-
-        if (requestCode == 1) {
+        if (requestCode == 2) {
             if (resultCode == Activity.RESULT_OK) {
                 val result = data.getStringExtra(AppConstants.INTENT_RESULT)
-                getWalletHistoryApi()
+                if (Utils.isOnline(this)) {
+                    Log.e("activityResult","success")
+                    getWalletHistoryApi()
+                } else {
+                    Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+                }
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result

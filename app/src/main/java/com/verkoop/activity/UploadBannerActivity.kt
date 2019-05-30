@@ -41,7 +41,10 @@ class UploadBannerActivity:AppCompatActivity() {
         tvUploadImage.setOnClickListener {
             addProfileImage()
         }
-
+        tvSaveBanner.setOnClickListener {
+            val intent=Intent(this,AdvertPackagesActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun addProfileImage() {
@@ -140,13 +143,12 @@ class UploadBannerActivity:AppCompatActivity() {
                     mCurrentPhotoPath = Utils.getRealPathFromURI(this@UploadBannerActivity, result.uri)
                     val file = File(mCurrentPhotoPath!!)
                     Picasso.with(this).load(file)
-                            .resize(720, 720)
-                            .centerInside()
+                            .resize(1024, 1024)
+                            .centerCrop()
                             .error(R.mipmap.gallery_place)
                             .placeholder(R.mipmap.gallery_place)
                             .into(ivBanner)
                 }
-
             }
         }
     }

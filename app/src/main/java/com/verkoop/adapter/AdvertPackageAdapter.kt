@@ -6,16 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.verkoop.R
-import com.verkoop.models.CoinPlan
+
+import com.verkoop.models.DataAdvert
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.coin_row.*
 
 
-class CoinListAdapter(private val context: Context,private val rvCoinList:RecyclerView):RecyclerView.Adapter<CoinListAdapter.ViewHolder>(){
-    private val minflater:LayoutInflater=LayoutInflater.from(context)
-    private var coinPlanList=ArrayList<CoinPlan>()
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
-       val view=minflater.inflate(R.layout.coin_row,parent,false)
+class AdvertPackageAdapter(private val context: Context,private val rvCoinList: RecyclerView):RecyclerView.Adapter<AdvertPackageAdapter.ViewHolder>(){
+    private  var mInflater: LayoutInflater= LayoutInflater.from(context)
+    private var advertList= ArrayList<DataAdvert>()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder{
+        val view=mInflater.inflate(R.layout.coin_row,parent,false)
         val params = rvCoinList.layoutParams
         params.width = rvCoinList.width / 3
         params.height = params.width
@@ -24,24 +25,23 @@ class CoinListAdapter(private val context: Context,private val rvCoinList:Recycl
     }
 
     override fun getItemCount(): Int {
-        return coinPlanList.size
+        return advertList.size
     }
 
     override fun onBindViewHolder(holder:ViewHolder, position: Int) {
-        val modal=coinPlanList[position]
+        val modal=advertList[position]
         holder.bind(modal)
+
     }
 
     inner class ViewHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView),LayoutContainer{
-        fun bind(modal: CoinPlan) {
-            tvCoins.text=modal.coin.toString()
-            tvPriceCoins.text= StringBuilder().append(context.getString(R.string.dollar)).append(modal.amount)
+        fun bind(modal: DataAdvert) {
+            tvCoins.text=modal.name
+            tvPriceCoins.text= StringBuilder().append(modal.coin).append(" ").append(context.getString(R.string.coins))
         }
-
     }
 
-    fun setData(data: ArrayList<CoinPlan>) {
-        coinPlanList=data
+    fun setData(data: ArrayList<DataAdvert>) {
+        advertList=data
     }
-
 }
