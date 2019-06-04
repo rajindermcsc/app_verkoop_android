@@ -73,7 +73,7 @@ class BuyPropertyAdapter(private val context: Context, private val rvProperty: R
         }
     }
 
-    inner class CarFilterHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class CarFilterHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(carTypeLIst: ArrayList<CarType>) {
             tvCarBodyType.text=context.getString(R.string.quick_filter)
             llCarFilter.layoutParams.height = widthOrgCarType - 20
@@ -112,7 +112,7 @@ class BuyPropertyAdapter(private val context: Context, private val rvProperty: R
         }
     }
 
-    inner class ItemsHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class ItemsHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(data: ItemHome) {
             ll_condition.visibility=View.GONE
             ivProductImageHome.layoutParams.height = width - 16

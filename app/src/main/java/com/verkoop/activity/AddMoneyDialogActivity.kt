@@ -19,8 +19,8 @@ import kotlinx.android.synthetic.main.add_money_dialog_activity.*
 import retrofit2.Response
 import android.app.Activity
 import android.content.Intent
-
-
+import android.widget.Toast
+import com.verkoop.models.UpdateWalletResponse
 
 
 class AddMoneyDialogActivity:AppCompatActivity(){
@@ -58,12 +58,13 @@ class AddMoneyDialogActivity:AppCompatActivity(){
         window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         pbProgressAddMoney.visibility = View.VISIBLE
-        ServiceHelper().addMoneyService(AddMoneyRequest(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), (etAmount.text.toString()).toDouble(), ""),
+        ServiceHelper().addMoneyService(AddMoneyRequest(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), (etAmount.text.toString()).toDouble(), "12345878632"),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                         pbProgressAddMoney.visibility = View.GONE
-                        val loginResponse = response.body() as DisLikeResponse
+                        val loginResponse = response.body() as UpdateWalletResponse
+                        Utils.showToast(this@AddMoneyDialogActivity,loginResponse.message)
                         val returnIntent = Intent()
                         returnIntent.putExtra(AppConstants.INTENT_RESULT, "success")
                         setResult(Activity.RESULT_OK, returnIntent)

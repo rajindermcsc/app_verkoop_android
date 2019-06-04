@@ -74,7 +74,7 @@ class RegionAdapter(private val context: Context, private val coming: Int) : Rec
         holder.bind(data)
     }
 
-    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(data: State) {
             cbRegion.typeface = font
             cbRegion.isChecked = data.isSelected

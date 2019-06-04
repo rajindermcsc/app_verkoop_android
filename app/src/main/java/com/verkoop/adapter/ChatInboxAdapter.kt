@@ -97,7 +97,7 @@ class ChatInboxAdapter(private val context: Context, private val chatInboxType: 
         holder.bind(data)
     }
 
-    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(data: ChatInboxResponse) {
             if (chatInboxType == 1) {
                 tvArchive.visibility = View.GONE

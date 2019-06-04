@@ -1,14 +1,26 @@
 package com.verkoop.fragment
 
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ksmtrivia.common.BaseFragment
 import com.verkoop.R
+import com.verkoop.activity.CoinsActivity
+import com.verkoop.adapter.CoinsHistoryAdapter
+import com.verkoop.adapter.PaymentHistoryAdapter
+import com.verkoop.models.WalletHistoryResponse
+import com.verkoop.network.ServiceHelper
+import com.verkoop.utils.AppConstants
+import com.verkoop.utils.Utils
+import kotlinx.android.synthetic.main.history_fragment.*
+import retrofit2.Response
 
 class HistoryFragment:BaseFragment(){
     private val TAG=HistoryFragment::class.java.simpleName
+    private lateinit var coinsActivity: CoinsActivity
+    private lateinit var paymentHistoryAdapter: CoinsHistoryAdapter
     override fun getTitle(): Int {
         return 0
     }
@@ -19,6 +31,7 @@ class HistoryFragment:BaseFragment(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        coinsActivity=context as CoinsActivity
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -27,8 +40,19 @@ class HistoryFragment:BaseFragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setAdapter()
+        if (Utils.isOnline(coinsActivity)) {
+            getWalletHistoryApi()
+        } else {
+            Utils.showSimpleMessage(coinsActivity, getString(R.string.check_internet)).show()
+        }
     }
-
+    private fun setAdapter() {
+        val mManager = LinearLayoutManager(coinsActivity)
+        rvCoinsHistoryList.layoutManager = mManager
+        paymentHistoryAdapter = CoinsHistoryAdapter(coinsActivity)
+        rvCoinsHistoryList.adapter = paymentHistoryAdapter
+    }
     companion object {
         fun newInstance():HistoryFragment{
             val arg = Bundle()
@@ -38,4 +62,33 @@ class HistoryFragment:BaseFragment(){
         }
     }
 
+    fun refreshApi() {
+        if (Utils.isOnline(coinsActivity)) {
+            getWalletHistoryApi()
+        } else {
+            Utils.showSimpleMessage(coinsActivity, getString(R.string.check_internet)).show()
+        }
+    }
+    private fun getWalletHistoryApi() {
+        pbProgressHistory.visibility= View.VISIBLE
+        ServiceHelper().getCoinHistoryService(Utils.getPreferencesString(coinsActivity, AppConstants.USER_ID),object : ServiceHelper.OnResponse {
+            override fun onSuccess(response: Response<*>) {
+                pbProgressHistory.visibility= View.GONE
+                val responseWallet = response.body() as WalletHistoryResponse
+               // tvTotalAmount.text=responseWallet.amount.toString()
+                if (responseWallet.data!!.isNotEmpty()) {
+                    paymentHistoryAdapter.setData(responseWallet.data!!)
+                    paymentHistoryAdapter.notifyDataSetChanged()
+
+                }else{
+                    Utils.showSimpleMessage(coinsActivity, "No data found.").show()
+                }
+            }
+
+            override fun onFailure(msg: String?) {
+                pbProgressHistory.visibility= View.GONE
+               // Utils.showSimpleMessage(coinsActivity, msg!!).show()
+            }
+        })
+    }
 }

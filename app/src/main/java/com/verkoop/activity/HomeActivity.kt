@@ -136,11 +136,11 @@ class HomeActivity : AppCompatActivity() {
         Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 2) {
             if (resultCode == Activity.RESULT_OK) {
-                val result = data.getIntExtra(AppConstants.TRANSACTION, 0)
+                val result = data!!.getIntExtra(AppConstants.TRANSACTION, 0)
                 if (result == 1) {
                     when {
                         viewPager.currentItem == 0 -> {

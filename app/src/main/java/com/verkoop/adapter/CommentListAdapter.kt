@@ -38,7 +38,7 @@ class CommentListAdapter(private val context: Context,private val progressBar: P
             val modal=commentsList[position]
             holder.bind(modal)
     }
- inner  class ViewHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView),LayoutContainer{
+ inner  class ViewHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView!!),LayoutContainer{
      fun bind(modal: CommentModal) {
          if(comingType!=0||modal.user_id==Utils.getPreferencesString(context,AppConstants.USER_ID).toInt()){
              ivOption.visibility=View.VISIBLE

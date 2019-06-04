@@ -42,7 +42,7 @@ class SearchByUserAdapter(private val context: Context) : RecyclerView.Adapter<S
         holder.bind(modal)
     }
 
-    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(modal: DataUser) {
             tvSearchUserName.text = modal.username
             if (!TextUtils.isEmpty(modal.profile_pic)) {

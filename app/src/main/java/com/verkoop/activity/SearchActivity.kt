@@ -162,10 +162,10 @@ class SearchActivity : AppCompatActivity() {
     }
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 2) {
             if (resultCode == Activity.RESULT_OK) {
-                val result = data.getIntExtra(AppConstants.TRANSACTION, 0)
+                val result = data!!.getIntExtra(AppConstants.TRANSACTION, 0)
                 if (result == 1) {
                     val returnIntent = Intent()
                     returnIntent.putExtra(AppConstants.TRANSACTION, result)

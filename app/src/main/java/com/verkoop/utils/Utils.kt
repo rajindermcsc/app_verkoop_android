@@ -12,6 +12,7 @@ import android.os.Environment
 import android.preference.PreferenceManager
 import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
@@ -199,6 +200,22 @@ object Utils {
         // Log.e("dateTimeStamp",date)
 
         return format.format(date)
+
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun dateDifference(pre: String, dateString: String,daysNo:Int): String {
+        val format = SimpleDateFormat("MMMM dd, yyyy")
+        val c = Calendar.getInstance()
+        try {
+            c.time = format.parse(dateString)
+        } catch (e: Exception) {
+            Log.e("exception","exceptionDone")
+        }
+	c.add(Calendar.DAY_OF_MONTH, daysNo)
+	val newDate = format.format(c.time)
+	System.out.println("Date after Addition: "+newDate)
+        return newDate
 
     }
 

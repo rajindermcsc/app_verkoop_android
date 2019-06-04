@@ -31,7 +31,7 @@ class FilterAdapter(private val context: Context) : RecyclerView.Adapter<FilterA
         holder.bind(modal)
     }
 
-    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(modal: FilterModal) {
             if(modal.type==1){
                 ivRemove.visibility=View.INVISIBLE

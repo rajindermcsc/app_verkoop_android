@@ -53,7 +53,6 @@
                             android:textSize="@dimen/sp_20" />
 
                         <ImageView
-                            android:id="@+id/ivFinishDialog"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/image"
@@ -63,11 +62,13 @@
                     </LinearLayout>
 
                     <RatingBar
+                        android:id="@+id/rbRating"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/dp_40"
                         android:numStars="5"
+                        android:theme="@style/RatingBar"
                         android:src="@mipmap/review" />
 
 
@@ -78,6 +79,7 @@
                         android:orientation="horizontal">
 
                         <com.verkoop.fonts.textView.GothiBoldTextView
+                            android:id="@+id/tvCancelRate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -105,7 +107,7 @@
                             card_view:cardElevation="@dimen/dp_8">
 
                             <com.verkoop.fonts.textView.GothiBoldTextView
-                                android:id="@+id/tvProceed"
+                                android:id="@+id/tvSubmitRate"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@drawable/red_rectangular_shape"

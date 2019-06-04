@@ -107,11 +107,11 @@ CarBrandActivity : AppCompatActivity() {
         })
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 3) {
             if (resultCode == Activity.RESULT_OK) {
-                 carType = data.getStringExtra(AppConstants.CAR_TYPE)
-                 carBrand = data.getStringExtra(AppConstants.CAR_BRAND_NAME)
+                 carType = data!!.getStringExtra(AppConstants.CAR_TYPE)
+                 carBrand = data!!.getStringExtra(AppConstants.CAR_BRAND_NAME)
                  carTypeId = data.getIntExtra(AppConstants.CAR_TYPE_ID, 0)
                  carBrandId = data.getIntExtra(AppConstants.CAR_BRAND_ID, 0)
                 val returnIntent = Intent()

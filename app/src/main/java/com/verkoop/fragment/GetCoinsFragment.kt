@@ -6,21 +6,31 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import com.ksmtrivia.common.BaseFragment
 import com.verkoop.R
 import com.verkoop.activity.CoinsActivity
 import com.verkoop.adapter.CoinListAdapter
 import com.verkoop.models.CoinPlanResponse
+import com.verkoop.models.PurchaseCoinRequest
+import com.verkoop.models.UpdateWalletResponse
 import com.verkoop.network.ServiceHelper
+import com.verkoop.utils.AppConstants
+import com.verkoop.utils.PurchaseCoinDialog
+import com.verkoop.utils.SelectionListener
 import com.verkoop.utils.Utils
 import kotlinx.android.synthetic.main.get_coin_fragment.*
 import retrofit2.Response
 
-
-class GetCoinsFragment : BaseFragment() {
+class GetCoinsFragment : BaseFragment(), CoinListAdapter.PurchaseCoinCallBack {
+    private lateinit var coinUpdateCallBack: CoinUpdateCallBack
     private lateinit var coinsActivity: CoinsActivity
     private val TAG = GetCoinsFragment::class.java.simpleName
     private lateinit var getCoinAdapter: CoinListAdapter
+
+    override fun purchaseCoin(coinPlanId: Int, position: Int,price:Int,totalCoin:Int) {
+        purchaseDialog(coinPlanId, position,price,totalCoin)
+    }
 
 
     override fun getTitle(): Int {
@@ -34,6 +44,7 @@ class GetCoinsFragment : BaseFragment() {
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         coinsActivity = context as CoinsActivity
+        coinUpdateCallBack=context
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +68,7 @@ class GetCoinsFragment : BaseFragment() {
     private fun setAdapter() {
         val mLayoutManager = GridLayoutManager(coinsActivity, 3)
         rvCoinsList.layoutManager = mLayoutManager
-        getCoinAdapter = CoinListAdapter(coinsActivity, rvCoinsList)
+        getCoinAdapter = CoinListAdapter(coinsActivity, rvCoinsList, this)
         rvCoinsList.adapter = getCoinAdapter
     }
 
@@ -72,14 +83,14 @@ class GetCoinsFragment : BaseFragment() {
 
     private fun getWalletHistoryApi() {
         pbProgressCoin.visibility = View.VISIBLE
-        ServiceHelper().getCoinPlanService(object : ServiceHelper.OnResponse {
+        ServiceHelper().getCoinPlanService(Utils.getPreferencesString(coinsActivity,AppConstants.USER_ID).toInt(),object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
                 pbProgressCoin.visibility = View.GONE
                 val responseWallet = response.body() as CoinPlanResponse
                 if (responseWallet.data.isNotEmpty()) {
                     getCoinAdapter.setData(responseWallet.data)
                     getCoinAdapter.notifyDataSetChanged()
-
+                    coinUpdateCallBack.updateHistoryList(responseWallet.coins,0)
                 } else {
                     Utils.showSimpleMessage(coinsActivity, "No data found.").show()
                 }
@@ -92,5 +103,42 @@ class GetCoinsFragment : BaseFragment() {
             }
         })
 
+    }
+
+    private fun purchaseCoinService(coin_id: Int, position: Int, totalCoin: Int) {
+        coinsActivity.window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        pbProgressCoin.visibility = View.VISIBLE
+        ServiceHelper().purchaseCoinService(PurchaseCoinRequest(Utils.getPreferencesString(coinsActivity, AppConstants.USER_ID).toInt(), coin_id),
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        coinsActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                        pbProgressCoin.visibility = View.GONE
+                        val loginResponse = response.body() as UpdateWalletResponse
+                        Utils.showToast(coinsActivity, loginResponse.message)
+                        coinUpdateCallBack.updateHistoryList(totalCoin,2)
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        coinsActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                        pbProgressCoin.visibility = View.GONE
+                        Utils.showSimpleMessage(coinsActivity, msg!!).show()
+                    }
+                })
+
+    }
+
+    private fun purchaseDialog(coin_id: Int, position: Int, price: Int, totalCoin: Int) {
+       val  message=StringBuffer().append(getString(R.string.to_pay)).append(" $").append(price).append("?")
+        val shareDialog = PurchaseCoinDialog(coinsActivity, message, object : SelectionListener {
+            override fun leaveClick() {
+                purchaseCoinService(coin_id, position,totalCoin)
+            }
+        })
+        shareDialog.show()
+    }
+
+    interface CoinUpdateCallBack{
+        fun updateHistoryList(totalCoin:Int,type:Int)
     }
 }

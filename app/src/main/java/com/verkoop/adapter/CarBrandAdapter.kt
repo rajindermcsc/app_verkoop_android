@@ -76,7 +76,7 @@ class CarBrandAdapter(private var context: Context, private val coming: Int,priv
         holder.bind(modal)
     }
 
-    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(data: DataCarBrand) {
             cbRegion.typeface = font
             cbRegion.isChecked = data.isSelected

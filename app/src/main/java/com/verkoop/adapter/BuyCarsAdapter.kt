@@ -89,7 +89,7 @@ class BuyCarsAdapter(private val context: Context, private var rvItemList: Recyc
         }
     }
 
-    inner class ItemsHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class ItemsHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(data: ItemHome) {
             ll_condition.visibility=View.GONE
             ivProductImageHome.layoutParams.height = width - 16
@@ -164,7 +164,7 @@ class BuyCarsAdapter(private val context: Context, private var rvItemList: Recyc
         }
     }
 
-    inner class CarFilterHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class CarFilterHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(carTypeLIst: ArrayList<CarType>) {
             llCarFilter.layoutParams.height = widthOrgCarType-20
             val mManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -202,7 +202,7 @@ class BuyCarsAdapter(private val context: Context, private var rvItemList: Recyc
         }
     }
 
-    inner class CarBrandHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class CarBrandHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(brandList: ArrayList<Brand>) {
             llBuyCar.layoutParams.height = widthOrg / 3
             val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

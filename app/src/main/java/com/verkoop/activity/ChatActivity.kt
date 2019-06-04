@@ -1,6 +1,7 @@
 package com.verkoop.activity
 
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Rect
@@ -13,6 +14,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
+import android.view.WindowManager
 import com.github.nkzawa.socketio.client.Ack
 import com.github.nkzawa.socketio.client.Socket
 import com.google.gson.Gson
@@ -24,12 +26,13 @@ import com.squareup.picasso.Picasso
 import com.verkoop.R
 import com.verkoop.VerkoopApplication
 import com.verkoop.adapter.ChatAdapter
-import com.verkoop.models.ChatData
-import com.verkoop.models.SocketOnReceiveEvent
+import com.verkoop.models.*
+import com.verkoop.network.ServiceHelper
 import com.verkoop.offlinechatdata.ChatResponse
 import com.verkoop.offlinechatdata.DbHelper
 import com.verkoop.utils.*
 import io.realm.RealmResults
+import kotlinx.android.synthetic.main.add_money_dialog_activity.*
 import kotlinx.android.synthetic.main.chat_activity.*
 import kotlinx.android.synthetic.main.toolbar_bottom.*
 import kotlinx.android.synthetic.main.toolbar_product_details.*
@@ -38,6 +41,7 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.json.JSONException
 import org.json.JSONObject
+import retrofit2.Response
 
 class ChatActivity : AppCompatActivity() {
     private val socket: Socket? = VerkoopApplication.getAppSocket()
@@ -51,12 +55,12 @@ class ChatActivity : AppCompatActivity() {
     private var productUrl = ""
     private var productName = ""
     private lateinit var chatAdapter: ChatAdapter
-    private  var createOfferDialog: CreatOfferDialog?=null
+    private var createOfferDialog: CreatOfferDialog? = null
     private var chatList = ArrayList<ChatData>()
     private var dbHelper: DbHelper? = null
     private var chatHistoryModels: RealmResults<ChatResponse>? = null
-    private var isMyProduct:Boolean=false
-    private var chatUserId=0
+    private var isMyProduct: Boolean = false
+    private var chatUserId = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,21 +68,21 @@ class ChatActivity : AppCompatActivity() {
         setContentView(R.layout.chat_activity)
         senderId = intent.getIntExtra(AppConstants.USER_ID, 0)
         itemId = intent.getIntExtra(AppConstants.ITEM_ID, 0)
-        price = intent.getDoubleExtra(AppConstants.PRODUCT_PRICE,0.0)
+        price = intent.getDoubleExtra(AppConstants.PRODUCT_PRICE, 0.0)
         userName = intent.getStringExtra(AppConstants.USER_NAME)
         profileUrl = intent.getStringExtra(AppConstants.PROFILE_URL)
         productUrl = intent.getStringExtra(AppConstants.PRODUCT_URL)
         productName = intent.getStringExtra(AppConstants.PRODUCT_NAME)
-        isMyProduct = intent.getBooleanExtra(AppConstants.IS_MY_PRODUCT,false)
-        isSold = intent.getIntExtra(AppConstants.IS_SOLD,0)
+        isMyProduct = intent.getBooleanExtra(AppConstants.IS_MY_PRODUCT, false)
+        isSold = intent.getIntExtra(AppConstants.IS_SOLD, 0)
 
-        if(socket!!.connected()) {
+        if (socket!!.connected()) {
             directChat()
         }
-        if(isSold==1){
-            llViewOffer.visibility=View.GONE
-        }else{
-            llViewOffer.visibility=View.GONE
+        if (isSold == 1) {
+            llViewOffer.visibility = View.GONE
+        } else {
+            llViewOffer.visibility = View.GONE
         }
         dbHelper = DbHelper()
         initKeyBoardListener()
@@ -90,7 +94,7 @@ class ChatActivity : AppCompatActivity() {
         } else {
             Handler().postDelayed(Runnable {
                 Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
-            },300)
+            }, 300)
             setOfflineHistory()
         }
 
@@ -110,7 +114,7 @@ class ChatActivity : AppCompatActivity() {
                 runOnUiThread {
                     if (data.getString("status") == "1") {
                         runOnUiThread {
-                            chatUserId=data.getInt("chat_user_id")
+                            chatUserId = data.getInt("chat_user_id")
                         }
                     }
                 }
@@ -122,7 +126,7 @@ class ChatActivity : AppCompatActivity() {
 
     private fun setOfflineHistory() {
         chatList.clear()
-        chatHistoryModels = dbHelper!!.getChatHistoryList(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), senderId,itemId)
+        chatHistoryModels = dbHelper!!.getChatHistoryList(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), senderId, itemId)
         for (i in chatHistoryModels!!.indices) {
             val chatData = ChatData(chatHistoryModels!![i]!!.message_id,
                     chatHistoryModels!![i]!!.sender_id,
@@ -142,14 +146,14 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun getChatHistory() {
-        chatHistoryModels = dbHelper!!.getChatHistoryList( Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), senderId,itemId)
+        chatHistoryModels = dbHelper!!.getChatHistoryList(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), senderId, itemId)
         val jsonObject = JSONObject()
         try {
             jsonObject.put("sender_id", Utils.getPreferencesString(this, AppConstants.USER_ID))
             jsonObject.put("receiver_id", senderId)
             if (chatHistoryModels!!.size > 0) {
-              //  jsonObject.put("message_id", chatHistoryModels!![chatHistoryModels!!.size - 1]!!.message_id)
-                jsonObject.put("message_id",chatHistoryModels!!.last()!!.message_id)
+                //  jsonObject.put("message_id", chatHistoryModels!![chatHistoryModels!!.size - 1]!!.message_id)
+                jsonObject.put("message_id", chatHistoryModels!!.last()!!.message_id)
             } else {
                 jsonObject.put("message_id", "0")
             }
@@ -161,46 +165,46 @@ class ChatActivity : AppCompatActivity() {
                 runOnUiThread {
                     if (data.getString("status") == "1") {
                         chatList.clear()
+                        try {
+                            val listdata = java.util.ArrayList<JSONObject>()
                             try {
-                                val listdata = java.util.ArrayList<JSONObject>()
-                                try {
-                                    val chatHistory = data.getJSONArray("data")
+                                val chatHistory = data.getJSONArray("data")
 
-                                    if (chatHistory != null) {
-                                        for (i in 0 until chatHistory.length()) {
-                                            listdata.add(chatHistory.getJSONObject(i))
-                                        }
+                                if (chatHistory != null) {
+                                    for (i in 0 until chatHistory.length()) {
+                                        listdata.add(chatHistory.getJSONObject(i))
                                     }
+                                }
+                            } catch (e: JSONException) {
+                                e.printStackTrace()
+                            }
+
+                            for (data2 in listdata) {
+                                try {
+                                    val chatData = ChatData(data2.getInt("message_id"),
+                                            data2.getInt("sender_id"),
+                                            data2.getInt("receiver_id"),
+                                            data2.getString("message"),
+                                            data2.getString("timestamp"),
+                                            data2.getInt("type"),
+                                            data2.getInt("item_id"),
+                                            data2.getInt("chat_user_id"),
+                                            data2.getInt("is_read"))
+                                    chatList.add(chatData)
                                 } catch (e: JSONException) {
                                     e.printStackTrace()
                                 }
 
-                                for (data2 in listdata) {
-                                    try {
-                                        val chatData = ChatData(data2.getInt("message_id"),
-                                                data2.getInt("sender_id"),
-                                                data2.getInt("receiver_id"),
-                                                data2.getString("message"),
-                                                data2.getString("timestamp"),
-                                                data2.getInt("type"),
-                                                data2.getInt("item_id"),
-                                                data2.getInt("chat_user_id"),
-                                                data2.getInt("is_read"))
-                                        chatList.add(chatData)
-                                    } catch (e: JSONException) {
-                                        e.printStackTrace()
-                                    }
-
-                                }
-                                dbHelper!!.chatHistoryInsertData(chatList)
-                                chatAdapter.setData(chatList)
-                                chatAdapter.notifyDataSetChanged()
-                                rvChatList.scrollToPosition(chatList.size - 1)
-                                setOfflineHistory()
-                            } catch (e: JSONException) {
-                                e.printStackTrace()
                             }
-                            makeOfferManage(data.getInt("offer_status"),data.getInt("is_block"))
+                            dbHelper!!.chatHistoryInsertData(chatList)
+                            chatAdapter.setData(chatList)
+                            chatAdapter.notifyDataSetChanged()
+                            rvChatList.scrollToPosition(chatList.size - 1)
+                            setOfflineHistory()
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
+                        makeOfferManage(data.getInt("offer_status"), data.getInt("is_block"))
                     } else {
 
                     }
@@ -212,7 +216,7 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun makeOfferManage(offerStatus: Int, blockStatus: Int) {
-        if(isSold!=1) {
+        if (isSold != 1) {
             if (isMyProduct && offerStatus == 5) {
                 llViewOffer.visibility = View.GONE
             } else if (!isMyProduct && offerStatus == 5) {
@@ -225,8 +229,8 @@ class ChatActivity : AppCompatActivity() {
                 tvMakeOffer.text = getString(R.string.accept_offer)
             } else if (!isMyProduct && offerStatus == 0) {
                 llViewOffer.visibility = View.VISIBLE
-              /*  tvViewProfile.text = getString(R.string.edit_offer)
-                tvMakeOffer.text = getString(R.string.cancel_offer) */
+                /*  tvViewProfile.text = getString(R.string.edit_offer)
+                  tvMakeOffer.text = getString(R.string.cancel_offer) */
                 tvMakeOffer.text = getString(R.string.edit_offer)
                 tvViewProfile.text = getString(R.string.cancel_offer)
             } else if (isMyProduct && offerStatus == 1) {
@@ -244,7 +248,7 @@ class ChatActivity : AppCompatActivity() {
                 tvViewProfile.text = getString(R.string.view_seller)
                 tvMakeOffer.text = getString(R.string.make_offer)
             }
-        }else{
+        } else {
             if (isMyProduct && offerStatus == 1) {
                 llViewOffer.visibility = View.VISIBLE
                 tvMakeOffer.visibility = View.GONE
@@ -314,7 +318,7 @@ class ChatActivity : AppCompatActivity() {
         ivSend.setOnClickListener {
             if (!TextUtils.isEmpty(etMssg.text.toString().trim())) {
                 if (socket!!.connected()) {
-                   sendMssgEvent()
+                    sendMssgEvent()
                 } else {
                     Utils.showSimpleMessage(this, "Socket Disconnected.").show()
                 }
@@ -323,41 +327,74 @@ class ChatActivity : AppCompatActivity() {
             }
         }
         tvMakeOffer.setOnClickListener {
-            if(tvMakeOffer.text.toString().equals(getString(R.string.make_offer),ignoreCase = true)) {
+            if (tvMakeOffer.text.toString().equals(getString(R.string.make_offer), ignoreCase = true)) {
                 /*0=Make an offer*/
-                makeOffer(0,price)
-            }else if(tvMakeOffer.text.toString().equals(getString(R.string.accept_offer),ignoreCase = true)){
-              val  lastOffer = dbHelper!!.getOfferPriceLast( Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), senderId,itemId,2)
+                makeOffer(0, price)
+            } else if (tvMakeOffer.text.toString().equals(getString(R.string.accept_offer), ignoreCase = true)) {
+                val lastOffer = dbHelper!!.getOfferPriceLast(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), senderId, itemId, 2)
                 acceptOfferDialogBox(lastOffer!!.message!!)
-            }else if(tvMakeOffer.text.toString().equals(getString(R.string.edit_offer),ignoreCase = true)){
+            } else if (tvMakeOffer.text.toString().equals(getString(R.string.edit_offer), ignoreCase = true)) {
                 /*1=Edit an offer*/
-                val  lastOffer = dbHelper!!.getOfferPriceLast( Utils.getPreferencesString(this@ChatActivity, AppConstants.USER_ID).toInt(), senderId,itemId,2)
-                makeOffer(1,lastOffer!!.message!!.toDouble())
+                val lastOffer = dbHelper!!.getOfferPriceLast(Utils.getPreferencesString(this@ChatActivity, AppConstants.USER_ID).toInt(), senderId, itemId, 2)
+                makeOffer(1, lastOffer!!.message!!.toDouble())
             }
         }
 
         tvViewProfile.setOnClickListener {
-            if(tvViewProfile.text.toString().equals(getString(R.string.view_seller),ignoreCase = true)) {
+            if (tvViewProfile.text.toString().equals(getString(R.string.view_seller), ignoreCase = true)) {
                 val reportIntent = Intent(this, UserProfileActivity::class.java)
                 reportIntent.putExtra(AppConstants.USER_ID, senderId)
                 reportIntent.putExtra(AppConstants.USER_NAME, userName)
                 startActivity(reportIntent)
-            }else if(tvViewProfile.text.toString().equals(getString(R.string.decline_offer),ignoreCase = true)){
-                val  lastOffer = dbHelper!!.getOfferPriceLast( Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), senderId,itemId,2)
-               declineOfferDialogBox(lastOffer!!.message!!)
-            }else if(tvViewProfile.text.toString().equals(getString(R.string.cancel_offer),ignoreCase = true)){
-                val  lastOffer = dbHelper!!.getOfferPriceLast( Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), senderId,itemId,2)
+            } else if (tvViewProfile.text.toString().equals(getString(R.string.decline_offer), ignoreCase = true)) {
+                val lastOffer = dbHelper!!.getOfferPriceLast(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), senderId, itemId, 2)
+                declineOfferDialogBox(lastOffer!!.message!!)
+            } else if (tvViewProfile.text.toString().equals(getString(R.string.cancel_offer), ignoreCase = true)) {
+                val lastOffer = dbHelper!!.getOfferPriceLast(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), senderId, itemId, 2)
                 cancelOfferDialogBox(lastOffer!!.message!!)
-            }else if(tvViewProfile.text.toString().equals(getString(R.string.leave_review),ignoreCase = true)){
-
+            } else if (tvViewProfile.text.toString().equals(getString(R.string.leave_review), ignoreCase = true)) {
+                openRatingDialog(getString(R.string.buyer))
+            } else if (tvViewProfile.text.toString().equals(getString(R.string.leave_review_seller), ignoreCase = true)) {
+                openRatingDialog(getString(R.string.seller))
             }
 
         }
         ivRightProduct.setOnClickListener {
-            Utils.showToast(this,"work in Progress")
+            Utils.showToast(this, "work in Progress")
             openPowerMenu()
         }
     }
+
+    private fun openRatingDialog(rateTo: String) {
+        val ratingDialog = RatingBarDialog(this, rateTo, object : RateUserListener {
+            override fun rateUserClick(rating: Float, type: String) {
+                rateUserService(rating,itemId)
+            }
+
+        })
+        ratingDialog.show()
+    }
+
+    private fun rateUserService(rating: Float, itemId: Int) {
+        window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+       // pbProgressAddMoney.visibility = View.VISIBLE
+        ServiceHelper().rateUserService(RateUserRequest(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), itemId, rating),
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                    //    pbProgressAddMoney.visibility = View.GONE
+                        val loginResponse = response.body() as UpdateWalletResponse
+                        Utils.showToast(this@ChatActivity,getString(R.string.review_submitted))
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                        Utils.showSimpleMessage(this@ChatActivity, msg!!).show()
+                    }
+                })
+    }
+
     private fun openPowerMenu() {
         powerMenu = PowerMenu.Builder(this)
                 .addItem(PowerMenuItem("Block user", false)) // add an item.
@@ -380,26 +417,27 @@ class ChatActivity : AppCompatActivity() {
         powerMenu!!.selectedPosition = position
         powerMenu!!.dismiss()
 
-       /* if (position == 1) {
-            val reportIntent = Intent(this, ReportUserActivity::class.java)
-            reportIntent.putParcelableArrayListExtra(AppConstants.REPORT_LIST, reportsList)
-            reportIntent.putExtra(AppConstants.COMING_FROM,1)
-            reportIntent.putExtra(AppConstants.ITEM_ID,userId)
-            startActivity(reportIntent)
-        } else {
-            if(!isBlockClick) {
-                if (item.getTitle().equals("Block user", ignoreCase = true)) {
-                    blockUserDialog()
-                } else if (item.getTitle().equals("Unblock user", ignoreCase = true)) {
-                    unBlockUserDialog()
-                }
-            }
-        }*/
+        /* if (position == 1) {
+             val reportIntent = Intent(this, ReportUserActivity::class.java)
+             reportIntent.putParcelableArrayListExtra(AppConstants.REPORT_LIST, reportsList)
+             reportIntent.putExtra(AppConstants.COMING_FROM,1)
+             reportIntent.putExtra(AppConstants.ITEM_ID,userId)
+             startActivity(reportIntent)
+         } else {
+             if(!isBlockClick) {
+                 if (item.getTitle().equals("Block user", ignoreCase = true)) {
+                     blockUserDialog()
+                 } else if (item.getTitle().equals("Unblock user", ignoreCase = true)) {
+                     unBlockUserDialog()
+                 }
+             }
+         }*/
     }
-    private fun declineOfferDialogBox(price:String) {
-        val shareDialog = DeleteCommentDialog(this,"Decline offer?","Are you sure you want to decline the offer?",object : SelectionListener {
+
+    private fun declineOfferDialogBox(price: String) {
+        val shareDialog = DeleteCommentDialog(this, "Decline offer?", "Are you sure you want to decline the offer?", object : SelectionListener {
             override fun leaveClick() {
-                if(socket!!.connected()) {
+                if (socket!!.connected()) {
                     declineOfferEvent(price)
                 }
             }
@@ -407,21 +445,21 @@ class ChatActivity : AppCompatActivity() {
         shareDialog.show()
     }
 
-    private fun cancelOfferDialogBox(price:String) {
-        val shareDialog = DeleteCommentDialog(this,getString(R.string.cancel_offer),"Are you sure you want to cancel your offer?",object : SelectionListener {
+    private fun cancelOfferDialogBox(price: String) {
+        val shareDialog = DeleteCommentDialog(this, getString(R.string.cancel_offer), "Are you sure you want to cancel your offer?", object : SelectionListener {
             override fun leaveClick() {
-                if(socket!!.connected()) {
-                   cancelOfferEvent(price)
+                if (socket!!.connected()) {
+                    cancelOfferEvent(price)
                 }
             }
         })
         shareDialog.show()
     }
 
-    private fun acceptOfferDialogBox(price:String) {
-        val shareDialog = DeleteCommentDialog(this,getString(R.string.confirm_accpt_offer),"Once the offer is accepted, the product will be marked as sold.",object : SelectionListener {
+    private fun acceptOfferDialogBox(price: String) {
+        val shareDialog = DeleteCommentDialog(this, getString(R.string.confirm_accpt_offer), "Once the offer is accepted, the product will be marked as sold.", object : SelectionListener {
             override fun leaveClick() {
-                if(socket!!.connected()) {
+                if (socket!!.connected()) {
                     acceptOfferEvent(price)
                 }
             }
@@ -430,14 +468,13 @@ class ChatActivity : AppCompatActivity() {
     }
 
 
-
-    private fun makeOffer(type:Int,priceOffer:Double) {
+    private fun makeOffer(type: Int, priceOffer: Double) {
         createOfferDialog = CreatOfferDialog(priceOffer, this, object : MakeOfferListener {
             override fun makeOfferClick(offerPrice: Double) {
-                if(socket!!.connected()) {
-                    if(type!=1) {
+                if (socket!!.connected()) {
+                    if (type != 1) {
                         makeOfferEvent(offerPrice)
-                    }else{
+                    } else {
                         editOfferEvent(offerPrice)
                     }
                 }
@@ -447,13 +484,13 @@ class ChatActivity : AppCompatActivity() {
         createOfferDialog!!.show()
     }
 
-    private fun declineOfferEvent(price:String) {
+    private fun declineOfferEvent(price: String) {
         val jsonObject = JSONObject()
         try {
             jsonObject.put("sender_id", Utils.getPreferencesString(this, AppConstants.USER_ID))
             jsonObject.put("receiver_id", senderId)
             jsonObject.put("item_id", itemId)
-            jsonObject.put("message",price)
+            jsonObject.put("message", price)
             jsonObject.put("type", 4)
             jsonObject.put("chat_user_id", chatUserId)
             Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
@@ -464,8 +501,8 @@ class ChatActivity : AppCompatActivity() {
                     if (data.getString("status") == "1") {
                         runOnUiThread {
                             saveDataToDb(data)
-                            if(data.getInt("type")==4){
-                                makeOfferManage(2,0)
+                            if (data.getInt("type") == 4) {
+                                makeOfferManage(2, 0)
                             }
                             try {
                                 val chatData = ChatData(data.getInt("message_id"),
@@ -475,7 +512,7 @@ class ChatActivity : AppCompatActivity() {
                                         data.getString("timestamp"),
                                         data.getInt("type"),
                                         data.getInt("item_id"),
-                                        data.getInt("chat_user_id"),0)
+                                        data.getInt("chat_user_id"), 0)
                                 chatList.add(chatData)
                                 chatAdapter.setData(chatList)
                                 chatAdapter.notifyDataSetChanged()
@@ -495,13 +532,13 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
-    private fun cancelOfferEvent(price:String) {
+    private fun cancelOfferEvent(price: String) {
         val jsonObject = JSONObject()
         try {
             jsonObject.put("sender_id", Utils.getPreferencesString(this, AppConstants.USER_ID))
             jsonObject.put("receiver_id", senderId)
             jsonObject.put("item_id", itemId)
-            jsonObject.put("message",price)
+            jsonObject.put("message", price)
             jsonObject.put("type", 5)
             jsonObject.put("chat_user_id", chatUserId)
             Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
@@ -512,7 +549,7 @@ class ChatActivity : AppCompatActivity() {
                     if (data.getString("status") == "1") {
                         runOnUiThread {
                             saveDataToDb(data)
-                            if( data.getInt("type")==5) {
+                            if (data.getInt("type") == 5) {
                                 makeOfferManage(5, 0)
                             }
                             try {
@@ -523,7 +560,7 @@ class ChatActivity : AppCompatActivity() {
                                         data.getString("timestamp"),
                                         data.getInt("type"),
                                         data.getInt("item_id"),
-                                        data.getInt("chat_user_id"),0)
+                                        data.getInt("chat_user_id"), 0)
                                 chatList.add(chatData)
                                 chatAdapter.setData(chatList)
                                 chatAdapter.notifyDataSetChanged()
@@ -561,7 +598,7 @@ class ChatActivity : AppCompatActivity() {
                     if (data.getString("status") == "1") {
                         runOnUiThread {
                             saveDataToDb(data)
-                            if( data.getInt("type")==2) {
+                            if (data.getInt("type") == 2) {
                                 makeOfferManage(0, 0)
                             }
                             try {
@@ -572,7 +609,7 @@ class ChatActivity : AppCompatActivity() {
                                         data.getString("timestamp"),
                                         data.getInt("type"),
                                         data.getInt("item_id"),
-                                        data.getInt("chat_user_id"),0)
+                                        data.getInt("chat_user_id"), 0)
                                 chatList.add(chatData)
                                 chatAdapter.setData(chatList)
                                 chatAdapter.notifyDataSetChanged()
@@ -592,7 +629,7 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
-    private fun acceptOfferEvent(price:String) {
+    private fun acceptOfferEvent(price: String) {
         val jsonObject = JSONObject()
         try {
             jsonObject.put("sender_id", Utils.getPreferencesString(this, AppConstants.USER_ID))
@@ -609,7 +646,7 @@ class ChatActivity : AppCompatActivity() {
                     if (data.getString("status") == "1") {
                         runOnUiThread {
                             saveDataToDb(data)
-                            if( data.getInt("type")==3) {
+                            if (data.getInt("type") == 3) {
                                 makeOfferManage(1, 0)
                             }
                             try {
@@ -620,7 +657,7 @@ class ChatActivity : AppCompatActivity() {
                                         data.getString("timestamp"),
                                         data.getInt("type"),
                                         data.getInt("item_id"),
-                                        data.getInt("chat_user_id"),0)
+                                        data.getInt("chat_user_id"), 0)
                                 chatList.add(chatData)
                                 chatAdapter.setData(chatList)
                                 chatAdapter.notifyDataSetChanged()
@@ -657,7 +694,7 @@ class ChatActivity : AppCompatActivity() {
                     if (data.getString("status") == "1") {
                         runOnUiThread {
                             saveDataToDb(data)
-                            if( data.getInt("type")==2) {
+                            if (data.getInt("type") == 2) {
                                 makeOfferManage(0, 0)
                             }
                             try {
@@ -668,7 +705,7 @@ class ChatActivity : AppCompatActivity() {
                                         data.getString("timestamp"),
                                         data.getInt("type"),
                                         data.getInt("item_id"),
-                                        data.getInt("chat_user_id"),0)
+                                        data.getInt("chat_user_id"), 0)
                                 chatList.add(chatData)
                                 chatAdapter.setData(chatList)
                                 chatAdapter.notifyDataSetChanged()
@@ -706,23 +743,23 @@ class ChatActivity : AppCompatActivity() {
                     ivSend.isEnabled = true
                     if (data.getString("status") == "1") {
                         saveDataToDb(data)
-                            try {
-                                val chatData = ChatData(data.getInt("message_id"),
-                                        data.getInt("sender_id"),
-                                        data.getInt("receiver_id"),
-                                        data.getString("message"),
-                                        data.getString("timestamp"),
-                                        data.getInt("type"),
-                                        data.getInt("item_id"),
-                                        data.getInt("chat_user_id"),0)
-                                chatList.add(chatData)
-                                chatAdapter.setData(chatList)
-                                chatAdapter.notifyDataSetChanged()
-                                rvChatList.scrollToPosition(chatList.size - 1)
-                                etMssg.text = null
-                            } catch (e: JSONException) {
-                                e.printStackTrace()
-                            }
+                        try {
+                            val chatData = ChatData(data.getInt("message_id"),
+                                    data.getInt("sender_id"),
+                                    data.getInt("receiver_id"),
+                                    data.getString("message"),
+                                    data.getString("timestamp"),
+                                    data.getInt("type"),
+                                    data.getInt("item_id"),
+                                    data.getInt("chat_user_id"), 0)
+                            chatList.add(chatData)
+                            chatAdapter.setData(chatList)
+                            chatAdapter.notifyDataSetChanged()
+                            rvChatList.scrollToPosition(chatList.size - 1)
+                            etMssg.text = null
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
                     } else {
                         ivSend.isEnabled = true
                     }
@@ -734,7 +771,7 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun saveDataToDb(data: JSONObject) {
-        val addToDb=ArrayList<ChatData>()
+        val addToDb = ArrayList<ChatData>()
         try {
             val chatData = ChatData(data.getInt("message_id"),
                     data.getInt("sender_id"),
@@ -746,7 +783,7 @@ class ChatActivity : AppCompatActivity() {
                     data.getInt("chat_user_id"),
                     0)
             addToDb.add(chatData)
-            dbHelper!!.chatHistoryInsertData( addToDb)
+            dbHelper!!.chatHistoryInsertData(addToDb)
         } catch (e: JSONException) {
             e.printStackTrace()
         }
@@ -763,17 +800,17 @@ class ChatActivity : AppCompatActivity() {
                 runOnUiThread {
                     try {
                         saveDataToDb(data)
-                        if( data.getInt("type")==2){
-                            makeOfferManage(0,0)
-                        }else if(data.getInt("type")==3){
-                            makeOfferManage(1,0)
-                        }else if(data.getInt("type")==4){
-                            makeOfferManage(2,0)
-                        }else if(data.getInt("type")==5){
-                            makeOfferManage(5,0)
+                        if (data.getInt("type") == 2) {
+                            makeOfferManage(0, 0)
+                        } else if (data.getInt("type") == 3) {
+                            makeOfferManage(1, 0)
+                        } else if (data.getInt("type") == 4) {
+                            makeOfferManage(2, 0)
+                        } else if (data.getInt("type") == 5) {
+                            makeOfferManage(5, 0)
                         }
 
-                     //   val chatHistory = data.getJSONObject("messages")
+                        //   val chatHistory = data.getJSONObject("messages")
                         if (data.getInt("sender_id") == senderId) {
                             val chatData = ChatData(data.getInt("message_id"),
                                     data.getInt("sender_id"),
@@ -783,17 +820,17 @@ class ChatActivity : AppCompatActivity() {
                                     data.getInt("type"),
                                     data.getInt("item_id"),
                                     data.getInt("chat_user_id"),
-                                   0)
+                                    0)
                             chatList.add(chatData)
                             chatAdapter.setData(chatList)
                             chatAdapter.notifyDataSetChanged()
                             rvChatList.scrollToPosition(chatList.size - 1)
 
                         } else {
-                        /*     val mNotificationManager = KSMNotificationManager(applicationContext)
-                             val intent = Intent(this, SplashActivity::class.java)
-                             intent.putExtra("type", "1")
-                             mNotificationManager.showSmallNotification(chatHistory.getString("senderName"), StringEscapeUtils.unescapeJava(chatHistory.getString("message")), intent)*/
+                            /*     val mNotificationManager = KSMNotificationManager(applicationContext)
+                                 val intent = Intent(this, SplashActivity::class.java)
+                                 intent.putExtra("type", "1")
+                                 mNotificationManager.showSmallNotification(chatHistory.getString("senderName"), StringEscapeUtils.unescapeJava(chatHistory.getString("message")), intent)*/
                         }
                     } catch (e: JSONException) {
                         e.printStackTrace()
@@ -835,7 +872,7 @@ class ChatActivity : AppCompatActivity() {
                     if (lastVisibleDecorViewHeight > visibleDecorViewHeight + MIN_KEYBOARD_HEIGHT_PX) {
                         Log.e("Pasha", "SHOW")
                         llParentChat.visibility = View.GONE
-                        if(createOfferDialog!=null) {
+                        if (createOfferDialog != null) {
                             createOfferDialog!!.showDialog(1)
                         }
 
@@ -843,7 +880,7 @@ class ChatActivity : AppCompatActivity() {
                     } else if (lastVisibleDecorViewHeight + MIN_KEYBOARD_HEIGHT_PX < visibleDecorViewHeight) {
                         Log.e("Pasha", "HIDE")
                         llParentChat.visibility = View.VISIBLE
-                        if(createOfferDialog!= null) {
+                        if (createOfferDialog != null) {
                             createOfferDialog!!.showDialog(0)
                         }
                     }

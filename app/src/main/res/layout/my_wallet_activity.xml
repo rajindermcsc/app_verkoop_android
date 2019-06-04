@@ -65,11 +65,11 @@
                         android:textSize="@dimen/sp_24" />
 
                     <com.verkoop.fonts.textView.GothiBoldTextView
+                        android:id="@+id/tvTotalAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="125"
                         android:textColor="@color/black_"
                         android:textSize="@dimen/sp_24" />
                 </LinearLayout>

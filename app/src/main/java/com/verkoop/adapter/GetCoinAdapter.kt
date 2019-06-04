@@ -7,17 +7,13 @@ import com.verkoop.fragment.GetCoinsFragment
 import com.verkoop.fragment.HistoryFragment
 
 
-class GetCoinAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+class GetCoinAdapter(fm: FragmentManager,private val fragmentList: ArrayList<Fragment>) : FragmentStatePagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {
-        return if(position==0){
-            GetCoinsFragment.newInstance()
-        }else{
-            HistoryFragment.newInstance()
-        }
+        return fragmentList[position]
     }
 
 
     override fun getCount(): Int {
-        return 2
+        return fragmentList.size
     }
 }

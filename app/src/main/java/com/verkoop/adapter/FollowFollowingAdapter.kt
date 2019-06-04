@@ -80,7 +80,7 @@ class FollowFollowingAdapter(private val context: Context,private val userId:Int
         holder.bind(modal)
     }
 
-    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(modal: DataUser) {
             if(comingFrom==0){
                 tvFollow.visibility=View.GONE

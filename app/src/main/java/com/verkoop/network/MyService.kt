@@ -119,17 +119,36 @@ interface MyService {
     fun followFollowingApi(@Path(value = "user_id", encoded = true) fullUrl: Int, @Body request: HomeRequest): Call<SearchByUserResponse>
 
     @POST("payments")
-    fun addMoneyApi(@Body request: AddMoneyRequest): Call<DisLikeResponse>
+    fun addMoneyApi(@Body request: AddMoneyRequest): Call<UpdateWalletResponse>
 
+    @Headers("Accept: application/json")
+    @POST("send_friendCoins")
+    fun qrCodeApi(@Body request: SendQrCodeRequest): Call<DisLikeResponse>
 
     @GET("payments")
     fun getWalletHistoryApi(@Query(value = "user_id") userId: Int): Call<WalletHistoryResponse>
 
+    @GET("user_coin")
+    fun getCoinHistoryApi(@Query(value = "user_id") userId: Int): Call<WalletHistoryResponse>
+
     @GET("coin_plans")
-    fun getCoinPlanApi(): Call<CoinPlanResponse>
+    fun getCoinPlanApi(@Query(value = "user_id") userId: Int): Call<CoinPlanResponse>
 
     @GET("advertisment_plans")
     fun getAdvertPlanApi(): Call<AdvertPlanActivity>
+
+    @Headers("Accept: application/json")
+    @POST("user_coin")
+    fun coinPurchaseApi(@Body request: PurchaseCoinRequest): Call<UpdateWalletResponse>
+
+    @GET("userPurchaseAdvertisement")
+    fun getAllBannerApi(@Query(value = "user_id") fullUrl: String): Call<ViewAllBannerResponse>
+
+    @GET("user/friendInfo/{token}")
+    fun getUserInfoApi(@Path(value = "token", encoded = true) fullUrl: String): Call<UserInfoResponse>
+
+    @POST("ratings")
+    fun rateUserApi(@Body request: RateUserRequest): Call<UpdateWalletResponse>
 
     @Multipart
     @Headers("Accept: application/json")
@@ -237,5 +256,12 @@ interface MyService {
                                @Part("mobile_no") mobileNo: RequestBody,
                                @Part("gender") gender: RequestBody,
                                @Part("DOB") dob: RequestBody): Call<ProfileUpdateResponse>
+
+    @Multipart
+    @Headers("Accept: application/json")
+    @POST("userPurchaseAdvertisement")
+    fun uploadBannerApi(@Part files: MultipartBody.Part,
+                               @Part("user_id") userId: RequestBody,
+                               @Part("advertisement_plan_id") userName: RequestBody): Call<ProfileUpdateResponse>
 
 }

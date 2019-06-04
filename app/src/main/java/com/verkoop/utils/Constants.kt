@@ -56,6 +56,8 @@ object AppConstants{
      const val MOBILE_NO = "MOBILE_NO"
      const val PICK_OPTION = "PICK_OPTION"
      const val INTENT_RESULT = "INTENT_RESULT"
+     const val QR_CODE = "QR_CODE"
+
 
 
    /*Socket constant*/

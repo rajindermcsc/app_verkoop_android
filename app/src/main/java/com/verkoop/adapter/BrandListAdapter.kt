@@ -37,7 +37,7 @@ class BrandListAdapter(private val context: Context, private val rvBrandList: In
         holder.bind(data, position)
     }
 
-    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(data: Brand, position: Int) {
             tvLevelHome.text = data.name
             if (!TextUtils.isEmpty(data.image)) {

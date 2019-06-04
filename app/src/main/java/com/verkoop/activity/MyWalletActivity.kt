@@ -36,7 +36,7 @@ class MyWalletActivity : AppCompatActivity() {
     private fun setAdapter() {
         val mManager = LinearLayoutManager(this)
         rvHistory.layoutManager = mManager
-        paymentHistoryAdapter = PaymentHistoryAdapter(this)
+        paymentHistoryAdapter = PaymentHistoryAdapter(this,0)
         rvHistory.adapter = paymentHistoryAdapter
     }
 
@@ -49,10 +49,10 @@ class MyWalletActivity : AppCompatActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 2) {
             if (resultCode == Activity.RESULT_OK) {
-                val result = data.getStringExtra(AppConstants.INTENT_RESULT)
+                val result = data!!.getStringExtra(AppConstants.INTENT_RESULT)
                 if (Utils.isOnline(this)) {
                     Log.e("activityResult","success")
                     getWalletHistoryApi()
@@ -72,8 +72,9 @@ class MyWalletActivity : AppCompatActivity() {
             override fun onSuccess(response: Response<*>) {
                 pbProgressWallet.visibility= View.GONE
                 val responseWallet = response.body() as WalletHistoryResponse
-                if (responseWallet.data.isNotEmpty()) {
-                    paymentHistoryAdapter.setData(responseWallet.data)
+                tvTotalAmount.text=responseWallet.amount.toString()
+                if (responseWallet.data!!.isNotEmpty()) {
+                    paymentHistoryAdapter.setData(responseWallet.data!!)
                     paymentHistoryAdapter.notifyDataSetChanged()
 
                 }else{

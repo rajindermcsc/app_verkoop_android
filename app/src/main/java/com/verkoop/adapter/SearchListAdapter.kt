@@ -34,7 +34,7 @@ open class SearchListAdapter(private val context:Context):RecyclerView.Adapter<R
         val modal=searchItemList[position]
         (holder as SearchKeyWordHolder).bind(modal)
     }
-    inner class SearchKeyWordHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView),LayoutContainer{
+    inner class SearchKeyWordHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView!!),LayoutContainer{
         fun bind(modal: DataSearch) {
             tvHeading.text=modal.name
             tvCategorySearch.text=modal.category_name

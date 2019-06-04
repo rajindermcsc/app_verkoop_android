@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.toolbar_location.*
 import retrofit2.Response
 
 
-class AdvertPackagesActivity:AppCompatActivity(){
+class AdvertPackagesActivity : AppCompatActivity() {
     private lateinit var advertPackageAdapter: AdvertPackageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,15 +24,17 @@ class AdvertPackagesActivity:AppCompatActivity(){
         setAdapter()
         if (Utils.isOnline(this)) {
             getAdvertPlanApi()
+
         } else {
             Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
         }
     }
 
     private fun setData() {
-        tvHeaderLoc.text=getString(R.string.add)
+        tvHeaderLoc.text = getString(R.string.add)
         ivLeftLocation.setOnClickListener { onBackPressed() }
     }
+
     private fun setAdapter() {
         val mLayoutManager = GridLayoutManager(this, 3)
         rvAdvertPackages.layoutManager = mLayoutManager
@@ -63,4 +65,10 @@ class AdvertPackagesActivity:AppCompatActivity(){
         })
 
     }
+
+    /* override fun onBackPressed() {
+         val returnIntent = Intent()
+         setResult(Activity.RESULT_CANCELED, returnIntent)
+         finish()
+     }*/
 }

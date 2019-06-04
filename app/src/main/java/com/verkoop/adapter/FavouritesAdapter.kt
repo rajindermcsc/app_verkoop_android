@@ -49,7 +49,7 @@ class FavouritesAdapter(private val context: Context,private val rvFavourites: R
         holder.bind(data)
     }
 
-    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(data: ItemHome) {
             ivProductImageHome.layoutParams.height =width-16
             tvNameHome.text=data.username

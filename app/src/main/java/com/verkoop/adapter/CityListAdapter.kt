@@ -74,7 +74,7 @@ class CityListAdapter(private val context: Context) : RecyclerView.Adapter<CityL
         holder.bind(data)
     }
 
-    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(data: City) {
             cbRegion.typeface = font
             cbRegion.isChecked = data.isSelected

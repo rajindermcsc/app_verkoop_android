@@ -468,11 +468,11 @@ class ProductDetailsActivity : AppCompatActivity() {
                 })
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
-                dataComment = data.getParcelableExtra(AppConstants.COMMENT_RESULR)
+                dataComment = data!!.getParcelableExtra(AppConstants.COMMENT_RESULR)
                 if (dataComment != null) {
                     val dataComment = CommentModal(dataComment!!.username, dataComment!!.profile_pic, dataComment!!.id, Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), dataComment!!.comment, dataComment!!.created_at)
                     commentsList.add(dataComment)
@@ -489,7 +489,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         }
         if (requestCode == 2) {
             if (resultCode == Activity.RESULT_OK) {
-                val type = data.getStringExtra(AppConstants.TYPE)
+                val type = data!!.getStringExtra(AppConstants.TYPE)
                 if (type.equals("UpdateItem", ignoreCase = true)) {
                     val returnIntent = Intent()
                     returnIntent.putExtra(AppConstants.TYPE, "UpdateItem")

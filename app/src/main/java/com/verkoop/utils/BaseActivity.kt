@@ -56,7 +56,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
         val fragmentManager = supportFragmentManager
 
-        return fragmentManager.findFragmentByTag(tag)
+        return fragmentManager.findFragmentByTag(tag)!!
 
     }
 
@@ -101,7 +101,7 @@ abstract class BaseActivity : AppCompatActivity() {
         val fragmentManager = supportFragmentManager
         val trans = fragmentManager.beginTransaction()
         val frg = fragmentManager.findFragmentByTag(tag)
-        trans.remove(frg)
+        trans.remove(frg!!)
         trans.commit()
         fragmentManager.popBackStack()
     }

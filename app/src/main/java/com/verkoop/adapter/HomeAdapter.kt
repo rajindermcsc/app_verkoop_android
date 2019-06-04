@@ -102,7 +102,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
         }
     }
 
-    inner class AddsAndItemsHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class AddsAndItemsHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(categoryList: ArrayList<Category>, advertismentsList: ArrayList<Advertisment>) {
             mDemoSlider.removeAllSliders()
             custom_indicator.setDefaultIndicatorColor(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.light_gray))
@@ -122,7 +122,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
             rvCategoryHome.layoutManager = linearLayoutManager
             val categoryAdapter = CategoryListAdapter(context as HomeActivity, categoryList, rvCategoryHome)
             rvCategoryHome.adapter = categoryAdapter
-            rvCategoryHome.adapter.notifyDataSetChanged()
+            rvCategoryHome!!.adapter!!.notifyDataSetChanged()
             tvViewAll.setOnClickListener {
                 val intent = Intent(context, FullCategoriesActivity::class.java)
                 context.startActivityForResult(intent, 2)
@@ -132,7 +132,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
 
     }
 
-    inner class CarAndPropertiesHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class CarAndPropertiesHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind() {
             ivBuyCar.setOnClickListener {
                 val intent = Intent(context, BuyCarsActivity::class.java)
@@ -146,7 +146,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
 
     }
 
-    inner class ItemsHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class ItemsHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(data: ItemHome) {
             ivProductImageHome.layoutParams.height = width - 16
             tvNameHome.text = data.username
@@ -212,7 +212,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
         }
     }
 
-    inner class YourDailyPickHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class YourDailyPickHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind() {
             llParent.layoutParams.height = widthDaily
             val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

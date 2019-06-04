@@ -29,7 +29,7 @@ class SubCategoryDialogAdapter(private val context: Context, private val subCate
         holder.bind(modal)
     }
 
-    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(modal: SubCategory) {
             if(adapterPosition==subCategoryList.size-1){
                 viewSub.visibility=View.GONE

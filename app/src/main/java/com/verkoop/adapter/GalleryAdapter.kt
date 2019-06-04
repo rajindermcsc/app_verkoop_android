@@ -48,7 +48,7 @@ class GalleryAdapter(private var context: Activity, private var llParent: Linear
         holder.bind(modal)
     }
 
-    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
 
         fun bind(modal: ImageModal) {
             if (modal.isSelected) {

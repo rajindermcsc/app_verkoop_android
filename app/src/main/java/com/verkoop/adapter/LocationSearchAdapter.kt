@@ -34,7 +34,7 @@ class LocationSearchAdapter(private val context: Context) : RecyclerView.Adapter
         holder.bind(modal)
     }
 
-    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(modal: ResultLocation) {
             tvNameLocation.text = modal.name
             if (!type.equals(context.getString(R.string.search), ignoreCase = true)) {

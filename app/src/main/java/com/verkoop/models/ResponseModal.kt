@@ -42,7 +42,8 @@ data class DataSignUp(
         val is_active: Int,
         val is_use: Int,
         val created_at: CreatedAtSignUp,
-        val token: String
+        val token: String,
+        val qrCode_image: String
 )
 
 data class CreatedAtSignUp(
@@ -71,7 +72,8 @@ data class Data(
         val is_use: Int,
         val created_at: CreatedAt,
         val token: String,
-        val mobile_no: String
+        val mobile_no: String,
+        val qrCode_image: String
 )
 
 @Parcelize
@@ -413,7 +415,8 @@ data class DataGoogle(
     val is_use: Int,
     val mobile_verified: Int,
     val created_at: CreatedAt,
-    val token: String
+    val token: String,
+    val qrCode_image: String
 )
 
 data class SocialLoginResponse(
@@ -748,24 +751,12 @@ data class Brand(
     val updated_at: String?=null
 ): Parcelable
 
-data class WalletHistoryResponse(
-    var data: ArrayList<DataWallet>,
-    var message: String
-)
 
-data class DataWallet(
-    var id: Int,
-    var user_id: Int,
-    var token: Int,
-    var amount: Int,
-    var status: Int,
-    var created_at: String,
-    var updated_at: String
-)
 
 data class CoinPlanResponse(
     var data: ArrayList<CoinPlan>,
-    var message: String
+    var message: String,
+    var coins :  Int
 )
 
 data class CoinPlan(
@@ -790,4 +781,65 @@ data class DataAdvert(
     var is_active: Int,
     var created_at: String,
     var updated_at: String
+)
+
+data class UpdateWalletResponse(
+    var data: List<DataWalletAdd>,
+    var amount: Int,
+    var message: String
+)
+
+data class DataWalletAdd(
+    var id: Int,
+    var user_id: Int,
+    var token: String,
+    var amount: Int,
+    var status: Int,
+    var created_at: String,
+    var updated_at: String
+)
+data class WalletHistoryResponse(
+    var data: ArrayList<DataHistory>?,
+    var amount: Int,
+    var message: String
+)
+
+data class DataHistory(
+    var id: Int,
+    var type:Int,
+    var user_id: Int,
+    var token: String,
+    var userName: String,
+    var profilePic: String,
+    var amount: Int,
+    var status: Int,
+    var coin_plan_id: Int,
+    var is_active: Int,
+    var coin: Int,
+    var created_at: String,
+    var updated_at: String
+)
+data class ViewAllBannerResponse(
+    var data: ArrayList<DataBanner>
+)
+
+data class DataBanner(
+    var id: Int,
+    var image: String,
+    var updated_at: String,
+    var day: Int,
+    var advertisement_plan_id: Int
+)
+
+data class UserInfoResponse(
+    var data: DataInfoUser?,
+    var message: String
+)
+
+data class DataInfoUser(
+    var id: Int,
+    var username: String,
+    var first_name: String,
+    var last_name: String,
+    var profile_pic: String
 )

@@ -32,7 +32,7 @@ class ReportListAdapter(private val context: Context, private  val reportList: A
         holder.bind(modal)
     }
 
-    inner class ViewHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView),LayoutContainer{
+    inner class ViewHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView!!),LayoutContainer{
         fun bind(modal: ReportResponse) {
             if(modal.isSelected){
                 tvReportName.setTextColor(ContextCompat.getColor(context,R.color.colorPrimary))

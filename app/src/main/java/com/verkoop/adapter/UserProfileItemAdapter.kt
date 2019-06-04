@@ -40,7 +40,7 @@ class UserProfileItemAdapter(private val context:Context,private val llProfilePa
         val data = myItemsList[position]
         holder.bind(data,position)
     }
-inner class ViewHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView),LayoutContainer{
+inner class ViewHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView!!),LayoutContainer{
 
      fun bind(data: ItemUserProfile, position: Int) {
          ivProductImage.layoutParams.height =width-16

@@ -10,6 +10,10 @@ import com.verkoop.R
 import com.verkoop.models.DataAdvert
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.coin_row.*
+import android.app.Activity
+import android.content.Intent
+import com.verkoop.activity.AdvertPackagesActivity
+import com.verkoop.utils.AppConstants
 
 
 class AdvertPackageAdapter(private val context: Context,private val rvCoinList: RecyclerView):RecyclerView.Adapter<AdvertPackageAdapter.ViewHolder>(){
@@ -34,10 +38,16 @@ class AdvertPackageAdapter(private val context: Context,private val rvCoinList: 
 
     }
 
-    inner class ViewHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView),LayoutContainer{
+    inner class ViewHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView!!),LayoutContainer{
         fun bind(modal: DataAdvert) {
             tvCoins.text=modal.name
             tvPriceCoins.text= StringBuilder().append(modal.coin).append(" ").append(context.getString(R.string.coins))
+            itemView.setOnClickListener {
+                val returnIntent = Intent()
+                returnIntent.putExtra(AppConstants.INTENT_RESULT, modal.id)
+                (context as AdvertPackagesActivity).setResult(Activity.RESULT_OK, returnIntent)
+                context .finish()
+            }
         }
     }
 

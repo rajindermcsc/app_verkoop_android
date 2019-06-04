@@ -1,6 +1,7 @@
 package com.verkoop.utils
 
 import android.content.Context
+import android.content.res.ColorStateList
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -14,7 +15,10 @@ import kotlinx.android.synthetic.main.delete_comment_dialog.*
 import kotlinx.android.synthetic.main.dialog_answer.*
 import kotlinx.android.synthetic.main.dialog_create_offer.*
 import kotlinx.android.synthetic.main.dialog_select_met_up.*
+import kotlinx.android.synthetic.main.purchase_coin_dialog.*
+import kotlinx.android.synthetic.main.rating_dialog.*
 import kotlinx.android.synthetic.main.select_option_dialoog.*
+import kotlinx.android.synthetic.main.warning_dialog.*
 
 
 interface SharePostListener{
@@ -30,6 +34,9 @@ interface SelectionOptionListener{
 }
 interface MakeOfferListener{
     fun makeOfferClick(offerPrice:Double)
+}
+interface RateUserListener{
+    fun rateUserClick(rating:Float,type:String)
 }
 
 class ShareDialog(context: Context, private val header:String, private val categoryType: String , private val listener:SharePostListener)
@@ -142,7 +149,7 @@ class CreatOfferDialog(private val realPrice:Double,context: Context, private va
         setCanceledOnTouchOutside(true)
         setCancelable(true)
         etTotalPrice.setText(realPrice.toString())
-        etTotalPrice.setSelection(etTotalPrice.text.length)
+        etTotalPrice.setSelection(etTotalPrice.text!!.length)
         llMakeOffer.setOnClickListener {
             listener.makeOfferClick((etTotalPrice.text.toString()).toDouble())
             dismiss()
@@ -173,7 +180,7 @@ class CreatOfferDialog(private val realPrice:Double,context: Context, private va
 
 }
 
-class WarningDialog(context: Context, private val header:String, private val categoryType: String , private val listener:SharePostListener)
+class WarningDialog(context: Context, private val listener:SelectionListener)
     :android.app.Dialog(context) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -182,49 +189,55 @@ class WarningDialog(context: Context, private val header:String, private val cat
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
         setCancelable(false)
+        tvProceed.setOnClickListener {
+            dismiss()
+            listener.leaveClick()
+        }
+    }
+}
+class RatingBarDialog(context: Context, private val typeUser: String, private val listener: RateUserListener)
+    : android.app.Dialog(context) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        setContentView(R.layout.rating_dialog)
+        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
+        setCancelable(false)
 
-        ivFinishDialog.setOnClickListener {
+        if(typeUser.equals(context.getString(R.string.buyer),ignoreCase = true)){
+            tvHeading.text=context.getString(R.string.rate_this_buyer)
+        }else{
+            tvHeading.text=context.getString(R.string.rate_this_seller)
+        }
+        tvCancelRate.setOnClickListener {
             dismiss()
         }
-        ivWhatAppShareDialog.setOnClickListener {
-            listener.onWhatAppClick()
-            dismiss()
-        }
-        tvFacebookShareDialog.setOnClickListener {
-            listener.onFacebookClick()
-            dismiss()
-        }
-        tvShareDialog.setOnClickListener {
-            listener.onShareClick()
+        tvSubmitRate.setOnClickListener {
+            listener.rateUserClick(rbRating.rating,typeUser)
             dismiss()
         }
     }
+}
 
-    class ratingBarDialog(context: Context, private val header: String, private val categoryType: String, private val listener: SharePostListener)
-        : android.app.Dialog(context) {
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            requestWindowFeature(Window.FEATURE_NO_TITLE)
-            setContentView(R.layout.rating_dialog)
-            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
-            setCancelable(false)
+class PurchaseCoinDialog(context: Context, private val header: StringBuffer, private val listener:SelectionListener)
+    :android.app.Dialog(context){
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        setContentView(R.layout.purchase_coin_dialog)
+        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        setCanceledOnTouchOutside(true)
+        setCancelable(true)
 
-            ivFinishDialog.setOnClickListener {
-                dismiss()
-            }
-            ivWhatAppShareDialog.setOnClickListener {
-                listener.onWhatAppClick()
-                dismiss()
-            }
-            tvFacebookShareDialog.setOnClickListener {
-                listener.onFacebookClick()
-                dismiss()
-            }
-            tvShareDialog.setOnClickListener {
-                listener.onShareClick()
-                dismiss()
-            }
+        tvMessage.text=header
+        tvYesPur.setOnClickListener {
+            listener.leaveClick()
+            dismiss()
+        }
+        tvNoPur.setOnClickListener {
+            dismiss()
         }
     }
 }

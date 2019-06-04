@@ -116,7 +116,7 @@ class ChatAdapter(private val context:Context ) : RecyclerView.Adapter<RecyclerV
         }
     }
 
-    inner class LeftTextHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class LeftTextHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bindLeft(chatData: ChatData) {
             tvLeftMssg.text = StringEscapeUtils.unescapeJava(chatData.message)
             tvLeftTime.text = Utils.setDate(chatData.timeStamp)
@@ -124,7 +124,7 @@ class ChatAdapter(private val context:Context ) : RecyclerView.Adapter<RecyclerV
 
     }
 
-  inner  class RightTextHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+  inner  class RightTextHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(chatData: ChatData) {
             tvRightMssg.text = StringEscapeUtils.unescapeJava(chatData.message)
             tvRightTime.text = Utils.setDate(chatData.timeStamp)
@@ -132,7 +132,7 @@ class ChatAdapter(private val context:Context ) : RecyclerView.Adapter<RecyclerV
 
     }
 
-   inner class RightOfferHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+   inner class RightOfferHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(chatData: ChatData) {
             if (chatData.type == 2) {
                 tvRightOfferMssg.text = "MADE AN OFFER"
@@ -148,7 +148,7 @@ class ChatAdapter(private val context:Context ) : RecyclerView.Adapter<RecyclerV
         }
     }
 
-    inner class LeftOfferHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class LeftOfferHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bindLeft(chatData: ChatData) {
             if (chatData.type == 2) {
                 tvLeftOfferMssg.text = "MADE AN OFFER"

@@ -1,21 +1,41 @@
 package com.verkoop.activity
 
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.verkoop.R
 import com.verkoop.adapter.GetCoinAdapter
+import com.verkoop.fragment.*
 import kotlinx.android.synthetic.main.coins_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 
 
-class CoinsActivity:AppCompatActivity(){
+class CoinsActivity:AppCompatActivity(), GetCoinsFragment.CoinUpdateCallBack {
+    private var fragmentList = ArrayList<Fragment>()
+    private var getCoinFragment: GetCoinsFragment? = null
+    private var getHistoryFragment: HistoryFragment? = null
+    override fun updateHistoryList(totalCoin: Int, type: Int) {
+        if(type==2){
+            tvTotalCoin.text=((tvTotalCoin.text.toString()).toInt()+totalCoin).toString()
+            getHistoryFragment!!.refreshApi()
+        }else if(type!=0) {
+            getHistoryFragment!!.refreshApi()
+        }else{
+            tvTotalCoin.text=totalCoin.toString()
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.coins_activity)
+        getCoinFragment = GetCoinsFragment.newInstance()
+        getHistoryFragment = HistoryFragment.newInstance()
+        fragmentList.add(getCoinFragment!!)
+        fragmentList.add(getHistoryFragment!!)
         setData()
         setAdapter()
     }
@@ -27,7 +47,7 @@ class CoinsActivity:AppCompatActivity(){
         llCoin.setOnClickListener {vpGetCoin.currentItem=0  }
     }
     private fun setAdapter() {
-        val mAdapter = GetCoinAdapter(supportFragmentManager)
+        val mAdapter = GetCoinAdapter(supportFragmentManager,fragmentList)
         vpGetCoin.adapter = mAdapter
         vpGetCoin.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {

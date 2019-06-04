@@ -303,6 +303,10 @@
     <string name="change">Change</string>
     <string name="add_money_to_wallet">Add money to Wallet</string>
     <string name="added_to_verkoop">Added to Wallet</string>
+    <string name="purchased_coin">Purchased Coin</string>
+    <string name="purchased_banner">Purchased Banner</string>
+    <string name="send_to">Send to</string>
+    <string name="received_from">Received from</string>
     <string name="my_wallet">My Wallet</string>
     <string name="add_money">Add Money</string>
     <string name="proceed">Proceed</string>
@@ -312,11 +316,12 @@
     <string name="close">Close</string>
     <string name="featured_product">Featured your Product</string>
     <string name="picture_safe_area">Picture Safe Area</string>
-    <string name="it_is_a_long_established_fact_that_a_reader_will_be_distracted_by_the_readable_content">It is a long established fact that a reader will be distracted by the readable content.</string>
-    <string name="upload_your_image"><u>Upload your Image</u></string>
+    <string name="it_is_a_long_established_fact_that_a_reader_will_be_distracted_by_the_readable_content">Upload the image of your product to advertise it on Verkoop.</string>
+    <string name="upload_your_image">Upload Banner</string>
     <string name="banner">banner</string>
-    <string name="upload_banner">Upload Banner</string>
+    <string name="upload_banner">Banner</string>
     <string name="rate_this_buyer">Rate this Buyer</string>
+    <string name="rate_this_seller">Rate this Seller</string>
     <string name="success">Success</string>
     <string name="add">Advertisement Packages</string>
     <string name="plans">Plans</string>
@@ -325,6 +330,20 @@
     <string name="expired">Expired</string>
     <string name="renew"><u>Renew</u></string>
     <string name="delete_"><u>Delete</u></string>
+    <string name="purchase_coin">Purchase Coin</string>
+    <string name="to_pay">Proceed to pay</string>
+    <string name="add_verkoop">Add to Verkoop</string>
+    <string name="upload_banne">Please upload banner.</string>
+    <string name="scan_to_follow_me_on_verkoop">Scan to follow me on Verkoop</string>
+    <string name="scan_qr_code">Scan QR Code</string>
+    <string name="purchase_to_pay_20">Proceed to pay $20</string>
+    <string name="transfer_coins">Transfer Verkoop Money</string>
+    <string name="enter_coin">Enter amount</string>
+    <string name="send_money">Send money to</string>
+    <string name="buyer">buyer</string>
+    <string name="seller">seller</string>
+    <string name="review_submitted">review submitted successfully.</string>
+    <string name="coin">coins</string>
 
 
 </resources>

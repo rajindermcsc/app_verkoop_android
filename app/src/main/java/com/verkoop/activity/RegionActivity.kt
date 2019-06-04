@@ -140,10 +140,10 @@ class RegionActivity : AppCompatActivity(), RegionAdapter.ClickEventCallBack {
           setSupportActionBar(toolbarRegion)*/
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
-                val cityName = data.getStringExtra(AppConstants.CITY_NAME)
+                val cityName = data!!.getStringExtra(AppConstants.CITY_NAME)
                 val cityId = data.getIntExtra(AppConstants.CITY_ID, 0)
                 val returnIntent = Intent()
                 returnIntent.putExtra(AppConstants.CITY_NAME, cityName)

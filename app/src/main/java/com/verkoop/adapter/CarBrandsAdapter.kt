@@ -36,7 +36,7 @@ class CarBrandsAdapter(private val context: Context, private val rvFavoutire: Re
         holder.bind(modal)
     }
 
-    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(data: Brand) {
             tvLevelBrand.text = data.name
             if (!TextUtils.isEmpty(data.image)) {

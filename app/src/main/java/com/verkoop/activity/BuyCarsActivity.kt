@@ -82,7 +82,7 @@ class BuyCarsActivity:AppCompatActivity() {
     }
 
     private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListener() {
-        override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
             val visibleItemCount = linearLayoutManager.findLastCompletelyVisibleItemPosition()
             val totalItemCount = linearLayoutManager.itemCount

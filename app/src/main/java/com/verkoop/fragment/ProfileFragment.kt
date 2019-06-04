@@ -139,8 +139,8 @@ class ProfileFragment : BaseFragment(), MyProfileItemAdapter.LikeDisLikeListener
             homeActivity.startActivityForResult(intent, 2)
         }
         ivScanner.setOnClickListener {
-            //  val intent = Intent(homeActivity, QRScannerActivity::class.java)
-            //    homeActivity.startActivity(intent)
+              val intent = Intent(homeActivity, QRScannerActivity::class.java)
+                homeActivity.startActivity(intent)
         }
         llWallet.setOnClickListener {
               val intent = Intent(homeActivity, MyWalletActivity::class.java)

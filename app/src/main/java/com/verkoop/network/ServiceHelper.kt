@@ -11,6 +11,7 @@ import it.sephiroth.android.library.imagezoom.ImageViewTouchBase.LOG_TAG
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
@@ -1085,8 +1086,8 @@ class ServiceHelper {
     fun addMoneyService(request: AddMoneyRequest, onResponse: OnResponse) {
         val myService = ApiClient.getClient().create(MyService::class.java)
         val responseCall = myService.addMoneyApi(request)
-        responseCall.enqueue(object : Callback<DisLikeResponse> {
-            override fun onResponse(call: Call<DisLikeResponse>, response: Response<DisLikeResponse>) {
+        responseCall.enqueue(object : Callback<UpdateWalletResponse> {
+            override fun onResponse(call: Call<UpdateWalletResponse>, response: Response<UpdateWalletResponse>) {
                 if (response.code() == 200) {
                     onResponse.onSuccess(response)
                 } else {
@@ -1106,7 +1107,7 @@ class ServiceHelper {
                 }
             }
 
-            override fun onFailure(call: Call<DisLikeResponse>, t: Throwable) {
+            override fun onFailure(call: Call<UpdateWalletResponse>, t: Throwable) {
                 onResponse.onFailure(t.message)
             }
         })
@@ -1135,9 +1136,9 @@ class ServiceHelper {
         })
     }
 
-    fun getCoinPlanService( onResponse: OnResponse) {
+    fun getCoinPlanService( userUd:Int,onResponse: OnResponse) {
         val myService = ApiClient.getClient().create(MyService::class.java)
-        val responseCall = myService.getCoinPlanApi()
+        val responseCall = myService.getCoinPlanApi(userUd)
         responseCall.enqueue(object : Callback<CoinPlanResponse> {
             override fun onResponse(call: Call<CoinPlanResponse>, response: Response<CoinPlanResponse>) {
                 val res = response.body()
@@ -1176,6 +1177,211 @@ class ServiceHelper {
             }
 
             override fun onFailure(call: Call<AdvertPlanActivity>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
+
+    fun purchaseCoinService(request: PurchaseCoinRequest, onResponse: OnResponse) {
+        val myService = ApiClient.getClient().create(MyService::class.java)
+        val responseCall = myService.coinPurchaseApi(request)
+        responseCall.enqueue(object : Callback<UpdateWalletResponse> {
+            override fun onResponse(call: Call<UpdateWalletResponse>, response: Response<UpdateWalletResponse>) {
+                if (response.code() == 200) {
+                    onResponse.onSuccess(response)
+                } else {
+                    if (response.errorBody() != null) {
+                        try {
+                            val messageError = JSONObject(response.errorBody()!!.string())
+
+                            val messageE = JSONObject(messageError.getString("errors"))
+                            val lessAmount=JSONArray(messageE.getString("less_amount"))
+                            val value=lessAmount[0].toString()
+
+                           // onResponse.onFailure(messageError.getString("message"))
+                            onResponse.onFailure(value)
+                        } catch (e: JSONException) {
+                            onResponse.onFailure("Something went wrong")
+                            e.printStackTrace()
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                        }
+                    } else {
+                        onResponse.onFailure("Something went wrong")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<UpdateWalletResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
+
+    fun getCoinHistoryService(userId: String, onResponse: OnResponse) {
+        val myService = ApiClient.getClient().create(MyService::class.java)
+        val responseCall = myService.getCoinHistoryApi(userId.toInt())
+        responseCall.enqueue(object : Callback<WalletHistoryResponse> {
+            override fun onResponse(call: Call<WalletHistoryResponse>, response: Response<WalletHistoryResponse>) {
+                val res = response.body()
+                Log.e("<<<Response>>>", Gson().toJson(res))
+                if (res != null) {
+                    when {
+                        response.code() == 200 -> onResponse.onSuccess(response)
+                        else -> onResponse.onFailure(response.message())
+                    }
+                } else {
+                    onResponse.onFailure("Something went wrong!")
+                }
+            }
+
+            override fun onFailure(call: Call<WalletHistoryResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
+
+    fun updateBannerService(request: UploadBannerRequest, onResponse: OnResponse) {
+        val myService = ApiClient.getClient().create(MyService::class.java)
+        var body: MultipartBody.Part? = null
+        if (!TextUtils.isEmpty(request.banner)) {
+            val file = File(request.banner)
+            val reqFile = RequestBody.create(MediaType.parse("image/jpg"), file)
+            body = MultipartBody.Part.createFormData("banner", file.name, reqFile)
+        }
+        val userId = RequestBody.create(MediaType.parse("text/plain"), request.user_id.toString())
+        val advertPlan = RequestBody.create(MediaType.parse("text/plain"), request.advertisement_plan_id.toString())
+
+        val call = myService.uploadBannerApi(body!!, userId, advertPlan)
+        call.enqueue(object : Callback<ProfileUpdateResponse> {
+            override fun onResponse(call: Call<ProfileUpdateResponse>, response: Response<ProfileUpdateResponse>) {
+                Log.e("<<<<Response>>>>", Gson().toJson(response.body()))
+                if (response.code() == 200) {
+                    onResponse.onSuccess(response)
+                } else {
+                    try {
+                        val messageError = JSONObject(response.errorBody()!!.string())
+                        val messageE = JSONObject(messageError.getString("errors"))
+                        val lessAmount=JSONArray(messageE.getString("less_coin"))
+                        val value=lessAmount[0].toString()
+                        onResponse.onFailure(value)
+                    } catch (e: Exception) {
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ProfileUpdateResponse>, t: Throwable) {
+                Log.d(LOG_TAG, "<<<Error>>>" + t.localizedMessage)
+                onResponse.onFailure("Something went wrong!")
+
+            }
+        })
+    }
+
+    fun getAlBannerService(userId: String, onResponse: OnResponse) {
+        val myService = ApiClient.getClient().create(MyService::class.java)
+        val responseCall = myService.getAllBannerApi(userId)
+        responseCall.enqueue(object : Callback<ViewAllBannerResponse> {
+            override fun onResponse(call: Call<ViewAllBannerResponse>, response: Response<ViewAllBannerResponse>) {
+                val res = response.body()
+                Log.e("<<<Response>>>", Gson().toJson(res))
+                if (res != null) {
+                    when {
+                        response.code() == 200 -> onResponse.onSuccess(response)
+                        else -> onResponse.onFailure(response.message())
+                    }
+                } else {
+                    onResponse.onFailure("Something went wrong!")
+                }
+            }
+
+            override fun onFailure(call: Call<ViewAllBannerResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
+
+    fun sendQrService(request: SendQrCodeRequest, onResponse: OnResponse) {
+        val myService = ApiClient.getClient().create(MyService::class.java)
+        val responseCall = myService.qrCodeApi(request)
+        responseCall.enqueue(object : Callback<DisLikeResponse> {
+            override fun onResponse(call: Call<DisLikeResponse>, response: Response<DisLikeResponse>) {
+                if (response.code() == 200) {
+                    onResponse.onSuccess(response)
+                } else {
+                    if (response.errorBody() != null) {
+                        try {
+                            val messageError = JSONObject(response.errorBody()!!.string())
+                            val messageE = JSONObject(messageError.getString("errors"))
+                            val lessAmount=JSONArray(messageE.getString("less_coin"))
+                            val value=lessAmount[0].toString()
+                            onResponse.onFailure(value)
+                        } catch (e: JSONException) {
+                            onResponse.onFailure("Something went wrong")
+                            e.printStackTrace()
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                        }
+                    } else {
+                        onResponse.onFailure("Something went wrong")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<DisLikeResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
+
+    fun getAllUserInfoService(token: String, onResponse: OnResponse) {
+        val myService = ApiClient.getClient().create(MyService::class.java)
+        val responseCall = myService.getUserInfoApi(token)
+        responseCall.enqueue(object : Callback<UserInfoResponse> {
+            override fun onResponse(call: Call<UserInfoResponse>, response: Response<UserInfoResponse>) {
+                val res = response.body()
+                Log.e("<<<Response>>>", Gson().toJson(res))
+                if (res != null) {
+                    when {
+                        response.code() == 200 -> onResponse.onSuccess(response)
+                        else -> onResponse.onFailure(response.message())
+                    }
+                } else {
+                    onResponse.onFailure("Something went wrong!")
+                }
+            }
+
+            override fun onFailure(call: Call<UserInfoResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
+
+    fun rateUserService(request: RateUserRequest, onResponse: OnResponse) {
+        val myService = ApiClient.getClient().create(MyService::class.java)
+        val responseCall = myService.rateUserApi(request)
+        responseCall.enqueue(object : Callback<UpdateWalletResponse> {
+            override fun onResponse(call: Call<UpdateWalletResponse>, response: Response<UpdateWalletResponse>) {
+                if (response.code() == 200) {
+                    onResponse.onSuccess(response)
+                } else {
+                    if (response.errorBody() != null) {
+                        try {
+                            val messageError = JSONObject(response.errorBody()!!.string())
+                            onResponse.onFailure(messageError.getString("message"))
+                        } catch (e: JSONException) {
+                            onResponse.onFailure("Something went wrong")
+                            e.printStackTrace()
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                        }
+                    } else {
+                        onResponse.onFailure("Something went wrong")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<UpdateWalletResponse>, t: Throwable) {
                 onResponse.onFailure(t.message)
             }
         })
