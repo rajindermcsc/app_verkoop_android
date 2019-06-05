@@ -16,9 +16,8 @@ import com.verkoop.LikeDisLikeListener
 import com.verkoop.R
 import com.verkoop.activity.*
 import com.verkoop.fragment.HomeFragment
-import com.verkoop.models.Advertisment
-import com.verkoop.models.Category
-import com.verkoop.models.ItemHome
+import com.verkoop.models.*
+import com.verkoop.network.ServiceHelper
 import com.verkoop.utils.AppConstants
 import com.verkoop.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
@@ -26,14 +25,16 @@ import kotlinx.android.synthetic.main.adds_category_row.*
 import kotlinx.android.synthetic.main.cars_properties_row.*
 import kotlinx.android.synthetic.main.item_row.*
 import kotlinx.android.synthetic.main.your_daily_picks.*
+import retrofit2.Response
 
 class HomeAdapter(private val context: Context, private val rvItemList: RecyclerView, private val homeFragment: HomeFragment) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(context)
     private lateinit var likeDisLikeListener: LikeDisLikeListener
     val CATEGORY_LIST_ROW = 0
     val PROPERTIES_ROW = 2
-    val ITEMS_ROW = 3
+    val ITEMS_ROW = 4
     val YOUR_DAILY_PICKS = 1
+    val RECOMMENDED_YOU = 3
     private var width = 0
     private var widthOrg = 0
     private var widthDaily = 0
@@ -41,12 +42,14 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
     private var dailyPicksList = ArrayList<ItemHome>()
     private var categoryList = ArrayList<Category>()
     private var advertismentsList = ArrayList<Advertisment>()
+   // val viewPool =  RecyclerView.RecycledViewPool();
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {
             0 -> CATEGORY_LIST_ROW
             1 -> YOUR_DAILY_PICKS
             2 -> PROPERTIES_ROW
+            3 -> RECOMMENDED_YOU
             else -> ITEMS_ROW
         }
     }
@@ -66,12 +69,15 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
                 val params = view.layoutParams
                 params.width = rvItemList.width
                 widthDaily = params.width
-                likeDisLikeListener = homeFragment
                 YourDailyPickHolder(view)
             }
             PROPERTIES_ROW -> {
                 view = mLayoutInflater.inflate(R.layout.cars_properties_row, parent, false)
                 CarAndPropertiesHolder(view)
+            }
+            RECOMMENDED_YOU -> {
+                view = mLayoutInflater.inflate(R.layout.recommended_for_you, parent, false)
+               RecommandedYouHolder(view)
             }
             else -> {
                 view = mLayoutInflater.inflate(R.layout.item_row, parent, false)
@@ -86,7 +92,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
     }
 
     override fun getItemCount(): Int {
-        return itemsList.size + 3
+        return itemsList.size + 4
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -96,8 +102,10 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
             (holder as YourDailyPickHolder).bind()
         } else if (position == PROPERTIES_ROW) {
             (holder as CarAndPropertiesHolder).bind()
+        }else if (position == RECOMMENDED_YOU) {
+            (holder as RecommandedYouHolder).bind()
         } else {
-            val modal = itemsList[position - 3]
+            val modal = itemsList[position - 4]
             (holder as ItemsHolder).bind(modal)
         }
     }
@@ -121,8 +129,10 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
             val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             rvCategoryHome.layoutManager = linearLayoutManager
             val categoryAdapter = CategoryListAdapter(context as HomeActivity, categoryList, rvCategoryHome)
+            rvCategoryHome.setHasFixedSize(true)
             rvCategoryHome.adapter = categoryAdapter
             rvCategoryHome!!.adapter!!.notifyDataSetChanged()
+         //   rvCategoryHome.setRecycledViewPool(viewPool)
             tvViewAll.setOnClickListener {
                 val intent = Intent(context, FullCategoriesActivity::class.java)
                 context.startActivityForResult(intent, 2)
@@ -142,6 +152,12 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
                 val intent = Intent(context, BuyPropertiesActivity::class.java)
                 (context as HomeActivity).startActivityForResult(intent,2)
             }
+        }
+
+    }
+    inner class RecommandedYouHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
+        fun bind() {
+
         }
 
     }
@@ -181,6 +197,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
             if (!TextUtils.isEmpty(data.image_url)) {
                 Picasso.with(context)
                         .load(AppConstants.IMAGE_URL + data.image_url)
+
                         .resize(720, 720)
                         .centerCrop()
                         .error(R.mipmap.post_placeholder)
@@ -191,8 +208,16 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
                 ivProductImageHome.setImageResource(R.mipmap.post_placeholder)
             }
             tvLikesHome.setOnClickListener {
-                likeDisLikeListener.getLikeDisLikeClick(data.is_like, adapterPosition - 3, data.like_id, data.id)
 
+                if (!data.isClicked) {
+                    if (data.like_id > 0) {
+                        data.isClicked = !data.isClicked
+                        deleteLikeApi( adapterPosition-4,data.like_id)
+                    } else {
+                        data.isClicked = !data.isClicked
+                        lickedApi( data.id,adapterPosition-4)
+                    }
+                }
             }
             tvProductHome.text = data.name
             tvItemPriceHome.text = "$" + data.price
@@ -214,12 +239,14 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
 
     inner class YourDailyPickHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind() {
-            llParent.layoutParams.height = widthDaily
+          //  llParent.layoutParams.height = widthDaily
             val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            linearLayoutManager.isAutoMeasureEnabled=true
             rvYourDailyPicks.layoutManager = linearLayoutManager
-            val dailyPicksAdapter = YourDailyPicksAdapter(context, rvYourDailyPicks, itemsList)
+            val dailyPicksAdapter = YourDailyPicksAdapter(context, widthOrg, itemsList)
+            rvYourDailyPicks.setHasFixedSize(true)
             rvYourDailyPicks.adapter = dailyPicksAdapter
-
+          //  rvYourDailyPicks.setRecycledViewPool(viewPool)
             tvViewAllDailyPicks.setOnClickListener {
                 val intent = Intent(context, FavouritesActivity::class.java)
                     intent.putExtra(AppConstants.COMING_FROM,1)
@@ -228,7 +255,45 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
         }
 
     }
+    private fun lickedApi(itemId: Int, position: Int) {
+        val lickedRequest = LickedRequest(Utils.getPreferencesString(context, AppConstants.USER_ID), itemId)
+        ServiceHelper().likeService(lickedRequest,
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        itemsList[position].isClicked = !itemsList[position].isClicked
+                        val responseLike = response.body() as LikedResponse
+                        itemsList[position].is_like=!itemsList[position].is_like
+                        itemsList[position].items_like_count= itemsList[position].items_like_count+1
+                        itemsList[position].like_id= responseLike.like_id
+                        notifyItemChanged(position+4 )
+                    }
 
+                    override fun onFailure(msg: String?) {
+                        itemsList[position].isClicked = !itemsList[position].isClicked
+                        notifyItemChanged(position+4 )
+                        //      Utils.showSimpleMessage(homeActivity, msg!!).show()
+                    }
+                })
+    }
+
+    private fun deleteLikeApi(position: Int, lickedId: Int) {
+        ServiceHelper().disLikeService(lickedId,
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        itemsList[position].isClicked = !itemsList[position].isClicked
+                        val likeResponse = response.body() as DisLikeResponse
+                        itemsList[position].is_like=!itemsList[position].is_like
+                        itemsList[position].items_like_count= itemsList[position].items_like_count-1
+                        itemsList[position].like_id= 0
+                        notifyItemChanged(position+4 )
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        itemsList[position].isClicked = !itemsList[position].isClicked
+                        notifyItemChanged(position+4 )
+                    }
+                })
+    }
 
     fun setData(items: ArrayList<ItemHome>) {
         itemsList = items

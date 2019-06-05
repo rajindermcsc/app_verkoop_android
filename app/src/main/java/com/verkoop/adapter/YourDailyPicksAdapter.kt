@@ -23,13 +23,13 @@ import kotlinx.android.synthetic.main.item_row.*
 import retrofit2.Response
 
 
-class YourDailyPicksAdapter(private val context:Context,private val recyclerView:RecyclerView,private val itemsList: ArrayList<ItemHome>):RecyclerView.Adapter<YourDailyPicksAdapter.ViewHolder>(){
+class YourDailyPicksAdapter(private val context:Context,private val recyclerView:Int,private val itemsList: ArrayList<ItemHome>):RecyclerView.Adapter<YourDailyPicksAdapter.ViewHolder>(){
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var width=0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
         val view = inflater.inflate(R.layout.item_row, parent, false)
         val params = view.layoutParams
-        params.width = (recyclerView.width-60) / 2
+        params.width = (recyclerView-60) / 2
         width= params.width
       //  view.layoutParams = params
         return ViewHolder(view)
@@ -137,12 +137,12 @@ class YourDailyPicksAdapter(private val context:Context,private val recyclerView
                         itemsList[position].is_like=!itemsList[position].is_like
                         itemsList[position].items_like_count= itemsList[position].items_like_count+1
                         itemsList[position].like_id= responseLike.like_id
-                       notifyDataSetChanged()
+                        notifyItemChanged(position )
                     }
 
                     override fun onFailure(msg: String?) {
                         itemsList[position].isClicked = !itemsList[position].isClicked
-                        notifyDataSetChanged()
+                        notifyItemChanged(position )
                         //      Utils.showSimpleMessage(homeActivity, msg!!).show()
                     }
                 })
@@ -157,12 +157,12 @@ class YourDailyPicksAdapter(private val context:Context,private val recyclerView
                         itemsList[position].is_like=!itemsList[position].is_like
                         itemsList[position].items_like_count= itemsList[position].items_like_count-1
                         itemsList[position].like_id= 0
-                        notifyDataSetChanged()
+                        notifyItemChanged(position )
                     }
 
                     override fun onFailure(msg: String?) {
                         itemsList[position].isClicked = !itemsList[position].isClicked
-                        notifyDataSetChanged()
+                        notifyItemChanged(position )
                     }
                 })
     }

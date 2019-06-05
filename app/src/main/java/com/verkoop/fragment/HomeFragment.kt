@@ -54,7 +54,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
         }
     }
 
-    override fun getItemDetailsClick(itemId: Int,userId:Int) {
+    override fun getItemDetailsClick(itemId: Int, userId: Int) {
     }
 
 
@@ -80,7 +80,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
         setItemList()
         if (Utils.isOnline(homeActivity)) {
             itemsList.clear()
-            currentPage=1
+            currentPage = 1
             homeActivity.window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
             getItemService()
@@ -91,21 +91,23 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
     }
 
     private fun setItemList() {
-        linearLayoutManager =  GridLayoutManager(homeActivity,2 )
+        linearLayoutManager = GridLayoutManager(homeActivity, 2)
         linearLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return when (homeAdapter.getItemViewType(position)) {
                     homeAdapter.CATEGORY_LIST_ROW -> 2
                     homeAdapter.YOUR_DAILY_PICKS -> 2
                     homeAdapter.PROPERTIES_ROW -> 2
+                    homeAdapter.RECOMMENDED_YOU -> 2
                     else -> 1
                 }
             }
         }
         rvHomeList.layoutManager = linearLayoutManager
         rvHomeList.setHasFixedSize(false)
-        homeAdapter = HomeAdapter(homeActivity, rvHomeList,this)
+        homeAdapter = HomeAdapter(homeActivity, rvHomeList, this)
         rvHomeList.adapter = homeAdapter
+        //  rvHomeList.setItemViewCacheSize(5);
         rvHomeList.addOnScrollListener(recyclerViewOnScrollListener)
     }
 
@@ -151,12 +153,11 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
     }
 
 
-
     private fun setApiData(data: DataHome?) {
-        if(data!!.categories.size>0&&data.advertisments.size>0) {
+        if (data!!.categories.size > 0 && data.advertisments.size > 0) {
             homeAdapter.setCategoryAndAddsData(data.advertisments, data.categories)
         }
-        if(data.daily_pic.size>0) {
+        if (data.daily_pic.size > 0) {
             homeAdapter.updateDailyPicksData(data.daily_pic)
         }
 
@@ -172,13 +173,13 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
             pbProgressHome.visibility = View.VISIBLE
         }
         isLoading = true
-        ServiceHelper().getItemsService(HomeRequest(0),currentPage, Utils.getPreferencesString(homeActivity, AppConstants.USER_ID), object : ServiceHelper.OnResponse {
+        ServiceHelper().getItemsService(HomeRequest(0), currentPage, Utils.getPreferencesString(homeActivity, AppConstants.USER_ID), object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
                 isLoading = false
                 homeActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                 if (pbProgressHome != null) {
                     pbProgressHome.visibility = View.GONE
-                    rvHomeList.visibility=View.VISIBLE
+                    rvHomeList.visibility = View.VISIBLE
                 }
                 val homeDataResponse = response.body() as HomeDataResponse?
                 if (homeDataResponse!!.data != null) {
@@ -187,7 +188,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
             }
 
             override fun onFailure(msg: String?) {
-                if(currentPage>=2){
+                if (currentPage >= 2) {
                     currentPage -= 1
                 }
                 isLoading = false
@@ -207,10 +208,10 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
                     override fun onSuccess(response: Response<*>) {
                         isClicked = false
                         val responseLike = response.body() as LikedResponse
-                        itemsList[position].is_like=!itemsList[position].is_like
-                        itemsList[position].items_like_count= itemsList[position].items_like_count+1
-                        itemsList[position].like_id= responseLike.like_id
-                        homeAdapter.notifyItemChanged(position+3)
+                        itemsList[position].is_like = !itemsList[position].is_like
+                        itemsList[position].items_like_count = itemsList[position].items_like_count + 1
+                        itemsList[position].like_id = responseLike.like_id
+                        homeAdapter.notifyItemChanged(position + 3)
                     }
 
                     override fun onFailure(msg: String?) {
@@ -226,11 +227,11 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
                     override fun onSuccess(response: Response<*>) {
                         isClicked = false
                         val likeResponse = response.body() as DisLikeResponse
-                        itemsList[position].is_like=!itemsList[position].is_like
-                        itemsList[position].items_like_count= itemsList[position].items_like_count-1
-                        itemsList[position].like_id= 0
-                        homeAdapter.notifyItemChanged(position+3)
-                }
+                        itemsList[position].is_like = !itemsList[position].is_like
+                        itemsList[position].items_like_count = itemsList[position].items_like_count - 1
+                        itemsList[position].like_id = 0
+                        homeAdapter.notifyItemChanged(position + 3)
+                    }
 
                     override fun onFailure(msg: String?) {
                         isClicked = false
