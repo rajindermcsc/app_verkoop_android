@@ -13,18 +13,18 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.coin_row.*
 
 
-class CoinListAdapter(private val context: Context, private val rvCoinList: RecyclerView,private val  getCoinsFragment: GetCoinsFragment):RecyclerView.Adapter<CoinListAdapter.ViewHolder>(){
+class CoinListAdapter(private val context: Context, private val rvCoinList: Int,private val  getCoinsFragment: GetCoinsFragment):RecyclerView.Adapter<CoinListAdapter.ViewHolder>(){
     private val minflater:LayoutInflater=LayoutInflater.from(context)
     private var coinPlanList=ArrayList<CoinPlan>()
     private lateinit var purchaseCoinCallBack:PurchaseCoinCallBack
+    private var width=0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
        val view=minflater.inflate(R.layout.coin_row,parent,false)
         purchaseCoinCallBack=getCoinsFragment
-        /*val params = rvCoinList.layoutParams
-        params.width = rvCoinList.width / 3
-        params.height = params.width
-        view.layoutParams = params*/
+        val params = view.layoutParams
+        width = rvCoinList / 3
+        view.layoutParams = params
         return ViewHolder(view)
     }
 
@@ -39,6 +39,7 @@ class CoinListAdapter(private val context: Context, private val rvCoinList: Recy
 
     inner class ViewHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView!!),LayoutContainer{
         fun bind(modal: CoinPlan) {
+            llCoinParent.layoutParams.height =width
             tvCoins.text=modal.coin.toString()
             tvPriceCoins.text= StringBuilder().append(context.getString(R.string.dollar)).append(modal.amount)
             itemView.setOnClickListener {

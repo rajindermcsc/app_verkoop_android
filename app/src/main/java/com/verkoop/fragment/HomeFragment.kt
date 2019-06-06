@@ -2,6 +2,7 @@ package com.verkoop.fragment
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Point
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
@@ -77,7 +78,11 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setItemList()
+        val display = homeActivity.windowManager.defaultDisplay
+        val size =  Point()
+        display.getSize(size)
+        val width = size.x
+        setItemList(width)
         if (Utils.isOnline(homeActivity)) {
             itemsList.clear()
             currentPage = 1
@@ -90,7 +95,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
         setData()
     }
 
-    private fun setItemList() {
+    private fun setItemList(width: Int) {
         linearLayoutManager = GridLayoutManager(homeActivity, 2)
         linearLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
@@ -105,7 +110,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
         }
         rvHomeList.layoutManager = linearLayoutManager
         rvHomeList.setHasFixedSize(false)
-        homeAdapter = HomeAdapter(homeActivity, rvHomeList, this)
+        homeAdapter = HomeAdapter(homeActivity, width, this)
         rvHomeList.adapter = homeAdapter
         //  rvHomeList.setItemViewCacheSize(5);
         rvHomeList.addOnScrollListener(recyclerViewOnScrollListener)

@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +28,7 @@ import kotlinx.android.synthetic.main.item_row.*
 import kotlinx.android.synthetic.main.your_daily_picks.*
 import retrofit2.Response
 
-class HomeAdapter(private val context: Context, private val rvItemList: RecyclerView, private val homeFragment: HomeFragment) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class HomeAdapter(private val context: Context, private val rvItemList: Int, private val homeFragment: HomeFragment) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(context)
     private lateinit var likeDisLikeListener: LikeDisLikeListener
     val CATEGORY_LIST_ROW = 0
@@ -60,14 +61,14 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
             CATEGORY_LIST_ROW -> {
                 view = mLayoutInflater.inflate(R.layout.adds_category_row, parent, false)
                 val params = view.layoutParams
-                params.width = rvItemList.width
+                params.width = rvItemList
                 widthOrg = params.width
                 AddsAndItemsHolder(view)
             }
             YOUR_DAILY_PICKS -> {
                 view = mLayoutInflater.inflate(R.layout.your_daily_picks, parent, false)
                 val params = view.layoutParams
-                params.width = rvItemList.width
+                params.width = rvItemList
                 widthDaily = params.width
                 YourDailyPickHolder(view)
             }
@@ -77,12 +78,12 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
             }
             RECOMMENDED_YOU -> {
                 view = mLayoutInflater.inflate(R.layout.recommended_for_you, parent, false)
-               RecommandedYouHolder(view)
+               RecommendedYouHolder(view)
             }
             else -> {
                 view = mLayoutInflater.inflate(R.layout.item_row, parent, false)
                 val params = view.layoutParams
-                params.width = rvItemList.width / 2
+                params.width = rvItemList / 2
                 width = params.width
                 likeDisLikeListener = homeFragment
                 //view.layoutParams = params
@@ -103,7 +104,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
         } else if (position == PROPERTIES_ROW) {
             (holder as CarAndPropertiesHolder).bind()
         }else if (position == RECOMMENDED_YOU) {
-            (holder as RecommandedYouHolder).bind()
+            (holder as RecommendedYouHolder).bind()
         } else {
             val modal = itemsList[position - 4]
             (holder as ItemsHolder).bind(modal)
@@ -128,7 +129,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
             rvCategoryHome.layoutParams.height = widthOrg / 3
             val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             rvCategoryHome.layoutManager = linearLayoutManager
-            val categoryAdapter = CategoryListAdapter(context as HomeActivity, categoryList, rvCategoryHome)
+            val categoryAdapter = CategoryListAdapter(context as HomeActivity, categoryList, rvItemList)
             rvCategoryHome.setHasFixedSize(true)
             rvCategoryHome.adapter = categoryAdapter
             rvCategoryHome!!.adapter!!.notifyDataSetChanged()
@@ -155,7 +156,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
         }
 
     }
-    inner class RecommandedYouHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
+    inner class RecommendedYouHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind() {
 
         }
@@ -243,7 +244,8 @@ class HomeAdapter(private val context: Context, private val rvItemList: Recycler
             val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             linearLayoutManager.isAutoMeasureEnabled=true
             rvYourDailyPicks.layoutManager = linearLayoutManager
-            val dailyPicksAdapter = YourDailyPicksAdapter(context, widthOrg, itemsList)
+            Log.e("<<YourDailyPickHolder>>",rvItemList.toString())
+            val dailyPicksAdapter = YourDailyPicksAdapter(context, rvItemList, itemsList)
             rvYourDailyPicks.setHasFixedSize(true)
             rvYourDailyPicks.adapter = dailyPicksAdapter
           //  rvYourDailyPicks.setRecycledViewPool(viewPool)

@@ -16,12 +16,12 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.category_home_row.*
 
 
-class CategoryListAdapter(private val context: HomeActivity, private var categoryList: ArrayList<Category>, private val rvCategoryHome: RecyclerView): RecyclerView.Adapter<CategoryListAdapter.ViewHolder>() {
+class CategoryListAdapter(private val context: HomeActivity, private var categoryList: ArrayList<Category>, private val rvCategoryHome: Int): RecyclerView.Adapter<CategoryListAdapter.ViewHolder>() {
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = mInflater.inflate(R.layout.category_home_row, parent, false)
         val params = view.layoutParams
-        params.width = (rvCategoryHome.width-70) / 3
+        params.width = (rvCategoryHome-70) / 3
         params.height = params.width
         view.layoutParams = params
         return ViewHolder(view)

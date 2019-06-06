@@ -344,6 +344,7 @@
     <string name="seller">seller</string>
     <string name="review_submitted">review submitted successfully.</string>
     <string name="coin">coins</string>
+    <string name="do_you_want_to_proceed_with_this_plan">Do you want to proceed with this plan?</string>
 
 
 </resources>

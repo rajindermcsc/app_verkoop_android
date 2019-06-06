@@ -1,6 +1,7 @@
 package com.verkoop.fragment
 
 import android.content.Context
+import android.graphics.Point
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
@@ -57,7 +58,11 @@ class GetCoinsFragment : BaseFragment(), CoinListAdapter.PurchaseCoinCallBack {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setAdapter()
+        val display = coinsActivity.windowManager.defaultDisplay
+        val size =  Point()
+        display.getSize(size)
+        val width = size.x
+        setAdapter(width)
         if (Utils.isOnline(coinsActivity)) {
             getWalletHistoryApi()
         } else {
@@ -65,10 +70,10 @@ class GetCoinsFragment : BaseFragment(), CoinListAdapter.PurchaseCoinCallBack {
         }
     }
 
-    private fun setAdapter() {
+    private fun setAdapter(width: Int) {
         val mLayoutManager = GridLayoutManager(coinsActivity, 3)
         rvCoinsList.layoutManager = mLayoutManager
-        getCoinAdapter = CoinListAdapter(coinsActivity, rvCoinsList, this)
+        getCoinAdapter = CoinListAdapter(coinsActivity, width, this)
         rvCoinsList.adapter = getCoinAdapter
     }
 

@@ -42,7 +42,7 @@ class UploadBannerActivity:AppCompatActivity() {
 
     private fun setData() {
         ivRight.setImageResource(R.mipmap.get_coins)
-        ivRight.visibility= View.VISIBLE
+        ivRight.visibility= View.INVISIBLE
         tvHeaderLoc.text = getString(R.string.featured_product)
         ivLeftLocation.setOnClickListener { onBackPressed() }
         tvUploadImage.setOnClickListener {
@@ -50,10 +50,13 @@ class UploadBannerActivity:AppCompatActivity() {
         }
         tvSaveBanner.setOnClickListener {
             if(!TextUtils.isEmpty(mCurrentPhotoPath)) {
-                updateProfileData()
+                val intent=Intent(this,AdvertPackagesActivity::class.java)
+                intent.putExtra(AppConstants.IMAGE_URL,mCurrentPhotoPath)
+                startActivity(intent)
             }else{
                 Utils.showSimpleMessage(this@UploadBannerActivity,getString(R.string.upload_banne)).show()
             }
+
            /* if(tvSaveBanner.text.toString().equals("NEXT",ignoreCase = true)) {
                 val intent = Intent(this, AdvertPackagesActivity::class.java)
                 startActivityForResult(intent,4)
@@ -159,7 +162,6 @@ class UploadBannerActivity:AppCompatActivity() {
                     uriTemp = data?.data
                     CropImage.activity(uriTemp)
                             .setGuidelines(CropImageView.Guidelines.ON)
-                            .setAspectRatio(1, 1)
                             .start(this)
                 }
 
@@ -193,29 +195,7 @@ class UploadBannerActivity:AppCompatActivity() {
         }
     }
 
-    private fun updateProfileData() {
-        val uploadBannerRequest = UploadBannerRequest(Utils.getPreferencesString(this,AppConstants.USER_ID).toInt(),planId,mCurrentPhotoPath!!)
-        window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        pbUpload.visibility = View.VISIBLE
-        ServiceHelper().updateBannerService(uploadBannerRequest, object : ServiceHelper.OnResponse {
-            override fun onSuccess(response: Response<*>) {
-                window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                pbUpload.visibility = View.GONE
-                val homeDataResponse = response.body() as ProfileUpdateResponse
-                Utils.showToast(this@UploadBannerActivity,homeDataResponse.message)
-                setDialogBox()
 
-            }
-
-            override fun onFailure(msg: String?) {
-                window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                pbUpload.visibility = View.GONE
-                Utils.showSimpleMessage(this@UploadBannerActivity, msg!!).show()
-            }
-        })
-
-    }
 
     private fun setDialogBox() {
             val shareDialog = WarningDialog(this,  object : SelectionListener {

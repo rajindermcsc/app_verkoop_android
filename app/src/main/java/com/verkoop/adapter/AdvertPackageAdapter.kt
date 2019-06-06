@@ -10,21 +10,20 @@ import com.verkoop.R
 import com.verkoop.models.DataAdvert
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.coin_row.*
-import android.app.Activity
-import android.content.Intent
 import com.verkoop.activity.AdvertPackagesActivity
-import com.verkoop.utils.AppConstants
 
 
-class AdvertPackageAdapter(private val context: Context,private val rvCoinList: RecyclerView):RecyclerView.Adapter<AdvertPackageAdapter.ViewHolder>(){
+class AdvertPackageAdapter(private val context: Context,private val rvCoinList: Int):RecyclerView.Adapter<AdvertPackageAdapter.ViewHolder>(){
+    private var width=0
     private  var mInflater: LayoutInflater= LayoutInflater.from(context)
+    private lateinit var submitBannerCallBack: SubmitBannerCallBack
     private var advertList= ArrayList<DataAdvert>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder{
         val view=mInflater.inflate(R.layout.coin_row,parent,false)
-        val params = rvCoinList.layoutParams
-        params.width = rvCoinList.width / 3
-        params.height = params.width
+        val params = view.layoutParams
+        width = rvCoinList / 3
         view.layoutParams = params
+        submitBannerCallBack=context as AdvertPackagesActivity
         return ViewHolder(view)
     }
 
@@ -40,18 +39,23 @@ class AdvertPackageAdapter(private val context: Context,private val rvCoinList: 
 
     inner class ViewHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView!!),LayoutContainer{
         fun bind(modal: DataAdvert) {
+            llCoinParent.layoutParams.height =width
             tvCoins.text=modal.name
             tvPriceCoins.text= StringBuilder().append(modal.coin).append(" ").append(context.getString(R.string.coins))
             itemView.setOnClickListener {
-                val returnIntent = Intent()
+                submitBannerCallBack.planSelectionClick(modal.id)
+                /*val returnIntent = Intent()
                 returnIntent.putExtra(AppConstants.INTENT_RESULT, modal.id)
                 (context as AdvertPackagesActivity).setResult(Activity.RESULT_OK, returnIntent)
-                context .finish()
+                context .finish()*/
             }
         }
     }
 
     fun setData(data: ArrayList<DataAdvert>) {
         advertList=data
+    }
+     interface SubmitBannerCallBack{
+        fun planSelectionClick(planId:Int)
     }
 }
