@@ -25,7 +25,7 @@
                     android:layout_gravity="center"
                     android:contentDescription="@string/image" />
 
-                <com.verkoop.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothiBoldTextView
                     android:id="@+id/tvLevelBrand"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

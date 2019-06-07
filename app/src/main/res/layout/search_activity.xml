@@ -27,7 +27,7 @@
             android:src="@mipmap/user"
             android:contentDescription="@string/image" />
 
-        <com.verkoop.fonts.textView.GothicThinTextView
+        <com.verkoopapp.fonts.textView.GothicThinTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/dp_10"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:visibility="gone" />
-        <com.verkoop.fonts.textView.GothicThinTextView
+        <com.verkoopapp.fonts.textView.GothicThinTextView
             android:id="@+id/tvDemoText"
             android:visibility="gone"
             android:layout_width="wrap_content"

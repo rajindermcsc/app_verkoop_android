@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.verkoop">
+    package="com.verkoopapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -11,6 +11,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CAMERA_EXTENDED"/>
+    <uses-permission android:name="android.hardware.camera.autofocus"/>
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -20,7 +22,7 @@
         android:required="false" />
 
     <application
-        android:name=".VerkoopApplication"
+        android:name="com.verkoopapp.VerkoopApplication"
         android:allowBackup="false"
         android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
@@ -30,7 +32,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".activity.MainActivity" />
+        <activity android:name="com.verkoopapp.activity.MainActivity" />
 
         <meta-data
             android:name="com.google.android.gms.games.APP_ID"
@@ -43,7 +45,7 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <service android:name=".fcm.VerkoopFirebaseMessagingService">
+        <service android:name="com.verkoopapp.fcm.VerkoopFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -60,7 +62,7 @@
         </provider>
 
         <activity
-            android:name=".activity.SplashActivity"
+            android:name="com.verkoopapp.activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Launcher"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
@@ -71,188 +73,188 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.LoginActivity"
+            android:name="com.verkoopapp.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ThemeTransparent"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.SignUpActivity"
+            android:name="com.verkoopapp.activity.SignUpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ThemeTransparent"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.CategoriesActivity"
+            android:name="com.verkoopapp.activity.CategoriesActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ThemeTransparent_light"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.WalkThroughActivity"
+            android:name="com.verkoopapp.activity.WalkThroughActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ThemeTransparent"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.PickOptionActivity"
+            android:name="com.verkoopapp.activity.PickOptionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ThemeTransparent_light"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.HomeActivity"
+            android:name="com.verkoopapp.activity.HomeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.FullCategoriesActivity"
+            android:name="com.verkoopapp.activity.FullCategoriesActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.CategoryDetailsActivity"
+            android:name="com.verkoopapp.activity.CategoryDetailsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.FilterActivity"
+            android:name="com.verkoopapp.activity.FilterActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.ProductDetailsActivity"
+            android:name="com.verkoopapp.activity.ProductDetailsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.GalleryActivity"
+            android:name="com.verkoopapp.activity.GalleryActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.AddDetailsActivity"
+            android:name="com.verkoopapp.activity.AddDetailsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.SelectCategoryDialogActivity"
+            android:name="com.verkoopapp.activity.SelectCategoryDialogActivity"
             android:theme="@style/TransparentCompat"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.SearchLocationActivity"
+            android:name="com.verkoopapp.activity.SearchLocationActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.FavouritesActivity"
+            android:name="com.verkoopapp.activity.FavouritesActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.SearchActivity"
+            android:name="com.verkoopapp.activity.SearchActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.SettingActivity"
+            android:name="com.verkoopapp.activity.SettingActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.NotificationActivity"
+            android:name="com.verkoopapp.activity.NotificationActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.ChangePasswordActivity"
+            android:name="com.verkoopapp.activity.ChangePasswordActivity"
             android:theme="@style/TransparentCompat"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.CoinsActivity"
+            android:name="com.verkoopapp.activity.CoinsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.QRScannerActivity"
+            android:name="com.verkoopapp.activity.QRScannerActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.EditProfileActivity"
+            android:name="com.verkoopapp.activity.EditProfileActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity
-            android:name=".activity.RegionActivity"
+            android:name="com.verkoopapp.activity.RegionActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.StateActivity"
+            android:name="com.verkoopapp.activity.StateActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.AddCommentActivity"
+            android:name="com.verkoopapp.activity.AddCommentActivity"
             android:theme="@style/TransparentCompat"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.ReportUserActivity"
+            android:name="com.verkoopapp.activity.ReportUserActivity"
             android:theme="@style/TransparentCompat"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
 
         <activity
-            android:name=".activity.UserProfileActivity"
+            android:name="com.verkoopapp.activity.UserProfileActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.ForgotPasswordActivity"
+            android:name="com.verkoopapp.activity.ForgotPasswordActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.BuyCarsActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-
-        <activity
-            android:name=".activity.CarBrandActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-        <activity
-            android:name=".activity.BuyPropertiesActivity"
+            android:name="com.verkoopapp.activity.BuyCarsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
 
         <activity
-            android:name=".activity.CarsFilterActivity"
+            android:name="com.verkoopapp.activity.CarBrandActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
+            android:name="com.verkoopapp.activity.BuyPropertiesActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
 
         <activity
-            android:name=".activity.CarBrandsActivity"
+            android:name="com.verkoopapp.activity.CarsFilterActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
 
         <activity
-            android:name=".activity.FollowFollowingActivity"
+            android:name="com.verkoopapp.activity.CarBrandsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+
+        <activity
+            android:name="com.verkoopapp.activity.FollowFollowingActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.ChatInboxActivity"
+            android:name="com.verkoopapp.activity.ChatInboxActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.ChatActivity"
+            android:name="com.verkoopapp.activity.ChatActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.ArchivedChatActivity"
+            android:name="com.verkoopapp.activity.ArchivedChatActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.MyWalletActivity"
+            android:name="com.verkoopapp.activity.MyWalletActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.AddMoneyDialogActivity"
+            android:name="com.verkoopapp.activity.AddMoneyDialogActivity"
             android:theme="@style/TransparentCompat"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.UploadBannerActivity"
+            android:name="com.verkoopapp.activity.UploadBannerActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.AdvertPackagesActivity"
+            android:name="com.verkoopapp.activity.AdvertPackagesActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.ViewAllBannerActivity"
+            android:name="com.verkoopapp.activity.ViewAllBannerActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.TransferCoinsActivity"
+            android:name="com.verkoopapp.activity.TransferCoinsActivity"
             android:theme="@style/TransparentCompat"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
 

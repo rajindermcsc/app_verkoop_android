@@ -30,14 +30,14 @@
                     android:paddingEnd="@dimen/dp_15"
                     android:paddingStart="@dimen/dp_15">
 
-                    <com.verkoop.fonts.textView.GothicThinTextView
+                    <com.verkoopapp.fonts.textView.GothicThinTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/selected_photos"
                         android:textColor="@color/text_gray_"
                         android:textSize="@dimen/sp_14" />
 
-                    <com.verkoop.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
                         android:id="@+id/tvCountDetail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
                     android:layout_marginTop="@dimen/dp_15"
                     android:orientation="vertical">
 
-                    <com.verkoop.fonts.editText.GothiBoldEditText
+                    <com.verkoopapp.fonts.editText.GothiBoldEditText
                         android:id="@+id/etNameDetail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <com.verkoop.fonts.textView.GothiBoldTextView
+                        <com.verkoopapp.fonts.textView.GothiBoldTextView
                             android:id="@+id/tvMobileNo"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                             android:textColor="@color/light_gray"
                             android:textSize="@dimen/sp_16" />
 
-                        <com.verkoop.fonts.textView.GothiBoldTextView
+                        <com.verkoopapp.fonts.textView.GothiBoldTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/dp_10"
@@ -126,7 +126,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <com.verkoop.fonts.textView.GothiBoldTextView
+                        <com.verkoopapp.fonts.textView.GothiBoldTextView
                             android:id="@+id/tvCategory"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -165,7 +165,7 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
-                            <com.verkoop.fonts.textView.GothiBoldTextView
+                            <com.verkoopapp.fonts.textView.GothiBoldTextView
                                 android:id="@+id/tvBrand"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -192,7 +192,7 @@
                             android:layout_height="@dimen/dp_1"
                             android:background="@color/light_gray" />
 
-                        <com.verkoop.fonts.editText.GothiBoldEditText
+                        <com.verkoopapp.fonts.editText.GothiBoldEditText
                             android:id="@+id/etLocation"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -261,7 +261,7 @@
                             android:layout_marginTop="@dimen/dp_8"
                             android:background="@color/colorPrimary" />
 
-                        <com.verkoop.fonts.textView.GothiBoldTextView
+                        <com.verkoopapp.fonts.textView.GothiBoldTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/dp_10"
@@ -284,7 +284,7 @@
                                 android:layout_weight="2"
                                 android:orientation="horizontal">
 
-                                <com.verkoop.fonts.textView.GothicThinTextView
+                                <com.verkoopapp.fonts.textView.GothicThinTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
@@ -292,7 +292,7 @@
                                     android:text="@string/from"
                                     android:textColor="@color/dark_black" />
 
-                                <com.verkoop.fonts.editText.GothicThinEditText
+                                <com.verkoopapp.fonts.editText.GothicThinEditText
                                     android:id="@+id/etRegFrom"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -308,7 +308,7 @@
                                     tools:ignore="LabelFor" />
                             </LinearLayout>
 
-                            <com.verkoop.fonts.textView.GothicThinTextView
+                            <com.verkoopapp.fonts.textView.GothicThinTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -323,7 +323,7 @@
                                 android:layout_weight="2"
                                 android:orientation="horizontal">
 
-                                <com.verkoop.fonts.textView.GothicThinTextView
+                                <com.verkoopapp.fonts.textView.GothicThinTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
@@ -331,7 +331,7 @@
                                     android:text="@string/to"
                                     android:textColor="@color/dark_black" />
 
-                                <com.verkoop.fonts.editText.GothicThinEditText
+                                <com.verkoopapp.fonts.editText.GothicThinEditText
                                     android:id="@+id/etRegTo"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -353,7 +353,7 @@
                             android:layout_height="@dimen/dp_1"
                             android:layout_marginTop="@dimen/dp_8"
                             android:background="@color/light_gray" />
-                        <com.verkoop.fonts.textView.GothiBoldTextView
+                        <com.verkoopapp.fonts.textView.GothiBoldTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/dp_10"
@@ -376,7 +376,7 @@
                                 android:layout_weight="2"
                                 android:orientation="horizontal">
 
-                                <com.verkoop.fonts.textView.GothicThinTextView
+                                <com.verkoopapp.fonts.textView.GothicThinTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
@@ -384,7 +384,7 @@
                                     android:text="@string/min"
                                     android:textColor="@color/dark_black" />
 
-                                <com.verkoop.fonts.editText.GothicThinEditText
+                                <com.verkoopapp.fonts.editText.GothicThinEditText
                                     android:id="@+id/etMinPriceCar"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -400,7 +400,7 @@
                                     tools:ignore="LabelFor" />
                             </LinearLayout>
 
-                            <com.verkoop.fonts.textView.GothicThinTextView
+                            <com.verkoopapp.fonts.textView.GothicThinTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -415,7 +415,7 @@
                                 android:layout_weight="2"
                                 android:orientation="horizontal">
 
-                                <com.verkoop.fonts.textView.GothicThinTextView
+                                <com.verkoopapp.fonts.textView.GothicThinTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
@@ -423,7 +423,7 @@
                                     android:text="@string/max"
                                     android:textColor="@color/dark_black" />
 
-                                <com.verkoop.fonts.editText.GothicThinEditText
+                                <com.verkoopapp.fonts.editText.GothicThinEditText
                                     android:id="@+id/etMaxPriceCar"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -482,7 +482,7 @@
                                   android:padding="@dimen/dp_10"
                                   android:src="@mipmap/drop_down" />
                           </LinearLayout>-->
-                        <com.verkoop.fonts.editText.GothiBoldEditText
+                        <com.verkoopapp.fonts.editText.GothiBoldEditText
                             android:id="@+id/tvZone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -504,7 +504,7 @@
                             android:layout_height="@dimen/dp_1"
                             android:background="@color/light_gray" />
 
-                        <com.verkoop.fonts.editText.GothiBoldEditText
+                        <com.verkoopapp.fonts.editText.GothiBoldEditText
                             android:id="@+id/etArea"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -526,7 +526,7 @@
                             android:layout_height="@dimen/dp_1"
                             android:background="@color/light_gray" />
 
-                        <com.verkoop.fonts.editText.GothiBoldEditText
+                        <com.verkoopapp.fonts.editText.GothiBoldEditText
                             android:id="@+id/etStreetName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -548,7 +548,7 @@
                             android:layout_height="@dimen/dp_1"
                             android:background="@color/light_gray" />
 
-                        <com.verkoop.fonts.editText.GothiBoldEditText
+                        <com.verkoopapp.fonts.editText.GothiBoldEditText
                             android:id="@+id/etPostalCode"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -673,7 +673,7 @@
                             android:gravity="center"
                             android:orientation="horizontal">
 
-                            <com.verkoop.fonts.textView.GothiBoldTextView
+                            <com.verkoopapp.fonts.textView.GothiBoldTextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
@@ -697,7 +697,7 @@
                                     android:layout_gravity="center"
                                     android:src="@mipmap/minimum" />
 
-                                <com.verkoop.fonts.textView.GothiBoldTextView
+                                <com.verkoopapp.fonts.textView.GothiBoldTextView
                                     android:id="@+id/tvBedRoomCount"
                                     android:layout_width="@dimen/dp_30"
                                     android:layout_height="wrap_content"
@@ -724,7 +724,7 @@
                             android:gravity="center"
                             android:orientation="horizontal">
 
-                            <com.verkoop.fonts.textView.GothiBoldTextView
+                            <com.verkoopapp.fonts.textView.GothiBoldTextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
@@ -748,7 +748,7 @@
                                     android:layout_gravity="center"
                                     android:src="@mipmap/minimum" />
 
-                                <com.verkoop.fonts.textView.GothiBoldTextView
+                                <com.verkoopapp.fonts.textView.GothiBoldTextView
                                     android:id="@+id/tvBathroomCount"
                                     android:layout_width="@dimen/dp_30"
                                     android:layout_height="wrap_content"
@@ -768,7 +768,7 @@
                             </LinearLayout>
                         </LinearLayout>
 
-                        <com.verkoop.fonts.textView.GothiBoldTextView
+                        <com.verkoopapp.fonts.textView.GothiBoldTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/dp_10"
@@ -791,7 +791,7 @@
                                 android:layout_weight="2"
                                 android:orientation="horizontal">
 
-                                <com.verkoop.fonts.textView.GothicThinTextView
+                                <com.verkoopapp.fonts.textView.GothicThinTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
@@ -799,7 +799,7 @@
                                     android:text="@string/min"
                                     android:textColor="@color/dark_black" />
 
-                                <com.verkoop.fonts.editText.GothicThinEditText
+                                <com.verkoopapp.fonts.editText.GothicThinEditText
                                     android:id="@+id/etMinPriceAdd"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -815,7 +815,7 @@
                                     tools:ignore="LabelFor" />
                             </LinearLayout>
 
-                            <com.verkoop.fonts.textView.GothicThinTextView
+                            <com.verkoopapp.fonts.textView.GothicThinTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -830,7 +830,7 @@
                                 android:layout_weight="2"
                                 android:orientation="horizontal">
 
-                                <com.verkoop.fonts.textView.GothicThinTextView
+                                <com.verkoopapp.fonts.textView.GothicThinTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
@@ -838,7 +838,7 @@
                                     android:text="@string/max"
                                     android:textColor="@color/dark_black" />
 
-                                <com.verkoop.fonts.editText.GothicThinEditText
+                                <com.verkoopapp.fonts.editText.GothicThinEditText
                                     android:id="@+id/etMaxPriceAdd"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -861,7 +861,7 @@
                             android:layout_marginTop="@dimen/dp_8"
                             android:background="@color/light_gray" />
 
-                        <com.verkoop.fonts.textView.GothiBoldTextView
+                        <com.verkoopapp.fonts.textView.GothiBoldTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/dp_10"
@@ -892,7 +892,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <com.verkoop.fonts.editText.GothiBoldEditText
+                        <com.verkoopapp.fonts.editText.GothiBoldEditText
                             android:id="@+id/etPrice"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -985,7 +985,7 @@
                             android:background="@color/gray" />
                     </LinearLayout>-->
 
-                    <com.verkoop.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
                         android:id="@+id/tvItemCondition"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -1025,7 +1025,7 @@
                                 android:contentDescription="@string/filter"
                                 android:src="@mipmap/new_inactive" />
 
-                            <com.verkoop.fonts.textView.GothicThinTextView
+                            <com.verkoopapp.fonts.textView.GothicThinTextView
                                 android:id="@+id/tvNewDetails"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -1060,7 +1060,7 @@
                                 android:contentDescription="@string/used"
                                 android:src="@mipmap/used_inactive" />
 
-                            <com.verkoop.fonts.textView.GothicThinTextView
+                            <com.verkoopapp.fonts.textView.GothicThinTextView
                                 android:id="@+id/tvUsedDetail"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -1071,7 +1071,7 @@
                         </LinearLayout>
                     </LinearLayout>
 
-                    <com.verkoop.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
                         android:id="@+id/tvDealOption"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -1141,7 +1141,7 @@
                             android:layout_height="match_parent"
                             android:orientation="vertical">
 
-                            <com.verkoop.fonts.textView.GothiBoldTextView
+                            <com.verkoopapp.fonts.textView.GothiBoldTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dp_10"
@@ -1150,7 +1150,7 @@
                                 android:textColor="@color/light_gray"
                                 android:textSize="@dimen/sp_14" />
 
-                            <com.verkoop.fonts.textView.GothiBoldTextView
+                            <com.verkoopapp.fonts.textView.GothiBoldTextView
                                 android:id="@+id/tvPlaceAddress"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -1170,7 +1170,7 @@
                         </LinearLayout>
                     </com.github.florent37.expansionpanel.ExpansionLayout>
 
-                    <com.verkoop.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_10"
@@ -1179,7 +1179,7 @@
                         android:textColor="@color/light_gray"
                         android:textSize="@dimen/sp_14" />
 
-                    <com.verkoop.fonts.editText.GothiBoldEditText
+                    <com.verkoopapp.fonts.editText.GothiBoldEditText
                         android:id="@+id/etDescriptionDetail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -1204,7 +1204,7 @@
                         android:layout_height="@dimen/dp_1"
                         android:background="@color/light_gray" />
 
-                    <com.verkoop.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
                         android:id="@+id/tvSave"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"

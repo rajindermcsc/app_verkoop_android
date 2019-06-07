@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <com.verkoop.fonts.textView.GothicThinTextView
+    <com.verkoopapp.fonts.textView.GothicThinTextView
         android:id="@+id/tvSubCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

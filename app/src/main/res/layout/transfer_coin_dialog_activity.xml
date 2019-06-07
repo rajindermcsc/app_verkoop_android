@@ -45,7 +45,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <com.verkoop.fonts.textView.GothiBoldTextView
+                        <com.verkoopapp.fonts.textView.GothiBoldTextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -93,7 +93,7 @@
 
                         </LinearLayout>
 
-                        <com.verkoop.fonts.editText.GothiBoldEditText
+                        <com.verkoopapp.fonts.editText.GothiBoldEditText
                             android:id="@+id/etAmountTrans"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -128,7 +128,7 @@
                         card_view:cardCornerRadius="@dimen/dp_20"
                         card_view:cardElevation="@dimen/dp_8">
 
-                        <com.verkoop.fonts.textView.GothiBoldTextView
+                        <com.verkoopapp.fonts.textView.GothiBoldTextView
                             android:id="@+id/tvSaveYTransfer"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"

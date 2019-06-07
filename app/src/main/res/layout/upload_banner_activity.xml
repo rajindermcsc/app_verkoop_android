@@ -39,14 +39,14 @@
                     android:orientation="vertical"
                     tools:ignore="UselessParent">
 
-                    <com.verkoop.fonts.textView.GothicThinTextView
+                    <com.verkoopapp.fonts.textView.GothicThinTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/picture_safe_area"
                         android:textColor="@color/text_gray"
                         android:textSize="@dimen/sp_20" />
 
-                    <com.verkoop.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_10"
@@ -64,7 +64,7 @@
                 android:contentDescription="@string/banner" />
         </FrameLayout>
 
-        <com.verkoop.fonts.textView.GothiBoldTextView
+        <com.verkoopapp.fonts.textView.GothiBoldTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_40"
@@ -74,7 +74,7 @@
             android:text="@string/it_is_a_long_established_fact_that_a_reader_will_be_distracted_by_the_readable_content"
             android:textSize="@dimen/sp_14" />
 
-        <com.verkoop.fonts.textView.GothiBoldTextView
+        <com.verkoopapp.fonts.textView.GothiBoldTextView
             android:id="@+id/tvUploadImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
             android:contentDescription="@string/banner"
             android:src="@mipmap/pic_advertisement" />
 
-        <com.verkoop.fonts.textView.GothiBoldTextView
+        <com.verkoopapp.fonts.textView.GothiBoldTextView
             android:id="@+id/tvSaveBanner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

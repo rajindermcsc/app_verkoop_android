@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.verkoop.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothiBoldTextView
                     android:id="@+id/tvHeaderDel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
                     android:textColor="@color/black_dark"
                     android:textSize="@dimen/sp_18" />
 
-                <com.verkoop.fonts.textView.GothicThinTextView
+                <com.verkoopapp.fonts.textView.GothicThinTextView
                     android:id="@+id/tvDescriptionDel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:orientation="horizontal">
-                    <com.verkoop.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
                         android:id="@+id/tvNo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
                         android:textSize="@dimen/sp_14"
                         android:padding="@dimen/dp_10"
                         android:textColor="@color/red"/>
-                    <com.verkoop.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
                         android:id="@+id/tvLeaveDelete"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

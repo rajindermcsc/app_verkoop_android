@@ -28,7 +28,7 @@
             android:orientation="horizontal"
             android:padding="@dimen/dp_8">
 
-            <com.verkoop.fonts.textView.GothiBoldTextView
+            <com.verkoopapp.fonts.textView.GothiBoldTextView
                 android:id="@+id/tvCategoryHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
             android:orientation="horizontal"
             android:padding="@dimen/dp_8">
 
-            <com.verkoop.fonts.textView.GothiBoldTextView
+            <com.verkoopapp.fonts.textView.GothiBoldTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -97,7 +97,7 @@
                 card_view:cardCornerRadius="@dimen/dp_20"
                 card_view:cardElevation="@dimen/dp_8">
 
-                <com.verkoop.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothiBoldTextView
                     android:id="@+id/tvSell"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

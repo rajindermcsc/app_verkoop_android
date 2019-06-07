@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.verkoop.fonts.textView.GothiBoldTextView
+            <com.verkoopapp.fonts.textView.GothiBoldTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -43,7 +43,7 @@
                 android:background="@color/colorPrimary"
                 android:orientation="horizontal">
 
-                <com.verkoop.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothiBoldTextView
                     android:id="@+id/tvSkipW"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
                         android:src="@mipmap/dot_2" />
                 </LinearLayout>
 
-                <com.verkoop.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothiBoldTextView
                     android:id="@+id/tvNextW"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

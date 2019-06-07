@@ -35,7 +35,7 @@
                     android:contentDescription="@string/app_logo"
                     android:src="@mipmap/logo" />
 
-                <com.verkoop.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothiBoldTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -56,7 +56,7 @@
                         android:padding="@dimen/dp_10"
                         android:src="@mipmap/email_disable"
                         android:layout_gravity="center"/>
-                    <com.verkoop.fonts.editText.GothiBoldEditText
+                    <com.verkoopapp.fonts.editText.GothiBoldEditText
                         android:id="@+id/etEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -117,7 +117,7 @@
                     android:layout_height="@dimen/dp_1"
                     android:background="@color/light_gray" />
 
-                <com.verkoop.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothiBoldTextView
                     android:id="@+id/tvForgotPassword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
                     card_view:cardCornerRadius="24dp"
                     card_view:cardElevation="@dimen/dp_5">
 
-                    <com.verkoop.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
                        android:id="@+id/tvLogin"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -162,7 +162,7 @@
                         android:layout_weight="1"
                         android:background="@color/light_gray" />
 
-                    <com.verkoop.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/dp_15"
@@ -178,7 +178,7 @@
                         android:background="@color/light_gray" />
                 </LinearLayout>
 
-                <com.verkoop.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothiBoldTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -195,7 +195,7 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <com.verkoop.fonts.textView.GothicThinTextView
+                    <com.verkoopapp.fonts.textView.GothicThinTextView
                         android:id="@+id/tvFacebook"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -204,7 +204,7 @@
                         android:text="@string/facebook"
                         android:textSize="@dimen/sp_18" />
 
-                    <com.verkoop.fonts.textView.GothicThinTextView
+                    <com.verkoopapp.fonts.textView.GothicThinTextView
                         android:id="@+id/tvGoogle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -224,14 +224,14 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <com.verkoop.fonts.textView.GothicThinTextView
+                <com.verkoopapp.fonts.textView.GothicThinTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/sp_14"
                     android:text="@string/don_t_have_an_account"
                     android:textColor="@color/white" />
 
-                <com.verkoop.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothiBoldTextView
                     android:id="@+id/tvSignUp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

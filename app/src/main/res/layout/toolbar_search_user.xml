@@ -30,7 +30,7 @@
             android:padding="@dimen/dp_10"
             android:src="@mipmap/back" />
 
-        <com.verkoop.fonts.editText.GothiBoldEditText
+        <com.verkoopapp.fonts.editText.GothiBoldEditText
             android:id="@+id/etSearchHeader"
             android:layout_width="0dp"
             android:layout_height="match_parent"

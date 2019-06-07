@@ -57,7 +57,7 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
-                    <com.verkoop.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
                         android:id="@+id/tvCategorySelected"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
 
                 </LinearLayout>
 
-                <com.verkoop.utils.NonscrollRecylerview
+                <com.verkoopapp.utils.NonscrollRecylerview
                     android:id="@+id/rvItemListDetails"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
@@ -117,7 +117,7 @@
                 card_view:cardCornerRadius="@dimen/dp_20"
                 card_view:cardElevation="@dimen/dp_8">
 
-                <com.verkoop.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothiBoldTextView
                     android:id="@+id/tvSell"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

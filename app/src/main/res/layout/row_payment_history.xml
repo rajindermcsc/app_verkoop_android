@@ -35,7 +35,7 @@
                 android:layout_weight="2"
                 android:layout_gravity="center"
                 android:orientation="vertical">
-                <com.verkoop.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothiBoldTextView
                     android:id="@+id/tvTypeHeading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
                     android:textColor="@color/dark_black"
                     android:text="@string/added_to_verkoop"/>
 
-                <com.verkoop.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothiBoldTextView
                     android:id="@+id/tvData"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -55,14 +55,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:orientation="vertical">
-                <com.verkoop.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothiBoldTextView
                     android:id="@+id/tvPriceWallet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:textColor="@color/accept_offer"
                     android:textSize="@dimen/sp_18"/>
-                <com.verkoop.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothiBoldTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/success"

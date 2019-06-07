@@ -43,7 +43,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <com.verkoop.fonts.textView.GothiBoldTextView
+                        <com.verkoopapp.fonts.textView.GothiBoldTextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -67,7 +67,7 @@
                         android:layout_marginTop="@dimen/dp_30"
                         android:src="@mipmap/review" />
 
-                    <com.verkoop.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
                         android:id="@+id/tvHeader"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -75,7 +75,7 @@
                         android:text="Do not include, spam, or inappropriate in your Advertisment banner. verkooop customer can be an integral part of the app experience,so you shold treat customers with respect."
                         android:textColor="@color/dark_black"
                         android:textSize="@dimen/sp_14" />
-                    <com.verkoop.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
                         android:id="@+id/tvbody"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -95,7 +95,7 @@
                         card_view:cardCornerRadius="@dimen/dp_20"
                         card_view:cardElevation="@dimen/dp_8">
 
-                        <com.verkoop.fonts.textView.GothiBoldTextView
+                        <com.verkoopapp.fonts.textView.GothiBoldTextView
                             android:id="@+id/tvProceed"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"

@@ -33,7 +33,7 @@
             android:src="@mipmap/back"
             android:contentDescription="@string/back" />
 
-        <com.verkoop.fonts.textView.GothiBoldTextView
+        <com.verkoopapp.fonts.textView.GothiBoldTextView
             android:id="@+id/toolbar_title"
             android:layout_width="0dp"
             android:layout_height="match_parent"

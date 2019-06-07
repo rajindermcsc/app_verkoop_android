@@ -9,13 +9,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_margin="@dimen/dp_12">
-    <com.verkoop.fonts.textView.GothicThinTextView
+    <com.verkoopapp.fonts.textView.GothicThinTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/what_are_you"
         android:textSize="@dimen/sp_18"
         android:textColor="@color/dark_black"/>
-        <com.verkoop.fonts.textView.GothiBoldTextView
+        <com.verkoopapp.fonts.textView.GothiBoldTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/listing_today"
@@ -26,14 +26,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
             android:orientation="horizontal">
-        <com.verkoop.fonts.textView.GothicThinTextView
+        <com.verkoopapp.fonts.textView.GothicThinTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/sp_14"
             android:textColor="@color/text_gray"
             android:text="@string/selected"/>
 
-            <com.verkoop.fonts.textView.GothiBoldTextView
+            <com.verkoopapp.fonts.textView.GothiBoldTextView
                 android:id="@+id/tvSelectedCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

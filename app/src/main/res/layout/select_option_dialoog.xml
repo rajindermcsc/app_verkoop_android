@@ -31,7 +31,7 @@
                 android:layout_marginBottom="@dimen/dp_20"
                 android:orientation="vertical"
                 >
-                <com.verkoop.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothiBoldTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Capture Photo"
@@ -54,7 +54,7 @@
                 android:layout_marginBottom="@dimen/dp_8"
                 android:orientation="vertical"
                 >
-                <com.verkoop.fonts.textView.GothicThinTextView
+                <com.verkoopapp.fonts.textView.GothicThinTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Camera"
@@ -68,7 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"
                 android:background="@color/transparentBlack20"/>
-            <com.verkoop.fonts.textView.GothicThinTextView
+            <com.verkoopapp.fonts.textView.GothicThinTextView
                 android:id="@+id/tvGallery"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

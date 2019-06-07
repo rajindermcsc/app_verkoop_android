@@ -16,7 +16,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-        <com.verkoop.fonts.textView.GothiBoldTextView
+        <com.verkoopapp.fonts.textView.GothiBoldTextView
             android:id="@+id/tvCategoryNameDialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-        <com.verkoop.utils.NonscrollRecylerview
+        <com.verkoopapp.utils.NonscrollRecylerview
             android:visibility="visible"
             android:id="@+id/rvSubCategory"
             android:layout_width="match_parent"

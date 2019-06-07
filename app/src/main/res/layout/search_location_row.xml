@@ -10,13 +10,13 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/dp_10"
         android:orientation="vertical">
-    <com.verkoop.fonts.textView.GothiBoldTextView
+    <com.verkoopapp.fonts.textView.GothiBoldTextView
         android:id="@+id/tvNameLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/dark_black"/>
-    <com.verkoop.fonts.textView.GothicThinTextView
+    <com.verkoopapp.fonts.textView.GothicThinTextView
         android:id="@+id/tvFullAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

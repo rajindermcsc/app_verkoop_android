@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:id="@+id/llRootParent">
         <LinearLayout
             android:id="@+id/llParent"
@@ -23,7 +23,7 @@
                     android:layout_gravity="center"
                     android:contentDescription="@string/image" />
 
-                <com.verkoop.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothiBoldTextView
                     android:id="@+id/tvLevelHome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

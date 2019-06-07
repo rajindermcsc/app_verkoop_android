@@ -38,7 +38,7 @@
                 card_view:cardCornerRadius="@dimen/dp_20"
                 card_view:cardElevation="@dimen/dp_8">
 
-                <com.verkoop.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothiBoldTextView
                     android:id="@+id/tvSellCar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

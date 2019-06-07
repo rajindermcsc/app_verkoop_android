@@ -17,7 +17,7 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <com.verkoop.fonts.editText.GothiBoldEditText
+        <com.verkoopapp.fonts.editText.GothiBoldEditText
             android:id="@+id/etMssg"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

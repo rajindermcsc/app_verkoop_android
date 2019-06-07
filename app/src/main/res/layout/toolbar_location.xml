@@ -35,7 +35,7 @@
                 android:padding="@dimen/dp_10"
                 android:src="@mipmap/back" />
 
-            <com.verkoop.fonts.textView.GothiBoldTextView
+            <com.verkoopapp.fonts.textView.GothiBoldTextView
                 android:id="@+id/tvHeaderLoc"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

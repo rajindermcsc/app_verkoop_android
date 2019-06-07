@@ -20,7 +20,7 @@
         android:paddingEnd="@dimen/dp_8"
         android:paddingStart="@dimen/dp_8">
 
-        <com.verkoop.fonts.editText.GothiBoldEditText
+        <com.verkoopapp.fonts.editText.GothiBoldEditText
             android:id="@+id/etSearchBrand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

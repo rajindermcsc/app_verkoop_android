@@ -32,7 +32,7 @@
             android:src="@mipmap/filter_close"
             android:contentDescription="@string/filter" />
 
-        <com.verkoop.fonts.textView.GothiBoldTextView
+        <com.verkoopapp.fonts.textView.GothiBoldTextView
             android:id="@+id/tvHeaderGallery"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -46,7 +46,7 @@
             tools:ignore="RtlSymmetry" />
 
 
-        <com.verkoop.fonts.textView.GothicThinTextView
+        <com.verkoopapp.fonts.textView.GothicThinTextView
             android:id="@+id/tvChatGallery"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

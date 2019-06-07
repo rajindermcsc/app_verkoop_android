@@ -30,7 +30,7 @@
             android:padding="@dimen/dp_10"
             android:src="@mipmap/homescreen_logo" />
 
-        <com.verkoop.fonts.textView.GothicThinTextView
+        <com.verkoopapp.fonts.textView.GothicThinTextView
             android:id="@+id/toolbar_title"
             android:layout_width="0dp"
             android:layout_height="match_parent"

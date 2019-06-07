@@ -43,7 +43,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <com.verkoop.fonts.textView.GothiBoldTextView
+                        <com.verkoopapp.fonts.textView.GothiBoldTextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -67,7 +67,7 @@
                         android:layout_marginTop="@dimen/dp_30"
                         android:src="@mipmap/post_added" />
 
-                    <com.verkoop.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
                         android:id="@+id/tvHeader"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -82,7 +82,7 @@
                         android:layout_marginTop="@dimen/dp_2"
                         android:orientation="horizontal">
 
-                        <com.verkoop.fonts.textView.GothiBoldTextView
+                        <com.verkoopapp.fonts.textView.GothiBoldTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/dp_20"
@@ -90,7 +90,7 @@
                             android:textColor="@color/dark_black"
                             android:textSize="@dimen/sp_14" />
 
-                        <com.verkoop.fonts.textView.GothiBoldTextView
+                        <com.verkoopapp.fonts.textView.GothiBoldTextView
                             android:id="@+id/tvCategoryDialog"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                         android:layout_marginTop="@dimen/dp_2"
                         android:orientation="horizontal">
 
-                        <com.verkoop.fonts.textView.GothiBoldTextView
+                        <com.verkoopapp.fonts.textView.GothiBoldTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/dp_20"
@@ -113,7 +113,7 @@
                             android:textColor="@color/text_gray"
                             android:textSize="@dimen/sp_14" />
 
-                        <com.verkoop.fonts.textView.GothiBoldTextView
+                        <com.verkoopapp.fonts.textView.GothiBoldTextView
                             android:id="@+id/tvPriceDialog"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
                         android:paddingEnd="@dimen/dp_8"
                         android:paddingStart="@dimen/dp_8">
 
-                        <com.verkoop.fonts.textView.GothiBoldTextView
+                        <com.verkoopapp.fonts.textView.GothiBoldTextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"

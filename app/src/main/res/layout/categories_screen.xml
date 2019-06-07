@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.verkoop.fonts.textView.GothicThinTextView
+                <com.verkoopapp.fonts.textView.GothicThinTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/dp_20"
@@ -45,7 +45,7 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_24" />
 
-                <com.verkoop.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothiBoldTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/dp_20"
@@ -60,7 +60,7 @@
                     android:layout_marginTop="@dimen/dp_18"
                     android:orientation="horizontal">
 
-                    <com.verkoop.fonts.textView.GothicThinTextView
+                    <com.verkoopapp.fonts.textView.GothicThinTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_20"
@@ -68,7 +68,7 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp_14" />
 
-                    <com.verkoop.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
                         android:id="@+id/tvSelectionCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -150,7 +150,7 @@
                     card_view:cardCornerRadius="@dimen/dp_20"
                     card_view:cardElevation="@dimen/dp_8">
 
-                    <com.verkoop.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
                         android:id="@+id/tvNext"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

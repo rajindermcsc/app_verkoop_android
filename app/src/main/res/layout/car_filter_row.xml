@@ -13,7 +13,7 @@
         android:layout_marginStart="@dimen/dp_12"
         android:layout_marginTop="@dimen/dp_10">
 
-        <com.verkoop.fonts.textView.GothiBoldTextView
+        <com.verkoopapp.fonts.textView.GothiBoldTextView
             android:id="@+id/tvCarBodyType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
         android:layout_marginStart="@dimen/dp_12"
         android:layout_marginTop="@dimen/dp_10">
 
-        <com.verkoop.fonts.textView.GothiBoldTextView
+        <com.verkoopapp.fonts.textView.GothiBoldTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/budget_filter"
@@ -45,9 +45,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_5"
         android:layout_marginStart="@dimen/dp_10"
         android:layout_marginEnd="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10"
         android:orientation="vertical">
 
         <LinearLayout
@@ -79,7 +80,7 @@
                     android:orientation="vertical"
                     android:padding="@dimen/dp_10">
 
-                    <com.verkoop.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
                         android:id="@+id/tvFollowers"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -87,7 +88,7 @@
                         android:textColor="@color/dark_black"
                         android:textSize="@dimen/sp_18" />
 
-                    <com.verkoop.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/household_income"
@@ -119,14 +120,14 @@
                     android:orientation="vertical"
                     android:padding="@dimen/dp_10">
 
-                    <com.verkoop.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_15_month"
                         android:textColor="@color/dark_black"
                         android:textSize="@dimen/sp_18" />
 
-                    <com.verkoop.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/household_income"
@@ -165,14 +166,14 @@
                     android:orientation="vertical"
                     android:padding="@dimen/dp_10">
 
-                    <com.verkoop.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_25_month"
                         android:textColor="@color/dark_black"
                         android:textSize="@dimen/sp_18" />
 
-                    <com.verkoop.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/household_income"
@@ -204,14 +205,14 @@
                     android:orientation="vertical"
                     android:padding="@dimen/dp_10">
 
-                    <com.verkoop.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_25_month_"
                         android:textColor="@color/dark_black"
                         android:textSize="@dimen/sp_18" />
 
-                    <com.verkoop.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/household_income"

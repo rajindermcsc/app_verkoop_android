@@ -24,7 +24,7 @@
             android:tag="Bottom3"
             android:weightSum="10">
 
-            <com.verkoop.fonts.textView.GothiBoldTextView
+            <com.verkoopapp.fonts.textView.GothiBoldTextView
                 android:id="@+id/tvDelete"
                 android:layout_width="@dimen/dp_100"
                 android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_14" />
 
-            <com.verkoop.fonts.textView.GothiBoldTextView
+            <com.verkoopapp.fonts.textView.GothiBoldTextView
                 android:id="@+id/tvArchive"
                 android:layout_width="@dimen/dp_100"
                 android:layout_height="match_parent"
@@ -73,20 +73,20 @@
                     android:layout_weight="1.5"
                     android:orientation="vertical">
 
-                    <com.verkoop.fonts.textView.GothicThinTextView
+                    <com.verkoopapp.fonts.textView.GothicThinTextView
                         android:id="@+id/tvChatUserName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_gray_"
                         android:textSize="@dimen/sp_12" />
 
-                    <com.verkoop.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
                         android:id="@+id/tvProductName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/dark_black"
                         android:textSize="@dimen/sp_16" />
-                    <com.verkoop.fonts.textView.GothicThinTextView
+                    <com.verkoopapp.fonts.textView.GothicThinTextView
                         android:id="@+id/tvLastMssg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -108,13 +108,13 @@
                         android:layout_gravity="end"
                         android:orientation="horizontal">
 
-                        <com.verkoop.fonts.textView.GothicThinTextView
+                        <com.verkoopapp.fonts.textView.GothicThinTextView
                             android:id="@+id/tvLastMssgTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/text_gray_"
                             android:textSize="@dimen/sp_12" />
-                        <com.verkoop.fonts.textView.GothicThinTextView
+                        <com.verkoopapp.fonts.textView.GothicThinTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/blue_dark"
@@ -139,7 +139,7 @@
                             android:scaleType="fitXY"
                             android:src="@mipmap/post_placeholder" />
 
-                        <com.verkoop.fonts.textView.GothiBoldTextView
+                        <com.verkoopapp.fonts.textView.GothiBoldTextView
                             android:id="@+id/tvSoldChat"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -163,7 +163,7 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_marginStart="@dimen/dp_70"
                 android:orientation="horizontal">
-                <com.verkoop.fonts.textView.GothicThinTextView
+                <com.verkoopapp.fonts.textView.GothicThinTextView
                    android:id="@+id/tvStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -172,7 +172,7 @@
                     android:textColor="@color/white"
                     android:layout_marginEnd="@dimen/dp_4"
                     android:background="@color/colorPrimary"/>
-                <com.verkoop.fonts.textView.GothicThinTextView
+                <com.verkoopapp.fonts.textView.GothicThinTextView
                     android:id="@+id/tvOfferDes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

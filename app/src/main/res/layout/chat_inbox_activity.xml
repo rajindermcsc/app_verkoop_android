@@ -30,7 +30,7 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.verkoop.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothiBoldTextView
                     android:id="@+id/tvAll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.verkoop.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothiBoldTextView
                     android:id="@+id/tvBuying"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.verkoop.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothiBoldTextView
                     android:id="@+id/tvSelling"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

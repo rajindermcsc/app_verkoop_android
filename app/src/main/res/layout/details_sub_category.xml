@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/gradation_black"
                 android:layout_gravity="bottom">
-            <com.verkoop.fonts.textView.GothiBoldTextView
+            <com.verkoopapp.fonts.textView.GothiBoldTextView
                 android:id="@+id/tvSubCategoryPost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

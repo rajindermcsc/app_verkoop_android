@@ -45,7 +45,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <com.verkoop.fonts.textView.GothiBoldTextView
+                        <com.verkoopapp.fonts.textView.GothiBoldTextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -68,7 +68,7 @@
                         android:layout_marginTop="@dimen/dp_20"
                         android:orientation="vertical">
 
-                        <com.verkoop.fonts.editText.GothicThinEditText
+                        <com.verkoopapp.fonts.editText.GothicThinEditText
                             android:id="@+id/etComment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                         card_view:cardCornerRadius="@dimen/dp_20"
                         card_view:cardElevation="@dimen/dp_8">
 
-                        <com.verkoop.fonts.textView.GothiBoldTextView
+                        <com.verkoopapp.fonts.textView.GothiBoldTextView
                             android:id="@+id/tvPost"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"

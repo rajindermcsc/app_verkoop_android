@@ -38,7 +38,7 @@
                 android:background="@color/white"
                 android:orientation="vertical">
 
-                <com.verkoop.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothiBoldTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/dp_8"
@@ -48,7 +48,7 @@
                     android:textColor="@color/black_"
                     android:textSize="@dimen/sp_18" />
 
-                <com.verkoop.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothiBoldTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -77,7 +77,7 @@
             android:layout_weight="2"
             android:orientation="vertical">
 
-            <com.verkoop.fonts.textView.GothiBoldTextView
+            <com.verkoopapp.fonts.textView.GothiBoldTextView
                 android:id="@+id/tvGetCoin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
                 android:layout_height="@dimen/dp_1"
                 android:background="@color/yellow" />
 
-            <com.verkoop.fonts.textView.GothiBoldTextView
+            <com.verkoopapp.fonts.textView.GothiBoldTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dp_10"
