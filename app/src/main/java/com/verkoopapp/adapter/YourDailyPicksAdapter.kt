@@ -115,7 +115,7 @@ class YourDailyPicksAdapter(private val context:Context,private val recyclerView
                 }
 
             }
-            tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at.date)).append(" ").append("ago")
+            tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at!!.date)).append(" ").append("ago")
             llUserProfile.setOnClickListener {
                 if(Utils.getPreferencesString(context, AppConstants.USER_ID).toInt()!=data.user_id) {
                     val reportIntent = Intent(context, UserProfileActivity::class.java)

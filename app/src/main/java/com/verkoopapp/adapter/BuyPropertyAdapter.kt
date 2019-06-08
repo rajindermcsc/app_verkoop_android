@@ -27,14 +27,16 @@ class BuyPropertyAdapter(private val context: Context, private val rvProperty: R
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(context)
     val CATEGORY_LIST_ROW = 0
     val ITEMS_ROW = 1
+    val SHOW_LOADER = 2
     private var width = 0
     private var widthOrgCarType = 0
     private var itemsList = ArrayList<ItemHome>()
     private var zoneList = ArrayList<CarType>()
 
     override fun getItemViewType(position: Int): Int {
-        return when (position) {
-            0 -> CATEGORY_LIST_ROW
+        return when {
+            position==0 -> CATEGORY_LIST_ROW
+            itemsList[position-1].isLoading -> SHOW_LOADER
             else -> ITEMS_ROW
         }
     }
@@ -48,6 +50,9 @@ class BuyPropertyAdapter(private val context: Context, private val rvProperty: R
                 params.width = rvProperty.width
                 widthOrgCarType = params.width
                 CarFilterHolder(view)
+            }SHOW_LOADER -> {
+                view = mLayoutInflater.inflate(R.layout.show_loader_row, parent, false)
+                ShowLoaderHolder(view)
             }
             else -> {
                 view = mLayoutInflater.inflate(R.layout.item_row, parent, false)
@@ -61,16 +66,25 @@ class BuyPropertyAdapter(private val context: Context, private val rvProperty: R
     }
 
     override fun getItemCount(): Int {
-        return itemsList.size + 1
+        return itemsList.size +1
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (position == CATEGORY_LIST_ROW) {
             (holder as CarFilterHolder).bind(zoneList)
+        }else if( itemsList[position-1].isLoading ){
+            (holder as ShowLoaderHolder).bind()
         } else {
             val modal = itemsList[position - 1]
             (holder as ItemsHolder).bind(modal)
         }
+    }
+
+    inner class ShowLoaderHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView!!),LayoutContainer{
+        fun bind() {
+
+        }
+
     }
 
     inner class CarFilterHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
@@ -171,7 +185,7 @@ class BuyPropertyAdapter(private val context: Context, private val rvProperty: R
                 intent.putExtra(AppConstants.ITEM_ID, data.id)
                 context.startActivity(intent)
             }
-            tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at.date)).append(" ").append("ago")
+            tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at!!.date)).append(" ").append("ago")
 
             llUserProfile.setOnClickListener {
                 val reportIntent = Intent(context, UserProfileActivity::class.java)

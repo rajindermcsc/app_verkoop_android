@@ -34,6 +34,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
     val CATEGORY_LIST_ROW = 0
     val PROPERTIES_ROW = 2
     val ITEMS_ROW = 4
+    val SHOW_LOADER = 5
     val YOUR_DAILY_PICKS = 1
     val RECOMMENDED_YOU = 3
     private var width = 0
@@ -43,15 +44,17 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
     private var dailyPicksList = ArrayList<ItemHome>()
     private var categoryList = ArrayList<Category>()
     private var advertismentsList = ArrayList<Advertisment>()
-   // val viewPool =  RecyclerView.RecycledViewPool();
+    // val viewPool =  RecyclerView.RecycledViewPool();
 
     override fun getItemViewType(position: Int): Int {
-        return when (position) {
-            0 -> CATEGORY_LIST_ROW
-            1 -> YOUR_DAILY_PICKS
-            2 -> PROPERTIES_ROW
-            3 -> RECOMMENDED_YOU
-            else -> ITEMS_ROW
+        return when {
+            position === 0 -> CATEGORY_LIST_ROW
+            position === 1 -> YOUR_DAILY_PICKS
+            position === 2 -> PROPERTIES_ROW
+            position === 3 -> RECOMMENDED_YOU
+            itemsList[position - 4].isLoading -> SHOW_LOADER
+            else ->
+                ITEMS_ROW
         }
     }
 
@@ -78,7 +81,11 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
             }
             RECOMMENDED_YOU -> {
                 view = mLayoutInflater.inflate(R.layout.recommended_for_you, parent, false)
-               RecommendedYouHolder(view)
+                RecommendedYouHolder(view)
+            }
+            SHOW_LOADER -> {
+                view = mLayoutInflater.inflate(R.layout.show_loader_row, parent, false)
+                ShowLoaderHolder(view)
             }
             else -> {
                 view = mLayoutInflater.inflate(R.layout.item_row, parent, false)
@@ -105,10 +112,18 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
             (holder as CarAndPropertiesHolder).bind()
         }else if (position == RECOMMENDED_YOU) {
             (holder as RecommendedYouHolder).bind()
+        }else if (itemsList[position-4].isLoading ) {
+            (holder as ShowLoaderHolder).bind()
         } else {
             val modal = itemsList[position - 4]
             (holder as ItemsHolder).bind(modal)
         }
+    }
+    inner class ShowLoaderHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView!!),LayoutContainer{
+        fun bind() {
+
+        }
+
     }
 
     inner class AddsAndItemsHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
@@ -133,7 +148,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
             rvCategoryHome.setHasFixedSize(true)
             rvCategoryHome.adapter = categoryAdapter
             rvCategoryHome!!.adapter!!.notifyDataSetChanged()
-         //   rvCategoryHome.setRecycledViewPool(viewPool)
+            //   rvCategoryHome.setRecycledViewPool(viewPool)
             tvViewAll.setOnClickListener {
                 val intent = Intent(context, FullCategoriesActivity::class.java)
                 context.startActivityForResult(intent, 2)
@@ -147,15 +162,16 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
         fun bind() {
             ivBuyCar.setOnClickListener {
                 val intent = Intent(context, BuyCarsActivity::class.java)
-                (context as HomeActivity).startActivityForResult(intent,2)
+                (context as HomeActivity).startActivityForResult(intent, 2)
             }
             ivBuyProperty.setOnClickListener {
                 val intent = Intent(context, BuyPropertiesActivity::class.java)
-                (context as HomeActivity).startActivityForResult(intent,2)
+                (context as HomeActivity).startActivityForResult(intent, 2)
             }
         }
 
     }
+
     inner class RecommendedYouHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind() {
 
@@ -213,10 +229,10 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
                 if (!data.isClicked) {
                     if (data.like_id > 0) {
                         data.isClicked = !data.isClicked
-                        deleteLikeApi( adapterPosition-4,data.like_id)
+                        deleteLikeApi(adapterPosition - 4, data.like_id)
                     } else {
                         data.isClicked = !data.isClicked
-                        lickedApi( data.id,adapterPosition-4)
+                        lickedApi(data.id, adapterPosition - 4)
                     }
                 }
             }
@@ -227,7 +243,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
                 intent.putExtra(AppConstants.ITEM_ID, data.id)
                 context.startActivity(intent)
             }
-            tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at.date)).append(" ").append("ago")
+            tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at!!.date)).append(" ").append("ago")
 
             llUserProfile.setOnClickListener {
                 val reportIntent = Intent(context, UserProfileActivity::class.java)
@@ -240,23 +256,25 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
 
     inner class YourDailyPickHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind() {
-          //  llParent.layoutParams.height = widthDaily
+            //  llParent.layoutParams.height = widthDaily
             val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            linearLayoutManager.isAutoMeasureEnabled=true
+            linearLayoutManager.isAutoMeasureEnabled = true
             rvYourDailyPicks.layoutManager = linearLayoutManager
-            Log.e("<<YourDailyPickHolder>>",rvItemList.toString())
+            Log.e("<<YourDailyPickHolder>>", rvItemList.toString())
             val dailyPicksAdapter = YourDailyPicksAdapter(context, rvItemList, itemsList)
             rvYourDailyPicks.setHasFixedSize(true)
             rvYourDailyPicks.adapter = dailyPicksAdapter
-          //  rvYourDailyPicks.setRecycledViewPool(viewPool)
+            //  rvYourDailyPicks.setRecycledViewPool(viewPool)
             tvViewAllDailyPicks.setOnClickListener {
                 val intent = Intent(context, FavouritesActivity::class.java)
-                    intent.putExtra(AppConstants.COMING_FROM,1)
-                    context.startActivity(intent)
+                intent.putExtra(AppConstants.COMING_FROM, 1)
+                context.startActivity(intent)
             }
         }
 
     }
+
+
     private fun lickedApi(itemId: Int, position: Int) {
         val lickedRequest = LickedRequest(Utils.getPreferencesString(context, AppConstants.USER_ID), itemId)
         ServiceHelper().likeService(lickedRequest,
@@ -264,15 +282,15 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
                     override fun onSuccess(response: Response<*>) {
                         itemsList[position].isClicked = !itemsList[position].isClicked
                         val responseLike = response.body() as LikedResponse
-                        itemsList[position].is_like=!itemsList[position].is_like
-                        itemsList[position].items_like_count= itemsList[position].items_like_count+1
-                        itemsList[position].like_id= responseLike.like_id
-                        notifyItemChanged(position+4 )
+                        itemsList[position].is_like = !itemsList[position].is_like
+                        itemsList[position].items_like_count = itemsList[position].items_like_count + 1
+                        itemsList[position].like_id = responseLike.like_id
+                        notifyItemChanged(position + 4)
                     }
 
                     override fun onFailure(msg: String?) {
                         itemsList[position].isClicked = !itemsList[position].isClicked
-                        notifyItemChanged(position+4 )
+                        notifyItemChanged(position + 4)
                         //      Utils.showSimpleMessage(homeActivity, msg!!).show()
                     }
                 })
@@ -284,15 +302,15 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
                     override fun onSuccess(response: Response<*>) {
                         itemsList[position].isClicked = !itemsList[position].isClicked
                         val likeResponse = response.body() as DisLikeResponse
-                        itemsList[position].is_like=!itemsList[position].is_like
-                        itemsList[position].items_like_count= itemsList[position].items_like_count-1
-                        itemsList[position].like_id= 0
-                        notifyItemChanged(position+4 )
+                        itemsList[position].is_like = !itemsList[position].is_like
+                        itemsList[position].items_like_count = itemsList[position].items_like_count - 1
+                        itemsList[position].like_id = 0
+                        notifyItemChanged(position + 4)
                     }
 
                     override fun onFailure(msg: String?) {
                         itemsList[position].isClicked = !itemsList[position].isClicked
-                        notifyItemChanged(position+4 )
+                        notifyItemChanged(position + 4)
                     }
                 })
     }

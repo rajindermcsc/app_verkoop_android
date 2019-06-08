@@ -25,6 +25,10 @@ import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.home_fragment.*
 import retrofit2.Response
+import com.verkoopapp.R.id.swipeContainer
+import android.support.v4.widget.SwipeRefreshLayout
+import android.util.Log
+
 
 class HomeFragment : BaseFragment(), LikeDisLikeListener {
     val TAG = HomeFragment::class.java.simpleName.toString()
@@ -79,7 +83,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val display = homeActivity.windowManager.defaultDisplay
-        val size =  Point()
+        val size = Point()
         display.getSize(size)
         val width = size.x
         setItemList(width)
@@ -88,7 +92,10 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
             currentPage = 1
             homeActivity.window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-            getItemService()
+            if (pbProgressHome != null) {
+                pbProgressHome.visibility = View.VISIBLE
+            }
+            getItemService(0)
         } else {
             Utils.showSimpleMessage(homeActivity, getString(R.string.check_internet)).show()
         }
@@ -104,7 +111,9 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
                     homeAdapter.YOUR_DAILY_PICKS -> 2
                     homeAdapter.PROPERTIES_ROW -> 2
                     homeAdapter.RECOMMENDED_YOU -> 2
-                    else -> 1
+                    homeAdapter.SHOW_LOADER -> 2
+                    else ->
+                        1
                 }
             }
         }
@@ -125,14 +134,30 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
 
             if (!isLoading && currentPage != totalPageCount) {
                 if (visibleItemCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0 && totalItemCount >= PAGE_SIZE) {
+                    itemsList.add(ItemHome(isLoading=true))
+                    Log.e("AddItemPosition",(itemsList.size-1).toString())
+                    homeAdapter.notifyItemInserted((itemsList.size-1)+4)
                     currentPage += 1
-                    getItemService()
+                    getItemService(0)
                 }
             }
         }
     }
 
     private fun setData() {
+        swipeContainer.setOnRefreshListener {
+            if (Utils.isOnline(homeActivity)) {
+                currentPage = 1
+                getItemService(1)
+            } else {
+                swipeContainer.isRefreshing = false
+                Utils.showSimpleMessage(homeActivity, getString(R.string.check_internet)).show()
+            }
+        }
+        swipeContainer.setColorSchemeResources(R.color.colorPrimary,
+                R.color.colorPrimary,
+                R.color.colorPrimary,
+                R.color.colorPrimary)
 
         tvCategoryHome.setOnClickListener {
             val intent = Intent(homeActivity, FullCategoriesActivity::class.java)
@@ -158,7 +183,7 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
     }
 
 
-    private fun setApiData(data: DataHome?) {
+    private fun setApiData(data: DataHome?,loadMore:Int) {
         if (data!!.categories.size > 0 && data.advertisments.size > 0) {
             homeAdapter.setCategoryAndAddsData(data.advertisments, data.categories)
         }
@@ -167,41 +192,56 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
         }
 
         totalPageCount = data.totalPage
-        itemsList.addAll(data.items)
+        if(loadMore==1) {
+            itemsList.clear()
+            itemsList.addAll(data.items)
+        }else{
+            itemsList.addAll(data.items)
+        }
         homeAdapter.setData(itemsList)
         homeAdapter.notifyDataSetChanged()
     }
 
 
-    private fun getItemService() {
-        if (pbProgressHome != null) {
-            pbProgressHome.visibility = View.VISIBLE
-        }
+    private fun getItemService(loadMore:Int) {
         isLoading = true
         ServiceHelper().getItemsService(HomeRequest(0), currentPage, Utils.getPreferencesString(homeActivity, AppConstants.USER_ID), object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
-                isLoading = false
                 homeActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                swipeContainer.isRefreshing = false
+                isLoading = false
                 if (pbProgressHome != null) {
                     pbProgressHome.visibility = View.GONE
                     rvHomeList.visibility = View.VISIBLE
                 }
+                if(currentPage>1&&itemsList.size>0) {
+                    itemsList.removeAt(itemsList.size - 1)
+                    val scrollPosition = itemsList.size
+                    homeAdapter.notifyItemRemoved(scrollPosition+4)
+                }
                 val homeDataResponse = response.body() as HomeDataResponse?
                 if (homeDataResponse!!.data != null) {
-                    setApiData(homeDataResponse.data)
+                    setApiData(homeDataResponse.data,loadMore)
                 }
             }
 
             override fun onFailure(msg: String?) {
-                if (currentPage >= 2) {
-                    currentPage -= 1
-                }
-                isLoading = false
                 homeActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                swipeContainer.isRefreshing = false
+                isLoading = false
                 if (pbProgressHome != null) {
                     pbProgressHome.visibility = View.GONE
                 }
                 Utils.showSimpleMessage(homeActivity, msg!!).show()
+                if (currentPage >= 2) {
+                    currentPage -= 1
+                }
+
+                if(currentPage>1&&itemsList.size>0) {
+                    itemsList.removeAt(itemsList.size - 1)
+                    val scrollPosition = itemsList.size
+                    homeAdapter.notifyItemRemoved(scrollPosition)
+                }
             }
         })
     }

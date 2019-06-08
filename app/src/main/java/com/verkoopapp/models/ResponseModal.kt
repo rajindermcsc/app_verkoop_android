@@ -354,21 +354,22 @@ data class Category(
 )
 
 data class ItemHome(
-        val id: Int,
-        val user_id: Int,
-        val category_id: Int,
-        val name: String,
-        val price: Double,
-        val item_type: Int,
-        val created_at: CreatedAtHome,
-        var items_like_count: Int,
-        var like_id: Int,
-        var is_like: Boolean,
-        var is_sold: Int,
-        val image_url: String,
-        val username: String,
-        val profile_pic: String,
-        var isClicked: Boolean=false
+        val id: Int=0,
+        val user_id: Int=0,
+        val category_id: Int=0,
+        val name: String?=null,
+        val price: Double=0.0,
+        val item_type: Int=0,
+        val created_at: CreatedAtHome?=null,
+        var items_like_count: Int=0,
+        var like_id: Int=0,
+        var is_like: Boolean=false,
+        var is_sold: Int=0,
+        val image_url: String?=null,
+        val username: String?=null,
+        val profile_pic: String?=null,
+        var isClicked: Boolean=false,
+        var isLoading: Boolean=false
 )
 
 data class CreatedAtHome(

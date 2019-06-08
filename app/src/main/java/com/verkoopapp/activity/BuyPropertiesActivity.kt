@@ -16,6 +16,7 @@ import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.buy_cars_activity.*
+import kotlinx.android.synthetic.main.home_fragment.*
 import kotlinx.android.synthetic.main.toolbar_cars_properties.*
 import retrofit2.Response
 
@@ -37,13 +38,27 @@ class BuyPropertiesActivity : AppCompatActivity() {
             currentPage = 1
             window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-            getItemService()
+            pbCars.visibility = View.VISIBLE
+            getItemService(0)
         } else {
             Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
         }
     }
 
     private fun setData() {
+        scCars.setOnRefreshListener {
+            if (Utils.isOnline(this)) {
+                currentPage = 1
+                getItemService(1)
+            } else {
+                scCars.isRefreshing = false
+                Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+            }
+        }
+        scCars.setColorSchemeResources(R.color.colorPrimary,
+                R.color.colorPrimary,
+                R.color.colorPrimary,
+                R.color.colorPrimary)
         etSearchFullCar.text = getString(R.string.search_properties)
         tvHeaderCar.text = getString(R.string.properties)
         iv_leftCar.setOnClickListener { onBackPressed() }
@@ -68,6 +83,7 @@ class BuyPropertiesActivity : AppCompatActivity() {
             override fun getSpanSize(position: Int): Int {
                 return when (buyPropertyAdapter.getItemViewType(position)) {
                     buyPropertyAdapter.CATEGORY_LIST_ROW -> 2
+                    buyPropertyAdapter.SHOW_LOADER -> 2
                     else -> 1
                 }
             }
@@ -91,42 +107,55 @@ class BuyPropertiesActivity : AppCompatActivity() {
                 if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
                         && firstVisibleItemPosition >= 0
                         && totalItemCount >= MifareUltralight.PAGE_SIZE) {
+                    itemsList.add(ItemHome(isLoading=true));
+                    buyPropertyAdapter.notifyItemInserted((itemsList.size-1)+1)
                     currentPage += 1
-                    getItemService()
+                    getItemService(0)
                 }
             }
         }
     }
 
-    private fun getItemService() {
-        pbCars.visibility = View.VISIBLE
+    private fun getItemService(lodeMode:Int) {
         isLoading = true
         ServiceHelper().getBuyCarService(HomeRequest(2), currentPage, Utils.getPreferencesString(this, AppConstants.USER_ID), object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
+                scCars.isRefreshing = false
                 isLoading = false
                 window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                 pbCars.visibility = View.GONE
                 rvBuyCarList.visibility = View.VISIBLE
+                if(currentPage>1&&itemsList.size>0) {
+                    itemsList.removeAt(itemsList.size - 1)
+                    val scrollPosition = itemsList.size
+                    buyPropertyAdapter.notifyItemRemoved(scrollPosition+1)
+                }
 
                 val homeDataResponse = response.body() as BuyCarResponse?
                 if (homeDataResponse!!.data != null) {
-                    setApiData(homeDataResponse.data)
+                    setApiData(lodeMode,homeDataResponse.data)
                 }
             }
 
             override fun onFailure(msg: String?) {
+                window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                Utils.showSimpleMessage(this@BuyPropertiesActivity, msg!!).show()
+                scCars.isRefreshing = false
+                pbCars.visibility = View.GONE
+                isLoading = false
+                if(currentPage>1&&itemsList.size>0) {
+                    itemsList.removeAt(itemsList.size - 1)
+                    val scrollPosition = itemsList.size
+                    buyPropertyAdapter.notifyItemRemoved(scrollPosition)
+                }
                 if (currentPage >= 2) {
                     currentPage -= 1
                 }
-                isLoading = false
-                window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                pbCars.visibility = View.GONE
-                Utils.showSimpleMessage(this@BuyPropertiesActivity, msg!!).show()
             }
         })
     }
 
-    private fun setApiData(data: DataCarResponse?) {
+    private fun setApiData(loadMore:Int,data: DataCarResponse?) {
         val nameList = arrayOf("East", "West", "North East", "North", "Central")
         val subList = arrayOf(1, 2, 3, 4, 5)
         val image = arrayOf("public/images/zones/d_east.png", "public/images/zones/d_west.png", "public/images/zones/d_south.png", "public/images/zones/d_north.png", "public/images/zones/d_east.png")
@@ -139,7 +168,12 @@ class BuyPropertiesActivity : AppCompatActivity() {
         }
 
         totalPageCount = data!!.totalPage
-        itemsList.addAll(data.items)
+        if(loadMore!=1) {
+            itemsList.addAll(data.items)
+        }else{
+            itemsList.clear()
+            itemsList.addAll(data.items)
+        }
         buyPropertyAdapter.setData(itemsList)
         buyPropertyAdapter.notifyDataSetChanged()
     }

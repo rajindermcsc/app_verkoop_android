@@ -102,7 +102,7 @@ class ItemHomeAdapter(private val context: Context, private val rvItemList: Recy
                 intent.putExtra(AppConstants.ITEM_ID, data.id)
                 context.startActivity(intent)
             }
-            tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at.date)).append(" ").append("ago")
+            tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at!!.date)).append(" ").append("ago")
 
             llUserProfile.setOnClickListener {
                 val reportIntent = Intent(context, UserProfileActivity::class.java)
