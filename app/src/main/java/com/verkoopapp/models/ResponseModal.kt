@@ -628,10 +628,10 @@ data class DataUserProfile(
         val state_id: Int,
         val country_id: Int,
         val follow_count: Int,
-        val follower_count: Int,
-        val follower_id: Int,
+        var follower_count: Int=0,
+        var follower_id: Int=0,
         val block_id: Int,
-        val items: ArrayList<ItemUserProfile>,
+        val items: ArrayList<ItemHome>,
         val reports: ArrayList<ReportResponse>
 )
 

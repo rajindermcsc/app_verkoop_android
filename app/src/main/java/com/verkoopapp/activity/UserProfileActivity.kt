@@ -2,19 +2,17 @@ package com.verkoopapp.activity
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Point
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
-import android.text.TextUtils
 import android.view.View
 import android.view.WindowManager
 import com.skydoves.powermenu.MenuAnimation
 import com.skydoves.powermenu.OnMenuItemClickListener
 import com.skydoves.powermenu.PowerMenu
 import com.skydoves.powermenu.PowerMenuItem
-import com.squareup.picasso.Picasso
-import com.verkoopapp.LikeDisLikeListener
 import com.verkoopapp.R
 import com.verkoopapp.adapter.UserProfileItemAdapter
 import com.verkoopapp.models.*
@@ -24,78 +22,73 @@ import kotlinx.android.synthetic.main.toolbar_location.*
 import kotlinx.android.synthetic.main.user_profile_activity.*
 import retrofit2.Response
 
-class UserProfileActivity:AppCompatActivity(), LikeDisLikeListener {
+class UserProfileActivity:AppCompatActivity() {
     private var powerMenu: PowerMenu? = null
     private lateinit var myProfileItemAdapter: UserProfileItemAdapter
-    private var itemsList = ArrayList<ItemUserProfile>()
+    private var itemsList = ArrayList<ItemHome>()
     private var reportsList=ArrayList<ReportResponse>()
-    private var isClicked: Boolean = false
-    private var isFollowClick: Boolean = false
     private var isBlockClick: Boolean = false
     private var userId:Int=0
-    private var followId:Int=0
     private var blockedId:Int=0
     private var typeMenu:Int=0
-    private var followers:Int=0
     private var userName:String=""
 
-
-    override fun getLikeDisLikeClick(type: Boolean, position: Int, lickedId: Int, itemId: Int) {
-        if (type) {
-            if (!isClicked) {
-                isClicked = true
-                deleteLikeApi(position, lickedId)
-            }
-        } else {
-            if (!isClicked) {
-                isClicked = true
-                lickedApi(itemId, position)
-            }
-        }
-    }
-
-    override fun getItemDetailsClick(itemId: Int,userId:Int) {
-        val intent = Intent(this, ProductDetailsActivity::class.java)
-        intent.putExtra(AppConstants.ITEM_ID, itemId)
-        intent.putExtra(AppConstants.USER_ID,userId)
-        intent.putExtra(AppConstants.COMING_FROM, 1)
-        startActivity(intent)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.user_profile_activity)
         userId=intent.getIntExtra(AppConstants.USER_ID,0)
         userName=intent.getStringExtra(AppConstants.USER_NAME)
+        val display = windowManager.defaultDisplay
+        val size = Point()
+        display.getSize(size)
+        val width = size.x
         setData()
-        setAdapter()
+        setAdapter(width)
         if (Utils.isOnline(this)) {
+            window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+            pbProgressUser.visibility = View.VISIBLE
             myProfileInfoApi()
         } else {
             Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
         }
     }
-    private fun setAdapter() {
+    private fun setAdapter(width: Int) {
         val linearLayoutManager = GridLayoutManager(this, 2)
+        linearLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return when (myProfileItemAdapter.getItemViewType(position)) {
+                    myProfileItemAdapter.PROFILE_DETAILS -> 2
+                    else ->
+                        1
+                }
+            }
+        }
         rvUserPostsList.layoutManager = linearLayoutManager
-        myProfileItemAdapter = UserProfileItemAdapter(this, llUserParent)
+        myProfileItemAdapter = UserProfileItemAdapter(this, width,userId)
         rvUserPostsList.isNestedScrollingEnabled = false
         rvUserPostsList.isFocusable = false
         rvUserPostsList.adapter = myProfileItemAdapter
     }
     private fun setData() {
-        llFollowersUser.setOnClickListener {
-            val intent=Intent(this,FollowFollowingActivity::class.java)
-            intent.putExtra(AppConstants.COMING_FROM,0)
-            intent.putExtra(AppConstants.USER_ID,userId)
-            startActivity(intent)
+        scUserProfile.setOnRefreshListener {
+            if (Utils.isOnline(this)) {
+                if (Utils.isOnline(this)) {
+                    myProfileInfoApi()
+                } else {
+                    scUserProfile.isRefreshing = false
+                    Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+                }
+            } else {
+                scUserProfile.isRefreshing = false
+                Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+            }
         }
-        llFollowingUser.setOnClickListener {
-            val intent=Intent(this,FollowFollowingActivity::class.java)
-            intent.putExtra(AppConstants.COMING_FROM,1)
-            intent.putExtra(AppConstants.USER_ID,userId)
-            startActivity(intent)
-        }
+        scUserProfile.setColorSchemeResources(R.color.colorPrimary,
+                R.color.colorPrimary,
+                R.color.colorPrimary,
+                R.color.colorPrimary)
         ivRight.setImageResource(R.drawable.menu_icone)
         ivRight.visibility= View.VISIBLE
         tvHeaderLoc.text=userName
@@ -108,18 +101,6 @@ class UserProfileActivity:AppCompatActivity(), LikeDisLikeListener {
             }
 
         }
-        tvUserFollow.setOnClickListener {
-            if(!isFollowClick) {
-                isFollowClick=true
-                if (tvUserFollow.text.toString().equals("Follow", ignoreCase = true)) {
-                    followService()
-                } else {
-                    unFollowService()
-                }
-            }
-
-        }
-
     }
 
 
@@ -192,18 +173,23 @@ class UserProfileActivity:AppCompatActivity(), LikeDisLikeListener {
 
 
     private fun myProfileInfoApi() {
-       window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        pbProgressUser.visibility = View.VISIBLE
         val userRequest=FollowRequest(Utils.getPreferencesString(this,AppConstants.USER_ID),userId)
         ServiceHelper().userProfileService(userRequest,
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
+                        scUserProfile.isRefreshing = false
                         pbProgressUser.visibility = View.GONE
                      window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                         val myProfileResponse = response.body() as UserProfileResponse
                         if (myProfileResponse.data != null) {
-                            setApiData(myProfileResponse.data)
+                            itemsList.clear()
+                            itemsList = myProfileResponse.data.items
+                            myProfileItemAdapter.setData(itemsList)
+                            myProfileItemAdapter.setProfileData(myProfileResponse.data)
+                            myProfileItemAdapter.notifyDataSetChanged()
+
+                            blockedId=myProfileResponse.data.block_id
+                            reportsList=myProfileResponse.data.reports
                         } else {
 //                            Utils.showSimpleMessage(homeActivity, myProfileResponse.message).show()
                         }
@@ -211,6 +197,7 @@ class UserProfileActivity:AppCompatActivity(), LikeDisLikeListener {
 
                     override fun onFailure(msg: String?) {
                        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                        scUserProfile.isRefreshing = false
                         pbProgressUser.visibility = View.GONE
 
                         Utils.showSimpleMessage(this@UserProfileActivity, msg!!).show()
@@ -218,45 +205,6 @@ class UserProfileActivity:AppCompatActivity(), LikeDisLikeListener {
                 })
     }
 
-    private fun setApiData(data: DataUserProfile) {
-        itemsList.clear()
-        itemsList = data.items
-        followId = data.follower_id
-        followers=data.follower_count
-        tvUserFollowers.text=followers.toString()
-        tvUserFollowing.text=data.follow_count.toString()
-        myProfileItemAdapter.setData(itemsList)
-        myProfileItemAdapter.notifyDataSetChanged()
-        tvNameUser.text = data.username
-        blockedId=data.block_id
-        reportsList=data.reports
-        if(data.follower_id>0){
-            tvUserFollow.background=ContextCompat.getDrawable(this@UserProfileActivity,R.drawable.brown_rectangular_shape)
-            tvUserFollow.text = getString(R.string.following)
-            tvUserFollow.setPaddingRelative(Utils.dpToPx(this@UserProfileActivity,48.0f).toInt(),Utils.dpToPx(this@UserProfileActivity,10.0f).toInt(),Utils.dpToPx(this@UserProfileActivity,48.0f).toInt(),Utils.dpToPx(this@UserProfileActivity,10.0f).toInt())
-        }else{
-            tvUserFollow.background=ContextCompat.getDrawable(this@UserProfileActivity,R.drawable.red_rectangular_shape)
-            tvUserFollow.text = getString(R.string.follow)
-            tvUserFollow.setPaddingRelative(Utils.dpToPx(this@UserProfileActivity,60.0f).toInt(),Utils.dpToPx(this@UserProfileActivity,10.0f).toInt(),Utils.dpToPx(this@UserProfileActivity,60.0f).toInt(),Utils.dpToPx(this@UserProfileActivity,10.0f).toInt())
-        }
-        tvUserJoiningDate.text = StringBuffer().append(": ").append(Utils.convertDate("yyyy-MM-dd hh:mm:ss", data.created_at, "dd MMMM yyyy"))
-        if (!TextUtils.isEmpty(data.profile_pic)) {
-            Picasso.with(this).load(AppConstants.IMAGE_URL + data.profile_pic)
-                    .resize(720, 720)
-                    .centerInside()
-                    .error(R.mipmap.pic_placeholder)
-                    .placeholder(R.mipmap.pic_placeholder)
-                    .into(ivUserPic)
-        }
-        if (!TextUtils.isEmpty(data.city) && !TextUtils.isEmpty(data.state)) {
-            tvAddressUser.text = StringBuilder().append(data.state).append(", ").append(data.city)
-
-            tvAddressUser.visibility = View.VISIBLE
-        } else {
-            tvAddressUser.visibility = View.GONE
-        }
-        tvCountryUser.text = data.country
-    }
 
     override fun onBackPressed() {
         if (powerMenu!=null&&powerMenu!!.isShowing) {
@@ -305,88 +253,4 @@ class UserProfileActivity:AppCompatActivity(), LikeDisLikeListener {
 
     }
 
-    private fun unFollowService() {
-        ServiceHelper().unFollowService(followId,
-                object : ServiceHelper.OnResponse {
-                    override fun onSuccess(response: Response<*>) {
-                        isFollowClick=false
-                        val likeResponse = response.body() as DisLikeResponse
-                        tvUserFollow.background=ContextCompat.getDrawable(this@UserProfileActivity,R.drawable.red_rectangular_shape)
-                        tvUserFollow.text = getString(R.string.follow)
-                        tvUserFollow.setPaddingRelative(Utils.dpToPx(this@UserProfileActivity,60.0f).toInt(),Utils.dpToPx(this@UserProfileActivity,10.0f).toInt(),Utils.dpToPx(this@UserProfileActivity,60.0f).toInt(),Utils.dpToPx(this@UserProfileActivity,10.0f).toInt())
-                        followers -= 1
-                        tvUserFollowers.text=followers.toString()
-                        followId=0
-                    }
-                    override fun onFailure(msg: String?) {
-                        isFollowClick=false
-                        Utils.showSimpleMessage(this@UserProfileActivity, msg!!).show()
-                    }
-                })
-    }
-
-    private fun followService() {
-        //  pbProgressUser.visibility=View.VISIBLE
-        val reportUserResponse= FollowRequest(Utils.getPreferencesString(this,AppConstants.USER_ID),userId)
-        ServiceHelper().followService(reportUserResponse,
-                object : ServiceHelper.OnResponse {
-                    override fun onSuccess(response: Response<*>) {
-                        isFollowClick=false
-                        //     pbProgressReport.visibility=View.GONE
-                        val followResponse = response.body() as FollowResponse
-                        tvUserFollow.background=ContextCompat.getDrawable(this@UserProfileActivity,R.drawable.brown_rectangular_shape)
-                        tvUserFollow.text = getString(R.string.following)
-                        followId=followResponse.data.id
-                        followers += 1
-                        tvUserFollowers.text=followers.toString()
-                        tvUserFollow.setPaddingRelative(Utils.dpToPx(this@UserProfileActivity,48.0f).toInt(),Utils.dpToPx(this@UserProfileActivity,10.0f).toInt(),Utils.dpToPx(this@UserProfileActivity,48.0f).toInt(),Utils.dpToPx(this@UserProfileActivity,10.0f).toInt())
-                    }
-
-                    override fun onFailure(msg: String?) {
-                        isFollowClick=false
-                        //    pbProgressReport.visibility=View.GONE
-                        //    Utils.showSimpleMessage(this@UserProfileActivity, msg!!).show()
-                    }
-                })
-
-    }
-
-    private fun lickedApi(itemId: Int, position: Int) {
-        val lickedRequest = LickedRequest(Utils.getPreferencesString(this, AppConstants.USER_ID), itemId)
-        ServiceHelper().likeService(lickedRequest,
-                object : ServiceHelper.OnResponse {
-                    override fun onSuccess(response: Response<*>) {
-                        isClicked = false
-                        val responseLike = response.body() as LikedResponse
-                        itemsList[position].is_like=!itemsList[position].is_like
-                        itemsList[position].items_like_count= itemsList[position].items_like_count+1
-                        itemsList[position].like_id= responseLike.like_id
-                        myProfileItemAdapter.notifyItemChanged(position)
-                    }
-
-                    override fun onFailure(msg: String?) {
-                        isClicked = false
-                        //Utils.showSimpleMessage(homeActivity, msg!!).show()
-                    }
-                })
-    }
-
-    private fun deleteLikeApi(position: Int, lickedId: Int) {
-        ServiceHelper().disLikeService(lickedId,
-                object : ServiceHelper.OnResponse {
-                    override fun onSuccess(response: Response<*>) {
-                        isClicked = false
-                        val likeResponse = response.body() as DisLikeResponse
-                        itemsList[position].is_like=!itemsList[position].is_like
-                        itemsList[position].items_like_count= itemsList[position].items_like_count-1
-                        itemsList[position].like_id= 0
-                        myProfileItemAdapter.notifyItemChanged(position)
-                    }
-
-                    override fun onFailure(msg: String?) {
-                        isClicked = false
-                        //     Utils.showSimpleMessage(homeActivity, msg!!).show()
-                    }
-                })
-    }
 }
