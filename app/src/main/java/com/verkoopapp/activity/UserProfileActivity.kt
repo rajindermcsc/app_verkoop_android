@@ -182,6 +182,7 @@ class UserProfileActivity:AppCompatActivity() {
                      window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                         val myProfileResponse = response.body() as UserProfileResponse
                         if (myProfileResponse.data != null) {
+                            rvUserPostsList.visibility=View.VISIBLE
                             itemsList.clear()
                             itemsList = myProfileResponse.data.items
                             myProfileItemAdapter.setData(itemsList)
