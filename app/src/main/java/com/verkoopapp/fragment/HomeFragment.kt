@@ -30,7 +30,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Log
 
 
-class HomeFragment : BaseFragment(), LikeDisLikeListener {
+class HomeFragment : BaseFragment() {
     val TAG = HomeFragment::class.java.simpleName.toString()
     private lateinit var homeActivity: HomeActivity
     private lateinit var homeAdapter: HomeAdapter
@@ -40,27 +40,6 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
     private var isLoading = false
     private var totalPageCount: Int? = null
     private var currentPage = 0
-
-    override fun getLikeDisLikeClick(type: Boolean, position: Int, lickedId: Int, itemId: Int) {
-        if (Utils.isOnline(homeActivity)) {
-            if (type) {
-                if (!isClicked) {
-                    isClicked = true
-                    deleteLikeApi(position, lickedId)
-                }
-            } else {
-                if (!isClicked) {
-                    isClicked = true
-                    lickedApi(itemId, position)
-                }
-            }
-        } else {
-            Utils.showSimpleMessage(homeActivity, getString(R.string.check_internet)).show()
-        }
-    }
-
-    override fun getItemDetailsClick(itemId: Int, userId: Int) {
-    }
 
 
     override fun getTitle(): Int {
@@ -208,7 +187,9 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
         ServiceHelper().getItemsService(HomeRequest(0), currentPage, Utils.getPreferencesString(homeActivity, AppConstants.USER_ID), object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
                 homeActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                swipeContainer.isRefreshing = false
+                if(swipeContainer!=null) {
+                    swipeContainer.isRefreshing = false
+                }
                 isLoading = false
                 if (pbProgressHome != null) {
                     pbProgressHome.visibility = View.GONE
@@ -227,7 +208,9 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
 
             override fun onFailure(msg: String?) {
                 homeActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                swipeContainer.isRefreshing = false
+                if(swipeContainer!=null) {
+                    swipeContainer.isRefreshing = false
+                }
                 isLoading = false
                 if (pbProgressHome != null) {
                     pbProgressHome.visibility = View.GONE
@@ -246,42 +229,4 @@ class HomeFragment : BaseFragment(), LikeDisLikeListener {
         })
     }
 
-    private fun lickedApi(itemId: Int, position: Int) {
-        val lickedRequest = LickedRequest(Utils.getPreferencesString(homeActivity, AppConstants.USER_ID), itemId)
-        ServiceHelper().likeService(lickedRequest,
-                object : ServiceHelper.OnResponse {
-                    override fun onSuccess(response: Response<*>) {
-                        isClicked = false
-                        val responseLike = response.body() as LikedResponse
-                        itemsList[position].is_like = !itemsList[position].is_like
-                        itemsList[position].items_like_count = itemsList[position].items_like_count + 1
-                        itemsList[position].like_id = responseLike.like_id
-                        homeAdapter.notifyItemChanged(position + 3)
-                    }
-
-                    override fun onFailure(msg: String?) {
-                        isClicked = false
-                        //      Utils.showSimpleMessage(homeActivity, msg!!).show()
-                    }
-                })
-    }
-
-    private fun deleteLikeApi(position: Int, lickedId: Int) {
-        ServiceHelper().disLikeService(lickedId,
-                object : ServiceHelper.OnResponse {
-                    override fun onSuccess(response: Response<*>) {
-                        isClicked = false
-                        val likeResponse = response.body() as DisLikeResponse
-                        itemsList[position].is_like = !itemsList[position].is_like
-                        itemsList[position].items_like_count = itemsList[position].items_like_count - 1
-                        itemsList[position].like_id = 0
-                        homeAdapter.notifyItemChanged(position + 3)
-                    }
-
-                    override fun onFailure(msg: String?) {
-                        isClicked = false
-                        //  Utils.showSimpleMessage(homeActivity, msg!!).show()
-                    }
-                })
-    }
 }

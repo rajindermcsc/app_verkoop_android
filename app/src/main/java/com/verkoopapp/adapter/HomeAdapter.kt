@@ -30,7 +30,6 @@ import retrofit2.Response
 
 class HomeAdapter(private val context: Context, private val rvItemList: Int, private val homeFragment: HomeFragment) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(context)
-    private lateinit var likeDisLikeListener: LikeDisLikeListener
     val CATEGORY_LIST_ROW = 0
     val PROPERTIES_ROW = 2
     val ITEMS_ROW = 4
@@ -92,7 +91,6 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
                 val params = view.layoutParams
                 params.width = rvItemList / 2
                 width = params.width
-                likeDisLikeListener = homeFragment
                 //view.layoutParams = params
                 ItemsHolder(view)
             }

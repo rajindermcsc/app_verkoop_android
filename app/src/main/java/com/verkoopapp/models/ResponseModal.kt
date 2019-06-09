@@ -138,7 +138,7 @@ data class DataProfile(
         val follow_id: Int,
         val follow_count: Int,
         val follower_count: Int,
-        val items: ArrayList<Item>
+        val items: ArrayList<ItemHome>
 )
 
 data class Item(

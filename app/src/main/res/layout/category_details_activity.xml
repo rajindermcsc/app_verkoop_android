@@ -88,7 +88,8 @@
                 <com.verkoopapp.utils.NonscrollRecylerview
                     android:id="@+id/rvItemListDetails"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_back"/>
 
             </LinearLayout>
         </ScrollView>

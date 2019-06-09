@@ -46,6 +46,7 @@ class YourDailyPicksAdapter(private val context:Context,private val recyclerView
 
     inner class ViewHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView!!),LayoutContainer{
         fun bind(data: ItemHome) {
+            viewItem.visibility=View.VISIBLE
             ivProductImageHome.layoutParams.height =width-16
             tvNameHome.text=data.username
             tvProductHome.text=data.name
