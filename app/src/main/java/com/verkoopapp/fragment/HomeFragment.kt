@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import com.ksmtrivia.common.BaseFragment
-import com.verkoopapp.LikeDisLikeListener
 import com.verkoopapp.R
 import com.verkoopapp.activity.FullCategoriesActivity
 import com.verkoopapp.activity.GalleryActivity
@@ -25,8 +24,6 @@ import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.home_fragment.*
 import retrofit2.Response
-import com.verkoopapp.R.id.swipeContainer
-import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Log
 
 
@@ -36,7 +33,6 @@ class HomeFragment : BaseFragment() {
     private lateinit var homeAdapter: HomeAdapter
     private lateinit var linearLayoutManager: GridLayoutManager
     private var itemsList = ArrayList<ItemHome>()
-    private var isClicked: Boolean = false
     private var isLoading = false
     private var totalPageCount: Int? = null
     private var currentPage = 0
@@ -113,11 +109,15 @@ class HomeFragment : BaseFragment() {
 
             if (!isLoading && currentPage != totalPageCount) {
                 if (visibleItemCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0 && totalItemCount >= PAGE_SIZE) {
-                    itemsList.add(ItemHome(isLoading=true))
-                    Log.e("AddItemPosition",(itemsList.size-1).toString())
-                    homeAdapter.notifyItemInserted((itemsList.size-1)+4)
-                    currentPage += 1
-                    getItemService(0)
+                    if (Utils.isOnline(homeActivity)) {
+                        itemsList.add(ItemHome(isLoading=true))
+                        Log.e("AddItemPosition",(itemsList.size-1).toString())
+                        homeAdapter.notifyItemInserted((itemsList.size-1)+4)
+                        currentPage += 1
+                        getItemService(0)
+                    } else {
+                     //   Utils.showSimpleMessage(homeActivity, getString(R.string.check_internet)).show()
+                    }
                 }
             }
         }

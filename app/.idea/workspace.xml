@@ -21,6 +21,11 @@
   <component name="ChangeListManager">
     <list default="true" id="bc66ae77-f916-47ea-a965-a0a0204e65ae" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/BuyCarsActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/BuyCarsActivity.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/BuyPropertiesActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/BuyPropertiesActivity.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/HomeAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/HomeAdapter.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/HomeFragment.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/HomeFragment.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/chat_text_right_row.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/chat_text_right_row.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -118,9 +123,197 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="20852">
-              <caret line="853" column="30" lean-forward="false" selection-start-line="853" selection-start-column="30" selection-end-line="853" selection-end-column="30" />
+              <caret line="856" column="30" lean-forward="false" selection-start-line="856" selection-start-column="30" selection-end-line="856" selection-end-column="30" />
               <folding>
                 <element signature="e#34#1963#0" expanded="false" />
+                <marker date="1560144979124" expanded="true" signature="4219:5247" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="4271:5172" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="4654:5161" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="4799:5147" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="5285:6207" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="5499:6064" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="6242:9680" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="6434:9605" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="6630:6844" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="6850:6915" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="7093:9594" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="7234:9580" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="7293:9532" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="7364:9315" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="7475:7875" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="7611:7845" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="7689:7811" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="7901:7984" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="8038:8974" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="8076:8826" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="8852:8943" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="9341:9416" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="9538:9562" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="9750:12132" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="9777:11628" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="9828:9894" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="9938:10142" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="10185:10393" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="10437:10787" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="10509:10637" ph="/ tvViewProfile.text = getString(R.string.edit_offer) .../" />
+                <marker date="1560144979124" expanded="true" signature="10830:11020" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="11064:11261" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="11304:11370" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="11414:11618" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="11634:12126" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="11685:11875" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="11919:12116" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="12164:12612" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="12640:17635" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="12845:13176" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="13221:13545" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="13551:13864" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="13960:14346" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="14054:14336" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="14387:14564" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="14599:15034" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="14668:14918" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="14712:14798" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="14804:14904" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="14924:15024" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="15074:15966" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="15179:15266" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="15365:15586" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="16009:17415" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="16117:16399" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="16501:16723" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="16824:17045" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="17458:17551" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="17588:17629" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="17670:17744" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="17703:17738" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="17788:18055" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="17902:17999" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="18085:18787" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="18171:18753" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="18225:18743" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="18309:18362" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="18435:18729" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="18818:19502" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="18963:19496" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="19021:19082" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="19107:19122" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="19158:19486" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="19587:21075" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="19635:21069" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="19728:20124" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="20183:20454" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="20518:21045" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="20812:20901" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="20907:21027" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="21132:22037" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="21408:22029" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="21468:21742" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="21793:22019" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="22087:22350" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="22412:23495" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="22790:23488" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="22858:23218" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="23277:23470" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="23529:24450" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="24533:25354" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="24640:25348" ph="/ if (position == 1) { .../" />
+                <marker date="1560144979124" expanded="true" signature="25409:25761" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="25595:25717" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="25639:25703" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="25815:26182" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="26017:26138" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="26061:26124" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="26236:26630" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="26465:26586" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="26509:26572" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="26690:27164" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="26782:27122" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="26844:27111" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="26888:27097" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="26925:26999" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="27005:27079" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="27215:29407" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="27267:29332" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="27742:29321" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="27883:29307" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="27942:29259" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="27982:29237" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="28089:28174" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="28207:29102" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="29128:29211" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="29265:29289" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="29457:31648" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="29509:31573" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="29983:31562" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="30124:31548" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="30183:31500" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="30223:31478" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="30330:30415" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="30448:31343" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="31369:31452" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="31506:31530" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="31696:33939" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="31748:33864" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="32274:33853" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="32415:33839" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="32474:33791" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="32514:33769" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="32621:32706" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="32739:33634" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="33660:33743" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="33797:33821" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="33989:36180" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="34041:36105" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="34515:36094" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="34656:36080" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="34715:36032" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="34755:36010" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="34862:34947" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="34980:35875" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="35901:35984" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="36038:36062" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="36228:38416" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="36280:38341" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="36751:38330" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="36892:38316" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="36951:38268" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="36991:38246" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="37098:37183" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="37216:38111" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="38137:38220" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="38274:38298" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="38473:40552" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="38525:40477" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="39074:40466" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="39219:40452" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="39322:40357" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="39395:40234" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="40260:40335" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="40363:40434" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="40601:41244" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="40659:41168" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="41314:43729" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="41409:43712" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="41573:43698" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="41599:43587" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="41698:41775" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="41811:41888" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="41924:42001" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="42037:42114" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="42260:43089" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="43095:43565" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="43125:43539" ph="/ val mNotificationManager = KSMNotificationManager(applicationContext) .../" />
+                <marker date="1560144979124" expanded="true" signature="43613:43680" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="43758:43905" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="43936:44016" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="44057:45757" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="44385:45750" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="44606:45740" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="44824:45589" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="44928:45205" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="45293:45571" ph="{...}" />
+                <marker date="1560144979124" expanded="true" signature="45460:45549" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -156,84 +349,39 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="806">
-              <caret line="31" column="62" lean-forward="false" selection-start-line="31" selection-start-column="42" selection-end-line="31" selection-end-column="62" />
+            <state relative-caret-position="-919">
+              <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="chat_image_right_row.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout/chat_image_right_row.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
+      <file leaf-file-name="HomeFragment.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/HomeFragment.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="19" column="31" lean-forward="false" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
+            <state relative-caret-position="146">
+              <caret line="109" column="62" lean-forward="true" selection-start-line="109" selection-start-column="62" selection-end-line="109" selection-end-column="62" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="chat_text_left_row.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout/chat_text_left_row.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
+      <file leaf-file-name="BuyPropertiesActivity.kt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/BuyPropertiesActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
-              <caret line="19" column="37" lean-forward="false" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="37" />
+            <state relative-caret-position="302">
+              <caret line="116" column="24" lean-forward="false" selection-start-line="116" selection-start-column="24" selection-end-line="116" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="chat_image_left_row.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout/chat_image_left_row.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
+      <file leaf-file-name="BuyCarsActivity.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/BuyCarsActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1820">
-              <caret line="70" column="30" lean-forward="false" selection-start-line="70" selection-start-column="30" selection-end-line="70" selection-end-column="30" />
+            <state relative-caret-position="364">
+              <caret line="115" column="24" lean-forward="false" selection-start-line="115" selection-start-column="24" selection-end-line="115" selection-end-column="24" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="white_rectangular_shape.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/drawable/white_rectangular_shape.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="12" column="8" lean-forward="false" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserProfileActivity.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/UserProfileActivity.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1378">
-              <caret line="75" column="9" lean-forward="false" selection-start-line="71" selection-start-column="7" selection-end-line="75" selection-end-column="9" />
-              <folding>
-                <element signature="e#33#940#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ServiceHelper.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/network/ServiceHelper.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34606">
-              <caret line="1402" column="30" lean-forward="false" selection-start-line="1402" selection-start-column="20" selection-end-line="1402" selection-end-column="30" />
-              <folding>
-                <element signature="e#32#558#0" expanded="false" />
-                <element signature="e#60145#61100#0" expanded="false" />
-                <element signature="e#61176#62682#0" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -2093,11 +2241,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/activity/ChatActivity.kt" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/row_payment_history.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/PaymentHistoryAdapter.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/CoinsHistoryActivity.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/fragment/HistoryFragment.kt" />
         <option value="$PROJECT_DIR$/src/main/res/layout/coin_history_row.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoop/network/MyService.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoop/network/ServiceHelper.kt" />
@@ -2144,6 +2287,11 @@
         <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt" />
         <option value="$PROJECT_DIR$/src/main/res/layout/chat_image_left_row.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/chat_image_right_row.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/HomeAdapter.kt" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/chat_text_right_row.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/HomeFragment.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/BuyCarsActivity.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/BuyPropertiesActivity.kt" />
       </list>
     </option>
   </component>
@@ -2340,6 +2488,114 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidBuildScriptsGroupNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoop_app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoop_app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoop_app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoopapp" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoop_app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoopapp" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fragment" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoop_app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoopapp" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="adapter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoop_app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoopapp" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="activity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -2513,7 +2769,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1560144231992" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1560148142635" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2561,7 +2817,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1560144231992" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1560148142635" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2747,7 +3003,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1560144231994" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1560148142636" />
       </method>
     </configuration>
     <list size="3">
@@ -2808,7 +3064,7 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
-      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.66898954" sideWeight="0.5537879" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.66898954" sideWeight="0.5537879" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27121213" sideWeight="1.0" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.77874565" sideWeight="0.4409091" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8292683" sideWeight="0.5590909" order="10" side_tool="false" content_ui="tabs" />
@@ -2818,14 +3074,14 @@
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12878788" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5749129" sideWeight="0.475" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8432056" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3292683" sideWeight="0.46742424" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.46742424" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21969697" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18409091" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.6393939" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.72648084" sideWeight="0.46212122" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.46212122" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.77874565" sideWeight="0.4409091" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27348486" sideWeight="0.0" order="0" side_tool="false" content_ui="combo" />
@@ -3527,18 +3783,6 @@
           <option name="timeStamp" value="507" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/HomeFragment.kt</url>
-          <line>128</line>
-          <properties />
-          <option name="timeStamp" value="516" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/HomeFragment.kt</url>
-          <line>127</line>
-          <properties />
-          <option name="timeStamp" value="535" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/EditProfileActivity.kt</url>
           <line>192</line>
           <properties />
@@ -3660,7 +3904,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/UserProfileItemAdapter.kt</url>
-          <line>44</line>
+          <line>294</line>
           <properties />
           <option name="timeStamp" value="625" />
         </line-breakpoint>
@@ -3672,55 +3916,37 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/UserProfileActivity.kt</url>
-          <line>224</line>
+          <line>208</line>
           <properties />
           <option name="timeStamp" value="629" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/UserProfileActivity.kt</url>
-          <line>226</line>
-          <properties />
-          <option name="timeStamp" value="630" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/UserProfileActivity.kt</url>
-          <line>230</line>
-          <properties />
-          <option name="timeStamp" value="631" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/UserProfileActivity.kt</url>
-          <line>232</line>
-          <properties />
-          <option name="timeStamp" value="632" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ProductDetailsActivity.kt</url>
-          <line>426</line>
+          <line>428</line>
           <properties />
           <option name="timeStamp" value="641" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ProductDetailsActivity.kt</url>
-          <line>427</line>
+          <line>429</line>
           <properties />
           <option name="timeStamp" value="642" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ProductDetailsActivity.kt</url>
-          <line>429</line>
+          <line>431</line>
           <properties />
           <option name="timeStamp" value="643" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ProductDetailsActivity.kt</url>
-          <line>430</line>
+          <line>432</line>
           <properties />
           <option name="timeStamp" value="644" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/ProfileFragment.kt</url>
-          <line>178</line>
+          <line>158</line>
           <properties />
           <option name="timeStamp" value="645" />
         </line-breakpoint>
@@ -3750,37 +3976,37 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ProductDetailsActivity.kt</url>
-          <line>428</line>
+          <line>430</line>
           <properties />
           <option name="timeStamp" value="657" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ProductDetailsActivity.kt</url>
-          <line>384</line>
+          <line>386</line>
           <properties />
           <option name="timeStamp" value="658" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ProductDetailsActivity.kt</url>
-          <line>385</line>
+          <line>387</line>
           <properties />
           <option name="timeStamp" value="659" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ProductDetailsActivity.kt</url>
-          <line>386</line>
+          <line>388</line>
           <properties />
           <option name="timeStamp" value="660" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ProductDetailsActivity.kt</url>
-          <line>387</line>
+          <line>389</line>
           <properties />
           <option name="timeStamp" value="661" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ProductDetailsActivity.kt</url>
-          <line>393</line>
+          <line>395</line>
           <properties />
           <option name="timeStamp" value="662" />
         </line-breakpoint>
@@ -3954,103 +4180,61 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/HomeAdapter.kt</url>
-          <line>211</line>
+          <line>221</line>
           <properties />
           <option name="timeStamp" value="855" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/HomeFragment.kt</url>
-          <line>237</line>
+          <line>229</line>
           <properties />
           <option name="timeStamp" value="856" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/HomeFragment.kt</url>
-          <line>218</line>
-          <properties />
-          <option name="timeStamp" value="857" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/HomeFragment.kt</url>
-          <line>229</line>
-          <properties />
-          <option name="timeStamp" value="858" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/HomeFragment.kt</url>
-          <line>209</line>
-          <properties />
-          <option name="timeStamp" value="859" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/HomeFragment.kt</url>
-          <line>215</line>
-          <properties />
-          <option name="timeStamp" value="860" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/HomeFragment.kt</url>
-          <line>216</line>
-          <properties />
-          <option name="timeStamp" value="861" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/HomeFragment.kt</url>
-          <line>217</line>
-          <properties />
-          <option name="timeStamp" value="862" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/HomeFragment.kt</url>
-          <line>222</line>
-          <properties />
-          <option name="timeStamp" value="863" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/YourDailyPicksAdapter.kt</url>
-          <line>112</line>
+          <line>113</line>
           <properties />
           <option name="timeStamp" value="867" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/YourDailyPicksAdapter.kt</url>
-          <line>109</line>
+          <line>110</line>
           <properties />
           <option name="timeStamp" value="868" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/YourDailyPicksAdapter.kt</url>
-          <line>130</line>
+          <line>131</line>
           <properties />
           <option name="timeStamp" value="869" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/YourDailyPicksAdapter.kt</url>
-          <line>151</line>
+          <line>152</line>
           <properties />
           <option name="timeStamp" value="870" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/YourDailyPicksAdapter.kt</url>
-          <line>134</line>
+          <line>135</line>
           <properties />
           <option name="timeStamp" value="871" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/YourDailyPicksAdapter.kt</url>
-          <line>135</line>
+          <line>136</line>
           <properties />
           <option name="timeStamp" value="872" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/YourDailyPicksAdapter.kt</url>
-          <line>143</line>
+          <line>144</line>
           <properties />
           <option name="timeStamp" value="873" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/YourDailyPicksAdapter.kt</url>
-          <line>144</line>
+          <line>145</line>
           <properties />
           <option name="timeStamp" value="874" />
         </line-breakpoint>
@@ -4122,79 +4306,79 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/BuyCarsAdapter.kt</url>
-          <line>137</line>
+          <line>151</line>
           <properties />
           <option name="timeStamp" value="923" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/BuyCarsAdapter.kt</url>
-          <line>138</line>
+          <line>152</line>
           <properties />
           <option name="timeStamp" value="924" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/BuyCarsAdapter.kt</url>
-          <line>139</line>
+          <line>153</line>
           <properties />
           <option name="timeStamp" value="925" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/BuyCarsAdapter.kt</url>
-          <line>140</line>
+          <line>154</line>
           <properties />
           <option name="timeStamp" value="926" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/BuyCarsAdapter.kt</url>
-          <line>141</line>
+          <line>155</line>
           <properties />
           <option name="timeStamp" value="927" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/BuyCarsAdapter.kt</url>
-          <line>143</line>
+          <line>157</line>
           <properties />
           <option name="timeStamp" value="928" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/BuyCarsAdapter.kt</url>
-          <line>142</line>
+          <line>156</line>
           <properties />
           <option name="timeStamp" value="929" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/BuyPropertyAdapter.kt</url>
-          <line>78</line>
+          <line>92</line>
           <properties />
           <option name="timeStamp" value="936" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/BuyPropertyAdapter.kt</url>
-          <line>80</line>
+          <line>94</line>
           <properties />
           <option name="timeStamp" value="937" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/BuyPropertyAdapter.kt</url>
-          <line>81</line>
+          <line>95</line>
           <properties />
           <option name="timeStamp" value="938" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/BuyPropertyAdapter.kt</url>
-          <line>79</line>
+          <line>93</line>
           <properties />
           <option name="timeStamp" value="939" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/BuyPropertyAdapter.kt</url>
-          <line>48</line>
+          <line>50</line>
           <properties />
           <option name="timeStamp" value="940" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/BuyPropertyAdapter.kt</url>
-          <line>49</line>
+          <line>51</line>
           <properties />
           <option name="timeStamp" value="941" />
         </line-breakpoint>
@@ -4212,7 +4396,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/FavouritesAdapter.kt</url>
-          <line>132</line>
+          <line>133</line>
           <properties />
           <option name="timeStamp" value="944" />
         </line-breakpoint>
@@ -4590,157 +4774,157 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>194</line>
+          <line>197</line>
           <properties />
           <option name="timeStamp" value="1160" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>195</line>
+          <line>198</line>
           <properties />
           <option name="timeStamp" value="1161" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>196</line>
+          <line>199</line>
           <properties />
           <option name="timeStamp" value="1162" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>232</line>
+          <line>235</line>
           <properties />
           <option name="timeStamp" value="1163" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>234</line>
+          <line>237</line>
           <properties />
           <option name="timeStamp" value="1164" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>233</line>
+          <line>236</line>
           <properties />
           <option name="timeStamp" value="1165" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>236</line>
+          <line>239</line>
           <properties />
           <option name="timeStamp" value="1166" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>241</line>
+          <line>244</line>
           <properties />
           <option name="timeStamp" value="1167" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>244</line>
+          <line>247</line>
           <properties />
           <option name="timeStamp" value="1168" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>250</line>
+          <line>253</line>
           <properties />
           <option name="timeStamp" value="1169" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>257</line>
+          <line>260</line>
           <properties />
           <option name="timeStamp" value="1170" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>715</line>
+          <line>718</line>
           <properties />
           <option name="timeStamp" value="1182" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>219</line>
+          <line>222</line>
           <properties />
           <option name="timeStamp" value="1184" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>889</line>
+          <line>892</line>
           <properties />
           <option name="timeStamp" value="1187" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>890</line>
+          <line>893</line>
           <properties />
           <option name="timeStamp" value="1188" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>891</line>
+          <line>894</line>
           <properties />
           <option name="timeStamp" value="1189" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>895</line>
+          <line>898</line>
           <properties />
           <option name="timeStamp" value="1203" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ProductDetailsActivity.kt</url>
-          <line>305</line>
+          <line>307</line>
           <properties />
           <option name="timeStamp" value="1205" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ProductDetailsActivity.kt</url>
-          <line>307</line>
+          <line>309</line>
           <properties />
           <option name="timeStamp" value="1206" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>591</line>
+          <line>594</line>
           <properties />
           <option name="timeStamp" value="1208" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>366</line>
+          <line>369</line>
           <properties />
           <option name="timeStamp" value="1210" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>587</line>
+          <line>590</line>
           <properties />
           <option name="timeStamp" value="1211" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>588</line>
+          <line>591</line>
           <properties />
           <option name="timeStamp" value="1212" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>589</line>
+          <line>592</line>
           <properties />
           <option name="timeStamp" value="1213" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ProductDetailsActivity.kt</url>
-          <line>406</line>
+          <line>408</line>
           <properties />
           <option name="timeStamp" value="1216" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>231</line>
+          <line>234</line>
           <properties />
           <option name="timeStamp" value="1217" />
         </line-breakpoint>
@@ -4758,19 +4942,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>141</line>
+          <line>144</line>
           <properties />
           <option name="timeStamp" value="1220" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>142</line>
+          <line>145</line>
           <properties />
           <option name="timeStamp" value="1221" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>143</line>
+          <line>146</line>
           <properties />
           <option name="timeStamp" value="1222" />
         </line-breakpoint>
@@ -4788,13 +4972,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ProductDetailsActivity.kt</url>
-          <line>464</line>
+          <line>466</line>
           <properties />
           <option name="timeStamp" value="1225" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ProductDetailsActivity.kt</url>
-          <line>465</line>
+          <line>467</line>
           <properties />
           <option name="timeStamp" value="1226" />
         </line-breakpoint>
@@ -4938,19 +5122,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>348</line>
+          <line>351</line>
           <properties />
           <option name="timeStamp" value="1261" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>350</line>
+          <line>353</line>
           <properties />
           <option name="timeStamp" value="1262" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>351</line>
+          <line>354</line>
           <properties />
           <option name="timeStamp" value="1263" />
         </line-breakpoint>
@@ -5118,7 +5302,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt</url>
-          <line>857</line>
+          <line>860</line>
           <properties />
           <option name="timeStamp" value="1303" />
         </line-breakpoint>
@@ -5188,21 +5372,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/HomeFragment.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="112" column="27" lean-forward="false" selection-start-line="112" selection-start-column="27" selection-end-line="112" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/CategoryListAdapter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="27" column="5" lean-forward="true" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/CoinListAdapter.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
@@ -5268,6 +5437,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="130">
           <caret line="5" column="72" lean-forward="false" selection-start-line="5" selection-start-column="72" selection-end-line="5" selection-end-column="72" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -5312,6 +5482,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="244">
           <caret line="75" column="20" lean-forward="false" selection-start-line="75" selection-start-column="20" selection-end-line="75" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -5331,16 +5502,6 @@
         <state relative-caret-position="182">
           <caret line="37" column="41" lean-forward="false" selection-start-line="37" selection-start-column="41" selection-end-line="37" selection-end-column="41" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/HomeAdapter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="148" column="53" lean-forward="false" selection-start-line="148" selection-start-column="53" selection-end-line="148" selection-end-column="53" />
-          <folding>
-            <element signature="e#4608#6231#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -5420,17 +5581,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/BuyCarsActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="28" column="47" lean-forward="false" selection-start-line="28" selection-start-column="47" selection-end-line="28" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/InterFace.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
           <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -5501,13 +5656,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/models/ResponseModal.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="851" column="20" lean-forward="false" selection-start-line="851" selection-start-column="19" selection-end-line="851" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/AdvertPackagesActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
@@ -5529,6 +5677,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="172">
           <caret line="253" column="30" lean-forward="false" selection-start-line="253" selection-start-column="30" selection-end-line="253" selection-end-column="30" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -5553,10 +5702,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/UserProfileActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1378">
-          <caret line="75" column="9" lean-forward="false" selection-start-line="71" selection-start-column="7" selection-end-line="75" selection-end-column="9" />
+        <state relative-caret-position="1352">
+          <caret line="54" column="9" lean-forward="false" selection-start-line="54" selection-start-column="9" selection-end-line="54" selection-end-column="9" />
           <folding>
-            <element signature="e#33#940#0" expanded="false" />
+            <marker date="1560144979129" expanded="false" signature="40:108" ph="..." />
+            <marker date="1560144979129" expanded="true" signature="10507:10509" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -5582,21 +5732,198 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="20852">
-          <caret line="853" column="30" lean-forward="false" selection-start-line="853" selection-start-column="30" selection-end-line="853" selection-end-column="30" />
+          <caret line="856" column="30" lean-forward="false" selection-start-line="856" selection-start-column="30" selection-end-line="856" selection-end-column="30" />
           <folding>
             <element signature="e#34#1963#0" expanded="false" />
+            <marker date="1560144979124" expanded="true" signature="4219:5247" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="4271:5172" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="4654:5161" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="4799:5147" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="5285:6207" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="5499:6064" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="6242:9680" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="6434:9605" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="6630:6844" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="6850:6915" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="7093:9594" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="7234:9580" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="7293:9532" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="7364:9315" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="7475:7875" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="7611:7845" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="7689:7811" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="7901:7984" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="8038:8974" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="8076:8826" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="8852:8943" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="9341:9416" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="9538:9562" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="9750:12132" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="9777:11628" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="9828:9894" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="9938:10142" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="10185:10393" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="10437:10787" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="10509:10637" ph="/ tvViewProfile.text = getString(R.string.edit_offer) .../" />
+            <marker date="1560144979124" expanded="true" signature="10830:11020" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="11064:11261" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="11304:11370" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="11414:11618" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="11634:12126" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="11685:11875" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="11919:12116" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="12164:12612" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="12640:17635" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="12845:13176" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="13221:13545" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="13551:13864" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="13960:14346" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="14054:14336" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="14387:14564" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="14599:15034" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="14668:14918" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="14712:14798" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="14804:14904" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="14924:15024" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="15074:15966" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="15179:15266" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="15365:15586" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="16009:17415" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="16117:16399" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="16501:16723" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="16824:17045" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="17458:17551" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="17588:17629" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="17670:17744" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="17703:17738" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="17788:18055" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="17902:17999" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="18085:18787" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="18171:18753" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="18225:18743" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="18309:18362" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="18435:18729" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="18818:19502" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="18963:19496" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="19021:19082" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="19107:19122" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="19158:19486" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="19587:21075" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="19635:21069" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="19728:20124" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="20183:20454" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="20518:21045" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="20812:20901" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="20907:21027" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="21132:22037" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="21408:22029" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="21468:21742" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="21793:22019" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="22087:22350" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="22412:23495" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="22790:23488" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="22858:23218" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="23277:23470" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="23529:24450" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="24533:25354" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="24640:25348" ph="/ if (position == 1) { .../" />
+            <marker date="1560144979124" expanded="true" signature="25409:25761" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="25595:25717" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="25639:25703" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="25815:26182" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="26017:26138" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="26061:26124" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="26236:26630" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="26465:26586" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="26509:26572" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="26690:27164" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="26782:27122" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="26844:27111" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="26888:27097" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="26925:26999" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="27005:27079" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="27215:29407" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="27267:29332" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="27742:29321" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="27883:29307" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="27942:29259" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="27982:29237" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="28089:28174" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="28207:29102" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="29128:29211" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="29265:29289" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="29457:31648" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="29509:31573" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="29983:31562" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="30124:31548" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="30183:31500" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="30223:31478" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="30330:30415" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="30448:31343" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="31369:31452" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="31506:31530" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="31696:33939" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="31748:33864" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="32274:33853" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="32415:33839" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="32474:33791" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="32514:33769" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="32621:32706" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="32739:33634" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="33660:33743" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="33797:33821" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="33989:36180" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="34041:36105" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="34515:36094" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="34656:36080" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="34715:36032" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="34755:36010" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="34862:34947" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="34980:35875" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="35901:35984" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="36038:36062" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="36228:38416" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="36280:38341" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="36751:38330" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="36892:38316" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="36951:38268" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="36991:38246" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="37098:37183" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="37216:38111" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="38137:38220" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="38274:38298" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="38473:40552" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="38525:40477" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="39074:40466" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="39219:40452" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="39322:40357" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="39395:40234" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="40260:40335" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="40363:40434" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="40601:41244" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="40659:41168" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="41314:43729" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="41409:43712" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="41573:43698" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="41599:43587" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="41698:41775" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="41811:41888" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="41924:42001" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="42037:42114" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="42260:43089" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="43095:43565" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="43125:43539" ph="/ val mNotificationManager = KSMNotificationManager(applicationContext) .../" />
+            <marker date="1560144979124" expanded="true" signature="43613:43680" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="43758:43905" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="43936:44016" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="44057:45757" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="44385:45750" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="44606:45740" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="44824:45589" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="44928:45205" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="45293:45571" ph="{...}" />
+            <marker date="1560144979124" expanded="true" signature="45460:45549" ph="{...}" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/chat_image_left_row.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1820">
-          <caret line="70" column="30" lean-forward="false" selection-start-line="70" selection-start-column="30" selection-end-line="70" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5610,12 +5937,60 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/HomeAdapter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1674">
+          <caret line="302" column="21" lean-forward="true" selection-start-line="302" selection-start-column="21" selection-end-line="302" selection-end-column="21" />
+          <folding>
+            <element signature="e#32#1097#0" expanded="true" />
+            <element signature="e#4809#4849#0" expanded="false" />
+            <element signature="e#4981#6608#0" expanded="false" />
+            <element signature="e#6744#7206#0" expanded="false" />
+            <element signature="e#7340#7380#0" expanded="false" />
+            <element signature="e#10849#11757#0" expanded="false" />
+            <element signature="e#11814#12932#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/chat_image_right_row.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="26" column="25" lean-forward="true" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/models/ResponseModal.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="370" column="36" lean-forward="false" selection-start-line="370" selection-start-column="36" selection-end-line="371" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/chat_image_left_row.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="70" column="30" lean-forward="false" selection-start-line="70" selection-start-column="30" selection-end-line="70" selection-end-column="30" />
+          <folding>
+            <element signature="e#3331#3344#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/chat_text_left_row.xml">
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
+        <state relative-caret-position="260">
           <caret line="19" column="37" lean-forward="false" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="37" />
           <folding />
         </state>
@@ -5626,19 +6001,32 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="806">
-          <caret line="31" column="62" lean-forward="false" selection-start-line="31" selection-start-column="42" selection-end-line="31" selection-end-column="62" />
+        <state relative-caret-position="-919">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/chat_image_right_row.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/HomeFragment.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="19" column="31" lean-forward="false" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
+        <state relative-caret-position="146">
+          <caret line="109" column="62" lean-forward="true" selection-start-line="109" selection-start-column="62" selection-end-line="109" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/BuyCarsActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="115" column="24" lean-forward="false" selection-start-line="115" selection-start-column="24" selection-end-line="115" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/BuyPropertiesActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="116" column="24" lean-forward="false" selection-start-line="116" selection-start-column="24" selection-end-line="116" selection-end-column="24" />
           <folding />
         </state>
       </provider>

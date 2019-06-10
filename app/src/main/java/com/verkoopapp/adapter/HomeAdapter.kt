@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import com.daimajia.slider.library.SliderTypes.BaseSliderView
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView
 import com.squareup.picasso.Picasso
-import com.verkoopapp.LikeDisLikeListener
 import com.verkoopapp.R
 import com.verkoopapp.activity.*
 import com.verkoopapp.fragment.HomeFragment
@@ -47,10 +46,10 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
 
     override fun getItemViewType(position: Int): Int {
         return when {
-            position === 0 -> CATEGORY_LIST_ROW
-            position === 1 -> YOUR_DAILY_PICKS
-            position === 2 -> PROPERTIES_ROW
-            position === 3 -> RECOMMENDED_YOU
+            position == 0 -> CATEGORY_LIST_ROW
+            position == 1 -> YOUR_DAILY_PICKS
+            position == 2 -> PROPERTIES_ROW
+            position == 3 -> RECOMMENDED_YOU
             itemsList[position - 4].isLoading -> SHOW_LOADER
             else ->
                 ITEMS_ROW
@@ -102,19 +101,16 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (position == CATEGORY_LIST_ROW) {
-            (holder as AddsAndItemsHolder).bind(categoryList, advertismentsList)
-        } else if (position == YOUR_DAILY_PICKS) {
-            (holder as YourDailyPickHolder).bind()
-        } else if (position == PROPERTIES_ROW) {
-            (holder as CarAndPropertiesHolder).bind()
-        }else if (position == RECOMMENDED_YOU) {
-            (holder as RecommendedYouHolder).bind()
-        }else if (itemsList[position-4].isLoading ) {
-            (holder as ShowLoaderHolder).bind()
-        } else {
-            val modal = itemsList[position - 4]
-            (holder as ItemsHolder).bind(modal)
+        when {
+            position == CATEGORY_LIST_ROW -> (holder as AddsAndItemsHolder).bind(categoryList, advertismentsList)
+            position == YOUR_DAILY_PICKS -> (holder as YourDailyPickHolder).bind()
+            position == PROPERTIES_ROW -> (holder as CarAndPropertiesHolder).bind()
+            position == RECOMMENDED_YOU -> (holder as RecommendedYouHolder).bind()
+            itemsList[position-4].isLoading -> (holder as ShowLoaderHolder).bind()
+            else -> {
+                val modal = itemsList[position - 4]
+                (holder as ItemsHolder).bind(modal)
+            }
         }
     }
     inner class ShowLoaderHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView!!),LayoutContainer{
@@ -146,7 +142,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
             rvCategoryHome.setHasFixedSize(true)
             rvCategoryHome.adapter = categoryAdapter
             rvCategoryHome!!.adapter!!.notifyDataSetChanged()
-            //   rvCategoryHome.setRecycledViewPool(viewPool)
+            //   rvCategoryHome.setRecycledViewPool(v iewPool)
             tvViewAll.setOnClickListener {
                 val intent = Intent(context, FullCategoriesActivity::class.java)
                 context.startActivityForResult(intent, 2)

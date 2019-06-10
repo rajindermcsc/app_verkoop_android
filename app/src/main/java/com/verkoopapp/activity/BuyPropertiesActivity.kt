@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import com.verkoopapp.R
@@ -107,10 +108,14 @@ class BuyPropertiesActivity : AppCompatActivity() {
                 if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
                         && firstVisibleItemPosition >= 0
                         && totalItemCount >= MifareUltralight.PAGE_SIZE) {
-                    itemsList.add(ItemHome(isLoading=true));
-                    buyPropertyAdapter.notifyItemInserted((itemsList.size-1)+1)
-                    currentPage += 1
-                    getItemService(0)
+                    if (Utils.isOnline(this@BuyPropertiesActivity)) {
+                        itemsList.add(ItemHome(isLoading=true))
+                        buyPropertyAdapter.notifyItemInserted((itemsList.size-1)+1)
+                        currentPage += 1
+                        getItemService(0)
+                    } else {
+                      //  Utils.showSimpleMessage(this@BuyPropertiesActivity, getString(R.string.check_internet)).show()
+                    }
                 }
             }
         }

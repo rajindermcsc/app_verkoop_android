@@ -107,10 +107,14 @@ class BuyCarsActivity:AppCompatActivity() {
                 if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
                         && firstVisibleItemPosition >= 0
                         && totalItemCount >= MifareUltralight.PAGE_SIZE) {
-                    itemsList.add(ItemHome(isLoading=true));
-                    buyCarsAdapter.notifyItemInserted((itemsList.size-1)+2)
-                    currentPage += 1
-                    getItemService(0)
+                    if (Utils.isOnline(this@BuyCarsActivity)) {
+                        itemsList.add(ItemHome(isLoading=true))
+                        buyCarsAdapter.notifyItemInserted((itemsList.size-1)+2)
+                        currentPage += 1
+                        getItemService(0)
+                    } else {
+                      //  Utils.showSimpleMessage(this@BuyCarsActivity, getString(R.string.check_internet)).show()
+                    }
                 }
             }
         }
