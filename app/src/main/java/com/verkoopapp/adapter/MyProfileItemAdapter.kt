@@ -26,7 +26,6 @@ class MyProfileItemAdapter(private val context: Context, private val llProfilePa
         val params = view.layoutParams
         params.width = llProfileParent.width / 2
         width= params.width
-        likeDisLikeListener=profileFragment
      //   params.height = (params.width)+(params.width/4)
         view.layoutParams = params
         return ViewHolder(view)
@@ -80,11 +79,11 @@ class MyProfileItemAdapter(private val context: Context, private val llProfilePa
             tvNameProfile.text=data.name
             tvItemPriceProfile.text="$"+data.price
             itemView.setOnClickListener {
-                likeDisLikeListener.getItemDetailsClick(data.id,adapterPosition)
+              //  likeDisLikeListener.getItemDetailsClick(data.id,adapterPosition)
 
             }
             tvLikesProfile.setOnClickListener {
-                likeDisLikeListener.getLikeDisLikeClick(data.is_like,adapterPosition,data.like_id,data.id)
+             //   likeDisLikeListener.getLikeDisLikeClick(data.is_like,adapterPosition,data.like_id,data.id)
             }
         }
     }

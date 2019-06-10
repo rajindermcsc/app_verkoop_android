@@ -2,7 +2,6 @@ package com.verkoopapp.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -10,127 +9,147 @@ import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import com.verkoopapp.R
-import com.verkoopapp.activity.CarsFilterActivity
-import com.verkoopapp.activity.ProductDetailsActivity
-import com.verkoopapp.activity.UserProfileActivity
+import com.verkoopapp.activity.*
+import com.verkoopapp.fragment.ProfileFragment
 import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.car_filter_row.*
 import kotlinx.android.synthetic.main.item_row.*
+import kotlinx.android.synthetic.main.my_profile_details_row.*
 import retrofit2.Response
 
 
-class BuyPropertyAdapter(private val context: Context, private val rvProperty: RecyclerView) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val mLayoutInflater: LayoutInflater = LayoutInflater.from(context)
-    val CATEGORY_LIST_ROW = 0
-    val ITEMS_ROW = 1
-    val SHOW_LOADER = 2
-    private var width = 0
-    private var widthOrgCarType = 0
+class ProfileAdapter(private val context: Context, private val screenWidth: Int, private val profileFragment: ProfileFragment) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var mLayoutInflater: LayoutInflater = LayoutInflater.from(context)
     private var itemsList = ArrayList<ItemHome>()
-    private var zoneList = ArrayList<CarType>()
+    val PROFILE_DETAILS = 0
+    val ITEMS_ROW = 1
+    val SHOW_LOADER = 2/*for future use*/
+    private var width = 0
+    private var dataProfile: DataProfile? = null
+
 
     override fun getItemViewType(position: Int): Int {
-        return when {
-            position==0 -> CATEGORY_LIST_ROW
-            itemsList[position-1].isLoading -> SHOW_LOADER
-            else -> ITEMS_ROW
+        if (position == 0) {
+            return return PROFILE_DETAILS
+        } else {
+            return ITEMS_ROW
         }
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View
         return when (viewType) {
-            CATEGORY_LIST_ROW -> {
-                view = mLayoutInflater.inflate(R.layout.car_filter_row, parent, false)
-                val params = view.layoutParams
-                params.width = rvProperty.width
-                widthOrgCarType = params.width
-                CarFilterHolder(view)
-            }SHOW_LOADER -> {
+            PROFILE_DETAILS -> {
+                view = mLayoutInflater.inflate(R.layout.my_profile_details_row, parent, false)
+                ProfileDetailsHolder(view)
+            }
+            SHOW_LOADER -> {
                 view = mLayoutInflater.inflate(R.layout.show_loader_row, parent, false)
                 ShowLoaderHolder(view)
             }
             else -> {
                 view = mLayoutInflater.inflate(R.layout.item_row, parent, false)
                 val params = view.layoutParams
-                params.width = rvProperty.width / 2
+                params.width = screenWidth / 2
                 width = params.width
-                //view.layoutParams = params
                 ItemsHolder(view)
             }
         }
     }
 
     override fun getItemCount(): Int {
-        return itemsList.size +1
+        return itemsList.size + 1
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (position == CATEGORY_LIST_ROW) {
-            (holder as CarFilterHolder).bind(zoneList)
-        }else if( itemsList[position-1].isLoading ){
-            (holder as ShowLoaderHolder).bind()
+        if (position == PROFILE_DETAILS) {
+             (holder as ProfileDetailsHolder).bind(dataProfile)
         } else {
             val modal = itemsList[position - 1]
             (holder as ItemsHolder).bind(modal)
         }
     }
 
-    inner class ShowLoaderHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView!!),LayoutContainer{
+
+    inner class ShowLoaderHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind() {
 
         }
 
     }
 
-    inner class CarFilterHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
-        fun bind(carTypeLIst: ArrayList<CarType>) {
-            tvCarBodyType.text=context.getString(R.string.quick_filter)
-         //   llCarFilter.layoutParams.height = widthOrgCarType - 20
-            val mManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            rvCarBodyType.layoutManager = mManager
-            val carBodyTypeAdapter = CarBodyTypeAdapter(context, widthOrgCarType, carTypeLIst,1)
-            rvCarBodyType.adapter = carBodyTypeAdapter
-            ll15PerMonth.setOnClickListener {
-                val intent = Intent(context, CarsFilterActivity::class.java)
-                intent.putExtra(AppConstants.FILTER_ID, 1)
-                intent.putExtra(AppConstants.FILTER_TYPE, context.getString(R.string.cost_filter))
-                intent.putExtra(AppConstants.TYPE, 2)
+    inner class ProfileDetailsHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
+        fun bind(data: DataProfile?) {
+            if(data!=null) {
+                tvName.text = data.username
+                tvFollowers.text = data.follower_count.toString()
+                tvFollowing.text = data.follow_count.toString()
+                tvJoiningDate.text = StringBuffer().append(": ").append(Utils.convertDate("yyyy-MM-dd hh:mm:ss", data.created_at, "dd MMMM yyyy"))
+                if (!TextUtils.isEmpty(data.profile_pic)) {
+                    Picasso.with(context).load(AppConstants.IMAGE_URL + data.profile_pic)
+                            .resize(720, 720)
+                            .centerInside()
+                            .error(R.mipmap.pic_placeholder)
+                            .placeholder(R.mipmap.pic_placeholder)
+                            .into(ivProfilePic)
+                }
+                if (!TextUtils.isEmpty(data.city) && !TextUtils.isEmpty(data.state)) {
+                    tvAddress.text = StringBuilder().append(data.state).append(", ").append(data.city)
+                    tvAddress.visibility = View.VISIBLE
+                } else {
+                    tvAddress.visibility = View.GONE
+                }
+                tvCountry.text = data.country
+            }
+            llFollowers.setOnClickListener {
+                val intent = Intent(context, FollowFollowingActivity::class.java)
+                intent.putExtra(AppConstants.COMING_FROM, 0)
+                intent.putExtra(AppConstants.USER_ID, Utils.getPreferencesString(context, AppConstants.USER_ID).toInt())
                 context.startActivity(intent)
             }
-            llMore15PerMonth.setOnClickListener {
-                val intent = Intent(context, CarsFilterActivity::class.java)
-                intent.putExtra(AppConstants.FILTER_ID, 2)
-                intent.putExtra(AppConstants.FILTER_TYPE, context.getString(R.string.cost_filter))
-                intent.putExtra(AppConstants.TYPE, 2)
+            llFollowing.setOnClickListener {
+                val intent = Intent(context, FollowFollowingActivity::class.java)
+                intent.putExtra(AppConstants.COMING_FROM, 1)
+                intent.putExtra(AppConstants.USER_ID, Utils.getPreferencesString(context, AppConstants.USER_ID).toInt())
                 context.startActivity(intent)
             }
-            ll25PerMonth.setOnClickListener {
-                val intent = Intent(context, CarsFilterActivity::class.java)
-                intent.putExtra(AppConstants.FILTER_ID, 3)
-                intent.putExtra(AppConstants.FILTER_TYPE, context.getString(R.string.cost_filter))
-                intent.putExtra(AppConstants.TYPE, 2)
+            llFavourite.setOnClickListener {
+                val intent = Intent(context, FavouritesActivity::class.java)
                 context.startActivity(intent)
             }
-            llMore25PerMonth.setOnClickListener {
-                val intent = Intent(context, CarsFilterActivity::class.java)
-                intent.putExtra(AppConstants.FILTER_ID, 4)
-                intent.putExtra(AppConstants.FILTER_TYPE, context.getString(R.string.cost_filter))
-                intent.putExtra(AppConstants.TYPE, 2)
+            ivSetting.setOnClickListener {
+                val intent = Intent(context, SettingActivity::class.java)
+                context.startActivity(intent)
+            }
+            llCoins.setOnClickListener {
+                val intent = Intent(context, CoinsActivity::class.java)
+                context.startActivity(intent)
+            }
+            ivScanner.setOnClickListener {
+                val intent = Intent(context, QRScannerActivity::class.java)
+                context.startActivity(intent)
+            }
+            llWallet.setOnClickListener {
+                val intent = Intent(context, MyWalletActivity::class.java)
                 context.startActivity(intent)
             }
         }
+
     }
 
     inner class ItemsHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(data: ItemHome) {
-            ll_condition.visibility=View.GONE
+            llUserProfile.visibility = View.GONE
             ivProductImageHome.layoutParams.height = width - 16
-            tvNameHome.text = data.username
+            if (data.is_sold == 1) {
+                tvSoldFav.visibility = View.VISIBLE
+            } else {
+                tvSoldFav.visibility = View.GONE
+            }
             if (data.is_like) {
                 tvLikesHome.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_liked, 0, 0, 0)
             } else {
@@ -142,21 +161,11 @@ class BuyPropertyAdapter(private val context: Context, private val rvProperty: R
             } else {
                 tvConditionHome.text = context.getString(R.string.used)
             }
-            if (!TextUtils.isEmpty(data.profile_pic)) {
-                Picasso.with(context)
-                        .load(AppConstants.IMAGE_URL + data.profile_pic)
-                        .resize(720, 720)
-                        .centerCrop()
-                        .error(R.mipmap.pic_placeholder)
-                        .placeholder(R.mipmap.pic_placeholder)
-                        .into(ivPicProfile)
 
-            } else {
-                ivPicProfile.setImageResource(R.mipmap.pic_placeholder)
-            }
             if (!TextUtils.isEmpty(data.image_url)) {
                 Picasso.with(context)
                         .load(AppConstants.IMAGE_URL + data.image_url)
+
                         .resize(720, 720)
                         .centerCrop()
                         .error(R.mipmap.post_placeholder)
@@ -167,6 +176,7 @@ class BuyPropertyAdapter(private val context: Context, private val rvProperty: R
                 ivProductImageHome.setImageResource(R.mipmap.post_placeholder)
             }
             tvLikesHome.setOnClickListener {
+
                 if (!data.isClicked) {
                     if (data.like_id > 0) {
                         data.isClicked = !data.isClicked
@@ -176,25 +186,21 @@ class BuyPropertyAdapter(private val context: Context, private val rvProperty: R
                         lickedApi(data.id, adapterPosition - 1)
                     }
                 }
-
             }
             tvProductHome.text = data.name
             tvItemPriceHome.text = "$" + data.price
             itemView.setOnClickListener {
                 val intent = Intent(context, ProductDetailsActivity::class.java)
                 intent.putExtra(AppConstants.ITEM_ID, data.id)
-                context.startActivity(intent)
+                intent.putExtra(AppConstants.COMING_FROM, 1)
+                intent.putExtra(AppConstants.COMING_TYPE, 1)
+                intent.putExtra(AppConstants.ADAPTER_POSITION, adapterPosition)
+                profileFragment.startActivityForResult(intent, 3)
             }
-            tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at!!.date)).append(" ").append("ago")
 
-            llUserProfile.setOnClickListener {
-                val reportIntent = Intent(context, UserProfileActivity::class.java)
-                reportIntent.putExtra(AppConstants.USER_ID, data.user_id)
-                reportIntent.putExtra(AppConstants.USER_NAME, data.username)
-                context.startActivity(reportIntent)
-            }
         }
     }
+
 
     private fun lickedApi(itemId: Int, position: Int) {
         val lickedRequest = LickedRequest(Utils.getPreferencesString(context, AppConstants.USER_ID), itemId)
@@ -236,11 +242,12 @@ class BuyPropertyAdapter(private val context: Context, private val rvProperty: R
                 })
     }
 
-    fun setData(itemsData: ArrayList<ItemHome>) {
-        itemsList = itemsData
+    fun setData(dataList: ArrayList<ItemHome>) {
+        itemsList = dataList
     }
 
-    fun setZoneType(zoneData: ArrayList<CarType>) {
-        zoneList = zoneData
+    fun profileDetail(data: DataProfile) {
+        dataProfile = data
     }
+
 }

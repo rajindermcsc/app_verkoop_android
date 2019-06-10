@@ -47,7 +47,7 @@ class ItemAdapter(private val context: Context,private val rvItemListDetails:Rec
     inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bind( data: ItemHome,position: Int) {
             ivProductImageHome.layoutParams.height =width-16
-            tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at.date)).append(" ").append("ago")
+            tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at!!.date)).append(" ").append("ago")
             tvNameHome.text=data.username
             tvProductHome.text=data.name
             if(position %2==0){

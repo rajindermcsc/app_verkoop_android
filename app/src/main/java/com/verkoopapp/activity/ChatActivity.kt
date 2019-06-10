@@ -125,10 +125,13 @@ class ChatActivity : AppCompatActivity() {
                 Log.e("<<<Chat_User_Id>>>", Gson().toJson(it[0]))
                 val data = it[0] as JSONObject
                 runOnUiThread {
-                    if (data.getString("status") == "1") {
-                        runOnUiThread {
-                            chatUserId = data.getInt("chat_user_id")
+                    try {
+                        if (data.getString("status") == "1") {
+                            runOnUiThread {
+                                chatUserId = data.getInt("chat_user_id")
+                            }
                         }
+                    } catch (e: Exception) {
                     }
                 }
             })

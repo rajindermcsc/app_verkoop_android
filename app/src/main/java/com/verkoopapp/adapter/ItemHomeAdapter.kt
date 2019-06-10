@@ -22,7 +22,6 @@ import kotlinx.android.synthetic.main.item_row.*
 
 
 class ItemHomeAdapter(private val context: Context, private val rvItemList: RecyclerView, private val homeFragment: HomeFragment) : RecyclerView.Adapter<ItemHomeAdapter.ViewHolder>() {
-    private lateinit var likeDisLikeListener: LikeDisLikeListener
     private var mInflater: LayoutInflater = LayoutInflater.from(context)
     private lateinit var loadingListener: LoadingListener
     private var itemsList = ArrayList<ItemHome>()
@@ -34,7 +33,6 @@ class ItemHomeAdapter(private val context: Context, private val rvItemList: Recy
         val params = view.layoutParams
         params.width = rvItemList.width / 2
         width = params.width
-        likeDisLikeListener = homeFragment
         view.layoutParams = params
         return ViewHolder(view)
     }
@@ -93,7 +91,7 @@ class ItemHomeAdapter(private val context: Context, private val rvItemList: Recy
                 ivProductImageHome.setImageResource(R.mipmap.post_placeholder)
             }
             tvLikesHome.setOnClickListener {
-                likeDisLikeListener.getLikeDisLikeClick(data.is_like, adapterPosition, data.like_id, data.id)
+     //           likeDisLikeListener.getLikeDisLikeClick(data.is_like, adapterPosition, data.like_id, data.id)
             }
             tvProductHome.text = data.name
             tvItemPriceHome.text = "$" + data.price
@@ -102,7 +100,7 @@ class ItemHomeAdapter(private val context: Context, private val rvItemList: Recy
                 intent.putExtra(AppConstants.ITEM_ID, data.id)
                 context.startActivity(intent)
             }
-            tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at.date)).append(" ").append("ago")
+            tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at!!.date)).append(" ").append("ago")
 
             llUserProfile.setOnClickListener {
                 val reportIntent = Intent(context, UserProfileActivity::class.java)

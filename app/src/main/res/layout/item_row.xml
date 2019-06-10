@@ -68,7 +68,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2"
                 app:shape_roundRect_bottomLeftRadius="@dimen/dp_6"
                 app:shape_roundRect_bottomRightRadius="@dimen/dp_6"
                 app:shape_roundRect_topLeftRadius="@dimen/dp_6"
@@ -190,9 +189,11 @@
             android:orientation="horizontal" />
 
         <View
+            android:id="@+id/viewItem"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
             android:layout_gravity="bottom"
+            android:visibility="gone"
             android:background="@color/gray_back" />
     </FrameLayout>
 

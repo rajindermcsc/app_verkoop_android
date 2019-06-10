@@ -39,13 +39,27 @@ class BuyCarsActivity:AppCompatActivity() {
             currentPage=1
             window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-            getItemService()
+            pbCars.visibility = View.VISIBLE
+            getItemService(0)
         } else {
             Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
         }
     }
 
     private fun setData() {
+        scCars.setOnRefreshListener {
+            if (Utils.isOnline(this)) {
+                currentPage = 1
+                getItemService(1)
+            } else {
+                scCars.isRefreshing = false
+                Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+            }
+        }
+        scCars.setColorSchemeResources(R.color.colorPrimary,
+                R.color.colorPrimary,
+                R.color.colorPrimary,
+                R.color.colorPrimary)
         iv_leftCar.setOnClickListener { onBackPressed() }
         ivFavouriteCar.setOnClickListener {
             val intent = Intent(this, FavouritesActivity::class.java)
@@ -69,6 +83,7 @@ class BuyCarsActivity:AppCompatActivity() {
                     return when (buyCarsAdapter.getItemViewType(position)) {
                         buyCarsAdapter.BRAND_LIST_ROW -> 2
                         buyCarsAdapter.CATEGORY_LIST_ROW -> 2
+                        buyCarsAdapter.SHOW_LOADER -> 2
                         else -> 1
                     }
                 }
@@ -92,48 +107,65 @@ class BuyCarsActivity:AppCompatActivity() {
                 if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
                         && firstVisibleItemPosition >= 0
                         && totalItemCount >= MifareUltralight.PAGE_SIZE) {
+                    itemsList.add(ItemHome(isLoading=true));
+                    buyCarsAdapter.notifyItemInserted((itemsList.size-1)+2)
                     currentPage += 1
-                    getItemService()
+                    getItemService(0)
                 }
             }
         }
     }
 
-    private fun getItemService() {
-        pbCars.visibility = View.VISIBLE
+    private fun getItemService(loadMore:Int) {
         isLoading = true
         ServiceHelper().getBuyCarService(HomeRequest(1),currentPage, Utils.getPreferencesString(this, AppConstants.USER_ID), object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
+                scCars.isRefreshing = false
                 isLoading = false
+                if(currentPage>1&&itemsList.size>0) {
+                    itemsList.removeAt(itemsList.size - 1)
+                    val scrollPosition = itemsList.size
+                    buyCarsAdapter.notifyItemRemoved(scrollPosition+2)
+                }
               window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                 pbCars.visibility = View.GONE
                 rvBuyCarList.visibility= View.VISIBLE
 
                 val homeDataResponse = response.body() as BuyCarResponse?
                 if (homeDataResponse!!.data != null) {
-                    setApiData(homeDataResponse.data)
-
+                    setApiData(loadMore,homeDataResponse.data)
                 }
             }
 
             override fun onFailure(msg: String?) {
+                window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                Utils.showSimpleMessage(this@BuyCarsActivity, msg!!).show()
+                pbCars.visibility = View.GONE
+                scCars.isRefreshing = false
+                isLoading = false
                 if(currentPage>=2){
                     currentPage -= 1
                 }
-                isLoading = false
-              window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                pbCars.visibility = View.GONE
-                Utils.showSimpleMessage(this@BuyCarsActivity, msg!!).show()
+                if(currentPage>1&&itemsList.size>0) {
+                    itemsList.removeAt(itemsList.size - 1)
+                    val scrollPosition = itemsList.size
+                    buyCarsAdapter.notifyItemRemoved(scrollPosition)
+                }
             }
         })
     }
 
-    private fun setApiData(data: DataCarResponse?) {
+    private fun setApiData(loadMore:Int,data: DataCarResponse?) {
         if(data!!.brands.size>0&&data.car_types.size>0) {
           buyCarsAdapter.setBrandAndTypeList(data.brands, data.car_types)
         }
         totalPageCount = data.totalPage
-        itemsList.addAll(data.items)
+        if(loadMore!=1) {
+            itemsList.addAll(data.items)
+        }else{
+            itemsList.clear()
+            itemsList.addAll(data.items)
+        }
         buyCarsAdapter.setData(itemsList)
         buyCarsAdapter.notifyDataSetChanged()
     }
@@ -162,3 +194,7 @@ class BuyCarsActivity:AppCompatActivity() {
         }
     }
 }
+
+
+
+

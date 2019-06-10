@@ -46,6 +46,7 @@ class YourDailyPicksAdapter(private val context:Context,private val recyclerView
 
     inner class ViewHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView!!),LayoutContainer{
         fun bind(data: ItemHome) {
+            viewItem.visibility=View.VISIBLE
             ivProductImageHome.layoutParams.height =width-16
             tvNameHome.text=data.username
             tvProductHome.text=data.name
@@ -115,7 +116,7 @@ class YourDailyPicksAdapter(private val context:Context,private val recyclerView
                 }
 
             }
-            tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at.date)).append(" ").append("ago")
+            tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at!!.date)).append(" ").append("ago")
             llUserProfile.setOnClickListener {
                 if(Utils.getPreferencesString(context, AppConstants.USER_ID).toInt()!=data.user_id) {
                     val reportIntent = Intent(context, UserProfileActivity::class.java)

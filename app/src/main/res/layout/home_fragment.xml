@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/gray_back"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,9 +14,9 @@
         android:baselineAligned="false"
         android:elevation="@dimen/dp_8"
         android:orientation="horizontal"
-        android:paddingBottom="@dimen/dp_10"
-        android:paddingEnd="@dimen/dp_18"
         android:paddingStart="@dimen/dp_18"
+        android:paddingEnd="@dimen/dp_18"
+        android:paddingBottom="@dimen/dp_10"
         tools:ignore="UselessParent">
 
         <LinearLayout
@@ -33,8 +34,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:drawablePadding="@dimen/dp_15"
                 android:drawableStart="@mipmap/category"
+                android:drawablePadding="@dimen/dp_15"
                 android:paddingStart="@dimen/dp_10"
                 android:text="@string/category"
                 android:textColor="@color/text_gray"
@@ -58,22 +59,32 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:drawableEnd="@mipmap/search"
-                android:paddingEnd="@dimen/dp_10"
                 android:paddingStart="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_10"
                 android:text="@string/search"
                 android:textColor="@color/text_gray"
                 android:textSize="@dimen/sp_14"
                 tools:ignore="RtlSymmetry" />
         </LinearLayout>
     </LinearLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvHomeList"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+
+            <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/swipeContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvHomeList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone" />
+            </android.support.v4.widget.SwipeRefreshLayout>
+
         <ProgressBar
             android:id="@+id/pbProgressHome"
             android:layout_width="wrap_content"
@@ -84,9 +95,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_gravity="bottom|center"
             android:background="@drawable/gradation_black"
-            android:layout_gravity="bottom|center">
+            android:gravity="center">
+
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/card_view"
                 android:layout_width="wrap_content"
@@ -104,8 +116,8 @@
                     android:background="@drawable/red_rectangular_shape"
                     android:gravity="center"
                     android:padding="@dimen/dp_10"
-                    android:paddingEnd="@dimen/dp_35"
                     android:paddingStart="@dimen/dp_35"
+                    android:paddingEnd="@dimen/dp_35"
                     android:text="@string/sell"
                     android:textColor="@color/white" />
             </android.support.v7.widget.CardView>
@@ -120,154 +132,5 @@
             android:contentDescription="@string/category"
             android:src="@mipmap/ar_" />
     </FrameLayout>
-
-
-<!--    <FrameLayout
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.design.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.design.widget.AppBarLayout
-                android:id="@+id/main.appbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <android.support.design.widget.CollapsingToolbarLayout
-                    android:id="@+id/main.collapsing"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#ffffff"
-                    app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
-                    app:scrimAnimationDuration="0">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        &lt;!&ndash;<FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">&ndash;&gt;
-
-
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <com.daimajia.slider.library.SliderLayout
-                                android:id="@+id/mDemoSlider"
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/dp_180" />
-
-                            <com.daimajia.slider.library.Indicators.PagerIndicator
-                                android:id="@+id/custom_indicator"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="bottom"
-                                android:gravity="center"
-                                android:paddingTop="@dimen/dp_10"
-                                android:background="@drawable/gradation_black"
-                                android:paddingBottom="@dimen/dp_10" />
-                        </FrameLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/dp_18"
-                            android:layout_marginStart="@dimen/dp_18"
-                            android:layout_marginTop="@dimen/dp_10">
-
-                            <com.verkoop.fonts.textView.GothiBoldTextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="2"
-                                android:text="@string/category"
-                                android:textColor="@color/text_color"
-                                android:textSize="@dimen/sp_14" />
-
-                            <com.verkoop.fonts.textView.GothiBoldTextView
-                                android:id="@+id/tvViewAll"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/view_all"
-                                android:textColor="@color/text_gray"
-                                android:textSize="@dimen/sp_14" />
-                        </LinearLayout>
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/rvCategoryHome"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp_10" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dp_.5"
-                            android:layout_gravity="end"
-                            android:layout_marginEnd="@dimen/dp_10"
-                            android:layout_marginStart="@dimen/dp_10"
-                            android:background="@color/light_gray" />
-                        &lt;!&ndash;  </FrameLayout>&ndash;&gt;
-                    </LinearLayout>
-                </android.support.design.widget.CollapsingToolbarLayout>
-
-            </android.support.design.widget.AppBarLayout>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvItemList"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </android.support.design.widget.CoordinatorLayout>
-
-        <ProgressBar
-            android:id="@+id/pbProgressHome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:background="@drawable/gradation_black"
-            android:layout_gravity="bottom|center">
-            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/card_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dp_20"
-                android:layout_marginBottom="@dimen/dp_20"
-                card_view:cardCornerRadius="@dimen/dp_20"
-                card_view:cardElevation="@dimen/dp_8">
-
-                <com.verkoop.fonts.textView.GothiBoldTextView
-                    android:id="@+id/tvSell"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/red_rectangular_shape"
-                    android:gravity="center"
-                    android:padding="@dimen/dp_10"
-                    android:paddingEnd="@dimen/dp_35"
-                    android:paddingStart="@dimen/dp_35"
-                    android:text="@string/sell"
-                    android:textColor="@color/white" />
-            </android.support.v7.widget.CardView>
-        </LinearLayout>
-
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="@dimen/dp_20"
-            android:contentDescription="@string/category"
-            android:src="@mipmap/ar_" />
-    </FrameLayout>-->
 
 </LinearLayout>

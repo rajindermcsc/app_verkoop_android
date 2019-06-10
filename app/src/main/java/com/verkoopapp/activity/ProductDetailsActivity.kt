@@ -116,7 +116,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         rvPostCommentList.adapter = commentListAdapter
     }
 
-    private fun setData(imageURLLIst: ArrayList<String>, data: DataItems) {
+    private fun setData( data: DataItems) {
         dataResponse = data
         itemId = data.id
         userId = data.user_id
@@ -212,10 +212,10 @@ class ProductDetailsActivity : AppCompatActivity() {
         ivLeft.setOnClickListener { onBackPressed() }
         custom_indicator_detail.setDefaultIndicatorColor(ContextCompat.getColor(this, R.color.white), ContextCompat.getColor(this, R.color.light_gray))
         mDemoSliderDetails.setCustomIndicator(custom_indicator_detail)
-        for (i in imageURLLIst.indices) {
+        for (i in data.items_image.indices) {
             val textSliderView = DefaultSliderView(this)
             // initialize a SliderLayout
-            textSliderView.image(AppConstants.IMAGE_URL + imageURLLIst[i]).setOnSliderClickListener({ slider ->
+            textSliderView.image(AppConstants.IMAGE_URL + data.items_image[i].url).setOnSliderClickListener({ slider ->
             }).scaleType = BaseSliderView.ScaleType.CenterCrop
             mDemoSliderDetails.addSlider(textSliderView)
         }
@@ -223,7 +223,9 @@ class ProductDetailsActivity : AppCompatActivity() {
         tvProductName.text = data.name
         price = data.price
         productName = data.name
-        productImage = data.items_image[0].url
+        if(data.items_image.isNotEmpty()){
+            productImage = data.items_image[0].url
+        }
         tvLikes.text = data.items_like_count.toString()
         tvPrice.text = StringBuilder().append(": ").append(getString(R.string.dollar)).append(data.price)
         tvDescription.text = data.description
@@ -452,10 +454,10 @@ class ProductDetailsActivity : AppCompatActivity() {
                             commentListAdapter.setData(commentsList)
                             commentListAdapter.notifyDataSetChanged()
                             reportList.addAll(detailsResponse.data.reports!!)
-                            for (i in detailsResponse.data.items_image.indices) {
+                            /*for (i in detailsResponse.data.items_image.indices) {
                                 imageURLLIst.add(detailsResponse.data.items_image[i].url)
-                            }
-                            setData(imageURLLIst, detailsResponse.data)
+                            }*/
+                            setData( detailsResponse.data)
                         } else {
                             Utils.showSimpleMessage(this@ProductDetailsActivity, detailsResponse.message).show()
                         }
