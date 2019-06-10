@@ -253,6 +253,7 @@ data class PurchaseCoinRequest(
 
 data class UploadBannerRequest(
         val user_id: Int,
+        val category_id: Int,
         val advertisement_plan_id: Int,
         val banner: String
 )
@@ -265,6 +266,7 @@ data class SendQrCodeRequest(
 
 data class RateUserRequest(
         val user_id: Int,
+        val rated_user_id: Int,
         val item_id: Int,
         val rating: Float
 )

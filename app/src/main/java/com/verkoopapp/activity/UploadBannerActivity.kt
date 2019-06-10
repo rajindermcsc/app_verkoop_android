@@ -26,9 +26,15 @@ import android.text.TextUtils
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
 class UploadBannerActivity:AppCompatActivity() {
-    private var planId:Int=0
     private var uriTemp: Uri? = null
     private var mCurrentPhotoPath: String? = null
+    private var categoryName:String?=null
+    private var categoryId:Int=0
+
+    companion object {
+        internal const val SELECT_CATEGORY = 3
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.upload_banner_activity)
@@ -36,6 +42,11 @@ class UploadBannerActivity:AppCompatActivity() {
     }
 
     private fun setData() {
+        tvSelectCategory.setOnClickListener {
+            val intent = Intent(this, SelectCategoryDialogActivity::class.java)
+            startActivityForResult(intent, SELECT_CATEGORY)
+            overridePendingTransition(0, 0)
+        }
         ivRight.setImageResource(R.mipmap.get_coins)
         ivRight.visibility= View.INVISIBLE
         tvHeaderLoc.text = getString(R.string.featured_product)
@@ -45,9 +56,14 @@ class UploadBannerActivity:AppCompatActivity() {
         }
         tvSaveBanner.setOnClickListener {
             if(!TextUtils.isEmpty(mCurrentPhotoPath)) {
-                val intent=Intent(this,AdvertPackagesActivity::class.java)
-                intent.putExtra(AppConstants.IMAGE_URL,mCurrentPhotoPath)
-                startActivity(intent)
+                if(categoryId!=0) {
+                    val intent = Intent(this, AdvertPackagesActivity::class.java)
+                    intent.putExtra(AppConstants.IMAGE_URL, mCurrentPhotoPath)
+                    intent.putExtra(AppConstants.CATEGORY_ID, categoryId)
+                    startActivity(intent)
+                }else{
+                    Utils.showSimpleMessage(this@UploadBannerActivity,getString(R.string.select_category_)).show()
+                }
             }else{
                 Utils.showSimpleMessage(this@UploadBannerActivity,getString(R.string.upload_banne)).show()
             }
@@ -171,6 +187,17 @@ class UploadBannerActivity:AppCompatActivity() {
                             .error(R.mipmap.gallery_place)
                             .placeholder(R.mipmap.gallery_place)
                             .into(ivBanner)
+                }
+
+                SELECT_CATEGORY -> {
+                    if (resultCode === Activity.RESULT_OK) {
+                        categoryName = data!!.getStringExtra(AppConstants.CATEGORY_NAME)
+                        categoryId = data.getIntExtra(AppConstants.SUB_CATEGORY_ID, 0)
+                        tvSelectCategory.text=categoryName
+                        //parentId = data.getIntExtra(AppConstants.CATEGORY_ID, 0)
+                       // val typeSelection = data.getIntExtra(AppConstants.SCREEN_TYPE, 0)
+
+                    }
                 }
 
             }

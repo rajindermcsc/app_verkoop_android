@@ -179,9 +179,9 @@
                                 android:src="@mipmap/good"
                                 />
                             <com.verkoopapp.fonts.textView.GothiBoldTextView
+                                android:id="@+id/tvGood"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/_250"
                                 android:layout_gravity="center"
                                 android:drawablePadding="@dimen/dp_10"
                                 android:textColor="@color/green_light"
@@ -201,9 +201,9 @@
                                 android:src="@mipmap/average"
                                 />
                             <com.verkoopapp.fonts.textView.GothiBoldTextView
+                                android:id="@+id/tvAverage"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="153"
                                 android:layout_gravity="center"
                                 android:drawablePadding="@dimen/dp_10"
                                 android:textColor="@color/yellow"
@@ -223,9 +223,9 @@
                                 android:src="@mipmap/bad"
                                 />
                             <com.verkoopapp.fonts.textView.GothiBoldTextView
+                                android:id="@+id/tvbad"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="150"
                                 android:layout_gravity="center"
                                 android:drawablePadding="@dimen/dp_10"
                                 android:textColor="@color/red_light"

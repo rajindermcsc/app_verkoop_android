@@ -60,6 +60,7 @@ class ChatActivity : AppCompatActivity() {
     private var senderId = 0
     private var itemId = 0
     private var isSold = 0
+    private var isRate = 0
     private var userName = ""
     private var profileUrl = ""
     private var price: Double = 0.0
@@ -87,10 +88,14 @@ class ChatActivity : AppCompatActivity() {
         productUrl = intent.getStringExtra(AppConstants.PRODUCT_URL)
         productName = intent.getStringExtra(AppConstants.PRODUCT_NAME)
         isMyProduct = intent.getBooleanExtra(AppConstants.IS_MY_PRODUCT, false)
+        isRate = intent.getIntExtra(AppConstants.IS_RATE, 0)
         isSold = intent.getIntExtra(AppConstants.IS_SOLD, 0)
 
         if (socket!!.connected()) {
             directChat()
+        }
+        if(isRate==1){
+            llViewOffer.visibility = View.GONE
         }
         if (isSold == 1) {
             llViewOffer.visibility = View.GONE
@@ -265,14 +270,18 @@ class ChatActivity : AppCompatActivity() {
                 tvMakeOffer.text = getString(R.string.make_offer)
             }
         } else {
-            if (isMyProduct && offerStatus == 1) {
-                llViewOffer.visibility = View.VISIBLE
-                tvMakeOffer.visibility = View.GONE
-                tvViewProfile.text = getString(R.string.leave_review)
-            } else if (!isMyProduct && offerStatus == 1) {
-                llViewOffer.visibility = View.VISIBLE
-                tvMakeOffer.visibility = View.GONE
-                tvViewProfile.text = getString(R.string.leave_review_seller)
+            if (isRate != 1) {
+                if (isMyProduct && offerStatus == 1) {
+                    llViewOffer.visibility = View.VISIBLE
+                    tvMakeOffer.visibility = View.GONE
+                    tvViewProfile.text = getString(R.string.leave_review)
+                } else if (!isMyProduct && offerStatus == 1) {
+                    llViewOffer.visibility = View.VISIBLE
+                    tvMakeOffer.visibility = View.GONE
+                    tvViewProfile.text = getString(R.string.leave_review_seller)
+                }
+            } else {
+                llViewOffer.visibility = View.GONE
             }
         }
     }
@@ -334,7 +343,7 @@ class ChatActivity : AppCompatActivity() {
         ivSend.setOnClickListener {
             if (!TextUtils.isEmpty(etMssg.text.toString().trim())) {
                 if (socket!!.connected()) {
-                    sendMssgEvent(etMssg.text.toString().trim(),0)
+                    sendMssgEvent(etMssg.text.toString().trim(), 0)
                 } else {
                     Utils.showSimpleMessage(this, "Socket Disconnected.").show()
                 }
@@ -382,11 +391,13 @@ class ChatActivity : AppCompatActivity() {
             addProfileImage()
         }
     }
+
     private fun addProfileImage() {
         if (checkPermission()) {
             openPopUp()
         }
     }
+
     private fun checkPermission(): Boolean {
         val permissionCheck = PermissionCheck(this)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -411,6 +422,7 @@ class ChatActivity : AppCompatActivity() {
         })
         shareDialog.show()
     }
+
     private fun takePicture() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if (takePictureIntent.resolveActivity(packageManager) != null) {
@@ -427,6 +439,7 @@ class ChatActivity : AppCompatActivity() {
             }
         }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
@@ -452,7 +465,7 @@ class ChatActivity : AppCompatActivity() {
                     mCurrentPhotoPath = Utils.getRealPathFromURI(this, result.uri)
                     val file = File(mCurrentPhotoPath!!)
 
-                   /*uploadImageApi*/
+                    /*uploadImageApi*/
                     if (Utils.isOnline(this)) {
                         updateProfileService(mCurrentPhotoPath!!)
                     } else {
@@ -462,30 +475,32 @@ class ChatActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun updateProfileService(imagePath: String) {
         window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-    //    pbAdvertPackage.visibility = View.VISIBLE
+        //    pbAdvertPackage.visibility = View.VISIBLE
         ServiceHelper().uploadImageService(imagePath, object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
                 window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-            //    pbAdvertPackage.visibility = View.GONE
+                //    pbAdvertPackage.visibility = View.GONE
                 val imageUrl = response.body() as ChatImageResponse
-                sendMssgEvent(imageUrl.data.image,1)
+                sendMssgEvent(imageUrl.data.image, 1)
             }
 
             override fun onFailure(msg: String?) {
                 window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-          //      pbAdvertPackage.visibility = View.GONE
+                //      pbAdvertPackage.visibility = View.GONE
                 Utils.showSimpleMessage(this@ChatActivity, msg!!).show()
             }
         })
 
     }
+
     private fun openRatingDialog(rateTo: String) {
         val ratingDialog = RatingBarDialog(this, rateTo, object : RateUserListener {
             override fun rateUserClick(rating: Float, type: String) {
-                rateUserService(rating,itemId)
+                rateUserService(rating, itemId)
             }
 
         })
@@ -495,14 +510,15 @@ class ChatActivity : AppCompatActivity() {
     private fun rateUserService(rating: Float, itemId: Int) {
         window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-       // pbProgressAddMoney.visibility = View.VISIBLE
-        ServiceHelper().rateUserService(RateUserRequest(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), itemId, rating),
+        // pbProgressAddMoney.visibility = View.VISIBLE
+        ServiceHelper().rateUserService(RateUserRequest(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), senderId, itemId, rating),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                    //    pbProgressAddMoney.visibility = View.GONE
+                        //    pbProgressAddMoney.visibility = View.GONE
                         val loginResponse = response.body() as UpdateWalletResponse
-                        Utils.showToast(this@ChatActivity,getString(R.string.review_submitted))
+                        llViewOffer.visibility = View.GONE
+                        Utils.showToast(this@ChatActivity, getString(R.string.review_submitted))
                     }
 
                     override fun onFailure(msg: String?) {
@@ -842,7 +858,7 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
-    private fun sendMssgEvent(message:String,type:Int) {
+    private fun sendMssgEvent(message: String, type: Int) {
         val jsonObject = JSONObject()
         try {
             jsonObject.put("sender_id", Utils.getPreferencesString(this, AppConstants.USER_ID).toInt())

@@ -34,6 +34,7 @@ class DbHelper {
                 allChatRealModel.url = AllChatList[i].url
                 allChatRealModel.offer_price = AllChatList[i].offer_price
                 allChatRealModel.item_price = AllChatList[i].item_price
+                allChatRealModel.is_rate = AllChatList[i].is_rate
             }
         }
     }

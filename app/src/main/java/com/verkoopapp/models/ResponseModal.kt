@@ -138,6 +138,9 @@ data class DataProfile(
         val follow_id: Int,
         val follow_count: Int,
         val follower_count: Int,
+        val good:Int,
+        val sad:Int,
+        val avrage:Int,
         val items: ArrayList<ItemHome>
 )
 
@@ -630,6 +633,9 @@ data class DataUserProfile(
         val follow_count: Int,
         var follower_count: Int=0,
         var follower_id: Int=0,
+        var avrage: Int=0,
+        var sad: Int=0,
+        var good: Int=0,
         val block_id: Int,
         val items: ArrayList<ItemHome>,
         val reports: ArrayList<ReportResponse>

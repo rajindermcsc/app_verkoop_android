@@ -160,6 +160,7 @@ class ChatInboxAdapter(private val context: Context, private val chatInboxType: 
                 intent.putExtra(AppConstants.OFFERED_PRICE,data.offer_price.toDouble())
                 intent.putExtra(AppConstants.IS_SOLD,data.is_sold)
                 intent.putExtra(AppConstants.PRODUCT_NAME, data.item_name)
+                intent.putExtra(AppConstants.IS_RATE, data.is_rate)
                 context.startActivity(intent)
 
             }

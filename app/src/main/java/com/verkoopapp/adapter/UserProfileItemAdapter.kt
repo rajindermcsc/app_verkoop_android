@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.user_profile_detail_row.*
 import retrofit2.Response
 
 
-class UserProfileItemAdapter(private val context:Context,private val llProfileParent: Int,private val userId:Int):RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class UserProfileItemAdapter(private val context: Context, private val llProfileParent: Int, private val userId: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var mLayoutInflater: LayoutInflater = LayoutInflater.from(context)
     private var itemsList = ArrayList<ItemHome>()
     val PROFILE_DETAILS = 0
@@ -35,17 +35,18 @@ class UserProfileItemAdapter(private val context:Context,private val llProfilePa
 
     override fun getItemViewType(position: Int): Int {
         if (position == 0) {
-             return PROFILE_DETAILS
+            return PROFILE_DETAILS
         } else {
             return ITEMS_ROW
         }
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View
         return when (viewType) {
             PROFILE_DETAILS -> {
                 view = mLayoutInflater.inflate(R.layout.user_profile_detail_row, parent, false)
-               UserProfileHolder(view)
+                UserProfileHolder(view)
             }
             SHOW_LOADER -> {
                 view = mLayoutInflater.inflate(R.layout.show_loader_row, parent, false)
@@ -75,11 +76,11 @@ class UserProfileItemAdapter(private val context:Context,private val llProfilePa
     }
 
     fun setData(data: ArrayList<ItemHome>) {
-        itemsList=data
+        itemsList = data
     }
 
     fun setProfileData(data: DataUserProfile) {
-        profileData=data
+        profileData = data
     }
 
     inner class ShowLoaderHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
@@ -91,10 +92,13 @@ class UserProfileItemAdapter(private val context:Context,private val llProfilePa
 
     inner class UserProfileHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(data: DataUserProfile?) {
-            if(data!=null) {
+            if (data != null) {
+                tvUserGood.text = data.good.toString()
+                tvUserNorma.text = data.avrage.toString()
+                tvUserSad.text = data.sad.toString()
                 tvNameUser.text = data.username
-                tvUserFollowers.text=data.follower_count.toString()
-                tvUserFollowing.text=data.follow_count.toString()
+                tvUserFollowers.text = data.follower_count.toString()
+                tvUserFollowing.text = data.follow_count.toString()
                 if (data.follower_id > 0) {
                     tvUserFollow.background = ContextCompat.getDrawable(context, R.drawable.brown_rectangular_shape)
                     tvUserFollow.text = context.getString(R.string.following)
@@ -123,21 +127,21 @@ class UserProfileItemAdapter(private val context:Context,private val llProfilePa
                 tvCountryUser.text = data.country
             }
             llFollowersUser.setOnClickListener {
-                val intent= Intent(context, FollowFollowingActivity::class.java)
-                intent.putExtra(AppConstants.COMING_FROM,0)
-                intent.putExtra(AppConstants.USER_ID,userId)
+                val intent = Intent(context, FollowFollowingActivity::class.java)
+                intent.putExtra(AppConstants.COMING_FROM, 0)
+                intent.putExtra(AppConstants.USER_ID, userId)
                 context.startActivity(intent)
             }
             llFollowingUser.setOnClickListener {
-                val intent= Intent(context, FollowFollowingActivity::class.java)
-                intent.putExtra(AppConstants.COMING_FROM,1)
-                intent.putExtra(AppConstants.USER_ID,userId)
+                val intent = Intent(context, FollowFollowingActivity::class.java)
+                intent.putExtra(AppConstants.COMING_FROM, 1)
+                intent.putExtra(AppConstants.USER_ID, userId)
                 context.startActivity(intent)
             }
 
             tvUserFollow.setOnClickListener {
-                if(!isFollowClick) {
-                    isFollowClick=true
+                if (!isFollowClick) {
+                    isFollowClick = true
                     if (tvUserFollow.text.toString().equals("Follow", ignoreCase = true)) {
                         followService()
                     } else {
@@ -154,14 +158,15 @@ class UserProfileItemAdapter(private val context:Context,private val llProfilePa
         ServiceHelper().unFollowService(follower_id,
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
-                        isFollowClick=false
+                        isFollowClick = false
                         val likeResponse = response.body() as DisLikeResponse
-                        profileData!!.follower_id=0
+                        profileData!!.follower_id = 0
                         profileData!!.follower_count -= 1
                         notifyItemChanged(0)
                     }
+
                     override fun onFailure(msg: String?) {
-                        isFollowClick=false
+                        isFollowClick = false
                         Utils.showSimpleMessage(context, msg!!).show()
                     }
                 })
@@ -169,26 +174,25 @@ class UserProfileItemAdapter(private val context:Context,private val llProfilePa
 
     private fun followService() {
         //  pbProgressUser.visibility=View.VISIBLE
-        val reportUserResponse= FollowRequest(Utils.getPreferencesString(context,AppConstants.USER_ID),userId)
+        val reportUserResponse = FollowRequest(Utils.getPreferencesString(context, AppConstants.USER_ID), userId)
         ServiceHelper().followService(reportUserResponse,
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
-                        isFollowClick=false
+                        isFollowClick = false
                         val response = response.body() as FollowResponse
-                        profileData!!.follower_id=response.data.id
+                        profileData!!.follower_id = response.data.id
                         profileData!!.follower_count += 1
                         notifyItemChanged(0)
                     }
 
                     override fun onFailure(msg: String?) {
-                        isFollowClick=false
+                        isFollowClick = false
                         //    pbProgressReport.visibility=View.GONE
                         //    Utils.showSimpleMessage(this@UserProfileActivity, msg!!).show()
                     }
                 })
 
     }
-
 
 
     inner class ItemsHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
@@ -242,7 +246,7 @@ class UserProfileItemAdapter(private val context:Context,private val llProfilePa
             itemView.setOnClickListener {
                 val intent = Intent(context, ProductDetailsActivity::class.java)
                 intent.putExtra(AppConstants.ITEM_ID, data.id)
-                intent.putExtra(AppConstants.USER_ID,userId)
+                intent.putExtra(AppConstants.USER_ID, userId)
                 intent.putExtra(AppConstants.COMING_FROM, 1)
                 context.startActivity(intent)
             }
@@ -290,54 +294,54 @@ class UserProfileItemAdapter(private val context:Context,private val llProfilePa
                     }
                 })
     }
-   /* inner class ViewHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView!!),LayoutContainer{
+    /* inner class ViewHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView!!),LayoutContainer{
 
-     fun bind(data: ItemUserProfile, position: Int) {
-         ivProductImage.layoutParams.height =width-16
-         if(position %2==0){
-             llSideDividerProfile.visibility= View.VISIBLE
-         }else{
-             llSideDividerProfile.visibility= View.GONE
-         }
-         if(data.is_like){
-             tvLikesProfile.setCompoundDrawablesWithIntrinsicBounds( R.mipmap.post_liked, 0, 0, 0)
-         }else{
-             tvLikesProfile.setCompoundDrawablesWithIntrinsicBounds( R.mipmap.post_like, 0, 0, 0)
-         }
-         tvLikesProfile.text=data.items_like_count.toString()
-         if(data.item_type==1){
-             tvConditionProfile.text="New"
-         }else{
-             tvConditionProfile.text=context.getString(R.string.used)
-         }
-         if(data.is_sold==1){
-             tvSold.visibility=View.VISIBLE
-         }else{
-             tvSold.visibility=View.GONE
-         }
-         if(!TextUtils.isEmpty(data.image_url)) {
-             Picasso.with(context).load(AppConstants.IMAGE_URL + data.image_url)
-                     .resize(720, 720)
-                     .centerCrop()
-                     .error(R.mipmap.post_placeholder)
-                     .placeholder(R.mipmap.post_placeholder)
-                     .into(ivProductImage)
+      fun bind(data: ItemUserProfile, position: Int) {
+          ivProductImage.layoutParams.height =width-16
+          if(position %2==0){
+              llSideDividerProfile.visibility= View.VISIBLE
+          }else{
+              llSideDividerProfile.visibility= View.GONE
+          }
+          if(data.is_like){
+              tvLikesProfile.setCompoundDrawablesWithIntrinsicBounds( R.mipmap.post_liked, 0, 0, 0)
+          }else{
+              tvLikesProfile.setCompoundDrawablesWithIntrinsicBounds( R.mipmap.post_like, 0, 0, 0)
+          }
+          tvLikesProfile.text=data.items_like_count.toString()
+          if(data.item_type==1){
+              tvConditionProfile.text="New"
+          }else{
+              tvConditionProfile.text=context.getString(R.string.used)
+          }
+          if(data.is_sold==1){
+              tvSold.visibility=View.VISIBLE
+          }else{
+              tvSold.visibility=View.GONE
+          }
+          if(!TextUtils.isEmpty(data.image_url)) {
+              Picasso.with(context).load(AppConstants.IMAGE_URL + data.image_url)
+                      .resize(720, 720)
+                      .centerCrop()
+                      .error(R.mipmap.post_placeholder)
+                      .placeholder(R.mipmap.post_placeholder)
+                      .into(ivProductImage)
 
-         }else{
-             ivProductImage.setImageResource(R.mipmap.post_placeholder)
-         }
+          }else{
+              ivProductImage.setImageResource(R.mipmap.post_placeholder)
+          }
 
-         tvNameProfile.text=data.name
-         tvItemPriceProfile.text="$"+data.price
-         itemView.setOnClickListener {
-             likeDisLikeListener.getItemDetailsClick(data.id,data.user_id)
+          tvNameProfile.text=data.name
+          tvItemPriceProfile.text="$"+data.price
+          itemView.setOnClickListener {
+              likeDisLikeListener.getItemDetailsClick(data.id,data.user_id)
 
-         }
-         tvLikesProfile.setOnClickListener {
-             likeDisLikeListener.getLikeDisLikeClick(data.is_like,adapterPosition,data.like_id,data.id)
-         }
-     }
-}*/
+          }
+          tvLikesProfile.setOnClickListener {
+              likeDisLikeListener.getLikeDisLikeClick(data.is_like,adapterPosition,data.like_id,data.id)
+          }
+      }
+ }*/
 
     /*fun setData(data: ArrayList<ItemUserProfile>) {
         myItemsList=data

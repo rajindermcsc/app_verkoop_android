@@ -121,7 +121,8 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
                     result[i]!!.offer_status,
                     result[i]!!.url!!,
                     result[i]!!.offer_price!!,
-                    result[i]!!.item_price!!
+                    result[i]!!.item_price!!,
+                    result[i]!!.is_rate!!
             )
             chatInboxList.add(dataBean)
         }
@@ -181,7 +182,8 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
                                                 data2.getInt("offer_status"),
                                                 data2.getString("url"),
                                                 data2.getString("offer_price"),
-                                                data2.getString("item_price"))
+                                                data2.getString("item_price"),
+                                                data2.getInt("is_rate"))
                                         chatInboxList.add(inboxData)
                                     } catch (e: JSONException) {
                                         e.printStackTrace()
@@ -287,7 +289,8 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
                     result[i]!!.offer_status,
                     result[i]!!.url!!,
                     result[i]!!.offer_price!!,
-                    result[i]!!.item_price!!
+                    result[i]!!.item_price!!,
+                    result[i]!!.is_rate!!
             )
             sellerList.add(dataBean)
         }
@@ -321,7 +324,8 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
                     result[i]!!.offer_status,
                     result[i]!!.url!!,
                     result[i]!!.offer_price!!,
-                    result[i]!!.item_price!!
+                    result[i]!!.item_price!!,
+                     result[i]!!.is_rate!!
             )
             buyerList.add(dataBean)
         }

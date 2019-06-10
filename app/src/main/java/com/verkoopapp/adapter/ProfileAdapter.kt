@@ -88,6 +88,9 @@ class ProfileAdapter(private val context: Context, private val screenWidth: Int,
                 tvName.text = data.username
                 tvFollowers.text = data.follower_count.toString()
                 tvFollowing.text = data.follow_count.toString()
+                tvGood.text=data.good.toString()
+                tvAverage.text=data.avrage.toString()
+                tvbad.text=data.sad.toString()
                 tvJoiningDate.text = StringBuffer().append(": ").append(Utils.convertDate("yyyy-MM-dd hh:mm:ss", data.created_at, "dd MMMM yyyy"))
                 if (!TextUtils.isEmpty(data.profile_pic)) {
                     Picasso.with(context).load(AppConstants.IMAGE_URL + data.profile_pic)

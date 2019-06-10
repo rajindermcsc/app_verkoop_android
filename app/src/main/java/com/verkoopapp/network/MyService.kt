@@ -262,7 +262,8 @@ interface MyService {
     @POST("userPurchaseAdvertisement")
     fun uploadBannerApi(@Part files: MultipartBody.Part,
                                @Part("user_id") userId: RequestBody,
-                               @Part("advertisement_plan_id") userName: RequestBody): Call<ProfileUpdateResponse>
+                               @Part("advertisement_plan_id") userName: RequestBody,
+                               @Part("category_id") categoryId: RequestBody): Call<ProfileUpdateResponse>
 
     @Multipart
     @Headers("Accept: application/json")

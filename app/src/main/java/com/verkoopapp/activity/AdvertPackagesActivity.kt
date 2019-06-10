@@ -22,6 +22,7 @@ import retrofit2.Response
 class AdvertPackagesActivity : AppCompatActivity(), AdvertPackageAdapter.SubmitBannerCallBack {
     private lateinit var advertPackageAdapter: AdvertPackageAdapter
     private var imageUrl = ""
+    private var categoryId :Int=0
     override fun planSelectionClick(planId: Int) {
         submitDialog(planId)
     }
@@ -31,6 +32,7 @@ class AdvertPackagesActivity : AppCompatActivity(), AdvertPackageAdapter.SubmitB
         super.onCreate(savedInstanceState)
         setContentView(R.layout.advert_package_activity)
         imageUrl = intent.getStringExtra(AppConstants.IMAGE_URL)
+        categoryId = intent.getIntExtra(AppConstants.CATEGORY_ID,0)
          val display = windowManager.defaultDisplay
          val size =  Point()
          display.getSize(size)
@@ -89,7 +91,7 @@ class AdvertPackagesActivity : AppCompatActivity(), AdvertPackageAdapter.SubmitB
     }
 
     private fun updateProfileData(planId: Int) {
-        val uploadBannerRequest = UploadBannerRequest(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), planId, imageUrl)
+        val uploadBannerRequest = UploadBannerRequest(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(),categoryId, planId, imageUrl)
         window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         pbAdvertPackage.visibility = View.VISIBLE

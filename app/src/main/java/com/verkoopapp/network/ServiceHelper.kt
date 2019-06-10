@@ -1251,10 +1251,12 @@ class ServiceHelper {
         }
         val userId = RequestBody.create(MediaType.parse("text/plain"), request.user_id.toString())
         val advertPlan = RequestBody.create(MediaType.parse("text/plain"), request.advertisement_plan_id.toString())
+        val categoryId = RequestBody.create(MediaType.parse("text/plain"), request.category_id.toString())
 
-        val call = myService.uploadBannerApi(body!!, userId, advertPlan)
+        val call = myService.uploadBannerApi(body!!, userId, advertPlan,categoryId)
         call.enqueue(object : Callback<ProfileUpdateResponse> {
             override fun onResponse(call: Call<ProfileUpdateResponse>, response: Response<ProfileUpdateResponse>) {
+
                 Log.e("<<<<Response>>>>", Gson().toJson(response.body()))
                 if (response.code() == 200) {
                     onResponse.onSuccess(response)

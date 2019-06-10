@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white_bag"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -220,7 +220,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:drawablePadding="@dimen/dp_10"
-                                android:text="@string/_250"
                                 android:textColor="@color/green_light"
                                 android:textSize="@dimen/sp_23" />
                         </LinearLayout>
@@ -246,7 +245,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:drawablePadding="@dimen/dp_10"
-                                android:text="153"
                                 android:textColor="@color/yellow"
                                 android:textSize="@dimen/sp_23" />
                         </LinearLayout>
@@ -264,15 +262,15 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginEnd="@dimen/dp_8"
-                                android:src="@mipmap/bad"
-                                android:contentDescription="@string/image" />
+                                android:contentDescription="@string/image"
+                                android:src="@mipmap/bad" />
 
                             <com.verkoopapp.fonts.textView.GothiBoldTextView
+                                android:id="@+id/tvUserSad"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:drawablePadding="@dimen/dp_10"
-                                android:text="150"
                                 android:textColor="@color/red_light"
                                 android:textSize="@dimen/sp_23" />
                         </LinearLayout>
