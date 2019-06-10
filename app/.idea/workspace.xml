@@ -20,326 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc66ae77-f916-47ea-a965-a0a0204e65ae" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/arm64-v8a/libimageutils.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/armeabi-v7a/libimageutils.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/doc-files/FSAlbReg.otf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/sanselan-0_97-android-1.0.0.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/x86/libimageutils.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/__local_aars___E__Mobilecoders_project_Verkoop_App_verkoop_app_app_libs_craftar_cloud_image_recognition_sdk_android_jar_unspecified_jar.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/__local_aars___E__Mobilecoders_project_Verkoop_App_verkoop_app_app_libs_sanselan_0_97_android_1_0_0_jar_unspecified_jar.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/allclasses-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/allclasses-noframe.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/CLog.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/CRSConnect.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/CloudSearchController.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/ConfCamera.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/CraftARActivity.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/CraftARActivityCompat.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/CraftARBoundingBox.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/CraftARCamera.CraftARCameraCallbacks.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/CraftARCamera.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/CraftARCameraView.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/CraftARCloudRecognition.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/CraftARCollection.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/CraftARError.ERROR_CODES.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/CraftARError.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/CraftARGenericSDK.OnFinderTimeoutListener.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/CraftARGenericSDK.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/CraftARImage.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/CraftARItem.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/CraftARItemFactory.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/CraftARNetworkError.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/CraftARQueryImage.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/CraftARResult.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/CraftARSDK.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/CraftARSDKException.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/CraftARSearchResponseHandler.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/ImageRecognition.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/MySSLSocketFactory.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/SearchController.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/SetCloudCollectionListener.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/SetCollectionListener.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/SetOnDeviceCollectionListener.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/CLog.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/CRSConnect.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/CloudSearchController.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/ConfCamera.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/CraftARActivity.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/CraftARActivityCompat.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/CraftARBoundingBox.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/CraftARCamera.CraftARCameraCallbacks.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/CraftARCamera.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/CraftARCameraView.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/CraftARCloudRecognition.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/CraftARCollection.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/CraftARError.ERROR_CODES.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/CraftARError.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/CraftARGenericSDK.OnFinderTimeoutListener.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/CraftARGenericSDK.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/CraftARImage.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/CraftARItem.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/CraftARItemFactory.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/CraftARNetworkError.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/CraftARQueryImage.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/CraftARResult.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/CraftARSDK.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/CraftARSDKException.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/CraftARSearchResponseHandler.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/ImageRecognition.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/MySSLSocketFactory.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/SearchController.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/SetCloudCollectionListener.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/SetCollectionListener.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/class-use/SetOnDeviceCollectionListener.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/package-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/package-summary.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/com/craftar/package-use.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/constant-values.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/deprecated-list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/help-doc.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/package-list" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/script.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/serialized-form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android-docs/stylesheet.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/craftar-cloud-image-recognition-sdk-android.jar.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/models/events.kt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/layout/chat_image_left_row.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/layout/chat_image_right_row.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/androidTest/java/com/verkoop/ExampleInstrumentedTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/InterFace.kt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/VerkoopApplication.kt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/CarBrandAdapter.kt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/FavouritesAdapter.kt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/customgallery/CameraUtil.kt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/customgallery/Define.kt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/customgallery/PickerController.kt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/customgallery/ScanListener.kt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/customgallery/SingleMediaScanner.kt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/fragment/ActivitiesFragment.kt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/fragment/ChatInboxFragment.kt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/fragment/FirstCategoryFragment.kt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/fragment/GetCoinsFragment.kt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/fragment/HistoryFragment.kt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/fragment/RegionListFragment.kt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/fragment/SellingFragment.kt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/models/events.kt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/offlinechatdata/ChatInboxRealModal.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/offlinechatdata/ChatResponseModal.kt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/offlinechatdata/DbHelper.kt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/utils/Dialogs.kt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/java/com/verkoop/ExampleUnitTest.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/google-services.json" afterPath="$PROJECT_DIR$/google-services.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/add_details_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/add_details_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/add_money_dialog_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/add_money_dialog_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/adds_category_row.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/adds_category_row.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/advert_package_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/advert_package_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/all_banner_row.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/all_banner_row.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/buy_cars_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/buy_cars_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/car_brand_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/car_brand_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/car_brand_row.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/car_brand_row.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/car_filter_row.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/car_filter_row.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/categories_screen.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/categories_screen.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/category_details_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/category_details_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/category_dialog.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/category_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/category_home_row.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/category_home_row.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/change_password.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/change_password.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/chat_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/chat_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/chat_inbox_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/chat_inbox_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/chat_inbox_row.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/chat_inbox_row.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/chat_offer_left_row.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/chat_offer_left_row.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/chat_offer_right_row.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/chat_offer_right_row.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/chat_text_left_row.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/chat_text_left_row.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/chat_text_right_row.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/chat_text_right_row.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/coin_history_row.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/coin_history_row.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/coin_row.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/coin_row.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/coins_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/coins_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/comment_dialog_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/comment_dialog_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/comment_row.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/comment_row.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/delete_comment_dialog.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/delete_comment_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/details_sub_category.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/details_sub_category.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/details_toolbar.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/details_toolbar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/dialog_answer.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/dialog_answer.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/dialog_create_offer.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/dialog_create_offer.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/dialog_select_met_up.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/dialog_select_met_up.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/edit_profile_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/edit_profile_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/favourites_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/favourites_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/filter_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/filter_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/filter_row.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/filter_row.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/forgot_password_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/forgot_password_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/full_car_brand_row.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/full_car_brand_row.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/full_categories_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/full_categories_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/full_categories_row.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/full_categories_row.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/gallery_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/gallery_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/gallery_item.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/gallery_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/get_coin_fragment.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/get_coin_fragment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/history_fragment.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/history_fragment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/home_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/home_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/home_fragment.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/home_fragment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/item_details_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/item_details_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/item_row.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/item_row.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/login_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/login_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/my_profile_row.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/my_profile_row.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/my_wallet_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/my_wallet_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/notifizcatin_fragment.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/notifizcatin_fragment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/pick_option_ctivity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/pick_option_ctivity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/proceed_dialog.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/proceed_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/profile_fragment.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/profile_fragment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/purchase_coin_dialog.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/purchase_coin_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/qr_scann_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/qr_scann_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/rating_dialog.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/rating_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/reason_list.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/reason_list.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/recommended_for_you.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/recommended_for_you.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/report_user_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/report_user_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/row_payment_history.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/row_payment_history.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/row_property.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/row_property.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/row_search_item.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/row_search_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/search_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/search_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/search_location_row.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/search_location_row.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/selarch_location_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/selarch_location_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/select_category_dialog_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/select_category_dialog_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/select_option_dialoog.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/select_option_dialoog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/setting_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/setting_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/signup_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/signup_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/sub_category.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/sub_category.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/sub_category_dialog_row.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/sub_category_dialog_row.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/toolbar_bottom.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/toolbar_bottom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/toolbar_cars_properties.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/toolbar_cars_properties.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/toolbar_category.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/toolbar_category.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/toolbar_chat.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/toolbar_chat.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/toolbar_details_.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/toolbar_details_.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/toolbar_filter.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/toolbar_filter.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/toolbar_home.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/toolbar_home.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/toolbar_home_fragment.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/toolbar_home_fragment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/toolbar_location.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/toolbar_location.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/toolbar_product_details.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/toolbar_product_details.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/toolbar_search_user.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/toolbar_search_user.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/transfer_coin_dialog_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/transfer_coin_dialog_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/upload_banner_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/upload_banner_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/user_profile_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/user_profile_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/user_search_row.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/user_search_row.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/walk_through_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/walk_through_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/warning_dialog.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/warning_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/your_daily_picks.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/your_daily_picks.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddCommentActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/AddCommentActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddDetailsActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/AddDetailsActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/AddMoneyDialogActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/AddMoneyDialogActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/AdvertPackagesActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/AdvertPackagesActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/ArchivedChatActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ArchivedChatActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/BuyCarsActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/BuyCarsActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/BuyPropertiesActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/BuyPropertiesActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/CarBrandActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/CarBrandActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/CarBrandsActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/CarBrandsActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/CarsFilterActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/CarsFilterActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/CategoriesActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/CategoriesActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/CategoryDetailsActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/CategoryDetailsActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/ChangePasswordActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChangePasswordActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/ChatActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/ChatInboxActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatInboxActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/CoinsActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/CoinsActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/EditProfileActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/EditProfileActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/FavouritesActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/FavouritesActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/FilterActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/FilterActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/FollowFollowingActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/FollowFollowingActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/ForgotPasswordActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ForgotPasswordActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/FullCategoriesActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/FullCategoriesActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/GalleryActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/GalleryActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/HomeActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/HomeActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/LoginActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/LoginActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/MainActivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/MainActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/MyWalletActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/MyWalletActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/NotificationActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/NotificationActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/PickOptionActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/PickOptionActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/ProductDetailsActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ProductDetailsActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/QRScannerActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/QRScannerActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/RegionActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/RegionActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/ReportUserActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ReportUserActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/SearchActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/SearchActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/SearchLocationActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/SearchLocationActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/SelectCategoryDialogActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/SelectCategoryDialogActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/SettingActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/SettingActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/SignUpActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/SignUpActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/SplashActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/SplashActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/StateActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/StateActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/TransferCoinsActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/TransferCoinsActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/UploadBannerActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/UploadBannerActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/UserProfileActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/UserProfileActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/ViewAllBannerActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ViewAllBannerActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/activity/WalkThroughActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/WalkThroughActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/AdvertPackageAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/AdvertPackageAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/BannerAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/BannerAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/BrandListAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/BrandListAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/BuyCarsAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/BuyCarsAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/BuyPropertyAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/BuyPropertyAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/CarBodyTypeAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/CarBodyTypeAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/CarBrandsAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/CarBrandsAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/CategoryAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/CategoryAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/CategoryDialogAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/CategoryDialogAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/CategoryListAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/CategoryListAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/ChatAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/ChatAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/ChatInboxAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/ChatInboxAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/CityListAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/CityListAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/CoinListAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/CoinListAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/CoinsHistoryAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/CoinsHistoryAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/CommentListAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/CommentListAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/DetailSubCategory.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/DetailSubCategory.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/FilterAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/FilterAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/FollowFollowingAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/FollowFollowingAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/FullCategoryAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/FullCategoryAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/GalleryAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/GalleryAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/GetCoinAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/GetCoinAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/HomeAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/HomeAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/HomePagerAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/HomePagerAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/ItemAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/ItemAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/ItemHomeAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/ItemHomeAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/LocationSearchAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/LocationSearchAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/MyProfileItemAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/MyProfileItemAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/PaymentHistoryAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/PaymentHistoryAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/PropertyTypeAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/PropertyTypeAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/QRScannerAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/QRScannerAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/RegionAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/RegionAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/ReportListAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/ReportListAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/SearchByUserAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/SearchByUserAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/SearchListAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/SearchListAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/SelectedImageAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/SelectedImageAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/SubCategoryAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/SubCategoryAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/SubCategoryDialogAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/SubCategoryDialogAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/UserProfileItemAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/UserProfileItemAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/YourDailyPicksAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/YourDailyPicksAdapter.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/fcm/KSMNotificationManager.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/fcm/KSMNotificationManager.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/fcm/VerkoopFirebaseMessagingService.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/fcm/VerkoopFirebaseMessagingService.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/fonts/editText/CustomFontClass.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/fonts/editText/CustomFontClass.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/fonts/textView/CustomTextViewFontClass.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/fonts/textView/CustomTextViewFontClass.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/fragment/BuyingFragment.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/BuyingFragment.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/fragment/HomeFragment.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/HomeFragment.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/fragment/MyCodeFragment.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/MyCodeFragment.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/fragment/ProfileFragment.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/ProfileFragment.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/models/ChatResponse.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/models/ChatResponse.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/models/RequestModal.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/models/RequestModal.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/models/ResponseModal.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/models/ResponseModal.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/network/ApiClient.java" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/network/ApiClient.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/network/ApiClientLocation.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/network/ApiClientLocation.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/network/AuthenticationInterceptor.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/network/AuthenticationInterceptor.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/network/MyService.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/network/MyService.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/network/ServiceGenerator.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/network/ServiceGenerator.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/network/ServiceHelper.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/network/ServiceHelper.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/utils/BaseActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/BaseActivity.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/utils/BaseFragment.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/BaseFragment.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/utils/CommonUtils.java" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/CommonUtils.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/utils/Constants.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/Constants.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/utils/CustomGridLayoutManager.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/CustomGridLayoutManager.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/utils/KeyboardUtil.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/KeyboardUtil.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/utils/Loader.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/Loader.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/utils/NonSwipeableViewPager.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/NonSwipeableViewPager.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/utils/NonscrollRecylerview.java" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/NonscrollRecylerview.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/utils/PermissionCheck.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/PermissionCheck.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/utils/ScrollDisabledRecyclerView.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/ScrollDisabledRecyclerView.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/verkoop/utils/Utils.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/Utils.kt" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -436,12 +117,10 @@
       <file leaf-file-name="ChatActivity.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1664">
+            <state relative-caret-position="20852">
               <caret line="853" column="30" lean-forward="false" selection-start-line="853" selection-start-column="30" selection-end-line="853" selection-end-column="30" />
               <folding>
-                <element signature="e#18148#18174#1" expanded="true" />
-                <element signature="e#18273#18300#1" expanded="true" />
-                <element signature="e#20850#20884#1" expanded="true" />
+                <element signature="e#34#1963#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -450,9 +129,11 @@
       <file leaf-file-name="ChatAdapter.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/ChatAdapter.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
+            <state relative-caret-position="1586">
               <caret line="81" column="64" lean-forward="false" selection-start-line="81" selection-start-column="64" selection-end-line="81" selection-end-column="64" />
-              <folding />
+              <folding>
+                <element signature="e#34#866#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -460,99 +141,64 @@
       <file leaf-file-name="EditProfileActivity.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/EditProfileActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
+            <state relative-caret-position="1352">
               <caret line="83" column="68" lean-forward="false" selection-start-line="83" selection-start-column="68" selection-end-line="83" selection-end-column="92" />
-              <folding />
+              <folding>
+                <element signature="e#33#1197#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="chat_text_right_row.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/res/layout/chat_text_right_row.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="48" column="53" lean-forward="false" selection-start-line="48" selection-start-column="52" selection-end-line="48" selection-end-column="53" />
-              <folding>
-                <element signature="e#2090#2104#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
           <provider editor-type-id="android-designer2">
             <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="806">
+              <caret line="31" column="62" lean-forward="false" selection-start-line="31" selection-start-column="42" selection-end-line="31" selection-end-column="62" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="chat_image_right_row.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/res/layout/chat_image_right_row.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="159">
-              <caret line="62" column="49" lean-forward="false" selection-start-line="62" selection-start-column="49" selection-end-line="62" selection-end-column="49" />
-              <folding>
-                <element signature="e#255#268#0" expanded="true" />
-                <element signature="e#301#314#0" expanded="true" />
-                <element signature="e#1175#1188#0" expanded="true" />
-                <element signature="e#1642#1655#0" expanded="true" />
-                <element signature="e#1696#1709#0" expanded="true" />
-                <element signature="e#1751#1764#0" expanded="true" />
-                <element signature="e#1804#1817#0" expanded="true" />
-                <element signature="e#1951#1966#0" expanded="true" />
-                <element signature="e#2013#2028#0" expanded="true" />
-                <element signature="e#2080#2094#0" expanded="true" />
-                <element signature="e#2573#2586#0" expanded="true" />
-                <element signature="e#2634#2647#0" expanded="true" />
-                <element signature="e#2693#2706#0" expanded="true" />
-                <element signature="e#2802#2816#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
           <provider editor-type-id="android-designer2">
             <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="19" column="31" lean-forward="false" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="chat_text_left_row.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/res/layout/chat_text_left_row.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
+            <state relative-caret-position="494">
               <caret line="19" column="37" lean-forward="false" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="37" />
               <folding />
             </state>
-          </provider>
-          <provider editor-type-id="android-designer2">
-            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="chat_image_left_row.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/res/layout/chat_image_left_row.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="70" column="30" lean-forward="false" selection-start-line="70" selection-start-column="30" selection-end-line="70" selection-end-column="30" />
-              <folding>
-                <element signature="e#222#235#0" expanded="true" />
-                <element signature="e#268#281#0" expanded="true" />
-                <element signature="e#821#835#0" expanded="true" />
-                <element signature="e#1261#1274#0" expanded="true" />
-                <element signature="e#1573#1586#0" expanded="true" />
-                <element signature="e#1623#1636#0" expanded="true" />
-                <element signature="e#1678#1691#0" expanded="true" />
-                <element signature="e#2145#2158#0" expanded="true" />
-                <element signature="e#2203#2216#0" expanded="true" />
-                <element signature="e#2262#2275#0" expanded="true" />
-                <element signature="e#2319#2332#0" expanded="true" />
-                <element signature="e#2477#2492#0" expanded="true" />
-                <element signature="e#2543#2558#0" expanded="true" />
-                <element signature="e#2614#2628#0" expanded="true" />
-                <element signature="e#3228#3241#0" expanded="true" />
-                <element signature="e#3331#3344#0" expanded="true" />
-                <element signature="e#3440#3454#0" expanded="true" />
-                <element signature="e#3846#3859#0" expanded="true" />
-                <element signature="e#3990#4004#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
           <provider editor-type-id="android-designer2">
             <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1820">
+              <caret line="70" column="30" lean-forward="false" selection-start-line="70" selection-start-column="30" selection-end-line="70" selection-end-column="30" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
@@ -569,9 +215,11 @@
       <file leaf-file-name="UserProfileActivity.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/UserProfileActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
+            <state relative-caret-position="1378">
               <caret line="75" column="9" lean-forward="false" selection-start-line="71" selection-start-column="7" selection-end-line="75" selection-end-column="9" />
-              <folding />
+              <folding>
+                <element signature="e#33#940#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -579,9 +227,10 @@
       <file leaf-file-name="ServiceHelper.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/network/ServiceHelper.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
+            <state relative-caret-position="34606">
               <caret line="1402" column="30" lean-forward="false" selection-start-line="1402" selection-start-column="20" selection-end-line="1402" selection-end-column="30" />
               <folding>
+                <element signature="e#32#558#0" expanded="false" />
                 <element signature="e#60145#61100#0" expanded="false" />
                 <element signature="e#61176#62682#0" expanded="false" />
               </folding>
@@ -2519,136 +2168,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="verkoop_app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="verkoop_app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="verkoop_app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="verkoop_app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="Scratches" />
-      <pane id="AndroidView">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="verkoop_app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Gradle Scripts" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidBuildScriptsGroupNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="verkoop_app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="verkoop_app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="verkoop_app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="verkoopapp" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="verkoop_app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="verkoopapp" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="network" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="verkoop_app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="verkoopapp" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="activity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="Scope">
         <subPane subId="Project Files">
           <PATH>
@@ -2775,6 +2295,49 @@
             <PATH_ELEMENT USER_OBJECT="activity">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoop_app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoop_app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoop_app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoop_app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="AndroidView">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoop_app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Gradle Scripts" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidBuildScriptsGroupNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -2949,7 +2512,8 @@
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="" />
       <method>
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1559917934986" />
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1560144231992" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2996,7 +2560,8 @@
         <option name="ADVANCED_PROFILING_ENABLED" value="false" />
       </Profilers>
       <method>
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1559917934987" />
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1560144231992" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -3028,27 +2593,6 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <method />
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
       <method />
     </configuration>
     <configuration default="true" type="JarApplication" factoryName="JAR Application">
@@ -3202,7 +2746,8 @@
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="" />
       <method>
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1559917934990" />
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1560144231994" />
       </method>
     </configuration>
     <list size="3">
@@ -3262,32 +2807,29 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.66898954" sideWeight="0.5537879" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.66898954" sideWeight="0.5537879" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27121213" sideWeight="1.0" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.77874565" sideWeight="0.4409091" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.5590909" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8292683" sideWeight="0.5590909" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5749129" sideWeight="0.475" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12878788" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5749129" sideWeight="0.475" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8432056" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.46742424" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3292683" sideWeight="0.46742424" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" x="1262" y="92" width="12" height="11" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21969697" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21969697" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.6393939" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5696864" sideWeight="0.46212122" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.72648084" sideWeight="0.46212122" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.77874565" sideWeight="0.4409091" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27348486" sideWeight="0.0" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Android WiFi ADB" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.81010455" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.74041814" sideWeight="0.36060607" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -3299,7 +2841,9 @@
       <window_info id="Assistant" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.82578397" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" x="1262" y="92" width="12" height="11" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.81010455" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.66898954" sideWeight="0.5537879" order="7" side_tool="false" content_ui="tabs" />
@@ -5656,7 +5200,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="364">
           <caret line="27" column="5" lean-forward="true" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5702,23 +5245,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../google-services.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="10" column="25" lean-forward="false" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/../google-services.json" />
     <entry file="file://$PROJECT_DIR$/google-services.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
           <caret line="7" column="13" lean-forward="true" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5734,11 +5268,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="130">
           <caret line="5" column="72" lean-forward="false" selection-start-line="5" selection-start-column="72" selection-end-line="5" selection-end-column="72" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/signup_activity.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="130">
           <caret line="68" column="42" lean-forward="false" selection-start-line="68" selection-start-column="42" selection-end-line="68" selection-end-column="42" />
@@ -5746,9 +5282,6 @@
             <element signature="e#12638#12671#0" expanded="false" />
           </folding>
         </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/SignUpActivity.kt">
@@ -5779,19 +5312,18 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="244">
           <caret line="75" column="20" lean-forward="false" selection-start-line="75" selection-start-column="20" selection-end-line="75" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/car_brand_activity.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
           <caret line="9" column="17" lean-forward="false" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/CarBrandActivity.kt">
@@ -5813,17 +5345,20 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/buy_cars_activity.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
           <caret line="9" column="16" lean-forward="false" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
           <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/car_brand_row.xml">
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/car_brand_row.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
           <caret line="10" column="30" lean-forward="false" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
@@ -5832,30 +5367,29 @@
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/category_home_row.xml">
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/category_home_row.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
           <caret line="9" column="21" lean-forward="false" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
           <folding />
         </state>
       </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/BrandListAdapter.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
           <caret line="22" column="56" lean-forward="false" selection-start-line="22" selection-start-column="56" selection-end-line="22" selection-end-column="56" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/car_filter_row.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
           <caret line="49" column="26" lean-forward="false" selection-start-line="49" selection-start-column="26" selection-end-line="49" selection-end-column="26" />
@@ -5868,9 +5402,6 @@
             <element signature="e#2015#2029#0" expanded="true" />
           </folding>
         </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/BuyPropertyAdapter.kt">
@@ -5893,7 +5424,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="208">
           <caret line="28" column="47" lean-forward="false" selection-start-line="28" selection-start-column="47" selection-end-line="28" selection-end-column="47" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5901,7 +5431,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
           <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5917,36 +5446,36 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/toolbar_bottom.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="130">
           <caret line="40" column="37" lean-forward="false" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="37" />
           <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/chat_activity.xml">
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/chat_activity.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="107">
           <caret line="150" column="0" lean-forward="true" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
           <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/edit_profile_activity.xml">
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/edit_profile_activity.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="196">
           <caret line="251" column="41" lean-forward="false" selection-start-line="251" selection-start-column="41" selection-end-line="251" selection-end-column="41" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/Utils.kt">
@@ -5969,7 +5498,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="181">
           <caret line="90" column="11" lean-forward="false" selection-start-line="90" selection-start-column="11" selection-end-line="90" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5977,7 +5505,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="292">
           <caret line="851" column="20" lean-forward="false" selection-start-line="851" selection-start-column="19" selection-end-line="851" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5985,7 +5512,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
           <caret line="32" column="16" lean-forward="false" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -6003,7 +5529,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="172">
           <caret line="253" column="30" lean-forward="false" selection-start-line="253" selection-start-column="30" selection-end-line="253" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -6011,15 +5536,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="296">
           <caret line="269" column="49" lean-forward="false" selection-start-line="269" selection-start-column="36" selection-end-line="269" selection-end-column="49" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/network/ServiceHelper.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
+        <state relative-caret-position="34606">
           <caret line="1402" column="30" lean-forward="false" selection-start-line="1402" selection-start-column="20" selection-end-line="1402" selection-end-column="30" />
           <folding>
+            <element signature="e#32#558#0" expanded="false" />
             <element signature="e#60145#61100#0" expanded="false" />
             <element signature="e#61176#62682#0" expanded="false" />
           </folding>
@@ -6028,9 +5553,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/UserProfileActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
+        <state relative-caret-position="1378">
           <caret line="75" column="9" lean-forward="false" selection-start-line="71" selection-start-column="7" selection-end-line="75" selection-end-column="9" />
-          <folding />
+          <folding>
+            <element signature="e#33#940#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -6044,111 +5571,76 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/EditProfileActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
+        <state relative-caret-position="1352">
           <caret line="83" column="68" lean-forward="false" selection-start-line="83" selection-start-column="68" selection-end-line="83" selection-end-column="92" />
-          <folding />
+          <folding>
+            <element signature="e#33#1197#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1664">
+        <state relative-caret-position="20852">
           <caret line="853" column="30" lean-forward="false" selection-start-line="853" selection-start-column="30" selection-end-line="853" selection-end-column="30" />
           <folding>
-            <element signature="e#18148#18174#1" expanded="true" />
-            <element signature="e#18273#18300#1" expanded="true" />
-            <element signature="e#20850#20884#1" expanded="true" />
+            <element signature="e#34#1963#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/chat_image_left_row.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="70" column="30" lean-forward="false" selection-start-line="70" selection-start-column="30" selection-end-line="70" selection-end-column="30" />
-          <folding>
-            <element signature="e#222#235#0" expanded="true" />
-            <element signature="e#268#281#0" expanded="true" />
-            <element signature="e#821#835#0" expanded="true" />
-            <element signature="e#1261#1274#0" expanded="true" />
-            <element signature="e#1573#1586#0" expanded="true" />
-            <element signature="e#1623#1636#0" expanded="true" />
-            <element signature="e#1678#1691#0" expanded="true" />
-            <element signature="e#2145#2158#0" expanded="true" />
-            <element signature="e#2203#2216#0" expanded="true" />
-            <element signature="e#2262#2275#0" expanded="true" />
-            <element signature="e#2319#2332#0" expanded="true" />
-            <element signature="e#2477#2492#0" expanded="true" />
-            <element signature="e#2543#2558#0" expanded="true" />
-            <element signature="e#2614#2628#0" expanded="true" />
-            <element signature="e#3228#3241#0" expanded="true" />
-            <element signature="e#3331#3344#0" expanded="true" />
-            <element signature="e#3440#3454#0" expanded="true" />
-            <element signature="e#3846#3859#0" expanded="true" />
-            <element signature="e#3990#4004#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
       <provider editor-type-id="android-designer2">
         <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1820">
+          <caret line="70" column="30" lean-forward="false" selection-start-line="70" selection-start-column="30" selection-end-line="70" selection-end-column="30" />
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/ChatAdapter.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
+        <state relative-caret-position="1586">
           <caret line="81" column="64" lean-forward="false" selection-start-line="81" selection-start-column="64" selection-end-line="81" selection-end-column="64" />
-          <folding />
+          <folding>
+            <element signature="e#34#866#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/chat_text_left_row.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
+        <state relative-caret-position="494">
           <caret line="19" column="37" lean-forward="false" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="37" />
           <folding />
         </state>
       </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/chat_text_right_row.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="48" column="53" lean-forward="false" selection-start-line="48" selection-start-column="52" selection-end-line="48" selection-end-column="53" />
-          <folding>
-            <element signature="e#2090#2104#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
       <provider editor-type-id="android-designer2">
         <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="806">
+          <caret line="31" column="62" lean-forward="false" selection-start-line="31" selection-start-column="42" selection-end-line="31" selection-end-column="62" />
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/chat_image_right_row.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="62" column="49" lean-forward="false" selection-start-line="62" selection-start-column="49" selection-end-line="62" selection-end-column="49" />
-          <folding>
-            <element signature="e#255#268#0" expanded="true" />
-            <element signature="e#301#314#0" expanded="true" />
-            <element signature="e#1175#1188#0" expanded="true" />
-            <element signature="e#1642#1655#0" expanded="true" />
-            <element signature="e#1696#1709#0" expanded="true" />
-            <element signature="e#1751#1764#0" expanded="true" />
-            <element signature="e#1804#1817#0" expanded="true" />
-            <element signature="e#1951#1966#0" expanded="true" />
-            <element signature="e#2013#2028#0" expanded="true" />
-            <element signature="e#2080#2094#0" expanded="true" />
-            <element signature="e#2573#2586#0" expanded="true" />
-            <element signature="e#2634#2647#0" expanded="true" />
-            <element signature="e#2693#2706#0" expanded="true" />
-            <element signature="e#2802#2816#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
       <provider editor-type-id="android-designer2">
         <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="19" column="31" lean-forward="false" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
+          <folding />
+        </state>
       </provider>
     </entry>
   </component>
