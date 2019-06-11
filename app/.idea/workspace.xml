@@ -20,131 +20,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc66ae77-f916-47ea-a965-a0a0204e65ae" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/android_arch_core_runtime_1_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/android_arch_core_runtime_1_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/android_arch_lifecycle_livedata_1_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/android_arch_lifecycle_livedata_1_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/android_arch_lifecycle_livedata_core_1_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/android_arch_lifecycle_livedata_core_1_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/android_arch_lifecycle_runtime_1_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/android_arch_lifecycle_runtime_1_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/android_arch_lifecycle_viewmodel_1_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/android_arch_lifecycle_viewmodel_1_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/ch_acra_acra_4_8_5.xml" afterPath="$PROJECT_DIR$/.idea/libraries/ch_acra_acra_4_8_5.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_andrognito_flashbar_flashbar_1_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_andrognito_flashbar_flashbar_1_0_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_databinding_adapters_1_3_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_databinding_adapters_1_3_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_databinding_library_1_3_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_databinding_library_1_3_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_animated_vector_drawable_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_animated_vector_drawable_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_appcompat_v7_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_appcompat_v7_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_asynclayoutinflater_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_asynclayoutinflater_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_cardview_v7_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_cardview_v7_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_constraint_constraint_layout_1_1_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_constraint_constraint_layout_1_1_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_coordinatorlayout_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_coordinatorlayout_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_cursoradapter_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_cursoradapter_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_customtabs_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_customtabs_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_customview_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_customview_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_design_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_design_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_documentfile_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_documentfile_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_drawerlayout_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_drawerlayout_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_exifinterface_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_exifinterface_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_interpolator_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_interpolator_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_loader_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_loader_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_localbroadcastmanager_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_localbroadcastmanager_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_multidex_1_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_multidex_1_0_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_print_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_print_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_recyclerview_v7_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_recyclerview_v7_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_slidingpanelayout_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_slidingpanelayout_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_compat_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_compat_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_core_ui_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_core_ui_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_core_utils_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_core_utils_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_fragment_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_fragment_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_media_compat_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_media_compat_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_v4_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_v4_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_vector_drawable_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_vector_drawable_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_swiperefreshlayout_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_swiperefreshlayout_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_test_espresso_espresso_core_3_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_test_espresso_espresso_core_3_0_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_test_espresso_espresso_idling_resource_3_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_test_espresso_espresso_idling_resource_3_0_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_test_monitor_1_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_test_monitor_1_0_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_test_runner_1_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_test_runner_1_0_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_transition_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_transition_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_versionedparcelable_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_versionedparcelable_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_viewpager_28_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_viewpager_28_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_daimajia_slider_library_1_1_5.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_daimajia_slider_library_1_1_5.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_daimajia_swipelayout_library_1_2_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_daimajia_swipelayout_library_1_2_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_edwardvanraak_MaterialBarcodeScanner_0_0_6_ALPHA.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_edwardvanraak_MaterialBarcodeScanner_0_0_6_ALPHA.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_facebook_android_facebook_android_sdk_4_42_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_facebook_android_facebook_android_sdk_4_42_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_facebook_android_facebook_applinks_4_42_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_facebook_android_facebook_applinks_4_42_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_facebook_android_facebook_common_4_42_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_facebook_android_facebook_common_4_42_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_facebook_android_facebook_core_4_42_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_facebook_android_facebook_core_4_42_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_facebook_android_facebook_login_4_42_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_facebook_android_facebook_login_4_42_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_facebook_android_facebook_messenger_4_42_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_facebook_android_facebook_messenger_4_42_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_facebook_android_facebook_places_4_42_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_facebook_android_facebook_places_4_42_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_facebook_android_facebook_share_4_42_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_facebook_android_facebook_share_4_42_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_futuremind_recyclerfastscroll_fastscroll_0_2_5.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_futuremind_recyclerfastscroll_fastscroll_0_2_5.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_getkeepsafe_relinker_relinker_1_3_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_getkeepsafe_relinker_relinker_1_3_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_github_blikoon_QRCodeScanner_0_1_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_github_blikoon_QRCodeScanner_0_1_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_github_claudiodegio_MsvSearch_1_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_github_claudiodegio_MsvSearch_1_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_github_florent37_expansionpanel_1_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_github_florent37_expansionpanel_1_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_github_florent37_shapeofview_1_3_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_github_florent37_shapeofview_1_3_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_github_florent37_viewanimator_1_1_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_github_florent37_viewanimator_1_1_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_github_nisrulz_qreader_2_1_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_github_nisrulz_qreader_2_1_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_github_scottyab_showhidepasswordedittext_0_8.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_github_scottyab_showhidepasswordedittext_0_8.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_github_siyamed_android_shape_imageview_0_9_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_github_siyamed_android_shape_imageview_0_9_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_github_skydoves_powermenu_2_0_5.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_github_skydoves_powermenu_2_0_5.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_github_stfalcon_bottomtablayout_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_github_stfalcon_bottomtablayout_0_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_ads_identifier_15_0_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_ads_identifier_15_0_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_base_16_0_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_base_16_0_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_basement_16_1_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_basement_16_1_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_clearcut_16_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_clearcut_16_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_flags_16_0_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_flags_16_0_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_location_16_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_location_16_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_measurement_base_16_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_measurement_base_16_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_phenotype_16_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_phenotype_16_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_places_placereport_16_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_places_placereport_16_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_stats_16_0_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_stats_16_0_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_tasks_16_0_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_tasks_16_0_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_vision_17_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_vision_17_0_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_vision_common_17_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_vision_common_17_0_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_firebase_firebase_analytics_16_0_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_firebase_firebase_analytics_16_0_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_firebase_firebase_analytics_impl_16_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_firebase_firebase_analytics_impl_16_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_firebase_firebase_common_16_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_firebase_firebase_common_16_0_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_firebase_firebase_core_16_0_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_firebase_firebase_core_16_0_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_firebase_firebase_iid_17_0_4.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_firebase_firebase_iid_17_0_4.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_firebase_firebase_iid_interop_16_0_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_firebase_firebase_iid_interop_16_0_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_firebase_firebase_measurement_connector_17_0_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_firebase_firebase_measurement_connector_17_0_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_firebase_firebase_measurement_connector_impl_16_0_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_firebase_firebase_measurement_connector_impl_16_0_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_firebase_firebase_messaging_17_3_4.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_firebase_firebase_messaging_17_3_4.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_hbb20_ccp_2_2_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_hbb20_ccp_2_2_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_nightonke_jellytogglebutton_1_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_nightonke_jellytogglebutton_1_0_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_theartofdev_edmodo_android_image_cropper_2_7_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_theartofdev_edmodo_android_image_cropper_2_7_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_tuyenmonkey_mkloader_1_4_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_tuyenmonkey_mkloader_1_4_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_zhihu_android_matisse_0_4_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_zhihu_android_matisse_0_4_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/de_hdodenhof_circleimageview_3_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/de_hdodenhof_circleimageview_3_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/io_michaelrocks_libphonenumber_android_8_9_14.xml" afterPath="$PROJECT_DIR$/.idea/libraries/io_michaelrocks_libphonenumber_android_8_9_14.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/io_realm_realm_android_kotlin_extensions_5_11_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/io_realm_realm_android_kotlin_extensions_5_11_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/io_realm_realm_android_library_5_11_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/io_realm_realm_android_library_5_11_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/it_sephiroth_android_library_easing_library_1_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/it_sephiroth_android_library_easing_library_1_0_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/it_sephiroth_android_library_imagezoom_library_1_0_4.xml" afterPath="$PROJECT_DIR$/.idea/libraries/it_sephiroth_android_library_imagezoom_library_1_0_4.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/AdvertisementActivity.kt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/VerifyNumberActivity.kt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/VerifyOtpDialogActivity.kt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/AdvertisementAdapter.kt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/drawable/white_red_rectangular_shape.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/layout/advertisment_activity.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/layout/banner_row.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/layout/verify_number_activity.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/layout/verify_otp_dialog.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/AdvertPackagesActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/AdvertPackagesActivity.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatInboxActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatInboxActivity.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/UploadBannerActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/UploadBannerActivity.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/ChatInboxAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/ChatInboxAdapter.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/ProfileAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/ProfileAdapter.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/UserProfileItemAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/UserProfileItemAdapter.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoopapp/models/ChatResponse.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/models/ChatResponse.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/EditProfileActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/EditProfileActivity.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/LoginActivity.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/LoginActivity.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/HomeAdapter.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/HomeAdapter.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/HomeFragment.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/HomeFragment.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoopapp/models/RequestModal.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/models/RequestModal.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoopapp/models/ResponseModal.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/models/ResponseModal.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoopapp/network/MyService.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/network/MyService.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoopapp/network/ServiceHelper.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/network/ServiceHelper.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoopapp/offlinechatdata/ChatResponseModal.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/offlinechatdata/ChatResponseModal.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoopapp/offlinechatdata/DbHelper.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/offlinechatdata/DbHelper.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/Constants.kt" afterPath="$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/Constants.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/my_profile_details_row.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/my_profile_details_row.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/upload_banner_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/upload_banner_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/user_profile_detail_row.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/user_profile_detail_row.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/adds_category_row.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/adds_category_row.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/edit_profile_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/edit_profile_activity.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../build.gradle" afterPath="$PROJECT_DIR$/../build.gradle" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_auth_16_0_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_auth_16_0_0.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_auth_api_phone_16_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_auth_api_phone_15_0_1.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_auth_base_16_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_android_gms_play_services_auth_base_15_1_0.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -238,29 +136,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="UploadBannerActivity.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/UploadBannerActivity.kt">
+      <file leaf-file-name="VerifyNumberActivity.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/VerifyNumberActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="111">
-              <caret line="59" column="61" lean-forward="false" selection-start-line="59" selection-start-column="61" selection-end-line="59" selection-end-column="61" />
+            <state relative-caret-position="250">
+              <caret line="39" column="17" lean-forward="false" selection-start-line="35" selection-start-column="13" selection-end-line="39" selection-end-column="17" />
               <folding>
-                <element signature="e#33#826#0" expanded="true" />
-                <element signature="e#2415#2451#1" expanded="true" />
-                <element signature="e#2563#2595#1" expanded="true" />
-                <element signature="e#4467#5371#0" expanded="false" />
-                <element signature="e#5483#6096#0" expanded="false" />
-                <marker date="1560172300920" expanded="false" signature="3040:3072" ph="&quot;Please upload banner.&quot;" />
+                <element signature="e#33#606#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AdvertPackagesActivity.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/AdvertPackagesActivity.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="99">
-              <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -268,9 +151,11 @@
       <file leaf-file-name="ServiceHelper.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/network/ServiceHelper.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="32240">
-              <caret line="1259" column="0" lean-forward="false" selection-start-line="1259" selection-start-column="0" selection-end-line="1259" selection-end-column="0" />
+            <state relative-caret-position="26">
+              <caret line="1453" column="8" lean-forward="false" selection-start-line="1453" selection-start-column="8" selection-end-line="1453" selection-end-column="8" />
               <folding>
+                <element signature="e#32#558#0" expanded="false" />
+                <element signature="e#2207#3499#0" expanded="false" />
                 <element signature="e#60264#61219#0" expanded="false" />
                 <element signature="e#61295#62801#0" expanded="false" />
               </folding>
@@ -278,33 +163,67 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Utils.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/Utils.kt">
+      <file leaf-file-name="MyService.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/network/MyService.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
-              <caret line="69" column="8" lean-forward="false" selection-start-line="69" selection-start-column="8" selection-end-line="69" selection-end-column="8" />
+            <state relative-caret-position="4004">
+              <caret line="158" column="7" lean-forward="false" selection-start-line="158" selection-start-column="7" selection-end-line="158" selection-end-column="7" />
               <folding>
-                <element signature="e#30#925#0" expanded="false" />
+                <element signature="e#32#164#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/build.gradle">
+      <file leaf-file-name="VerifyOtpDialogActivity.kt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/VerifyOtpDialogActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="779">
-              <caret line="81" column="22" lean-forward="true" selection-start-line="81" selection-start-column="22" selection-end-line="81" selection-end-column="22" />
+            <state relative-caret-position="94">
+              <caret line="67" column="16" lean-forward="false" selection-start-line="67" selection-start-column="16" selection-end-line="67" selection-end-column="16" />
+              <folding>
+                <element signature="e#33#757#0" expanded="true" />
+                <element signature="e#1901#1935#1" expanded="true" />
+                <element signature="e#2150#2184#1" expanded="true" />
+                <element signature="e#3649#3683#1" expanded="true" />
+                <element signature="e#5657#6514#0" expanded="false" />
+                <element signature="e#6554#7428#0" expanded="false" />
+                <element signature="e#7469#8346#0" expanded="false" />
+                <element signature="e#8386#9299#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ChangePasswordActivity.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChangePasswordActivity.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="208">
+              <caret line="23" column="39" lean-forward="false" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
+              <folding>
+                <element signature="e#1589#1623#1" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="change_password.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/res/layout/change_password.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="104">
+              <caret line="75" column="79" lean-forward="true" selection-start-line="75" selection-start-column="28" selection-end-line="75" selection-end-column="79" />
               <folding />
             </state>
+          </provider>
+          <provider editor-type-id="android-designer2">
+            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="RequestModal.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/models/RequestModal.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="255" column="23" lean-forward="false" selection-start-line="255" selection-start-column="12" selection-end-line="255" selection-end-column="23" />
+            <state relative-caret-position="206">
+              <caret line="273" column="30" lean-forward="false" selection-start-line="273" selection-start-column="30" selection-end-line="273" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -313,62 +232,33 @@
       <file leaf-file-name="EditProfileActivity.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/EditProfileActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="281" column="27" lean-forward="false" selection-start-line="281" selection-start-column="27" selection-end-line="281" selection-end-column="27" />
+            <state relative-caret-position="466">
+              <caret line="284" column="17" lean-forward="false" selection-start-line="284" selection-start-column="17" selection-end-line="284" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="edit_profile_activity.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout/edit_profile_activity.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
+      <file leaf-file-name="AdvertisementActivity.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/AdvertisementActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="224">
+              <caret line="35" column="37" lean-forward="false" selection-start-line="35" selection-start-column="37" selection-end-line="35" selection-end-column="37" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AddDetailsActivity.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/AddDetailsActivity.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="1104" column="121" lean-forward="false" selection-start-line="1097" selection-start-column="12" selection-end-line="1104" selection-end-column="121" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="upload_banner_activity.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout/upload_banner_activity.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
+      <file leaf-file-name="verify_otp_dialog.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/res/layout/verify_otp_dialog.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="161">
-              <caret line="80" column="28" lean-forward="false" selection-start-line="80" selection-start-column="28" selection-end-line="80" selection-end-column="28" />
-              <folding>
-                <element signature="e#786#2957#0" expanded="false" />
-                <element signature="e#4625#4639#0" expanded="true" />
-                <element signature="e#4795#4809#0" expanded="true" />
-                <element signature="e#4845#4859#0" expanded="true" />
-                <element signature="e#4897#4911#0" expanded="true" />
-                <element signature="e#4947#4961#0" expanded="true" />
-                <element signature="e#4991#5016#0" expanded="true" />
-                <element signature="e#5106#5120#0" expanded="true" />
-                <element signature="e#5468#5482#0" expanded="true" />
-                <element signature="e#5520#5534#0" expanded="true" />
-                <element signature="e#5630#5643#0" expanded="true" />
-                <element signature="e#5672#5686#0" expanded="true" />
-                <element signature="e#5718#5732#0" expanded="true" />
-                <element signature="e#5766#5780#0" expanded="true" />
-                <element signature="e#5806#5820#0" expanded="true" />
-              </folding>
+              <caret line="243" column="28" lean-forward="false" selection-start-line="243" selection-start-column="28" selection-end-line="243" selection-end-column="28" />
+              <folding />
             </state>
+          </provider>
+          <provider editor-type-id="android-designer2">
+            <state />
           </provider>
         </entry>
       </file>
@@ -379,22 +269,15 @@
       <list>
         <option value="valueResourceFile" />
         <option value="Class" />
-        <option value="resourceFile" />
         <option value="Kotlin Class" />
         <option value="Kotlin File" />
         <option value="layoutResourceFile" />
+        <option value="resourceFile" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>client</find>
-      <find>firebase</find>
-      <find>llParentPass</find>
-      <find>&quot;flParentPass</find>
-      <find>flParentPass</find>
-      <find>tvViewProfile</find>
-      <find>user</find>
       <find>amount</find>
       <find>pro</find>
       <find>coin</find>
@@ -418,6 +301,13 @@
       <find>isSold</find>
       <find>onActivityResult</find>
       <find>REQUEST_GET_PHOTO</find>
+      <find>advertismentsList</find>
+      <find>itemsList</find>
+      <find>mDemoSlider</find>
+      <find>custom_indicator</find>
+      <find>llCatView</find>
+      <find>TransparentCompat</find>
+      <find>flParentTrans</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -2386,46 +2276,19 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/res/layout/coin_row.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/fragment/GetCoinsFragment.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/AdvertPackageAdapter.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/CoinListAdapter.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/YourDailyPicksAdapter.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/fragment/HomeFragment.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/HomeAdapter.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/adapter/CategoryListAdapter.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoop/activity/AdvertPackagesActivity.kt" />
-        <option value="$PROJECT_DIR$/google-services.json" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/signup_activity.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/CarsFilterActivity.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/VerkoopApplication.kt" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/category_home_row.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/car_brand_row.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/BuyCarsAdapter.kt" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/car_filter_row.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/BuyPropertyAdapter.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/InterFace.kt" />
-        <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/chat_text_left_row.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/ChatAdapter.kt" />
         <option value="$PROJECT_DIR$/src/main/res/layout/chat_image_left_row.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/chat_image_right_row.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/HomeAdapter.kt" />
         <option value="$PROJECT_DIR$/src/main/res/layout/chat_text_right_row.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/HomeFragment.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/BuyCarsActivity.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/BuyPropertiesActivity.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/LoginActivity.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/FilterActivity.kt" />
-        <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/../build.gradle" />
         <option value="$PROJECT_DIR$/src/main/res/layout/my_profile_details_row.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/ProfileAdapter.kt" />
         <option value="$PROJECT_DIR$/src/main/res/layout/user_profile_detail_row.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/models/ResponseModal.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/UserProfileItemAdapter.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/models/ChatResponse.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/Constants.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/ChatInboxAdapter.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/offlinechatdata/ChatResponseModal.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/offlinechatdata/DbHelper.kt" />
@@ -2434,9 +2297,36 @@
         <option value="$PROJECT_DIR$/src/main/res/layout/upload_banner_activity.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/UploadBannerActivity.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/AdvertPackagesActivity.kt" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/AdvertisementActivcity.kt" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/advertisment_activity.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/favourites_activity.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/AdvertismentAdapter.kt" />
+        <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.5.0/5c17035548a41ec60f00291163d36596a23ddd1a/retrofit-2.5.0-sources.jar!/retrofit2/Callback.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/HomeAdapter.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/HomeFragment.kt" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/banner_row.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/adds_category_row.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/AdvertisementActivity.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/AdvertisementAdapter.kt" />
+        <option value="$PROJECT_DIR$/src/main/res/values/colors.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/edit_profile_activity.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/LoginActivity.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/models/ResponseModal.kt" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/verify_number_activity.xml" />
+        <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/VerifyNoDialogActivity.kt" />
+        <option value="$PROJECT_DIR$/src/main/res/drawable/white_red_rectangular_shape.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/models/RequestModal.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/network/MyService.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/network/ServiceHelper.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/Constants.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/EditProfileActivity.kt" />
+        <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.theartofdev.edmodo/android-image-cropper/2.7.0/d61e61209d29024c87dd7104977c51102923f787/android-image-cropper-2.7.0-sources.jar!/com/theartofdev/edmodo/cropper/CropImage.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/network/MyService.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/VerifyNumberActivity.kt" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/verify_otp_dialog.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/VerifyOtpDialogActivity.kt" />
       </list>
     </option>
   </component>
@@ -2461,136 +2351,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="app">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="app">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="app">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="app">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="app">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="app">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="main">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="app">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="app">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="main">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="java">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="com">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="verkoopapp">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="app">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="app">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="main">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="java">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="com">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="verkoopapp">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="activity">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -2645,8 +2405,32 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoop_app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verkoopapp" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="activity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -2955,8 +2739,136 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="app">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="app">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="app">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="app">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="src">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="app">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="app">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="src">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="main">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="app">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="app">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="src">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="main">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="java">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="com">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="verkoopapp">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="app">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="app">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="src">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="main">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="java">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="com">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="verkoopapp">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="activity">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -3128,7 +3040,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1560176257420" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1560263259339" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -3176,7 +3088,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1560176257420" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1560263259339" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -3383,7 +3295,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1560176257421" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1560263259342" />
       </method>
     </configuration>
     <list size="3">
@@ -3447,27 +3359,27 @@
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.66898954" sideWeight="0.5537879" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27121213" sideWeight="1.0" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.77874565" sideWeight="0.4409091" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5590909" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.77874565" sideWeight="0.4409091" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.5590909" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38501742" sideWeight="0.475" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.66898954" sideWeight="0.475" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12878788" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6236934" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7020906" sideWeight="0.46742424" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.81010455" sideWeight="0.46742424" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2621212" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2931818" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.6393939" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.46212122" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.022648083" sideWeight="0.46212122" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.77874565" sideWeight="0.4409091" order="12" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27348486" sideWeight="0.0" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.77874565" sideWeight="0.4409091" order="13" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23181818" sideWeight="0.0" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Android WiFi ADB" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.74041814" sideWeight="0.36060607" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.74041814" sideWeight="0.36060607" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
@@ -3476,7 +3388,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Assistant" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.82578397" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.82578397" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" x="1262" y="92" width="12" height="11" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -3497,22 +3409,22 @@
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.82578397" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5749129" sideWeight="0.475" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12878788" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.66898954" sideWeight="0.475" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6236934" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7020906" sideWeight="0.46742424" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.81010455" sideWeight="0.46742424" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" x="1262" y="92" width="12" height="11" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2621212" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2621212" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.6393939" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.597561" sideWeight="0.46212122" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.022648083" sideWeight="0.46212122" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.77874565" sideWeight="0.4409091" order="12" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27348486" sideWeight="0.0" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23181818" sideWeight="0.0" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Android WiFi ADB" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.81010455" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.74041814" sideWeight="0.36060607" order="8" side_tool="true" content_ui="tabs" />
@@ -3535,31 +3447,31 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/LoginActivity.kt</url>
-          <line>229</line>
+          <line>234</line>
           <properties />
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/LoginActivity.kt</url>
-          <line>233</line>
+          <line>238</line>
           <properties />
           <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/LoginActivity.kt</url>
-          <line>238</line>
+          <line>243</line>
           <properties />
           <option name="timeStamp" value="34" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/LoginActivity.kt</url>
-          <line>248</line>
+          <line>253</line>
           <properties />
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/LoginActivity.kt</url>
-          <line>241</line>
+          <line>246</line>
           <properties />
           <option name="timeStamp" value="37" />
         </line-breakpoint>
@@ -3577,13 +3489,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/LoginActivity.kt</url>
-          <line>152</line>
+          <line>157</line>
           <properties />
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/LoginActivity.kt</url>
-          <line>153</line>
+          <line>158</line>
           <properties />
           <option name="timeStamp" value="44" />
         </line-breakpoint>
@@ -4165,31 +4077,31 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/EditProfileActivity.kt</url>
-          <line>192</line>
+          <line>196</line>
           <properties />
           <option name="timeStamp" value="544" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/EditProfileActivity.kt</url>
-          <line>191</line>
+          <line>195</line>
           <properties />
           <option name="timeStamp" value="545" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/EditProfileActivity.kt</url>
-          <line>207</line>
+          <line>211</line>
           <properties />
           <option name="timeStamp" value="546" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/EditProfileActivity.kt</url>
-          <line>208</line>
+          <line>212</line>
           <properties />
           <option name="timeStamp" value="547" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/EditProfileActivity.kt</url>
-          <line>210</line>
+          <line>214</line>
           <properties />
           <option name="timeStamp" value="548" />
         </line-breakpoint>
@@ -4267,7 +4179,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/EditProfileActivity.kt</url>
-          <line>156</line>
+          <line>160</line>
           <properties />
           <option name="timeStamp" value="613" />
         </line-breakpoint>
@@ -4555,15 +4467,9 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/HomeAdapter.kt</url>
-          <line>221</line>
+          <line>233</line>
           <properties />
           <option name="timeStamp" value="855" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/HomeFragment.kt</url>
-          <line>229</line>
-          <properties />
-          <option name="timeStamp" value="856" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/YourDailyPicksAdapter.kt</url>
@@ -4843,49 +4749,49 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/LoginActivity.kt</url>
-          <line>228</line>
+          <line>233</line>
           <properties />
           <option name="timeStamp" value="957" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/LoginActivity.kt</url>
-          <line>168</line>
+          <line>173</line>
           <properties />
           <option name="timeStamp" value="958" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/LoginActivity.kt</url>
-          <line>167</line>
+          <line>172</line>
           <properties />
           <option name="timeStamp" value="959" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/LoginActivity.kt</url>
-          <line>308</line>
+          <line>313</line>
           <properties />
           <option name="timeStamp" value="963" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/LoginActivity.kt</url>
-          <line>320</line>
+          <line>325</line>
           <properties />
           <option name="timeStamp" value="964" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/LoginActivity.kt</url>
-          <line>321</line>
+          <line>326</line>
           <properties />
           <option name="timeStamp" value="965" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/LoginActivity.kt</url>
-          <line>311</line>
+          <line>316</line>
           <properties />
           <option name="timeStamp" value="966" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/LoginActivity.kt</url>
-          <line>312</line>
+          <line>317</line>
           <properties />
           <option name="timeStamp" value="967" />
         </line-breakpoint>
@@ -5514,60 +5420,6 @@
           <option name="timeStamp" value="1285" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/BannerAdapter.kt</url>
-          <line>37</line>
-          <properties />
-          <option name="timeStamp" value="1287" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/Utils.kt</url>
-          <line>208</line>
-          <properties />
-          <option name="timeStamp" value="1288" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/Utils.kt</url>
-          <line>207</line>
-          <properties />
-          <option name="timeStamp" value="1289" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/Utils.kt</url>
-          <line>210</line>
-          <properties />
-          <option name="timeStamp" value="1290" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/Utils.kt</url>
-          <line>214</line>
-          <properties />
-          <option name="timeStamp" value="1291" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/Utils.kt</url>
-          <line>215</line>
-          <properties />
-          <option name="timeStamp" value="1292" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/Utils.kt</url>
-          <line>216</line>
-          <properties />
-          <option name="timeStamp" value="1293" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/Utils.kt</url>
-          <line>217</line>
-          <properties />
-          <option name="timeStamp" value="1294" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/Utils.kt</url>
-          <line>212</line>
-          <properties />
-          <option name="timeStamp" value="1295" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/UploadBannerActivity.kt</url>
           <line>179</line>
           <properties />
@@ -5645,6 +5497,42 @@
           <properties />
           <option name="timeStamp" value="1316" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/HomeAdapter.kt</url>
+          <line>126</line>
+          <properties />
+          <option name="timeStamp" value="1323" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/UploadBannerActivity.kt</url>
+          <line>193</line>
+          <properties />
+          <option name="timeStamp" value="1324" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/UploadBannerActivity.kt</url>
+          <line>194</line>
+          <properties />
+          <option name="timeStamp" value="1325" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/SelectCategoryDialogActivity.kt</url>
+          <line>49</line>
+          <properties />
+          <option name="timeStamp" value="1326" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/UploadBannerActivity.kt</url>
+          <line>195</line>
+          <properties />
+          <option name="timeStamp" value="1327" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/HomeAdapter.kt</url>
+          <line>118</line>
+          <properties />
+          <option name="timeStamp" value="1329" />
+        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/CommonUtils.java</url>
           <line>33</line>
@@ -5706,443 +5594,82 @@
           <option name="timeStamp" value="672" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="1321" />
+      <option name="time" value="1330" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.theartofdev.edmodo/android-image-cropper/2.7.0/d61e61209d29024c87dd7104977c51102923f787/android-image-cropper-2.7.0-sources.jar!/com/theartofdev/edmodo/cropper/CropImage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="90" column="11" lean-forward="false" selection-start-line="90" selection-start-column="11" selection-end-line="90" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/drawable/white_rectangular_shape.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="12" column="8" lean-forward="false" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/ChatAdapter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1586">
-          <caret line="81" column="64" lean-forward="false" selection-start-line="81" selection-start-column="64" selection-end-line="81" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/HomeAdapter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1674">
-          <caret line="302" column="21" lean-forward="true" selection-start-line="302" selection-start-column="21" selection-end-line="302" selection-end-column="21" />
-          <folding>
-            <element signature="e#32#1097#0" expanded="true" />
-            <element signature="e#4809#4849#0" expanded="false" />
-            <element signature="e#4981#6608#0" expanded="false" />
-            <element signature="e#6744#7206#0" expanded="false" />
-            <element signature="e#7340#7380#0" expanded="false" />
-            <element signature="e#10849#11757#0" expanded="false" />
-            <element signature="e#11814#12932#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/chat_image_right_row.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="26" column="25" lean-forward="true" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/chat_image_left_row.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="70" column="30" lean-forward="false" selection-start-line="70" selection-start-column="30" selection-end-line="70" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/chat_text_left_row.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="19" column="37" lean-forward="false" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/chat_text_right_row.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="884">
-          <caret line="34" column="61" lean-forward="false" selection-start-line="34" selection-start-column="61" selection-end-line="34" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/RegionListFragment.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="6" column="32" lean-forward="false" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/HomeFragment.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="466">
-          <caret line="109" column="62" lean-forward="false" selection-start-line="109" selection-start-column="62" selection-end-line="109" selection-end-column="62" />
-          <folding>
-            <element signature="e#33#972#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/generated/source/r/debug/com/verkoopapp/R.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="8042" column="28" lean-forward="false" selection-start-line="8042" selection-start-column="28" selection-end-line="8042" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/login_activity.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="7" column="27" lean-forward="false" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/BuyPropertiesActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="27" column="31" lean-forward="false" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/BuyCarsActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2548">
-          <caret line="115" column="24" lean-forward="false" selection-start-line="115" selection-start-column="24" selection-end-line="115" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/CarBrandsActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52">
-          <caret line="2" column="7" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/FilterActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11700">
-          <caret line="480" column="40" lean-forward="false" selection-start-line="480" selection-start-column="40" selection-end-line="480" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/LoginActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6292">
-          <caret line="242" column="24" lean-forward="false" selection-start-line="242" selection-start-column="24" selection-end-line="242" selection-end-column="24" />
-          <folding>
-            <element signature="e#33#1241#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/VerkoopApplication.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1534">
-          <caret line="75" column="20" lean-forward="false" selection-start-line="75" selection-start-column="20" selection-end-line="75" selection-end-column="20" />
-          <folding>
-            <element signature="e#24#654#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../settings.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="12" column="55" lean-forward="false" selection-start-line="12" selection-start-column="55" selection-end-line="12" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/AddMoneyDialogActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52">
-          <caret line="2" column="7" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-          <folding>
-            <element signature="e#33#726#0" expanded="false" />
-            <element signature="e#1706#1740#1" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/ProfileFragment.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="29" column="47" lean-forward="false" selection-start-line="29" selection-start-column="47" selection-end-line="29" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/my_profile_details_row.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="230" column="29" lean-forward="false" selection-start-line="230" selection-start-column="29" selection-end-line="230" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/ProfileAdapter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="92" column="46" lean-forward="false" selection-start-line="90" selection-start-column="16" selection-end-line="92" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/UserProfileActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="26" column="58" lean-forward="false" selection-start-line="26" selection-start-column="58" selection-end-line="26" selection-end-column="58" />
-          <folding>
-            <element signature="e#33#862#0" expanded="false" />
-            <marker date="1560144979129" expanded="false" signature="40:108" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/models/ResponseModal.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="639" column="39" lean-forward="false" selection-start-line="639" selection-start-column="38" selection-end-line="639" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/user_profile_detail_row.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="268" column="58" lean-forward="false" selection-start-line="268" selection-start-column="49" selection-end-line="268" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/UserProfileItemAdapter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3501">
-          <caret line="120" column="32" lean-forward="false" selection-start-line="120" selection-start-column="32" selection-end-line="120" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/libraries/android_arch_lifecycle_runtime_1_1_1.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/Constants.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="389">
-          <caret line="59" column="22" lean-forward="false" selection-start-line="59" selection-start-column="15" selection-end-line="59" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/chat_activity.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="93" column="40" lean-forward="false" selection-start-line="93" selection-start-column="39" selection-end-line="93" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/offlinechatdata/DbHelper.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="37">
-          <caret line="93" column="0" lean-forward="false" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
-          <folding>
-            <element signature="e#4387#5415#0" expanded="false" />
-            <element signature="e#5453#6375#0" expanded="false" />
-            <element signature="e#6410#9848#0" expanded="false" />
-            <element signature="e#9918#12453#0" expanded="false" />
-            <element signature="e#17503#17528#1" expanded="true" />
-            <element signature="e#44480#46180#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/offlinechatdata/ChatResponseModal.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="27" column="9" lean-forward="false" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChatInboxActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7358">
-          <caret line="311" column="38" lean-forward="true" selection-start-line="311" selection-start-column="38" selection-end-line="311" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/ChatInboxAdapter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="74">
-          <caret line="162" column="66" lean-forward="false" selection-start-line="162" selection-start-column="53" selection-end-line="162" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/models/ChatResponse.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="648">
-          <caret line="36" column="8" lean-forward="false" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/chat_inbox_row.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="49" column="24" lean-forward="false" selection-start-line="49" selection-start-column="24" selection-end-line="49" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/add_details_activity.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/edit_profile_activity.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/upload_banner_activity.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
+        <state relative-caret-position="936">
           <caret line="80" column="28" lean-forward="false" selection-start-line="80" selection-start-column="28" selection-end-line="80" selection-end-column="28" />
           <folding>
             <element signature="e#786#2957#0" expanded="false" />
-            <element signature="e#4625#4639#0" expanded="true" />
-            <element signature="e#4795#4809#0" expanded="true" />
-            <element signature="e#4845#4859#0" expanded="true" />
-            <element signature="e#4897#4911#0" expanded="true" />
-            <element signature="e#4947#4961#0" expanded="true" />
-            <element signature="e#4991#5016#0" expanded="true" />
-            <element signature="e#5106#5120#0" expanded="true" />
-            <element signature="e#5468#5482#0" expanded="true" />
-            <element signature="e#5520#5534#0" expanded="true" />
-            <element signature="e#5630#5643#0" expanded="true" />
-            <element signature="e#5672#5686#0" expanded="true" />
-            <element signature="e#5718#5732#0" expanded="true" />
-            <element signature="e#5766#5780#0" expanded="true" />
-            <element signature="e#5806#5820#0" expanded="true" />
           </folding>
         </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/AddDetailsActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
+        <state relative-caret-position="27768">
           <caret line="1104" column="121" lean-forward="false" selection-start-line="1097" selection-start-column="12" selection-end-line="1104" selection-end-column="121" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/EditProfileActivity.kt">
+    <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="281" column="27" lean-forward="false" selection-start-line="281" selection-start-column="27" selection-end-line="281" selection-end-column="27" />
+        <state relative-caret-position="24">
+          <caret line="81" column="22" lean-forward="false" selection-start-line="81" selection-start-column="22" selection-end-line="81" selection-end-column="22" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/home_fragment.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="5" column="38" lean-forward="false" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Android/sdk/sources/android-28/android/view/View.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6178">
+          <caret line="6402" column="16" lean-forward="false" selection-start-line="6402" selection-start-column="16" selection-end-line="6402" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/advertisment_activity.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="7" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/AdvertPackageAdapter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="21" column="66" lean-forward="true" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="66" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/UploadBannerActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="59" column="61" lean-forward="false" selection-start-line="59" selection-start-column="61" selection-end-line="59" selection-end-column="61" />
+        <state relative-caret-position="205">
+          <caret line="59" column="49" lean-forward="false" selection-start-line="59" selection-start-column="49" selection-end-line="59" selection-end-column="49" />
           <folding>
-            <element signature="e#33#826#0" expanded="true" />
-            <element signature="e#2415#2451#1" expanded="true" />
-            <element signature="e#2563#2595#1" expanded="true" />
             <element signature="e#4467#5371#0" expanded="false" />
             <element signature="e#5483#6096#0" expanded="false" />
             <marker date="1560172300920" expanded="false" signature="3040:3072" ph="&quot;Please upload banner.&quot;" />
@@ -6150,56 +5677,471 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/Utils.kt">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/SelectCategoryDialogActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="69" column="8" lean-forward="false" selection-start-line="69" selection-start-column="8" selection-end-line="69" selection-end-column="8" />
-          <folding>
-            <element signature="e#30#925#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/models/RequestModal.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="255" column="23" lean-forward="false" selection-start-line="255" selection-start-column="12" selection-end-line="255" selection-end-column="23" />
+        <state relative-caret-position="671">
+          <caret line="48" column="42" lean-forward="false" selection-start-line="48" selection-start-column="42" selection-end-line="48" selection-end-column="70" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/AdvertPackagesActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
+        <state relative-caret-position="-832">
           <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/Utils.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="217" column="0" lean-forward="false" selection-start-line="217" selection-start-column="0" selection-end-line="217" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.5.0/5c17035548a41ec60f00291163d36596a23ddd1a/retrofit-2.5.0-sources.jar!/retrofit2/Callback.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="30" column="17" lean-forward="false" selection-start-line="30" selection-start-column="17" selection-end-line="30" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/HomeActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-650">
+          <caret line="31" column="6" lean-forward="false" selection-start-line="31" selection-start-column="6" selection-end-line="31" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/BannerAdapter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/HomeAdapter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="111" column="82" lean-forward="false" selection-start-line="111" selection-start-column="11" selection-end-line="111" selection-end-column="82" />
+          <folding>
+            <element signature="e#32#1122#0" expanded="true" />
+            <element signature="e#4836#4876#0" expanded="false" />
+            <element signature="e#7391#7853#0" expanded="false" />
+            <element signature="e#7987#8027#0" expanded="false" />
+            <element signature="e#8187#11357#0" expanded="false" />
+            <element signature="e#11496#12404#0" expanded="false" />
+            <element signature="e#12461#13579#0" expanded="false" />
+            <element signature="e#13641#14547#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/fragment/HomeFragment.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2961">
+          <caret line="170" column="9" lean-forward="false" selection-start-line="170" selection-start-column="9" selection-end-line="170" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/banner_row.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="22" column="51" lean-forward="false" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="51" />
+          <folding>
+            <element signature="e#226#239#0" expanded="false" />
+            <element signature="e#742#757#0" expanded="false" />
+            <element signature="e#1111#1125#0" expanded="false" />
+            <element signature="e#1227#1241#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/adds_category_row.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="32" column="24" lean-forward="false" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/adapter/AdvertisementAdapter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="90" column="33" lean-forward="true" selection-start-line="90" selection-start-column="33" selection-end-line="90" selection-end-column="33" />
+          <folding>
+            <element signature="e#7909#7949#0" expanded="false" />
+            <element signature="e#9185#10091#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/favourites_activity.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="30" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/dialog_answer.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/toolbar_location.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1638">
+          <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/forgot_password_activity.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="125" column="15" lean-forward="false" selection-start-line="125" selection-start-column="15" selection-end-line="125" selection-end-column="15" />
+          <folding>
+            <element signature="e#398#5447#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ForgotPasswordActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/SignUpActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="29" column="37" lean-forward="true" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/edit_profile_activity.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="324" column="53" lean-forward="false" selection-start-line="324" selection-start-column="53" selection-end-line="324" selection-end-column="53" />
+          <folding>
+            <element signature="e#14773#14789#0" expanded="true" />
+            <element signature="e#15607#15620#0" expanded="true" />
+            <element signature="e#15666#15680#0" expanded="true" />
+            <element signature="e#16037#16053#0" expanded="true" />
+            <element signature="e#16098#16112#0" expanded="true" />
+            <element signature="e#16233#16246#0" expanded="true" />
+            <element signature="e#16292#16306#0" expanded="true" />
+            <element signature="e#16566#16580#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/signup_activity.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="88" column="30" lean-forward="false" selection-start-line="88" selection-start-column="30" selection-end-line="88" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="17" column="18" lean-forward="false" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/LoginActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="263" column="4" lean-forward="false" selection-start-line="263" selection-start-column="4" selection-end-line="282" selection-end-column="5" />
+          <folding>
+            <element signature="e#2655#2689#1" expanded="true" />
+            <element signature="e#10864#12129#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/models/ResponseModal.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="882" column="1" lean-forward="true" selection-start-line="882" selection-start-column="1" selection-end-line="882" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/verify_number_activity.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="130" column="44" lean-forward="false" selection-start-line="130" selection-start-column="29" selection-end-line="130" selection-end-column="44" />
+          <folding>
+            <element signature="e#850#864#0" expanded="true" />
+            <element signature="e#908#922#0" expanded="true" />
+            <element signature="e#1209#1223#0" expanded="true" />
+            <element signature="e#1271#1286#0" expanded="true" />
+            <element signature="e#1616#1630#0" expanded="true" />
+            <element signature="e#1664#1688#0" expanded="true" />
+            <element signature="e#1784#1798#0" expanded="true" />
+            <element signature="e#2078#2092#0" expanded="true" />
+            <element signature="e#2140#2154#0" expanded="true" />
+            <element signature="e#2200#2214#0" expanded="true" />
+            <element signature="e#2293#2384#0" expanded="true" />
+            <element signature="e#2480#2494#0" expanded="true" />
+            <element signature="e#2687#2701#0" expanded="true" />
+            <element signature="e#4042#4056#0" expanded="true" />
+            <element signature="e#4094#4117#0" expanded="true" />
+            <element signature="e#4412#4425#0" expanded="true" />
+            <element signature="e#4769#4782#0" expanded="true" />
+            <element signature="e#5217#5231#0" expanded="true" />
+            <element signature="e#5277#5291#0" expanded="true" />
+            <element signature="e#5390#5403#0" expanded="true" />
+            <element signature="e#5802#5816#0" expanded="true" />
+            <element signature="e#5854#5885#0" expanded="true" />
+            <element signature="e#5984#5998#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="8" column="27" lean-forward="false" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/drawable/transparent_rect_shape.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="12" column="8" lean-forward="true" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/drawable/red_transparent_shape.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/drawable/red_rectangular_shape.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="14" column="36" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="16" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/drawable/white_red_rectangular_shape.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="11" column="38" lean-forward="false" selection-start-line="11" selection-start-column="38" selection-end-line="11" selection-end-column="38" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="256" column="58" lean-forward="false" selection-start-line="256" selection-start-column="58" selection-end-line="256" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/transfer_coin_dialog_activity.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/TransferCoinsActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2262">
+          <caret line="101" column="24" lean-forward="false" selection-start-line="89" selection-start-column="7" selection-end-line="101" selection-end-column="24" />
+          <folding>
+            <element signature="e#34#623#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/utils/Constants.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1560">
+          <caret line="60" column="23" lean-forward="false" selection-start-line="60" selection-start-column="15" selection-end-line="60" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.theartofdev.edmodo/android-image-cropper/2.7.0/d61e61209d29024c87dd7104977c51102923f787/android-image-cropper-2.7.0-sources.jar!/com/theartofdev/edmodo/cropper/CropImage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1274">
+          <caret line="90" column="26" lean-forward="false" selection-start-line="90" selection-start-column="26" selection-end-line="90" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#35370#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#16210#16211#0" expanded="false" />
+            <element signature="e#16252#16253#0" expanded="false" />
+            <element signature="e#16722#16723#0" expanded="false" />
+            <element signature="e#16763#16764#0" expanded="false" />
+            <element signature="e#33716#33717#0" expanded="false" />
+            <element signature="e#33771#33772#0" expanded="false" />
+            <element signature="e#33847#33848#0" expanded="false" />
+            <element signature="e#33904#33905#0" expanded="false" />
+            <element signature="e#35325#35326#0" expanded="false" />
+            <element signature="e#35347#35348#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/network/MyService.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1969">
-          <caret line="269" column="28" lean-forward="true" selection-start-line="269" selection-start-column="28" selection-end-line="269" selection-end-column="28" />
-          <folding />
+        <state relative-caret-position="4004">
+          <caret line="158" column="7" lean-forward="false" selection-start-line="158" selection-start-column="7" selection-end-line="158" selection-end-column="7" />
+          <folding>
+            <element signature="e#32#164#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/network/ServiceHelper.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="32240">
-          <caret line="1259" column="0" lean-forward="false" selection-start-line="1259" selection-start-column="0" selection-end-line="1259" selection-end-column="0" />
+        <state relative-caret-position="26">
+          <caret line="1453" column="8" lean-forward="false" selection-start-line="1453" selection-start-column="8" selection-end-line="1453" selection-end-column="8" />
           <folding>
+            <element signature="e#32#558#0" expanded="false" />
+            <element signature="e#2207#3499#0" expanded="false" />
             <element signature="e#60264#61219#0" expanded="false" />
             <element signature="e#61295#62801#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/models/RequestModal.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="779">
-          <caret line="81" column="22" lean-forward="true" selection-start-line="81" selection-start-column="22" selection-end-line="81" selection-end-column="22" />
+        <state relative-caret-position="206">
+          <caret line="273" column="30" lean-forward="false" selection-start-line="273" selection-start-column="30" selection-end-line="273" selection-end-column="30" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/ChangePasswordActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="23" column="39" lean-forward="false" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
+          <folding>
+            <element signature="e#1589#1623#1" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/change_password.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="75" column="79" lean-forward="true" selection-start-line="75" selection-start-column="28" selection-end-line="75" selection-end-column="79" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/EditProfileActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="466">
+          <caret line="284" column="17" lean-forward="false" selection-start-line="284" selection-start-column="17" selection-end-line="284" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/AdvertisementActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="35" column="37" lean-forward="false" selection-start-line="35" selection-start-column="37" selection-end-line="35" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/verify_otp_dialog.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="243" column="28" lean-forward="false" selection-start-line="243" selection-start-column="28" selection-end-line="243" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/VerifyNumberActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="39" column="17" lean-forward="false" selection-start-line="35" selection-start-column="13" selection-end-line="39" selection-end-column="17" />
+          <folding>
+            <element signature="e#33#606#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/verkoopapp/activity/VerifyOtpDialogActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="94">
+          <caret line="67" column="16" lean-forward="false" selection-start-line="67" selection-start-column="16" selection-end-line="67" selection-end-column="16" />
+          <folding>
+            <element signature="e#33#757#0" expanded="true" />
+            <element signature="e#1901#1935#1" expanded="true" />
+            <element signature="e#2150#2184#1" expanded="true" />
+            <element signature="e#3649#3683#1" expanded="true" />
+            <element signature="e#5657#6514#0" expanded="false" />
+            <element signature="e#6554#7428#0" expanded="false" />
+            <element signature="e#7469#8346#0" expanded="false" />
+            <element signature="e#8386#9299#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

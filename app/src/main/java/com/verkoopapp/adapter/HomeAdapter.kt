@@ -26,6 +26,9 @@ import kotlinx.android.synthetic.main.cars_properties_row.*
 import kotlinx.android.synthetic.main.item_row.*
 import kotlinx.android.synthetic.main.your_daily_picks.*
 import retrofit2.Response
+import android.os.Bundle
+
+
 
 class HomeAdapter(private val context: Context, private val rvItemList: Int, private val homeFragment: HomeFragment) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(context)
@@ -127,8 +130,17 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
             mDemoSlider.setCustomIndicator(custom_indicator)
             for (i in 0 until advertismentsList.size) {
                 val textSliderView = DefaultSliderView(context)
+                //textSliderView.tex
+                textSliderView.bundle(Bundle())
+                textSliderView.bundle.putInt(AppConstants.CATEGORY_ID,advertismentsList[i].category_id)
                 textSliderView.image(AppConstants.IMAGE_URL + advertismentsList[i].image)
-                        .setOnSliderClickListener({ slider -> }).scaleType = BaseSliderView.ScaleType.Fit
+                        .setOnSliderClickListener({ slider ->
+                            val intent=Intent(context,AdvertisementActivity::class.java)
+                            intent.putExtra(AppConstants.CATEGORY_ID,slider.bundle.getInt(AppConstants.CATEGORY_ID,0))
+                            context.startActivity(intent)
+                        //    Toast.makeText(context,slider.bundle.getInt(AppConstants.CATEGORY_ID,0).toString(),Toast.LENGTH_SHORT).show()
+                        }).scaleType = BaseSliderView.ScaleType.Fit
+
                 if (mDemoSlider != null) {
                     mDemoSlider.addSlider(textSliderView)
                 }

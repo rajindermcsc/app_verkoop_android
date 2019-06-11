@@ -346,6 +346,16 @@
     <string name="coin">coins</string>
     <string name="do_you_want_to_proceed_with_this_plan">Do you want to proceed with this plan?</string>
     <string name="select_category_">Please select category.</string>
+    <string name="details">Advertisement Details</string>
+    <string name="verify_phone_no">Verify phone number</string>
+    <string name="phone_number_">Phone number</string>
+    <string name="verify_your_new_number_to_make_your_profile_more_trustworthy_to_other_verkoopions">Verify your new number to make your profile more trustworthy to other Verkoop sellers!</string>
+    <string name="phone_number__">NEW PHONE NUMBER</string>
+    <string name="get_confirmation_code">Get Confirmation Code</string>
+    <string name="update">Update</string>
+    <string name="please_enter_the_code_we_send_to_your_phone_number">Please enter the code we send to your phone number</string>
+    <string name="verification_code">Verification Code</string>
+    <string name="submit_">SUBMIT</string>
 
 
 </resources>

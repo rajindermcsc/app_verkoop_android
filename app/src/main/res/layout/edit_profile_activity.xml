@@ -310,21 +310,33 @@
                         android:layout_weight="2"
                         android:text="@string/mobile"
                         android:textColor="@color/brown"
+                        android:layout_gravity="center"
                         android:textSize="@dimen/sp_14" />
 
-                    <com.verkoopapp.fonts.editText.GothicThinEditText
-                        android:id="@+id/etMobileNo"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:imeOptions="actionDone"
-                        android:inputType="number"
-                        android:maxLength="10"
-                        android:maxLines="1"
-                        android:minLines="1"
-                        android:textColor="@color/black_"
-                        android:textSize="@dimen/sp_14"
-                        tools:ignore="LabelFor" />
+                        android:orientation="horizontal"
+                        android:layout_weight="1">
+                        <TextView
+                            android:id="@+id/tvPhoneNo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black_"
+                            android:layout_marginStart="@dimen/dp_8"
+                            android:textSize="@dimen/sp_14"
+                            tools:ignore="NestedWeights" />
+                        <com.verkoopapp.fonts.textView.GothiBoldTextView
+                          android:id="@+id/tvUpdate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/update"
+                            android:padding="@dimen/dp_10"
+                            android:textColor="@color/blue_dark"
+                            android:layout_marginStart="@dimen/dp_8"
+                            android:textSize="@dimen/sp_14"/>
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout

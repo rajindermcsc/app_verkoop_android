@@ -68,7 +68,12 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         tvLogin.setOnClickListener {
             if (Utils.isOnline(this)) {
                 if (isValidate()) {
-                    callLoginApi()
+                    if (Utils.isOnline(this)) {
+                        callLoginApi()
+                    } else {
+                        Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+                    }
+
                 }
             } else {
                 Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()

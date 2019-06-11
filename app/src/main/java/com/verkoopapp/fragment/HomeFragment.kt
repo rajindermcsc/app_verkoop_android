@@ -163,7 +163,7 @@ class HomeFragment : BaseFragment() {
 
 
     private fun setApiData(data: DataHome?,loadMore:Int) {
-        if (data!!.categories.size > 0 && data.advertisments.size > 0) {
+        if (data!!.categories.size > 0 && data.advertisments!!.size > 0) {
             homeAdapter.setCategoryAndAddsData(data.advertisments, data.categories)
         }
         if (data.daily_pic.size > 0) {

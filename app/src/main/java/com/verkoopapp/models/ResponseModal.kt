@@ -336,7 +336,7 @@ data class HomeDataResponse(
 
 data class DataHome(
         val items: ArrayList<ItemHome>,
-        val advertisments: ArrayList<Advertisment>,
+        val advertisments: ArrayList<Advertisment>?,
         val categories: ArrayList<Category>,
         val daily_pic: ArrayList<ItemHome>,
         val totalPage: Int
@@ -858,4 +858,26 @@ data class ChatImageResponse(
 
 data class Datamage(
     var image: String
+)
+data class BannerDetailResponse(
+    var data: DataAdd?,
+    var message: String
+)
+
+data class DataAdd(
+    var banner: ArrayList<Banner>?,
+    var items: ArrayList<ItemHome>,
+    var totalPage: Int
+)
+
+
+data class Banner(
+    var category_id: Int,
+    var id: Int,
+    var image: String,
+    var user_id: Int
+)
+data class VerifyNumberResponse(
+    var message: String,
+    var otp: Int=0
 )

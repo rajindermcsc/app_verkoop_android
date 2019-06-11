@@ -58,6 +58,7 @@ object AppConstants{
      const val INTENT_RESULT = "INTENT_RESULT"
      const val QR_CODE = "QR_CODE"
      const val IS_RATE = "IS_RATE"
+     const val PHONE_NO = "PHONE_NO"
 
 
 

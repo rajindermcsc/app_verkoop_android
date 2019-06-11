@@ -271,3 +271,10 @@ data class RateUserRequest(
         val rating: Float
 )
 
+data class VerifyNumberRequest(
+    var mobile_no: String
+)
+data class VerifyOtpRequest(
+    var otp: Int,
+    var user_id: Int
+)

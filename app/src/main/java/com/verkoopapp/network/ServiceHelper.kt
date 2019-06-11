@@ -1427,4 +1427,87 @@ class ServiceHelper {
             }
         })
     }
+
+    fun getBannerItemService(categoryId:String, userId: String,pageCount:Int, onResponse: OnResponse) {
+        val myService = ApiClient.getClient().create(MyService::class.java)
+        val responseCall = myService.getBannerDetailsApi(userId,categoryId,pageCount)
+        responseCall.enqueue(object : Callback<BannerDetailResponse> {
+            override fun onResponse(call: Call<BannerDetailResponse>, response: Response<BannerDetailResponse>) {
+                val res = response.body()
+                Log.e("<<<Response>>>", Gson().toJson(res))
+                if (res != null) {
+                    when {
+                        response.code() == 200 -> onResponse.onSuccess(response)
+                        else -> onResponse.onFailure(response.message())
+                    }
+                } else {
+                    onResponse.onFailure("Something went wrong!")
+                }
+            }
+
+            override fun onFailure(call: Call<BannerDetailResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
+
+    fun verifyMobileNo(request: VerifyNumberRequest,userId:Int, onResponse: OnResponse) {
+        val myService = ApiClient.getClient().create(MyService::class.java)
+        val responseCall = myService.verifyMobileApi(userId,request)
+        responseCall.enqueue(object : Callback<VerifyNumberResponse> {
+            override fun onResponse(call: Call<VerifyNumberResponse>, response: Response<VerifyNumberResponse>) {
+                if (response.code() == 200) {
+                    onResponse.onSuccess(response)
+                } else {
+                    if (response.errorBody() != null) {
+                        try {
+                            val messageError = JSONObject(response.errorBody()!!.string())
+                            onResponse.onFailure(messageError.getString("message"))
+                        } catch (e: JSONException) {
+                            onResponse.onFailure("Something went wrong")
+                            e.printStackTrace()
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                        }
+                    } else {
+                        onResponse.onFailure("Something went wrong")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<VerifyNumberResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
+
+    fun verifyOtpNo(request: VerifyOtpRequest, onResponse: OnResponse) {
+        val myService = ApiClient.getClient().create(MyService::class.java)
+        val responseCall = myService.verifyOtpApi(request)
+        responseCall.enqueue(object : Callback<VerifyNumberResponse> {
+            override fun onResponse(call: Call<VerifyNumberResponse>, response: Response<VerifyNumberResponse>) {
+                if (response.code() == 200) {
+                    onResponse.onSuccess(response)
+                } else {
+                    if (response.errorBody() != null) {
+                        try {
+                            val messageError = JSONObject(response.errorBody()!!.string())
+                            onResponse.onFailure(messageError.getString("message"))
+                        } catch (e: JSONException) {
+                            onResponse.onFailure("Something went wrong")
+                            e.printStackTrace()
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                        }
+                    } else {
+                        onResponse.onFailure("Something went wrong")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<VerifyNumberResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
 }

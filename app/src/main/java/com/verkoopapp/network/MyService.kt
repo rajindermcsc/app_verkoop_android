@@ -150,6 +150,16 @@ interface MyService {
     @POST("ratings")
     fun rateUserApi(@Body request: RateUserRequest): Call<UpdateWalletResponse>
 
+    @GET("bannerDetails/{userId}/{category_id}")
+    fun getBannerDetailsApi(@Path(value = "userId", encoded = true) fullUrl: String,@Path(value = "category_id", encoded = true) categoryId: String, @Query("page") pageCount: Int): Call<BannerDetailResponse>
+
+    @PUT("user/changePhoneNo/{user_id}")
+    fun verifyMobileApi(@Path(value = "user_id", encoded = true) fullUrl: Int, @Body request: VerifyNumberRequest): Call<VerifyNumberResponse>
+
+    @POST("user/mobileVerified")
+    fun verifyOtpApi( @Body request: VerifyOtpRequest): Call<VerifyNumberResponse>
+
+
     @Multipart
     @Headers("Accept: application/json")
     @POST("items")

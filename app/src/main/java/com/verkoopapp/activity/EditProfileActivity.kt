@@ -70,7 +70,7 @@ class EditProfileActivity : AppCompatActivity() {
                     etLastName.setText(myProfileResponse.data.last_name)
                     etWebsite.setText(myProfileResponse.data.website)
                     etBio.setText(myProfileResponse.data.bio)
-                    etMobileNo.setText(myProfileResponse.data.mobile_no)
+                    tvPhoneNo.text = myProfileResponse.data.mobile_no
                     if (!TextUtils.isEmpty(myProfileResponse.data.DOB)) {
                         tvDate.text = myProfileResponse.data.DOB
                     }
@@ -146,6 +146,10 @@ class EditProfileActivity : AppCompatActivity() {
             intent.putExtra(AppConstants.STATE_ID, stateId)
             startActivityForResult(intent, 3)
         }
+        tvUpdate.setOnClickListener {
+            val intent=Intent(this,VerifyNumberActivity::class.java)
+            startActivityForResult(intent, VERIFY_OTP_RETURN)
+        }
     }
 
     private fun updateProfileData() {
@@ -158,7 +162,7 @@ class EditProfileActivity : AppCompatActivity() {
                 if (etWebsite.text?.toString() != null) etWebsite.text.toString() else "",
                 if (etBio.text?.toString() != null) etBio.text.toString() else "",
                 if (mCurrentPhotoPath != null) mCurrentPhotoPath!! else "",
-                if (etMobileNo.text?.toString() != null) etMobileNo.text.toString() else "",
+                if (tvPhoneNo.text?.toString() != null) tvPhoneNo.text.toString() else "",
                 gender, tvDate.text.toString())
         window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
@@ -273,6 +277,16 @@ class EditProfileActivity : AppCompatActivity() {
                     //Write your code if there's no result
                 }
             }
+
+            if (requestCode === VERIFY_OTP_RETURN) {
+                if (resultCode === Activity.RESULT_OK) {
+                   val  phoneNo = data!!.getStringExtra(AppConstants.PHONE_NO)
+                    tvPhoneNo.text=phoneNo
+                }
+                if (resultCode === Activity.RESULT_CANCELED) {
+                    //Write your code if there's no result
+                }
+            }
         }
 
 
@@ -281,6 +295,7 @@ class EditProfileActivity : AppCompatActivity() {
     companion object {
         internal const val REQUEST_TAKE_PHOTO = 1
         internal const val REQUEST_GET_PHOTO = 2
+        internal const val VERIFY_OTP_RETURN = 4
     }
 
     private fun takePicture() {
