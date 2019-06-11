@@ -191,7 +191,7 @@ class ProfileAdapter(private val context: Context, private val screenWidth: Int,
                 }
             }
             tvProductHome.text = data.name
-            tvItemPriceHome.text = "$" + data.price
+            tvItemPriceHome.text = "R" + data.price
             itemView.setOnClickListener {
                 val intent = Intent(context, ProductDetailsActivity::class.java)
                 intent.putExtra(AppConstants.ITEM_ID, data.id)

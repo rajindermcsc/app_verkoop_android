@@ -44,10 +44,11 @@
 
                     <ImageView
                         android:id="@+id/tvImageRight"
-                        android:layout_width="@dimen/dp_150"
-                        android:layout_height="@dimen/dp_150"
+                        android:layout_width="@dimen/dp_180"
+                        android:layout_height="@dimen/dp_180"
                         android:contentDescription="@string/chat"
                         android:src="@mipmap/gallery_place"
+                        android:scaleType="fitXY"
                         android:transitionName="pic" />
                 </LinearLayout>
                 <com.verkoopapp.fonts.textView.GothicThinTextView

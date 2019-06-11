@@ -55,6 +55,10 @@ class VerifyOtpDialogActivity:AppCompatActivity(){
             }
 
         }
+        ivCloseDialog.setOnClickListener {
+            onBackPressed()
+
+        }
 
         tvResend.setOnClickListener {
             if (Utils.isOnline(this)) {

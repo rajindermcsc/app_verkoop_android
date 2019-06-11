@@ -293,13 +293,14 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/ivCloseDialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_margin="@dimen/dp_10"
             android:contentDescription="@string/done"
             android:padding="@dimen/dp_10"
-            android:src="@mipmap/close"
+            android:src="@mipmap/close_"
             android:visibility="visible" />
     </FrameLayout>
 </LinearLayout>

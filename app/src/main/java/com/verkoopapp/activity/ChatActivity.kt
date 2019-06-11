@@ -80,7 +80,7 @@ class ChatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.chat_activity)
-        senderId = intent.getIntExtra(AppConstants.USER_ID, 0)
+        senderId = intent.getIntExtra(AppConstants.USER_ID, 0)/*Receiver id*/
         itemId = intent.getIntExtra(AppConstants.ITEM_ID, 0)
         price = intent.getDoubleExtra(AppConstants.PRODUCT_PRICE, 0.0)
         userName = intent.getStringExtra(AppConstants.USER_NAME)
@@ -250,8 +250,6 @@ class ChatActivity : AppCompatActivity() {
                 tvMakeOffer.text = getString(R.string.accept_offer)
             } else if (!isMyProduct && offerStatus == 0) {
                 llViewOffer.visibility = View.VISIBLE
-                /*  tvViewProfile.text = getString(R.string.edit_offer)
-                  tvMakeOffer.text = getString(R.string.cancel_offer) */
                 tvMakeOffer.text = getString(R.string.edit_offer)
                 tvViewProfile.text = getString(R.string.cancel_offer)
             } else if (isMyProduct && offerStatus == 1) {
@@ -279,6 +277,8 @@ class ChatActivity : AppCompatActivity() {
                     llViewOffer.visibility = View.VISIBLE
                     tvMakeOffer.visibility = View.GONE
                     tvViewProfile.text = getString(R.string.leave_review_seller)
+                }else if(offerStatus==6){
+                    llViewOffer.visibility = View.GONE
                 }
             } else {
                 llViewOffer.visibility = View.GONE
@@ -302,7 +302,7 @@ class ChatActivity : AppCompatActivity() {
     private fun setData() {
         tvUserName.text = userName
         tvProductDes.text = productName
-        tvProducePrice.text = StringBuilder().append("$ ").append(price.toString())
+        tvProducePrice.text = StringBuilder().append("R ").append(price.toString())
         if (!TextUtils.isEmpty(productUrl)) {
             Picasso.with(this@ChatActivity).load(AppConstants.IMAGE_URL + productUrl)
                     .resize(720, 720)
@@ -500,7 +500,8 @@ class ChatActivity : AppCompatActivity() {
     private fun openRatingDialog(rateTo: String) {
         val ratingDialog = RatingBarDialog(this, rateTo, object : RateUserListener {
             override fun rateUserClick(rating: Float, type: String) {
-                rateUserService(rating, itemId)
+                //rateUserService(rating, itemId)
+                rateUserEvent(rating, itemId)
             }
 
         })
@@ -781,6 +782,54 @@ class ChatActivity : AppCompatActivity() {
                             saveDataToDb(data)
                             if (data.getInt("type") == 3) {
                                 makeOfferManage(1, 0)
+                            }
+                            try {
+                                val chatData = ChatData(data.getInt("message_id"),
+                                        data.getInt("sender_id"),
+                                        data.getInt("receiver_id"),
+                                        data.getString("message"),
+                                        data.getString("timestamp"),
+                                        data.getInt("type"),
+                                        data.getInt("item_id"),
+                                        data.getInt("chat_user_id"), 0)
+                                chatList.add(chatData)
+                                chatAdapter.setData(chatList)
+                                chatAdapter.notifyDataSetChanged()
+                                rvChatList.scrollToPosition(chatList.size - 1)
+                                etMssg.text = null
+                            } catch (e: JSONException) {
+                                e.printStackTrace()
+                            }
+                        }
+                    } else {
+
+                    }
+                }
+            })
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun rateUserEvent(rating: Float, itemId: Int) {
+        val jsonObject = JSONObject()
+        try {
+            jsonObject.put("sender_id", Utils.getPreferencesString(this, AppConstants.USER_ID))
+            jsonObject.put("receiver_id", senderId)
+            jsonObject.put("item_id", itemId)
+            jsonObject.put("message", rating.toString())
+            jsonObject.put("type", 6)
+            jsonObject.put("chat_user_id", chatUserId)
+            Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
+            socket?.emit(AppConstants.RATE_USER_EVENT, jsonObject, Ack {
+                Log.e("<<<Response>>>", Gson().toJson(it[0]))
+                val data = it[0] as JSONObject
+                runOnUiThread {
+                    if (data.getString("status") == "1") {
+                        runOnUiThread {
+                            saveDataToDb(data)
+                            if (data.getInt("type") == 3) {
+                                makeOfferManage(6, 0)
                             }
                             try {
                                 val chatData = ChatData(data.getInt("message_id"),

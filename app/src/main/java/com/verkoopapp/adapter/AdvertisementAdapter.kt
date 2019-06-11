@@ -160,7 +160,7 @@ class AdvertisementAdapter(private val context: Context, private val widthScreen
                 }
             }
             tvProductHome.text = data.name
-            tvItemPriceHome.text = "$" + data.price
+            tvItemPriceHome.text = "R" + data.price
             itemView.setOnClickListener {
                 val intent = Intent(context, ProductDetailsActivity::class.java)
                 intent.putExtra(AppConstants.ITEM_ID, data.id)

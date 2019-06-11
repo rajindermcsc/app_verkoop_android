@@ -233,13 +233,13 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
                 }
             }
             if (!TextUtils.isEmpty(filterRequest.min_price) && !TextUtils.isEmpty(filterRequest.max_price)) {
-                val filterModal = FilterModal(getString(R.string.pric), "$" + filterRequest.min_price + " - $" + filterRequest.max_price, false, 4)
+                val filterModal = FilterModal(getString(R.string.pric), "R" + filterRequest.min_price + " - R" + filterRequest.max_price, false, 4)
                 filterList.add(filterModal)
             } else if (!TextUtils.isEmpty(filterRequest.min_price) && TextUtils.isEmpty(filterRequest.max_price)) {
-                val filterModal = FilterModal(getString(R.string.pric), "From $" + filterRequest.min_price, false, 4)
+                val filterModal = FilterModal(getString(R.string.pric), "From R" + filterRequest.min_price, false, 4)
                 filterList.add(filterModal)
             } else if (TextUtils.isEmpty(filterRequest.min_price) && !TextUtils.isEmpty(filterRequest.max_price)) {
-                val filterModal = FilterModal(getString(R.string.pric), "Up to $" + filterRequest.max_price, false, 4)
+                val filterModal = FilterModal(getString(R.string.pric), "Up to R" + filterRequest.max_price, false, 4)
                 filterList.add(filterModal)
             }
         }
