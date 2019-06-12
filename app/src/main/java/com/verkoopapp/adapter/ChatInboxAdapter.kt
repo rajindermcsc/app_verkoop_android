@@ -177,28 +177,28 @@ class ChatInboxAdapter(private val context: Context, private val chatInboxType: 
               //  tvLastMssg.text  = data.message
             }
             if (data.user_id==Utils.getPreferencesString(context,AppConstants.USER_ID).toInt()&&data.offer_status == 0) {
-                tvOfferDes.text=StringBuilder().append("Offered you $").append(data.offer_price)
+                tvOfferDes.text=StringBuilder().append("Offered you R").append(data.offer_price)
                 tvStatus.visibility=View.GONE
             }else if(data.user_id!=Utils.getPreferencesString(context,AppConstants.USER_ID).toInt()&&data.offer_status == 0) {
-                tvOfferDes.text=StringBuilder().append("You made an offer $").append(data.offer_price)
+                tvOfferDes.text=StringBuilder().append("You made an offer R").append(data.offer_price)
                 tvStatus.visibility=View.GONE
             }else if(data.user_id==Utils.getPreferencesString(context,AppConstants.USER_ID).toInt()&&data.offer_status == 1) {
-                tvOfferDes.text=StringBuilder().append("Offered you $").append(data.offer_price)
+                tvOfferDes.text=StringBuilder().append("Offered you R").append(data.offer_price)
                 tvStatus.visibility=View.VISIBLE
                 tvStatus.text=context.getString(R.string.accepetd)
                 tvStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.accept_offer))
             }else if(data.user_id!=Utils.getPreferencesString(context,AppConstants.USER_ID).toInt()&&data.offer_status == 1) {
-                tvOfferDes.text=StringBuilder().append("You offered $").append(data.offer_price)
+                tvOfferDes.text=StringBuilder().append("You offered R").append(data.offer_price)
                 tvStatus.visibility=View.VISIBLE
                 tvStatus.text=context.getString(R.string.accepetd)
                 tvStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.accept_offer))
             }else if(data.user_id==Utils.getPreferencesString(context,AppConstants.USER_ID).toInt()&&data.offer_status == 2) {
-                tvOfferDes.text=StringBuilder().append("Offered you $").append(data.offer_price)
+                tvOfferDes.text=StringBuilder().append("Offered you R").append(data.offer_price)
                 tvStatus.visibility=View.VISIBLE
                 tvStatus.text=context.getString(R.string.declined)
                 tvStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary))
             }else if(data.user_id!=Utils.getPreferencesString(context,AppConstants.USER_ID).toInt()&&data.offer_status == 2) {
-                tvOfferDes.text=StringBuilder().append("You offered $").append(data.offer_price)
+                tvOfferDes.text=StringBuilder().append("You offered R").append(data.offer_price)
                 tvStatus.visibility=View.VISIBLE
                 tvStatus.text=context.getString(R.string.declined)
                 tvStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary))

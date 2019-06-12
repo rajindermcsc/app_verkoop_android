@@ -113,7 +113,7 @@
     <string name="verified">Verified</string>
     <string name="phone_number">: Phone number</string>
     <string name="dot">dot</string>
-    <string name="dollar">$</string>
+    <string name="dollar">R</string>
     <string name="enter_item_name">Please enter item name.</string>
     <string name="enter_category_name">Please select category.</string>
     <string name="enter_price">Please enter price.</string>

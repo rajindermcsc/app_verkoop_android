@@ -96,7 +96,7 @@ class ItemAdapter(private val context: Context,private val rvItemListDetails:Rec
             }
 
 
-            tvItemPriceHome.text="$"+data.price
+            tvItemPriceHome.text="R"+data.price
             itemView.setOnClickListener {
                 likeDisLikeListener.getItemDetailsClick(data.id,data.user_id)
 

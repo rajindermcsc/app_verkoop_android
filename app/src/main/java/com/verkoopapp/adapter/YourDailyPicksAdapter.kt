@@ -96,7 +96,7 @@ class YourDailyPicksAdapter(private val context:Context,private val recyclerView
                 ivProductImageHome.setImageResource(R.mipmap.post_placeholder)
             }
 
-            tvItemPriceHome.text="$"+data.price
+            tvItemPriceHome.text="R"+data.price
 
             itemView.setOnClickListener {
                 val intent = Intent(context, ProductDetailsActivity::class.java)

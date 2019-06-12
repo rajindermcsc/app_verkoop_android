@@ -70,7 +70,13 @@ class EditProfileActivity : AppCompatActivity() {
                     etLastName.setText(myProfileResponse.data.last_name)
                     etWebsite.setText(myProfileResponse.data.website)
                     etBio.setText(myProfileResponse.data.bio)
-                    tvPhoneNo.text = myProfileResponse.data.mobile_no
+                    if (!TextUtils.isEmpty(myProfileResponse.data.mobile_no)) {
+                        tvPhoneNo.text = myProfileResponse.data.mobile_no
+                        tvUpdate.text="Change"
+                    }else{
+                        tvUpdate.text="Update"
+                    }
+
                     if (!TextUtils.isEmpty(myProfileResponse.data.DOB)) {
                         tvDate.text = myProfileResponse.data.DOB
                     }
@@ -282,6 +288,10 @@ class EditProfileActivity : AppCompatActivity() {
                 if (resultCode === Activity.RESULT_OK) {
                    val  phoneNo = data!!.getStringExtra(AppConstants.PHONE_NO)
                     tvPhoneNo.text=phoneNo
+                    tvUpdate.text="Change"
+                    if (!TextUtils.isEmpty(phoneNo)) {
+                        Utils.savePreferencesString(this@EditProfileActivity, AppConstants.MOBILE_NO, phoneNo)
+                    }
                 }
                 if (resultCode === Activity.RESULT_CANCELED) {
                     //Write your code if there's no result

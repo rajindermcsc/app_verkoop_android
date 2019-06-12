@@ -15,8 +15,10 @@ import kotlinx.android.synthetic.main.toolbar_location.*
 import kotlinx.android.synthetic.main.verify_number_activity.*
 import retrofit2.Response
 import android.app.Activity
-
-
+import android.support.v4.content.ContextCompat
+import android.text.Editable
+import android.text.TextWatcher
+import kotlinx.android.synthetic.main.forgot_password_activity.*
 
 
 class VerifyNumberActivity : AppCompatActivity() {
@@ -41,6 +43,21 @@ class VerifyNumberActivity : AppCompatActivity() {
 
             }
         }
+        etPhoneNo.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
+            }
+
+            override fun beforeTextChanged(arg0: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
+            }
+
+            override fun afterTextChanged(arg0: Editable) {
+                if (arg0.isNotEmpty()) {
+                    vPhoneFor.setBackgroundColor(ContextCompat.getColor(this@VerifyNumberActivity, R.color.colorPrimary))
+                } else {
+                    vPhoneFor.setBackgroundColor(ContextCompat.getColor(this@VerifyNumberActivity, R.color.light_gray))
+                }
+            }
+        })
     }
 
     private fun isValidate(): Boolean {

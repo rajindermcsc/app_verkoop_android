@@ -77,7 +77,7 @@ class MyProfileItemAdapter(private val context: Context, private val llProfilePa
             }
 
             tvNameProfile.text=data.name
-            tvItemPriceProfile.text="$"+data.price
+            tvItemPriceProfile.text="R"+data.price
             itemView.setOnClickListener {
               //  likeDisLikeListener.getItemDetailsClick(data.id,adapterPosition)
 

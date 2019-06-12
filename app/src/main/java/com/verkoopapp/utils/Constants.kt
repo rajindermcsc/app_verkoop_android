@@ -78,6 +78,7 @@ object AppConstants{
      const val CANCEL_OFFER_EVENT = "cancelledOffer"
      const val DECLINE_OFFER_EVENT = "declineOffer"
      const val EDIT_OFFER_EVENT = "editOffer"
+     const val RATE_USER_EVENT = "rateUser"
      const val DIRECT_CHAT = "directChat"
 
      const val SENDER_ID = "sender_id"

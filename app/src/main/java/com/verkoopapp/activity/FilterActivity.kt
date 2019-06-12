@@ -238,7 +238,7 @@ class FilterActivity : AppCompatActivity() {
             override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
                 if (isFocus) {
                     if (etMinPrice.length() == 0) {
-                        etMinPrice.setText("$")
+                        etMinPrice.setText("R")
                         etMinPrice.setSelection(1)
                     }
                 }
@@ -272,7 +272,7 @@ class FilterActivity : AppCompatActivity() {
             override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
                 if (isFocusMax) {
                     if (etMaxPrice.length() == 0) {
-                        etMaxPrice.setText("$")
+                        etMaxPrice.setText("R")
                         etMaxPrice.setSelection(1)
                     }
                 }
@@ -295,7 +295,7 @@ class FilterActivity : AppCompatActivity() {
                 condition.equals(getString(R.string.used), ignoreCase = true) -> "2"
                 else -> ""
             }
-            val filterRequestSend = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, sortNumber.toString(), lat, lng, itemType, meetUp.toString(), etMinPrice.text.toString().replace("$",""), etMaxPrice.text.toString().replace("$",""))
+            val filterRequestSend = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, sortNumber.toString(), lat, lng, itemType, meetUp.toString(), etMinPrice.text.toString().replace("R",""), etMaxPrice.text.toString().replace("R",""))
             val returnIntent = Intent()
             returnIntent.putExtra(AppConstants.POST_DATA, filterRequestSend)
             setResult(Activity.RESULT_OK, returnIntent)

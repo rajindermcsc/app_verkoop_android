@@ -68,8 +68,7 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/dp_40"
                         android:numStars="5"
-                        android:theme="@style/RatingBar"
-                        android:src="@mipmap/review" />
+                        android:theme="@style/RatingBar"/>
 
 
                     <LinearLayout

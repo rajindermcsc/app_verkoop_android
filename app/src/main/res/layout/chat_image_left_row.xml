@@ -25,24 +25,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_margin="@dimen/dp_4"
-                    android:layout_weight="1"
-                    android:clipChildren="false"
-                    android:clipToPadding="false"
-                    android:divider="@android:color/transparent"
-                    android:dividerHeight="0.0px"
-                    android:elevation="@dimen/dp_8"
-                    android:padding="@dimen/dp_8"
-                    app:cardCornerRadius="@dimen/dp_6"
-                    card_view:cardElevation="10dp"
-                    card_view:cardPreventCornerOverlap="false">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp_4"
                         android:background="@drawable/white_rectangular_shape"
                         android:orientation="horizontal"
                         android:paddingBottom="@dimen/dp_5"
@@ -52,14 +39,13 @@
 
                         <ImageView
                             android:id="@+id/tvPhotoLeft"
-                            android:layout_width="@dimen/dp_150"
-                            android:layout_height="@dimen/dp_150"
+                            android:layout_width="@dimen/dp_180"
+                            android:layout_height="@dimen/dp_180"
                             android:contentDescription="@string/chat"
                             android:scaleType="fitXY"
                             android:src="@mipmap/gallery_place"
                             android:transitionName="pic" />
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
 
                 <com.verkoopapp.fonts.textView.GothicThinTextView
                     android:id="@+id/tvImageDataLeft"

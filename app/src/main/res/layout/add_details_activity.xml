@@ -106,6 +106,7 @@
                             android:textSize="@dimen/sp_16" />
 
                         <com.verkoopapp.fonts.textView.GothiBoldTextView
+                            android:id="@+id/tvUpdateAdd"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/dp_10"
