@@ -66,6 +66,13 @@ object Utils {
         return sharedPreferences.getBoolean(key, false)
 
     }
+    fun getPreferencesInt(context: Activity, key: String): Int {
+
+        val sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context)
+        return sharedPreferences.getInt(key, 0)
+
+    }
 
     fun getPreferencesString(context: Context, key: String): String {
         val sharedPreferences = PreferenceManager

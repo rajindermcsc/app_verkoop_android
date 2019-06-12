@@ -5,6 +5,7 @@ import android.graphics.Point
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import com.verkoopapp.R
@@ -15,6 +16,7 @@ import com.verkoopapp.models.UploadBannerRequest
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.*
 import kotlinx.android.synthetic.main.advert_package_activity.*
+import kotlinx.android.synthetic.main.coins_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 import retrofit2.Response
 
@@ -23,14 +25,16 @@ class AdvertPackagesActivity : AppCompatActivity(), AdvertPackageAdapter.SubmitB
     private lateinit var advertPackageAdapter: AdvertPackageAdapter
     private var imageUrl = ""
     private var categoryId :Int=0
-    override fun planSelectionClick(planId: Int) {
-        submitDialog(planId)
+    override fun planSelectionClick(planId: Int,totalCoin:Int) {
+        submitDialog(planId,totalCoin)
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.advert_package_activity)
+        Log.e("<<TotalCoin>>",Utils.getPreferencesInt(this, AppConstants.COIN).toString())
+        tvCoinPackage.text=Utils.getPreferencesInt(this, AppConstants.COIN).toString()
         imageUrl = intent.getStringExtra(AppConstants.IMAGE_URL)
         categoryId = intent.getIntExtra(AppConstants.CATEGORY_ID,0)
          val display = windowManager.defaultDisplay
@@ -60,7 +64,7 @@ class AdvertPackagesActivity : AppCompatActivity(), AdvertPackageAdapter.SubmitB
 
     private fun getAdvertPlanApi() {
         pbAdvertPackage.visibility = View.VISIBLE
-        ServiceHelper().getAdvertisementPlanService(object : ServiceHelper.OnResponse {
+        ServiceHelper().getAdvertisementPlanService(Utils.getPreferencesString(this,AppConstants.USER_ID).toInt(),object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
                 pbAdvertPackage.visibility = View.GONE
                 val responseWallet = response.body() as AdvertPlanActivity
@@ -81,16 +85,16 @@ class AdvertPackagesActivity : AppCompatActivity(), AdvertPackageAdapter.SubmitB
 
     }
 
-    private fun submitDialog(planId: Int) {
+    private fun submitDialog(planId: Int,coin:Int) {
         val proceedDialog = ProceedDialog(this, "", object : SelectionListener {
             override fun leaveClick() {
-                updateProfileData(planId)
+                updateProfileData(planId,coin)
             }
         })
         proceedDialog.show()
     }
 
-    private fun updateProfileData(planId: Int) {
+    private fun updateProfileData(planId: Int,coin:Int) {
         val uploadBannerRequest = UploadBannerRequest(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(),categoryId, planId, imageUrl)
         window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
@@ -102,6 +106,10 @@ class AdvertPackagesActivity : AppCompatActivity(), AdvertPackageAdapter.SubmitB
                 val homeDataResponse = response.body() as ProfileUpdateResponse
                 Utils.showToast(this@AdvertPackagesActivity, homeDataResponse.message)
                 setDialogBox()
+                if(coin<=Utils.getPreferencesInt(this@AdvertPackagesActivity, AppConstants.COIN)){
+                val  remainingCoin=  Utils.getPreferencesInt(this@AdvertPackagesActivity, AppConstants.COIN)-coin
+                    Utils.saveIntPreferences(this@AdvertPackagesActivity,AppConstants.COIN,remainingCoin)
+                }
 
             }
 

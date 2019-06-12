@@ -1004,12 +1004,7 @@ class ServiceHelper {
     fun getCarBrandService(comingFrom: Int, onResponse: OnResponse) {
         val myService = ApiClient.getClient().create(MyService::class.java)
         val responseCall: Call<CarBrandResponse>
-        responseCall = if (comingFrom != 0) {
-            myService.getCarTypeApi()
-
-        } else {
-            myService.getCarBrandApi()
-        }
+        responseCall = myService.getCarBrandApi()
         responseCall.enqueue(object : Callback<CarBrandResponse> {
             override fun onResponse(call: Call<CarBrandResponse>, response: Response<CarBrandResponse>) {
                 val res = response.body()
@@ -1159,9 +1154,9 @@ class ServiceHelper {
         })
     }
 
-    fun getAdvertisementPlanService( onResponse: OnResponse) {
+    fun getAdvertisementPlanService( userId:Int,onResponse: OnResponse) {
         val myService = ApiClient.getClient().create(MyService::class.java)
-        val responseCall = myService.getAdvertPlanApi()
+        val responseCall = myService.getAdvertPlanApi(userId)
         responseCall.enqueue(object : Callback<AdvertPlanActivity> {
             override fun onResponse(call: Call<AdvertPlanActivity>, response: Response<AdvertPlanActivity>) {
                 val res = response.body()
@@ -1506,6 +1501,38 @@ class ServiceHelper {
             }
 
             override fun onFailure(call: Call<VerifyNumberResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
+
+
+    fun getMyRatingService(comingFrom:Int, userId: Int, onResponse: OnResponse) {
+        val myService = ApiClient.getClient().create(MyService::class.java)
+         val responseCall: Call<MyRatingResponse>
+        if(comingFrom==1){
+            responseCall = myService.getMyRatingGoodApi(userId)
+        }else if(comingFrom==2){
+            responseCall = myService.getMyRatingBadApi(userId)
+        }else{
+            responseCall = myService.getMyRatingPoorApi(userId)
+        }
+       //   responseCall = myService.getMyRatingGoodApi(userId)
+         responseCall.enqueue(object : Callback<MyRatingResponse> {
+            override fun onResponse(call: Call<MyRatingResponse>, response: Response<MyRatingResponse>) {
+                val res = response.body()
+                Log.e("<<<Response>>>", Gson().toJson(res))
+                if (res != null) {
+                    when {
+                        response.code() == 200 -> onResponse.onSuccess(response)
+                        else -> onResponse.onFailure(response.message())
+                    }
+                } else {
+                    onResponse.onFailure("Something went wrong!")
+                }
+            }
+
+            override fun onFailure(call: Call<MyRatingResponse>, t: Throwable) {
                 onResponse.onFailure(t.message)
             }
         })

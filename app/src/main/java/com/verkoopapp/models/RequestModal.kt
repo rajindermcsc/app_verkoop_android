@@ -69,7 +69,10 @@ data class AdditionalInfo(
         val parking_type: Int = 0,
         val from_year: Int? = 0,
         val to_year: Int? = 0,
-        val furnished: Int? = 0
+        val furnished: Int? = 0,
+        val transmission_type : Int = 0,
+        val model_id : Int = 0,
+        val model_name : String? = null
 ) : Parcelable
 
 @Parcelize

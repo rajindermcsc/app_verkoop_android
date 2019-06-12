@@ -113,7 +113,7 @@
     <string name="verified">Verified</string>
     <string name="phone_number">: Phone number</string>
     <string name="dot">dot</string>
-    <string name="dollar">R</string>
+    <string name="dollar">R </string>
     <string name="enter_item_name">Please enter item name.</string>
     <string name="enter_category_name">Please select category.</string>
     <string name="enter_price">Please enter price.</string>
@@ -356,6 +356,13 @@
     <string name="please_enter_the_code_we_send_to_your_phone_number">Please enter the code we send to your phone number</string>
     <string name="verification_code">Verification Code</string>
     <string name="submit_">SUBMIT</string>
+    <string name="car_model">Car Model</string>
+    <string name="automatic">Automatic</string>
+    <string name="manual">Manual</string>
+    <string name="transmission">Transmission</string>
+    <string name="model">Model</string>
+    <string name="insufficient_balance">Insufficient balance please purchase coin</string>
+    <string name="rating">My Rating</string>
 
 
 </resources>

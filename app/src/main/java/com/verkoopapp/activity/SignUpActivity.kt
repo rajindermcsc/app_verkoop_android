@@ -179,7 +179,7 @@ class SignUpActivity : AppCompatActivity() {
                         VerkoopApplication.instance.loader.hide(this@SignUpActivity)
                         val loginResponse = response.body() as SignUpResponse
                         if(loginResponse.data!=null) {
-                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.qrCode_image)
+                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.qrCode_image,loginResponse.data.coin,loginResponse.data.amount)
                         }
                     }
 
@@ -190,11 +190,13 @@ class SignUpActivity : AppCompatActivity() {
                 })
     }
 
-    private fun setResponseData(userId: String, api_token: String, firstName: String, email: String, loginType: String,qrCode: String) {
+    private fun setResponseData(userId: String, api_token: String, firstName: String, email: String, loginType: String,qrCode: String,coin:Int,amount:Int) {
         Utils.savePreferencesString(this@SignUpActivity, AppConstants.USER_ID, userId)
         Utils.savePreferencesString(this@SignUpActivity, AppConstants.API_TOKEN, api_token)
         Utils.savePreferencesString(this@SignUpActivity, AppConstants.USER_NAME, firstName)
         Utils.savePreferencesString(this@SignUpActivity, AppConstants.QR_CODE, qrCode)
+        Utils.saveIntPreferences(this@SignUpActivity, AppConstants.COIN, coin)
+        Utils.saveIntPreferences(this@SignUpActivity, AppConstants.AMOUNT, amount)
         if (!TextUtils.isEmpty(email)) {
             Utils.savePreferencesString(this@SignUpActivity, AppConstants.USER_EMAIL_ID, email)
         }

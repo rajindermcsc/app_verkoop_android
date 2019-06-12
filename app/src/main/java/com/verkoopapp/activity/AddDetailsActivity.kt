@@ -35,7 +35,6 @@ import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.*
 import kotlinx.android.synthetic.main.add_details_activity.*
 import kotlinx.android.synthetic.main.details_toolbar.*
-import kotlinx.android.synthetic.main.edit_profile_activity.*
 import retrofit2.Response
 import java.io.File
 
@@ -65,6 +64,8 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
     private var itemType = 1
     private var carBrandName = ""
     private var carType = ""
+    private var carModel = ""
+    private var carModelId =0
     private var carBrandId = 0
     private var carTypeId = 0
     private var zoneName = ""
@@ -76,6 +77,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
     private lateinit var propertyTypeAdapter: PropertyTypeAdapter
     private var screenType = 0
     private var directOwner = 1
+    private var transmissionType = 1
     private var totalBadRoom: Int = 0
     private var totalBatchRoom: Int = 0
     private var postalCode: Int = 0
@@ -195,10 +197,19 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 carBrandId = dataIntent!!.brand_id
                 carTypeId = dataIntent!!.car_type_id
                 additionalEditInfo = dataIntent!!.additional_info
+                carModelId=additionalEditInfo!!.model_id
+                if (!TextUtils.isEmpty(additionalEditInfo!!.model_name)) {
+                    carModel=additionalEditInfo!!.model_name!!
+                }
                 if (!TextUtils.isEmpty(additionalEditInfo!!.brand_name)) {
                     carBrandName = additionalEditInfo!!.brand_name!!
-                    carType = additionalEditInfo!!.car_type!!
-                    tvBrand.text = carBrandName + ", " + carType
+                  //  carType = additionalEditInfo!!.car_type!!
+                    if (!TextUtils.isEmpty(additionalEditInfo!!.model_name)) {
+                        tvBrand.text = carBrandName + ", " + carModel
+                    }else{
+                        tvBrand.text = carBrandName
+                    }
+
                     tvBrand.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
                     vBrand.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
                 }
@@ -209,6 +220,13 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 } else {
                     rbPrivate.isChecked = true
                 }
+                transmissionType = additionalEditInfo!!.transmission_type
+                if (transmissionType == 2) {
+                    rbAutomatic.isChecked = true
+                } else {
+                    rbManual.isChecked = true
+                }
+
 
                 if (!TextUtils.isEmpty(additionalEditInfo!!.location)) {
                     etLocation.setText(additionalEditInfo!!.location)
@@ -358,10 +376,19 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             setScreenType(screenType)
             if (addItemRequest!!.type == 1) {
                 additionalInfo = addItemRequest!!.additional_info
+                carModelId=additionalInfo!!.model_id
+                if (!TextUtils.isEmpty(additionalInfo!!.model_name)) {
+                    carModel=additionalInfo!!.model_name!!
+                }
                 if (!TextUtils.isEmpty(additionalInfo!!.brand_name)) {
                     carBrandName = additionalInfo!!.brand_name!!
-                    carType = additionalInfo!!.car_type!!
-                    tvBrand.text = carBrandName + ", " + carType
+                   // carType = additionalInfo!!.car_type!!
+                    if (!TextUtils.isEmpty(additionalInfo!!.model_name)) {
+                        tvBrand.text = carBrandName + ", " + carModel
+                    }else{
+                        tvBrand.text = carBrandName
+                    }
+
                     carBrandId = additionalInfo!!.car_brand_id
                     carTypeId = additionalInfo!!.car_type_id
                     tvBrand.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
@@ -374,6 +401,13 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 } else {
                     rbPrivate.isChecked = true
                 }
+                transmissionType = additionalInfo!!.transmission_type
+                if (transmissionType == 2) {
+                    rbAutomatic.isChecked = true
+                } else {
+                    rbManual.isChecked = true
+                }
+
                 if (!TextUtils.isEmpty(additionalInfo!!.location)) {
                     etLocation.setText(additionalInfo!!.location)
                 }
@@ -389,6 +423,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 if (!TextUtils.isEmpty(additionalInfo!!.max_price.toString())) {
                     etMaxPriceCar.setText(StringBuilder().append("R").append(additionalInfo!!.max_price.toString()))
                 }
+
             } else if (addItemRequest!!.type == 2 || addItemRequest!!.type == 3) {
                 additionalInfo = addItemRequest!!.additional_info
                 if (!TextUtils.isEmpty(additionalInfo!!.location)) {
@@ -520,9 +555,21 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 }
             }
         })
+        rgManual.setOnCheckedChangeListener({ group, checkedId ->
+            when (checkedId) {
+                R.id.rbManual -> {
+                    transmissionType = 1
+                }
+                R.id.rbAutomatic -> {
+                    transmissionType = 2
+                }
+            }
+        })
 
         val font = Typeface.createFromAsset(assets, "fonts/gothicb.ttf")
         cbNearBy.typeface = font
+        rbAutomatic.typeface = font
+        rbManual.typeface = font
         rbDealership.typeface = font
         rbPrivate.typeface = font
         rbParking.typeface = font
@@ -532,8 +579,8 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         llSelectBrand.setOnClickListener {
             val intent = Intent(this, CarBrandActivity::class.java)
             intent.putExtra(AppConstants.TYPE, 0)
-            intent.putExtra(AppConstants.CAR_TYPE, carType)
-            intent.putExtra(AppConstants.CAR_TYPE_ID, carTypeId)
+            intent.putExtra(AppConstants.CAR_MODEL, carModel)
+            intent.putExtra(AppConstants.CAR_MODEL_ID, carModelId)
             intent.putExtra(AppConstants.CAR_BRAND_NAME, carBrandName)
             intent.putExtra(AppConstants.CAR_BRAND_ID, carBrandId)
             startActivityForResult(intent, 13)
@@ -1201,10 +1248,14 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         if (requestCode == 13) {
             if (resultCode == Activity.RESULT_OK) {
                 carBrandName = data!!.getStringExtra(AppConstants.CAR_BRAND_NAME)
-                carType = data.getStringExtra(AppConstants.CAR_TYPE)
+                carModel = data.getStringExtra(AppConstants.CAR_MODEL)
                 carBrandId = data.getIntExtra(AppConstants.CAR_BRAND_ID, 0)
-                carTypeId = data.getIntExtra(AppConstants.CAR_TYPE_ID, 0)
-                tvBrand.text = carBrandName + ", " + carType
+                carModelId = data.getIntExtra(AppConstants.CAR_MODEL_ID, 0)
+               if(!TextUtils.isEmpty(carModel)) {
+                   tvBrand.text = carBrandName + ", " + carModel
+               }else{
+                   tvBrand.text = carBrandName
+               }
                 tvBrand.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
                 vBrand.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
 
@@ -1398,7 +1449,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         }
         val editItemRequest: EditItemRequest?
         if (screenType == 1) {
-            val additionalInfo = AdditionalInfo(car_brand_id = carBrandId, brand_name = carBrandName, car_type = carType, car_type_id = carTypeId, direct_owner = directOwner, location = etLocation.text.toString(), from_year = (etRegFrom.text.toString()).toInt(), to_year = (etRegTo.text.toString()).toInt(), min_price = etMinPriceCar.text.toString().replace("R", ""), max_price = etMaxPriceCar.text.toString().replace("R", ""))
+            val additionalInfo = AdditionalInfo(car_brand_id = carBrandId, brand_name = carBrandName, car_type = carType, car_type_id = carTypeId, direct_owner = directOwner, location = etLocation.text.toString(), from_year = (etRegFrom.text.toString()).toInt(), to_year = (etRegTo.text.toString()).toInt(), min_price = etMinPriceCar.text.toString().replace("R", ""), max_price = etMaxPriceCar.text.toString().replace("R", ""),transmission_type = transmissionType,model_id = carModelId,model_name = carModel)
             editItemRequest = EditItemRequest(realPath, imageIdList.toString().replace("[", "").replace("]", ""), categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceCar.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "0", itemId, screenType, additionalInfo, zoneId, carBrandId, carTypeId)
 
         } else if (screenType == 2) {
@@ -1461,7 +1512,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         var addItemRequest: AddItemRequest? = null
         if (screenType == 1) {
             //val additionalInfo = AdditionalInfo(carBrandId, carBrandName, carType, carTypeId, etRegistrationYear.text.toString(), directOwner)
-            val additionalInfo = AdditionalInfo(car_brand_id = carBrandId, brand_name = carBrandName, car_type = carType, car_type_id = carTypeId, direct_owner = directOwner, location = etLocation.text.toString(), from_year = (etRegFrom.text.toString()).toInt(), to_year = (etRegTo.text.toString()).toInt(), min_price = etMinPriceCar.text.toString().replace("R", ""), max_price = etMaxPriceCar.text.toString().replace("R", ""))
+            val additionalInfo = AdditionalInfo(car_brand_id = carBrandId, brand_name = carBrandName, car_type = carType, car_type_id = carTypeId, direct_owner = directOwner, location = etLocation.text.toString(), from_year = (etRegFrom.text.toString()).toInt(), to_year = (etRegTo.text.toString()).toInt(), min_price = etMinPriceCar.text.toString().replace("R", ""), max_price = etMaxPriceCar.text.toString().replace("R", ""),transmission_type = transmissionType,model_id = carModelId,model_name = carModel)
             addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceCar.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId, carBrandId, carTypeId)
 
         } else if (screenType == 2) {
@@ -1597,7 +1648,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 toYear = (etRegTo.text.toString()).toInt()
             }
             //val additionalInfo = AdditionalInfo(carBrandId, carBrandName, carType, carTypeId, etRegistrationYear.text.toString(), directOwner)
-            val additionalInfo = AdditionalInfo(car_brand_id = carBrandId, brand_name = carBrandName, car_type = carType, car_type_id = carTypeId, direct_owner = directOwner, location = etLocation.text.toString(), from_year = fromYear, to_year = toYear, min_price = etMinPriceCar.text.toString().replace("R", ""), max_price = etMaxPriceCar.text.toString().replace("R", ""))
+            val additionalInfo = AdditionalInfo(car_brand_id = carBrandId, brand_name = carBrandName, car_type = carType, car_type_id = carTypeId, direct_owner = directOwner, location = etLocation.text.toString(), from_year = fromYear, to_year = toYear, min_price = etMinPriceCar.text.toString().replace("R", ""), max_price = etMaxPriceCar.text.toString().replace("R", ""),transmission_type = transmissionType,model_id = carModelId,model_name = carModel)
             addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceCar.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId, carBrandId, carTypeId)
 
         } else if (screenType == 2) {

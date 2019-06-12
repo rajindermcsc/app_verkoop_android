@@ -269,7 +269,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
                         val loginResponse = response.body() as LogInResponse
                         if (loginResponse.data != null) {
-                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use, loginResponse.data.mobile_no,loginResponse.data.qrCode_image)
+                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use, loginResponse.data.mobile_no,loginResponse.data.qrCode_image,loginResponse.data.coin,loginResponse.data.amount)
                         } else {
                             Utils.showSimpleMessage(this@LoginActivity, loginResponse.message).show()
                         }
@@ -282,12 +282,13 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                 })
     }
 
-    private fun setResponseData(userId: String, api_token: String, firstName: String, email: String, loginType: String, firstTime: Int, mobileNo: String,qr_code:String) {
+    private fun setResponseData(userId: String, api_token: String, firstName: String, email: String, loginType: String, firstTime: Int, mobileNo: String,qr_code:String,coin:Int,amount:Int) {
         Utils.savePreferencesString(this@LoginActivity, AppConstants.USER_ID, userId)
         Utils.savePreferencesString(this@LoginActivity, AppConstants.API_TOKEN, api_token)
         Utils.savePreferencesString(this@LoginActivity, AppConstants.USER_NAME, firstName)
         Utils.savePreferencesString(this@LoginActivity, AppConstants.QR_CODE, qr_code)
-
+        Utils.saveIntPreferences(this@LoginActivity, AppConstants.COIN, coin)
+        Utils.saveIntPreferences(this@LoginActivity, AppConstants.AMOUNT, amount)
 
         if (!TextUtils.isEmpty(mobileNo)) {
             Utils.savePreferencesString(this@LoginActivity, AppConstants.MOBILE_NO, mobileNo)
@@ -318,7 +319,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                         val loginResponse = response.body() as SocialGoogleResponse
                         Log.e("<<Log>>", "Login Successfully.")
                         if (loginResponse.data != null) {
-                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use, "",loginResponse.data.qrCode_image)
+                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use, "",loginResponse.data.qrCode_image,loginResponse.data.coin,loginResponse.data.amount)
                         }
                     }
 

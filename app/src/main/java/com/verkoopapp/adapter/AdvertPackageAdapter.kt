@@ -6,24 +6,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.verkoopapp.R
-
+import com.verkoopapp.activity.AdvertPackagesActivity
 import com.verkoopapp.models.DataAdvert
+import com.verkoopapp.utils.AppConstants
+import com.verkoopapp.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.coin_row.*
-import com.verkoopapp.activity.AdvertPackagesActivity
 
 
-class AdvertPackageAdapter(private val context: Context,private val rvCoinList: Int):RecyclerView.Adapter<AdvertPackageAdapter.ViewHolder>(){
-    private var width=0
-    private  var mInflater: LayoutInflater= LayoutInflater.from(context)
+class AdvertPackageAdapter(private val context: Context, private val rvCoinList: Int) : RecyclerView.Adapter<AdvertPackageAdapter.ViewHolder>() {
+    private var width = 0
+    private var mInflater: LayoutInflater = LayoutInflater.from(context)
     private lateinit var submitBannerCallBack: SubmitBannerCallBack
-    private var advertList= ArrayList<DataAdvert>()
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder{
-        val view=mInflater.inflate(R.layout.coin_row,parent,false)
+    private var advertList = ArrayList<DataAdvert>()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = mInflater.inflate(R.layout.coin_row, parent, false)
         val params = view.layoutParams
         width = rvCoinList / 3
         view.layoutParams = params
-        submitBannerCallBack=context as AdvertPackagesActivity
+        submitBannerCallBack = context as AdvertPackagesActivity
         return ViewHolder(view)
     }
 
@@ -31,19 +32,24 @@ class AdvertPackageAdapter(private val context: Context,private val rvCoinList: 
         return advertList.size
     }
 
-    override fun onBindViewHolder(holder:ViewHolder, position: Int) {
-        val modal=advertList[position]
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val modal = advertList[position]
         holder.bind(modal)
 
     }
 
-    inner class ViewHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView!!),LayoutContainer{
+    inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(modal: DataAdvert) {
-            llCoinParent.layoutParams.height =width
-            tvCoins.text=modal.name
-            tvPriceCoins.text= StringBuilder().append(modal.coin).append(" ").append(context.getString(R.string.coins))
+            llCoinParent.layoutParams.height = width
+            tvCoins.text = modal.name
+            tvPriceCoins.text = StringBuilder().append(modal.coin).append(" ").append(context.getString(R.string.coins))
             itemView.setOnClickListener {
-                submitBannerCallBack.planSelectionClick(modal.id)
+
+                if (Utils.getPreferencesInt(context as AdvertPackagesActivity, AppConstants.COIN) >= modal.coin) {
+                    submitBannerCallBack.planSelectionClick(modal.id,modal.coin)
+                } else {
+                    Utils.showSimpleMessage(context, context.getString(R.string.insufficient_balance)).show()
+                }
                 /*val returnIntent = Intent()
                 returnIntent.putExtra(AppConstants.INTENT_RESULT, modal.id)
                 (context as AdvertPackagesActivity).setResult(Activity.RESULT_OK, returnIntent)
@@ -53,9 +59,10 @@ class AdvertPackageAdapter(private val context: Context,private val rvCoinList: 
     }
 
     fun setData(data: ArrayList<DataAdvert>) {
-        advertList=data
+        advertList = data
     }
-     interface SubmitBannerCallBack{
-        fun planSelectionClick(planId:Int)
+
+    interface SubmitBannerCallBack {
+        fun planSelectionClick(planId: Int,totalCoin:Int)
     }
 }

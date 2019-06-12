@@ -243,7 +243,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
                 }
             }
             tvProductHome.text = data.name
-            tvItemPriceHome.text = "R" + data.price
+            tvItemPriceHome.text = "R " + data.price
             itemView.setOnClickListener {
                 val intent = Intent(context, ProductDetailsActivity::class.java)
                 intent.putExtra(AppConstants.ITEM_ID, data.id)

@@ -12,12 +12,14 @@ import com.squareup.picasso.Picasso
 import com.verkoopapp.R
 import com.verkoopapp.activity.FollowFollowingActivity
 import com.verkoopapp.activity.ProductDetailsActivity
+import com.verkoopapp.activity.RatingActivity
 import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_row.*
+import kotlinx.android.synthetic.main.my_profile_details_row.*
 import kotlinx.android.synthetic.main.user_profile_detail_row.*
 import retrofit2.Response
 
@@ -94,7 +96,7 @@ class UserProfileItemAdapter(private val context: Context, private val llProfile
         fun bind(data: DataUserProfile?) {
             if (data != null) {
                 tvUserGood.text = data.good.toString()
-                tvUserNorma.text = data.avrage.toString()
+                tvUserNorma.text = data.average.toString()
                 tvUserSad.text = data.sad.toString()
                 tvNameUser.text = data.username
                 tvUserFollowers.text = data.follower_count.toString()
@@ -136,6 +138,24 @@ class UserProfileItemAdapter(private val context: Context, private val llProfile
                 val intent = Intent(context, FollowFollowingActivity::class.java)
                 intent.putExtra(AppConstants.COMING_FROM, 1)
                 intent.putExtra(AppConstants.USER_ID, userId)
+                context.startActivity(intent)
+            }
+            llGoodUser.setOnClickListener {
+                val intent = Intent(context, RatingActivity::class.java)
+                intent.putExtra(AppConstants.COMING_FROM, 1)
+                intent.putExtra(AppConstants.USER_ID,data!!.id)
+                context.startActivity(intent)
+            }
+            llBadUser.setOnClickListener {
+                val intent = Intent(context, RatingActivity::class.java)
+                intent.putExtra(AppConstants.COMING_FROM, 2)
+                intent.putExtra(AppConstants.USER_ID,data!!.id)
+                context.startActivity(intent)
+            }
+            llPoorUser.setOnClickListener {
+                val intent = Intent(context, RatingActivity::class.java)
+                intent.putExtra(AppConstants.COMING_FROM, 3)
+                intent.putExtra(AppConstants.USER_ID,data!!.id)
                 context.startActivity(intent)
             }
 
@@ -242,7 +262,7 @@ class UserProfileItemAdapter(private val context: Context, private val llProfile
                 }
             }
             tvProductHome.text = data.name
-            tvItemPriceHome.text = "R" + data.price
+            tvItemPriceHome.text = "R " + data.price
             itemView.setOnClickListener {
                 val intent = Intent(context, ProductDetailsActivity::class.java)
                 intent.putExtra(AppConstants.ITEM_ID, data.id)

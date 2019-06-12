@@ -43,7 +43,9 @@ data class DataSignUp(
         val is_use: Int,
         val created_at: CreatedAtSignUp,
         val token: String,
-        val qrCode_image: String
+        val qrCode_image: String,
+        val coin: Int=0,
+        val amount: Int=0
 )
 
 data class CreatedAtSignUp(
@@ -73,7 +75,9 @@ data class Data(
         val created_at: CreatedAt,
         val token: String,
         val mobile_no: String,
-        val qrCode_image: String
+        val qrCode_image: String,
+        val coin: Int,
+        val amount: Int
 )
 
 @Parcelize
@@ -140,7 +144,7 @@ data class DataProfile(
         val follower_count: Int,
         val good:Int,
         val sad:Int,
-        val avrage:Int,
+        val average:Int,
         val items: ArrayList<ItemHome>
 )
 
@@ -294,7 +298,10 @@ data class AdditionalInfoResponse(
     val parking_type:Int?=0,
     val from_year:Int?=0,
     val to_year:Int?=0,
-    val furnished:Int?=0
+    val furnished:Int?=0,
+    val transmission_type:Int=0,
+    val model_id:Int=0,
+    val model_name:String?=null
 ): Parcelable
 
 @Parcelize
@@ -420,7 +427,9 @@ data class DataGoogle(
     val mobile_verified: Int,
     val created_at: CreatedAt,
     val token: String,
-    val qrCode_image: String
+    val qrCode_image: String,
+    val coin: Int,
+    val amount: Int
 )
 
 data class SocialLoginResponse(
@@ -633,7 +642,7 @@ data class DataUserProfile(
         val follow_count: Int,
         var follower_count: Int=0,
         var follower_id: Int=0,
-        var avrage: Int=0,
+        var average: Int=0,
         var sad: Int=0,
         var good: Int=0,
         val block_id: Int,
@@ -726,9 +735,20 @@ data class DataCarBrand(
     val image: String?=null,
     val created_at: String?=null,
     val updated_at: String?=null,
-    var isSelected: Boolean=false
+    var isSelected: Boolean=false,
+    val car_models: ArrayList<CarModelList>?=null
 )
 
+@Parcelize
+data class CarModelList(
+    var brand_id: Int,
+    var created_at: String,
+    var id: Int,
+    var is_active: Int,
+    var name: String,
+    var updated_at: String,
+    var isSelected: Boolean
+): Parcelable
 data class BuyCarResponse(
     val data: DataCarResponse?,
     val message: String
@@ -880,4 +900,16 @@ data class Banner(
 data class VerifyNumberResponse(
     var message: String,
     var otp: Int=0
+)
+data class MyRatingResponse(
+    var data: ArrayList<DataMyRating>?
+)
+
+data class DataMyRating(
+    var name: String,
+    var profile_pic: String,
+    var rating: Double,
+    var url: String,
+    var userName: String,
+    var created_at: String
 )

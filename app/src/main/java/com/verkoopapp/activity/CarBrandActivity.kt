@@ -11,6 +11,7 @@ import android.view.View
 import com.verkoopapp.R
 import com.verkoopapp.adapter.CarBrandAdapter
 import com.verkoopapp.models.CarBrandResponse
+import com.verkoopapp.models.CarModelList
 import com.verkoopapp.models.DataCarBrand
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
@@ -20,17 +21,17 @@ import kotlinx.android.synthetic.main.car_brand_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 import retrofit2.Response
 
-class
-CarBrandActivity : AppCompatActivity() {
+class CarBrandActivity : AppCompatActivity() {
     private lateinit var carBrandAdapter: CarBrandAdapter
     private var carBrandList = ArrayList<DataCarBrand>()
+    private var carModalLIst= ArrayList<CarModelList>()
     private var comingFrom: Int = 0
     private var carBrand:String=""
     private var carBrandId:Int=0
     private var carType:String=""
     private var zone:String=""
     private var zoneId:Int=0
-    private var carTypeId:Int=0
+    private var carModelId:Int=0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,20 +40,24 @@ CarBrandActivity : AppCompatActivity() {
         comingFrom = intent.getIntExtra(AppConstants.TYPE, 0)
         carBrand=intent.getStringExtra(AppConstants.CAR_BRAND_NAME)
         carBrandId=intent.getIntExtra(AppConstants.CAR_BRAND_ID,carBrandId)
-        if(intent.getStringExtra(AppConstants.CAR_TYPE)!=null){
-            carType=   intent.getStringExtra(AppConstants.CAR_TYPE)
+        if(intent.getStringExtra(AppConstants.CAR_MODEL)!=null){
+            carType=   intent.getStringExtra(AppConstants.CAR_MODEL)
         }
 
-        carTypeId=intent.getIntExtra(AppConstants.CAR_TYPE_ID,0)
+        carModelId=intent.getIntExtra(AppConstants.CAR_MODEL_ID,0)
+
+        setAdapter(comingFrom)
+        setData()
         if (comingFrom != 0) {
-            tvHeaderLoc.text = getString(R.string.car_type)
+            carModalLIst=intent.getParcelableArrayListExtra(AppConstants.CAR_BRAND_LIST)
+            tvHeaderLoc.text = getString(R.string.car_model)
             carBrand=intent.getStringExtra(AppConstants.CAR_BRAND_NAME)
             carBrandId=intent.getIntExtra(AppConstants.CAR_BRAND_ID,carBrandId)
+          //  carBrandAdapter.setData(carModalLIst)
+           // carBrandAdapter.notifyDataSetChanged()
         } else {
             tvHeaderLoc.text = getString(R.string.car_brand)
         }
-        setAdapter(comingFrom)
-        setData()
         if(comingFrom!=3) {
             if (Utils.isOnline(this)) {
                 KeyboardUtil.hideKeyboard(this)
@@ -86,7 +91,7 @@ CarBrandActivity : AppCompatActivity() {
         val mManager = LinearLayoutManager(this)
         rvCarBrand.layoutManager = mManager
         // carBrandAdapter = RegionAdapter(this, 0)
-        carBrandAdapter = CarBrandAdapter(this, comingFrom,carBrand,carBrandId,carTypeId)
+        carBrandAdapter = CarBrandAdapter(this, comingFrom,carBrand,carBrandId,carModelId)
         rvCarBrand.adapter = carBrandAdapter
     }
 
@@ -108,15 +113,15 @@ CarBrandActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 3) {
             if (resultCode == Activity.RESULT_OK) {
-                 carType = data!!.getStringExtra(AppConstants.CAR_TYPE)
-                 carBrand = data!!.getStringExtra(AppConstants.CAR_BRAND_NAME)
-                 carTypeId = data.getIntExtra(AppConstants.CAR_TYPE_ID, 0)
+                 carType = data!!.getStringExtra(AppConstants.CAR_MODEL)
+                 carBrand = data.getStringExtra(AppConstants.CAR_BRAND_NAME)
+                 carModelId = data.getIntExtra(AppConstants.CAR_MODEL_ID, 0)
                  carBrandId = data.getIntExtra(AppConstants.CAR_BRAND_ID, 0)
                 val returnIntent = Intent()
                 returnIntent.putExtra(AppConstants.CAR_BRAND_NAME,carBrand)
                 returnIntent.putExtra(AppConstants.CAR_BRAND_ID,carBrandId)
-                returnIntent.putExtra(AppConstants.CAR_TYPE,carType)
-                returnIntent.putExtra(AppConstants.CAR_TYPE_ID,carTypeId)
+                returnIntent.putExtra(AppConstants.CAR_MODEL,carType)
+                returnIntent.putExtra(AppConstants.CAR_MODEL_ID,carModelId)
                 setResult(Activity.RESULT_OK, returnIntent)
                 finish()
                 overridePendingTransition(0, 0)
@@ -146,17 +151,16 @@ CarBrandActivity : AppCompatActivity() {
                             for(i in carBrandList.indices){
                                 if(carBrandId==carBrandList[i].id){
                                     carBrandList[i].isSelected=true
+                                    for(j in carBrandList[i].car_models!!.indices){
+                                        if(carModelId==carBrandList[i].car_models!![j].id){
+                                            carBrandList[i].car_models!![j].isSelected=true
+                                            break
+                                        }
+                                    }
                                 }
                             }
                         }
                     }else{
-                        if(carTypeId>0){
-                            for(i in carBrandList.indices){
-                                if(carTypeId==carBrandList[i].id){
-                                    carBrandList[i].isSelected=true
-                                }
-                            }
-                        }
                     }
 
                     carBrandAdapter.setData(carBrandList)

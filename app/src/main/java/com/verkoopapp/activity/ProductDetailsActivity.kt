@@ -227,7 +227,7 @@ class ProductDetailsActivity : AppCompatActivity() {
             productImage = data.items_image[0].url
         }
         tvLikes.text = data.items_like_count.toString()
-        tvPrice.text = StringBuilder().append(": ").append(getString(R.string.dollar)).append(data.price)
+        tvPrice.text = StringBuilder().append(": ").append(getString(R.string.dollar)).append(" ").append(data.price)
         tvDescription.text = data.description
         tvUserName.text = data.username
         tvDateDetails.text = StringBuilder().append(Utils.getDateDifferenceDiff(data.created_at)).append(" ").append("ago")
@@ -251,10 +251,18 @@ class ProductDetailsActivity : AppCompatActivity() {
                 tvCarBrand.text = StringBuilder().append(": ").append(data.additional_info!!.brand_name)
                 tvCarType.text = StringBuilder().append(": ").append(data.additional_info!!.car_type)
                 tvCarLocation.text = StringBuilder().append(": ").append(data.additional_info!!.location)
+                if(!TextUtils.isEmpty(data.additional_info!!.model_name)) {
+                    tvCarModal.text = StringBuilder().append(": ").append(data.additional_info!!.model_name)
+                }
                 if (data.additional_info!!.direct_owner == 1) {
                     tvDirectOwner.text = StringBuilder().append(": ").append("Private")
                 } else {
                     tvDirectOwner.text = StringBuilder().append(": ").append("Dealership")
+                }
+                if (data.additional_info!!.transmission_type == 1) {
+                    tvTransmission.text = StringBuilder().append(": ").append(getString(R.string.manual))
+                } else {
+                    tvTransmission.text = StringBuilder().append(": ").append(getString(R.string.automatic))
                 }
             }
 

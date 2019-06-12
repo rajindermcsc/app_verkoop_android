@@ -5,10 +5,13 @@ import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import com.verkoopapp.R
 import com.verkoopapp.adapter.GetCoinAdapter
 import com.verkoopapp.fragment.*
+import com.verkoopapp.utils.AppConstants
+import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.coins_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 
@@ -18,6 +21,7 @@ class CoinsActivity:AppCompatActivity(), GetCoinsFragment.CoinUpdateCallBack {
     private var getCoinFragment: GetCoinsFragment? = null
     private var getHistoryFragment: HistoryFragment? = null
     override fun updateHistoryList(totalCoin: Int, type: Int) {
+        Log.e("<<Total coin>>", Utils.getPreferencesInt(this,AppConstants.COIN).toString())
         if(type==2){
             tvTotalCoin.text=((tvTotalCoin.text.toString()).toInt()+totalCoin).toString()
             getHistoryFragment!!.refreshApi()
@@ -32,6 +36,7 @@ class CoinsActivity:AppCompatActivity(), GetCoinsFragment.CoinUpdateCallBack {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.coins_activity)
+        tvTotalCoin.text=Utils.getPreferencesInt(this, AppConstants.COIN).toString()
         getCoinFragment = GetCoinsFragment.newInstance()
         getHistoryFragment = HistoryFragment.newInstance()
         fragmentList.add(getCoinFragment!!)

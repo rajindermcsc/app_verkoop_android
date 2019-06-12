@@ -96,6 +96,7 @@ class GetCoinsFragment : BaseFragment(), CoinListAdapter.PurchaseCoinCallBack {
                     getCoinAdapter.setData(responseWallet.data)
                     getCoinAdapter.notifyDataSetChanged()
                     coinUpdateCallBack.updateHistoryList(responseWallet.coins,0)
+                    Utils.saveIntPreferences(coinsActivity, AppConstants.COIN, responseWallet.coins)
                 } else {
                     Utils.showSimpleMessage(coinsActivity, "No data found.").show()
                 }
@@ -122,6 +123,7 @@ class GetCoinsFragment : BaseFragment(), CoinListAdapter.PurchaseCoinCallBack {
                         val loginResponse = response.body() as UpdateWalletResponse
                         Utils.showToast(coinsActivity, loginResponse.message)
                         coinUpdateCallBack.updateHistoryList(totalCoin,2)
+                        Utils.saveIntPreferences(coinsActivity, AppConstants.COIN, totalCoin)
                     }
 
                     override fun onFailure(msg: String?) {

@@ -20,7 +20,6 @@ import android.view.View
 import com.github.florent37.viewanimator.ViewAnimator
 import com.verkoopapp.models.VerifyNumberRequest
 
-
 class VerifyOtpDialogActivity:AppCompatActivity(){
     internal var number1 = ""
     internal var number2 = ""

@@ -106,7 +106,7 @@ interface MyService {
     @POST("user/forgot_password")
     fun forgotPasswordApi(@Body request: ForgotPasswordRequest): Call<AddItemResponse>
 
-    @GET("brands")
+    @GET("getBrandWithModels")
     fun getCarBrandApi(): Call<CarBrandResponse>
 
     @GET("carsType")
@@ -135,7 +135,7 @@ interface MyService {
     fun getCoinPlanApi(@Query(value = "user_id") userId: Int): Call<CoinPlanResponse>
 
     @GET("advertisment_plans")
-    fun getAdvertPlanApi(): Call<AdvertPlanActivity>
+    fun getAdvertPlanApi(@Query(value = "user_id") userId: Int): Call<AdvertPlanActivity>
 
     @Headers("Accept: application/json")
     @POST("user_coin")
@@ -159,6 +159,14 @@ interface MyService {
     @POST("user/mobileVerified")
     fun verifyOtpApi( @Body request: VerifyOtpRequest): Call<VerifyNumberResponse>
 
+    @GET("listRatedUserGood/{user_id}")
+    fun getMyRatingGoodApi(@Path(value = "user_id", encoded = true) fullUrl: Int): Call<MyRatingResponse>
+
+    @GET("listRatedUserAverage/{user_id}")
+    fun getMyRatingBadApi(@Path(value = "user_id", encoded = true) fullUrl: Int): Call<MyRatingResponse>
+
+    @GET("listRatedUserBad/{user_id}")
+    fun getMyRatingPoorApi(@Path(value = "user_id", encoded = true) fullUrl: Int): Call<MyRatingResponse>
 
     @Multipart
     @Headers("Accept: application/json")

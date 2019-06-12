@@ -39,6 +39,9 @@ object AppConstants{
      const val CAR_BRAND_NAME = "CAR_BRAND_NAME"
      const val CAR_BRAND_ID = "CAR_BRAND_ID"
      const val CAR_TYPE = "CAR_TYPE"
+     const val CAR_MODEL = "CAR_MODEL"
+     const val CAR_MODEL_ID= "CAR_MODEL_ID"
+     const val CAR_MODEL_LIST= "CAR_MODEL_LIST"
      const val CAR_TYPE_ID = "CAR_TYPE_ID"
      const val ZONE = "ZONE"
      const val ZONE_ID = "ZONE_ID"
@@ -59,6 +62,8 @@ object AppConstants{
      const val QR_CODE = "QR_CODE"
      const val IS_RATE = "IS_RATE"
      const val PHONE_NO = "PHONE_NO"
+     const val COIN = "COIN"
+     const val AMOUNT = "AMOUNT"
 
 
 

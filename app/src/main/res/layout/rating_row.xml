@@ -1,57 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/tools"
-    android:background="@color/white"
-    android:layout_marginTop="@dimen/dp_1"
-    android:orientation="vertical"
-    app:ignore="NamespaceTypo">
+    android:layout_height="wrap_content">
 
-    <com.daimajia.swipe.SwipeLayout xmlns:swipe="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/swipe"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        swipe:leftEdgeSwipeOffset="0dp"
-        swipe:rightEdgeSwipeOffset="0dp">
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/dp_5"
+        android:layout_marginEnd="@dimen/dp_6"
+        android:layout_marginStart="@dimen/dp_6"
+        android:layout_marginTop="@dimen/dp_5"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/dp_8"
+        app:cardElevation="@dimen/dp_4">
+
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="#e74c3c"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:tag="Bottom3"
-            android:weightSum="10">
-
-            <com.verkoopapp.fonts.textView.GothiBoldTextView
-                android:id="@+id/tvDelete"
-                android:layout_width="@dimen/dp_100"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/delete"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_14" />
-
-            <com.verkoopapp.fonts.textView.GothiBoldTextView
-                android:id="@+id/tvArchive"
-                android:layout_width="@dimen/dp_100"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/archive"
-                android:background="@color/light_gray"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_14" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llParentChat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp_8"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/dp_8">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -59,7 +29,7 @@
                 android:orientation="horizontal">
 
                 <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/ivProfilePicChat"
+                    android:id="@+id/ivProfilePicRate"
                     android:layout_width="@dimen/dp_60"
                     android:layout_height="@dimen/dp_60"
                     android:src="@mipmap/pic_placeholder"
@@ -74,39 +44,42 @@
                     android:orientation="vertical">
 
                     <com.verkoopapp.fonts.textView.GothicThinTextView
-                        android:id="@+id/tvChatUserName"
+                        android:id="@+id/tvRateUserName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_gray_"
                         android:textSize="@dimen/sp_12" />
 
                     <com.verkoopapp.fonts.textView.GothiBoldTextView
-                        android:id="@+id/tvProductName"
+                        android:id="@+id/tvProductNameRate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/dark_black"
                         android:textSize="@dimen/sp_16" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <com.verkoopapp.fonts.textView.GothicThinTextView
-                            android:id="@+id/tvLastMssg"
+                            android:id="@+id/tvLastMssgRate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/dark_black"
                             android:layout_gravity="center"
+                            android:textColor="@color/dark_black"
                             android:textSize="@dimen/sp_14" />
+
                         <RatingBar
                             android:id="@+id/rbRatingInbox"
+                            style="@style/Widget.AppCompat.RatingBar.Small"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:numStars="5"
-                            android:visibility="gone"
                             android:layout_marginStart="@dimen/dp_5"
-                            style="@style/Widget.AppCompat.RatingBar.Small"
-                            android:theme="@style/RatingBar"/>
+                            android:numStars="5"
+                            android:theme="@style/RatingBar"
+                            />
                     </LinearLayout>
 
 
@@ -126,30 +99,31 @@
                         android:orientation="horizontal">
 
                         <com.verkoopapp.fonts.textView.GothicThinTextView
-                            android:id="@+id/tvLastMssgTime"
+                            android:id="@+id/tvRateTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/text_gray_"
                             android:textSize="@dimen/sp_12" />
+
                         <com.verkoopapp.fonts.textView.GothicThinTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@color/blue_dark"
-                            android:textColor="@color/white"
-                            android:padding="@dimen/dp_2"
-                            android:visibility="gone"
                             android:layout_marginStart="@dimen/dp_5"
-                            android:textSize="@dimen/sp_10" />
+                            android:background="@color/blue_dark"
+                            android:padding="@dimen/dp_2"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp_10"
+                            android:visibility="gone" />
                     </LinearLayout>
 
                     <FrameLayout
                         android:layout_width="@dimen/dp_60"
                         android:layout_height="@dimen/dp_60"
-                        android:layout_marginTop="@dimen/dp_8"
-                        android:layout_gravity="end">
+                        android:layout_gravity="end"
+                        android:layout_marginTop="@dimen/dp_8">
 
                         <ImageView
-                            android:id="@+id/ivImageChat"
+                            android:id="@+id/ivImageRate"
                             android:layout_width="@dimen/dp_60"
                             android:layout_height="@dimen/dp_60"
                             android:contentDescription="@string/image"
@@ -157,23 +131,22 @@
                             android:src="@mipmap/post_placeholder" />
 
                         <com.verkoopapp.fonts.textView.GothiBoldTextView
-                            android:id="@+id/tvSoldChat"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|center"
                             android:background="@color/trans_red"
+                            android:gravity="bottom|center"
                             android:padding="@dimen/dp_2"
                             android:text="@string/sold"
                             android:textColor="@color/white"
                             android:textSize="@dimen/sp_10"
-                            android:gravity="bottom|center"
-                            android:layout_gravity="bottom|center"
-                            android:visibility="gone" />
+                            android:visibility="visible" />
                     </FrameLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
-            <LinearLayout
+            <!--<LinearLayout
                 android:id="@+id/llAcceptOffer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -181,7 +154,7 @@
                 android:layout_marginStart="@dimen/dp_70"
                 android:orientation="horizontal">
                 <com.verkoopapp.fonts.textView.GothicThinTextView
-                   android:id="@+id/tvStatus"
+                    android:id="@+id/tvStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp_2"
@@ -193,11 +166,11 @@
                     android:id="@+id/tvOfferDes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                   android:padding="@dimen/dp_2"
+                    android:padding="@dimen/dp_2"
                     android:textSize="@dimen/sp_12"
                     android:textColor="@color/text_gray_"/>
-            </LinearLayout>
+            </LinearLayout>-->
         </LinearLayout>
-    </com.daimajia.swipe.SwipeLayout>
 
+    </android.support.v7.widget.CardView>
 </LinearLayout>

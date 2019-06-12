@@ -200,6 +200,7 @@
                         android:padding="@dimen/dp_10">
 
                         <LinearLayout
+                            android:id="@+id/llGoodUser"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -225,6 +226,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/llBadUser"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -250,7 +252,7 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/tvUserBad"
+                            android:id="@+id/llPoorUser"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"

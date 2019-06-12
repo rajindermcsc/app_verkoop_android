@@ -13,15 +13,16 @@ import android.widget.Filterable
 import com.verkoopapp.R
 import com.verkoopapp.activity.CarBrandActivity
 import com.verkoopapp.activity.CarModalActivity
+import com.verkoopapp.models.CarModelList
 import com.verkoopapp.models.City
-import com.verkoopapp.models.DataCarBrand
 import com.verkoopapp.utils.AppConstants
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.region_row.*
 
-class CarBrandAdapter(private var context: Context, private val coming: Int,private val carBrand:String,private val carBrandId:Int,private  val carTypeId:Int) : RecyclerView.Adapter<CarBrandAdapter.ViewHolder>(), Filterable {
-    private var carBrandList = ArrayList<DataCarBrand>()
-    private var mFilteredList = ArrayList<DataCarBrand>()
+
+class CarModalAdapter(private var context: Context, private val carBrand: String, private val carBrandId: Int) : RecyclerView.Adapter<CarModalAdapter.ViewHolder>(), Filterable {
+    private var carBrandList = ArrayList<CarModelList>()
+    private var mFilteredList = ArrayList<CarModelList>()
     private lateinit var selectBrandCallBack: SelectBrandCallBack
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
     val font = Typeface.createFromAsset(context.assets, "fonts/gothic.ttf")
@@ -37,7 +38,7 @@ class CarBrandAdapter(private var context: Context, private val coming: Int,priv
                     mFilteredList = carBrandList
                 } else {
 
-                    val filteredList = ArrayList<DataCarBrand>()
+                    val filteredList = ArrayList<CarModelList>()
 
                     for (androidVersion in carBrandList) {
 
@@ -55,7 +56,7 @@ class CarBrandAdapter(private var context: Context, private val coming: Int,priv
             }
 
             override fun publishResults(charSequence: CharSequence, filterResults: Filter.FilterResults) {
-                mFilteredList = filterResults.values as ArrayList<DataCarBrand>
+                mFilteredList = filterResults.values as ArrayList<CarModelList>
                 notifyDataSetChanged()
             }
         }
@@ -77,50 +78,20 @@ class CarBrandAdapter(private var context: Context, private val coming: Int,priv
     }
 
     inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
-        fun bind(data: DataCarBrand) {
+        fun bind(data: CarModelList) {
             cbRegion.typeface = font
             cbRegion.isChecked = data.isSelected
             cbRegion.text = data.name
             cbRegion.setOnClickListener {
                 refreshList(adapterPosition)
-                when (coming) {
-                    3 -> {
-                        val returnIntent = Intent()
-                        returnIntent.putExtra(AppConstants.ZONE,data.name)
-                        returnIntent.putExtra(AppConstants.ZONE_ID,data.id)
-                        (context as CarBrandActivity).setResult(Activity.RESULT_OK, returnIntent)
-                        (context as CarBrandActivity).finish()
-                        (context as CarBrandActivity).overridePendingTransition(0, 0)
-                    }
-                    0 -> {
-                        if(data.car_models!!.size>0) {
-                            val intent = Intent(context, CarModalActivity::class.java)
-                            intent.putExtra(AppConstants.CAR_BRAND_NAME, data.name)
-                            intent.putExtra(AppConstants.CAR_BRAND_ID, data.id)
-                            intent.putParcelableArrayListExtra(AppConstants.CAR_MODEL_LIST, data.car_models)
-                            (context as CarBrandActivity).startActivityForResult(intent, 3)
-                        }else{
-                            val returnIntent = Intent()
-                            returnIntent.putExtra(AppConstants.CAR_MODEL,"")
-                            returnIntent.putExtra(AppConstants.CAR_MODEL_ID,0)
-                            returnIntent.putExtra(AppConstants.CAR_BRAND_NAME,data.name)
-                            returnIntent.putExtra(AppConstants.CAR_BRAND_ID,data.id)
-                            (context as CarBrandActivity).setResult(Activity.RESULT_OK, returnIntent)
-                            (context as CarBrandActivity).finish()
-                            (context as CarBrandActivity).overridePendingTransition(0, 0)
-                        }
-                    }
-                    else -> {
-                        val returnIntent = Intent()
-                        returnIntent.putExtra(AppConstants.CAR_TYPE,data.name)
-                        returnIntent.putExtra(AppConstants.CAR_TYPE_ID,data.id)
-                        returnIntent.putExtra(AppConstants.CAR_BRAND_NAME,carBrand)
-                        returnIntent.putExtra(AppConstants.CAR_BRAND_ID,carBrandId)
-                        (context as CarBrandActivity).setResult(Activity.RESULT_OK, returnIntent)
-                        (context as CarBrandActivity).finish()
-                        (context as CarBrandActivity).overridePendingTransition(0, 0)
-                    }
-                }
+                val returnIntent = Intent()
+                returnIntent.putExtra(AppConstants.CAR_MODEL, data.name)
+                returnIntent.putExtra(AppConstants.CAR_MODEL_ID, data.id)
+                returnIntent.putExtra(AppConstants.CAR_BRAND_NAME, carBrand)
+                returnIntent.putExtra(AppConstants.CAR_BRAND_ID, data.brand_id)
+                (context as CarModalActivity).setResult(Activity.RESULT_OK, returnIntent)
+                (context as CarModalActivity).finish()
+                (context as CarModalActivity).overridePendingTransition(0, 0)
             }
         }
 
@@ -138,7 +109,7 @@ class CarBrandAdapter(private var context: Context, private val coming: Int,priv
 
     }
 
-    fun setData(carBrandData: ArrayList<DataCarBrand>) {
+    fun setData(carBrandData: ArrayList<CarModelList>) {
         mFilteredList = carBrandData
         carBrandList = carBrandData
     }

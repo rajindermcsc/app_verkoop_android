@@ -166,6 +166,7 @@
                         android:orientation="horizontal"
                         android:padding="@dimen/dp_10">
                         <LinearLayout
+                            android:id="@+id/llGood"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -188,6 +189,7 @@
                                 android:textSize="@dimen/sp_23" />
                         </LinearLayout>
                         <LinearLayout
+                            android:id="@+id/llBad"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -210,6 +212,7 @@
                                 android:textSize="@dimen/sp_23" />
                         </LinearLayout>
                         <LinearLayout
+                            android:id="@+id/llPoor"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"

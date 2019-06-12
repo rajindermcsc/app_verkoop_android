@@ -269,6 +269,15 @@
             android:name=".activity.VerifyOtpDialogActivity"
             android:theme="@style/TransparentCompat"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+
+        <activity
+            android:name=".activity.CarModalActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
+            android:name=".activity.RatingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
     </application>
 
 </manifest>

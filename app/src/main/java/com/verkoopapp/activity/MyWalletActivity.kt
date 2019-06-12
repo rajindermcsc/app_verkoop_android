@@ -73,6 +73,7 @@ class MyWalletActivity : AppCompatActivity() {
                 pbProgressWallet.visibility= View.GONE
                 val responseWallet = response.body() as WalletHistoryResponse
                 tvTotalAmount.text=responseWallet.amount.toString()
+                Utils.saveIntPreferences(this@MyWalletActivity, AppConstants.AMOUNT, responseWallet.amount)
                 if (responseWallet.data!!.isNotEmpty()) {
                     paymentHistoryAdapter.setData(responseWallet.data!!)
                     paymentHistoryAdapter.notifyDataSetChanged()

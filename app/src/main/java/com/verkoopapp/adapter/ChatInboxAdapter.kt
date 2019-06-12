@@ -166,14 +166,25 @@ class ChatInboxAdapter(private val context: Context, private val chatInboxType: 
             }
             if (data.types == 2) {
                 tvLastMssg.text  = "MADE AN OFFER"
+                rbRatingInbox.visibility=View.GONE
+            }else if(data.types  == 1){
+                tvLastMssg.text =  StringBuffer().append("\uD83D\uDCF7").append(" image")
             } else if (data.types  == 3) {
                 tvLastMssg.text = "ACCEPTED OFFER"
+                rbRatingInbox.visibility=View.GONE
             } else if (data.types  == 4) {
                 tvLastMssg.text  = "DECLINED OFFER"
+                rbRatingInbox.visibility=View.GONE
             }else if (data.types == 5) {
                 tvLastMssg.text  = "CANCELLED OFFER"
+                rbRatingInbox.visibility=View.GONE
+            }else if (data.types == 6) {
+                rbRatingInbox.visibility=View.VISIBLE
+                tvLastMssg.text =  StringEscapeUtils.unescapeJava(data.message)
+                rbRatingInbox.rating=data.message.toFloat()
             }else{
                 tvLastMssg.text =  StringEscapeUtils.unescapeJava(data.message)
+                rbRatingInbox.visibility=View.GONE
               //  tvLastMssg.text  = data.message
             }
             if (data.user_id==Utils.getPreferencesString(context,AppConstants.USER_ID).toInt()&&data.offer_status == 0) {

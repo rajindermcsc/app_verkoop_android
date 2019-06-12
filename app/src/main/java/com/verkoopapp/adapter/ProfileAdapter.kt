@@ -18,6 +18,7 @@ import com.verkoopapp.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_row.*
 import kotlinx.android.synthetic.main.my_profile_details_row.*
+import okhttp3.internal.Util
 import retrofit2.Response
 
 
@@ -89,7 +90,7 @@ class ProfileAdapter(private val context: Context, private val screenWidth: Int,
                 tvFollowers.text = data.follower_count.toString()
                 tvFollowing.text = data.follow_count.toString()
                 tvGood.text=data.good.toString()
-                tvAverage.text=data.avrage.toString()
+                tvAverage.text=data.average.toString()
                 tvbad.text=data.sad.toString()
                 tvJoiningDate.text = StringBuffer().append(": ").append(Utils.convertDate("yyyy-MM-dd hh:mm:ss", data.created_at, "dd MMMM yyyy"))
                 if (!TextUtils.isEmpty(data.profile_pic)) {
@@ -138,6 +139,24 @@ class ProfileAdapter(private val context: Context, private val screenWidth: Int,
             }
             llWallet.setOnClickListener {
                 val intent = Intent(context, MyWalletActivity::class.java)
+                context.startActivity(intent)
+            }
+            llGood.setOnClickListener {
+                val intent = Intent(context, RatingActivity::class.java)
+                intent.putExtra(AppConstants.COMING_FROM,1)/*good*/
+                intent.putExtra(AppConstants.USER_ID,Utils.getPreferencesString(context,AppConstants.USER_ID).toInt())
+                context.startActivity(intent)
+            }
+            llBad.setOnClickListener {
+                val intent = Intent(context, RatingActivity::class.java)
+                intent.putExtra(AppConstants.COMING_FROM,2)/*bad*/
+                intent.putExtra(AppConstants.USER_ID,Utils.getPreferencesString(context,AppConstants.USER_ID).toInt())
+                context.startActivity(intent)
+            }
+            llPoor.setOnClickListener {
+                val intent = Intent(context, RatingActivity::class.java)
+                intent.putExtra(AppConstants.COMING_FROM,3)/*poor*/
+                intent.putExtra(AppConstants.USER_ID,Utils.getPreferencesString(context,AppConstants.USER_ID).toInt())
                 context.startActivity(intent)
             }
         }
@@ -191,7 +210,7 @@ class ProfileAdapter(private val context: Context, private val screenWidth: Int,
                 }
             }
             tvProductHome.text = data.name
-            tvItemPriceHome.text = "R" + data.price
+            tvItemPriceHome.text = "R " + data.price
             itemView.setOnClickListener {
                 val intent = Intent(context, ProductDetailsActivity::class.java)
                 intent.putExtra(AppConstants.ITEM_ID, data.id)
