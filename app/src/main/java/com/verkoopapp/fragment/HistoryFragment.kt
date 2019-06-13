@@ -80,7 +80,7 @@ class HistoryFragment:BaseFragment(){
                     paymentHistoryAdapter.notifyDataSetChanged()
 
                 }else{
-                    Utils.showSimpleMessage(coinsActivity, "No data found.").show()
+                  //  Utils.showSimpleMessage(coinsActivity, "No data found.").show()
                 }
             }
 

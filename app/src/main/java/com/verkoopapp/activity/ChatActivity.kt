@@ -354,14 +354,14 @@ class ChatActivity : AppCompatActivity() {
         tvMakeOffer.setOnClickListener {
             if (tvMakeOffer.text.toString().equals(getString(R.string.make_offer), ignoreCase = true)) {
                 /*0=Make an offer*/
-                makeOffer(0, price)
+                makeOffer(0, price,0.0)
             } else if (tvMakeOffer.text.toString().equals(getString(R.string.accept_offer), ignoreCase = true)) {
                 val lastOffer = dbHelper!!.getOfferPriceLast(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), senderId, itemId, 2)
                 acceptOfferDialogBox(lastOffer!!.message!!)
             } else if (tvMakeOffer.text.toString().equals(getString(R.string.edit_offer), ignoreCase = true)) {
                 /*1=Edit an offer*/
                 val lastOffer = dbHelper!!.getOfferPriceLast(Utils.getPreferencesString(this@ChatActivity, AppConstants.USER_ID).toInt(), senderId, itemId, 2)
-                makeOffer(1, lastOffer!!.message!!.toDouble())
+                makeOffer(1,price,lastOffer!!.message!!.toDouble())
             }
         }
 
@@ -467,7 +467,7 @@ class ChatActivity : AppCompatActivity() {
 
                     /*uploadImageApi*/
                     if (Utils.isOnline(this)) {
-                        updateProfileService(mCurrentPhotoPath!!)
+                        updateChatImageService(mCurrentPhotoPath!!)
                     } else {
                         Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
                     }
@@ -476,21 +476,21 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateProfileService(imagePath: String) {
+    private fun updateChatImageService(imagePath: String) {
         window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        //    pbAdvertPackage.visibility = View.VISIBLE
+        pbProgressChat.visibility = View.VISIBLE
         ServiceHelper().uploadImageService(imagePath, object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
                 window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                //    pbAdvertPackage.visibility = View.GONE
+                pbProgressChat.visibility = View.GONE
                 val imageUrl = response.body() as ChatImageResponse
                 sendMssgEvent(imageUrl.data.image, 1)
             }
 
             override fun onFailure(msg: String?) {
                 window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                //      pbAdvertPackage.visibility = View.GONE
+                pbProgressChat.visibility = View.GONE
                 Utils.showSimpleMessage(this@ChatActivity, msg!!).show()
             }
         })
@@ -602,8 +602,8 @@ class ChatActivity : AppCompatActivity() {
     }
 
 
-    private fun makeOffer(type: Int, priceOffer: Double) {
-        createOfferDialog = CreatOfferDialog(priceOffer, this, object : MakeOfferListener {
+    private fun makeOffer(type: Int, originalPrice: Double,offeredPrice:Double) {
+        createOfferDialog = CreatOfferDialog(type,offeredPrice,originalPrice, this, object : MakeOfferListener {
             override fun makeOfferClick(offerPrice: Double) {
                 if (socket!!.connected()) {
                     if (type != 1) {
@@ -923,9 +923,9 @@ class ChatActivity : AppCompatActivity() {
                 val data = it[0] as JSONObject
                 runOnUiThread {
                     ivSend.isEnabled = true
+                    try {
                     if (data.getString("status") == "1") {
                         saveDataToDb(data)
-                        try {
                             val chatData = ChatData(data.getInt("message_id"),
                                     data.getInt("sender_id"),
                                     data.getInt("receiver_id"),
@@ -939,12 +939,13 @@ class ChatActivity : AppCompatActivity() {
                             chatAdapter.notifyDataSetChanged()
                             rvChatList.scrollToPosition(chatList.size - 1)
                             etMssg.text = null
-                        } catch (e: JSONException) {
-                            e.printStackTrace()
-                        }
+
                     } else {
                         ivSend.isEnabled = true
                     }
+                    } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
                 }
             })
         } catch (e: JSONException) {
@@ -1055,7 +1056,7 @@ class ChatActivity : AppCompatActivity() {
                         Log.e("Pasha", "SHOW")
                         llParentChat.visibility = View.GONE
                         if (createOfferDialog != null) {
-                            createOfferDialog!!.showDialog(1)
+                            createOfferDialog!!.showDialog(1,this@ChatActivity)
                         }
 
 
@@ -1063,7 +1064,7 @@ class ChatActivity : AppCompatActivity() {
                         Log.e("Pasha", "HIDE")
                         llParentChat.visibility = View.VISIBLE
                         if (createOfferDialog != null) {
-                            createOfferDialog!!.showDialog(0)
+                            createOfferDialog!!.showDialog(0,this@ChatActivity)
                         }
                     }
                 }

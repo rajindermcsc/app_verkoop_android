@@ -336,7 +336,7 @@
     <string name="upload_banne">Please upload banner.</string>
     <string name="scan_to_follow_me_on_verkoop">Scan to follow me on Verkoop</string>
     <string name="scan_qr_code">Scan QR Code</string>
-    <string name="purchase_to_pay_20">Proceed to pay $20</string>
+    <string name="purchase_to_pay_20">Proceed to pay R20</string>
     <string name="transfer_coins">Transfer Verkoop Money</string>
     <string name="enter_coin">Enter amount</string>
     <string name="send_money">Send money to</string>
@@ -363,6 +363,7 @@
     <string name="model">Model</string>
     <string name="insufficient_balance">Insufficient balance please purchase coin</string>
     <string name="rating">My Rating</string>
+    <string name="about_verkoop">About Verkoop</string>
 
 
 </resources>

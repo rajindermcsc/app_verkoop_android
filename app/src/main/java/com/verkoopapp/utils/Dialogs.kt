@@ -10,6 +10,7 @@ import android.text.TextUtils
 import android.view.*
 
 import com.verkoopapp.R
+import com.verkoopapp.activity.ChatActivity
 import kotlinx.android.synthetic.main.delete_comment_dialog.*
 import kotlinx.android.synthetic.main.dialog_answer.*
 import kotlinx.android.synthetic.main.dialog_create_offer.*
@@ -136,7 +137,7 @@ class DeleteCommentDialog(context: Context,private val header:String,private val
     }
 }
 
-class CreatOfferDialog(private val realPrice:Double,context: Context, private val listener:MakeOfferListener)
+class CreatOfferDialog(private val type:Int,private val offeredPrice:Double,private val realPrice:Double, context: Context, private val listener:MakeOfferListener)
     :android.app.Dialog(context){
     var isFocus:Boolean=false
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -148,7 +149,11 @@ class CreatOfferDialog(private val realPrice:Double,context: Context, private va
         window.setGravity(Gravity.BOTTOM)
         setCanceledOnTouchOutside(true)
         setCancelable(true)
+        if(type==1){
+        etTotalPrice.setText(offeredPrice.toString())
+        }else{
         etTotalPrice.setText(realPrice.toString())
+        }
         etTotalPrice.setSelection(etTotalPrice.text!!.length)
         llMakeOffer.setOnClickListener {
             listener.makeOfferClick((etTotalPrice.text.toString()).toDouble())
@@ -157,22 +162,23 @@ class CreatOfferDialog(private val realPrice:Double,context: Context, private va
 
     }
 
-    fun showDialog(type: Int) {
+    fun showDialog(type: Int,context:Context) {
         if(type==1){
             llMakeOffer.visibility=View.GONE
         }else{
             llMakeOffer.visibility=View.VISIBLE
-            makeCalculation()
+            makeCalculation(context)
         }
     }
 
-    private fun makeCalculation() {
+    private fun makeCalculation(context:Context) {
         val enteredPrice=etTotalPrice.text.toString()
         val sixtyPercent=realPrice*.6
         if(!TextUtils.isEmpty(enteredPrice)&&enteredPrice.toDouble()>=sixtyPercent){
             llMakeOffer.setBackgroundColor(ContextCompat.getColor(context, R.color.blue))
             llMakeOffer.isEnabled=true
         }else{
+            Utils.showSimpleMessage(context, "A bid should be higher then R "+sixtyPercent.toString()).show()
             llMakeOffer.setBackgroundColor(ContextCompat.getColor(context, R.color.light_gray))
             llMakeOffer.isEnabled=false
         }

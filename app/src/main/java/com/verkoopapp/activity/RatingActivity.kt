@@ -48,6 +48,7 @@ class RatingActivity : AppCompatActivity() {
         pbProgressFav.visibility= View.VISIBLE
         ServiceHelper().getMyRatingService(comingFrom,userId,object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
+                tvMssgData.visibility=View.GONE
                 pbProgressFav.visibility= View.GONE
                 val responseRating = response.body() as MyRatingResponse
                 if (responseRating.data!!.isNotEmpty()) {
@@ -55,7 +56,8 @@ class RatingActivity : AppCompatActivity() {
                     ratingListAdapter.notifyDataSetChanged()
 
                 }else{
-                    Utils.showSimpleMessage(this@RatingActivity, "No data found.").show()
+                    tvMssgData.visibility=View.VISIBLE
+                   // Utils.showSimpleMessage(this@RatingActivity, "No data found.").show()
                 }
 
             }

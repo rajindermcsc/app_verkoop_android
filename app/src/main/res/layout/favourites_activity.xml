@@ -24,10 +24,11 @@
             android:visibility="gone" />
 
         <com.verkoopapp.fonts.textView.GothiBoldTextView
+            android:id="@+id/tvMssgData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/no_data_found"
+            android:text="@string/no_result_found"
             android:textColor="@color/text_gray"
             android:textSize="@dimen/sp_14"
             android:visibility="gone" />

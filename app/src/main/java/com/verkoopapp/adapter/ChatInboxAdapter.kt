@@ -168,6 +168,7 @@ class ChatInboxAdapter(private val context: Context, private val chatInboxType: 
                 tvLastMssg.text  = "MADE AN OFFER"
                 rbRatingInbox.visibility=View.GONE
             }else if(data.types  == 1){
+                rbRatingInbox.visibility=View.GONE
                 tvLastMssg.text =  StringBuffer().append("\uD83D\uDCF7").append(" image")
             } else if (data.types  == 3) {
                 tvLastMssg.text = "ACCEPTED OFFER"

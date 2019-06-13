@@ -136,7 +136,7 @@ class GetCoinsFragment : BaseFragment(), CoinListAdapter.PurchaseCoinCallBack {
     }
 
     private fun purchaseDialog(coin_id: Int, position: Int, price: Int, totalCoin: Int) {
-       val  message=StringBuffer().append(getString(R.string.to_pay)).append(" $").append(price).append("?")
+       val  message=StringBuffer().append(getString(R.string.to_pay)).append(" R").append(price).append("?")
         val shareDialog = PurchaseCoinDialog(coinsActivity, message, object : SelectionListener {
             override fun leaveClick() {
                 purchaseCoinService(coin_id, position,totalCoin)

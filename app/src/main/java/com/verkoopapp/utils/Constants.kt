@@ -74,6 +74,7 @@ object AppConstants{
      const val CHAT_LIST = "messagelists"
      const val MAKE_OFFER_EVENT = "makeOffer"
      const val INIT_USER_ID = "init"
+     const val SOCKET_DISCONNECT = "manualDisconnect"
      const val RECEIVE_MESSAGE = "receiveMessage"
      const val INBOX_LIST_EVENT = "inboxList"
      const val ARCHIVE_CHAT_EVENT = "archiveChat"

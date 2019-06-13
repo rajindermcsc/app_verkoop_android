@@ -57,7 +57,6 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
                     }else{
                         setArchiveChatEvent(receiverId,senderId, itemId, adapterPosition, swipe)
                     }
-
                 }
 
             }

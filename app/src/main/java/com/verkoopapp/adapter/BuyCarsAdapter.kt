@@ -180,11 +180,13 @@ class BuyCarsAdapter(private val context: Context, private var rvItemList: Recyc
 
     inner class CarFilterHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(carTypeLIst: ArrayList<CarType>) {
+            tvCarBodyType.visibility=View.GONE
+            rvCarBodyType.visibility=View.GONE
             // llCarFilter.layoutParams.height = widthOrgCarType-20
-            val mManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+           /* val mManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             rvCarBodyType.layoutManager = mManager
             val carBodyTypeAdapter = CarBodyTypeAdapter(context, widthOrgCarType, carTypeLIst, 0)
-            rvCarBodyType.adapter = carBodyTypeAdapter
+            rvCarBodyType.adapter = carBodyTypeAdapter*/
             ll15PerMonth.setOnClickListener {
                 val intent = Intent(context, CarsFilterActivity::class.java)
                 intent.putExtra(AppConstants.FILTER_ID, 1)

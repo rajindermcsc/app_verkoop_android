@@ -315,9 +315,9 @@ class ProductDetailsActivity : AppCompatActivity() {
         }
         llBuying.setOnClickListener {
             if (!data.make_offer) {
-                makeOffer(data.price)
+                makeOffer(0,data.price,0.0)
             } else {
-                makeOffer(data.offer_price)
+                makeOffer(1,data.price,data.offer_price)
             }
         }
 
@@ -527,8 +527,8 @@ class ProductDetailsActivity : AppCompatActivity() {
         }
     }
 
-    private fun makeOffer(price: Double) {
-        createOfferDialog = CreatOfferDialog(price, this, object : MakeOfferListener {
+    private fun makeOffer(type:Int,price: Double,offeredPrice:Double) {
+        createOfferDialog = CreatOfferDialog(type,offeredPrice,price, this, object : MakeOfferListener {
             override fun makeOfferClick(offerPrice: Double) {
                 // Utils.showToast(this@ProductDetailsActivity,offerPrice.toString())
                 makeOfferEvent(offerPrice)
@@ -536,7 +536,7 @@ class ProductDetailsActivity : AppCompatActivity() {
 
         })
         createOfferDialog!!.show()
-        createOfferDialog!!.showDialog(0)
+        createOfferDialog!!.showDialog(0,this@ProductDetailsActivity)
     }
 
     private fun makeOfferEvent(Offerprice: Double) {
@@ -619,13 +619,13 @@ class ProductDetailsActivity : AppCompatActivity() {
                     if (lastVisibleDecorViewHeight > visibleDecorViewHeight + MIN_KEYBOARD_HEIGHT_PX) {
                         Log.e("Pasha", "SHOW")
                         if(createOfferDialog!=null) {
-                            createOfferDialog!!.showDialog(1)
+                            createOfferDialog!!.showDialog(1,this@ProductDetailsActivity)
                         }
 
                     } else if (lastVisibleDecorViewHeight + MIN_KEYBOARD_HEIGHT_PX < visibleDecorViewHeight) {
                         Log.e("Pasha", "HIDE")
                         if(createOfferDialog!=null) {
-                            createOfferDialog!!.showDialog(0)
+                            createOfferDialog!!.showDialog(0,this@ProductDetailsActivity)
                         }
 
                     }

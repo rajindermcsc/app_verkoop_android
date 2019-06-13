@@ -3,15 +3,23 @@ package com.verkoopapp.activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
+import com.github.nkzawa.socketio.client.Ack
+import com.github.nkzawa.socketio.client.Socket
+import com.google.gson.Gson
 import com.verkoopapp.R
+import com.verkoopapp.VerkoopApplication
+import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.DeleteCommentDialog
 import com.verkoopapp.utils.SelectionListener
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.setting_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
+import org.json.JSONException
+import org.json.JSONObject
 
 class SettingActivity : AppCompatActivity() {
-
+    private var socket: Socket? = VerkoopApplication.getAppSocket()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.setting_activity)
@@ -47,9 +55,21 @@ class SettingActivity : AppCompatActivity() {
         tvPrivatePolicy.setOnClickListener { }
         tvHelpCenter.setOnClickListener { }
         tvContactUs.setOnClickListener { }
-        tvAboutVerkoop.setOnClickListener { }
-        tvTermsService.setOnClickListener { }
-        tvPrivacyPolicy.setOnClickListener { }
+        tvAboutVerkoop.setOnClickListener {
+            val intent = Intent(this, VerkoopPoliciesActivity::class.java)
+            intent.putExtra(AppConstants.COMING_FROM,1)
+            startActivity(intent)
+        }
+        tvTermsService.setOnClickListener {
+            val intent = Intent(this, VerkoopPoliciesActivity::class.java)
+            intent.putExtra(AppConstants.COMING_FROM,2)
+            startActivity(intent)
+        }
+        tvPrivacyPolicy.setOnClickListener {
+            val intent = Intent(this, VerkoopPoliciesActivity::class.java)
+            intent.putExtra(AppConstants.COMING_FROM,3)
+            startActivity(intent)
+        }
         tvDeActivateAcct.setOnClickListener { }
 
     }
@@ -69,9 +89,26 @@ class SettingActivity : AppCompatActivity() {
     }
 
     private fun logout() {
+        callInit()
         com.verkoopapp.utils.Utils.clearPreferences(this@SettingActivity)
         val intent = Intent(this@SettingActivity, WalkThroughActivity::class.java)
         startActivity(intent)
         finishAffinity()
+    }
+    private fun callInit() {
+        socket?.emit(AppConstants.SOCKET_DISCONNECT, getObj(), Ack {
+            Log.e("<<<DisConnectLogOut>>>", Gson().toJson(it[0]))
+        })
+
+    }
+    private fun getObj(): Any {
+        val jsonObject: JSONObject?
+        jsonObject = JSONObject()
+        try {
+            jsonObject.put("user_id", Utils.getPreferencesString(applicationContext,AppConstants.USER_ID).toInt())
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        return jsonObject
     }
 }
