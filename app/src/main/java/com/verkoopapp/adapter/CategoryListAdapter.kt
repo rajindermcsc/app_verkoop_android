@@ -3,11 +3,14 @@ package com.verkoopapp.adapter
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import com.verkoopapp.R
+import com.verkoopapp.activity.BuyCarsActivity
+import com.verkoopapp.activity.BuyPropertiesActivity
 import com.verkoopapp.activity.CategoryDetailsActivity
 import com.verkoopapp.activity.HomeActivity
 import com.verkoopapp.models.Category
@@ -49,11 +52,24 @@ class CategoryListAdapter(private val context: HomeActivity, private var categor
                         .into(ivItemsHome)
             }
             itemView.setOnClickListener {
-                val intent = Intent(context, CategoryDetailsActivity::class.java)
-                intent.putExtra(AppConstants.CATEGORY_ID, data.id)
-                intent.putExtra(AppConstants.TYPE, 0)
-                intent.putExtra(AppConstants.SUB_CATEGORY, data.name)
-                context.startActivityForResult(intent, 2)
+                when {
+                    data.id==85 -> {
+                        val intent = Intent(context, BuyCarsActivity::class.java)
+                        context.startActivityForResult(intent, 2)
+
+                    }
+                    data.id==24 -> {
+                        val intent = Intent(context, BuyPropertiesActivity::class.java)
+                        context.startActivityForResult(intent, 2)
+                    }
+                    else -> {
+                        val intent = Intent(context, CategoryDetailsActivity::class.java)
+                        intent.putExtra(AppConstants.CATEGORY_ID, data.id)
+                        intent.putExtra(AppConstants.TYPE, 0)
+                        intent.putExtra(AppConstants.SUB_CATEGORY, data.name)
+                        context.startActivityForResult(intent, 2)
+                    }
+                }
             }
         }
     }

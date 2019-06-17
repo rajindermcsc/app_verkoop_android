@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.content.ContextCompat
+import android.support.v4.widget.NestedScrollView
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
@@ -15,6 +16,7 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
+import android.view.animation.TranslateAnimation
 import com.daimajia.slider.library.SliderTypes.BaseSliderView
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView
 import com.github.nkzawa.socketio.client.Ack
@@ -107,6 +109,20 @@ class ProductDetailsActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+       /* scrollView1.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            if (scrollY > oldScrollY) {
+               val animation =  TranslateAnimation(0f,0f,0f,1000f)
+                animation.duration = 1000
+                sellCardItem.startAnimation(animation)
+                sellCardItem.visibility = View.GONE
+
+            } else {
+                val animation =  TranslateAnimation(0f,0f,1000f,0f)
+                animation.duration = 500
+                sellCardItem.startAnimation(animation)
+                sellCardItem.visibility = View.VISIBLE
+            }
+        })*/
     }
 
     private fun setCommentAdapter() {
@@ -233,7 +249,6 @@ class ProductDetailsActivity : AppCompatActivity() {
         tvDateDetails.text = StringBuilder().append(Utils.getDateDifferenceDiff(data.created_at)).append(" ").append("ago")
         tvDateTool.text = StringBuilder().append(Utils.getDateDifferenceDiff(data.created_at)).append(" ").append("ago")
         tvCategoryDetail.text = StringBuilder().append(": ").append(data.category_name)
-
         if (data.item_type == 1) {
             tvType.text = "New"
         } else {
@@ -247,6 +262,7 @@ class ProductDetailsActivity : AppCompatActivity() {
             CommonView.visibility = View.VISIBLE
             llPropertyDetails.visibility = View.GONE
             if (data.additional_info != null) {
+                tvPrice.text = StringBuilder().append(": ").append(getString(R.string.dollar)).append(data.additional_info!!.min_price).append(" - ").append(getString(R.string.dollar)).append(data.additional_info!!.max_price)
                 tvRegistrationYear.text = StringBuilder().append(": ").append(data.additional_info!!.from_year.toString()).append(" - ").append(data.additional_info!!.to_year.toString())
                 tvCarBrand.text = StringBuilder().append(": ").append(data.additional_info!!.brand_name)
                 tvCarType.text = StringBuilder().append(": ").append(data.additional_info!!.car_type)
@@ -267,6 +283,7 @@ class ProductDetailsActivity : AppCompatActivity() {
             }
 
         } else if (data.type == 2||data.type == 3) {
+            tvPrice.text = StringBuilder().append(": ").append(getString(R.string.dollar)).append(data.additional_info!!.min_price).append(" - ").append(getString(R.string.dollar)).append(data.additional_info!!.max_price)
             tvType.visibility = View.GONE
             llPropertyDetails.visibility = View.VISIBLE
             CommonView.visibility = View.VISIBLE
@@ -313,11 +330,20 @@ class ProductDetailsActivity : AppCompatActivity() {
         }else if(data.make_offer&&data.user_id!=Utils.getPreferencesString(this,AppConstants.USER_ID).toInt()){
             tvAll.text = StringBuilder().append("View Chats").append("[").append(data.message_count).append("]")
         }
+
         llBuying.setOnClickListener {
-            if (!data.make_offer) {
-                makeOffer(0,data.price,0.0)
-            } else {
-                makeOffer(1,data.price,data.offer_price)
+            if(data.type==1||data.type==2||data.type==3) {
+                if (!data.make_offer) {
+                    makeOffer(1,0, data.price, 0.0,data.additional_info!!.min_price)
+                } else {
+                    makeOffer(1,1, data.price, data.offer_price,data.additional_info!!.min_price)
+                }
+            }else{
+                if (!data.make_offer) {
+                    makeOffer(0,0, data.price, 0.0,0.0)
+                } else {
+                    makeOffer(0,1, data.price, data.offer_price,0.0)
+                }
             }
         }
 
@@ -489,7 +515,7 @@ class ProductDetailsActivity : AppCompatActivity() {
                     commentListAdapter.setData(commentsList)
                     commentListAdapter.notifyDataSetChanged()
                     Handler().postDelayed({
-                        scrollView.fullScroll(View.FOCUS_DOWN)
+                        scrollView1.fullScroll(View.FOCUS_DOWN)
                     }, 200)
                 }
             }
@@ -527,8 +553,8 @@ class ProductDetailsActivity : AppCompatActivity() {
         }
     }
 
-    private fun makeOffer(type:Int,price: Double,offeredPrice:Double) {
-        createOfferDialog = CreatOfferDialog(type,offeredPrice,price, this, object : MakeOfferListener {
+    private fun makeOffer(productType:Int,type:Int,price: Double,offeredPrice:Double,minPrice:Double) {
+        createOfferDialog = CreatOfferDialog(productType,minPrice,type,offeredPrice,price, this, object : MakeOfferListener {
             override fun makeOfferClick(offerPrice: Double) {
                 // Utils.showToast(this@ProductDetailsActivity,offerPrice.toString())
                 makeOfferEvent(offerPrice)

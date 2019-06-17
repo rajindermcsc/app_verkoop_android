@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="com.tuyenmonkey:mkloader-1.4.0">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mkloader-1.4.0.aar/8335325c41fb6c3d17c119da60f3d856/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mkloader-1.4.0.aar/8335325c41fb6c3d17c119da60f3d856/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mkloader-1.4.0.aar/e8923a0cbc7061f33f4922882de948d5/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mkloader-1.4.0.aar/e8923a0cbc7061f33f4922882de948d5/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

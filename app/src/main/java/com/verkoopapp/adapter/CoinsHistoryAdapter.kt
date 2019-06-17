@@ -39,15 +39,15 @@ inner class ViewHolder(override val containerView: View?):RecyclerView.ViewHolde
         if (modal.type == 0) {
             ivUserPicCoins.visibility=View.GONE
             ivWallet.visibility=View.VISIBLE
-            tvCoinHeader.text = context.getString(R.string.added_to_verkoop)
+            tvCoinHeader.text = context.getString(R.string.coin_addes)
             tvNoCoin.setTextColor(ContextCompat.getColor(context, R.color.accept_offer))
-            tvNoCoin.text = StringBuilder().append("R").append(modal.coin).append(" ").append(context.getString(R.string.coin))
+            tvNoCoin.text = StringBuilder().append(modal.coin).append(" ").append(context.getString(R.string.coin))
         } else if (modal.type == 1) {
             ivUserPicCoins.visibility=View.GONE
             ivWallet.visibility=View.VISIBLE
             tvCoinHeader.text = context.getString(R.string.purchased_banner)
             tvNoCoin.setTextColor(ContextCompat.getColor(context, R.color.black_))
-            tvNoCoin.text = StringBuilder().append("- ").append("R").append(modal.coin).append(" ").append(context.getString(R.string.coin))
+            tvNoCoin.text = StringBuilder().append("- ").append(modal.coin).append(" ").append(context.getString(R.string.coin))
         } else if (modal.type == 2) {
             ivUserPicCoins.visibility=View.VISIBLE
             ivWallet.visibility=View.GONE
@@ -57,11 +57,11 @@ inner class ViewHolder(override val containerView: View?):RecyclerView.ViewHolde
                         .centerInside()
                         .error(R.mipmap.pic_placeholder)
                         .placeholder(R.mipmap.pic_placeholder)
-                        .into(ivUserPicSend)
+                        .into(ivUserPicCoins)
             }
             tvCoinHeader.text =StringBuffer().append(context.getString(R.string.send_to)).append(" ").append(modal.userName)
             tvNoCoin.setTextColor(ContextCompat.getColor(context, R.color.black_))
-            tvNoCoin.text = StringBuilder().append("- ").append("R").append(modal.coin).append(" ").append(context.getString(R.string.coin))
+            tvNoCoin.text = StringBuilder().append("- ").append(modal.coin).append(" ").append(context.getString(R.string.coin))
         }else{
             ivUserPicCoins.visibility=View.VISIBLE
             ivWallet.visibility=View.GONE
@@ -71,7 +71,7 @@ inner class ViewHolder(override val containerView: View?):RecyclerView.ViewHolde
                         .centerInside()
                         .error(R.mipmap.pic_placeholder)
                         .placeholder(R.mipmap.pic_placeholder)
-                        .into(ivUserPicSend)
+                        .into(ivUserPicCoins)
             }
             tvCoinHeader.text =StringBuffer().append(context.getString(R.string.received_from)).append(" ").append(modal.userName)
             tvNoCoin.setTextColor(ContextCompat.getColor(context, R.color.black_))

@@ -34,5 +34,8 @@ data class ChatInboxResponse(
     val url: String,
     val offer_price:String,
     val item_price: String,
-    val is_rate:Int=0
+    val is_rate:Int=0,
+    val min_price :String?=null,
+    val max_price :String?=null,
+    val category_id :Int=0
 )

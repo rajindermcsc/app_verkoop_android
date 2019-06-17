@@ -379,7 +379,8 @@ data class ItemHome(
         val username: String?=null,
         val profile_pic: String?=null,
         var isClicked: Boolean=false,
-        var isLoading: Boolean=false
+        var isLoading: Boolean=false,
+        var type:Int=0
 )
 
 data class CreatedAtHome(
@@ -911,5 +912,7 @@ data class DataMyRating(
     var rating: Double,
     var url: String,
     var userName: String,
-    var created_at: String
+    var created_at: String,
+    var user_id:Int,
+    var item_id:Int
 )

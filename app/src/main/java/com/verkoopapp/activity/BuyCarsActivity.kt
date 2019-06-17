@@ -74,6 +74,10 @@ class BuyCarsActivity:AppCompatActivity() {
             val intent = Intent(this, GalleryActivity::class.java)
              startActivityForResult(intent, 2)
         }
+        ivChatCar.setOnClickListener {
+            val intent = Intent(this, ChatInboxActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setBuyCarAdapter() {

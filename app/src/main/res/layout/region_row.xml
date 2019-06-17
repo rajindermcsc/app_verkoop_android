@@ -17,7 +17,9 @@
         android:background="@null"
         android:button="@drawable/radio_button_selector"
         android:layoutDirection="rtl"
-        android:text="@string/meet_up"
+        android:text="45"
+        android:scaleX="1"
+        android:scaleY="1"
         android:textColor="@color/text_gray"
         android:textSize="@dimen/sp_14" />
     <View

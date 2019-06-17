@@ -137,7 +137,7 @@ class DeleteCommentDialog(context: Context,private val header:String,private val
     }
 }
 
-class CreatOfferDialog(private val type:Int,private val offeredPrice:Double,private val realPrice:Double, context: Context, private val listener:MakeOfferListener)
+class CreatOfferDialog(private val productType:Int,private val minPrice:Double,private val type:Int,private val offeredPrice:Double,private val realPrice:Double, context: Context, private val listener:MakeOfferListener)
     :android.app.Dialog(context){
     var isFocus:Boolean=false
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -173,15 +173,26 @@ class CreatOfferDialog(private val type:Int,private val offeredPrice:Double,priv
 
     private fun makeCalculation(context:Context) {
         val enteredPrice=etTotalPrice.text.toString()
-        val sixtyPercent=realPrice*.6
-        if(!TextUtils.isEmpty(enteredPrice)&&enteredPrice.toDouble()>=sixtyPercent){
-            llMakeOffer.setBackgroundColor(ContextCompat.getColor(context, R.color.blue))
-            llMakeOffer.isEnabled=true
-        }else{
-            Utils.showSimpleMessage(context, "A bid should be higher then R "+sixtyPercent.toString()).show()
-            llMakeOffer.setBackgroundColor(ContextCompat.getColor(context, R.color.light_gray))
-            llMakeOffer.isEnabled=false
-        }
+      if(productType==1){
+          if (!TextUtils.isEmpty(enteredPrice) && enteredPrice.toDouble() >= minPrice) {
+              llMakeOffer.setBackgroundColor(ContextCompat.getColor(context, R.color.blue))
+              llMakeOffer.isEnabled = true
+          } else {
+              Utils.showSimpleMessage(context, "A bid should be higher then or equal to R " + minPrice.toString()).show()
+              llMakeOffer.setBackgroundColor(ContextCompat.getColor(context, R.color.light_gray))
+              llMakeOffer.isEnabled = false
+          }
+      }else {
+          val sixtyPercent = realPrice * .6
+          if (!TextUtils.isEmpty(enteredPrice) && enteredPrice.toDouble() >= sixtyPercent) {
+              llMakeOffer.setBackgroundColor(ContextCompat.getColor(context, R.color.blue))
+              llMakeOffer.isEnabled = true
+          } else {
+              Utils.showSimpleMessage(context, "A bid should be higher then R " + sixtyPercent.toString()).show()
+              llMakeOffer.setBackgroundColor(ContextCompat.getColor(context, R.color.light_gray))
+              llMakeOffer.isEnabled = false
+          }
+      }
     }
 
 }

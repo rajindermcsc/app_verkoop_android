@@ -18,7 +18,6 @@ import com.verkoopapp.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_row.*
 import kotlinx.android.synthetic.main.my_profile_details_row.*
-import okhttp3.internal.Util
 import retrofit2.Response
 
 
@@ -34,7 +33,7 @@ class ProfileAdapter(private val context: Context, private val screenWidth: Int,
 
     override fun getItemViewType(position: Int): Int {
         if (position == 0) {
-            return return PROFILE_DETAILS
+             return PROFILE_DETAILS
         } else {
             return ITEMS_ROW
         }
@@ -165,6 +164,11 @@ class ProfileAdapter(private val context: Context, private val screenWidth: Int,
 
     inner class ItemsHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(data: ItemHome) {
+            if(data.type==0){
+                ll_condition.visibility=View.VISIBLE
+            }else{
+                ll_condition.visibility=View.GONE
+            }
             llUserProfile.visibility = View.GONE
             ivProductImageHome.layoutParams.height = width - 16
             if (data.is_sold == 1) {

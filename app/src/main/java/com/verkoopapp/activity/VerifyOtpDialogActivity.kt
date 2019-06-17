@@ -110,7 +110,7 @@ class VerifyOtpDialogActivity:AppCompatActivity(){
 
     private fun otpVerificationService(enteredOTP: String) {
         pbProgressOtp.visibility= View.VISIBLE
-        ServiceHelper().verifyOtpNo(VerifyOtpRequest(enteredOTP.toInt(),Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()),
+        ServiceHelper().verifyOtpNo(VerifyOtpRequest(enteredOTP.toInt(),Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(),phoneNo),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         val loginResponse = response.body() as VerifyNumberResponse

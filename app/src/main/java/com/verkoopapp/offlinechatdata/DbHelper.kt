@@ -35,6 +35,9 @@ class DbHelper {
                 allChatRealModel.offer_price = AllChatList[i].offer_price
                 allChatRealModel.item_price = AllChatList[i].item_price
                 allChatRealModel.is_rate = AllChatList[i].is_rate
+                allChatRealModel.min_price = AllChatList[i].min_price
+                allChatRealModel.max_price = AllChatList[i].max_price
+                allChatRealModel.category_id = AllChatList[i].category_id
             }
         }
     }

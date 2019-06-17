@@ -35,11 +35,11 @@ class PaymentHistoryAdapter(private val context: Context, private val type: Int)
             if (modal.type == 0) {
                 tvTypeHeading.text = context.getString(R.string.added_to_verkoop)
                 tvPriceWallet.setTextColor(ContextCompat.getColor(context, R.color.accept_offer))
-                tvPriceWallet.text = StringBuilder().append("R").append(modal.amount)
+                tvPriceWallet.text = StringBuilder().append("R ").append(modal.amount)
             } else if (modal.type == 1) {
                 tvTypeHeading.text = context.getString(R.string.purchased_coin)
                 tvPriceWallet.setTextColor(ContextCompat.getColor(context, R.color.black_))
-                tvPriceWallet.text = StringBuilder().append("- ").append("R").append(modal.amount)
+                tvPriceWallet.text = StringBuilder().append("- ").append("R ").append(modal.amount)
             }
             if (!TextUtils.isEmpty(modal.created_at)) {
                 tvData.text = StringBuilder().append(Utils.getDateDifferenceDetails(modal.created_at)).append(" ").append("ago")

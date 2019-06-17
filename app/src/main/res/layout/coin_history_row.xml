@@ -32,7 +32,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="@dimen/dp_10"
-                    android:src="@mipmap/wallet_g"
+                    android:src="@mipmap/balance"
                     android:contentDescription="@string/my_wallet" />
 
                 <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -81,6 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:textColor="@color/accept_offer"
+
                     android:textSize="@dimen/sp_18" />
             </LinearLayout>
         </LinearLayout>

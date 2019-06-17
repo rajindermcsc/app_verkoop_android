@@ -20,22 +20,46 @@ import kotlinx.android.synthetic.main.toolbar_category.*
 import retrofit2.Response
 import java.util.*
 
-
 class FullCategoriesActivity : AppCompatActivity(), FullCategoryAdapter.SelectedCategory, SubCategoryAdapter.SelectedSubcategory {
-    override fun subCategoryName(categoryId: Int,subCategoryName:String) {
-        val intent = Intent(this, CategoryDetailsActivity::class.java)
-        intent.putExtra(AppConstants.CATEGORY_ID, categoryId)
-        intent.putExtra(AppConstants.SUB_CATEGORY, subCategoryName)
-        intent.putExtra(AppConstants.TYPE, 1)
-        startActivityForResult(intent,2)
+    override fun subCategoryName(subCategoryId: Int, subCategoryName: String,categoryId:Int) {
+        when (categoryId) {
+            85 -> {
+                val intent = Intent(this, BuyCarsActivity::class.java)
+                startActivityForResult(intent, 2)
+            }
+            24 -> {
+                val intent = Intent(this, BuyPropertiesActivity::class.java)
+                startActivityForResult(intent, 2)
+            }
+            else -> {
+                val intent = Intent(this, CategoryDetailsActivity::class.java)
+                intent.putExtra(AppConstants.CATEGORY_ID, categoryId)
+                intent.putExtra(AppConstants.SUB_CATEGORY, subCategoryName)
+                intent.putExtra(AppConstants.TYPE, 1)
+                startActivityForResult(intent, 2)
+            }
+        }
     }
 
-    override fun categoryName(categoryId: Int,categoryName:String) {
-        val intent = Intent(this, CategoryDetailsActivity::class.java)
-        intent.putExtra(AppConstants.CATEGORY_ID, categoryId)
-        intent.putExtra(AppConstants.SUB_CATEGORY, categoryName)
-        intent.putExtra(AppConstants.TYPE, 0)
-        startActivityForResult(intent,2)
+    override fun categoryName(categoryId: Int, categoryName: String) {
+        when (categoryId) {
+            85 -> {
+                val intent = Intent(this, BuyCarsActivity::class.java)
+                startActivityForResult(intent, 2)
+            }
+            24 -> {
+                val intent = Intent(this, BuyPropertiesActivity::class.java)
+                startActivityForResult(intent, 2)
+            }
+            else -> {
+                val intent = Intent(this, CategoryDetailsActivity::class.java)
+                intent.putExtra(AppConstants.CATEGORY_ID, categoryId)
+                intent.putExtra(AppConstants.SUB_CATEGORY, categoryName)
+                intent.putExtra(AppConstants.TYPE, 0)
+                startActivityForResult(intent, 2)
+            }
+        }
+
     }
 
     private val categoryList = ArrayList<DataCategory>()
@@ -61,7 +85,7 @@ class FullCategoriesActivity : AppCompatActivity(), FullCategoryAdapter.Selected
         rvCategoryList.adapter = fullCategoryAdapter
         iv_left.setOnClickListener { onBackPressed() }
         ivFavourite.setOnClickListener {
-            val intent=Intent(this,FavouritesActivity::class.java)
+            val intent = Intent(this, FavouritesActivity::class.java)
             startActivity(intent)
         }
         etSearchFull.setOnClickListener {
@@ -72,20 +96,20 @@ class FullCategoriesActivity : AppCompatActivity(), FullCategoryAdapter.Selected
     }
 
     private fun callCategoriesApi() {
-        pvProgressCat.visibility=View.VISIBLE
+        pvProgressCat.visibility = View.VISIBLE
         ServiceHelper().categoriesService(
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
-                        pvProgressCat.visibility=View.GONE
+                        pvProgressCat.visibility = View.GONE
                         val categoriesResponse = response.body() as CategoriesResponse
-                        if(categoriesResponse.data!=null) {
+                        if (categoriesResponse.data != null) {
                             categoryList.addAll(categoriesResponse.data)
                             setData()
                         }
                     }
 
                     override fun onFailure(msg: String?) {
-                        pvProgressCat.visibility=View.GONE
+                        pvProgressCat.visibility = View.GONE
                         Utils.showSimpleMessage(this@FullCategoriesActivity, msg!!).show()
                     }
                 })
@@ -94,8 +118,8 @@ class FullCategoriesActivity : AppCompatActivity(), FullCategoryAdapter.Selected
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 2) {
             if (resultCode == Activity.RESULT_OK) {
-                val result = data!!.getIntExtra(AppConstants.TRANSACTION,0)
-                if(result==1){
+                val result = data!!.getIntExtra(AppConstants.TRANSACTION, 0)
+                if (result == 1) {
                     val returnIntent = Intent()
                     returnIntent.putExtra(AppConstants.TRANSACTION, result)
                     setResult(Activity.RESULT_OK, returnIntent)

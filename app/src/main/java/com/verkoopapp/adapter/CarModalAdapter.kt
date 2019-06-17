@@ -5,13 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.support.v7.widget.RecyclerView
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import com.verkoopapp.R
-import com.verkoopapp.activity.CarBrandActivity
 import com.verkoopapp.activity.CarModalActivity
 import com.verkoopapp.models.CarModelList
 import com.verkoopapp.models.City
@@ -82,6 +82,9 @@ class CarModalAdapter(private var context: Context, private val carBrand: String
             cbRegion.typeface = font
             cbRegion.isChecked = data.isSelected
             cbRegion.text = data.name
+            cbRegion.scaleX=1f
+            cbRegion.scaleY=1f
+            cbRegion.gravity = Gravity.LEFT or Gravity.CENTER
             cbRegion.setOnClickListener {
                 refreshList(adapterPosition)
                 val returnIntent = Intent()

@@ -1,6 +1,7 @@
 package com.verkoopapp.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -8,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import com.verkoopapp.R
+import com.verkoopapp.activity.ProductDetailsActivity
+import com.verkoopapp.activity.UserProfileActivity
 import com.verkoopapp.models.DataMyRating
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
@@ -56,6 +59,18 @@ inner class ViewHolder(override val containerView: View?):RecyclerView.ViewHolde
                     .placeholder(R.mipmap.post_placeholder)
                     .into(ivImageRate)
         }
+        llUserProfile.setOnClickListener {
+            val reportIntent = Intent(context, UserProfileActivity::class.java)
+            reportIntent.putExtra(AppConstants.USER_ID, data.user_id)
+            reportIntent.putExtra(AppConstants.USER_NAME, data.userName)
+            context.startActivity(reportIntent)
+        }
+        flItemImage.setOnClickListener {
+            val intent = Intent(context, ProductDetailsActivity::class.java)
+            intent.putExtra(AppConstants.ITEM_ID, data.item_id)
+            context.startActivity(intent)
+        }
+
     }
 }
 

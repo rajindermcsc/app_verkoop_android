@@ -279,5 +279,6 @@ data class VerifyNumberRequest(
 )
 data class VerifyOtpRequest(
     var otp: Int,
-    var user_id: Int
+    var user_id: Int,
+   var  mobile_no:String
 )

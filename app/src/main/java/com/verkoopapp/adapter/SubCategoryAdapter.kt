@@ -12,7 +12,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.sub_category.*
 
 
-class SubCategoryAdapter(private  var context: Context,private val subCategoryList: ArrayList<SubCategory>):RecyclerView.Adapter<SubCategoryAdapter.ViewHolder>(){
+class SubCategoryAdapter(private  var context: Context,private val subCategoryList: ArrayList<SubCategory>,private var categoryId:Int):RecyclerView.Adapter<SubCategoryAdapter.ViewHolder>(){
      lateinit var selectedSubcategory: SelectedSubcategory
     private val mInflater:LayoutInflater= LayoutInflater.from(context)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder{
@@ -34,12 +34,12 @@ class SubCategoryAdapter(private  var context: Context,private val subCategoryLi
         fun bind(subCategory: SubCategory) {
             tvSubCategory.text=subCategory.name
             tvSubCategory.setOnClickListener {
-                selectedSubcategory.subCategoryName(subCategory.id,subCategory.name)
+                selectedSubcategory.subCategoryName(subCategory.id,subCategory.name,categoryId)
             }
         }
 
     }
     interface SelectedSubcategory{
-        fun subCategoryName(categoryId:Int,subCategoryName:String)
+        fun subCategoryName(subCategoryId:Int,subCategoryName:String,categoryId:Int)
     }
 }

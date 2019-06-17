@@ -27,6 +27,9 @@ open class ChatInboxRealmResponse: RealmObject(){
      var offer_price: String?=null
      var item_price: String?=null
      var is_rate: Int?=0
+     var min_price: String?=null
+     var max_price: String?=null
+     var category_id: Int?=0
 }
 
 

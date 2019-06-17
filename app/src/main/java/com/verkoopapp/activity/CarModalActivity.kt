@@ -10,7 +10,6 @@ import com.verkoopapp.utils.AppConstants
 import kotlinx.android.synthetic.main.car_brand_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 
-
 class CarModalActivity:AppCompatActivity(){
     private var carModalLIst= ArrayList<CarModelList>()
     private var carBrand:String=""

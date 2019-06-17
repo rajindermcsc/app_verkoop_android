@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_14"
         android:gravity="center"
-        android:text="@string/scan_to_follow_me_on_verkoop"
+        android:text="@string/scan_to_transfer_verkoop_coins"
         android:textColor="@color/dark_black"
         android:textSize="@dimen/sp_18" />
 

@@ -24,6 +24,7 @@
             android:padding="@dimen/dp_8">
 
             <LinearLayout
+                android:id="@+id/llUserProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -117,6 +118,7 @@
                     </LinearLayout>
 
                     <FrameLayout
+                        android:id="@+id/flItemImage"
                         android:layout_width="@dimen/dp_60"
                         android:layout_height="@dimen/dp_60"
                         android:layout_gravity="end"
@@ -146,30 +148,7 @@
                 </LinearLayout>
 
             </LinearLayout>
-            <!--<LinearLayout
-                android:id="@+id/llAcceptOffer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginStart="@dimen/dp_70"
-                android:orientation="horizontal">
-                <com.verkoopapp.fonts.textView.GothicThinTextView
-                    android:id="@+id/tvStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_2"
-                    android:textSize="@dimen/sp_12"
-                    android:textColor="@color/white"
-                    android:layout_marginEnd="@dimen/dp_4"
-                    android:background="@color/colorPrimary"/>
-                <com.verkoopapp.fonts.textView.GothicThinTextView
-                    android:id="@+id/tvOfferDes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_2"
-                    android:textSize="@dimen/sp_12"
-                    android:textColor="@color/text_gray_"/>
-            </LinearLayout>-->
+
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

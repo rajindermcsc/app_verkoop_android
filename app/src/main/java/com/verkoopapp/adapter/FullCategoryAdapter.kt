@@ -38,7 +38,7 @@ class FullCategoryAdapter(private val context: Context, private var categoryList
         fun bind(modal: DataCategory) {
             val mManager = LinearLayoutManager(context)
             rvSubCategoriesName.layoutManager = mManager
-            val subCategoryAdapter = SubCategoryAdapter(context,modal.sub_category)
+            val subCategoryAdapter = SubCategoryAdapter(context,modal.sub_category,modal.id)
             rvSubCategoriesName.isNestedScrollingEnabled = false
             rvSubCategoriesName.adapter = subCategoryAdapter
             tvCategoryName.text = modal.name

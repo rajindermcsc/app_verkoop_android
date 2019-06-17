@@ -40,20 +40,20 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
     override fun removeFilter(remove: String, position: Int) {
         when {
             remove.equals("Condition :", ignoreCase = true) -> {
-                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, Utils.getPreferencesString(this, AppConstants.USER_ID), filterRequest!!.latitude, filterRequest!!.longitude, "", filterRequest!!.meet_up, filterRequest!!.min_price, filterRequest!!.max_price)
+                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, filterRequest!!.sort_no, filterRequest!!.latitude, filterRequest!!.longitude, "", filterRequest!!.meet_up, filterRequest!!.min_price, filterRequest!!.max_price)
                 getDetailsApi(filterRequest!!)
                 filterList.removeAt(position)
                 filterAdapter.notifyDataSetChanged()
 
             }
             remove.equals("Deal Option :", ignoreCase = true) -> {
-                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, Utils.getPreferencesString(this, AppConstants.USER_ID), filterRequest!!.latitude, filterRequest!!.longitude, filterRequest!!.item_type, "", filterRequest!!.min_price, filterRequest!!.max_price)
+                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, filterRequest!!.sort_no, filterRequest!!.latitude, filterRequest!!.longitude, filterRequest!!.item_type, "", filterRequest!!.min_price, filterRequest!!.max_price)
                 getDetailsApi(filterRequest!!)
                 filterList.removeAt(position)
                 filterAdapter.notifyDataSetChanged()
             }
             remove.equals("Price :", ignoreCase = true) -> {
-                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, Utils.getPreferencesString(this, AppConstants.USER_ID), filterRequest!!.latitude, filterRequest!!.longitude, filterRequest!!.item_type, filterRequest!!.meet_up, "", "")
+                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, filterRequest!!.sort_no, filterRequest!!.latitude, filterRequest!!.longitude, filterRequest!!.item_type, filterRequest!!.meet_up, "", "")
                 getDetailsApi(filterRequest!!)
                 filterList.removeAt(position)
                 filterAdapter.notifyDataSetChanged()

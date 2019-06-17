@@ -158,6 +158,14 @@ class ChatInboxAdapter(private val context: Context, private val chatInboxType: 
                 intent.putExtra(AppConstants.PRODUCT_URL, data.url)
                 intent.putExtra(AppConstants.PRODUCT_PRICE,data.item_price.toDouble())
                 intent.putExtra(AppConstants.OFFERED_PRICE,data.offer_price.toDouble())
+                if(!TextUtils.isEmpty(data.min_price)){
+                intent.putExtra(AppConstants.MIN_PRICE,data.min_price!!.toDouble())
+            }
+                if(!TextUtils.isEmpty(data.max_price)){
+                    intent.putExtra(AppConstants.MAX_PRICE,data.max_price!!.toDouble())
+                }
+
+                intent.putExtra(AppConstants.CATEGORY_ID,data.category_id)
                 intent.putExtra(AppConstants.IS_SOLD,data.is_sold)
                 intent.putExtra(AppConstants.PRODUCT_NAME, data.item_name)
                 intent.putExtra(AppConstants.IS_RATE, data.is_rate)

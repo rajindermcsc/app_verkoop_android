@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.support.multidex.MultiDex
 import android.util.Log
+import com.crashlytics.android.Crashlytics
 import com.github.nkzawa.socketio.client.IO
 import com.github.nkzawa.socketio.client.Socket
 import com.google.gson.Gson
@@ -11,15 +12,16 @@ import com.verkoopapp.models.SocketCheckConnectionEvent
 import com.verkoopapp.models.SocketOnReceiveEvent
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Loading
+import io.branch.referral.Branch
+import io.fabric.sdk.android.Fabric
 import io.realm.Realm
 import io.realm.RealmConfiguration
-import org.acra.ACRA
-import org.acra.ReportingInteractionMode
-import org.acra.annotation.ReportsCrashes
+
 import org.greenrobot.eventbus.EventBus
 
 
-@ReportsCrashes(mailTo = "anmol@mobilecoderz.com", mode = ReportingInteractionMode.TOAST, resToastText = R.string.application_crash)// my email here
+//
+// @ReportsCrashes(mailTo = "anmol@mobilecoderz.com", mode = ReportingInteractionMode.TOAST, resToastText = R.string.application_crash)// my email here
 
 class VerkoopApplication : Application() {
      private var loadDialog: Loading? = null
@@ -34,8 +36,10 @@ class VerkoopApplication : Application() {
      override fun onCreate() {
          super.onCreate()
          instance = this
-         initSocket()
+         Fabric.with(this, Crashlytics())
+         Branch.getAutoInstance(this)
          Realm.init(this)
+         initSocket()
          val config = RealmConfiguration.Builder()
                  .deleteRealmIfMigrationNeeded()
                  .name("verkoop.db")
@@ -47,7 +51,7 @@ class VerkoopApplication : Application() {
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
         MultiDex.install(this)
-        ACRA.init(this)
+     //   ACRA.init(this)
 
     }
     companion object {

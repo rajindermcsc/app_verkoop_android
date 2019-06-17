@@ -61,9 +61,12 @@ class ChatActivity : AppCompatActivity() {
     private var itemId = 0
     private var isSold = 0
     private var isRate = 0
+    private var categoryId = 0
     private var userName = ""
     private var profileUrl = ""
     private var price: Double = 0.0
+    private var minPrice: Double = 0.0
+    private var maxPrice: Double = 0.0
     private var productUrl = ""
     private var productName = ""
     private lateinit var chatAdapter: ChatAdapter
@@ -82,7 +85,10 @@ class ChatActivity : AppCompatActivity() {
         setContentView(R.layout.chat_activity)
         senderId = intent.getIntExtra(AppConstants.USER_ID, 0)/*Receiver id*/
         itemId = intent.getIntExtra(AppConstants.ITEM_ID, 0)
+        categoryId = intent.getIntExtra(AppConstants.CATEGORY_ID, 0)
         price = intent.getDoubleExtra(AppConstants.PRODUCT_PRICE, 0.0)
+        minPrice = intent.getDoubleExtra(AppConstants.MIN_PRICE, 0.0)
+        maxPrice = intent.getDoubleExtra(AppConstants.MAX_PRICE, 0.0)
         userName = intent.getStringExtra(AppConstants.USER_NAME)
         profileUrl = intent.getStringExtra(AppConstants.PROFILE_URL)
         productUrl = intent.getStringExtra(AppConstants.PRODUCT_URL)
@@ -354,14 +360,24 @@ class ChatActivity : AppCompatActivity() {
         tvMakeOffer.setOnClickListener {
             if (tvMakeOffer.text.toString().equals(getString(R.string.make_offer), ignoreCase = true)) {
                 /*0=Make an offer*/
-                makeOffer(0, price,0.0)
+                if(categoryId==24 ||categoryId==85){
+                    makeOffer(1,0, maxPrice,0.0,minPrice)
+                }else{
+                    makeOffer(0,0, price,0.0,0.0)
+                }
+
             } else if (tvMakeOffer.text.toString().equals(getString(R.string.accept_offer), ignoreCase = true)) {
                 val lastOffer = dbHelper!!.getOfferPriceLast(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), senderId, itemId, 2)
                 acceptOfferDialogBox(lastOffer!!.message!!)
             } else if (tvMakeOffer.text.toString().equals(getString(R.string.edit_offer), ignoreCase = true)) {
                 /*1=Edit an offer*/
                 val lastOffer = dbHelper!!.getOfferPriceLast(Utils.getPreferencesString(this@ChatActivity, AppConstants.USER_ID).toInt(), senderId, itemId, 2)
-                makeOffer(1,price,lastOffer!!.message!!.toDouble())
+                if(categoryId==24 ||categoryId==85){
+                    makeOffer(1,1,maxPrice,lastOffer!!.message!!.toDouble(),minPrice)
+                }else{
+                    makeOffer(0,1,price,lastOffer!!.message!!.toDouble(),0.0)
+                }
+
             }
         }
 
@@ -602,8 +618,8 @@ class ChatActivity : AppCompatActivity() {
     }
 
 
-    private fun makeOffer(type: Int, originalPrice: Double,offeredPrice:Double) {
-        createOfferDialog = CreatOfferDialog(type,offeredPrice,originalPrice, this, object : MakeOfferListener {
+    private fun makeOffer(productType:Int,type: Int, originalPrice: Double,offeredPrice:Double,minPrice:Double) {
+        createOfferDialog = CreatOfferDialog(productType,minPrice,type,offeredPrice,originalPrice, this, object : MakeOfferListener {
             override fun makeOfferClick(offerPrice: Double) {
                 if (socket!!.connected()) {
                     if (type != 1) {

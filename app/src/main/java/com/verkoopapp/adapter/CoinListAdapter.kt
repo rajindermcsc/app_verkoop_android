@@ -40,7 +40,7 @@ class CoinListAdapter(private val context: Context, private val rvCoinList: Int,
         fun bind(modal: CoinPlan) {
             llCoinParent.layoutParams.height =width
             tvCoins.text=modal.coin.toString()
-            tvPriceCoins.text= StringBuilder().append(context.getString(R.string.dollar)).append(modal.amount)
+            tvPriceCoins.text= StringBuilder().append("R ").append(modal.amount)
             itemView.setOnClickListener {
             purchaseCoinCallBack.purchaseCoin(modal.id,adapterPosition,modal.amount,modal.coin)
             }

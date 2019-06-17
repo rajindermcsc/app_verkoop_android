@@ -52,6 +52,8 @@ object AppConstants{
      const val PRODUCT_URL = "PRODUCT_URL"
      const val PRODUCT_PRICE = "PRODUCT_PRICE"
      const val OFFERED_PRICE = "OFFERED_PRICE"
+     const val MIN_PRICE = "MIN_PRICE"
+     const val MAX_PRICE = "MAX_PRICE"
      const val PRODUCT_NAME = "PRODUCT_NAME"
      const val IS_MY_PRODUCT = "IS_MY_PRODUCT"
      const val IS_SOLD = "IS_SOLD"

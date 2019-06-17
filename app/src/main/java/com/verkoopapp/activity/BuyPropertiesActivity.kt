@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import com.verkoopapp.R
@@ -17,7 +16,6 @@ import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.buy_cars_activity.*
-import kotlinx.android.synthetic.main.home_fragment.*
 import kotlinx.android.synthetic.main.toolbar_cars_properties.*
 import retrofit2.Response
 
@@ -75,6 +73,10 @@ class BuyPropertiesActivity : AppCompatActivity() {
         tvSellCar.setOnClickListener {
             val intent = Intent(this, GalleryActivity::class.java)
             startActivityForResult(intent, 2)
+        }
+        ivChatCar.setOnClickListener {
+            val intent = Intent(this, ChatInboxActivity::class.java)
+            startActivity(intent)
         }
     }
 
