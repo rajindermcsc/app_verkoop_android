@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.walk_through_activity.*
 class WalkThroughActivity:AppCompatActivity(){
     private val mImageResources = intArrayOf(R.mipmap.walkthrough, R.mipmap.walkthrough_2, R.mipmap.walkthrough_3)
     private var vpPosition:Int=0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.walk_through_activity)

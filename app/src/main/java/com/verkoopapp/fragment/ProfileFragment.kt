@@ -174,13 +174,17 @@ class ProfileFragment : BaseFragment() {
                         }
                         homeActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                         val myProfileResponse = response.body() as MyProfileResponse
+
                         if (myProfileResponse.data != null) {
-                            rvPostsList.visibility=View.VISIBLE
-                            itemsList.clear()
-                            itemsList = myProfileResponse.data.items
-                            profileAdapter.profileDetail(myProfileResponse.data)
-                            profileAdapter.setData(itemsList)
-                            profileAdapter.notifyDataSetChanged()
+                            try {
+                                rvPostsList.visibility=View.VISIBLE
+                                itemsList.clear()
+                                itemsList = myProfileResponse.data.items
+                                profileAdapter.profileDetail(myProfileResponse.data)
+                                profileAdapter.setData(itemsList)
+                                profileAdapter.notifyDataSetChanged()
+                            } catch (e: Exception) {
+                            }
                         } else {
 //                            Utils.showSimpleMessage(homeActivity, myProfileResponse.message).show()
                         }

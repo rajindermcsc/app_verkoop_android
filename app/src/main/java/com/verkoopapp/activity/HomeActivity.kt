@@ -108,8 +108,6 @@ class HomeActivity : AppCompatActivity() {
                     bottomTabLayout.selectTab(R.id.menu_button3)
                     viewPager.currentItem = 3
                     profileFragment!!.refreshUI(0)
-
-
                 }
                 viewPager.currentItem == 1 -> {
                     bottomTabLayout.selectTab(R.id.menu_button3)

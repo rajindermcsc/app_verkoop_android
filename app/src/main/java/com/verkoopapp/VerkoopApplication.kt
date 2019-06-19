@@ -39,6 +39,11 @@ class VerkoopApplication : Application() {
          Fabric.with(this, Crashlytics())
          Branch.getAutoInstance(this)
          Realm.init(this)
+         // Branch logging for debugging
+         Branch.enableDebugMode()
+
+         // Branch object initialization
+         Branch.getAutoInstance(this)
          initSocket()
          val config = RealmConfiguration.Builder()
                  .deleteRealmIfMigrationNeeded()

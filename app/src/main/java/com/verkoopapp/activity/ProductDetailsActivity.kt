@@ -34,6 +34,10 @@ import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.offlinechatdata.DbHelper
 import com.verkoopapp.utils.*
+import io.branch.indexing.BranchUniversalObject
+import io.branch.referral.util.ContentMetadata
+import io.branch.referral.util.LinkProperties
+import kotlinx.android.synthetic.main.abc_activity_chooser_view.*
 import kotlinx.android.synthetic.main.item_details_activity.*
 import kotlinx.android.synthetic.main.toolbar_product_details.*
 import org.json.JSONException
@@ -60,6 +64,7 @@ class ProductDetailsActivity : AppCompatActivity() {
     private var profilePic: String = ""
     private var price: Double = 0.0
     private var productName: String = ""
+    private var productDescription: String = ""
     private var productImage: String = ""
     private var dbHelper: DbHelper? = null
     private var dataResponse: DataItems? = null
@@ -90,25 +95,8 @@ class ProductDetailsActivity : AppCompatActivity() {
         } else {
             Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
         }
-        llChat.setOnClickListener {
-            if (userId != Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()) {
-                val intent = Intent(this, ChatActivity::class.java)
-                intent.putExtra(AppConstants.USER_ID, userId)
-                intent.putExtra(AppConstants.USER_NAME, userName)
-                intent.putExtra(AppConstants.ITEM_ID, itemId)
-                intent.putExtra(AppConstants.PROFILE_URL, profilePic)
-                intent.putExtra(AppConstants.PRODUCT_URL, productImage)
-                intent.putExtra(AppConstants.PRODUCT_PRICE, price)
-               //intent.putExtra(AppConstants.OFFERED_PRICE, Offerprice)
-                intent.putExtra(AppConstants.IS_SOLD, isSoldItem)
-                intent.putExtra(AppConstants.PRODUCT_NAME, productName)
-                startActivity(intent)
-            } else {
-                val intent = Intent(this, ChatInboxActivity::class.java)
-                intent.putExtra(AppConstants.ITEM_ID, itemId)
-                startActivity(intent)
-            }
-        }
+        setClickData()
+
        /* scrollView1.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
             if (scrollY > oldScrollY) {
                val animation =  TranslateAnimation(0f,0f,0f,1000f)
@@ -123,6 +111,31 @@ class ProductDetailsActivity : AppCompatActivity() {
                 sellCardItem.visibility = View.VISIBLE
             }
         })*/
+    }
+
+    private fun setClickData() {
+        llChat.setOnClickListener {
+            if (userId != Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()) {
+                val intent = Intent(this, ChatActivity::class.java)
+                intent.putExtra(AppConstants.USER_ID, userId)
+                intent.putExtra(AppConstants.USER_NAME, userName)
+                intent.putExtra(AppConstants.ITEM_ID, itemId)
+                intent.putExtra(AppConstants.PROFILE_URL, profilePic)
+                intent.putExtra(AppConstants.PRODUCT_URL, productImage)
+                intent.putExtra(AppConstants.PRODUCT_PRICE, price)
+                //intent.putExtra(AppConstants.OFFERED_PRICE, Offerprice)
+                intent.putExtra(AppConstants.IS_SOLD, isSoldItem)
+                intent.putExtra(AppConstants.PRODUCT_NAME, productName)
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, ChatInboxActivity::class.java)
+                intent.putExtra(AppConstants.ITEM_ID, itemId)
+                startActivity(intent)
+            }
+        }
+        tvShare.setOnClickListener {
+            sharedDetails()
+        }
     }
 
     private fun setCommentAdapter() {
@@ -239,6 +252,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         tvProductName.text = data.name
         price = data.price
         productName = data.name
+        productDescription=data.description
         if(data.items_image.isNotEmpty()){
             productImage = data.items_image[0].url
         }
@@ -663,4 +677,32 @@ class ProductDetailsActivity : AppCompatActivity() {
         })
     }
 
+    private fun sharedDetails() {
+        val buo = BranchUniversalObject()
+                .setCanonicalIdentifier("content/12345")
+                .setTitle(productName)
+                .setContentDescription(productDescription)
+                .setContentImageUrl(AppConstants.IMAGE_URL+productImage)
+                .setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
+                .setLocalIndexMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
+                .setContentMetadata(ContentMetadata()
+                        .addCustomMetadata("product_id", itemId.toString()))
+        val lp = LinkProperties()
+                .setChannel("sms")
+                .setFeature("sharing")
+
+        buo.generateShortUrl(this, lp) { url, error ->
+            if (error == null) {
+                val sharingIntent = Intent(Intent.ACTION_SEND)
+                sharingIntent.type = "text/html"
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Verkoop")
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, url)
+                startActivity(Intent.createChooser(sharingIntent, "Share using"))
+                Log.i("BRANCH SDK", "got my Branch link to share:"+ url)
+              //  imageDialogbox(url)
+            }
+        }
+
+    }
 }
+
