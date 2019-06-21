@@ -36,14 +36,13 @@ class MyWalletActivity : AppCompatActivity() {
     private val currency = "ZAR"
     private val requestID = UUID.randomUUID().toString()
     private val transactionType = WirecardTransactionType.PURCHASE
-    val amount = BigDecimal(10)
+    var amount:BigDecimal?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.my_wallet_activity)
         setAdapter()
         setData()
-        setPayment()
         if (Utils.isOnline(this)) {
                 getWalletHistoryApi()
         } else {
@@ -55,6 +54,7 @@ class MyWalletActivity : AppCompatActivity() {
             // handle server response
             if (paymentResponse.transactionState == TransactionState.SUCCESS) {
                 // handle successful transaction
+                getWalletHistoryApi()
                 Log.e("<<success>>",paymentResponse.authorizationCode)
             } else {
                 Log.e("<<successElse>>",paymentResponse.authorizationCode)
@@ -85,7 +85,8 @@ class MyWalletActivity : AppCompatActivity() {
             //...
         }
     }
-    private fun setPayment() {
+    private fun setPayment(amountTotal:Int) {
+        amount=BigDecimal(amountTotal)
         val signature = SignatureHelper.generateSignature(timestamp, merchantID, requestID, "purchase", amount, currency, secretKey)
         wirecardCardPayment =  WirecardCardPayment(signature, timestamp, requestID,merchantID, transactionType, amount, currency)
         val environment = WirecardEnvironment.TEST.value
@@ -95,6 +96,11 @@ class MyWalletActivity : AppCompatActivity() {
         } catch (exception: WirecardException) {
             //device is rooted
         }
+        val style = PaymentPageStyle()
+        style.payButtonBackgroundResourceId = R.color.colorPrimary
+        style.toolbarResourceId =  R.color.colorPrimary
+        style.inputLabelTextColor=R.color.dark_black
+        wirecardClient.makePayment(wirecardCardPayment,style,wirecardResponseListener)
 
     }
 
@@ -109,13 +115,8 @@ class MyWalletActivity : AppCompatActivity() {
         ivLeftLocation.setOnClickListener { onBackPressed() }
         tvHeaderLoc.text = getString(R.string.my_wallet)
         tvAddMoney.setOnClickListener {
-            val style = PaymentPageStyle()
-            style.payButtonBackgroundResourceId = R.color.colorPrimary
-            style.toolbarResourceId =  R.color.colorPrimary
-            style.inputLabelTextColor=R.color.dark_black
-            wirecardClient.makePayment(wirecardCardPayment,style,wirecardResponseListener)
-          //  val intent = Intent(this, AddMoneyDialogActivity::class.java)
-         //   startActivityForResult(intent,2)
+            val intent = Intent(this, AddMoneyDialogActivity::class.java)
+            startActivityForResult(intent,2)
         }
     }
 
@@ -123,9 +124,11 @@ class MyWalletActivity : AppCompatActivity() {
         if (requestCode == 2) {
             if (resultCode == Activity.RESULT_OK) {
                 val result = data!!.getStringExtra(AppConstants.INTENT_RESULT)
+                val amountMoney = data.getIntExtra(AppConstants.AMOUNT,0)
                 if (Utils.isOnline(this)) {
                     Log.e("activityResult","success")
-                    getWalletHistoryApi()
+                    setPayment(amountMoney)
+
                 } else {
                     Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
                 }

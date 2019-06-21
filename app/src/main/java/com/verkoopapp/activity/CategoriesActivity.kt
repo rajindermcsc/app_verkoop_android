@@ -26,10 +26,14 @@ import retrofit2.Response
 class CategoriesActivity : AppCompatActivity(), CategoryAdapter.SelectedCategory {
     var selectionCount: Int = 0
     var doubleBackToExitPressedOnce = false
+    private var id = 0
+    private var type = 0
     private val categoryList = ArrayList<DataCategory>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.categories_screen)
+        type = intent.getIntExtra(AppConstants.TYPE, 0)
+        id = intent.getIntExtra(AppConstants.ID, 0)
         if (Utils.isOnline(this)) {
             callCategoriesApi()
         } else {
@@ -81,6 +85,8 @@ class CategoriesActivity : AppCompatActivity(), CategoryAdapter.SelectedCategory
         tvSkip.setOnClickListener {
             Utils.savePreferencesString(this, AppConstants.COMING_FROM, "category_screen")
             val intent = Intent(this@CategoriesActivity, PickOptionActivity::class.java)
+            intent.putExtra(AppConstants.ID, id)
+            intent.putExtra(AppConstants.TYPE, type)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
@@ -191,6 +197,8 @@ class CategoriesActivity : AppCompatActivity(), CategoryAdapter.SelectedCategory
                         Utils.showToast(this@CategoriesActivity,response.message)
                         Utils.savePreferencesString(this@CategoriesActivity, AppConstants.COMING_FROM, "category_screen")
                         val intent = Intent(this@CategoriesActivity, PickOptionActivity::class.java)
+                        intent.putExtra(AppConstants.ID, id)
+                        intent.putExtra(AppConstants.TYPE, type)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                         startActivity(intent)
                     }

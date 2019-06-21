@@ -1091,7 +1091,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
     }
 
     private fun shareDialog() {
-        val shareDialog = ShareDialog(this, "", "", object : SharePostListener {
+        val shareDialog = ShareProductDialog(this, "", "", object : SharePostListener {
             override fun onWhatAppClick() {
                 Utils.showToast(this@AddDetailsActivity, "whatApp")
 

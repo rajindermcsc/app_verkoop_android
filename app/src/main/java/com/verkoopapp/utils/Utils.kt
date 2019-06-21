@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.net.ConnectivityManager
@@ -606,4 +607,18 @@ object Utils {
         }
         return timeFormat.format(dateServ)
     }
+
+     fun appInstalledOrNot(context:Context,uri: String): Boolean {
+        val pm = context.packageManager
+        val appInstalled: Boolean
+        appInstalled = try {
+            pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES)
+            true
+        } catch (e: PackageManager.NameNotFoundException) {
+            false
+        }
+        return appInstalled
+    }
+
+
 }

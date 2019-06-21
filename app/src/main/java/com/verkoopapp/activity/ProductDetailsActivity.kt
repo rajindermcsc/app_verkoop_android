@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.content.ContextCompat
-import android.support.v4.widget.NestedScrollView
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
@@ -16,9 +15,10 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
-import android.view.animation.TranslateAnimation
 import com.daimajia.slider.library.SliderTypes.BaseSliderView
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView
+import com.facebook.share.model.ShareLinkContent
+import com.facebook.share.widget.ShareDialog
 import com.github.nkzawa.socketio.client.Ack
 import com.github.nkzawa.socketio.client.Socket
 import com.google.gson.Gson
@@ -37,12 +37,12 @@ import com.verkoopapp.utils.*
 import io.branch.indexing.BranchUniversalObject
 import io.branch.referral.util.ContentMetadata
 import io.branch.referral.util.LinkProperties
-import kotlinx.android.synthetic.main.abc_activity_chooser_view.*
 import kotlinx.android.synthetic.main.item_details_activity.*
 import kotlinx.android.synthetic.main.toolbar_product_details.*
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Response
+import java.util.*
 
 class ProductDetailsActivity : AppCompatActivity() {
     private val socket: Socket? = VerkoopApplication.getAppSocket()
@@ -68,14 +68,16 @@ class ProductDetailsActivity : AppCompatActivity() {
     private var productImage: String = ""
     private var dbHelper: DbHelper? = null
     private var dataResponse: DataItems? = null
+    private var shareDialogFacebook :ShareDialog?=null
 
     private lateinit var commentListAdapter: CommentListAdapter
     private lateinit var shareDialog: DeleteCommentDialog
-    private  var createOfferDialog: CreatOfferDialog?=null
+    private var createOfferDialog: CreatOfferDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.item_details_activity)
+        shareDialogFacebook =  ShareDialog(this)
         initKeyBoardListener()
         dbHelper = DbHelper()
         llBuying.visibility = View.GONE
@@ -97,23 +99,35 @@ class ProductDetailsActivity : AppCompatActivity() {
         }
         setClickData()
 
-       /* scrollView1.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-            if (scrollY > oldScrollY) {
-               val animation =  TranslateAnimation(0f,0f,0f,1000f)
-                animation.duration = 1000
-                sellCardItem.startAnimation(animation)
-                sellCardItem.visibility = View.GONE
+        /* scrollView1.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+             if (scrollY > oldScrollY) {
+                val animation =  TranslateAnimation(0f,0f,0f,1000f)
+                 animation.duration = 1000
+                 sellCardItem.startAnimation(animation)
+                 sellCardItem.visibility = View.GONE
 
-            } else {
-                val animation =  TranslateAnimation(0f,0f,1000f,0f)
-                animation.duration = 500
-                sellCardItem.startAnimation(animation)
-                sellCardItem.visibility = View.VISIBLE
-            }
-        })*/
+             } else {
+                 val animation =  TranslateAnimation(0f,0f,1000f,0f)
+                 animation.duration = 500
+                 sellCardItem.startAnimation(animation)
+                 sellCardItem.visibility = View.VISIBLE
+             }
+         })*/
     }
 
     private fun setClickData() {
+        ivWhatAppShare.setOnClickListener {
+            val installed = Utils.appInstalledOrNot(this,"com.whatsapp")
+            if (installed) {
+                sharedDetails(2)/*WhatsApp Share*/
+            } else {
+                Utils.showSimpleMessage(this,getString(R.string.not_installed)).show()
+
+            }
+        }
+        tvFacebookShare.setOnClickListener {
+            sharedDetails(1)/*facebook Share*/
+        }
         llChat.setOnClickListener {
             if (userId != Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()) {
                 val intent = Intent(this, ChatActivity::class.java)
@@ -134,7 +148,7 @@ class ProductDetailsActivity : AppCompatActivity() {
             }
         }
         tvShare.setOnClickListener {
-            sharedDetails()
+            sharedDetails(0)/*open Share*/
         }
     }
 
@@ -145,7 +159,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         rvPostCommentList.adapter = commentListAdapter
     }
 
-    private fun setData( data: DataItems) {
+    private fun setData(data: DataItems) {
         dataResponse = data
         itemId = data.id
         userId = data.user_id
@@ -252,8 +266,8 @@ class ProductDetailsActivity : AppCompatActivity() {
         tvProductName.text = data.name
         price = data.price
         productName = data.name
-        productDescription=data.description
-        if(data.items_image.isNotEmpty()){
+        productDescription = data.description
+        if (data.items_image.isNotEmpty()) {
             productImage = data.items_image[0].url
         }
         tvLikes.text = data.items_like_count.toString()
@@ -281,7 +295,7 @@ class ProductDetailsActivity : AppCompatActivity() {
                 tvCarBrand.text = StringBuilder().append(": ").append(data.additional_info!!.brand_name)
                 tvCarType.text = StringBuilder().append(": ").append(data.additional_info!!.car_type)
                 tvCarLocation.text = StringBuilder().append(": ").append(data.additional_info!!.location)
-                if(!TextUtils.isEmpty(data.additional_info!!.model_name)) {
+                if (!TextUtils.isEmpty(data.additional_info!!.model_name)) {
                     tvCarModal.text = StringBuilder().append(": ").append(data.additional_info!!.model_name)
                 }
                 if (data.additional_info!!.direct_owner == 1) {
@@ -296,7 +310,7 @@ class ProductDetailsActivity : AppCompatActivity() {
                 }
             }
 
-        } else if (data.type == 2||data.type == 3) {
+        } else if (data.type == 2 || data.type == 3) {
             tvPrice.text = StringBuilder().append(": ").append(getString(R.string.dollar)).append(data.additional_info!!.min_price).append(" - ").append(getString(R.string.dollar)).append(data.additional_info!!.max_price)
             tvType.visibility = View.GONE
             llPropertyDetails.visibility = View.VISIBLE
@@ -310,21 +324,21 @@ class ProductDetailsActivity : AppCompatActivity() {
                 tvZone.text = StringBuilder().append(": ").append(data.additional_info!!.location)
                 tvArea.text = StringBuilder().append(": ").append(data.additional_info!!.city)
                 tvPropertyType.text = StringBuilder().append(": ").append(data.additional_info!!.property_type)
-                if(data.additional_info!!.parking_type==1){
+                if (data.additional_info!!.parking_type == 1) {
                     tvParking.text = StringBuilder().append(": ").append(getString(R.string.parking))
-                }else{
+                } else {
                     tvParking.text = StringBuilder().append(": ").append(getString(R.string.garage))
                 }
-                if(data.type == 3){
-                    llFurnish.visibility=View.VISIBLE
-                    if(data.additional_info!!.furnished==1){
+                if (data.type == 3) {
+                    llFurnish.visibility = View.VISIBLE
+                    if (data.additional_info!!.furnished == 1) {
                         tvFurnished.text = StringBuilder().append(": ").append(getString(R.string.yes))
-                    }else{
+                    } else {
                         tvFurnished.text = StringBuilder().append(": ").append(getString(R.string.no))
                     }
 
-                }else{
-                    llFurnish.visibility=View.GONE
+                } else {
+                    llFurnish.visibility = View.GONE
                 }
             }
         } else {
@@ -339,24 +353,24 @@ class ProductDetailsActivity : AppCompatActivity() {
         } else {
             tvBuying.text = getString(R.string.view_offer)
         }
-        if(data.make_offer&&data.user_id==Utils.getPreferencesString(this,AppConstants.USER_ID).toInt()){
+        if (data.make_offer && data.user_id == Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()) {
             tvAll.text = StringBuilder().append("View Chats").append("[").append(data.chat_count).append("]")
-        }else if(data.make_offer&&data.user_id!=Utils.getPreferencesString(this,AppConstants.USER_ID).toInt()){
+        } else if (data.make_offer && data.user_id != Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()) {
             tvAll.text = StringBuilder().append("View Chats").append("[").append(data.message_count).append("]")
         }
 
         llBuying.setOnClickListener {
-            if(data.type==1||data.type==2||data.type==3) {
+            if (data.type == 1 || data.type == 2 || data.type == 3) {
                 if (!data.make_offer) {
-                    makeOffer(1,0, data.price, 0.0,data.additional_info!!.min_price)
+                    makeOffer(1, 0, data.price, 0.0, data.additional_info!!.min_price)
                 } else {
-                    makeOffer(1,1, data.price, data.offer_price,data.additional_info!!.min_price)
+                    makeOffer(1, 1, data.price, data.offer_price, data.additional_info!!.min_price)
                 }
-            }else{
+            } else {
                 if (!data.make_offer) {
-                    makeOffer(0,0, data.price, 0.0,0.0)
+                    makeOffer(0, 0, data.price, 0.0, 0.0)
                 } else {
-                    makeOffer(0,1, data.price, data.offer_price,0.0)
+                    makeOffer(0, 1, data.price, data.offer_price, 0.0)
                 }
             }
         }
@@ -388,8 +402,7 @@ class ProductDetailsActivity : AppCompatActivity() {
             reportIntent.putExtra(AppConstants.ITEM_ID, itemId)
             startActivity(reportIntent)
         } else if (item.title.equals(getString(R.string.share), ignoreCase = true)) {
-            sharePost()
-
+            sharedDetails(0)/*open Share*/
         } else if (item.title.equals(getString(R.string.mark_sold), ignoreCase = true)) {
             marksSoldDialogBox()
 
@@ -505,7 +518,7 @@ class ProductDetailsActivity : AppCompatActivity() {
                             /*for (i in detailsResponse.data.items_image.indices) {
                                 imageURLLIst.add(detailsResponse.data.items_image[i].url)
                             }*/
-                            setData( detailsResponse.data)
+                            setData(detailsResponse.data)
                         } else {
                             Utils.showSimpleMessage(this@ProductDetailsActivity, detailsResponse.message).show()
                         }
@@ -567,8 +580,8 @@ class ProductDetailsActivity : AppCompatActivity() {
         }
     }
 
-    private fun makeOffer(productType:Int,type:Int,price: Double,offeredPrice:Double,minPrice:Double) {
-        createOfferDialog = CreatOfferDialog(productType,minPrice,type,offeredPrice,price, this, object : MakeOfferListener {
+    private fun makeOffer(productType: Int, type: Int, price: Double, offeredPrice: Double, minPrice: Double) {
+        createOfferDialog = CreatOfferDialog(productType, minPrice, type, offeredPrice, price, this, object : MakeOfferListener {
             override fun makeOfferClick(offerPrice: Double) {
                 // Utils.showToast(this@ProductDetailsActivity,offerPrice.toString())
                 makeOfferEvent(offerPrice)
@@ -576,7 +589,7 @@ class ProductDetailsActivity : AppCompatActivity() {
 
         })
         createOfferDialog!!.show()
-        createOfferDialog!!.showDialog(0,this@ProductDetailsActivity)
+        createOfferDialog!!.showDialog(0, this@ProductDetailsActivity)
     }
 
     private fun makeOfferEvent(Offerprice: Double) {
@@ -658,14 +671,14 @@ class ProductDetailsActivity : AppCompatActivity() {
                 if (lastVisibleDecorViewHeight != 0) {
                     if (lastVisibleDecorViewHeight > visibleDecorViewHeight + MIN_KEYBOARD_HEIGHT_PX) {
                         Log.e("Pasha", "SHOW")
-                        if(createOfferDialog!=null) {
-                            createOfferDialog!!.showDialog(1,this@ProductDetailsActivity)
+                        if (createOfferDialog != null) {
+                            createOfferDialog!!.showDialog(1, this@ProductDetailsActivity)
                         }
 
                     } else if (lastVisibleDecorViewHeight + MIN_KEYBOARD_HEIGHT_PX < visibleDecorViewHeight) {
                         Log.e("Pasha", "HIDE")
-                        if(createOfferDialog!=null) {
-                            createOfferDialog!!.showDialog(0,this@ProductDetailsActivity)
+                        if (createOfferDialog != null) {
+                            createOfferDialog!!.showDialog(0, this@ProductDetailsActivity)
                         }
 
                     }
@@ -677,32 +690,53 @@ class ProductDetailsActivity : AppCompatActivity() {
         })
     }
 
-    private fun sharedDetails() {
+    private fun sharedDetails(type: Int) {
+
         val buo = BranchUniversalObject()
                 .setCanonicalIdentifier("content/12345")
+                //.setCanonicalIdentifier("content/12345")
                 .setTitle(productName)
                 .setContentDescription(productDescription)
-                .setContentImageUrl(AppConstants.IMAGE_URL+productImage)
+                .setContentImageUrl(AppConstants.IMAGE_URL + productImage)
                 .setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
                 .setLocalIndexMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
                 .setContentMetadata(ContentMetadata()
-                        .addCustomMetadata("product_id", itemId.toString()))
+                        .addCustomMetadata("product_id", itemId.toString())
+                        .addCustomMetadata("type", 1.toString()))
         val lp = LinkProperties()
                 .setChannel("sms")
                 .setFeature("sharing")
 
         buo.generateShortUrl(this, lp) { url, error ->
             if (error == null) {
-                val sharingIntent = Intent(Intent.ACTION_SEND)
-                sharingIntent.type = "text/html"
-                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Verkoop")
-                sharingIntent.putExtra(Intent.EXTRA_TEXT, url)
-                startActivity(Intent.createChooser(sharingIntent, "Share using"))
-                Log.i("BRANCH SDK", "got my Branch link to share:"+ url)
-              //  imageDialogbox(url)
+                when (type) {
+                    1 -> faceBookShareDialog(url)
+                    2 -> {
+                        val sendIntent = Intent("android.intent.action.MAIN")
+                        sendIntent.action = Intent.ACTION_SEND
+                        sendIntent.type = "text/plain"
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, url)
+                        sendIntent.`package` = "com.whatsapp"
+                        startActivity(sendIntent)
+                    }
+                    else -> {
+                        val sharingIntent = Intent(Intent.ACTION_SEND)
+                        sharingIntent.type = "text/html"
+                        sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Verkoop")
+                        sharingIntent.putExtra(Intent.EXTRA_TEXT, url)
+                        startActivity(Intent.createChooser(sharingIntent, "Share using"))
+                    }
+                }
             }
         }
 
+    }
+
+    private fun faceBookShareDialog(url: String?) {
+        val content =  ShareLinkContent.Builder()
+        .setContentUrl(Uri.parse(url))
+                .build()
+        shareDialogFacebook!!.show(content)
     }
 }
 

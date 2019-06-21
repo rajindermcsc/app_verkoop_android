@@ -10,10 +10,13 @@ import kotlinx.android.synthetic.main.pick_option_ctivity.*
 
 
 class PickOptionActivity : AppCompatActivity() {
-
+    private var id = 0
+    private var type = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.pick_option_ctivity)
+        type = intent.getIntExtra(AppConstants.TYPE, 0)
+        id = intent.getIntExtra(AppConstants.ID, 0)
         setData()
     }
 
@@ -28,12 +31,16 @@ class PickOptionActivity : AppCompatActivity() {
         tvShopNow.setOnClickListener {
             Utils.savePreferencesString(this,AppConstants.COMING_FROM,"PickOptionActivity")
             val intent = Intent(this@PickOptionActivity, HomeActivity::class.java)
+            intent.putExtra(AppConstants.ID, id)
+            intent.putExtra(AppConstants.TYPE, type)
             startActivity(intent)
             finish()
         }
         tvMayBeLater.setOnClickListener {
             Utils.savePreferencesString(this, AppConstants.COMING_FROM,"PickOptionActivity")
             val intent = Intent(this@PickOptionActivity, HomeActivity::class.java)
+            intent.putExtra(AppConstants.ID, id)
+            intent.putExtra(AppConstants.TYPE, type)
             startActivity(intent)
             finish()
         }

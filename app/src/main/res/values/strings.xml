@@ -366,6 +366,7 @@
     <string name="about_verkoop">About Verkoop</string>
     <string name="scan_to_transfer_verkoop_coins">Scan to transfer Verkoop coins</string>
     <string name="coin_addes">Coins Added</string>
+    <string name="not_installed">App is not currently installed on your phone</string>
 
 
 </resources>

@@ -6,18 +6,16 @@ import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
+import com.google.gson.Gson
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
-
-import com.google.gson.Gson
 import io.branch.referral.Branch
-
 import org.json.JSONException
 
 
-
 class SplashActivity : AppCompatActivity() {
-
+    private var id = 0
+    private var type = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -27,22 +25,29 @@ class SplashActivity : AppCompatActivity() {
             if (!TextUtils.isEmpty(Utils.getPreferencesString(this, AppConstants.USER_ID))) {
                 if (!TextUtils.isEmpty(Utils.getPreferencesString(this, AppConstants.COMING_FROM)) && Utils.getPreferencesString(this, AppConstants.COMING_FROM).equals("category_screen", ignoreCase = true)) {
                     val intent = Intent(this, PickOptionActivity::class.java)
+                    intent.putExtra(AppConstants.ID, id)
+                    intent.putExtra(AppConstants.TYPE, type)
                     // intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                     finish()
-                }else if(!TextUtils.isEmpty(Utils.getPreferencesString(this, AppConstants.COMING_FROM)) && Utils.getPreferencesString(this, AppConstants.COMING_FROM).equals("PickOptionActivity", ignoreCase = true)){
+                } else if (!TextUtils.isEmpty(Utils.getPreferencesString(this, AppConstants.COMING_FROM)) && Utils.getPreferencesString(this, AppConstants.COMING_FROM).equals("PickOptionActivity", ignoreCase = true)) {
                     val intent = Intent(this, HomeActivity::class.java)
-                    //  intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    intent.putExtra(AppConstants.ID, id)
+                    intent.putExtra(AppConstants.TYPE, type)
                     startActivity(intent)
                     finish()
-                }else{
+                } else {
                     val intent = Intent(this, CategoriesActivity::class.java)
+                    intent.putExtra(AppConstants.ID, id)
+                    intent.putExtra(AppConstants.TYPE, type)
                     // intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                     finish()
                 }
             } else {
                 val intent = Intent(this, WalkThroughActivity::class.java)
+                intent.putExtra(AppConstants.ID, id)
+                intent.putExtra(AppConstants.TYPE, type)
                 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
                 finish()
@@ -65,8 +70,12 @@ class SplashActivity : AppCompatActivity() {
                 Log.e("<<<LinkRequestString>>>", referringParams.toString())
                 Log.i("BRANCH SDK", referringParams.toString())
                 try {
-                 val   meetingId = referringParams.getString("product_id")
-                    Log.e("<<ProductId>>", meetingId)
+                    type = referringParams.getString("type").toInt()
+                    if (type == 1) {
+                        id = referringParams.getString("product_id").toInt()
+                    } else if (type == 2) {
+                        id = referringParams.getString("user_id").toInt()
+                    }
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }

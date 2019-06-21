@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
+import android.text.TextUtils
 import android.view.View
 import android.view.WindowManager
 import com.skydoves.powermenu.MenuAnimation
@@ -38,7 +39,9 @@ class UserProfileActivity:AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.user_profile_activity)
         userId=intent.getIntExtra(AppConstants.USER_ID,0)
-        userName=intent.getStringExtra(AppConstants.USER_NAME)
+        if(intent.getStringExtra(AppConstants.USER_NAME)!=null) {
+            userName = intent.getStringExtra(AppConstants.USER_NAME)
+        }
         val display = windowManager.defaultDisplay
         val size = Point()
         display.getSize(size)
@@ -111,7 +114,6 @@ class UserProfileActivity:AppCompatActivity() {
             option="Unblock user"
         }
         powerMenu = PowerMenu.Builder(this)
-
                 .addItem(PowerMenuItem(option, false)) // add an item.
                 .addItem(PowerMenuItem("Report user", false)) // aad an item list.
                 .setAnimation(MenuAnimation.SHOWUP_TOP_RIGHT) // Animation start point (TOP | LEFT).
@@ -188,7 +190,9 @@ class UserProfileActivity:AppCompatActivity() {
                             myProfileItemAdapter.setData(itemsList)
                             myProfileItemAdapter.setProfileData(myProfileResponse.data)
                             myProfileItemAdapter.notifyDataSetChanged()
-
+                            if(!TextUtils.isEmpty(myProfileResponse.data.username)) {
+                                tvHeaderLoc.text = myProfileResponse.data.username
+                            }
                             blockedId=myProfileResponse.data.block_id
                             reportsList=myProfileResponse.data.reports
                         } else {

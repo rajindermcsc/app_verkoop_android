@@ -42,9 +42,13 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
     private var fbAccessToken: AccessToken? = null
     private var url: String? = null
     private var loginType: String = ""
+    private var id = 0
+    private var type = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
+        type = intent.getIntExtra(AppConstants.TYPE, 0)
+        id = intent.getIntExtra(AppConstants.ID, 0)
         setData()
         googleLoginSetUp()
 
@@ -99,6 +103,8 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         }
         tvSignUp.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
+            intent.putExtra(AppConstants.ID, id)
+            intent.putExtra(AppConstants.TYPE, type)
             startActivity(intent)
         }
         tvForgotPassword.setOnClickListener {
@@ -179,7 +185,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
     /*Login with Facebook*/
     private fun loginWithFacebook() {
         callbackManager = CallbackManager.Factory.create()
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email", "user_friends"))
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"))
         LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
                 fbAccessToken = loginResult.accessToken
@@ -299,11 +305,15 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         Utils.savePreferencesString(this@LoginActivity, AppConstants.LOGIN_TYPE, loginType)
         if (firstTime == 0) {
             val intent = Intent(this@LoginActivity, CategoriesActivity::class.java)
+            intent.putExtra(AppConstants.ID, id)
+            intent.putExtra(AppConstants.TYPE, type)
             startActivity(intent)
             finish()
         } else {
             Utils.savePreferencesString(this, AppConstants.COMING_FROM, "PickOptionActivity")
             val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+            intent.putExtra(AppConstants.ID, id)
+            intent.putExtra(AppConstants.TYPE, type)
             startActivity(intent)
             finish()
         }

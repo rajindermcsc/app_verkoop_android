@@ -23,9 +23,13 @@ import android.text.Spanned
 
 
 class SignUpActivity : AppCompatActivity() {
+    private var id = 0
+    private var type = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.signup_activity)
+        type = intent.getIntExtra(AppConstants.TYPE, 0)
+        id = intent.getIntExtra(AppConstants.ID, 0)
         setData()
         ccp.setCountryForPhoneCode(1)
         /* setTTFfont(countryCodePicker)
@@ -202,6 +206,8 @@ class SignUpActivity : AppCompatActivity() {
         }
         Utils.savePreferencesString(this@SignUpActivity, AppConstants.LOGIN_TYPE, loginType)
         val intent = Intent(this@SignUpActivity, CategoriesActivity::class.java)
+        intent.putExtra(AppConstants.ID, id)
+        intent.putExtra(AppConstants.TYPE, type)
         startActivity(intent)
         finishAffinity()
     }

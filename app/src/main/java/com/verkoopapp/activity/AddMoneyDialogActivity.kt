@@ -43,7 +43,12 @@ class AddMoneyDialogActivity:AppCompatActivity(){
             if (Utils.isOnline(this)) {
           if(!TextUtils.isEmpty(etAmount.text.toString())) {
               KeyboardUtil.hideKeyboard(this)
-              callUpdateWalletApi()
+              val returnIntent = Intent()
+              returnIntent.putExtra(AppConstants.INTENT_RESULT, "success")
+              returnIntent.putExtra(AppConstants.AMOUNT,(etAmount.text.toString()).toInt())
+              setResult(Activity.RESULT_OK, returnIntent)
+              finish()
+           //   callUpdateWalletApi()
           }
         } else {
             Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()

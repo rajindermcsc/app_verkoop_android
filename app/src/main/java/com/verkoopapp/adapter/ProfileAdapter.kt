@@ -15,6 +15,9 @@ import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
+import io.branch.indexing.BranchUniversalObject
+import io.branch.referral.util.ContentMetadata
+import io.branch.referral.util.LinkProperties
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_row.*
 import kotlinx.android.synthetic.main.my_profile_details_row.*
@@ -33,7 +36,7 @@ class ProfileAdapter(private val context: Context, private val screenWidth: Int,
 
     override fun getItemViewType(position: Int): Int {
         if (position == 0) {
-             return PROFILE_DETAILS
+            return PROFILE_DETAILS
         } else {
             return ITEMS_ROW
         }
@@ -67,7 +70,7 @@ class ProfileAdapter(private val context: Context, private val screenWidth: Int,
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (position == PROFILE_DETAILS) {
-             (holder as ProfileDetailsHolder).bind(dataProfile)
+            (holder as ProfileDetailsHolder).bind(dataProfile)
         } else {
             val modal = itemsList[position - 1]
             (holder as ItemsHolder).bind(modal)
@@ -84,13 +87,13 @@ class ProfileAdapter(private val context: Context, private val screenWidth: Int,
 
     inner class ProfileDetailsHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(data: DataProfile?) {
-            if(data!=null) {
+            if (data != null) {
                 tvName.text = data.username
                 tvFollowers.text = data.follower_count.toString()
                 tvFollowing.text = data.follow_count.toString()
-                tvGood.text=data.good.toString()
-                tvAverage.text=data.average.toString()
-                tvbad.text=data.sad.toString()
+                tvGood.text = data.good.toString()
+                tvAverage.text = data.average.toString()
+                tvbad.text = data.sad.toString()
                 tvJoiningDate.text = StringBuffer().append(": ").append(Utils.convertDate("yyyy-MM-dd hh:mm:ss", data.created_at, "dd MMMM yyyy"))
                 if (!TextUtils.isEmpty(data.profile_pic)) {
                     Picasso.with(context).load(AppConstants.IMAGE_URL + data.profile_pic)
@@ -142,32 +145,67 @@ class ProfileAdapter(private val context: Context, private val screenWidth: Int,
             }
             llGood.setOnClickListener {
                 val intent = Intent(context, RatingActivity::class.java)
-                intent.putExtra(AppConstants.COMING_FROM,1)/*good*/
-                intent.putExtra(AppConstants.USER_ID,Utils.getPreferencesString(context,AppConstants.USER_ID).toInt())
+                intent.putExtra(AppConstants.COMING_FROM, 1)/*good*/
+                intent.putExtra(AppConstants.USER_ID, Utils.getPreferencesString(context, AppConstants.USER_ID).toInt())
                 context.startActivity(intent)
             }
             llBad.setOnClickListener {
                 val intent = Intent(context, RatingActivity::class.java)
-                intent.putExtra(AppConstants.COMING_FROM,2)/*bad*/
-                intent.putExtra(AppConstants.USER_ID,Utils.getPreferencesString(context,AppConstants.USER_ID).toInt())
+                intent.putExtra(AppConstants.COMING_FROM, 2)/*bad*/
+                intent.putExtra(AppConstants.USER_ID, Utils.getPreferencesString(context, AppConstants.USER_ID).toInt())
                 context.startActivity(intent)
             }
             llPoor.setOnClickListener {
                 val intent = Intent(context, RatingActivity::class.java)
-                intent.putExtra(AppConstants.COMING_FROM,3)/*poor*/
-                intent.putExtra(AppConstants.USER_ID,Utils.getPreferencesString(context,AppConstants.USER_ID).toInt())
+                intent.putExtra(AppConstants.COMING_FROM, 3)/*poor*/
+                intent.putExtra(AppConstants.USER_ID, Utils.getPreferencesString(context, AppConstants.USER_ID).toInt())
                 context.startActivity(intent)
             }
-        }
+            llShare.setOnClickListener {
+                sharedDetails(data!!.username, data.profile_pic)
 
+             /*   val sharingIntent = Intent(Intent.ACTION_SEND)
+                sharingIntent.type = "text/html"
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Verkoop")
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, "Verkoop")
+                context.startActivity(Intent.createChooser(sharingIntent, "Share using"))*/
+            }
+
+        }
+    }
+
+    private fun sharedDetails(userName: String, profilePic: String) {
+        val buo = BranchUniversalObject()
+                .setCanonicalIdentifier("item/12345")
+                .setTitle(userName)
+                .setContentImageUrl(AppConstants.IMAGE_URL + profilePic)
+                .setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
+                .setLocalIndexMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
+                .setContentMetadata(ContentMetadata()
+                        .addCustomMetadata("user_id", Utils.getPreferencesString(context, AppConstants.USER_ID))
+                        .addCustomMetadata("type", 2.toString()))
+        val lp = LinkProperties()
+                .setChannel("sms")
+                .setFeature("sharing")
+
+        buo.generateShortUrl(context, lp) { url, error ->
+            if (error == null) {
+                val sharingIntent = Intent(Intent.ACTION_SEND)
+                sharingIntent.type = "text/html"
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Verkoop")
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, url)
+                context.startActivity(Intent.createChooser(sharingIntent, "Share using"))
+            }
+
+        }
     }
 
     inner class ItemsHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(data: ItemHome) {
-            if(data.type==0){
-                ll_condition.visibility=View.VISIBLE
-            }else{
-                ll_condition.visibility=View.GONE
+            if (data.type == 0) {
+                ll_condition.visibility = View.VISIBLE
+            } else {
+                ll_condition.visibility = View.GONE
             }
             llUserProfile.visibility = View.GONE
             ivProductImageHome.layoutParams.height = width - 16

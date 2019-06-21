@@ -40,7 +40,7 @@ interface RateUserListener{
     fun rateUserClick(rating:Float,type:String)
 }
 
-class ShareDialog(context: Context, private val header:String, private val categoryType: String , private val listener:SharePostListener)
+class ShareProductDialog(context: Context, private val header:String, private val categoryType: String, private val listener:SharePostListener)
     :android.app.Dialog(context){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

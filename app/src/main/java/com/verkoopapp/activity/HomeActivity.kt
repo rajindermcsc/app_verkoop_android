@@ -51,10 +51,27 @@ class HomeActivity : AppCompatActivity() {
         fragmentList.add(profileFragment!!)
         setData()
         callInit()
-        val picOption=intent.getIntExtra(AppConstants.PICK_OPTION,0)
-        if(picOption==1){
+        val picOption = intent.getIntExtra(AppConstants.PICK_OPTION, 0)
+        if (picOption == 1) {
             val intent = Intent(this, GalleryActivity::class.java)
             startActivityForResult(intent, 2)
+        }
+        setBranchIdData()
+    }
+
+    private fun setBranchIdData() {
+        val type = intent.getIntExtra(AppConstants.TYPE, 0)
+        val id = intent.getIntExtra(AppConstants.ID, 0)
+        if (type == 1) {
+            val intent = Intent(this, ProductDetailsActivity::class.java)
+            intent.putExtra(AppConstants.ITEM_ID, id)
+            startActivity(intent)
+        } else if (type == 2) {
+            if(id!=Utils.getPreferencesString(this,AppConstants.USER_ID).toInt()) {
+                val reportIntent = Intent(this, UserProfileActivity::class.java)
+                reportIntent.putExtra(AppConstants.USER_ID, id)
+                startActivity(reportIntent)
+            }
         }
     }
 
@@ -163,6 +180,7 @@ class HomeActivity : AppCompatActivity() {
             }
         }
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: SocketCheckConnectionEvent) {
         /* Do something */
@@ -188,11 +206,12 @@ class HomeActivity : AppCompatActivity() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
     }
+
     private fun getObj(): Any {
         val jsonObject: JSONObject?
         jsonObject = JSONObject()
         try {
-            jsonObject.put("user_id", Utils.getPreferencesString(applicationContext,AppConstants.USER_ID).toInt())
+            jsonObject.put("user_id", Utils.getPreferencesString(applicationContext, AppConstants.USER_ID).toInt())
         } catch (e: JSONException) {
             e.printStackTrace()
         }

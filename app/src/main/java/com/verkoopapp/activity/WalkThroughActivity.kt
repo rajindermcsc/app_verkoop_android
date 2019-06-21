@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import com.verkoopapp.R
+import com.verkoopapp.utils.AppConstants
 
 import kotlinx.android.synthetic.main.walk_through_activity.*
 
@@ -19,10 +20,14 @@ import kotlinx.android.synthetic.main.walk_through_activity.*
 class WalkThroughActivity:AppCompatActivity(){
     private val mImageResources = intArrayOf(R.mipmap.walkthrough, R.mipmap.walkthrough_2, R.mipmap.walkthrough_3)
     private var vpPosition:Int=0
+    private var id = 0
+    private var type = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.walk_through_activity)
+         type = intent.getIntExtra(AppConstants.TYPE, 0)
+         id = intent.getIntExtra(AppConstants.ID, 0)
         setAdapter()
     }
 
@@ -50,6 +55,8 @@ class WalkThroughActivity:AppCompatActivity(){
             //    vpWalkThrough.currentItem = vpPosition
             }else{
                 val intent = Intent(this, LoginActivity::class.java)
+                intent.putExtra(AppConstants.ID, id)
+                intent.putExtra(AppConstants.TYPE, type)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
                 finish()
@@ -57,6 +64,8 @@ class WalkThroughActivity:AppCompatActivity(){
         }
         tvSkipW.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
+            intent.putExtra(AppConstants.ID, id)
+            intent.putExtra(AppConstants.TYPE, type)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
             finish()

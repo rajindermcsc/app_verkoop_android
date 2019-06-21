@@ -61,6 +61,9 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
+        <provider android:authorities="com.facebook.app.FacebookContentProvider257402935133665"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true"/>
         <activity
             android:name="com.verkoopapp.activity.SplashActivity"
             android:screenOrientation="portrait"
