@@ -27,7 +27,7 @@ class CarModalActivity:AppCompatActivity(){
     }
 
     private fun setData() {
-        tvHeaderLoc.text = getString(R.string.car_model)
+        tvHeaderLoc.text = carBrand
         ivLeftLocation.setOnClickListener { onBackPressed() }
     }
 
