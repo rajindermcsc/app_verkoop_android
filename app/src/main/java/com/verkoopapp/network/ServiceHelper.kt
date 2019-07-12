@@ -7,7 +7,6 @@ import com.google.gson.GsonBuilder
 
 import com.verkoopapp.models.*
 
-import it.sephiroth.android.library.imagezoom.ImageViewTouchBase.LOG_TAG
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -194,7 +193,7 @@ class ServiceHelper {
             }
 
             override fun onFailure(call: Call<AddItemResponse>, t: Throwable) {
-                Log.d(LOG_TAG, "<<<Error>>>" + t.localizedMessage)
+        //        Log.d(LOG_TAG, "<<<Error>>>" + t.localizedMessage)
                 onResponse.onFailure("Something went wrong!")
 
             }
@@ -521,7 +520,7 @@ class ServiceHelper {
             }
 
             override fun onFailure(call: Call<ProfileUpdateResponse>, t: Throwable) {
-                Log.d(LOG_TAG, "<<<Error>>>" + t.localizedMessage)
+     //           Log.d(LOG_TAG, "<<<Error>>>" + t.localizedMessage)
                 onResponse.onFailure("Something went wrong!")
 
             }
@@ -994,7 +993,7 @@ class ServiceHelper {
             }
 
             override fun onFailure(call: Call<AddItemResponse>, t: Throwable) {
-                Log.d(LOG_TAG, "<<<Error>>>" + t.localizedMessage)
+         //       Log.d(LOG_TAG, "<<<Error>>>" + t.localizedMessage)
                 onResponse.onFailure("Something went wrong!")
 
             }
@@ -1268,7 +1267,7 @@ class ServiceHelper {
             }
 
             override fun onFailure(call: Call<ProfileUpdateResponse>, t: Throwable) {
-                Log.d(LOG_TAG, "<<<Error>>>" + t.localizedMessage)
+            //    Log.d(LOG_TAG, "<<<Error>>>" + t.localizedMessage)
                 onResponse.onFailure("Something went wrong!")
 
             }
@@ -1416,7 +1415,7 @@ class ServiceHelper {
             }
 
             override fun onFailure(call: Call<ChatImageResponse>, t: Throwable) {
-                Log.d(LOG_TAG, "<<<Error>>>" + t.localizedMessage)
+             //   Log.d(LOG_TAG, "<<<Error>>>" + t.localizedMessage)
                 onResponse.onFailure("Something went wrong!")
 
             }

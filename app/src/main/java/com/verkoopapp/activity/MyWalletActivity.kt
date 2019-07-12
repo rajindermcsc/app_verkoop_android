@@ -31,8 +31,10 @@ class MyWalletActivity : AppCompatActivity() {
     private var wirecardCardPayment : WirecardCardPayment?=null
     private lateinit var wirecardClient: WirecardClient
     val timestamp = SignatureHelper.generateTimestamp()!!
-    private val merchantID = "F5785ECF-1EAE-40A0-9D37-93E2E8A4BAB3"
-    private val secretKey = "1DBBBAAE-958E-4346-A27A-6BB5171CEEDC"
+    //private val merchantID = "F5785ECF-1EAE-40A0-9D37-93E2E8A4BAB3"
+   // private val secretKey = "1DBBBAAE-958E-4346-A27A-6BB5171CEEDC"
+    private val merchantID = "33f6d473-3036-4ca5-acb5-8c64dac862d1"
+    private val secretKey = "9e0130f6-2e1e-4185-b0d5-dc69079c75cc"
     private val currency = "ZAR"
     private val requestID = UUID.randomUUID().toString()
     private val transactionType = WirecardTransactionType.PURCHASE

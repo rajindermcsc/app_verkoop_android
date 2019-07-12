@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.wirecard:paymentSDK-Android:2.7.1-cardScannerDisabled@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/paymentSDK-Android-2.7.1-cardScannerDisabled.aar/8a0007271d43da7c0afd103bc8e2e3fa/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/paymentSDK-Android-2.7.1-cardScannerDisabled.aar/8a0007271d43da7c0afd103bc8e2e3fa/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

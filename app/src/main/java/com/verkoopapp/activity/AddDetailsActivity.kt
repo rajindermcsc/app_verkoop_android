@@ -107,6 +107,8 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         } else {
             setIntentData()
         }
+
+
     }
 
     private fun setPropertyAdapter() {

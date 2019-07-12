@@ -68,7 +68,7 @@ class ProductDetailsActivity : AppCompatActivity() {
     private var productImage: String = ""
     private var dbHelper: DbHelper? = null
     private var dataResponse: DataItems? = null
-    private var shareDialogFacebook :ShareDialog?=null
+    private var shareDialogFacebook: ShareDialog? = null
 
     private lateinit var commentListAdapter: CommentListAdapter
     private lateinit var shareDialog: DeleteCommentDialog
@@ -77,7 +77,7 @@ class ProductDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.item_details_activity)
-        shareDialogFacebook =  ShareDialog(this)
+        shareDialogFacebook = ShareDialog(this)
         initKeyBoardListener()
         dbHelper = DbHelper()
         llBuying.visibility = View.GONE
@@ -117,11 +117,11 @@ class ProductDetailsActivity : AppCompatActivity() {
 
     private fun setClickData() {
         ivWhatAppShare.setOnClickListener {
-            val installed = Utils.appInstalledOrNot(this,"com.whatsapp")
+            val installed = Utils.appInstalledOrNot(this, "com.whatsapp")
             if (installed) {
                 sharedDetails(2)/*WhatsApp Share*/
             } else {
-                Utils.showSimpleMessage(this,getString(R.string.not_installed)).show()
+                Utils.showSimpleMessage(this, getString(R.string.not_installed)).show()
 
             }
         }
@@ -605,9 +605,10 @@ class ProductDetailsActivity : AppCompatActivity() {
             socket?.emit(AppConstants.MAKE_OFFER_EVENT, jsonObject, Ack {
                 Log.e("<<<Response>>>", Gson().toJson(it[0]))
                 val data = it[0] as JSONObject
-                runOnUiThread {
-                    if (data.getString("status") == "1") {
-                        runOnUiThread {
+
+                    runOnUiThread {
+                        try {
+                        if (data.getString("status") == "1") {
                             saveDataToDb(data)
                             val intent = Intent(this, ChatActivity::class.java)
                             intent.putExtra(AppConstants.USER_ID, userId)
@@ -622,10 +623,12 @@ class ProductDetailsActivity : AppCompatActivity() {
                             startActivity(intent)
                             dataResponse!!.make_offer = dataResponse!!.make_offer
                             dataResponse!!.offer_price = Offerprice
-                        }
-                    } else {
 
-                    }
+                        } else {
+
+                        }
+                    }catch (e: Exception) {
+                        }
                 }
             })
         } catch (e: JSONException) {
@@ -733,8 +736,8 @@ class ProductDetailsActivity : AppCompatActivity() {
     }
 
     private fun faceBookShareDialog(url: String?) {
-        val content =  ShareLinkContent.Builder()
-        .setContentUrl(Uri.parse(url))
+        val content = ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse(url))
                 .build()
         shareDialogFacebook!!.show(content)
     }

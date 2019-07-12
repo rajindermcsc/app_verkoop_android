@@ -21,7 +21,6 @@ import android.text.InputFilter
 import android.text.Spanned
 
 
-
 class SignUpActivity : AppCompatActivity() {
     private var id = 0
     private var type = 0

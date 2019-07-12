@@ -190,50 +190,53 @@ class ChatActivity : AppCompatActivity() {
                 Log.e("<<<Response>>>", Gson().toJson(it[0]))
                 val data = it[0] as JSONObject
                 runOnUiThread {
-                    if (data.getString("status") == "1") {
-                        chatList.clear()
-                        try {
-                            val listdata = java.util.ArrayList<JSONObject>()
+                    try {
+                        if (data.getString("status") == "1") {
+                            chatList.clear()
                             try {
-                                val chatHistory = data.getJSONArray("data")
-
-                                if (chatHistory != null) {
-                                    for (i in 0 until chatHistory.length()) {
-                                        listdata.add(chatHistory.getJSONObject(i))
-                                    }
-                                }
-                            } catch (e: JSONException) {
-                                e.printStackTrace()
-                            }
-
-                            for (data2 in listdata) {
+                                val listdata = java.util.ArrayList<JSONObject>()
                                 try {
-                                    val chatData = ChatData(data2.getInt("message_id"),
-                                            data2.getInt("sender_id"),
-                                            data2.getInt("receiver_id"),
-                                            data2.getString("message"),
-                                            data2.getString("timestamp"),
-                                            data2.getInt("type"),
-                                            data2.getInt("item_id"),
-                                            data2.getInt("chat_user_id"),
-                                            data2.getInt("is_read"))
-                                    chatList.add(chatData)
+                                    val chatHistory = data.getJSONArray("data")
+
+                                    if (chatHistory != null) {
+                                        for (i in 0 until chatHistory.length()) {
+                                            listdata.add(chatHistory.getJSONObject(i))
+                                        }
+                                    }
                                 } catch (e: JSONException) {
                                     e.printStackTrace()
                                 }
 
-                            }
-                            dbHelper!!.chatHistoryInsertData(chatList)
-                            chatAdapter.setData(chatList)
-                            chatAdapter.notifyDataSetChanged()
-                            rvChatList.scrollToPosition(chatList.size - 1)
-                            setOfflineHistory()
-                        } catch (e: JSONException) {
-                            e.printStackTrace()
-                        }
-                        makeOfferManage(data.getInt("offer_status"), data.getInt("is_block"))
-                    } else {
+                                for (data2 in listdata) {
+                                    try {
+                                        val chatData = ChatData(data2.getInt("message_id"),
+                                                data2.getInt("sender_id"),
+                                                data2.getInt("receiver_id"),
+                                                data2.getString("message"),
+                                                data2.getString("timestamp"),
+                                                data2.getInt("type"),
+                                                data2.getInt("item_id"),
+                                                data2.getInt("chat_user_id"),
+                                                data2.getInt("is_read"))
+                                        chatList.add(chatData)
+                                    } catch (e: JSONException) {
+                                        e.printStackTrace()
+                                    }
 
+                                }
+                                dbHelper!!.chatHistoryInsertData(chatList)
+                                chatAdapter.setData(chatList)
+                                chatAdapter.notifyDataSetChanged()
+                                rvChatList.scrollToPosition(chatList.size - 1)
+                                setOfflineHistory()
+                            } catch (e: JSONException) {
+                                e.printStackTrace()
+                            }
+                            makeOfferManage(data.getInt("offer_status"), data.getInt("is_block"))
+                        } else {
+
+                        }
+                    } catch (e: Exception) {
                     }
                 }
             })

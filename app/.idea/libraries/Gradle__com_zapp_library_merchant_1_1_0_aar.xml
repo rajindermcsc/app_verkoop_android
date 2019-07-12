@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.zapp.library:merchant:1.1.0@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/merchant-1.1.0.aar/e7f66e87dccac0959eb9d641f026f415/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/merchant-1.1.0.aar/e7f66e87dccac0959eb9d641f026f415/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.zapp.library/merchant/1.1.0/ad56d7c245c1a4d5135642ad40ae1a1f9b291819/merchant-1.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
