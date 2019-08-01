@@ -162,7 +162,6 @@ class CarBrandActivity : AppCompatActivity() {
                         }
                     }else{
                     }
-
                     carBrandAdapter.setData(carBrandList)
                     carBrandAdapter.notifyDataSetChanged()
 

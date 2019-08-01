@@ -12,13 +12,11 @@ import android.view.WindowManager
 import com.verkoopapp.R
 import com.verkoopapp.adapter.AdvertisementAdapter
 import com.verkoopapp.models.BannerDetailResponse
-import com.verkoopapp.models.HomeDataResponse
 import com.verkoopapp.models.ItemHome
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.favourites_activity.*
-import kotlinx.android.synthetic.main.home_fragment.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 import retrofit2.Response
 

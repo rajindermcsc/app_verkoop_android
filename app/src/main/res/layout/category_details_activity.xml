@@ -77,11 +77,11 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_.5"
+                        android:layout_height="@dimen/dp_1"
                         android:layout_gravity="end"
                         android:layout_marginEnd="@dimen/dp_8"
                         android:layout_marginStart="@dimen/dp_8"
-                        android:background="@color/light_gray" />
+                        android:background="@color/gray_back" />
 
                 </LinearLayout>
 

@@ -67,7 +67,6 @@ class UploadBannerActivity:AppCompatActivity() {
             }else{
                 Utils.showSimpleMessage(this@UploadBannerActivity,getString(R.string.upload_banne)).show()
             }
-
            /* if(tvSaveBanner.text.toString().equals("NEXT",ignoreCase = true)) {
                 val intent = Intent(this, AdvertPackagesActivity::class.java)
                 startActivityForResult(intent,4)
@@ -201,19 +200,6 @@ class UploadBannerActivity:AppCompatActivity() {
                 }
 
             }
-            /*if (requestCode === 4) {
-                if (resultCode === Activity.RESULT_OK) {
-                    planId = data!!.getIntExtra(AppConstants.INTENT_RESULT,0)
-                    if(planId>0){
-                        tvSaveBanner.text="SAVE"
-                    }else{
-                        tvSaveBanner.text="NEXT"
-                    }
-                }
-                if (resultCode === Activity.RESULT_CANCELED) {
-                    //Write your code if there's no result
-                }
-            }*/
         }
     }
 

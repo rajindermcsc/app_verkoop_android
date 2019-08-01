@@ -21,6 +21,7 @@ import retrofit2.Response
 import java.util.*
 
 class FullCategoriesActivity : AppCompatActivity(), FullCategoryAdapter.SelectedCategory, SubCategoryAdapter.SelectedSubcategory {
+
     override fun subCategoryName(subCategoryId: Int, subCategoryName: String,categoryId:Int) {
         when (categoryId) {
             85 -> {

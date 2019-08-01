@@ -16,7 +16,6 @@ import com.verkoopapp.models.UploadBannerRequest
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.*
 import kotlinx.android.synthetic.main.advert_package_activity.*
-import kotlinx.android.synthetic.main.coins_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 import retrofit2.Response
 
@@ -88,13 +87,13 @@ class AdvertPackagesActivity : AppCompatActivity(), AdvertPackageAdapter.SubmitB
     private fun submitDialog(planId: Int,coin:Int) {
         val proceedDialog = ProceedDialog(this, "", object : SelectionListener {
             override fun leaveClick() {
-                updateProfileData(planId,coin)
+                purchaseAdvertisementApi(planId,coin)
             }
         })
         proceedDialog.show()
     }
 
-    private fun updateProfileData(planId: Int,coin:Int) {
+    private fun purchaseAdvertisementApi(planId: Int, coin:Int) {
         val uploadBannerRequest = UploadBannerRequest(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(),categoryId, planId, imageUrl)
         window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)

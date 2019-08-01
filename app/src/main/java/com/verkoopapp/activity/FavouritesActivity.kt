@@ -11,8 +11,10 @@ import com.verkoopapp.adapter.FavouritesAdapter
 import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
+import com.verkoopapp.utils.GridSpacingItemDecoration
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.favourites_activity.*
+import kotlinx.android.synthetic.main.home_fragment.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 import retrofit2.Response
 
@@ -41,6 +43,7 @@ class FavouritesActivity:AppCompatActivity() {
     private fun setAdapter() {
          linearLayoutManager = GridLayoutManager(this, 2)
         rvFavouriteList.layoutManager = linearLayoutManager
+        rvFavouriteList.addItemDecoration(GridSpacingItemDecoration(2,Utils.dpToPx(this,2F).toInt(),false))
         favouritesAdapter = FavouritesAdapter(this, rvFavouriteList,0)
         rvFavouriteList.adapter = favouritesAdapter
       //  rvFavouriteList.addOnScrollListener(recyclerViewOnScrollListener)

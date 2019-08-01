@@ -49,7 +49,6 @@ class FilterActivity : AppCompatActivity() {
     private var isFocus: Boolean = false
     private var filterRequest: FilterRequest? = null
     private lateinit var filterAdapter: FilterAdapter
-  //  private var filterList = ArrayList<FilterModal>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,16 +79,13 @@ class FilterActivity : AppCompatActivity() {
                 if (filterRequest!!.meet_up.equals("1", ignoreCase = true)) {
                     meetUp = 1
                     cbNearByFilter.isChecked = true
-                //    addDealOption("Meet-up")
                 } else {
                     meetUp = 0
                     cbNearByFilter.isChecked = false
-              //      deleteMeetUp()
                 }
             } else {
                 meetUp = 0
                 cbNearByFilter.isChecked = false
-           //     deleteMeetUp()
             }
             if (!TextUtils.isEmpty(filterRequest!!.item_type)) {
                 when {
@@ -97,51 +93,42 @@ class FilterActivity : AppCompatActivity() {
                     filterRequest!!.item_type.equals("2", ignoreCase = true) -> setSelectUsed()
                     else -> {
                         setSelectionCondition()
-                        //     deleteCondition(2)
                     }
 
                 }
             } else {
                 setSelectionCondition()
-                // deleteCondition(2)
             }
             if (!TextUtils.isEmpty(filterRequest!!.sort_no)) {
                 when {
                     filterRequest!!.sort_no.equals("1", ignoreCase = true) -> {
                         sortNumber = 1
                         rbNearBy.isChecked = true
-                  //      setSortFilter(getString(R.string.nearby))
                     }
                     filterRequest!!.sort_no.equals("2", ignoreCase = true) -> {
                         sortNumber = 2
                         rbPopular.isChecked = true
-              //          setSortFilter(getString(R.string.popular))
                     }
                     filterRequest!!.sort_no.equals("3", ignoreCase = true) -> {
                         sortNumber = 3
                         rbRecentlyAdded.isChecked = true
-             //           setSortFilter(getString(R.string.recently_added))
                     }
                     filterRequest!!.sort_no.equals("4", ignoreCase = true) -> {
                         sortNumber = 4
                         rbPriceHigh.isChecked = true
-            //            setSortFilter(getString(R.string.price_high_to_low))
                     }
                     filterRequest!!.sort_no.equals("5", ignoreCase = true) -> {
                         sortNumber = 5
                         rbPriceLow.isChecked = true
-             //           setSortFilter(getString(R.string.price_low_to_high))
                     }
                     else -> {
                         sortNumber = 2
                         rbPopular.isChecked = true
-             //           setSortFilter(getString(R.string.popular))
                     }
                 }
             } else {
                 sortNumber = 2
                 rbPopular.isChecked = true
-          //      setSortFilter(getString(R.string.popular))
             }
         }
     }
@@ -161,7 +148,6 @@ class FilterActivity : AppCompatActivity() {
             } else {
                 if (condition.equals("New", ignoreCase = true)) {
                     setSelectionCondition()
-                    //  deleteCondition(2)
                 } else {
                     setSelectionCondition()
                     setSelectNew()
@@ -176,7 +162,6 @@ class FilterActivity : AppCompatActivity() {
             } else {
                 if (condition.equals(getString(R.string.used), ignoreCase = true)) {
                     setSelectionCondition()
-                    // deleteCondition(2)
                 } else {
                     setSelectionCondition()
                     setSelectUsed()
@@ -184,18 +169,16 @@ class FilterActivity : AppCompatActivity() {
             }
 
         }
-        cbNearByFilter.setOnCheckedChangeListener({ _, isChecked ->
+        cbNearByFilter.setOnCheckedChangeListener { _, isChecked ->
             meetUp = if (isChecked) {
-            //    addDealOption("Meet-up")
                 1
 
             } else {
-           //     deleteMeetUp()
                 0
 
             }
-        })
-        rbGroup.setOnCheckedChangeListener({ group, checkedId ->
+        }
+        rbGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.rbNearBy -> {
                     checkLocationOption()
@@ -203,22 +186,18 @@ class FilterActivity : AppCompatActivity() {
                 }
                 R.id.rbPopular -> {
                     sortNumber = 2
-            //        setSortFilter(getString(R.string.popular))
                 }
                 R.id.rbRecentlyAdded -> {
                     sortNumber = 3
-         //           setSortFilter(getString(R.string.recently_added))
                 }
                 R.id.rbPriceHigh -> {
                     sortNumber = 4
-           //         setSortFilter(getString(R.string.price_high_to_low))
                 }
                 R.id.rbPriceLow -> {
                     sortNumber = 5
-          //          setSortFilter(getString(R.string.price_low_to_high))
                 }
             }
-        })
+        }
         etMinPrice.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 isFocus = true
@@ -311,9 +290,7 @@ class FilterActivity : AppCompatActivity() {
         rbPopular.isChecked = true
         sortNumber = 2
         setSelectionCondition()
-      //  deleteCondition()
         meetUp = 0
-     //   deleteMeetUp()
         cbNearByFilter.isChecked = false
         isFocus = false
         isFocusMax = false
@@ -330,7 +307,6 @@ class FilterActivity : AppCompatActivity() {
         tvNew.setTextColor(ContextCompat.getColor(this, R.color.white))
         llNew.background = ContextCompat.getDrawable(this, R.drawable.red_rectangle_shape)
         condition = "New"
-     //   addSelection(condition)
     }
 
     private fun setSelectUsed() {
@@ -338,7 +314,6 @@ class FilterActivity : AppCompatActivity() {
         tvUsed.setTextColor(ContextCompat.getColor(this, R.color.white))
         llUsed.background = ContextCompat.getDrawable(this, R.drawable.red_rectangle_shape)
         condition = getString(R.string.used)
-    //    addSelection(condition)
     }
 
     private fun checkLocationOption() {
@@ -364,7 +339,6 @@ class FilterActivity : AppCompatActivity() {
         tvUsed.setTextColor(ContextCompat.getColor(this, R.color.gray_light))
         llUsed.background = ContextCompat.getDrawable(this, R.drawable.item_type)
         condition = ""
-     //   deleteCondition()
     }
 
     private fun setItemList() {
@@ -481,82 +455,4 @@ class FilterActivity : AppCompatActivity() {
             mFusedLocationProviderClient!!.removeLocationUpdates(mLocationCallback)
         }
     }
-
-   /* private fun setSortFilter(sortNumber: String) {
-        if(filterList.size>0) {
-            val filterModal = FilterModal("Sort :", sortNumber, false, 1)
-            filterList[0] = filterModal
-            filterAdapter.notifyDataSetChanged()
-        }
-    }
-
-    private fun addSelection(condition: String) {
-        for (i in filterList.indices) {
-            if (filterList[i].type == 2) {
-                val filterModal = FilterModal("Condition :", condition, false, 2)
-                filterList[i] = filterModal
-            } else {
-                if (filterList[i] == filterList[filterList.size - 1]) {
-                    if (filterList[i].type != 2) {
-                        val filterModal = FilterModal("Condition :", condition, false, 2)
-                        filterList.add(filterModal)
-                    } else {
-                        val filterModal = FilterModal("Condition :", condition, false, 2)
-                        filterList[i] = filterModal
-                    }
-
-                }
-            }
-        }
-        filterAdapter.notifyDataSetChanged()
-    }
-
-    private fun addDealOption(condition: String) {
-        for (i in filterList.indices) {
-            if (filterList[i].type == 3) {
-                val filterModal = FilterModal("Deal Option :", condition, false, 3)
-                filterList[i] = filterModal
-            } else {
-                if (filterList[i] == filterList[filterList.size - 1]) {
-                    if (filterList[i].type != 3) {
-                        val filterModal = FilterModal("Deal Option :", condition, false, 3)
-                        filterList.add(filterModal)
-                    } else {
-                        val filterModal = FilterModal("Deal Option :", condition, false, 3)
-                        filterList[i] = filterModal
-                    }
-
-                }
-            }
-        }
-        filterAdapter.notifyDataSetChanged()
-    }
-
-    private fun deleteCondition() {
-        try {
-            if (filterList.size > 0) {
-                for (i in filterList.indices) {
-                    if (filterList[i].type == 2) {
-                        filterList.removeAt(i)
-                    }
-                }
-                filterAdapter.notifyDataSetChanged()
-            }
-        } catch (e: Exception) {
-        }
-    }
-
-    private fun deleteMeetUp() {
-        try {
-            if (filterList.size > 0) {
-                for (i in filterList.indices) {
-                    if (filterList[i].type == 3) {
-                        filterList.removeAt(i)
-                    }
-                }
-                filterAdapter.notifyDataSetChanged()
-            }
-        } catch (e: Exception) {
-        }
-    }*/
 }

@@ -134,6 +134,7 @@ class EditProfileActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 Utils.hideKeyboardOnOutSideTouch(spinner1, this@EditProfileActivity)
                 gender = when (position) {
+
                     1 -> "Female"
                     2 -> "Male"
                     else -> ""

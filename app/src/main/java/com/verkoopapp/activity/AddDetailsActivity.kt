@@ -80,7 +80,6 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
     private var transmissionType = 1
     private var totalBadRoom: Int = 0
     private var totalBatchRoom: Int = 0
-    private var postalCode: Int = 0
 
 
     override fun selectDetailCount(count: Int, position: Int, imageId: Int) {
@@ -547,7 +546,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             intent.putExtra(AppConstants.ZONE_ID, zoneId)
             startActivityForResult(intent, 14)
         }*/
-        rgPrivate.setOnCheckedChangeListener({ group, checkedId ->
+        rgPrivate.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.rbPrivate -> {
                     directOwner = 1
@@ -556,8 +555,8 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     directOwner = 2
                 }
             }
-        })
-        rgManual.setOnCheckedChangeListener({ group, checkedId ->
+        }
+        rgManual.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.rbManual -> {
                     transmissionType = 1
@@ -566,7 +565,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     transmissionType = 2
                 }
             }
-        })
+        }
 
         val font = Typeface.createFromAsset(assets, "fonts/gothicb.ttf")
         cbNearBy.typeface = font
@@ -591,13 +590,13 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             val intent = Intent(this, SearchLocationActivity::class.java)
             startActivityForResult(intent, 12)
         }
-        cbNearBy.setOnCheckedChangeListener({ _, isChecked ->
+        cbNearBy.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 checkLocationOption()
             } else {
                 expansionLayout.collapse(true)
             }
-        })
+        }
 
         tvSave.setOnClickListener {
             if (Utils.isOnline(this@AddDetailsActivity)) {
@@ -933,7 +932,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 }
             }
         })
-        radioGroup.setOnCheckedChangeListener({ group, checkedId ->
+        radioGroup.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.rbParking -> {
                     parkingType = 1
@@ -942,8 +941,8 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     parkingType = 2
                 }
             }
-        })
-        rgFurnish.setOnCheckedChangeListener({ group, checkedId ->
+        }
+        rgFurnish.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.rbFurnish -> {
                     furnished = 1
@@ -952,7 +951,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     furnished = 2
                 }
             }
-        })
+        }
 
     }
 
@@ -1554,11 +1553,14 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                         val categoriesResponse = response.body() as AddItemResponse
                         Utils.showToast(this@AddDetailsActivity, categoriesResponse.message)
                         // shareDialog()
-
-                        val returnIntent = Intent()
+                        val intent=Intent(this@AddDetailsActivity,HomeActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                        intent.putExtra(AppConstants.TRANSACTION, 1)
+                        startActivity(intent)
+                      /*  val returnIntent = Intent()
                         returnIntent.putExtra(AppConstants.TRANSACTION, 1)
                         setResult(Activity.RESULT_OK, returnIntent)
-                        finish()
+                        finish()*/
                     }
 
                     override fun onFailure(msg: String?) {

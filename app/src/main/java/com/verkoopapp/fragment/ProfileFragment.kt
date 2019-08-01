@@ -17,6 +17,8 @@ import com.verkoopapp.adapter.ProfileAdapter
 import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
+import com.verkoopapp.utils.GridSpacingItemDecoration
+import com.verkoopapp.utils.GridSpacingProfileDecorate
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.profile_fragment.*
 import org.greenrobot.eventbus.EventBus
@@ -85,6 +87,7 @@ class ProfileFragment : BaseFragment() {
                 }
             }
         }
+        rvPostsList.addItemDecoration(GridSpacingProfileDecorate(2,Utils.dpToPx(homeActivity,2F).toInt(),false))
         rvPostsList.layoutManager = linearLayoutManager
         profileAdapter = ProfileAdapter(homeActivity, width, this)
         rvPostsList.adapter = profileAdapter

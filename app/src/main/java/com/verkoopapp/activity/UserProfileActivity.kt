@@ -19,6 +19,7 @@ import com.verkoopapp.adapter.UserProfileItemAdapter
 import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.*
+import kotlinx.android.synthetic.main.profile_fragment.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 import kotlinx.android.synthetic.main.user_profile_activity.*
 import retrofit2.Response
@@ -69,6 +70,7 @@ class UserProfileActivity:AppCompatActivity() {
             }
         }
         rvUserPostsList.layoutManager = linearLayoutManager
+        rvUserPostsList.addItemDecoration(GridSpacingProfileDecorate(2,Utils.dpToPx(this,2F).toInt(),false))
         myProfileItemAdapter = UserProfileItemAdapter(this, width,userId)
         rvUserPostsList.isNestedScrollingEnabled = false
         rvUserPostsList.isFocusable = false

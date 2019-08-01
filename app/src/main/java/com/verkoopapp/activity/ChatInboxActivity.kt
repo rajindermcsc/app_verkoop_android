@@ -4,7 +4,6 @@ package com.verkoopapp.activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -17,9 +16,6 @@ import com.google.gson.Gson
 import com.verkoopapp.R
 import com.verkoopapp.VerkoopApplication
 import com.verkoopapp.adapter.ChatInboxAdapter
-import com.verkoopapp.fragment.BuyingFragment
-import com.verkoopapp.fragment.ChatInboxFragment
-import com.verkoopapp.fragment.SellingFragment
 import com.verkoopapp.models.ChatInboxResponse
 import com.verkoopapp.offlinechatdata.DbHelper
 import com.verkoopapp.utils.AppConstants
@@ -34,10 +30,6 @@ import org.json.JSONObject
 
 class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBack {
     private val socket: Socket? = VerkoopApplication.getAppSocket()
-    private var chatInboxFragment: ChatInboxFragment? = null
-    private var buyingFragment: BuyingFragment? = null
-    private var sellingFragment: SellingFragment? = null
-    private var fragmentList = ArrayList<Fragment>()
     private lateinit var chatInboxAdapter: ChatInboxAdapter
     private var chatInboxType: Int = 0
     private var dbHelper: DbHelper? = null
@@ -71,12 +63,6 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
         setContentView(R.layout.chat_inbox_activity)
         itemId = intent.getIntExtra(AppConstants.ITEM_ID, 0)
         dbHelper = DbHelper()
-      //  chatInboxFragment = ChatInboxFragment.newInstance()
-     //   buyingFragment = BuyingFragment.newInstance()
-     //   sellingFragment = SellingFragment.newInstance()
-    //    fragmentList.add(chatInboxFragment!!)
-    //    fragmentList.add(buyingFragment!!)
-    //    fragmentList.add(sellingFragment!!)
         setData()
         setAdapter()
 
@@ -86,7 +72,7 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
         super.onResume()
         if (Utils.isOnline(this)) {
             if(socket!!.connected()) {
-                getChatHistory()
+                getInboxChatList()
             }
         } else {
             Handler().postDelayed({
@@ -131,7 +117,7 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
         getArchiveLIst(chatInboxList)
     }
 
-    private fun getChatHistory() {
+    private fun getInboxChatList() {
         val jsonObject = JSONObject()
         try {
             jsonObject.put(AppConstants.SENDER_ID, Utils.getPreferencesString(this, AppConstants.USER_ID))

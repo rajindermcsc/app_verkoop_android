@@ -45,7 +45,6 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
     private var dailyPicksList = ArrayList<ItemHome>()
     private var categoryList = ArrayList<Category>()
     private var advertismentsList = ArrayList<Advertisment>()
-    // val viewPool =  RecyclerView.RecycledViewPool();
 
     override fun getItemViewType(position: Int): Int {
         return when {
@@ -134,12 +133,12 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
                 textSliderView.bundle(Bundle())
                 textSliderView.bundle.putInt(AppConstants.CATEGORY_ID,advertismentsList[i].category_id)
                 textSliderView.image(AppConstants.IMAGE_URL + advertismentsList[i].image)
-                        .setOnSliderClickListener({ slider ->
+                        .setOnSliderClickListener { slider ->
                             val intent=Intent(context,AdvertisementActivity::class.java)
                             intent.putExtra(AppConstants.CATEGORY_ID,slider.bundle.getInt(AppConstants.CATEGORY_ID,0))
                             context.startActivity(intent)
-                        //    Toast.makeText(context,slider.bundle.getInt(AppConstants.CATEGORY_ID,0).toString(),Toast.LENGTH_SHORT).show()
-                        }).scaleType = BaseSliderView.ScaleType.Fit
+                            //    Toast.makeText(context,slider.bundle.getInt(AppConstants.CATEGORY_ID,0).toString(),Toast.LENGTH_SHORT).show()
+                        }.scaleType = BaseSliderView.ScaleType.Fit
 
                 if (mDemoSlider != null) {
                     mDemoSlider.addSlider(textSliderView)
@@ -262,7 +261,6 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
 
     inner class YourDailyPickHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind() {
-            //  llParent.layoutParams.height = widthDaily
             val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             linearLayoutManager.isAutoMeasureEnabled = true
             rvYourDailyPicks.layoutManager = linearLayoutManager
@@ -270,7 +268,6 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
             val dailyPicksAdapter = YourDailyPicksAdapter(context, rvItemList, itemsList)
             rvYourDailyPicks.setHasFixedSize(true)
             rvYourDailyPicks.adapter = dailyPicksAdapter
-            //  rvYourDailyPicks.setRecycledViewPool(viewPool)
             tvViewAllDailyPicks.setOnClickListener {
                 val intent = Intent(context, FavouritesActivity::class.java)
                 intent.putExtra(AppConstants.COMING_FROM, 1)

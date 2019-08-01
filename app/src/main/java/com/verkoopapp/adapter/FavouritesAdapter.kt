@@ -52,11 +52,11 @@ class FavouritesAdapter(private val context: Context,private val rvFavourites: R
             ivProductImageHome.layoutParams.height =width-16
             tvNameHome.text=data.username
             tvProductHome.text=data.name
-            if(adapterPosition %2==0){
+           /* if(adapterPosition %2==0){
                 llSideDividerHome.visibility=View.VISIBLE
             }else{
                 llSideDividerHome.visibility=View.GONE
-            }
+            }*/
             if(data.item_type==1){
                 tvConditionHome.text="New"
             }else{

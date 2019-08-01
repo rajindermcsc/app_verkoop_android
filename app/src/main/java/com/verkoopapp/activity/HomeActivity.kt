@@ -57,6 +57,29 @@ class HomeActivity : AppCompatActivity() {
             startActivityForResult(intent, 2)
         }
         setBranchIdData()
+        setIntentData()
+    }
+
+    private fun setIntentData() {
+        val result = intent!!.getIntExtra(AppConstants.TRANSACTION, 0)
+        if (result == 1) {
+            when {
+                viewPager.currentItem == 0 -> {
+                    bottomTabLayout.selectTab(R.id.menu_button3)
+                    viewPager.currentItem = 3
+                    profileFragment!!.refreshUI(0)
+
+                }
+                viewPager.currentItem == 1 -> {
+                    bottomTabLayout.selectTab(R.id.menu_button3)
+                    viewPager.currentItem = 3
+                }
+                else -> {
+                    profileFragment!!.refreshUI(1)
+                }
+            }
+
+        }
     }
 
     private fun setBranchIdData() {

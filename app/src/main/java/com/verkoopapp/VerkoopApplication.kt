@@ -37,7 +37,6 @@ class VerkoopApplication : Application() {
          super.onCreate()
          instance = this
          Fabric.with(this, Crashlytics())
-         Branch.getAutoInstance(this)
          Realm.init(this)
          // Branch logging for debugging
          Branch.enableDebugMode()

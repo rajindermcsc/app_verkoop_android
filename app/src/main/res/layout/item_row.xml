@@ -5,8 +5,6 @@
     android:id="@+id/llParentItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/dp_1"
-
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -187,6 +185,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="end"
             android:background="@color/gray_back"
+            android:visibility="gone"
             android:orientation="horizontal" />
 
         <View

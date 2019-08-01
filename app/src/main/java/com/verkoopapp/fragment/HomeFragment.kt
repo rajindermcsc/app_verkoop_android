@@ -25,6 +25,7 @@ import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.home_fragment.*
 import retrofit2.Response
 import android.util.Log
+import com.verkoopapp.utils.GridSpacingItemDecoration
 
 
 class HomeFragment : BaseFragment() {
@@ -93,6 +94,7 @@ class HomeFragment : BaseFragment() {
             }
         }
         rvHomeList.layoutManager = linearLayoutManager
+        rvHomeList.addItemDecoration(GridSpacingItemDecoration(2,Utils.dpToPx(homeActivity,2F).toInt(),false))
         rvHomeList.setHasFixedSize(false)
         homeAdapter = HomeAdapter(homeActivity, width, this)
         rvHomeList.adapter = homeAdapter

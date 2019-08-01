@@ -258,8 +258,8 @@ class ProductDetailsActivity : AppCompatActivity() {
         for (i in data.items_image.indices) {
             val textSliderView = DefaultSliderView(this)
             // initialize a SliderLayout
-            textSliderView.image(AppConstants.IMAGE_URL + data.items_image[i].url).setOnSliderClickListener({ slider ->
-            }).scaleType = BaseSliderView.ScaleType.CenterCrop
+            textSliderView.image(AppConstants.IMAGE_URL + data.items_image[i].url).setOnSliderClickListener { slider ->
+            }.scaleType = BaseSliderView.ScaleType.CenterCrop
             mDemoSliderDetails.addSlider(textSliderView)
         }
         mDemoSliderDetails.stopAutoCycle()

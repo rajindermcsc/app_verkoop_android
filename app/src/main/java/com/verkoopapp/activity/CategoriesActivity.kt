@@ -24,8 +24,8 @@ import kotlinx.android.synthetic.main.categories_screen.*
 import retrofit2.Response
 
 class CategoriesActivity : AppCompatActivity(), CategoryAdapter.SelectedCategory {
-    var selectionCount: Int = 0
-    var doubleBackToExitPressedOnce = false
+    private var selectionCount: Int = 0
+    private var doubleBackToExitPressedOnce = false
     private var id = 0
     private var type = 0
     private val categoryList = ArrayList<DataCategory>()
@@ -42,7 +42,7 @@ class CategoriesActivity : AppCompatActivity(), CategoryAdapter.SelectedCategory
     }
 
     override fun selectedCount(addItem: Int) {
-        tvSelectionCount.text = " " + addItem.toString() + " / 3"
+        tvSelectionCount.text =StringBuilder().append(" ").append(addItem.toString()).append(" / 3")
         selectionCount = addItem
 
     }

@@ -1,7 +1,6 @@
 package com.verkoopapp.activity
 
 import android.content.Intent
-import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
@@ -16,9 +15,6 @@ import org.json.JSONException
 class SplashActivity : AppCompatActivity() {
     private var id = 0
     private var type = 0
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     private fun setAppIntent() {
         Handler().postDelayed({
@@ -27,7 +23,6 @@ class SplashActivity : AppCompatActivity() {
                     val intent = Intent(this, PickOptionActivity::class.java)
                     intent.putExtra(AppConstants.ID, id)
                     intent.putExtra(AppConstants.TYPE, type)
-                    // intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                     finish()
                 } else if (!TextUtils.isEmpty(Utils.getPreferencesString(this, AppConstants.COMING_FROM)) && Utils.getPreferencesString(this, AppConstants.COMING_FROM).equals("PickOptionActivity", ignoreCase = true)) {
@@ -40,7 +35,6 @@ class SplashActivity : AppCompatActivity() {
                     val intent = Intent(this, CategoriesActivity::class.java)
                     intent.putExtra(AppConstants.ID, id)
                     intent.putExtra(AppConstants.TYPE, type)
-                    // intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                     finish()
                 }
@@ -48,7 +42,6 @@ class SplashActivity : AppCompatActivity() {
                 val intent = Intent(this, WalkThroughActivity::class.java)
                 intent.putExtra(AppConstants.ID, id)
                 intent.putExtra(AppConstants.TYPE, type)
-                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
                 finish()
             }

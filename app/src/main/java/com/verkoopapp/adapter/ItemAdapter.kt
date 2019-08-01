@@ -8,29 +8,39 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
-import com.verkoopapp.LikeDisLikeListener
 import com.verkoopapp.R
-import com.verkoopapp.activity.CategoryDetailsActivity
+import com.verkoopapp.activity.ProductDetailsActivity
 import com.verkoopapp.activity.UserProfileActivity
+import com.verkoopapp.models.DisLikeResponse
 import com.verkoopapp.models.ItemHome
+import com.verkoopapp.models.LickedRequest
+import com.verkoopapp.models.LikedResponse
+import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_row.*
+import retrofit2.Response
 
 
 class ItemAdapter(private val context: Context,private val rvItemListDetails:RecyclerView) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
     private var mInflater: LayoutInflater = LayoutInflater.from(context)
     private var itemsList=ArrayList<ItemHome>()
-    private lateinit var likeDisLikeListener: LikeDisLikeListener
     private var width=0
+    private val CATEGORY_LIST_ROW = 0
+    private val ITEMS_ROW = 1
 
+    override fun getItemViewType(position: Int): Int {
+        return when (position) {
+            0 -> CATEGORY_LIST_ROW
+            else -> ITEMS_ROW
+        }
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = mInflater.inflate(R.layout.item_row, parent, false)
         val params = view.layoutParams
         params.width = rvItemListDetails.width / 2
         width= params.width
-        likeDisLikeListener=context as CategoryDetailsActivity
         view.layoutParams = params
         return ViewHolder(view)
     }
@@ -41,20 +51,15 @@ class ItemAdapter(private val context: Context,private val rvItemListDetails:Rec
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = itemsList[position]
-       holder.bind(data,position)
+       holder.bind(data)
     }
 
     inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
-        fun bind( data: ItemHome,position: Int) {
+        fun bind( data: ItemHome) {
             ivProductImageHome.layoutParams.height =width-16
             tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at!!.date)).append(" ").append("ago")
             tvNameHome.text=data.username
             tvProductHome.text=data.name
-            if(position %2==0){
-                llSideDividerHome.visibility=View.VISIBLE
-            }else{
-                llSideDividerHome.visibility=View.GONE
-            }
             if(data.item_type==1){
                 tvConditionHome.text="New"
             }else{
@@ -98,11 +103,23 @@ class ItemAdapter(private val context: Context,private val rvItemListDetails:Rec
 
             tvItemPriceHome.text="R "+data.price
             itemView.setOnClickListener {
-                likeDisLikeListener.getItemDetailsClick(data.id,data.user_id)
+                val intent = Intent(context, ProductDetailsActivity::class.java)
+                intent.putExtra(AppConstants.ITEM_ID, data.id)
+                intent.putExtra(AppConstants.USER_ID, data.user_id)
+                context.startActivity(intent)
+               // likeDisLikeListener.getItemDetailsClick(data.id,data.user_id)
 
             }
             tvLikesHome.setOnClickListener {
-                likeDisLikeListener.getLikeDisLikeClick(data.is_like,adapterPosition,data.like_id,data.id)
+                if (!data.isClicked) {
+                    if (data.like_id > 0) {
+                        data.isClicked = !data.isClicked
+                        deleteLikeApi(adapterPosition, data.like_id)
+                    } else {
+                        data.isClicked = !data.isClicked
+                        lickedApi(data.id, adapterPosition)
+                    }
+                }
             }
             llUserProfile.setOnClickListener {
                 val reportIntent = Intent(context, UserProfileActivity::class.java)
@@ -115,5 +132,46 @@ class ItemAdapter(private val context: Context,private val rvItemListDetails:Rec
 
     fun setData(items: ArrayList<ItemHome>) {
         itemsList=items
+    }
+
+
+    private fun lickedApi(itemId: Int, position: Int) {
+        val lickedRequest = LickedRequest(Utils.getPreferencesString(context, AppConstants.USER_ID), itemId)
+        ServiceHelper().likeService(lickedRequest,
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        itemsList[position].isClicked = !itemsList[position].isClicked
+                        val responseLike = response.body() as LikedResponse
+                        itemsList[position].is_like = !itemsList[position].is_like
+                        itemsList[position].items_like_count = itemsList[position].items_like_count + 1
+                        itemsList[position].like_id = responseLike.like_id
+                        notifyItemChanged(position)
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        itemsList[position].isClicked = !itemsList[position].isClicked
+                        notifyItemChanged(position)
+                        //      Utils.showSimpleMessage(homeActivity, msg!!).show()
+                    }
+                })
+    }
+
+    private fun deleteLikeApi(position: Int, lickedId: Int) {
+        ServiceHelper().disLikeService(lickedId,
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        itemsList[position].isClicked = !itemsList[position].isClicked
+                        val likeResponse = response.body() as DisLikeResponse
+                        itemsList[position].is_like = !itemsList[position].is_like
+                        itemsList[position].items_like_count = itemsList[position].items_like_count - 1
+                        itemsList[position].like_id = 0
+                        notifyItemChanged(position)
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        itemsList[position].isClicked = !itemsList[position].isClicked
+                        notifyItemChanged(position)
+                    }
+                })
     }
 }

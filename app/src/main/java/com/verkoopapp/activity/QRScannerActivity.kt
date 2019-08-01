@@ -25,8 +25,6 @@ class QRScannerActivity:AppCompatActivity(){
         setData()
     }
 
-
-
     private fun setData() {
         ivLeftLocation.setOnClickListener { onBackPressed() }
         tvHeaderLoc.text = getString(R.string.qr_code)

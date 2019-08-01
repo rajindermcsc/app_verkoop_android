@@ -9,14 +9,12 @@ import android.view.ViewGroup
 import com.ksmtrivia.common.BaseFragment
 import com.verkoopapp.R
 import com.verkoopapp.activity.ChatInboxActivity
-import com.verkoopapp.adapter.ChatInboxAdapter
 import kotlinx.android.synthetic.main.chat_inbox_fragment.*
 
 
 class ChatInboxFragment:BaseFragment(){
     private var TAG=ChatInboxFragment::class.java.simpleName.toString()
     private lateinit var chatInboxActivity: ChatInboxActivity
-    private lateinit var chatInboxAdapter: ChatInboxAdapter
     override fun getTitle(): Int {
         return 0
     }

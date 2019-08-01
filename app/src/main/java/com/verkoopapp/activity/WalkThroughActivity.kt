@@ -100,9 +100,8 @@ class WalkThroughActivity:AppCompatActivity(){
         ivIndicatorSecondW.setImageResource(R.mipmap.dot_2)
         ivIndicatorThirdW.setImageResource(R.mipmap.dot_2)
     }
-    class PicturePreViewAdapter(private val mContext: Context, private var mImageResources: IntArray) : PagerAdapter() {
-       // private val mImageResources = intArrayOf(R.mipmap.walkthrough, R.mipmap.walkthrough_2, R.mipmap.walkthrough_3)
-        var mLayoutInflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    class PicturePreViewAdapter(mContext: Context, private var mImageResources: IntArray) : PagerAdapter() {
+       private var mLayoutInflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
 
         override fun instantiateItem(container: ViewGroup, position: Int): Any {

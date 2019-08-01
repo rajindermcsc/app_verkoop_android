@@ -9,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.util.DisplayMetrics
 import android.view.View
-import com.verkoopapp.LikeDisLikeListener
 import com.verkoopapp.R
 import com.verkoopapp.adapter.DetailSubCategory
 import com.verkoopapp.adapter.FilterAdapter
@@ -17,13 +16,14 @@ import com.verkoopapp.adapter.ItemAdapter
 import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
+import com.verkoopapp.utils.GridSpacingItemDecoration
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.category_details_activity.*
 import kotlinx.android.synthetic.main.toolbar_details_.*
 import retrofit2.Response
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
-class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, FilterAdapter.SelectFilterCallBack {
+class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterCallBack {
     private var isClicked: Boolean = false
     private lateinit var itemAdapter: ItemAdapter
     private lateinit var filterAdapter: FilterAdapter
@@ -61,26 +61,6 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
         }
     }
 
-    override fun getLikeDisLikeClick(type: Boolean, position: Int, lickedId: Int, itemId: Int) {
-        if (type) {
-            if (!isClicked) {
-                isClicked = true
-                deleteLikeApi(position, lickedId)
-            }
-        } else {
-            if (!isClicked) {
-                isClicked = true
-                lickedApi(itemId, position)
-            }
-        }
-    }
-
-    override fun getItemDetailsClick(itemId: Int, userId: Int) {
-        val intent = Intent(this, ProductDetailsActivity::class.java)
-        intent.putExtra(AppConstants.ITEM_ID, itemId)
-        intent.putExtra(AppConstants.USER_ID, userId)
-        startActivity(intent)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -151,6 +131,7 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
     private fun setItemList() {
         val linearLayoutManager = GridLayoutManager(this, 2)
         rvItemListDetails.layoutManager = linearLayoutManager
+        rvItemListDetails.addItemDecoration(GridSpacingItemDecoration(2,Utils.dpToPx(this,2F).toInt(),false))
         itemAdapter = ItemAdapter(this, rvItemListDetails)
         rvItemListDetails.isNestedScrollingEnabled = false
         rvItemListDetails.adapter = itemAdapter
@@ -282,45 +263,4 @@ class CategoryDetailsActivity : AppCompatActivity(), LikeDisLikeListener, Filter
                 })
 
     }
-
-    private fun lickedApi(itemId: Int, position: Int) {
-        val lickedRequest = LickedRequest(Utils.getPreferencesString(this, AppConstants.USER_ID), itemId)
-        ServiceHelper().likeService(lickedRequest,
-                object : ServiceHelper.OnResponse {
-                    override fun onSuccess(response: Response<*>) {
-                        isClicked = false
-                        val responseLike = response.body() as LikedResponse
-                        itemsList[position].is_like = !itemsList[position].is_like
-                        itemsList[position].items_like_count = itemsList[position].items_like_count + 1
-                        itemsList[position].like_id = responseLike.like_id
-                        itemAdapter.notifyItemChanged(position)
-                    }
-
-                    override fun onFailure(msg: String?) {
-                        isClicked = false
-                        //Utils.showSimpleMessage(homeActivity, msg!!).show()
-                    }
-                })
-    }
-
-    private fun deleteLikeApi(position: Int, lickedId: Int) {
-        ServiceHelper().disLikeService(lickedId,
-                object : ServiceHelper.OnResponse {
-                    override fun onSuccess(response: Response<*>) {
-                        isClicked = false
-                        val likeResponse = response.body() as DisLikeResponse
-                        itemsList[position].is_like = !itemsList[position].is_like
-                        itemsList[position].items_like_count = itemsList[position].items_like_count - 1
-                        itemsList[position].like_id = 0
-                        itemAdapter.notifyItemChanged(position)
-                    }
-
-                    override fun onFailure(msg: String?) {
-                        isClicked = false
-                        //     Utils.showSimpleMessage(homeActivity, msg!!).show()
-                    }
-                })
-    }
-
-
 }

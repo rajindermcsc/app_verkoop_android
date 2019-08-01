@@ -527,7 +527,7 @@ class ChatActivity : AppCompatActivity() {
         ratingDialog.show()
     }
 
-    private fun rateUserService(rating: Float, itemId: Int) {
+   /* private fun rateUserService(rating: Float, itemId: Int) {
         window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         // pbProgressAddMoney.visibility = View.VISIBLE
@@ -546,7 +546,7 @@ class ChatActivity : AppCompatActivity() {
                         Utils.showSimpleMessage(this@ChatActivity, msg!!).show()
                     }
                 })
-    }
+    }*/
 
     private fun openPowerMenu() {
         powerMenu = PowerMenu.Builder(this)

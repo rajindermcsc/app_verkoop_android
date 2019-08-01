@@ -34,10 +34,10 @@ class FollowFollowingActivity : AppCompatActivity() {
         if (Utils.isOnline(this)) {
             if (comingFrom == 0) {
                 etSearchHeader.hint = "Search Followers"
-                searchByUserNameApi(0, userId)
+                followFollowingApi(0, userId)
             } else {
                 etSearchHeader.hint = "Search Following User"
-                searchByUserNameApi(1, userId)
+                followFollowingApi(1, userId)
             }
             KeyboardUtil.hideKeyboard(this)
         } else {
@@ -66,7 +66,7 @@ class FollowFollowingActivity : AppCompatActivity() {
     }
 
 
-    private fun searchByUserNameApi(type: Int, userId: Int) {
+    private fun followFollowingApi(type: Int, userId: Int) {
         pbProgressSearch.visibility = View.VISIBLE
         ServiceHelper().followFollowingService(userId, HomeRequest(type),
                 object : ServiceHelper.OnResponse {

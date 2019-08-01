@@ -31,11 +31,6 @@ class SignUpActivity : AppCompatActivity() {
         id = intent.getIntExtra(AppConstants.ID, 0)
         setData()
         ccp.setCountryForPhoneCode(1)
-        /* setTTFfont(countryCodePicker)
-         fun setTTFfont(ccp: CountryCodePicker) {
-             val typeFace = Typeface.createFromAsset(this.assets, "fonts/Nexa Light.otf")
-             ccp.setTypeFace(typeFace)
-         }*/
     }
 
     private fun setData() {
@@ -123,7 +118,7 @@ class SignUpActivity : AppCompatActivity() {
         })
 
         val filter = object : InputFilter {
-            internal var canEnterSpace = false
+            var canEnterSpace = false
 
             override fun filter(source: CharSequence, start: Int, end: Int,
                                 dest: Spanned, dstart: Int, dend: Int): CharSequence {
