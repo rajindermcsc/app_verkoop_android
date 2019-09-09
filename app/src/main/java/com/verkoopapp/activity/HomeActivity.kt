@@ -2,14 +2,26 @@ package com.verkoopapp.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
+import android.provider.MediaStore
 import android.support.v4.app.Fragment
+import android.support.v4.content.FileProvider
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
 import com.github.nkzawa.socketio.client.Ack
 import com.github.nkzawa.socketio.client.Socket
+import com.google.android.gms.common.util.IOUtils
+import com.google.api.client.extensions.android.json.AndroidJsonFactory
+import com.google.api.client.http.javanet.NetHttpTransport
+import com.google.api.client.util.GenericData
+import com.google.api.services.vision.v1.Vision
+import com.google.api.services.vision.v1.VisionRequestInitializer
+import com.google.api.services.vision.v1.model.*
 import com.google.gson.Gson
 import com.verkoopapp.R
 import com.verkoopapp.VerkoopApplication
@@ -27,6 +39,10 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONException
 import org.json.JSONObject
+import java.io.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class HomeActivity : AppCompatActivity() {
@@ -36,7 +52,16 @@ class HomeActivity : AppCompatActivity() {
     private var fragmentList = ArrayList<Fragment>()
     private var doubleBackToExitPressedOnce = false
     private var comingFrom: Int = 0
+    private var visionData: String = ""
     private var socket: Socket? = VerkoopApplication.getAppSocket()
+    private lateinit var inputStream: InputStream;
+    private lateinit var photoData: ByteArray
+    private var featureList: MutableList<Feature> = ArrayList()
+    private lateinit var batchResponse: BatchAnnotateImagesResponse
+    private lateinit var vision: Vision
+    private var mCurrentPhotoPath: String? = null
+    private val CAMERA_REQUEST = 1888
+    private var uriTemp: Uri? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +83,20 @@ class HomeActivity : AppCompatActivity() {
         }
         setBranchIdData()
         setIntentData()
+//        setVisionData()
     }
+
+//    private fun setVisionData() {
+//        val visionBuilder = Vision.Builder(
+//                NetHttpTransport(),
+//                AndroidJsonFactory(),
+//                null)
+//
+//        visionBuilder.setVisionRequestInitializer(
+//                VisionRequestInitializer("AIzaSyDjTWXzAS6IvhCf7bscIyKYZXOUKsy4Tms"))
+//
+//        vision = visionBuilder.build()
+//    }
 
     private fun setIntentData() {
         val result = intent!!.getIntExtra(AppConstants.TRANSACTION, 0)
@@ -90,7 +128,7 @@ class HomeActivity : AppCompatActivity() {
             intent.putExtra(AppConstants.ITEM_ID, id)
             startActivity(intent)
         } else if (type == 2) {
-            if(id!=Utils.getPreferencesString(this,AppConstants.USER_ID).toInt()) {
+            if (id != Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()) {
                 val reportIntent = Intent(this, UserProfileActivity::class.java)
                 reportIntent.putExtra(AppConstants.USER_ID, id)
                 startActivity(reportIntent)
@@ -202,7 +240,106 @@ class HomeActivity : AppCompatActivity() {
                 //Write your code if there's no result
             }
         }
+//        if (requestCode == 1888 ) {
+//            if (resultCode == Activity.RESULT_OK ) {
+////                VerkoopApplication.instance.loader.show(this)
+////                val currentImage = data.extras!!.get("data") as Bitmap
+////                val baos = ByteArrayOutputStream()
+////                currentImage.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+////                inputStream = ByteArrayInputStream(baos.toByteArray())
+////                imageToVision()
+//
+//                VerkoopApplication.instance.loader.show(this)
+//                val f = File(mCurrentPhotoPath!!)
+//                uriTemp = FileProvider.getUriForFile(this, applicationContext.packageName + ".provider", f)
+//                val currentImage = MediaStore.Images.Media.getBitmap(getContentResolver(), uriTemp) as Bitmap;
+//
+////                val currentImage = data.extras!!.get("data") as Bitmap
+//                val baos = ByteArrayOutputStream()
+//                currentImage.compress(Bitmap.CompressFormat.JPEG, 50, baos)
+//                inputStream = ByteArrayInputStream(baos.toByteArray())
+//                imageToVision()
+//            }
+//        }
     }
+
+//    private fun imageToVision() {
+//        visionData = ""
+//        try {
+//            photoData = IOUtils.toByteArray(inputStream)
+//            inputStream.close()
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//            VerkoopApplication.instance.loader.hide(this)
+//        }
+//
+//        val inputImage = Image()
+//        inputImage.encodeContent(photoData)
+//
+//        val labelDetection = Feature()
+//        labelDetection.type = "LABEL_DETECTION"
+//        labelDetection.setMaxResults(2)
+//        featureList.add(labelDetection)
+//
+//        val webDetection = Feature()
+//        webDetection.type = "WEB_DETECTION"
+//        webDetection.setMaxResults(2)
+//        featureList.add(webDetection)
+//
+//        val request = AnnotateImageRequest()
+//        request.image = inputImage
+//        request.features = featureList
+//
+//        val batchRequest = BatchAnnotateImagesRequest()
+//
+//        batchRequest.requests = Arrays.asList(request)
+//
+//        val thread = Thread(Runnable {
+//            try {
+//                batchResponse = vision.images().annotate(batchRequest).execute()
+//                VerkoopApplication.instance.loader.hide(this@HomeActivity)
+//
+//                if (((batchResponse.responses.get(0).get("webDetection") as WebDetection).webEntities).size > 0) {
+//                    if (((batchResponse.responses.get(0).get("webDetection") as WebDetection).webEntities).get(0).description != null) {
+//                        visionData = ((batchResponse.responses.get(0).get("webDetection") as WebDetection).webEntities).get(0).description
+//                    }
+//                    if (((batchResponse.responses.get(0).get("webDetection") as WebDetection).webEntities).size > 1) {
+//                        if (((batchResponse.responses.get(0).get("webDetection") as WebDetection).webEntities).get(1).description != null) {
+//                            visionData = visionData + "," + ((batchResponse.responses.get(0).get("webDetection") as WebDetection).webEntities).get(1).description
+//                        }
+//                    }
+//                }
+//                if (batchResponse.responses.get(0).labelAnnotations.size > 0) {
+//                    if (batchResponse.responses.get(0).labelAnnotations.get(0).description != null) {
+//                        visionData = visionData + "," + batchResponse.responses.get(0).labelAnnotations.get(0).description
+//                    }
+//                    if (batchResponse.responses.get(0).labelAnnotations.size > 1) {
+//                        if (batchResponse.responses.get(0).labelAnnotations.get(1).description != null) {
+//                            visionData = visionData + "," + batchResponse.responses.get(0).labelAnnotations.get(1).description
+//                        }
+//                    }
+//                }
+//
+//                if ((batchResponse.responses.get(0).get("webDetection") as GenericData).get("bestGuessLabels") as ArrayList<String> != null) {
+//                    val listData = (batchResponse.responses.get(0).get("webDetection") as GenericData).get("bestGuessLabels") as ArrayList<String>
+//                    if (listData.get(0) as com.google.api.client.util.ArrayMap<String, String> != null) {
+//                        val arrayMap = listData.get(0) as com.google.api.client.util.ArrayMap<String, String>
+//                        if (arrayMap.get("label") != null) {
+//                            visionData = visionData + "," + visionData + arrayMap.get("label")
+//                        }
+//                    }
+//                }
+//                val intent = Intent(this@HomeActivity, SearchActivity::class.java)
+//                intent.putExtra("visionData", visionData)
+//                startActivity(intent)
+//            } catch (e: Exception) {
+//                VerkoopApplication.instance.loader.hide(this@HomeActivity)
+//                e.printStackTrace()
+//            }
+//        })
+//
+//        thread.start()
+//    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: SocketCheckConnectionEvent) {
@@ -240,4 +377,47 @@ class HomeActivity : AppCompatActivity() {
         }
         return jsonObject
     }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+//    fun startVison() {
+//                val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//                if (takePictureIntent.resolveActivity(packageManager) != null) {
+//                    var photoFile: File? = null
+//                    try {
+//                        photoFile = createImageFile()
+//                    } catch (ex: IOException) {
+//                        // Error occurred while creating the File
+//                    }
+//
+//                    // Continue only if the File was successfully created
+//                    if (photoFile != null) {
+////                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile))
+//                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+//                                FileProvider.getUriForFile(this,
+//                                        applicationContext.packageName + ".provider", photoFile))
+//                        startActivityForResult(takePictureIntent, CAMERA_REQUEST)
+//                    }
+//                }
+////        startActivityForResult(takePictureIntent, CAMERA_REQUEST)
+//    }
+
+//    private fun createImageFile(): File {
+//        // Create an image file name
+//        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+//        val imageFileName = "JPEG_" + timeStamp + "_"
+//        val storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+//        val image = File.createTempFile(
+//                imageFileName, /* prefix */
+//                "." +
+//                        "", /* suffix */
+//                storageDir      /* directory */
+//        )
+//
+//        // Save a file: path for use with ACTION_VIEW intents
+//        mCurrentPhotoPath = image.absolutePath
+//        return image
+//    }
 }

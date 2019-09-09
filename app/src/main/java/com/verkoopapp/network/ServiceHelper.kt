@@ -908,6 +908,37 @@ class ServiceHelper {
         })
     }
 
+    fun searchKeywordMultipleDataService( request: SearchKeywordMultipleDataRequest, onResponse: OnResponse) {
+        val myService = ApiClient.getClient().create(MyService::class.java)
+        val responseCall = myService.searchKeywordMultipleData(request)
+        responseCall.enqueue(object : Callback<SearchMultipleKeywordResponse> {
+            override fun onResponse(call: Call<SearchMultipleKeywordResponse>, response: Response<SearchMultipleKeywordResponse>) {
+                //  Log.e("<<<Response>>>", Gson().toJson(res))
+                if (response.code() == 200) {
+                    onResponse.onSuccess(response)
+                } else {
+                    if (response.errorBody() != null) {
+                        try {
+                            val messageError = JSONObject(response.errorBody()!!.string())
+                            onResponse.onFailure(messageError.getString("message"))
+                        } catch (e: JSONException) {
+                            onResponse.onFailure("Something went wrong")
+                            e.printStackTrace()
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                        }
+                    } else {
+                        onResponse.onFailure("Something went wrong")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<SearchMultipleKeywordResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
+
     fun forgotPasswordService(request: ForgotPasswordRequest, onResponse: OnResponse) {
         val myService = ApiClient.getClient().create(MyService::class.java)
         val responseCall = myService.forgotPasswordApi(request)

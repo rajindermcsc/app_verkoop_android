@@ -7,6 +7,10 @@ apply plugin: 'realm-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
 
+ext {
+    wirecardEcomLibraryVersion = "3.4.0"
+}
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -23,6 +27,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+}
+
+repositories {
+    maven {
+        url  "https://dl.bintray.com/wirecard/ecom-android"
     }
 }
 
@@ -63,7 +73,7 @@ dependencies {
     //implementation 'ch.acra:acra:4.8.5'
     implementation 'com.nightonke:jellytogglebutton:1.0.2'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
-    compile 'com.github.claudiodegio:MsvSearch:1.0.0'
+    implementation 'com.github.claudiodegio:MsvSearch:1.0.0'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.github.skydoves:powermenu:2.0.5'
     implementation 'org.greenrobot:eventbus:3.1.1'
@@ -78,8 +88,17 @@ dependencies {
     implementation 'io.branch.sdk.android:library:3.2.0'
     implementation 'com.facebook.android:facebook-share:5.0.3'
     implementation 'com.github.wirecard:paymentSDK-Android:2.7.1-cardScannerDisabled'
+
+    implementation "com.wirecard.ecom:card:3.4.0"
+    implementation "com.wirecard.ecom:sepa:$wirecardEcomLibraryVersion"
+    implementation "com.wirecard.ecom:zapp:$wirecardEcomLibraryVersion"
+    implementation "com.wirecard.ecom:paypal:$wirecardEcomLibraryVersion"
+    implementation "com.wirecard.ecom:google-pay:$wirecardEcomLibraryVersion"
     implementation 'com.zapp.library:merchant:1.1.0'
-    compile('com.squareup.retrofit2:converter-simplexml:2.3.0') {
+    implementation 'com.google.api-client:google-api-client-android:1.22.0'
+    implementation 'com.google.apis:google-api-services-vision:v1-rev357-1.22.0'
+    implementation 'com.google.code.findbugs:jsr305:2.0.1'
+    implementation('com.squareup.retrofit2:converter-simplexml:2.3.0') {
         exclude module: 'stax'
         exclude module: 'stax-api'
         exclude module: 'xpp3'

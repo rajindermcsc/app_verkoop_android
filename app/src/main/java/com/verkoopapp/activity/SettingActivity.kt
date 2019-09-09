@@ -33,7 +33,6 @@ class SettingActivity : AppCompatActivity() {
         }
         tvLogout.setOnClickListener {
             logOutDialogBox()
-
         }
         tvEditProfile.setOnClickListener {
             val intent = Intent(this, EditProfileActivity::class.java)
@@ -52,9 +51,6 @@ class SettingActivity : AppCompatActivity() {
             val intent = Intent(this, ViewAllBannerActivity::class.java)
             startActivity(intent)
         }
-        tvPrivatePolicy.setOnClickListener { }
-        tvHelpCenter.setOnClickListener { }
-        tvContactUs.setOnClickListener { }
         tvAboutVerkoop.setOnClickListener {
             val intent = Intent(this, VerkoopPoliciesActivity::class.java)
             intent.putExtra(AppConstants.COMING_FROM,1)
@@ -68,6 +64,21 @@ class SettingActivity : AppCompatActivity() {
         tvPrivacyPolicy.setOnClickListener {
             val intent = Intent(this, VerkoopPoliciesActivity::class.java)
             intent.putExtra(AppConstants.COMING_FROM,3)
+            startActivity(intent)
+        }
+        tvContactUs.setOnClickListener {
+            val intent = Intent(this, VerkoopPoliciesActivity::class.java)
+            intent.putExtra(AppConstants.COMING_FROM,4)
+            startActivity(intent)
+        }
+        tvHelpCenter.setOnClickListener {
+            val intent = Intent(this, VerkoopPoliciesActivity::class.java)
+            intent.putExtra(AppConstants.COMING_FROM,5)
+            startActivity(intent)
+        }
+        tvPrivatePolicy.setOnClickListener {
+            val intent = Intent(this, VerkoopPoliciesActivity::class.java)
+            intent.putExtra(AppConstants.COMING_FROM,6)
             startActivity(intent)
         }
         tvDeActivateAcct.setOnClickListener { }

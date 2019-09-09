@@ -3,6 +3,7 @@ package com.verkoopapp.activity
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
@@ -14,6 +15,8 @@ import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInResult
 import com.google.android.gms.common.ConnectionResult
@@ -37,7 +40,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 
     private val TAG = MainActivity::class.java.simpleName
     private val RC_SIGN_IN = 7
-    private var mGoogleApiClient: GoogleApiClient? = null
+    private var mGoogleApiClient: GoogleSignInClient? = null
     private var callbackManager: CallbackManager? = null
     private var fbAccessToken: AccessToken? = null
     private var url: String? = null
@@ -57,12 +60,12 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
     private fun googleLoginSetUp() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
-                .requestProfile()
                 .build()
 
-        mGoogleApiClient = GoogleApiClient.Builder(this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build()
+//        mGoogleApiClient = GoogleApiClient.Builder(this)
+//                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+//                .build()
+        mGoogleApiClient = GoogleSignIn.getClient(this, gso)
     }
 
     private fun setData() {
@@ -95,7 +98,8 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         tvGoogle.setOnClickListener {
             loginType = getString(R.string.google_plus)
             if (Utils.isOnline(this)) {
-                val signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)
+//                val signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)
+                val signInIntent = mGoogleApiClient!!.signInIntent
                 startActivityForResult(signInIntent, RC_SIGN_IN)
             } else {
                 Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
@@ -196,6 +200,8 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                         val imageUrl = "https://graph.facebook.com/$facebookId/picture?type=large&redirect=true&width=800&height=800"
                         val email = response.jsonObject.optString("email")
                         val name = response.jsonObject.optString("name")
+                        val first_name = response.jsonObject.optString("first_name")
+                        val last_name = response.jsonObject.optString("last_name")
                         Log.e(TAG, "::Name::$name")
                         Log.e(TAG, "::Email::$email")
 
@@ -203,9 +209,11 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                             url = `object`.getJSONObject("picture").getJSONObject("data").getString("url")
                             Log.e(TAG, ":::profile pic url:::$url")
                             LoginManager.getInstance().logOut()
-                            if (!TextUtils.isEmpty(facebookId) && !TextUtils.isEmpty(email)) {
+//                            if (!TextUtils.isEmpty(facebookId) && !TextUtils.isEmpty(email)) {
+                            if (!TextUtils.isEmpty(facebookId)) {
                                 if (Utils.isOnline(this@LoginActivity)) {
-                                    callSocialLoginApi(email, name, facebookId)
+//                                    callSocialLoginApi(email, name, facebookId)
+                                    callSocialLoginApi(email, first_name, last_name, facebookId)
                                 } else {
                                     Utils.showSimpleMessage(this@LoginActivity, getString(R.string.check_internet)).show()
                                 }
@@ -250,14 +258,18 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
             if (!TextUtils.isEmpty(acct.id) && !TextUtils.isEmpty(acct.email)) {
                 if (Utils.isOnline(this@LoginActivity)) {
 
-                    callSocialLoginApi(email, fullName, acct.id.toString())
+                    callSocialLoginApi(email, fullName, "", acct.id.toString())
                 } else {
                     Utils.showSimpleMessage(this@LoginActivity, getString(R.string.check_internet)).show()
                 }
 
             }
-            mGoogleApiClient!!.disconnect()
-            mGoogleApiClient!!.maybeSignOut()
+            Handler().postDelayed(Runnable {
+//                mGoogleApiClient!!.maybeSignOut()
+//                mGoogleApiClient!!.disconnect()
+                mGoogleApiClient!!.signOut()
+            }, 1000)
+
         } else {
             //If login fails
             Toast.makeText(this, "Login Failed", Toast.LENGTH_LONG).show()
@@ -275,7 +287,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
                         val loginResponse = response.body() as LogInResponse
                         if (loginResponse.data != null) {
-                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use, loginResponse.data.mobile_no,loginResponse.data.qrCode_image,loginResponse.data.coin,loginResponse.data.amount)
+                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use, loginResponse.data.mobile_no, loginResponse.data.qrCode_image, loginResponse.data.coin, loginResponse.data.amount)
                         } else {
                             Utils.showSimpleMessage(this@LoginActivity, loginResponse.message).show()
                         }
@@ -288,7 +300,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                 })
     }
 
-    private fun setResponseData(userId: String, api_token: String, firstName: String, email: String, loginType: String, firstTime: Int, mobileNo: String,qr_code:String,coin:Int,amount:Int) {
+    private fun setResponseData(userId: String, api_token: String, firstName: String, email: String, loginType: String, firstTime: Int, mobileNo: String, qr_code: String, coin: Int, amount: Int) {
         Utils.savePreferencesString(this@LoginActivity, AppConstants.USER_ID, userId)
         Utils.savePreferencesString(this@LoginActivity, AppConstants.API_TOKEN, api_token)
         Utils.savePreferencesString(this@LoginActivity, AppConstants.USER_NAME, firstName)
@@ -320,16 +332,44 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
     }
 
 
-    private fun callSocialLoginApi(email: String, name: String, loginId: String) {
+//    private fun callSocialLoginApi(email: String, name: String, loginId: String) {
+//        VerkoopApplication.instance.loader.show(this)
+//        if (email == "") {
+//            email.equals(" ")
+//        }
+//        ServiceHelper().socialLoginService(LoginSocialRequest(name, email, loginId, "social"),
+//                object : ServiceHelper.OnResponse {
+//                    override fun onSuccess(response: Response<*>) {
+//                        VerkoopApplication.instance.loader.hide(this@LoginActivity)
+//                        val loginResponse = response.body() as SocialGoogleResponse
+//                        Log.e("<<Log>>", "Login Successfully.")
+//                        if (loginResponse.data != null) {
+//                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use, "", loginResponse.data.qrCode_image, loginResponse.data.coin, loginResponse.data.amount)
+//                        }
+//                    }
+//
+//                    override fun onFailure(msg: String?) {
+//                        VerkoopApplication.instance.loader.hide(this@LoginActivity)
+//                        Utils.showSimpleMessage(this@LoginActivity, msg!!).show()
+//                    }
+//                })
+//    }
+
+
+    private fun
+            callSocialLoginApi(email: String, user_name: String, last_name: String, loginId: String) {
         VerkoopApplication.instance.loader.show(this)
-        ServiceHelper().socialLoginService(LoginSocialRequest(name, email, loginId, "social"),
+//        if (email == "") {
+//            email.equals(" ")
+//        }
+        ServiceHelper().socialLoginService(LoginSocialRequest(user_name, email, loginId, "social"),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
                         val loginResponse = response.body() as SocialGoogleResponse
-                        Log.e("<<Log>>", "Login Successfully.")
+                        Log.e( "<<Log>>", "Login Successfully.")
                         if (loginResponse.data != null) {
-                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use, "",loginResponse.data.qrCode_image,loginResponse.data.coin,loginResponse.data.amount)
+                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use, "", loginResponse.data.qrCode_image, loginResponse.data.coin, loginResponse.data.amount)
                         }
                     }
 

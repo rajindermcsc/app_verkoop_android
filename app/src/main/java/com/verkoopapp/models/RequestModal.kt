@@ -20,6 +20,15 @@ data class LoginRequest(
 
 data class LoginSocialRequest(
         val username: String,
+//        val FirstName: String,
+//        val lastName: String,
+        val email: String,
+        val social_id: String,
+        val login_type: String
+)
+
+data class LoginSocialGmailRequest(
+        val username: String,
         val email: String,
         val social_id: String,
         val login_type: String
@@ -220,6 +229,11 @@ data class SearchItemRequest(
 
 data class SearchUserRequest(
         val username: String
+)
+
+data class SearchKeywordMultipleDataRequest(
+        val name: String,
+        val user_id: Int
 )
 
 data class ForgotPasswordRequest(

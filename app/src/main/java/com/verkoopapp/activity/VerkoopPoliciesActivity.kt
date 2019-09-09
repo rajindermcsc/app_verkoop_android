@@ -32,15 +32,27 @@ class VerkoopPoliciesActivity:AppCompatActivity() {
         when (comingFrom) {
             1 -> {
                 tvHeaderLoc.text = getString(R.string.about_carousell)
-                webURl = "http://verkoopadmin.com/VerkoopApp/about"
+                webURl = "http://verkoopadmin.com/VerkoopApp/app/about"
             }
             2 -> {
                 tvHeaderLoc.text = getString(R.string.term_of_services)
-                webURl = "http://verkoopadmin.com/VerkoopApp/termsServices"
+                webURl = "http://verkoopadmin.com/VerkoopApp/app/termsOfConditions"
             }
             3 -> {
                 tvHeaderLoc.text = getString(R.string.privacy_policy)
-                webURl = "http://verkoopadmin.com/VerkoopApp/privacy"
+                webURl = "http://verkoopadmin.com/VerkoopApp/app/privacyPolicy"
+            }
+            4 -> {
+                tvHeaderLoc.text = getString(R.string.contact_us)
+                webURl = "http://verkoopadmin.com/VerkoopApp/app/contactUs"
+            }
+            5 -> {
+                tvHeaderLoc.text = getString(R.string.help_center)
+                webURl = "http://verkoopadmin.com/VerkoopApp/app/helpCenter"
+            }
+            6 -> {
+                tvHeaderLoc.text = getString(R.string.date_privacy_settings)
+                webURl = "http://verkoopadmin.com/VerkoopApp/app/privacySettings"
             }
         }
         if (Utils.isOnline(this)) {

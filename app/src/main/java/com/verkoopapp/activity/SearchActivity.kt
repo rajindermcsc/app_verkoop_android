@@ -2,6 +2,7 @@ package com.verkoopapp.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import android.view.inputmethod.EditorInfo
 import com.verkoopapp.R
 import com.verkoopapp.adapter.SearchByUserAdapter
 import com.verkoopapp.adapter.SearchListAdapter
+import com.verkoopapp.adapter.SearchVisionDataListAdapter
 import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
@@ -25,9 +27,11 @@ import retrofit2.Response
 
 class SearchActivity : AppCompatActivity() {
     private lateinit var searchListAdapter: SearchListAdapter
+    private lateinit var searchVisionDataListAdapter: SearchVisionDataListAdapter
     private lateinit var searchByUserAdapter: SearchByUserAdapter
     private val searchItemList = ArrayList<DataSearch>()
     private val searchByUserList = ArrayList<DataUser>()
+    private val searchVisionDataList = ArrayList<SearchMultipleKeywordData>()
     private var comingFrom: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +52,52 @@ class SearchActivity : AppCompatActivity() {
         } else {
             setAdapter()
         }
+        if (intent.getStringExtra("visionData") != null) {
+            etSearchHeader.isEnabled=false
+            KeyboardUtil.hideKeyboard(this)
+            ll_search.visibility = View.GONE
+            val string: String = intent.getStringExtra("visionData")
+            setVisionDataAdapter()
+            callSearchKeywordMultipleData(string)
+        }
         setData()
+    }
+
+    private fun callSearchKeywordMultipleData(string: String) {
+        if (Utils.isOnline(this)) {
+            searchKeywordMultipleData(string)
+        } else {
+            Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+            callSearchKeywordMultipleData(string)
+        }
+    }
+
+    private fun searchKeywordMultipleData(string: String) {
+        pbProgressSearch.visibility = View.VISIBLE
+        ServiceHelper().searchKeywordMultipleDataService(SearchKeywordMultipleDataRequest(string, Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()),
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        pbProgressSearch.visibility = View.GONE
+                        val searchItemResponse = response.body() as SearchMultipleKeywordResponse?
+                        if (searchItemResponse != null) {
+                            searchVisionDataList.clear()
+                            searchVisionDataList.addAll(searchItemResponse.data)
+                            searchVisionDataListAdapter.setData(searchVisionDataList)
+                            searchVisionDataListAdapter.notifyDataSetChanged()
+                        }
+                        if (searchVisionDataList.size > 0) {
+                            tvDemoText.visibility = View.GONE
+                        } else {
+                            tvDemoText.visibility = View.VISIBLE
+                        }
+
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        Utils.showSimpleMessage(this@SearchActivity, msg!!).show()
+                        pbProgressSearch.visibility = View.GONE
+                    }
+                })
     }
 
     private fun setUserSearchAdapter() {
@@ -56,6 +105,13 @@ class SearchActivity : AppCompatActivity() {
         rvSearchList.layoutManager = mManager
         searchByUserAdapter = SearchByUserAdapter(this)
         rvSearchList.adapter = searchByUserAdapter
+    }
+
+    private fun setVisionDataAdapter() {
+        val mManager = LinearLayoutManager(this)
+        rvSearchList.layoutManager = mManager
+        searchVisionDataListAdapter = SearchVisionDataListAdapter(this)
+        rvSearchList.adapter = searchVisionDataListAdapter
     }
 
     private fun setAdapter() {

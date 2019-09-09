@@ -916,3 +916,21 @@ data class DataMyRating(
     var user_id:Int,
     var item_id:Int
 )
+data class SearchMultipleKeywordResponse(
+    val `data`: List<SearchMultipleKeywordData>,
+    val message: String
+)
+
+data class SearchMultipleKeywordData(
+    val category: SearchMultipleKeywordCategory,
+    val category_id: Int,
+    val category_name: String,
+    val id: Int,
+    val name: String
+)
+
+data class SearchMultipleKeywordCategory(
+    val id: Int,
+    val name: String,
+    val parent_id: Int
+)

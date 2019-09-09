@@ -63,4 +63,6 @@
     <dimen name="dp_220">220dp</dimen>
     <dimen name="sp_12">12sp</dimen>
     <dimen name="dp_400">400dp</dimen>
+    <dimen name="show_permission_padding">20dp</dimen>
+
 </resources>

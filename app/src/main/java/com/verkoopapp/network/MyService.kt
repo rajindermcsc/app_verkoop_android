@@ -103,6 +103,9 @@ interface MyService {
     @PUT("user/searchByUserName/{user_id}")
     fun searchByUserApi(@Path(value = "user_id", encoded = true) fullUrl: Int, @Body request: SearchUserRequest): Call<SearchByUserResponse>
 
+    @POST("searchKeywordMultipleData")
+    fun searchKeywordMultipleData(@Body request: SearchKeywordMultipleDataRequest): Call<SearchMultipleKeywordResponse>
+
     @POST("user/forgot_password")
     fun forgotPasswordApi(@Body request: ForgotPasswordRequest): Call<AddItemResponse>
 

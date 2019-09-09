@@ -29,6 +29,7 @@
     <string name="enter_name">Please enter name.</string>
     <string name="enter_user_name">Please enter username.</string>
     <string name="check_internet">Please check your internet connection.</string>
+    <string name="storage_permission_denied">Storage Permission Denied.</string>
     <string name="face_log">facebookLogin</string>
     <string name="google_plus">googlePlusLogin</string>
     <string name="already_have_an_account">Already have an account?</string>
@@ -367,6 +368,10 @@
     <string name="scan_to_transfer_verkoop_coins">Scan to transfer Verkoop coins</string>
     <string name="coin_addes">Coins Added</string>
     <string name="not_installed">App is not currently installed on your phone</string>
+    <string name="take_photo">TAKE PHOTO</string>
+    <string name="permission_required">Permission Required</string>
+    <string name="permission_message">You must grant permission to access camera and external storage to run this application.</string>
+    <string name="permission_warning">All permissions are required.</string>
 
 
 </resources>
