@@ -916,18 +916,48 @@ data class DataMyRating(
     var user_id:Int,
     var item_id:Int
 )
+
 data class SearchMultipleKeywordResponse(
-    val `data`: List<SearchMultipleKeywordData>,
+    val `data`: SearchMultipleKeywordData,
     val message: String
 )
 
 data class SearchMultipleKeywordData(
-    val category: SearchMultipleKeywordCategory,
-    val category_id: Int,
-    val category_name: String,
-    val id: Int,
-    val name: String
+//    val items: List<SearchMultipleKeywordDataList>,
+    val items: List<ItemHome>,
+    val totalPage: Int
 )
+
+data class SearchMultipleKeywordDataList(
+    val category_id: Int,
+    val created_at: CreatedAt,
+    val id: Int,
+    val image_url: String,
+    val is_like: Boolean,
+    val is_sold: Int,
+    val item_type: Int,
+    val items_like_count: Any,
+    val like_id: Int,
+    val name: String,
+    val price: Int,
+    val profile_pic: String,
+    val type: Int,
+    val user_id: Int,
+    val username: String
+)
+
+//data class SearchMultipleKeywordResponse(
+//    val `data`: List<SearchMultipleKeywordData>,
+//    val message: String
+//)
+
+//data class SearchMultipleKeywordData(
+//    val category: SearchMultipleKeywordCategory,
+//    val category_id: Int,
+//    val category_name: String,
+//    val id: Int,
+//    val name: String
+//)
 
 data class SearchMultipleKeywordCategory(
     val id: Int,

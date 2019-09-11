@@ -19,43 +19,85 @@ import kotlinx.android.synthetic.main.toolbar_location.*
 import retrofit2.Response
 
 
-class FavouritesActivity:AppCompatActivity() {
-    private  lateinit var linearLayoutManager:GridLayoutManager
+class FavouritesActivity : AppCompatActivity() {
+    private lateinit var linearLayoutManager: GridLayoutManager
     private lateinit var favouritesAdapter: FavouritesAdapter
-    private var itemsList=ArrayList<ItemHome>()
-    private var comingFrom=0
+    private var itemsList = ArrayList<ItemHome>()
+    private var comingFrom = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.favourites_activity)
-        comingFrom=intent.getIntExtra(AppConstants.COMING_FROM,0)
+        comingFrom = intent.getIntExtra(AppConstants.COMING_FROM, 0)
         setAdapter()
-        if (Utils.isOnline(this)) {
-            getFavouriteApi()
+        if (comingFrom == 3) {
+            if (intent.getStringExtra("visionData") != null) {
+                val string: String = intent.getStringExtra("visionData")
+                callSearchKeywordMultipleData(string)
+            }
         } else {
-            Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+            if (Utils.isOnline(this)) {
+                getFavouriteApi()
+            } else {
+                Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+            }
         }
 
     }
 
+    private fun callSearchKeywordMultipleData(string: String) {
+        if (Utils.isOnline(this)) {
+            searchKeywordMultipleData(string)
+        } else {
+            Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+            callSearchKeywordMultipleData(string)
+        }
+    }
+
+    private fun searchKeywordMultipleData(string: String) {
+        pbProgressFav.visibility = View.VISIBLE
+        ServiceHelper().searchKeywordMultipleDataService(SearchKeywordMultipleDataRequest(string, Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()),
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        pbProgressFav.visibility = View.GONE
+                        val searchItemResponse = response.body() as SearchMultipleKeywordResponse?
+                        if (searchItemResponse != null) {
+                            if (searchItemResponse.data.items.isNotEmpty()) {
+                                itemsList.clear()
+                                itemsList = (searchItemResponse.data.items as ArrayList<ItemHome>)
+                                favouritesAdapter.setData(itemsList)
+                                favouritesAdapter.notifyDataSetChanged()
+                            } else {
+                                tvMssgData.visibility = View.VISIBLE
+                                Utils.showSimpleMessage(this@FavouritesActivity, "No data found.").show()
+                            }
+                        }
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        Utils.showSimpleMessage(this@FavouritesActivity, msg!!).show()
+                        pbProgressFav.visibility = View.GONE
+                    }
+                })
+    }
 
     private fun setAdapter() {
-         linearLayoutManager = GridLayoutManager(this, 2)
+        linearLayoutManager = GridLayoutManager(this, 2)
         rvFavouriteList.layoutManager = linearLayoutManager
-        rvFavouriteList.addItemDecoration(GridSpacingItemDecoration(2,Utils.dpToPx(this,2F).toInt(),false))
-        favouritesAdapter = FavouritesAdapter(this, rvFavouriteList,0)
+        rvFavouriteList.addItemDecoration(GridSpacingItemDecoration(2, Utils.dpToPx(this, 2F).toInt(), false))
+        favouritesAdapter = FavouritesAdapter(this, rvFavouriteList, 0)
         rvFavouriteList.adapter = favouritesAdapter
-      //  rvFavouriteList.addOnScrollListener(recyclerViewOnScrollListener)
+        //  rvFavouriteList.addOnScrollListener(recyclerViewOnScrollListener)
         ivLeftLocation.setOnClickListener { onBackPressed() }
-        if(comingFrom!=1) {
+        if (comingFrom == 3) {
+            tvHeaderLoc.text = "Search Result"
+        } else if (comingFrom != 1) {
             tvHeaderLoc.text = getString(R.string.favourites)
-        }else{
+        } else {
             tvHeaderLoc.text = getString(R.string.your_daily_picks)
         }
     }
-
-
 
 /*private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListener() {
     override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
@@ -72,38 +114,38 @@ class FavouritesActivity:AppCompatActivity() {
 }*/
 
     private fun getFavouriteApi() {
-        pbProgressFav.visibility= View.VISIBLE
-        ServiceHelper().getFavouritesService(Utils.getPreferencesString(this,AppConstants.USER_ID),object : ServiceHelper.OnResponse {
-                    override fun onSuccess(response: Response<*>) {
-                        pbProgressFav.visibility= View.GONE
-                        val responseFav = response.body() as FavouritesResponse
-                        if (responseFav.data.isNotEmpty()) {
-                                itemsList = responseFav.data
-                                favouritesAdapter.setData(itemsList)
-                                favouritesAdapter.notifyDataSetChanged()
+        pbProgressFav.visibility = View.VISIBLE
+        ServiceHelper().getFavouritesService(Utils.getPreferencesString(this, AppConstants.USER_ID), object : ServiceHelper.OnResponse {
+            override fun onSuccess(response: Response<*>) {
+                pbProgressFav.visibility = View.GONE
+                val responseFav = response.body() as FavouritesResponse
+                if (responseFav.data.isNotEmpty()) {
+                    itemsList = responseFav.data
+                    favouritesAdapter.setData(itemsList)
+                    favouritesAdapter.notifyDataSetChanged()
 
-                        }else{
-                            Utils.showSimpleMessage(this@FavouritesActivity, "No data found.").show()
-                        }
+                } else {
+                    Utils.showSimpleMessage(this@FavouritesActivity, "No data found.").show()
+                }
 
-                    }
+            }
 
-                    override fun onFailure(msg: String?) {
-                        pbProgressFav.visibility= View.GONE
-                        Utils.showSimpleMessage(this@FavouritesActivity, msg!!).show()
-                    }
-                })
+            override fun onFailure(msg: String?) {
+                pbProgressFav.visibility = View.GONE
+                Utils.showSimpleMessage(this@FavouritesActivity, msg!!).show()
+            }
+        })
 
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 3) {
             if (resultCode == Activity.RESULT_OK) {
-                val adapterPosition = data!!.getIntExtra(AppConstants.ADAPTER_POSITION,0)
-                if(data.getStringExtra(AppConstants.TYPE).equals("soldItem",ignoreCase = true)){
-                    itemsList[adapterPosition].is_sold=1
+                val adapterPosition = data!!.getIntExtra(AppConstants.ADAPTER_POSITION, 0)
+                if (data.getStringExtra(AppConstants.TYPE).equals("soldItem", ignoreCase = true)) {
+                    itemsList[adapterPosition].is_sold = 1
                     favouritesAdapter.notifyDataSetChanged()
-                }else if(data.getStringExtra(AppConstants.TYPE).equals("deleteItem",ignoreCase = true)){
+                } else if (data.getStringExtra(AppConstants.TYPE).equals("deleteItem", ignoreCase = true)) {
                     itemsList.removeAt(adapterPosition)
                     favouritesAdapter.notifyDataSetChanged()
                 }

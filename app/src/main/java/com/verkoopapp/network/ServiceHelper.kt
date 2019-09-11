@@ -165,6 +165,7 @@ class ServiceHelper {
         val userId = RequestBody.create(MediaType.parse("text/plain"), request.user_id)
         val address = RequestBody.create(MediaType.parse("text/plain"), request.Address)
         val lat = RequestBody.create(MediaType.parse("text/plain"), request.Latitude)
+        val label = RequestBody.create(MediaType.parse("text/plain"), request.label)
         val lng = RequestBody.create(MediaType.parse("text/plain"), request.Longitude)
         val meetUp = RequestBody.create(MediaType.parse("text/plain"), request.meet_up)
         val type = RequestBody.create(MediaType.parse("text/plain"), request.type.toString())
@@ -174,9 +175,10 @@ class ServiceHelper {
         val prettyGson = GsonBuilder().setPrettyPrinting().create()
         val prettyJson = prettyGson.toJson(request.additional_info)
 
+
         Log.e("<<stringRequest>>", prettyJson)
         val additionalInfo = RequestBody.create(okhttp3.MultipartBody.FORM, prettyJson)
-        call = myService.addClothApi(parts, categoryId, name, price, itemType, description, userId, address, lat, lng, meetUp, type, carBrandId, carType, additionalInfo, zoneId)
+        call = myService.addClothApi(parts, categoryId, name, price, itemType, description, userId, address, lat, label,lng, meetUp, type, carBrandId, carType, additionalInfo, zoneId)
         call.enqueue(object : Callback<AddItemResponse> {
             override fun onResponse(call: Call<AddItemResponse>, response: Response<AddItemResponse>) {
                 Log.e("<<<<Response>>>>", Gson().toJson(response.body()))

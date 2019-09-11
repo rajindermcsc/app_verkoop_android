@@ -34,19 +34,19 @@ class SearchVisionDataListAdapter(private val context: Context):RecyclerView.Ada
     }
     inner class SearchKeyWordHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(modal: SearchMultipleKeywordData) {
-            tvHeading.text=modal.name
-            tvCategorySearch.text=modal.category_name
-            itemView.setOnClickListener {
-                val intent= Intent(context, CategoryDetailsActivity::class.java)
-                intent.putExtra(AppConstants.CATEGORY_ID, modal.category_id)
-                intent.putExtra(AppConstants.ITEM_ID, modal.id)
-                intent.putExtra(AppConstants.SUB_CATEGORY, modal.category.name)
-                if(modal.category.parent_id>0) {
-                    intent.putExtra(AppConstants.TYPE, 1)
-                }
-                ( context as SearchActivity).startActivityForResult(intent,2)
-
-            }
+//            tvHeading.text=modal.name
+//            tvCategorySearch.text=modal.category_name
+//            itemView.setOnClickListener {
+//                val intent= Intent(context, CategoryDetailsActivity::class.java)
+//                intent.putExtra(AppConstants.CATEGORY_ID, modal.category_id)
+//                intent.putExtra(AppConstants.ITEM_ID, modal.id)
+//                intent.putExtra(AppConstants.SUB_CATEGORY, modal.category.name)
+//                if(modal.category.parent_id>0) {
+//                    intent.putExtra(AppConstants.TYPE, 1)
+//                }
+//                ( context as SearchActivity).startActivityForResult(intent,2)
+//
+//            }
         }
     }
 

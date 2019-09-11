@@ -81,7 +81,7 @@ class SearchActivity : AppCompatActivity() {
                         val searchItemResponse = response.body() as SearchMultipleKeywordResponse?
                         if (searchItemResponse != null) {
                             searchVisionDataList.clear()
-                            searchVisionDataList.addAll(searchItemResponse.data)
+//                            searchVisionDataList.addAll(searchItemResponse.data)
                             searchVisionDataListAdapter.setData(searchVisionDataList)
                             searchVisionDataListAdapter.notifyDataSetChanged()
                         }

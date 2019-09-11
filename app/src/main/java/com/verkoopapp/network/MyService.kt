@@ -183,6 +183,7 @@ interface MyService {
                     @Part("user_id") userId: RequestBody,
                     @Part("address") address: RequestBody,
                     @Part("latitude") lat: RequestBody,
+                    @Part("label") label: RequestBody,
                     @Part("longitude") lng: RequestBody,
                     @Part("meet_up") meetUp: RequestBody,
                     @Part("type") type: RequestBody,

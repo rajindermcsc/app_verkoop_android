@@ -218,6 +218,10 @@ class HomeFragment : BaseFragment() {
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val imageFileName = "JPEG_" + timeStamp + "_"
         val storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+        val f = File(storageDir.toString())
+//        if (!f.exists()) {
+//            f.mkdirs()
+//        }
         val image = File.createTempFile(
                 imageFileName, /* prefix */
                 "." +
@@ -444,11 +448,14 @@ class HomeFragment : BaseFragment() {
                         }
                     }
                 }
-                val intent = Intent(activity!!, SearchActivity::class.java)
+//                val intent = Intent(activity!!, SearchActivity::class.java)
+                val intent = Intent(activity!!, FavouritesActivity::class.java)
+                intent.putExtra(AppConstants.COMING_FROM,3)
                 intent.putExtra("visionData", visionData)
                 startActivity(intent)
             } catch (e: Exception) {
                 VerkoopApplication.instance.loader.hide(activity!!)
+                Utils.showSimpleMessage(homeActivity, getString(R.string.try_again_later)).show()
                 e.printStackTrace()
             }
         })

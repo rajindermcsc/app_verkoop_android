@@ -18,6 +18,11 @@ data class LoginRequest(
         val login_type: String
 )
 
+@Parcelize
+data class labelText(
+        val text: String
+) : Parcelable
+
 data class LoginSocialRequest(
         val username: String,
 //        val FirstName: String,
@@ -45,6 +50,7 @@ data class AddItemRequest(
         val item_type: String,
         val description: String,
         val user_id: String,
+        val label: String,
         val Latitude: String? = null,
         val Longitude: String? = null,
         val Address: String? = null,
@@ -79,9 +85,9 @@ data class AdditionalInfo(
         val from_year: Int? = 0,
         val to_year: Int? = 0,
         val furnished: Int? = 0,
-        val transmission_type : Int = 0,
-        val model_id : Int = 0,
-        val model_name : String? = null
+        val transmission_type: Int = 0,
+        val model_id: Int = 0,
+        val model_name: String? = null
 ) : Parcelable
 
 @Parcelize
@@ -289,10 +295,11 @@ data class RateUserRequest(
 )
 
 data class VerifyNumberRequest(
-    var mobile_no: String
+        var mobile_no: String
 )
+
 data class VerifyOtpRequest(
-    var otp: Int,
-    var user_id: Int,
-   var  mobile_no:String
+        var otp: Int,
+        var user_id: Int,
+        var mobile_no: String
 )

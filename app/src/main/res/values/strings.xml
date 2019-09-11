@@ -29,6 +29,7 @@
     <string name="enter_name">Please enter name.</string>
     <string name="enter_user_name">Please enter username.</string>
     <string name="check_internet">Please check your internet connection.</string>
+    <string name="try_again_later">Please try again later.</string>
     <string name="storage_permission_denied">Storage Permission Denied.</string>
     <string name="face_log">facebookLogin</string>
     <string name="google_plus">googlePlusLogin</string>
