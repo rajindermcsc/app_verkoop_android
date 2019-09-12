@@ -34,12 +34,15 @@ import retrofit2.Response
 import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.common.util.IOUtils
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.api.client.extensions.android.json.AndroidJsonFactory
 import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.util.GenericData
 import com.google.api.services.vision.v1.Vision
 import com.google.api.services.vision.v1.VisionRequestInitializer
 import com.google.api.services.vision.v1.model.*
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.iid.InstanceIdResult
 import com.verkoopapp.VerkoopApplication
 import com.verkoopapp.activity.*
 import com.verkoopapp.utils.GridSpacingItemDecoration
@@ -219,9 +222,9 @@ class HomeFragment : BaseFragment() {
         val imageFileName = "JPEG_" + timeStamp + "_"
         val storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
         val f = File(storageDir.toString())
-//        if (!f.exists()) {
-//            f.mkdirs()
-//        }
+        if (!f.exists()) {
+            f.mkdirs()
+        }
         val image = File.createTempFile(
                 imageFileName, /* prefix */
                 "." +
@@ -455,7 +458,8 @@ class HomeFragment : BaseFragment() {
                 startActivity(intent)
             } catch (e: Exception) {
                 VerkoopApplication.instance.loader.hide(activity!!)
-                Utils.showSimpleMessage(homeActivity, getString(R.string.try_again_later)).show()
+//                Utils.showSimpleMessage(homeActivity, getString(R.string.try_again_later)).show()
+                Toast.makeText(activity!!,getString(R.string.try_again_later),Toast.LENGTH_SHORT)
                 e.printStackTrace()
             }
         })

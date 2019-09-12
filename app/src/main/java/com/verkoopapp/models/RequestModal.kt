@@ -9,13 +9,17 @@ data class SignUpRequest(
         val username: String,
         val password: String,
         val login_type: String,
-        val country: String
+        val country: String,
+        val device_id: String,
+        val device_type: String
 )
 
 data class LoginRequest(
         val email: String,
         val password: String,
-        val login_type: String
+        val login_type: String,
+        val device_id: String,
+        val device_type: String
 )
 
 @Parcelize
@@ -29,7 +33,9 @@ data class LoginSocialRequest(
 //        val lastName: String,
         val email: String,
         val social_id: String,
-        val login_type: String
+        val login_type: String,
+        val device_id: String,
+        val device_type: String
 )
 
 data class LoginSocialGmailRequest(

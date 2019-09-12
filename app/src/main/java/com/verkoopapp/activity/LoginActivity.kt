@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
+import android.provider.Settings
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
@@ -21,6 +22,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInResult
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
+import com.google.firebase.iid.FirebaseInstanceId
 import com.verkoopapp.R
 import com.verkoopapp.VerkoopApplication
 import com.verkoopapp.models.LogInResponse
@@ -45,6 +47,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
     private var fbAccessToken: AccessToken? = null
     private var url: String? = null
     private var loginType: String = ""
+    private var deviceId: String = ""
     private var id = 0
     private var type = 0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +57,14 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         id = intent.getIntExtra(AppConstants.ID, 0)
         setData()
         googleLoginSetUp()
+        firebaseDeviceToken()
+    }
 
+    private fun firebaseDeviceToken() {
+        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
+            deviceId = it.token
+            Log.e("newToken", deviceId)
+        }
     }
 
     private fun googleLoginSetUp() {
@@ -181,6 +191,9 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         } else {
             if (requestCode == RC_SIGN_IN) {
                 val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
+                if(deviceId.equals("")){
+                    firebaseDeviceToken()
+                }
                 handleSignInResult(result)
             }
         }
@@ -188,6 +201,9 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 
     /*Login with Facebook*/
     private fun loginWithFacebook() {
+        if(deviceId.equals("")){
+            firebaseDeviceToken()
+        }
         callbackManager = CallbackManager.Factory.create()
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"))
         LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
@@ -265,7 +281,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 
             }
             Handler().postDelayed(Runnable {
-//                mGoogleApiClient!!.maybeSignOut()
+                //                mGoogleApiClient!!.maybeSignOut()
 //                mGoogleApiClient!!.disconnect()
                 mGoogleApiClient!!.signOut()
             }, 1000)
@@ -281,7 +297,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 
     private fun callLoginApi() {
         VerkoopApplication.instance.loader.show(this)
-        ServiceHelper().userLoginService(LoginRequest(etEmail.text.toString().trim(), etPassword.text.toString().trim(), "normal"),
+        ServiceHelper().userLoginService(LoginRequest(etEmail.text.toString().trim(), etPassword.text.toString().trim(), "normal",deviceId,"1"),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
@@ -362,12 +378,12 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 //        if (email == "") {
 //            email.equals(" ")
 //        }
-        ServiceHelper().socialLoginService(LoginSocialRequest(user_name, email, loginId, "social"),
+        ServiceHelper().socialLoginService(LoginSocialRequest(user_name, email, loginId, "social",deviceId,"1"),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
                         val loginResponse = response.body() as SocialGoogleResponse
-                        Log.e( "<<Log>>", "Login Successfully.")
+                        Log.e("<<Log>>", "Login Successfully.")
                         if (loginResponse.data != null) {
                             setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use, "", loginResponse.data.qrCode_image, loginResponse.data.coin, loginResponse.data.amount)
                         }

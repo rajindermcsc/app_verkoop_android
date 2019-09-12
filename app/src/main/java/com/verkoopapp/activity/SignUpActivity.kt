@@ -19,11 +19,14 @@ import kotlinx.android.synthetic.main.signup_activity.*
 import retrofit2.Response
 import android.text.InputFilter
 import android.text.Spanned
+import android.util.Log
+import com.google.firebase.iid.FirebaseInstanceId
 
 
 class SignUpActivity : AppCompatActivity() {
     private var id = 0
     private var type = 0
+    private var deviceId: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.signup_activity)
@@ -31,6 +34,14 @@ class SignUpActivity : AppCompatActivity() {
         id = intent.getIntExtra(AppConstants.ID, 0)
         setData()
         ccp.setCountryForPhoneCode(1)
+        firebaseDeviceToken()
+    }
+
+    private fun firebaseDeviceToken() {
+        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
+            deviceId = it.token
+            Log.e("newToken", deviceId)
+        }
     }
 
     private fun setData() {
@@ -171,13 +182,13 @@ class SignUpActivity : AppCompatActivity() {
     private fun callSignUpApi() {
         VerkoopApplication.instance.loader.show(this)
         ServiceHelper().userSignUPService(SignUpRequest(etEmailS.text.toString().trim(), etName.text.toString().trim(), etConfPassword.text.toString().trim()
-                ,"normal" ,ccp.selectedCountryName),
+                ,"normal" ,ccp.selectedCountryName,deviceId,"1"),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         VerkoopApplication.instance.loader.hide(this@SignUpActivity)
                         val loginResponse = response.body() as SignUpResponse
                         if(loginResponse.data!=null) {
-                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.qrCode_image,loginResponse.data.coin,loginResponse.data.amount)
+                            setResponseData(loginResponse.data.userId.toString (), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.qrCode_image,loginResponse.data.coin,loginResponse.data.amount)
                         }
                     }
 
