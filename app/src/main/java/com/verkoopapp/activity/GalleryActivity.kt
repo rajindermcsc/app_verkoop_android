@@ -40,29 +40,29 @@ class GalleryActivity : AppCompatActivity(), GalleryAdapter.ImageCountCallBack {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.gallery_activity)
         pickerController = PickerController(this)
-        comingFrom=intent.getIntExtra(AppConstants.COMING_FROM,0)
+        comingFrom = intent.getIntExtra(AppConstants.COMING_FROM, 0)
         setData()
         setAdapter()
 
     }
 
     private fun updateData() {
-        var totalSize=0
+        var totalSize = 0
         selectedImageList = intent.getParcelableArrayListExtra(AppConstants.SELECTED_LIST)
         if (selectedImageList.size > 0) {
             for (i in selectedImageList.indices) {
-                if(!TextUtils.isEmpty(selectedImageList[i].imageUrl)) {
+                if (!TextUtils.isEmpty(selectedImageList[i].imageUrl)) {
                     if (selectedImageList[i].iseditable) {
                         selectcount += 1
                         imageUris[selectedImageList[i].imagePosition].isSelected = true
                         imageUris[selectedImageList[i].imagePosition].countSelect = selectcount
-                    }else{
-                        totalSize+=1
+                    } else {
+                        totalSize += 1
                     }
                 }
             }
         }
-        itemAdapter.updateImageCount(selectcount,totalSize)
+        itemAdapter.updateImageCount(selectcount, totalSize)
         itemAdapter.notifyDataSetChanged()
         if (selectcount > 0) {
             tvSelectedCount.text = StringBuilder().append(" ").append(selectcount.toString()).append(" ").append("/ 10")
@@ -89,7 +89,7 @@ class GalleryActivity : AppCompatActivity(), GalleryAdapter.ImageCountCallBack {
         imageUris.addAll(result)
         itemAdapter.setData(imageUris)
         itemAdapter.notifyDataSetChanged()
-        if(comingFrom==1) {
+        if (comingFrom == 1) {
             updateData()
         }
     }
@@ -101,11 +101,11 @@ class GalleryActivity : AppCompatActivity(), GalleryAdapter.ImageCountCallBack {
             finish()
         }
         tvChatGallery.setOnClickListener {
-            Log.e("<<NextClick>>","clickedOnce")
-            if(comingFrom==1) {
+            Log.e("<<NextClick>>", "clickedOnce")
+            if (comingFrom == 1) {
                 setResultData()
 
-            }else{
+            } else {
                 setIntentData()
             }
         }
@@ -117,20 +117,20 @@ class GalleryActivity : AppCompatActivity(), GalleryAdapter.ImageCountCallBack {
 
     private fun setResultData() {
         var selectedList = ArrayList<SelectedImage>()
-        for (i in selectedImageList.indices){
+        for (i in selectedImageList.indices) {
             if (!selectedImageList[i].iseditable && !TextUtils.isEmpty(selectedImageList[i].imageUrl)) {
-                val selectedImage = SelectedImage(selectedImageList[i].imageUrl, i, false,selectedImageList[i].imageId)
+                val selectedImage = SelectedImage(selectedImageList[i].imageUrl, i, false, selectedImageList[i].imageId)
                 selectedList.add(selectedImage)
-                selectcount+=1
+                selectcount += 1
             }
         }
         for (i in imageUris.indices) {
             if (selectedList.size < selectcount) {
                 if (imageUris[i].isSelected) {
-                    val selectedImage = SelectedImage(imageUris[i].imageUrl, i, true,0)
+                    val selectedImage = SelectedImage(imageUris[i].imageUrl, i, true, 0)
                     selectedList.add(selectedImage)
                 }
-                if(selectcount==selectedList.size ){
+                if (selectcount == selectedList.size) {
                     val returnIntent = Intent()
                     returnIntent.putParcelableArrayListExtra(AppConstants.SELECTED_LIST, selectedList)
                     setResult(Activity.RESULT_OK, returnIntent)
@@ -153,10 +153,10 @@ class GalleryActivity : AppCompatActivity(), GalleryAdapter.ImageCountCallBack {
         for (i in imageUris.indices) {
             if (selectedList.size < selectcount) {
                 if (imageUris[i].isSelected) {
-                    val selectedImage = SelectedImage(imageUris[i].imageUrl, i, true,imageUris[i].imageId)
+                    val selectedImage = SelectedImage(imageUris[i].imageUrl, i, true, imageUris[i].imageId)
                     selectedList.add(selectedImage)
                 }
-                if(selectcount==selectedList.size ){
+                if (selectcount == selectedList.size) {
                     val intent = Intent(this, AddDetailsActivity::class.java)
                     intent.putParcelableArrayListExtra(AppConstants.SELECTED_LIST, selectedList)
                     intent.putExtra(AppConstants.POST_DATA, addItemsRequest)
@@ -223,7 +223,7 @@ class GalleryActivity : AppCompatActivity(), GalleryAdapter.ImageCountCallBack {
     }
 
     private fun addImage(path: File) {
-        val imagemodal = ImageModal(CommonUtils.getImageContentUri(this@GalleryActivity, path).toString(), false, false, 0, 0, true,0)
+        val imagemodal = ImageModal(CommonUtils.getImageContentUri(this@GalleryActivity, path).toString(), false, false, 0, 0, true, 0)
         imageUris.add(1, imagemodal)
         itemAdapter.notifyDataSetChanged()
         pickerController.setAddImagePath(Uri.fromFile(path))
@@ -234,13 +234,24 @@ class GalleryActivity : AppCompatActivity(), GalleryAdapter.ImageCountCallBack {
         when (requestCode) {
             28 -> {
                 if (grantResults.isNotEmpty()) {
-                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                        val pickerController = PickerController(this)
-                        pickerController.displayImage(0, true)
+                    if (grantResults.size == 2) {
+                        if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                            val pickerController = PickerController(this)
+                            pickerController.displayImage(0, true)
+                        } else {
+                            checkPermission()
+                            PermissionCheck(this).showPermissionDialog()
+                            // finish()
+                        }
                     } else {
-                        checkPermission()
-                        PermissionCheck(this).showPermissionDialog()
-                        // finish()
+                        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                            val pickerController = PickerController(this)
+                            pickerController.displayImage(0, true)
+                        } else {
+                            checkPermission()
+                            PermissionCheck(this).showPermissionDialog()
+                            // finish()
+                        }
                     }
                 }
             }

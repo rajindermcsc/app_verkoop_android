@@ -1549,7 +1549,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         if (screenType == 1) {
             //val additionalInfo = AdditionalInfo(carBrandId, carBrandName, carType, carTypeId, etRegistrationYear.text.toString(), directOwner)
             val additionalInfo = AdditionalInfo(car_brand_id = carBrandId, brand_name = carBrandName, car_type = carType, car_type_id = carTypeId, direct_owner = directOwner, location = etLocation.text.toString(), from_year = (etRegFrom.text.toString()).toInt(), to_year = (etRegTo.text.toString()).toInt(), min_price = etMinPriceCar.text.toString().replace("R", ""), max_price = etMaxPriceCar.text.toString().replace("R", ""), transmission_type = transmissionType, model_id = carModelId, model_name = carModel)
-            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceCar.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID),labelArrayString, lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId, carBrandId, carTypeId)
+            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceCar.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId, carBrandId, carTypeId)
 
         } else if (screenType == 2) {
             var property_ = ""
@@ -1559,7 +1559,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 }
             }
             val additionalInfo = AdditionalInfo(location = tvZone.text.toString(), zone_id = 0, street_name = etStreetName.text.toString(), postal_code = (etPostalCode.text.toString()).toInt(), city = etArea.text.toString(), bedroom = totalBadRoom, bathroom = totalBatchRoom, min_price = (etMinPriceAdd.text.toString().replace("R", "")), max_price = (etMaxPriceAdd.text.toString().replace("R", "")), property_type = property_, parking_type = parkingType)
-            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceAdd.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID),labelArrayString, lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId)
+            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceAdd.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId)
         } else if (screenType == 3) {
             var property_ = ""
             for (i in propertyTypeList.indices) {
@@ -1568,14 +1568,14 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 }
             }
             val additionalInfo = AdditionalInfo(location = tvZone.text.toString(), zone_id = 0, street_name = etStreetName.text.toString(), postal_code = (etPostalCode.text.toString()).toInt(), city = etArea.text.toString(), bedroom = totalBadRoom, bathroom = totalBatchRoom, min_price = (etMinPriceAdd.text.toString().replace("R", "")), max_price = (etMaxPriceAdd.text.toString().replace("R", "")), property_type = property_, parking_type = parkingType, furnished = furnished)
-            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceAdd.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID),labelArrayString, lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId)
+            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceAdd.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId)
         } else {
             if (cbNearBy.isChecked) {
                 val additionalInfo = AdditionalInfo(carBrandId, carBrandName, carType, carTypeId, "", directOwner)
-                addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString,lat.toString(), lng.toString(), address, "1", screenType, additionalInfo)
+                addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, lat.toString(), lng.toString(), address, "1", screenType, additionalInfo)
             } else {
                 val additionalInfo = AdditionalInfo(carBrandId, carBrandName, carType, carTypeId, "", directOwner)
-                addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString,"0.0", "0.0", "", "0", screenType, additionalInfo
+                addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, "0.0", "0.0", "", "0", screenType, additionalInfo
                 )
             }
         }
@@ -1688,7 +1688,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             }
             //val additionalInfo = AdditionalInfo(carBrandId, carBrandName, carType, carTypeId, etRegistrationYear.text.toString(), directOwner)
             val additionalInfo = AdditionalInfo(car_brand_id = carBrandId, brand_name = carBrandName, car_type = carType, car_type_id = carTypeId, direct_owner = directOwner, location = etLocation.text.toString(), from_year = fromYear, to_year = toYear, min_price = etMinPriceCar.text.toString().replace("R", ""), max_price = etMaxPriceCar.text.toString().replace("R", ""), transmission_type = transmissionType, model_id = carModelId, model_name = carModel)
-            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceCar.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID),labelArrayString, lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId, carBrandId, carTypeId)
+            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceCar.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId, carBrandId, carTypeId)
 
         } else if (screenType == 2) {
             var property_ = ""
@@ -1702,7 +1702,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 postalCode = (etPostalCode.text.toString()).toInt()
             }
             val additionalInfo = AdditionalInfo(location = tvZone.text.toString(), zone_id = 0, street_name = etStreetName.text.toString(), postal_code = postalCode, city = etArea.text.toString(), bedroom = totalBadRoom, bathroom = totalBatchRoom, min_price = (etMinPriceAdd.text.toString().replace("R", "")), max_price = (etMaxPriceAdd.text.toString().replace("R", "")), property_type = property_, parking_type = parkingType)
-            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceAdd.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID),labelArrayString, lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId)
+            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceAdd.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId)
         } else if (screenType == 3) {
             var property_ = ""
             for (i in propertyTypeList.indices) {
@@ -1711,16 +1711,16 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 }
             }
             var postalCode = 0
-                if (!TextUtils.isEmpty(etPostalCode.text.toString()) && !etPostalCode.text.toString().equals("null", ignoreCase = true)) {
+            if (!TextUtils.isEmpty(etPostalCode.text.toString()) && !etPostalCode.text.toString().equals("null", ignoreCase = true)) {
                 postalCode = (etPostalCode.text.toString()).toInt()
             }
             val additionalInfo = AdditionalInfo(location = tvZone.text.toString(), zone_id = 0, street_name = etStreetName.text.toString(), postal_code = postalCode, city = etArea.text.toString(), bedroom = totalBadRoom, bathroom = totalBatchRoom, min_price = (etMinPriceAdd.text.toString().replace("R", "")), max_price = (etMaxPriceAdd.text.toString().replace("R", "")), property_type = property_, parking_type = parkingType, furnished = furnished)
-            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceAdd.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID),labelArrayString, lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId)
+            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceAdd.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId)
         } else {
             if (cbNearBy.isChecked) {
-                addItemRequest = AddItemRequest(sendList, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID),labelArrayString, lat.toString(), lng.toString(), address, "1", screenType)
+                addItemRequest = AddItemRequest(sendList, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, lat.toString(), lng.toString(), address, "1", screenType)
             } else {
-                addItemRequest = AddItemRequest(sendList, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID),labelArrayString, "0.0", "0.0", "", "0", screenType)
+                addItemRequest = AddItemRequest(sendList, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, "0.0", "0.0", "", "0", screenType)
             }
         }
         val returnIntent = Intent()
@@ -1793,13 +1793,15 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                             }
                         }
                     }
-                    if (batchResponse.responses.get(i).labelAnnotations.size > 0) {
-                        if (batchResponse.responses.get(i).labelAnnotations.get(0).description != null) {
-                            visionData = visionData + "," + batchResponse.responses.get(i).labelAnnotations.get(0).description
-                        }
-                        if (batchResponse.responses.get(i).labelAnnotations.size > 1) {
-                            if (batchResponse.responses.get(i).labelAnnotations.get(1).description != null) {
-                                visionData = visionData + "," + batchResponse.responses.get(i).labelAnnotations.get(1).description
+                    if (batchResponse.responses.get(i).labelAnnotations != null) {
+                        if (batchResponse.responses.get(i).labelAnnotations.size > 0) {
+                            if (batchResponse.responses.get(i).labelAnnotations.get(0).description != null) {
+                                visionData = visionData + "," + batchResponse.responses.get(i).labelAnnotations.get(0).description
+                            }
+                            if (batchResponse.responses.get(i).labelAnnotations.size > 1) {
+                                if (batchResponse.responses.get(i).labelAnnotations.get(1).description != null) {
+                                    visionData = visionData + "," + batchResponse.responses.get(i).labelAnnotations.get(1).description
+                                }
                             }
                         }
                     }
@@ -1818,6 +1820,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 }
 
                 labelArrayString = Gson().toJson(visionDataList)
+                Log.v("VisionData", labelArrayString)
                 uploadImageItem(realPath, screenType)
             } catch (e: Exception) {
                 VerkoopApplication.instance.loader.hide(this)

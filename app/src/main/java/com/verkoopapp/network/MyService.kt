@@ -171,6 +171,9 @@ interface MyService {
     @GET("listRatedUserBad/{user_id}")
     fun getMyRatingPoorApi(@Path(value = "user_id", encoded = true) fullUrl: Int): Call<MyRatingResponse>
 
+    @POST("user/updateDeviceInfo")
+    fun updateDeviceInfoApi(@Body request: UpdateDeviceInfoRequest): Call<DisLikeResponse>
+
     @Multipart
     @Headers("Accept: application/json")
     @POST("items")

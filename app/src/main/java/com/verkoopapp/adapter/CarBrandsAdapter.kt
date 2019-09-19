@@ -13,6 +13,7 @@ import com.verkoopapp.activity.CarsFilterActivity
 import com.verkoopapp.models.Brand
 import com.verkoopapp.utils.AppConstants
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.category_home_row.*
 import kotlinx.android.synthetic.main.full_car_brand_row.*
 
 
@@ -45,6 +46,8 @@ class CarBrandsAdapter(private val context: Context, private val rvFavoutire: Re
                         .centerInside()
                         .error(R.mipmap.setting)
                         .into(ivItemsBrand)
+            } else{
+                ivItemsBrand.setImageDrawable(context.resources.getDrawable(R.mipmap.setting))
             }
             itemView.setOnClickListener {
                 val intent = Intent(context, CarsFilterActivity::class.java)

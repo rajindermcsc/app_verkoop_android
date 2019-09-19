@@ -10,7 +10,7 @@ data class SignUpRequest(
         val password: String,
         val login_type: String,
         val country: String,
-        val device_id: String,
+//        val device_id: String,
         val device_type: String
 )
 
@@ -18,7 +18,7 @@ data class LoginRequest(
         val email: String,
         val password: String,
         val login_type: String,
-        val device_id: String,
+//        val device_id: String,
         val device_type: String
 )
 
@@ -34,7 +34,7 @@ data class LoginSocialRequest(
         val email: String,
         val social_id: String,
         val login_type: String,
-        val device_id: String,
+//        val device_id: String,
         val device_type: String
 )
 
@@ -45,6 +45,11 @@ data class LoginSocialGmailRequest(
         val login_type: String
 )
 
+data class UpdateDeviceInfoRequest(
+        val user_id:String,
+       val device_id : String,
+       val device_type : String
+)
 
 @Parcelize
 data class AddItemRequest(

@@ -431,13 +431,15 @@ class HomeFragment : BaseFragment() {
                         }
                     }
                 }
-                if (batchResponse.responses.get(0).labelAnnotations.size > 0) {
-                    if (batchResponse.responses.get(0).labelAnnotations.get(0).description != null) {
-                        visionData = visionData + "," + batchResponse.responses.get(0).labelAnnotations.get(0).description
-                    }
-                    if (batchResponse.responses.get(0).labelAnnotations.size > 1) {
-                        if (batchResponse.responses.get(0).labelAnnotations.get(1).description != null) {
-                            visionData = visionData + "," + batchResponse.responses.get(0).labelAnnotations.get(1).description
+                if (batchResponse.responses.get(0).labelAnnotations != null) {
+                    if (batchResponse.responses.get(0).labelAnnotations.size > 0) {
+                        if (batchResponse.responses.get(0).labelAnnotations.get(0).description != null) {
+                            visionData = visionData + "," + batchResponse.responses.get(0).labelAnnotations.get(0).description
+                        }
+                        if (batchResponse.responses.get(0).labelAnnotations.size > 1) {
+                            if (batchResponse.responses.get(0).labelAnnotations.get(1).description != null) {
+                                visionData = visionData + "," + batchResponse.responses.get(0).labelAnnotations.get(1).description
+                            }
                         }
                     }
                 }
@@ -451,15 +453,17 @@ class HomeFragment : BaseFragment() {
                         }
                     }
                 }
+
+                Log.v("VisionDataToBacked", visionData)
 //                val intent = Intent(activity!!, SearchActivity::class.java)
                 val intent = Intent(activity!!, FavouritesActivity::class.java)
-                intent.putExtra(AppConstants.COMING_FROM,3)
+                intent.putExtra(AppConstants.COMING_FROM, 3)
                 intent.putExtra("visionData", visionData)
                 startActivity(intent)
             } catch (e: Exception) {
                 VerkoopApplication.instance.loader.hide(activity!!)
 //                Utils.showSimpleMessage(homeActivity, getString(R.string.try_again_later)).show()
-                Toast.makeText(activity!!,getString(R.string.try_again_later),Toast.LENGTH_SHORT)
+                Toast.makeText(activity!!, getString(R.string.try_again_later), Toast.LENGTH_SHORT)
                 e.printStackTrace()
             }
         })

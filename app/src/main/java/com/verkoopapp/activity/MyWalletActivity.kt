@@ -11,7 +11,10 @@ import kotlinx.android.synthetic.main.toolbar_location.*
 import android.app.Activity
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
+import com.verkoopapp.models.AddMoneyRequest
+import com.verkoopapp.models.UpdateWalletResponse
 import com.verkoopapp.models.WalletHistoryResponse
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
@@ -33,7 +36,7 @@ import java.util.*
 
 class MyWalletActivity : AppCompatActivity() {
     private lateinit var paymentHistoryAdapter: PaymentHistoryAdapter
-        private var wirecardCardPayment : WirecardCardPayment?=null
+    private var wirecardCardPayment: WirecardCardPayment? = null
     private lateinit var wirecardClient: WirecardClient
     val timestamp = SignatureHelper.generateTimestamp()!!
     //private val merchantID = "F5785ECF-1EAE-40A0-9D37-93E2E8A4BAB3"
@@ -45,7 +48,7 @@ class MyWalletActivity : AppCompatActivity() {
     private val requestID = UUID.randomUUID().toString()
     val URL_EE_TEST = "https://api-test.wirecard.com"
     private val transactionType = WirecardTransactionType.PURCHASE
-    var amount:BigDecimal?=null
+    var amount: BigDecimal? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,9 +68,9 @@ class MyWalletActivity : AppCompatActivity() {
             if (paymentResponse.transactionState == TransactionState.SUCCESS) {
                 // handle successful transaction
                 getWalletHistoryApi()
-                Log.e("<<success>>",paymentResponse.authorizationCode)
+                Log.e("<<success>>", paymentResponse.authorizationCode)
             } else {
-                Log.e("<<successElse>>",paymentResponse.authorizationCode)
+                Log.e("<<successElse>>", paymentResponse.authorizationCode)
                 // handle unsuccessful transaction
             }
         }
@@ -76,25 +79,29 @@ class MyWalletActivity : AppCompatActivity() {
             when (responseError.errorCode) {
                 WirecardErrorCode.ERROR_CODE_GENERAL -> {
                     val detailedMessage = responseError.errorMessage
-                    Log.e("<<failure>>",detailedMessage)
+                    Log.e("<<failure>>", detailedMessage)
                 }
                 WirecardErrorCode.ERROR_CODE_INVALID_PAYMENT_DATA -> {
-                    Log.e("<<failure>>","ERROR_CODE_INVALID_PAYMENT_DATA")
+                    Log.e("<<failure>>", "ERROR_CODE_INVALID_PAYMENT_DATA")
                 }
                 WirecardErrorCode.ERROR_CODE_NETWORK_ISSUE -> {
                     val detailedMessage = responseError.errorMessage
-                    Log.e("<<failure>>",detailedMessage)
+                    Log.e("<<failure>>", detailedMessage)
                 }
                 WirecardErrorCode.ERROR_CODE_USER_CANCELED -> {
-                    Log.e("<<failure>>","ERROR_CODE_USER_CANCELED")
+                    Log.e("<<" +
+                            "" +
+                            "" +
+                            ">>", "ERROR_CODE_USER_CANCELED")
                 }
             }
         }
     }
-    private fun setPayment(amountTotal:Int) {
-        amount=BigDecimal(amountTotal)
+
+    private fun setPayment(amountTotal: Int) {
+        amount = BigDecimal(amountTotal)
         val signature = SignatureHelper.generateSignature(timestamp, merchantID, requestID, transactionType.value, amount, currency, secretKey)
-        wirecardCardPayment =  WirecardCardPayment(signature, timestamp, requestID,merchantID, transactionType, amount, currency)
+        wirecardCardPayment = WirecardCardPayment(signature, timestamp, requestID, merchantID, transactionType, amount, currency)
         val environment = WirecardEnvironment.TEST.value
         try {
             wirecardClient = WirecardClientBuilder.newInstance(this, URL_EE_TEST)
@@ -104,20 +111,21 @@ class MyWalletActivity : AppCompatActivity() {
         }
         val style = PaymentPageStyle()
         style.payButtonBackgroundResourceId = R.color.colorPrimary
-        style.toolbarResourceId =  R.color.colorPrimary
-        style.inputLabelTextColor=R.color.dark_black
-        wirecardClient.makePayment(wirecardCardPayment,style,wirecardResponseListener)
-//    Client(this, URL_EE_TEST)
-//            .startPayment(getCardPayment(false))
+        style.toolbarResourceId = R.color.colorPrimary
+        style.inputLabelTextColor = R.color.dark_black
+//        wirecardClient.makePayment(wirecardCardPayment,style,wirecardResponseListener)
+        Client(this, URL_EE_TEST)
+                .startPayment(getCardPayment(false, amountTotal))
     }
-    fun getCardPayment(isAnimated: Boolean): CardPayment {
+
+    fun getCardPayment(isAnimated: Boolean, amountTotal: Int): CardPayment {
         val timestamp = SignatureHelper.generateTimestamp()
         val merchantID = "33f6d473-3036-4ca5-acb5-8c64dac862d1"
         val secretKey = "9e0130f6-2e1e-4185-b0d5-dc69079c75cc"
         val requestID = UUID.randomUUID().toString()
         val transactionType = TransactionType.PURCHASE
-        val amount = BigDecimal(5)
-        val currency = "EUR"
+        val amount = BigDecimal(amountTotal)
+        val currency = "USD"
         val signature = SignatureHelper.generateSignature(timestamp, merchantID, requestID, transactionType.value, amount, currency, secretKey)
         val cardPayment = CardPayment.Builder()
                 .setSignature(signature)
@@ -167,8 +175,18 @@ class MyWalletActivity : AppCompatActivity() {
         } else if (requestCode == Client.PAYMENT_SDK_REQUEST_CODE) {
             val paymentSdkResponse = data!!.getSerializableExtra(Client.EXTRA_PAYMENT_SDK_RESPONSE)
             if (paymentSdkResponse is PaymentResponse) {
-                val formattedResponse = ResponseHelper.getFormattedResponse(paymentSdkResponse)
-                Toast.makeText(this, formattedResponse, Toast.LENGTH_SHORT).show()
+                if (paymentSdkResponse.errorMessage.equals("User has canceled the action.")) {
+
+                } else {
+                    var formattedResponse: String = ResponseHelper.getFormattedResponse(paymentSdkResponse)
+                    Toast.makeText(this, formattedResponse, Toast.LENGTH_SHORT).show()
+                    if (!(paymentSdkResponse as PaymentResponse).payment!!.requestedAmount!!.amount!!.equals("")) {
+                        val amount = (paymentSdkResponse as PaymentResponse).payment!!.requestedAmount!!.amount!!
+                        callUpdateWalletApi(amount)
+                    } else {
+                        Toast.makeText(this@MyWalletActivity, "Something went wrong", Toast.LENGTH_LONG)
+                    }
+                }
             }
         }
     }//on
@@ -196,6 +214,33 @@ class MyWalletActivity : AppCompatActivity() {
                 Utils.showSimpleMessage(this@MyWalletActivity, msg!!).show()
             }
         })
+    }
+
+    private fun callUpdateWalletApi(amount: String?) {
+        window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        pbProgressWallet.visibility = View.VISIBLE
+        ServiceHelper().addMoneyService(AddMoneyRequest(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), amount!!.toDouble(), "12345878632"),
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                        pbProgressWallet.visibility = View.GONE
+                        val loginResponse = response.body() as UpdateWalletResponse
+                        Utils.showToast(this@MyWalletActivity, loginResponse.message)
+                        val returnIntent = Intent()
+                        returnIntent.putExtra(AppConstants.INTENT_RESULT, "success")
+                        setResult(Activity.RESULT_OK, returnIntent)
+                        finish()
+                        //  onBackPressed()
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                        pbProgressWallet.visibility = View.GONE
+                        Utils.showSimpleMessage(this@MyWalletActivity, msg!!).show()
+                    }
+                })
 
     }
+
 }

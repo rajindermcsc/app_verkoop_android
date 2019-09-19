@@ -21,6 +21,8 @@ import android.text.InputFilter
 import android.text.Spanned
 import android.util.Log
 import com.google.firebase.iid.FirebaseInstanceId
+import com.verkoopapp.models.DisLikeResponse
+import com.verkoopapp.models.UpdateDeviceInfoRequest
 
 
 class SignUpActivity : AppCompatActivity() {
@@ -182,14 +184,38 @@ class SignUpActivity : AppCompatActivity() {
     private fun callSignUpApi() {
         VerkoopApplication.instance.loader.show(this)
         ServiceHelper().userSignUPService(SignUpRequest(etEmailS.text.toString().trim(), etName.text.toString().trim(), etConfPassword.text.toString().trim()
-                ,"normal" ,ccp.selectedCountryName,deviceId,"1"),
+                ,"normal" ,ccp.selectedCountryName,"1"),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         VerkoopApplication.instance.loader.hide(this@SignUpActivity)
                         val loginResponse = response.body() as SignUpResponse
                         if(loginResponse.data!=null) {
                             setResponseData(loginResponse.data.userId.toString (), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.qrCode_image,loginResponse.data.coin,loginResponse.data.amount)
+                            updateDeviceInfo()
                         }
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        VerkoopApplication.instance.loader.hide(this@SignUpActivity)
+                        Utils.showSimpleMessage(this@SignUpActivity, msg!!).show()
+                    }
+                })
+    }
+
+    private fun updateDeviceInfo() {
+        if (Utils.isOnline(this)) {
+            callUpdateDeviceInfoApi()
+        } else {
+            updateDeviceInfo()
+        }
+    }
+
+    private fun callUpdateDeviceInfoApi() {
+        ServiceHelper().updateDeviceInfo(UpdateDeviceInfoRequest(Utils.getPreferences(this@SignUpActivity,AppConstants.USER_ID),deviceId,"1"),
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        VerkoopApplication.instance.loader.hide(this@SignUpActivity)
+                        val loginResponse = response.body() as DisLikeResponse
                     }
 
                     override fun onFailure(msg: String?) {

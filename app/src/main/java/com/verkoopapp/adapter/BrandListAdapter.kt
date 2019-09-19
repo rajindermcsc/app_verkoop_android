@@ -32,6 +32,10 @@ class BrandListAdapter(private val context: Context, private val rvBrandList: In
         return brandsList.size
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = brandsList[position]
         holder.bind(data, position)
@@ -46,6 +50,8 @@ class BrandListAdapter(private val context: Context, private val rvBrandList: In
                         .centerInside()
                         .error(R.mipmap.setting)
                         .into(ivItemsHome)
+            } else{
+                ivItemsHome.setImageDrawable(context.resources.getDrawable(R.mipmap.setting))
             }
             itemView.setOnClickListener {
                 val intent = Intent(context, CarsFilterActivity::class.java)

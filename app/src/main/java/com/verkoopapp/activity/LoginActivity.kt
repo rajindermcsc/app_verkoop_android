@@ -25,10 +25,7 @@ import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.iid.FirebaseInstanceId
 import com.verkoopapp.R
 import com.verkoopapp.VerkoopApplication
-import com.verkoopapp.models.LogInResponse
-import com.verkoopapp.models.LoginRequest
-import com.verkoopapp.models.LoginSocialRequest
-import com.verkoopapp.models.SocialGoogleResponse
+import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
@@ -297,16 +294,40 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 
     private fun callLoginApi() {
         VerkoopApplication.instance.loader.show(this)
-        ServiceHelper().userLoginService(LoginRequest(etEmail.text.toString().trim(), etPassword.text.toString().trim(), "normal",deviceId,"1"),
+        ServiceHelper().userLoginService(LoginRequest(etEmail.text.toString().trim(), etPassword.text.toString().trim(), "normal","1"),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
                         val loginResponse = response.body() as LogInResponse
                         if (loginResponse.data != null) {
                             setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use, loginResponse.data.mobile_no, loginResponse.data.qrCode_image, loginResponse.data.coin, loginResponse.data.amount)
+                            updateDeviceInfo()
                         } else {
                             Utils.showSimpleMessage(this@LoginActivity, loginResponse.message).show()
                         }
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        VerkoopApplication.instance.loader.hide(this@LoginActivity)
+                        Utils.showSimpleMessage(this@LoginActivity, msg!!).show()
+                    }
+                })
+    }
+
+    private fun updateDeviceInfo() {
+        if (Utils.isOnline(this)) {
+            callUpdateDeviceInfoApi()
+        } else {
+            updateDeviceInfo()
+        }
+    }
+
+    private fun callUpdateDeviceInfoApi() {
+        ServiceHelper().updateDeviceInfo(UpdateDeviceInfoRequest(Utils.getPreferences(this@LoginActivity,AppConstants.USER_ID),deviceId,"1"),
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        VerkoopApplication.instance.loader.hide(this@LoginActivity)
+                        val loginResponse = response.body() as DisLikeResponse
                     }
 
                     override fun onFailure(msg: String?) {
@@ -378,7 +399,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 //        if (email == "") {
 //            email.equals(" ")
 //        }
-        ServiceHelper().socialLoginService(LoginSocialRequest(user_name, email, loginId, "social",deviceId,"1"),
+        ServiceHelper().socialLoginService(LoginSocialRequest(user_name, email, loginId, "social","1"),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
@@ -386,6 +407,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                         Log.e("<<Log>>", "Login Successfully.")
                         if (loginResponse.data != null) {
                             setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use, "", loginResponse.data.qrCode_image, loginResponse.data.coin, loginResponse.data.amount)
+                            updateDeviceInfo()
                         }
                     }
 
