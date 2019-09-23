@@ -1,6 +1,7 @@
 package com.verkoopapp.adapter
 
 import android.content.Intent
+import android.os.Handler
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.util.Log
@@ -17,6 +18,7 @@ import com.verkoopapp.models.Category
 import com.verkoopapp.utils.AppConstants
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.category_home_row.*
+import kotlinx.android.synthetic.main.my_profile_details_row.*
 
 
 class CategoryListAdapter(private val context: HomeActivity, private var categoryList: ArrayList<Category>, private val rvCategoryHome: Int): RecyclerView.Adapter<CategoryListAdapter.ViewHolder>() {
@@ -52,6 +54,10 @@ class CategoryListAdapter(private val context: HomeActivity, private var categor
                         .into(ivItemsHome)
             }
             itemView.setOnClickListener {
+                itemView.isEnabled=false
+                Handler().postDelayed(Runnable {
+                    itemView.isEnabled = true
+                }, 700)
                 when {
                     data.id==85 -> {
                         val intent = Intent(context, BuyCarsActivity::class.java)

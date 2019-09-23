@@ -173,12 +173,20 @@ class HomeActivity : AppCompatActivity() {
         // viewPager.offscreenPageLimit = 2
         setTabLayout()
         ivChat.setOnClickListener {
+            ivChat.isEnabled=false
             val intent = Intent(this, ChatInboxActivity::class.java)
             startActivity(intent)
+            Handler().postDelayed(Runnable {
+                ivChat.isEnabled = true
+            }, 700)
         }
         ivFavourite.setOnClickListener {
+            ivFavourite.isEnabled=false
             val intent = Intent(this, FavouritesActivity::class.java)
             startActivity(intent)
+            Handler().postDelayed(Runnable {
+                ivFavourite.isEnabled = true
+            }, 700)
         }
         if (comingFrom == 1) {
             when {

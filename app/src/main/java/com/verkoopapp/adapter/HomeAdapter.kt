@@ -27,7 +27,8 @@ import kotlinx.android.synthetic.main.item_row.*
 import kotlinx.android.synthetic.main.your_daily_picks.*
 import retrofit2.Response
 import android.os.Bundle
-
+import android.os.Handler
+import kotlinx.android.synthetic.main.my_profile_details_row.*
 
 
 class HomeAdapter(private val context: Context, private val rvItemList: Int, private val homeFragment: HomeFragment) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -155,8 +156,12 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
             rvCategoryHome!!.adapter!!.notifyDataSetChanged()
             //   rvCategoryHome.setRecycledViewPool(v iewPool)
             tvViewAll.setOnClickListener {
+                tvViewAll.isEnabled=false
                 val intent = Intent(context, FullCategoriesActivity::class.java)
                 context.startActivityForResult(intent, 2)
+                Handler().postDelayed(Runnable {
+                    tvViewAll.isEnabled = true
+                }, 700)
             }
 
         }
@@ -166,12 +171,20 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
     inner class CarAndPropertiesHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind() {
             ivBuyCar.setOnClickListener {
+                ivBuyCar.isEnabled=false
                 val intent = Intent(context, BuyCarsActivity::class.java)
                 (context as HomeActivity).startActivityForResult(intent, 2)
+                Handler().postDelayed(Runnable {
+                    ivBuyCar.isEnabled = true
+                }, 1000)
             }
             ivBuyProperty.setOnClickListener {
+                ivBuyProperty.isEnabled=false
                 val intent = Intent(context, BuyPropertiesActivity::class.java)
                 (context as HomeActivity).startActivityForResult(intent, 2)
+                Handler().postDelayed(Runnable {
+                    ivBuyProperty.isEnabled = true
+                }, 1000)
             }
         }
 
@@ -269,9 +282,13 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
             rvYourDailyPicks.setHasFixedSize(true)
             rvYourDailyPicks.adapter = dailyPicksAdapter
             tvViewAllDailyPicks.setOnClickListener {
+                tvViewAllDailyPicks.isEnabled=false
                 val intent = Intent(context, FavouritesActivity::class.java)
                 intent.putExtra(AppConstants.COMING_FROM, 1)
                 context.startActivity(intent)
+                Handler().postDelayed(Runnable {
+                    tvViewAllDailyPicks.isEnabled = true
+                }, 700)
             }
         }
 

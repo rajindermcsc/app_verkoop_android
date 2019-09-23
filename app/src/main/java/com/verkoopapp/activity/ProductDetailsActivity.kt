@@ -38,6 +38,8 @@ import io.branch.indexing.BranchUniversalObject
 import io.branch.referral.util.ContentMetadata
 import io.branch.referral.util.LinkProperties
 import kotlinx.android.synthetic.main.item_details_activity.*
+import kotlinx.android.synthetic.main.item_details_activity.tvAddress
+import kotlinx.android.synthetic.main.my_profile_details_row.*
 import kotlinx.android.synthetic.main.toolbar_product_details.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -117,6 +119,10 @@ class ProductDetailsActivity : AppCompatActivity() {
 
     private fun setClickData() {
         ivWhatAppShare.setOnClickListener {
+            ivWhatAppShare.isEnabled = false
+            Handler().postDelayed(Runnable {
+                ivWhatAppShare.isEnabled = true
+            }, 700)
             val installed = Utils.appInstalledOrNot(this, "com.whatsapp")
             if (installed) {
                 sharedDetails(2)/*WhatsApp Share*/
@@ -126,9 +132,17 @@ class ProductDetailsActivity : AppCompatActivity() {
             }
         }
         tvFacebookShare.setOnClickListener {
+            tvFacebookShare.isEnabled = false
+            Handler().postDelayed(Runnable {
+                tvFacebookShare.isEnabled = true
+            }, 700)
             sharedDetails(1)/*facebook Share*/
         }
         llChat.setOnClickListener {
+            llChat.isEnabled = false
+            Handler().postDelayed(Runnable {
+                llChat.isEnabled = true
+            }, 700)
             if (userId != Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()) {
                 val intent = Intent(this, ChatActivity::class.java)
                 intent.putExtra(AppConstants.USER_ID, userId)
@@ -148,6 +162,10 @@ class ProductDetailsActivity : AppCompatActivity() {
             }
         }
         tvShare.setOnClickListener {
+            tvShare.isEnabled = false
+            Handler().postDelayed(Runnable {
+                tvShare.isEnabled = true
+            }, 700)
             sharedDetails(0)/*open Share*/
         }
     }
@@ -606,8 +624,8 @@ class ProductDetailsActivity : AppCompatActivity() {
                 Log.e("<<<Response>>>", Gson().toJson(it[0]))
                 val data = it[0] as JSONObject
 
-                    runOnUiThread {
-                        try {
+                runOnUiThread {
+                    try {
                         if (data.getString("status") == "1") {
                             saveDataToDb(data)
                             val intent = Intent(this, ChatActivity::class.java)
@@ -627,8 +645,8 @@ class ProductDetailsActivity : AppCompatActivity() {
                         } else {
 
                         }
-                    }catch (e: Exception) {
-                        }
+                    } catch (e: Exception) {
+                    }
                 }
             })
         } catch (e: JSONException) {

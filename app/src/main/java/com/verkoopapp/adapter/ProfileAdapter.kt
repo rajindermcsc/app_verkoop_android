@@ -2,11 +2,13 @@ package com.verkoopapp.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.os.Handler
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.github.nkzawa.socketio.client.On
 import com.squareup.picasso.Picasso
 import com.verkoopapp.R
 import com.verkoopapp.activity.*
@@ -20,6 +22,7 @@ import io.branch.referral.util.ContentMetadata
 import io.branch.referral.util.LinkProperties
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_row.*
+import kotlinx.android.synthetic.main.login_activity.*
 import kotlinx.android.synthetic.main.my_profile_details_row.*
 import retrofit2.Response
 
@@ -112,18 +115,30 @@ class ProfileAdapter(private val context: Context, private val screenWidth: Int,
                 tvCountry.text = data.country
             }
             llFollowers.setOnClickListener {
+                llFollowers.isEnabled = false
+                Handler().postDelayed(Runnable {
+                    llFollowers.isEnabled = true
+                }, 700)
                 val intent = Intent(context, FollowFollowingActivity::class.java)
                 intent.putExtra(AppConstants.COMING_FROM, 0)
                 intent.putExtra(AppConstants.USER_ID, Utils.getPreferencesString(context, AppConstants.USER_ID).toInt())
                 context.startActivity(intent)
             }
             llFollowing.setOnClickListener {
+                llFollowing.isEnabled = false
+                Handler().postDelayed(Runnable {
+                    llFollowing.isEnabled = true
+                }, 700)
                 val intent = Intent(context, FollowFollowingActivity::class.java)
                 intent.putExtra(AppConstants.COMING_FROM, 1)
                 intent.putExtra(AppConstants.USER_ID, Utils.getPreferencesString(context, AppConstants.USER_ID).toInt())
                 context.startActivity(intent)
             }
             llFavourite.setOnClickListener {
+                llFavourite.isEnabled = false
+                Handler().postDelayed(Runnable {
+                    llFavourite.isEnabled = true
+                }, 700)
                 val intent = Intent(context, FavouritesActivity::class.java)
                 context.startActivity(intent)
             }
@@ -132,43 +147,71 @@ class ProfileAdapter(private val context: Context, private val screenWidth: Int,
                 context.startActivity(intent)
             }
             llCoins.setOnClickListener {
+                llCoins.isEnabled = false
                 val intent = Intent(context, CoinsActivity::class.java)
                 context.startActivity(intent)
+                Handler().postDelayed(Runnable {
+                    llCoins.isEnabled = true
+                }, 1000)
             }
             ivScanner.setOnClickListener {
+                ivScanner.isEnabled = false
                 val intent = Intent(context, QRScannerActivity::class.java)
                 context.startActivity(intent)
+                Handler().postDelayed(Runnable {
+                    ivScanner.isEnabled = true
+                }, 1000)
             }
             llWallet.setOnClickListener {
+                llWallet.isEnabled = false
                 val intent = Intent(context, MyWalletActivity::class.java)
                 context.startActivity(intent)
+                Handler().postDelayed(Runnable {
+                    llWallet.isEnabled = true
+                }, 1000)
             }
             llGood.setOnClickListener {
+                llGood.isEnabled = false
+                Handler().postDelayed(Runnable {
+                    llGood.isEnabled = true
+                }, 700)
                 val intent = Intent(context, RatingActivity::class.java)
                 intent.putExtra(AppConstants.COMING_FROM, 1)/*good*/
                 intent.putExtra(AppConstants.USER_ID, Utils.getPreferencesString(context, AppConstants.USER_ID).toInt())
                 context.startActivity(intent)
             }
             llBad.setOnClickListener {
+                llBad.isEnabled = false
+                Handler().postDelayed(Runnable {
+                    llBad.isEnabled = true
+                }, 700)
                 val intent = Intent(context, RatingActivity::class.java)
                 intent.putExtra(AppConstants.COMING_FROM, 2)/*bad*/
                 intent.putExtra(AppConstants.USER_ID, Utils.getPreferencesString(context, AppConstants.USER_ID).toInt())
                 context.startActivity(intent)
             }
             llPoor.setOnClickListener {
+                llPoor.isEnabled = false
+                Handler().postDelayed(Runnable {
+                    llPoor.isEnabled = true
+                }, 700)
                 val intent = Intent(context, RatingActivity::class.java)
                 intent.putExtra(AppConstants.COMING_FROM, 3)/*poor*/
                 intent.putExtra(AppConstants.USER_ID, Utils.getPreferencesString(context, AppConstants.USER_ID).toInt())
                 context.startActivity(intent)
             }
             llShare.setOnClickListener {
+                llShare.isEnabled = false
+                Handler().postDelayed(Runnable {
+                    llShare.isEnabled = true
+                }, 700)
                 sharedDetails(data!!.username, data.profile_pic)
 
-             /*   val sharingIntent = Intent(Intent.ACTION_SEND)
-                sharingIntent.type = "text/html"
-                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Verkoop")
-                sharingIntent.putExtra(Intent.EXTRA_TEXT, "Verkoop")
-                context.startActivity(Intent.createChooser(sharingIntent, "Share using"))*/
+                /*   val sharingIntent = Intent(Intent.ACTION_SEND)
+                   sharingIntent.type = "text/html"
+                   sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Verkoop")
+                   sharingIntent.putExtra(Intent.EXTRA_TEXT, "Verkoop")
+                   context.startActivity(Intent.createChooser(sharingIntent, "Share using"))*/
             }
 
         }

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Point
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -87,7 +88,7 @@ class ProfileFragment : BaseFragment() {
                 }
             }
         }
-        rvPostsList.addItemDecoration(GridSpacingProfileDecorate(2,Utils.dpToPx(homeActivity,2F).toInt(),false))
+        rvPostsList.addItemDecoration(GridSpacingProfileDecorate(2, Utils.dpToPx(homeActivity, 2F).toInt(), false))
         rvPostsList.layoutManager = linearLayoutManager
         profileAdapter = ProfileAdapter(homeActivity, width, this)
         rvPostsList.adapter = profileAdapter
@@ -121,8 +122,12 @@ class ProfileFragment : BaseFragment() {
             homeActivity.startActivityForResult(intent, 2)
         }
         tvSellProfile.setOnClickListener {
+            tvSellProfile.isEnabled = false
             val intent = Intent(context, GalleryActivity::class.java)
             homeActivity.startActivityForResult(intent, 2)
+            Handler().postDelayed(Runnable {
+                tvSellProfile.isEnabled = true
+            }, 700)
         }
     }
 
@@ -141,10 +146,10 @@ class ProfileFragment : BaseFragment() {
             if (resultCode == Activity.RESULT_OK) {
                 val adapterPosition = data!!.getIntExtra(AppConstants.ADAPTER_POSITION, 0)
                 if (data.getStringExtra(AppConstants.TYPE).equals("soldItem", ignoreCase = true)) {
-                    itemsList[adapterPosition-1].is_sold = 1
+                    itemsList[adapterPosition - 1].is_sold = 1
                     profileAdapter.notifyDataSetChanged()
                 } else if (data.getStringExtra(AppConstants.TYPE).equals("deleteItem", ignoreCase = true)) {
-                    itemsList.removeAt(adapterPosition-1)
+                    itemsList.removeAt(adapterPosition - 1)
                     profileAdapter.notifyDataSetChanged()
                 } else if (data.getStringExtra(AppConstants.TYPE).equals("UpdateItem", ignoreCase = true)) {
                     if (Utils.isOnline(homeActivity)) {
@@ -180,7 +185,7 @@ class ProfileFragment : BaseFragment() {
 
                         if (myProfileResponse.data != null) {
                             try {
-                                rvPostsList.visibility=View.VISIBLE
+                                rvPostsList.visibility = View.VISIBLE
                                 itemsList.clear()
                                 itemsList = myProfileResponse.data.items
                                 profileAdapter.profileDetail(myProfileResponse.data)

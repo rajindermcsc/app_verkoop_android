@@ -90,7 +90,7 @@ class GetCoinsFragment : BaseFragment(), CoinListAdapter.PurchaseCoinCallBack {
         pbProgressCoin.visibility = View.VISIBLE
         ServiceHelper().getCoinPlanService(Utils.getPreferencesString(coinsActivity,AppConstants.USER_ID).toInt(),object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
-                pbProgressCoin.visibility = View.GONE
+                pbProgressCoin!!.visibility = View.GONE
                 val responseWallet = response.body() as CoinPlanResponse
                 if (responseWallet.data.isNotEmpty()) {
                     getCoinAdapter.setData(responseWallet.data)

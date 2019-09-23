@@ -12,6 +12,7 @@ import android.net.Uri
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
 import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
@@ -46,6 +47,7 @@ import com.google.firebase.iid.InstanceIdResult
 import com.verkoopapp.VerkoopApplication
 import com.verkoopapp.activity.*
 import com.verkoopapp.utils.GridSpacingItemDecoration
+import kotlinx.android.synthetic.main.my_profile_details_row.*
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -183,11 +185,16 @@ class HomeFragment : BaseFragment() {
             homeActivity.startActivityForResult(intent, 2)
         }
         tvSell.setOnClickListener {
+            tvSell.isEnabled = false
             val intent = Intent(homeActivity, GalleryActivity::class.java)
             homeActivity.startActivityForResult(intent, 2)
+            Handler().postDelayed(Runnable {
+                tvSell.isEnabled = true
+            }, 1000)
         }
         ivAR.setOnClickListener {
             if (checkAndRequestPermission()) {
+                ivAR.isEnabled=false
 //                val intent = Intent("android.media.action.IMAGE_CAPTURE")
 //                homeActivity.startActivityForResult(intent,CAMERA_REQUEST)
 //                homeActivity.startVison()
@@ -210,6 +217,9 @@ class HomeFragment : BaseFragment() {
                         startActivityForResult(takePictureIntent, CAMERA_REQUEST)
                     }
                 }
+                Handler().postDelayed(Runnable {
+                    ivAR.isEnabled = true
+                }, 1000)
             }
         }
     }

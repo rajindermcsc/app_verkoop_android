@@ -30,6 +30,7 @@ import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.login_activity.*
+import kotlinx.android.synthetic.main.profile_fragment.*
 import org.json.JSONException
 import retrofit2.Response
 import java.util.*
@@ -94,6 +95,10 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
             }
         }
         tvFacebook.setOnClickListener {
+            tvFacebook.isEnabled = false
+            Handler().postDelayed(Runnable {
+                tvFacebook.isEnabled = true
+            }, 700)
             loginType = getString(R.string.face_log)
             if (Utils.isOnline(this)) {
                 loginWithFacebook()
@@ -103,6 +108,10 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
             }
         }
         tvGoogle.setOnClickListener {
+            tvGoogle.isEnabled = false
+            Handler().postDelayed(Runnable {
+                tvGoogle.isEnabled = true
+            }, 700)
             loginType = getString(R.string.google_plus)
             if (Utils.isOnline(this)) {
 //                val signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)
@@ -188,7 +197,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         } else {
             if (requestCode == RC_SIGN_IN) {
                 val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
-                if(deviceId.equals("")){
+                if (deviceId.equals("")) {
                     firebaseDeviceToken()
                 }
                 handleSignInResult(result)
@@ -198,7 +207,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 
     /*Login with Facebook*/
     private fun loginWithFacebook() {
-        if(deviceId.equals("")){
+        if (deviceId.equals("")) {
             firebaseDeviceToken()
         }
         callbackManager = CallbackManager.Factory.create()
@@ -294,7 +303,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 
     private fun callLoginApi() {
         VerkoopApplication.instance.loader.show(this)
-        ServiceHelper().userLoginService(LoginRequest(etEmail.text.toString().trim(), etPassword.text.toString().trim(), "normal","1"),
+        ServiceHelper().userLoginService(LoginRequest(etEmail.text.toString().trim(), etPassword.text.toString().trim(), "normal", "1"),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
@@ -323,7 +332,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
     }
 
     private fun callUpdateDeviceInfoApi() {
-        ServiceHelper().updateDeviceInfo(UpdateDeviceInfoRequest(Utils.getPreferences(this@LoginActivity,AppConstants.USER_ID),deviceId,"1"),
+        ServiceHelper().updateDeviceInfo(UpdateDeviceInfoRequest(Utils.getPreferences(this@LoginActivity, AppConstants.USER_ID), deviceId, "1"),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
@@ -399,7 +408,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 //        if (email == "") {
 //            email.equals(" ")
 //        }
-        ServiceHelper().socialLoginService(LoginSocialRequest(user_name, email, loginId, "social","1"),
+        ServiceHelper().socialLoginService(LoginSocialRequest(user_name, email, loginId, "social", "1"),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)

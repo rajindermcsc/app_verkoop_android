@@ -2,6 +2,7 @@ package com.verkoopapp.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import com.squareup.picasso.Picasso
@@ -14,10 +15,11 @@ import kotlinx.android.synthetic.main.toolbar_location.*
 import com.edwardvanraak.materialbarcodescanner.MaterialBarcodeScannerBuilder
 import com.verkoopapp.models.UserInfoResponse
 import com.verkoopapp.network.ServiceHelper
+import kotlinx.android.synthetic.main.my_profile_details_row.*
 import retrofit2.Response
 
 
-class QRScannerActivity:AppCompatActivity(){
+class QRScannerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,18 +30,22 @@ class QRScannerActivity:AppCompatActivity(){
     private fun setData() {
         ivLeftLocation.setOnClickListener { onBackPressed() }
         tvHeaderLoc.text = getString(R.string.qr_code)
-        ivScanCode.setOnClickListener{
-        startScan()
+        ivScanCode.setOnClickListener {
+            ivScanCode.isEnabled = false
+            Handler().postDelayed(Runnable {
+                ivScanCode.isEnabled = true
+            }, 1000)
+            startScan()
         }
-        if(!TextUtils.isEmpty(Utils.getPreferencesString(this,AppConstants.QR_CODE))) {
-            Picasso.with(this).load(AppConstants.IMAGE_URL + Utils.getPreferencesString(this,AppConstants.QR_CODE))
+        if (!TextUtils.isEmpty(Utils.getPreferencesString(this, AppConstants.QR_CODE))) {
+            Picasso.with(this).load(AppConstants.IMAGE_URL + Utils.getPreferencesString(this, AppConstants.QR_CODE))
                     .resize(1024, 1024)
                     .centerCrop()
                     .error(R.mipmap.post_placeholder)
                     .placeholder(R.mipmap.post_placeholder)
                     .into(ivQrCode)
-        }else{
-            Picasso.with(this).load(AppConstants.IMAGE_URL + Utils.getPreferencesString(this,AppConstants.QR_CODE))
+        } else {
+            Picasso.with(this).load(AppConstants.IMAGE_URL + Utils.getPreferencesString(this, AppConstants.QR_CODE))
                     .resize(1024, 1024)
                     .centerCrop()
                     .error(R.mipmap.post_placeholder)
@@ -67,17 +73,17 @@ class QRScannerActivity:AppCompatActivity(){
     }
 
     private fun getUserInfo(token: String) {
-        ServiceHelper().getAllUserInfoService(token,object : ServiceHelper.OnResponse {
+        ServiceHelper().getAllUserInfoService(token, object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
                 val responseBanner = response.body() as UserInfoResponse
-                if (responseBanner.data!=null) {
-                val intent=Intent(this@QRScannerActivity,TransferCoinsActivity::class.java)
-                    intent.putExtra(AppConstants.USER_NAME,responseBanner.data!!.username)
-                    intent.putExtra(AppConstants.IMAGE_URL,responseBanner.data!!.profile_pic)
-                    intent.putExtra(AppConstants.QR_CODE,token)
-                    startActivityForResult(intent,2)
+                if (responseBanner.data != null) {
+                    val intent = Intent(this@QRScannerActivity, TransferCoinsActivity::class.java)
+                    intent.putExtra(AppConstants.USER_NAME, responseBanner.data!!.username)
+                    intent.putExtra(AppConstants.IMAGE_URL, responseBanner.data!!.profile_pic)
+                    intent.putExtra(AppConstants.QR_CODE, token)
+                    startActivityForResult(intent, 2)
 
-                }else{
+                } else {
                     Utils.showSimpleMessage(this@QRScannerActivity, "No data found.").show()
                 }
 
