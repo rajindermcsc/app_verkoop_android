@@ -85,7 +85,7 @@ class KSMNotificationManager (private val mCtx: Context) {
         /*Oreo Notification channel*/
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             val importance = NotificationManager.IMPORTANCE_HIGH
-            val notificationChannel = NotificationChannel(NOTIFICATION_CHANNEL_ID, "TriviaChannel", importance)
+            val notificationChannel = NotificationChannel(NOTIFICATION_CHANNEL_ID, "VerkoopChannel", importance)
             notificationChannel.enableLights(true)
             notificationChannel.lightColor = Color.RED
             notificationChannel.enableVibration(true)

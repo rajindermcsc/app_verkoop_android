@@ -29,8 +29,8 @@ class GetCoinsFragment : BaseFragment(), CoinListAdapter.PurchaseCoinCallBack {
     private val TAG = GetCoinsFragment::class.java.simpleName
     private lateinit var getCoinAdapter: CoinListAdapter
 
-    override fun purchaseCoin(coinPlanId: Int, position: Int,price:Int,totalCoin:Int) {
-        purchaseDialog(coinPlanId, position,price,totalCoin)
+    override fun purchaseCoin(coinPlanId: Int, position: Int, price: Int, totalCoin: Int) {
+        purchaseDialog(coinPlanId, position, price, totalCoin)
     }
 
 
@@ -45,7 +45,7 @@ class GetCoinsFragment : BaseFragment(), CoinListAdapter.PurchaseCoinCallBack {
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         coinsActivity = context as CoinsActivity
-        coinUpdateCallBack=context
+        coinUpdateCallBack = context
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,7 +59,7 @@ class GetCoinsFragment : BaseFragment(), CoinListAdapter.PurchaseCoinCallBack {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val display = coinsActivity.windowManager.defaultDisplay
-        val size =  Point()
+        val size = Point()
         display.getSize(size)
         val width = size.x
         setAdapter(width)
@@ -88,14 +88,16 @@ class GetCoinsFragment : BaseFragment(), CoinListAdapter.PurchaseCoinCallBack {
 
     private fun getWalletHistoryApi() {
         pbProgressCoin.visibility = View.VISIBLE
-        ServiceHelper().getCoinPlanService(Utils.getPreferencesString(coinsActivity,AppConstants.USER_ID).toInt(),object : ServiceHelper.OnResponse {
+        ServiceHelper().getCoinPlanService(Utils.getPreferencesString(coinsActivity, AppConstants.USER_ID).toInt(), object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
-                pbProgressCoin!!.visibility = View.GONE
+                if (pbProgressCoin != null) {
+                    pbProgressCoin!!.visibility = View.GONE
+                }
                 val responseWallet = response.body() as CoinPlanResponse
                 if (responseWallet.data.isNotEmpty()) {
                     getCoinAdapter.setData(responseWallet.data)
                     getCoinAdapter.notifyDataSetChanged()
-                    coinUpdateCallBack.updateHistoryList(responseWallet.coins,0)
+                    coinUpdateCallBack.updateHistoryList(responseWallet.coins, 0)
                     Utils.saveIntPreferences(coinsActivity, AppConstants.COIN, responseWallet.coins)
                 } else {
                     Utils.showSimpleMessage(coinsActivity, "No data found.").show()
@@ -122,7 +124,7 @@ class GetCoinsFragment : BaseFragment(), CoinListAdapter.PurchaseCoinCallBack {
                         pbProgressCoin.visibility = View.GONE
                         val loginResponse = response.body() as UpdateWalletResponse
                         Utils.showToast(coinsActivity, loginResponse.message)
-                        coinUpdateCallBack.updateHistoryList(totalCoin,2)
+                        coinUpdateCallBack.updateHistoryList(totalCoin, 2)
                         Utils.saveIntPreferences(coinsActivity, AppConstants.COIN, totalCoin)
                     }
 
@@ -136,16 +138,16 @@ class GetCoinsFragment : BaseFragment(), CoinListAdapter.PurchaseCoinCallBack {
     }
 
     private fun purchaseDialog(coin_id: Int, position: Int, price: Int, totalCoin: Int) {
-       val  message=StringBuffer().append("Want to purchase ").append(totalCoin).append(" coins?")
+        val message = StringBuffer().append("Want to purchase ").append(totalCoin).append(" coins?")
         val shareDialog = PurchaseCoinDialog(coinsActivity, message, object : SelectionListener {
             override fun leaveClick() {
-                purchaseCoinService(coin_id, position,totalCoin)
+                purchaseCoinService(coin_id, position, totalCoin)
             }
         })
         shareDialog.show()
     }
 
-    interface CoinUpdateCallBack{
-        fun updateHistoryList(totalCoin:Int,type:Int)
+    interface CoinUpdateCallBack {
+        fun updateHistoryList(totalCoin: Int, type: Int)
     }
 }

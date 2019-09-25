@@ -1,10 +1,13 @@
 package com.verkoopapp.activity
 
 import android.content.Intent
+import android.os.Bundle
 import android.os.Handler
+import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
+import android.widget.Toast
 import com.google.gson.Gson
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
@@ -15,9 +18,27 @@ import org.json.JSONException
 class SplashActivity : AppCompatActivity() {
     private var id = 0
     private var type = 0
+    private var typeNoti = 0
+    //private lateinit var bundle: Bundle
 
     private fun setAppIntent() {
+        val bundle = intent.extras
         Handler().postDelayed({
+            if (bundle != null) {
+                if (bundle.get("type") != null) {
+                    val i = bundle.get("type").toString()
+                    typeNoti=i.toInt()
+                }
+                if (typeNoti != null) {
+                    if (typeNoti == 1 || typeNoti == 3 || typeNoti == 6) {
+                        type=1
+                        id=379
+                    } else if (typeNoti == 2 || typeNoti == 4){
+                        type=2
+                        id=130
+                    }
+                }
+            }
             if (!TextUtils.isEmpty(Utils.getPreferencesString(this, AppConstants.USER_ID))) {
                 if (!TextUtils.isEmpty(Utils.getPreferencesString(this, AppConstants.COMING_FROM)) && Utils.getPreferencesString(this, AppConstants.COMING_FROM).equals("category_screen", ignoreCase = true)) {
                     val intent = Intent(this, PickOptionActivity::class.java)
@@ -54,6 +75,10 @@ class SplashActivity : AppCompatActivity() {
         branchInit()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
+    }
+
     private fun branchInit() {
         // Branch init
         Branch.getInstance().initSession({ referringParams, error ->
@@ -76,6 +101,8 @@ class SplashActivity : AppCompatActivity() {
             } else {
                 Log.e("BRANCH SDK", error.message)
             }
+//            bundle=intent.extras
+
             setAppIntent()
         }, this.intent.data, this)
     }

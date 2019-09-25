@@ -143,6 +143,10 @@ class ProfileAdapter(private val context: Context, private val screenWidth: Int,
                 context.startActivity(intent)
             }
             ivSetting.setOnClickListener {
+                ivSetting.isEnabled = false
+                Handler().postDelayed(Runnable {
+                    ivSetting.isEnabled = true
+                }, 700)
                 val intent = Intent(context, SettingActivity::class.java)
                 context.startActivity(intent)
             }

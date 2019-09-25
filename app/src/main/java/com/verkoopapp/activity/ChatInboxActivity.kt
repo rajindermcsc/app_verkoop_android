@@ -44,10 +44,10 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
                 removeChatDialog(senderId, receiverId, itemId, adapterPosition, swipe)
             } else if (type == 1) {
                 if (socket!!.connected()) {
-                    if(senderId==Utils.getPreferencesString(this@ChatInboxActivity,AppConstants.USER_ID).toInt()){
+                    if (senderId == Utils.getPreferencesString(this@ChatInboxActivity, AppConstants.USER_ID).toInt()) {
                         setArchiveChatEvent(senderId, receiverId, itemId, adapterPosition, swipe)
-                    }else{
-                        setArchiveChatEvent(receiverId,senderId, itemId, adapterPosition, swipe)
+                    } else {
+                        setArchiveChatEvent(receiverId, senderId, itemId, adapterPosition, swipe)
                     }
                 }
 
@@ -71,14 +71,14 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
     override fun onResume() {
         super.onResume()
         if (Utils.isOnline(this)) {
-            if(socket!!.connected()) {
+            if (socket!!.connected()) {
                 getInboxChatList()
             }
         } else {
             Handler().postDelayed({
                 Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
-            },300)
-                setOfflineData()
+            }, 300)
+            setOfflineData()
         }
     }
 
@@ -125,7 +125,7 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
             Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
             socket?.emit(AppConstants.INBOX_LIST_EVENT, jsonObject, Ack {
                 Log.e("<<<Response>>>", Gson().toJson(it[0]))
-                var data: JSONObject?=null
+                var data: JSONObject? = null
                 try {
                     data = it[0] as JSONObject?
                 } catch (e: Exception) {
@@ -182,7 +182,7 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
                                 }
                                 dbHelper!!.deleteAllChatData()
                                 dbHelper!!.insertAllChatData(chatInboxList)
-                                        getArchiveLIst(chatInboxList)
+                                getArchiveLIst(chatInboxList)
                             } catch (e: JSONException) {
                                 e.printStackTrace()
                             }
@@ -227,6 +227,10 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
     private fun setData() {
         ivLeftLocation.setOnClickListener { onBackPressed() }
         tvRight.setOnClickListener {
+            tvRight.isEnabled = false
+            Handler().postDelayed(Runnable {
+                tvRight.isEnabled = true
+            }, 700)
             val intent = Intent(this, ArchivedChatActivity::class.java)
             startActivity(intent)
         }
@@ -320,8 +324,8 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
                     result[i]!!.url!!,
                     result[i]!!.offer_price!!,
                     result[i]!!.item_price!!,
-                     result[i]!!.is_rate!!,
-                     result[i]!!.min_price!!,
+                    result[i]!!.is_rate!!,
+                    result[i]!!.min_price!!,
                     result[i]!!.max_price!!,
                     result[i]!!.category_id!!
             )
@@ -366,10 +370,10 @@ class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBa
         val shareDialog = DeleteCommentDialog(this, "Delete Chat", "Are you sure you want to delete this Chat?", object : SelectionListener {
             override fun leaveClick() {
                 if (socket!!.connected()) {
-                    if(senderId==Utils.getPreferencesString(this@ChatInboxActivity,AppConstants.USER_ID).toInt()){
+                    if (senderId == Utils.getPreferencesString(this@ChatInboxActivity, AppConstants.USER_ID).toInt()) {
                         deleteChatEvent(senderId, receiverId, itemId, adapterPosition, swipe)
-                    }else{
-                        deleteChatEvent(receiverId,senderId, itemId, adapterPosition, swipe)
+                    } else {
+                        deleteChatEvent(receiverId, senderId, itemId, adapterPosition, swipe)
                     }
 
                 }

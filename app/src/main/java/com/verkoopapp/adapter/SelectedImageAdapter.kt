@@ -3,6 +3,7 @@ package com.verkoopapp.adapter
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.os.Handler
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -18,9 +19,9 @@ import com.verkoopapp.utils.AppConstants
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.image_list_row.*
 
-class SelectedImageAdapter(private val context: Activity, private var selectedImageList: ArrayList<ImageModal>, private var flList: FrameLayout,private var listSize: Int,private var comingFrom:Int) : RecyclerView.Adapter<SelectedImageAdapter.ViewHolder>() {
+class SelectedImageAdapter(private val context: Activity, private var selectedImageList: ArrayList<ImageModal>, private var flList: FrameLayout, private var listSize: Int, private var comingFrom: Int) : RecyclerView.Adapter<SelectedImageAdapter.ViewHolder>() {
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
-    private lateinit var  selectedImageCount:SelectedImageCount
+    private lateinit var selectedImageCount: SelectedImageCount
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = mInflater.inflate(R.layout.image_list_row, parent, false)
@@ -28,7 +29,7 @@ class SelectedImageAdapter(private val context: Activity, private var selectedIm
         params.width = flList.width / 3
         params.height = params.width
         view.layoutParams = params
-        selectedImageCount=context as AddDetailsActivity
+        selectedImageCount = context as AddDetailsActivity
         return ViewHolder(view)
     }
 
@@ -52,7 +53,7 @@ class SelectedImageAdapter(private val context: Activity, private var selectedIm
                 flImage.visibility = View.VISIBLE
                 flClose.visibility = View.VISIBLE
             }
-            if(modalList.iseditable) {
+            if (modalList.iseditable) {
                 if (!TextUtils.isEmpty(modalList.imageUrl)) {
                     Glide.with(context).load(Uri.parse(modalList.imageUrl))
                             .centerCrop()
@@ -62,9 +63,9 @@ class SelectedImageAdapter(private val context: Activity, private var selectedIm
                             .into(ivImageDetail)
 
                 }
-            }else{
+            } else {
                 if (!TextUtils.isEmpty(modalList.imageUrl)) {
-                    Glide.with(context).load(Uri.parse( AppConstants.IMAGE_URL+modalList.imageUrl))
+                    Glide.with(context).load(Uri.parse(AppConstants.IMAGE_URL + modalList.imageUrl))
                             .centerCrop()
                             .placeholder(R.mipmap.gallery_place)
                             .error(R.mipmap.gallery_place)
@@ -78,32 +79,37 @@ class SelectedImageAdapter(private val context: Activity, private var selectedIm
             }*/
             flClose.setOnClickListener {
                 listSize--
-                setData(modalList.imagePosition,modalList.imageId)
+                setData(modalList.imagePosition, modalList.imageId)
                 selectedImageList.remove(modalList)
 
             }
             flGallery.setOnClickListener {
-                if(comingFrom==1) {
+                flGallery.isEnabled = false
+                Handler().postDelayed(Runnable {
+                    flGallery.isEnabled = true
+                }, 700)
+                if (comingFrom == 1) {
                     val intent = Intent(context, GalleryActivity::class.java)
                     intent.putParcelableArrayListExtra(AppConstants.SELECTED_LIST, selectedImageList)
                     intent.putExtra(AppConstants.COMING_FROM, comingFrom)
                     context.startActivityForResult(intent, 2)
-                }else {
+                } else {
                     context.onBackPressed()
                 }
             }
         }
 
         private fun setData(selectPosition: Int, imageId: Int) {
-            val imageModal = ImageModal("", false, true, 0,0,false,0)
+            val imageModal = ImageModal("", false, true, 0, 0, false, 0)
             if (!selectedImageList.contains(imageModal)) {
                 selectedImageList.add(imageModal)
             }
             notifyDataSetChanged()
-            selectedImageCount.selectDetailCount(listSize,selectPosition,imageId)
+            selectedImageCount.selectDetailCount(listSize, selectPosition, imageId)
         }
     }
-    interface SelectedImageCount{
-        fun selectDetailCount(count:Int,position:Int,imageId:Int)
+
+    interface SelectedImageCount {
+        fun selectDetailCount(count: Int, position: Int, imageId: Int)
     }
 }
