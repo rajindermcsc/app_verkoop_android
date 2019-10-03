@@ -32,7 +32,7 @@ android {
 
 repositories {
     maven {
-        url  "https://dl.bintray.com/wirecard/ecom-android"
+        url "https://dl.bintray.com/wirecard/ecom-android"
     }
 }
 
@@ -58,6 +58,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-vision:17.0.2'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
     implementation 'com.google.android.gms:play-services-auth:16.0.0'
+    implementation 'com.google.android.gms:play-services-wallet:16.0.0'
     implementation 'com.github.florent37:shapeofview:1.3.2'
     implementation 'com.tuyenmonkey:mkloader:1.4.0'
     implementation 'com.github.stfalcon:bottomtablayout:0.3'
@@ -88,6 +89,7 @@ dependencies {
     implementation 'io.branch.sdk.android:library:3.2.0'
     implementation 'com.facebook.android:facebook-share:5.0.3'
     implementation 'com.github.wirecard:paymentSDK-Android:2.7.1-cardScannerDisabled'
+    implementation 'com.stripe:stripe-android:10.4.2'
 
     implementation "com.wirecard.ecom:card:3.4.0"
     implementation "com.wirecard.ecom:sepa:$wirecardEcomLibraryVersion"

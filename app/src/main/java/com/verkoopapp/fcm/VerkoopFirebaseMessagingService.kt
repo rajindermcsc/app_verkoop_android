@@ -89,7 +89,7 @@ class VerkoopFirebaseMessagingService : FirebaseMessagingService() {
                 imageUrl = json.getString("image")
             }
             if (json.has("type")) {
-                type = json.getString("type") as Int
+                type = json.getString("type").toString().toInt()
             }
             if (json.has("item_id")) {
                 item_id = json.getString("item_id")

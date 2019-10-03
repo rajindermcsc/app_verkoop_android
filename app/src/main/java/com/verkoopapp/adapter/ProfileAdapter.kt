@@ -168,7 +168,7 @@ class ProfileAdapter(private val context: Context, private val screenWidth: Int,
             }
             llWallet.setOnClickListener {
                 llWallet.isEnabled = false
-                val intent = Intent(context, MyWalletActivity::class.java)
+                val intent = Intent(context, MyWalletstripeActivity::class.java)
                 context.startActivity(intent)
                 Handler().postDelayed(Runnable {
                     llWallet.isEnabled = true
