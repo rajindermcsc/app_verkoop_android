@@ -32,22 +32,26 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".activity.StripeCardPaymentActivity"></activity>
+        <activity android:name=".activity.StripeCardPaymentActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:screenOrientation="portrait"></activity>
 
         <meta-data
             android:name="com.google.android.gms.wallet.api.enabled"
             android:value="true" />
 
-        <activity android:name=".activity.PayWithGoogleActivityy">
+        <activity android:name=".activity.PayWithGoogleActivityy"
+            android:screenOrientation="portrait">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
+<!--             <intent-filter>-->
+<!--             <action android:name="android.intent.action.MAIN" />-->
 
 
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+<!--             <category android:name="android.intent.category.LAUNCHER" />-->
+<!--             </intent-filter>-->
         </activity>
-        <activity android:name=".activity.MyWalletstripeActivity" />
+        <activity android:name=".activity.MyWalletstripeActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".activity.CameraActivity" />
         <activity android:name=".activity.MainActivity" />
 

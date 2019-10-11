@@ -1,6 +1,8 @@
 package com.verkoopapp.activity
 
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
@@ -8,10 +10,7 @@ import android.view.View
 import com.github.florent37.viewanimator.ViewAnimator
 import com.squareup.picasso.Picasso
 import com.verkoopapp.R
-import com.verkoopapp.models.AddItemResponse
-import com.verkoopapp.models.DisLikeResponse
-import com.verkoopapp.models.SendMoneyRequest
-import com.verkoopapp.models.SendQrCodeRequest
+import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.KeyboardUtil
@@ -48,6 +47,7 @@ class TransferCoinsActivity : AppCompatActivity() {
         tvSaveYTransfer.setOnClickListener {
             if (Utils.isOnline(this@TransferCoinsActivity)) {
                 if (!TextUtils.isEmpty(etAmountTrans.text.toString())) {
+                    tvSaveYTransfer.isEnabled=false
 //                    getUserInfo()
                     sendMoneyApi()
                 } else {
@@ -65,21 +65,27 @@ class TransferCoinsActivity : AppCompatActivity() {
     private fun sendMoneyApi() {
         ServiceHelper().sendMoneyService(SendMoneyRequest(qrCode, Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), (etAmountTrans.text.toString()).toInt()), object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
-                val responseBanner = response.body() as AddItemResponse?
+                val responseBanner = response.body() as TransferCoinResponse?
                 if (responseBanner != null) {
                     if (responseBanner.message.equals("Amount sent successfully.")) {
                         Utils.showToast(this@TransferCoinsActivity, responseBanner.message)
-                        onBackPressed()
+                        val returnIntent = Intent()
+                        returnIntent.putExtra(AppConstants.INTENT_RESULT, "success")
+                        setResult(Activity.RESULT_OK, returnIntent)
+                        finish()
+//                        onBackPressed()
                     } else {
                         Utils.showSimpleMessage(this@TransferCoinsActivity, responseBanner.message).show()
                     }
                 } else {
                     Utils.showSimpleMessage(this@TransferCoinsActivity, "No data found.").show()
                 }
+                tvSaveYTransfer.isEnabled=true
             }
 
             override fun onFailure(msg: String?) {
                 Utils.showSimpleMessage(this@TransferCoinsActivity, msg!!).show()
+                tvSaveYTransfer.isEnabled=true
             }
         })
 

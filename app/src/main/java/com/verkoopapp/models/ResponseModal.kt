@@ -119,7 +119,16 @@ data class AddItemResponse(
         val message: String
 )
 
+data class TransferCoinResponse(
+        val message: String,
+        val errors: TransferCoinError
 
+)
+
+
+data class TransferCoinError(
+        val less_amount: ArrayList<String>
+)
 data class MyProfileResponse(
         val data: DataProfile?,
         val message: String

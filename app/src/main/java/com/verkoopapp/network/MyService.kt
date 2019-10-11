@@ -116,7 +116,7 @@ interface MyService {
     fun logOutApi(@Body request: LogOutRequest): Call<AddItemResponse>
 
     @POST("send_money")
-    fun sendMoneyApi(@Body request: SendMoneyRequest): Call<AddItemResponse>
+    fun sendMoneyApi(@Body request: SendMoneyRequest): Call<TransferCoinResponse>
 
     @GET("getBrandWithModels")
     fun getCarBrandApi(): Call<CarBrandResponse>

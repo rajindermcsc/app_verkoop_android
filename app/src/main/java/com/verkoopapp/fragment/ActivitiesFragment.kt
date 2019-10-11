@@ -60,6 +60,12 @@ class ActivitiesFragment : BaseFragment(), NotificationType {
         setAdapter()
 
         slActivities.setOnRefreshListener {
+            if(Utils.isOnline(activity!!)){
+                getActivityListApi()
+            } else{
+                Utils.showSimpleMessage(activity!!,"Please check your internet connection.")
+            }
+
             slActivities.isRefreshing = false
         }
 

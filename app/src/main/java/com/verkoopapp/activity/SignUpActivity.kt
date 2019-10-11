@@ -227,7 +227,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun setResponseData(userId: String, api_token: String, firstName: String, email: String, loginType: String,qrCode: String,coin:Int,amount:Int) {
         Utils.savePreferencesString(this@SignUpActivity, AppConstants.USER_ID, userId)
-        Utils.savePreferencesString(this@SignUpActivity, AppConstants.API_TOKEN, api_token)
+        Utils.savePreferencesString(this@SignUpActivity, AppConstants.API_TOKEN, "Bearer $api_token")
         Utils.savePreferencesString(this@SignUpActivity, AppConstants.USER_NAME, firstName)
         Utils.savePreferencesString(this@SignUpActivity, AppConstants.QR_CODE, qrCode)
         Utils.saveIntPreferences(this@SignUpActivity, AppConstants.COIN, coin)

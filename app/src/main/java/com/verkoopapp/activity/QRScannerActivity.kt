@@ -1,5 +1,6 @@
 package com.verkoopapp.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -94,6 +95,15 @@ class QRScannerActivity : AppCompatActivity() {
             }
         })
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode==2){
+            if(resultCode==Activity.RESULT_OK){
+                finish()
+            }
+        }
     }
 
 }

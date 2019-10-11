@@ -36,7 +36,7 @@ class PayWithGoogleActivityy : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pay_with_google)
 
-        stripe = Stripe(this, PaymentConfiguration.getInstance().publishableKey)
+        stripe = Stripe(this, "pk_test_IkEuiX8PBSrxqDOnx7W79ubE006HXByoRc")
 
         paymentsClient = Wallet.getPaymentsClient(this,
             Wallet.WalletOptions.Builder()

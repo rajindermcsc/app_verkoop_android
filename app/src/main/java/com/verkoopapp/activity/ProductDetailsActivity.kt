@@ -135,14 +135,14 @@ class ProductDetailsActivity : AppCompatActivity() {
             tvFacebookShare.isEnabled = false
             Handler().postDelayed(Runnable {
                 tvFacebookShare.isEnabled = true
-            }, 700)
+            }, 1000)
             sharedDetails(1)/*facebook Share*/
         }
         llChat.setOnClickListener {
             llChat.isEnabled = false
             Handler().postDelayed(Runnable {
                 llChat.isEnabled = true
-            }, 700)
+            }, 1000)
             if (userId != Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()) {
                 val intent = Intent(this, ChatActivity::class.java)
                 intent.putExtra(AppConstants.USER_ID, userId)
@@ -165,7 +165,7 @@ class ProductDetailsActivity : AppCompatActivity() {
             tvShare.isEnabled = false
             Handler().postDelayed(Runnable {
                 tvShare.isEnabled = true
-            }, 700)
+            }, 1000)
             sharedDetails(0)/*open Share*/
         }
     }

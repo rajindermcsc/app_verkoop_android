@@ -1205,8 +1205,8 @@ class ServiceHelper {
 //        val myService = ApiClient.getClient().create(MyService::class.java)
         val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.sendMoneyApi(request)
-        responseCall.enqueue(object : Callback<AddItemResponse> {
-            override fun onResponse(call: Call<AddItemResponse>, response: Response<AddItemResponse>) {
+        responseCall.enqueue(object : Callback<TransferCoinResponse> {
+            override fun onResponse(call: Call<TransferCoinResponse>, response: Response<TransferCoinResponse>) {
                 if (response.code() == 200) {
                     onResponse.onSuccess(response)
                 } else {
@@ -1226,7 +1226,7 @@ class ServiceHelper {
                 }
             }
 
-            override fun onFailure(call: Call<AddItemResponse>, t: Throwable) {
+            override fun onFailure(call: Call<TransferCoinResponse>, t: Throwable) {
                 onResponse.onFailure(t.message)
             }
         })

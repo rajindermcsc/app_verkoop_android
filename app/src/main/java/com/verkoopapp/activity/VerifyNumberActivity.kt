@@ -31,7 +31,9 @@ class VerifyNumberActivity : AppCompatActivity() {
     }
 
     private fun setData() {
-        ivLeftLocation.setOnClickListener { }
+        ivLeftLocation.setOnClickListener {
+           finish()
+        }
         tvHeaderLoc.text = getString(R.string.verify_phone_no)
         tvGetCode.setOnClickListener {
             if (isValidate()) {

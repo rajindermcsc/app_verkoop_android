@@ -257,7 +257,6 @@ class MyWalletstripeActivity : AppCompatActivity() {
         alertDialog.show()
 
         view.rlCardPayment.setOnClickListener {
-            Toast.makeText(this@MyWalletstripeActivity, "card", Toast.LENGTH_SHORT).show()
             alertDialog.dismiss()
             val intent = Intent(this, StripeCardPaymentActivity::class.java)
             intent.putExtra(AppConstants.AMOUNT, amountMoney)
@@ -265,7 +264,6 @@ class MyWalletstripeActivity : AppCompatActivity() {
         }
 
         view.GooglePay.setOnClickListener {
-            Toast.makeText(this@MyWalletstripeActivity, "googlePay", Toast.LENGTH_SHORT).show()
             alertDialog.dismiss()
         }
     }
@@ -283,7 +281,7 @@ class MyWalletstripeActivity : AppCompatActivity() {
                     paymentHistoryAdapter.notifyDataSetChanged()
 
                 } else {
-                    Utils.showSimpleMessage(this@MyWalletstripeActivity, "No data found.").show()
+//                    Utils.showSimpleMessage(this@MyWalletstripeActivity, "No data found.").show()
                 }
 
             }
