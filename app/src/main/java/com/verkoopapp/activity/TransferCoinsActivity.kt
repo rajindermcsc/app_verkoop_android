@@ -8,7 +8,9 @@ import android.view.View
 import com.github.florent37.viewanimator.ViewAnimator
 import com.squareup.picasso.Picasso
 import com.verkoopapp.R
+import com.verkoopapp.models.AddItemResponse
 import com.verkoopapp.models.DisLikeResponse
+import com.verkoopapp.models.SendMoneyRequest
 import com.verkoopapp.models.SendQrCodeRequest
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
@@ -46,7 +48,8 @@ class TransferCoinsActivity : AppCompatActivity() {
         tvSaveYTransfer.setOnClickListener {
             if (Utils.isOnline(this@TransferCoinsActivity)) {
                 if (!TextUtils.isEmpty(etAmountTrans.text.toString())) {
-                    getUserInfo()
+//                    getUserInfo()
+                    sendMoneyApi()
                 } else {
                     Utils.showSimpleMessage(this@TransferCoinsActivity, "Please enter amount.").show()
                 }
@@ -57,6 +60,29 @@ class TransferCoinsActivity : AppCompatActivity() {
         ivFinishTrans.setOnClickListener {
             onBackPressed()
         }
+    }
+
+    private fun sendMoneyApi() {
+        ServiceHelper().sendMoneyService(SendMoneyRequest(qrCode, Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), (etAmountTrans.text.toString()).toInt()), object : ServiceHelper.OnResponse {
+            override fun onSuccess(response: Response<*>) {
+                val responseBanner = response.body() as AddItemResponse?
+                if (responseBanner != null) {
+                    if (responseBanner.message.equals("Amount sent successfully.")) {
+                        Utils.showToast(this@TransferCoinsActivity, responseBanner.message)
+                        onBackPressed()
+                    } else {
+                        Utils.showSimpleMessage(this@TransferCoinsActivity, responseBanner.message).show()
+                    }
+                } else {
+                    Utils.showSimpleMessage(this@TransferCoinsActivity, "No data found.").show()
+                }
+            }
+
+            override fun onFailure(msg: String?) {
+                Utils.showSimpleMessage(this@TransferCoinsActivity, msg!!).show()
+            }
+        })
+
     }
 
     private fun getUserInfo() {

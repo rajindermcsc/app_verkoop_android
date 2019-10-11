@@ -30,6 +30,8 @@ class VerkoopFirebaseMessagingService : FirebaseMessagingService() {
         // Instance ID token to your app server.
         //   AppPreferences.deviceId = refreshedToken
         /*Utils.sendDeviceId(this)*/
+
+
         callUpdateDeviceInfoApi(refreshedToken)
     }
 
@@ -69,7 +71,7 @@ class VerkoopFirebaseMessagingService : FirebaseMessagingService() {
         var message: String = ""
         var imageUrl: String = ""
         var type: Int = 0
-        var item_id: String = ""
+        var item_id: Int = 0
 //    private fun sendPushNotification(name: String,message:String) {
         //optionally we can display the json into log
         //  Log.e(TAG, "Notification JSON " + json.toString())
@@ -92,7 +94,10 @@ class VerkoopFirebaseMessagingService : FirebaseMessagingService() {
                 type = json.getString("type").toString().toInt()
             }
             if (json.has("item_id")) {
-                item_id = json.getString("item_id")
+                item_id = json.getString("item_id").toString().toInt()
+            }
+            if (json.has("user_id")) {
+                item_id = json.getString("user_id").toString().toInt()
             }
 
             //creating MyNotificationManager object
@@ -110,7 +115,7 @@ class VerkoopFirebaseMessagingService : FirebaseMessagingService() {
             intent.putExtra("titleNoti", title)
             intent.putExtra("messageNoti", message)
             intent.putExtra("imageNoti", imageUrl)
-            intent.putExtra(AppConstants.ID, 130)
+            intent.putExtra(AppConstants.ID, item_id)
 
             //if there is no image
             if (imageUrl == "") {

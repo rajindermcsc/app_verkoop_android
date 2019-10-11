@@ -119,14 +119,17 @@ class FavouritesActivity : AppCompatActivity() {
             override fun onSuccess(response: Response<*>) {
                 pbProgressFav.visibility = View.GONE
                 val responseFav = response.body() as FavouritesResponse
-                if (responseFav.data.isNotEmpty()) {
-                    itemsList = responseFav.data
-                    favouritesAdapter.setData(itemsList)
-                    favouritesAdapter.notifyDataSetChanged()
+                if(responseFav.data!=null){
+                    if (responseFav.data.items.isNotEmpty()) {
+                        itemsList = responseFav.data.items
+                        favouritesAdapter.setData(itemsList)
+                        favouritesAdapter.notifyDataSetChanged()
 
-                } else {
-                    Utils.showSimpleMessage(this@FavouritesActivity, "No data found.").show()
+                    } else {
+                        Utils.showSimpleMessage(this@FavouritesActivity, "No data found.").show()
+                    }
                 }
+
 
             }
 

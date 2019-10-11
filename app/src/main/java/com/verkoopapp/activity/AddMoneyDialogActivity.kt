@@ -61,7 +61,7 @@ class AddMoneyDialogActivity:AppCompatActivity(){
         window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         pbProgressAddMoney.visibility = View.VISIBLE
-        ServiceHelper().addMoneyService(AddMoneyRequest(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), (etAmount.text.toString()).toDouble(), "12345878632"),
+        ServiceHelper().addMoneyService(AddMoneyRequest(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), (etAmount.text.toString()).toDouble(), "12345878632","USD"),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)

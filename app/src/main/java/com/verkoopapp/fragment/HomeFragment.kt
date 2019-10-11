@@ -296,7 +296,7 @@ class HomeFragment : BaseFragment() {
 
     private fun getItemService(loadMore: Int) {
         isLoading = true
-        ServiceHelper().getItemsService(HomeRequest(0), currentPage, Utils.getPreferencesString(homeActivity, AppConstants.USER_ID), object : ServiceHelper.OnResponse {
+        ServiceHelper().getItemsService(HomeRequest(0), currentPage, Utils.getPreferencesString(homeActivity, AppConstants.USER_ID),object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
                 homeActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                 if (swipeContainer != null) {

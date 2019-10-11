@@ -257,6 +257,16 @@ data class ForgotPasswordRequest(
         val email: String
 )
 
+data class LogOutRequest(
+        val user_id : Int
+)
+
+data class SendMoneyRequest(
+        val qrCodeId: String,
+        val user_id: Int,
+        val amount: Int
+)
+
 data class HomeRequest(
         val type: Int
 )
@@ -277,7 +287,8 @@ data class PropertyTypeRequest(
 data class AddMoneyRequest(
         val user_id: Int,
         val amount: Double,
-        val token: String
+        val token: String,
+        val currency: String
 )
 
 data class PurchaseCoinRequest(

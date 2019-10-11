@@ -1,5 +1,6 @@
 package com.verkoopapp.activity
 
+import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -9,15 +10,23 @@ import com.verkoopapp.adapter.PaymentHistoryAdapter
 import kotlinx.android.synthetic.main.my_wallet_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 import android.app.Activity
+import android.content.Context
 import android.os.Handler
+import android.provider.MediaStore
+import android.support.v4.app.ActivityCompat
+import android.support.v7.app.AlertDialog
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import android.widget.SimpleAdapter
 import android.widget.Toast
+import com.stripe.android.ApiResultCallback
 import com.stripe.android.Stripe
+import com.stripe.android.model.Card
 import com.stripe.android.model.PaymentMethod
 import com.stripe.android.model.PaymentMethodCreateParams
+import com.stripe.android.model.Token
 import com.stripe.android.view.CardMultilineWidget
 import com.stripe.example.controller.ErrorDialogHandler
 import com.stripe.example.controller.ProgressDialogController
@@ -43,33 +52,21 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.dialog_payment.*
+import kotlinx.android.synthetic.main.dialog_payment.view.*
+import java.lang.Exception
 import java.math.BigDecimal
 import java.util.*
+import kotlin.collections.HashMap
 
 class MyWalletstripeActivity : AppCompatActivity() {
     private lateinit var paymentHistoryAdapter: PaymentHistoryAdapter
-    private var wirecardCardPayment: WirecardCardPayment? = null
-    private lateinit var wirecardClient: WirecardClient
     val timestamp = SignatureHelper.generateTimestamp()!!
-    //private val merchantID = "F5785ECF-1EAE-40A0-9D37-93E2E8A4BAB3"
-    // private val secretKey = "1DBBBAAE-958E-4346-A27A-6BB5171CEEDC"
-    private val merchantID = "33f6d473-3036-4ca5-acb5-8c64dac862d1"
-    //    private val merchantID = "F5785ECF-1EAE-40A0-9D37-93E2E8A4BAB3"
-    private val secretKey = "9e0130f6-2e1e-4185-b0d5-dc69079c75cc"
     private val currency = "USD"
-    private val requestID = UUID.randomUUID().toString()
-    val URL_EE_TEST = "https://api-test.wirecard.com"
-    private val transactionType = WirecardTransactionType.PURCHASE
     var amount: BigDecimal? = null
-
-    private val compositeDisposable = CompositeDisposable()
-    private val cardSources = ArrayList<Map<String, String>>()
-
+    var token: String? = null
+    var amountMoney: Int? = null
     private lateinit var cardMultilineWidget: CardMultilineWidget
-    private lateinit var progressDialogController: ProgressDialogController
-    private lateinit var errorDialogHandler: ErrorDialogHandler
-    private lateinit var simpleAdapter: SimpleAdapter
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,131 +78,110 @@ class MyWalletstripeActivity : AppCompatActivity() {
         } else {
             Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
         }
-        cardMultilineWidget = findViewById(R.id.card_multiline_widget)
-        progressDialogController = ProgressDialogController(supportFragmentManager, resources)
-
-        errorDialogHandler = ErrorDialogHandler(this)
+//        cardMultilineWidget = findViewById(R.id.card_multiline_widget)
+//        progressDialogController = ProgressDialogController(supportFragmentManager, resources)
+//
+//        errorDialogHandler = ErrorDialogHandler(this)
 
     }
 
     override fun onDestroy() {
-        compositeDisposable.dispose()
+//        compositeDisposable.dispose()
         super.onDestroy()
     }
+
     private fun saveCard() {
         val card = cardMultilineWidget.card ?: return
 
         val stripe = Stripe(applicationContext,
-                "pk_live_0QE5t1AQdS0YOx0xAzfzd8Dq00AYl5mZ6X")
-        val cardSourceParams = PaymentMethodCreateParams.create(card.toPaymentMethodParamsCard(), null)
-        // Note: using this style of Observable creation results in us having a method that
-        // will not be called until we subscribe to it.
-        val tokenObservable = Observable.fromCallable { stripe.createPaymentMethodSynchronous(cardSourceParams) }
+                "pk_test_IkEuiX8PBSrxqDOnx7W79ubE006HXByoRc")
 
-        compositeDisposable.add(tokenObservable
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { progressDialogController.show(R.string.progressMessage) }
-                .doOnComplete { progressDialogController.dismiss() }
-                .subscribe(
-                        { addToList(it) },
-                        { throwable -> errorDialogHandler.show(throwable.localizedMessage) }
-                )
-        )
-    }
-
-    private fun addToList(paymentMethod: PaymentMethod?) {
-        if (paymentMethod?.card == null) {
-            return
-        }
-
-        val paymentMethodCard = paymentMethod.card
-        val endingIn = getString(R.string.endingIn)
-        val map = hashMapOf(
-                "last4" to endingIn + " " + paymentMethodCard!!.last4,
-                "tokenId" to paymentMethod.id!!
-        )
-        cardSources.add(map)
-    }
-
-
-    private var wirecardResponseListener = object : WirecardResponseListener {
-        override fun onResponse(paymentResponse: WirecardPaymentResponse) {
-            // handle server response
-            if (paymentResponse.transactionState == TransactionState.SUCCESS) {
-                // handle successful transaction
-                getWalletHistoryApi()
-                Log.e("<<success>>", paymentResponse.authorizationCode)
-            } else {
-                Log.e("<<successElse>>", paymentResponse.authorizationCode)
-                // handle unsuccessful transaction
+        stripe.createToken(card, object : ApiResultCallback<Token> {
+            override fun onSuccess(result: Token) {
+                Log.d("Stripe", result.toString())
+                token = result.id
+                callUpdateWalletApi("20")
             }
-        }
 
-        override fun onError(responseError: WirecardResponseError) {
-            when (responseError.errorCode) {
-                WirecardErrorCode.ERROR_CODE_GENERAL -> {
-                    val detailedMessage = responseError.errorMessage
-                    Log.e("<<failure>>", detailedMessage)
-                }
-                WirecardErrorCode.ERROR_CODE_INVALID_PAYMENT_DATA -> {
-                    Log.e("<<failure>>", "ERROR_CODE_INVALID_PAYMENT_DATA")
-                }
-                WirecardErrorCode.ERROR_CODE_NETWORK_ISSUE -> {
-                    val detailedMessage = responseError.errorMessage
-                    Log.e("<<failure>>", detailedMessage)
-                }
-                WirecardErrorCode.ERROR_CODE_USER_CANCELED -> {
-                    Log.e("<<" +
-                            "" +
-                            "" +
-                            ">>", "ERROR_CODE_USER_CANCELED")
+            override fun onError(e: Exception) {
+                Log.d("Stripe", e.printStackTrace().toString())
+                if (e.message!!.contains("Please check your internet")) {
+                    Utils.showSimpleMessage(this@MyWalletstripeActivity, "Please check your internet connection")
                 }
             }
-        }
+
+        })
+
+//        val cardSourceParams = PaymentMethodCreateParams.create(card.toPaymentMethodParamsCard(), null)
+//        // Note: using this style of Observable creation results in us having a method that
+//        // will not be called until we subscribe to it.
+//        val tokenObservable = Observable.fromCallable { stripe.createPaymentMethodSynchronous(cardSourceParams) }
+//
+//        compositeDisposable.add(tokenObservable
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .doOnSubscribe { progressDialogController.show(R.string.progressMessage) }
+//                .doOnComplete { progressDialogController.dismiss() }
+//                .subscribe(
+//                        { addToList(it) },
+//                        { throwable -> errorDialogHandler.show(throwable.localizedMessage) }
+//                )
+//        )
     }
 
-    private fun setPayment(amountTotal: Int) {
-        amount = BigDecimal(amountTotal)
-        val signature = SignatureHelper.generateSignature(timestamp, merchantID, requestID, transactionType.value, amount, currency, secretKey)
-        wirecardCardPayment = WirecardCardPayment(signature, timestamp, requestID, merchantID, transactionType, amount, currency)
-        val environment = WirecardEnvironment.TEST.value
-        try {
-            wirecardClient = WirecardClientBuilder.newInstance(this, URL_EE_TEST)
-                    .build()
-        } catch (exception: WirecardException) {
-            //device is rooted
-        }
-        val style = PaymentPageStyle()
-        style.payButtonBackgroundResourceId = R.color.colorPrimary
-        style.toolbarResourceId = R.color.colorPrimary
-        style.inputLabelTextColor = R.color.dark_black
-//        wirecardClient.makePayment(wirecardCardPayment,style,wirecardResponseListener)
-        Client(this, URL_EE_TEST)
-                .startPayment(getCardPayment(false, amountTotal))
+    private fun setStripePayment(amount: Int?) {
+        val card = cardMultilineWidget.card ?: return
+
+        val stripe = Stripe(applicationContext,
+                "pk_test_IkEuiX8PBSrxqDOnx7W79ubE006HXByoRc")
+
+        stripe.createToken(card, object : ApiResultCallback<Token> {
+            override fun onSuccess(result: Token) {
+                Log.d("Stripe", result.toString())
+                token = result.id
+                callUpdateWalletApi("20")
+            }
+
+            override fun onError(e: Exception) {
+                Log.d("Stripe", e.printStackTrace().toString())
+                if (e.message!!.contains("Please check your internet")) {
+                    Utils.showSimpleMessage(this@MyWalletstripeActivity, "Please check your internet connection")
+                }
+            }
+
+        })
     }
 
-    fun getCardPayment(isAnimated: Boolean, amountTotal: Int): CardPayment {
-        val timestamp = SignatureHelper.generateTimestamp()
-        val merchantID = "33f6d473-3036-4ca5-acb5-8c64dac862d1"
-        val secretKey = "9e0130f6-2e1e-4185-b0d5-dc69079c75cc"
-        val requestID = UUID.randomUUID().toString()
-        val transactionType = TransactionType.PURCHASE
-        val amount = BigDecimal(amountTotal)
-        val currency = "USD"
-        val signature = SignatureHelper.generateSignature(timestamp, merchantID, requestID, transactionType.value, amount, currency, secretKey)
-        val cardPayment = CardPayment.Builder()
-                .setSignature(signature)
-                .setMerchantAccountId(merchantID)
-                .setRequestId(requestID)
-                .setAmount(amount)
-                .setTransactionType(transactionType)
-                .setCurrency(currency)
-                .build()
-        cardPayment.requireManualCardBrandSelection = true
-        cardPayment.animatedCardPayment = isAnimated
-        return cardPayment
-    }
+//    private fun addToList(paymentMethod: PaymentMethod?) {
+//        if (paymentMethod?.card == null) {
+//            return
+//        }
+//
+//        val paymentMethodCard = paymentMethod.card
+//        val endingIn = getString(R.string.endingIn)
+//        val map = hashMapOf(
+//                "last4" to endingIn + " " + paymentMethodCard!!.last4,
+//                "tokenId" to paymentMethod.id!!
+//        )
+//        cardSources.add(map)
+//        if (paymentMethod.id != null) {
+//            token = paymentMethod.id
+//            callUpdateWalletApi("20")
+//        }
+//
+//
+//        val stripe = Stripe(applicationContext,
+//                "pk_test_IkEuiX8PBSrxqDOnx7W79ubE006HXByoRc")
+//
+//        val tokenParams: HashMap<String, Any> = HashMap<String, Any>()
+//        val cardParams: HashMap<String, Any> = HashMap<String, Any>()
+//        cardParams.put("number", "4242424242424242");
+//        cardParams.put("exp_month", 10);
+//        cardParams.put("exp_year", 2020);
+//        cardParams.put("cvc", "314");
+//
+//        tokenParams.put("card", cardParams)
+//    }
 
     private fun setAdapter() {
         val mManager = LinearLayoutManager(this)
@@ -222,9 +198,9 @@ class MyWalletstripeActivity : AppCompatActivity() {
             Handler().postDelayed(Runnable {
                 tvAddMoney.isEnabled = true
             }, 700)
-//            val intent = Intent(this, AddMoneyDialogActivity::class.java)
-//            startActivityForResult(intent, 2)
-            saveCard()
+            val intent = Intent(this, AddMoneyDialogActivity::class.java)
+            startActivityForResult(intent, 2)
+//            saveCard()
         }
     }
 
@@ -232,10 +208,12 @@ class MyWalletstripeActivity : AppCompatActivity() {
         if (requestCode == 2) {
             if (resultCode == Activity.RESULT_OK) {
                 val result = data!!.getStringExtra(AppConstants.INTENT_RESULT)
-                val amountMoney = data.getIntExtra(AppConstants.AMOUNT, 0)
+                amountMoney = data.getIntExtra(AppConstants.AMOUNT, 0)
                 if (Utils.isOnline(this)) {
                     Log.e("activityResult", "success")
-                    setPayment(amountMoney)
+//                    setPayment(amountMoney) .........this is for the worecard
+//                    setStripePayment(amountMoney)
+                    popUp()
 
                 } else {
                     Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
@@ -260,8 +238,37 @@ class MyWalletstripeActivity : AppCompatActivity() {
                     }
                 }
             }
+        } else if (requestCode == 3) {
+            if (resultCode == Activity.RESULT_OK) {
+                val result = data!!.getStringExtra(AppConstants.INTENT_RESULT)
+                if (result.equals("success")) {
+                    getWalletHistoryApi()
+                }
+            }
         }
     }//on
+
+    private fun popUp() {
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        val layoutInflater = applicationContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val view = layoutInflater.inflate(R.layout.dialog_payment, null)
+        alertDialogBuilder.setView(view)
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+
+        view.rlCardPayment.setOnClickListener {
+            Toast.makeText(this@MyWalletstripeActivity, "card", Toast.LENGTH_SHORT).show()
+            alertDialog.dismiss()
+            val intent = Intent(this, StripeCardPaymentActivity::class.java)
+            intent.putExtra(AppConstants.AMOUNT, amountMoney)
+            startActivityForResult(intent, 3)
+        }
+
+        view.GooglePay.setOnClickListener {
+            Toast.makeText(this@MyWalletstripeActivity, "googlePay", Toast.LENGTH_SHORT).show()
+            alertDialog.dismiss()
+        }
+    }
 
     private fun getWalletHistoryApi() {
         pbProgressWallet.visibility = View.VISIBLE
@@ -292,7 +299,7 @@ class MyWalletstripeActivity : AppCompatActivity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         pbProgressWallet.visibility = View.VISIBLE
-        ServiceHelper().addMoneyService(AddMoneyRequest(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), amount!!.toDouble(), "12345878632"),
+        ServiceHelper().addMoneyService(AddMoneyRequest(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), amount!!.toDouble(), token!!, "USD"),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)

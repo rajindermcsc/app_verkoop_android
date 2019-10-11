@@ -4,6 +4,7 @@ import android.text.TextUtils
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.verkoopapp.VerkoopApplication
 
 import com.verkoopapp.models.*
 
@@ -122,7 +123,8 @@ class ServiceHelper {
     }
 
     fun categoriesService(onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.getCategoriesService()
         responseCall.enqueue(object : Callback<CategoriesResponse> {
             override fun onResponse(call: Call<CategoriesResponse>, response: Response<CategoriesResponse>) {
@@ -146,7 +148,8 @@ class ServiceHelper {
 
     fun addItemsApi(request: AddItemRequest, onResponse: OnResponse) {
         //  val service = ServiceGenerator().createService(MyService::class.java, "idress", "idress")
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val parts = ArrayList<MultipartBody.Part>()
         for (i in 0 until request.imageList.size) {
             if (!TextUtils.isEmpty(request.imageList[i])) {
@@ -178,7 +181,7 @@ class ServiceHelper {
 
         Log.e("<<stringRequest>>", prettyJson)
         val additionalInfo = RequestBody.create(okhttp3.MultipartBody.FORM, prettyJson)
-        call = myService.addClothApi(parts, categoryId, name, price, itemType, description, userId, address, lat, label,lng, meetUp, type, carBrandId, carType, additionalInfo, zoneId)
+        call = myService.addClothApi(parts, categoryId, name, price, itemType, description, userId, address, lat, label, lng, meetUp, type, carBrandId, carType, additionalInfo, zoneId)
         call.enqueue(object : Callback<AddItemResponse> {
             override fun onResponse(call: Call<AddItemResponse>, response: Response<AddItemResponse>) {
                 Log.e("<<<<Response>>>>", Gson().toJson(response.body()))
@@ -195,7 +198,7 @@ class ServiceHelper {
             }
 
             override fun onFailure(call: Call<AddItemResponse>, t: Throwable) {
-        //        Log.d(LOG_TAG, "<<<Error>>>" + t.localizedMessage)
+                //        Log.d(LOG_TAG, "<<<Error>>>" + t.localizedMessage)
                 onResponse.onFailure("Something went wrong!")
 
             }
@@ -203,7 +206,9 @@ class ServiceHelper {
     }
 
     fun myProfileService(userId: String, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+        //    val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
+
         val responseCall = myService.getMyProfileService(userId)
         responseCall.enqueue(object : Callback<MyProfileResponse> {
             override fun onResponse(call: Call<MyProfileResponse>, response: Response<MyProfileResponse>) {
@@ -271,9 +276,10 @@ class ServiceHelper {
         })
     }
 
-    fun getItemDetailService(itemId: Int,userId:Int, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
-        val responseCall = myService.getItemDetailsApi(itemId,userId)
+    fun getItemDetailService(itemId: Int, userId: Int, onResponse: OnResponse) {
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
+        val responseCall = myService.getItemDetailsApi(itemId, userId)
         responseCall.enqueue(object : Callback<ItemDetailsResponse> {
             override fun onResponse(call: Call<ItemDetailsResponse>, response: Response<ItemDetailsResponse>) {
                 val res = response.body()
@@ -295,7 +301,8 @@ class ServiceHelper {
     }
 
     fun getHomeDataService(userId: String, pageCount: Int, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.getItemsService()
         responseCall.enqueue(object : Callback<HomeDataResponse> {
             override fun onResponse(call: Call<HomeDataResponse>, response: Response<HomeDataResponse>) {
@@ -317,9 +324,10 @@ class ServiceHelper {
         })
     }
 
-    fun getItemsService(homeRequest:HomeRequest,pageCount: Int, userId: String, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
-        val responseCall = myService.getHomeDataApi(homeRequest,userId, pageCount)
+    fun getItemsService(homeRequest: HomeRequest, pageCount: Int, userId: String, onResponse: OnResponse) {
+        // val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
+        val responseCall = myService.getHomeDataApi(homeRequest, userId, pageCount)
         responseCall.enqueue(object : Callback<HomeDataResponse> {
             override fun onResponse(call: Call<HomeDataResponse>, response: Response<HomeDataResponse>) {
                 val res = response.body()
@@ -340,9 +348,10 @@ class ServiceHelper {
         })
     }
 
-    fun getBuyCarService(homeRequest:HomeRequest,pageCount: Int, userId: String, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
-        val responseCall = myService.getBuyCarDataApi(homeRequest,userId, pageCount)
+    fun getBuyCarService(homeRequest: HomeRequest, pageCount: Int, userId: String, onResponse: OnResponse) {
+        //val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
+        val responseCall = myService.getBuyCarDataApi(homeRequest, userId, pageCount)
         responseCall.enqueue(object : Callback<BuyCarResponse> {
             override fun onResponse(call: Call<BuyCarResponse>, response: Response<BuyCarResponse>) {
                 val res = response.body()
@@ -364,7 +373,8 @@ class ServiceHelper {
     }
 
     fun likeService(lickedRequest: LickedRequest, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+        //val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.likedApi(lickedRequest)
         responseCall.enqueue(object : Callback<LikedResponse> {
             override fun onResponse(call: Call<LikedResponse>, response: Response<LikedResponse>) {
@@ -387,7 +397,8 @@ class ServiceHelper {
     }
 
     fun disLikeService(lickedId: Int, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+        //  val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.disLikedApi(lickedId)
         responseCall.enqueue(object : Callback<DisLikeResponse> {
             override fun onResponse(call: Call<DisLikeResponse>, response: Response<DisLikeResponse>) {
@@ -410,7 +421,8 @@ class ServiceHelper {
     }
 
     fun categoryPostService(categoryPostRequest: FilterRequest, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+        // val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.categoryPostApi(categoryPostRequest, categoryPostRequest.userId)
         responseCall.enqueue(object : Callback<CategoryPostResponse> {
             override fun onResponse(call: Call<CategoryPostResponse>, response: Response<CategoryPostResponse>) {
@@ -433,7 +445,8 @@ class ServiceHelper {
     }
 
     fun updateCategoryService(updateCategoryRequest: UpdateCategoryRequest, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+        //  val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.updateServiceApi(updateCategoryRequest)
         responseCall.enqueue(object : Callback<LikedResponse> {
             override fun onResponse(call: Call<LikedResponse>, response: Response<LikedResponse>) {
@@ -456,7 +469,8 @@ class ServiceHelper {
     }
 
     fun getFavouritesService(userId: String, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.getFavouritesApi(userId)
         responseCall.enqueue(object : Callback<FavouritesResponse> {
             override fun onResponse(call: Call<FavouritesResponse>, response: Response<FavouritesResponse>) {
@@ -480,7 +494,8 @@ class ServiceHelper {
 
 
     fun updateProfileService(request: ProfileUpdateRequest, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         var body: MultipartBody.Part? = null
         if (!TextUtils.isEmpty(request.profile_pic)) {
             val file = File(request.profile_pic)
@@ -522,7 +537,7 @@ class ServiceHelper {
             }
 
             override fun onFailure(call: Call<ProfileUpdateResponse>, t: Throwable) {
-     //           Log.d(LOG_TAG, "<<<Error>>>" + t.localizedMessage)
+                //           Log.d(LOG_TAG, "<<<Error>>>" + t.localizedMessage)
                 onResponse.onFailure("Something went wrong!")
 
             }
@@ -530,7 +545,8 @@ class ServiceHelper {
     }
 
     fun getMyProfileInfoService(userId: String, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.getMyProfileApi(userId)
         responseCall.enqueue(object : Callback<MyProfileIngoResponse> {
             override fun onResponse(call: Call<MyProfileIngoResponse>, response: Response<MyProfileIngoResponse>) {
@@ -552,8 +568,33 @@ class ServiceHelper {
         })
     }
 
+    fun getActivityList(userId: String, onResponse: OnResponse) {
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
+        val responseCall = myService.getActivityList(userId)
+        responseCall.enqueue(object : Callback<ActivityListResponseModel> {
+            override fun onResponse(call: Call<ActivityListResponseModel>, response: Response<ActivityListResponseModel>) {
+                val res = response.body()
+                Log.e("<<<Response>>>", Gson().toJson(res))
+                if (res != null) {
+                    when {
+                        response.code() == 200 -> onResponse.onSuccess(response)
+                        else -> onResponse.onFailure(response.message())
+                    }
+                } else {
+                    onResponse.onFailure("Something went wrong!")
+                }
+            }
+
+            override fun onFailure(call: Call<ActivityListResponseModel>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
+
     fun updatePasswordService(request: UpdatePasswordRequest, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.updatePasswordApi(request)
         responseCall.enqueue(object : Callback<DisLikeResponse> {
             override fun onResponse(call: Call<DisLikeResponse>, response: Response<DisLikeResponse>) {
@@ -583,7 +624,8 @@ class ServiceHelper {
     }
 
     fun postCommentService(request: PostCommentRequest, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.postCommentApi(request)
         responseCall.enqueue(object : Callback<CommentResponse> {
             override fun onResponse(call: Call<CommentResponse>, response: Response<CommentResponse>) {
@@ -614,7 +656,8 @@ class ServiceHelper {
     }
 
     fun deleteCommentService(commentId: Int, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.deleteCommentApi(commentId)
         responseCall.enqueue(object : Callback<DisLikeResponse> {
             override fun onResponse(call: Call<DisLikeResponse>, response: Response<DisLikeResponse>) {
@@ -637,7 +680,8 @@ class ServiceHelper {
     }
 
     fun reportAddedService(request: ReportUserRequest, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.reportUserApi(request)
         responseCall.enqueue(object : Callback<DisLikeResponse> {
             override fun onResponse(call: Call<DisLikeResponse>, response: Response<DisLikeResponse>) {
@@ -667,7 +711,8 @@ class ServiceHelper {
     }
 
     fun followService(request: FollowRequest, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.followApi(request)
         responseCall.enqueue(object : Callback<FollowResponse> {
             override fun onResponse(call: Call<FollowResponse>, response: Response<FollowResponse>) {
@@ -697,7 +742,8 @@ class ServiceHelper {
     }
 
     fun unFollowService(followId: Int, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.unFollowApi(followId)
         responseCall.enqueue(object : Callback<DisLikeResponse> {
             override fun onResponse(call: Call<DisLikeResponse>, response: Response<DisLikeResponse>) {
@@ -720,7 +766,8 @@ class ServiceHelper {
     }
 
     fun blockUserService(request: BlockUserRequest, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.blockUserApi(request)
         responseCall.enqueue(object : Callback<BlockUserResponse> {
             override fun onResponse(call: Call<BlockUserResponse>, response: Response<BlockUserResponse>) {
@@ -750,7 +797,8 @@ class ServiceHelper {
     }
 
     fun unBlockUserService(followId: Int, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.unBlockUserApi(followId)
         responseCall.enqueue(object : Callback<DisLikeResponse> {
             override fun onResponse(call: Call<DisLikeResponse>, response: Response<DisLikeResponse>) {
@@ -773,7 +821,8 @@ class ServiceHelper {
     }
 
     fun userProfileService(request: FollowRequest, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.userProfileApi(request)
         responseCall.enqueue(object : Callback<UserProfileResponse> {
             override fun onResponse(call: Call<UserProfileResponse>, response: Response<UserProfileResponse>) {
@@ -803,7 +852,8 @@ class ServiceHelper {
     }
 
     fun markAsSoldService(item_id: Int, markAsSoldRequest: MarkAsSoldRequest, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.markAsSoldApi(item_id, markAsSoldRequest)
         responseCall.enqueue(object : Callback<DisLikeResponse> {
             override fun onResponse(call: Call<DisLikeResponse>, response: Response<DisLikeResponse>) {
@@ -826,7 +876,8 @@ class ServiceHelper {
     }
 
     fun deleteListingService(itemId: Int, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.deleteListingApi(itemId)
         responseCall.enqueue(object : Callback<DisLikeResponse> {
             override fun onResponse(call: Call<DisLikeResponse>, response: Response<DisLikeResponse>) {
@@ -849,7 +900,8 @@ class ServiceHelper {
     }
 
     fun searchItemService(request: SearchItemRequest, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.searchItemApi(request)
         responseCall.enqueue(object : Callback<SearchItemResponse> {
             override fun onResponse(call: Call<SearchItemResponse>, response: Response<SearchItemResponse>) {
@@ -880,7 +932,8 @@ class ServiceHelper {
     }
 
     fun searchByUserService(UserId: Int, request: SearchUserRequest, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.searchByUserApi(UserId, request)
         responseCall.enqueue(object : Callback<SearchByUserResponse> {
             override fun onResponse(call: Call<SearchByUserResponse>, response: Response<SearchByUserResponse>) {
@@ -910,8 +963,9 @@ class ServiceHelper {
         })
     }
 
-    fun searchKeywordMultipleDataService( request: SearchKeywordMultipleDataRequest, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+    fun searchKeywordMultipleDataService(request: SearchKeywordMultipleDataRequest, onResponse: OnResponse) {
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.searchKeywordMultipleData(request)
         responseCall.enqueue(object : Callback<SearchMultipleKeywordResponse> {
             override fun onResponse(call: Call<SearchMultipleKeywordResponse>, response: Response<SearchMultipleKeywordResponse>) {
@@ -942,7 +996,8 @@ class ServiceHelper {
     }
 
     fun forgotPasswordService(request: ForgotPasswordRequest, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.forgotPasswordApi(request)
         responseCall.enqueue(object : Callback<AddItemResponse> {
             override fun onResponse(call: Call<AddItemResponse>, response: Response<AddItemResponse>) {
@@ -973,7 +1028,8 @@ class ServiceHelper {
 
     fun editItemsApi(request: EditItemRequest, onResponse: OnResponse) {
         //  val service = ServiceGenerator().createService(MyService::class.java, "idress", "idress")
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val parts = ArrayList<MultipartBody.Part>()
         for (i in 0 until request.imageList.size) {
             if (!TextUtils.isEmpty(request.imageList[i])) {
@@ -1006,9 +1062,9 @@ class ServiceHelper {
         val prettyJson = prettyGson.toJson(request.additional_info)
         val additionalInfo = RequestBody.create(okhttp3.MultipartBody.FORM, prettyJson)
         if (request.imageList.size > 0) {
-            call = myService.updateProductApi(parts, deleteImageId, itemId, categoryId, name, price, itemType, description, userId, address, lat, lng, meetUp,type,carBrandId,carType,additionalInfo,zoneId)
+            call = myService.updateProductApi(parts, deleteImageId, itemId, categoryId, name, price, itemType, description, userId, address, lat, lng, meetUp, type, carBrandId, carType, additionalInfo, zoneId)
         } else {
-            call = myService.updateWithoutImageApi(deleteImageId, itemId, categoryId, name, price, itemType, description, userId, address, lat, lng, meetUp,type,carBrandId,carType,additionalInfo,zoneId)
+            call = myService.updateWithoutImageApi(deleteImageId, itemId, categoryId, name, price, itemType, description, userId, address, lat, lng, meetUp, type, carBrandId, carType, additionalInfo, zoneId)
         }
         call.enqueue(object : Callback<AddItemResponse> {
             override fun onResponse(call: Call<AddItemResponse>, response: Response<AddItemResponse>) {
@@ -1026,7 +1082,7 @@ class ServiceHelper {
             }
 
             override fun onFailure(call: Call<AddItemResponse>, t: Throwable) {
-         //       Log.d(LOG_TAG, "<<<Error>>>" + t.localizedMessage)
+                //       Log.d(LOG_TAG, "<<<Error>>>" + t.localizedMessage)
                 onResponse.onFailure("Something went wrong!")
 
             }
@@ -1034,7 +1090,8 @@ class ServiceHelper {
     }
 
     fun getCarBrandService(comingFrom: Int, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall: Call<CarBrandResponse>
         responseCall = myService.getCarBrandApi()
         responseCall.enqueue(object : Callback<CarBrandResponse> {
@@ -1056,9 +1113,11 @@ class ServiceHelper {
             }
         })
     }
-    fun getCarFilterService(userId: Int,carFilterRequest: CarsFilterRequest ,onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
-        val responseCall = myService.carsFilterApi(userId,carFilterRequest)
+
+    fun getCarFilterService(userId: Int, carFilterRequest: CarsFilterRequest, onResponse: OnResponse) {
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
+        val responseCall = myService.carsFilterApi(userId, carFilterRequest)
         responseCall.enqueue(object : Callback<FavouritesResponse> {
             override fun onResponse(call: Call<FavouritesResponse>, response: Response<FavouritesResponse>) {
                 val res = response.body()
@@ -1080,7 +1139,8 @@ class ServiceHelper {
     }
 
     fun followFollowingService(UserId: Int, request: HomeRequest, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.followFollowingApi(UserId, request)
         responseCall.enqueue(object : Callback<SearchByUserResponse> {
             override fun onResponse(call: Call<SearchByUserResponse>, response: Response<SearchByUserResponse>) {
@@ -1111,7 +1171,8 @@ class ServiceHelper {
     }
 
     fun addMoneyService(request: AddMoneyRequest, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.addMoneyApi(request)
         responseCall.enqueue(object : Callback<UpdateWalletResponse> {
             override fun onResponse(call: Call<UpdateWalletResponse>, response: Response<UpdateWalletResponse>) {
@@ -1140,8 +1201,40 @@ class ServiceHelper {
         })
     }
 
+    fun sendMoneyService(request: SendMoneyRequest, onResponse: OnResponse) {
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
+        val responseCall = myService.sendMoneyApi(request)
+        responseCall.enqueue(object : Callback<AddItemResponse> {
+            override fun onResponse(call: Call<AddItemResponse>, response: Response<AddItemResponse>) {
+                if (response.code() == 200) {
+                    onResponse.onSuccess(response)
+                } else {
+                    if (response.errorBody() != null) {
+                        try {
+                            val messageError = JSONObject(response.errorBody()!!.string())
+                            onResponse.onFailure(messageError.getString("message"))
+                        } catch (e: JSONException) {
+                            onResponse.onFailure("Something went wrong")
+                            e.printStackTrace()
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                        }
+                    } else {
+                        onResponse.onFailure("Something went wrong")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<AddItemResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
+
     fun getWalletHistoryService(userId: String, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.getWalletHistoryApi(userId.toInt())
         responseCall.enqueue(object : Callback<WalletHistoryResponse> {
             override fun onResponse(call: Call<WalletHistoryResponse>, response: Response<WalletHistoryResponse>) {
@@ -1163,8 +1256,33 @@ class ServiceHelper {
         })
     }
 
-    fun getCoinPlanService( userUd:Int,onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+    fun getLogOutService(request: LogOutRequest, onResponse: OnResponse) {
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
+        val responseCall = myService.logOutApi(request)
+        responseCall.enqueue(object : Callback<AddItemResponse> {
+            override fun onResponse(call: Call<AddItemResponse>, response: Response<AddItemResponse>) {
+                val res = response.body()
+                Log.e("<<<Response>>>", Gson().toJson(res))
+                if (res != null) {
+                    when {
+                        response.code() == 200 -> onResponse.onSuccess(response)
+                        else -> onResponse.onFailure(response.message())
+                    }
+                } else {
+                    onResponse.onFailure("Something went wrong!")
+                }
+            }
+
+            override fun onFailure(call: Call<AddItemResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
+
+    fun getCoinPlanService(userUd: Int, onResponse: OnResponse) {
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.getCoinPlanApi(userUd)
         responseCall.enqueue(object : Callback<CoinPlanResponse> {
             override fun onResponse(call: Call<CoinPlanResponse>, response: Response<CoinPlanResponse>) {
@@ -1186,8 +1304,9 @@ class ServiceHelper {
         })
     }
 
-    fun getAdvertisementPlanService( userId:Int,onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+    fun getAdvertisementPlanService(userId: Int, onResponse: OnResponse) {
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.getAdvertPlanApi(userId)
         responseCall.enqueue(object : Callback<AdvertPlanActivity> {
             override fun onResponse(call: Call<AdvertPlanActivity>, response: Response<AdvertPlanActivity>) {
@@ -1210,7 +1329,8 @@ class ServiceHelper {
     }
 
     fun purchaseCoinService(request: PurchaseCoinRequest, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.coinPurchaseApi(request)
         responseCall.enqueue(object : Callback<UpdateWalletResponse> {
             override fun onResponse(call: Call<UpdateWalletResponse>, response: Response<UpdateWalletResponse>) {
@@ -1222,10 +1342,10 @@ class ServiceHelper {
                             val messageError = JSONObject(response.errorBody()!!.string())
 
                             val messageE = JSONObject(messageError.getString("errors"))
-                            val lessAmount=JSONArray(messageE.getString("less_amount"))
-                            val value=lessAmount[0].toString()
+                            val lessAmount = JSONArray(messageE.getString("less_amount"))
+                            val value = lessAmount[0].toString()
 
-                           // onResponse.onFailure(messageError.getString("message"))
+                            // onResponse.onFailure(messageError.getString("message"))
                             onResponse.onFailure(value)
                         } catch (e: JSONException) {
                             onResponse.onFailure("Something went wrong")
@@ -1246,7 +1366,8 @@ class ServiceHelper {
     }
 
     fun getCoinHistoryService(userId: String, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.getCoinHistoryApi(userId.toInt())
         responseCall.enqueue(object : Callback<WalletHistoryResponse> {
             override fun onResponse(call: Call<WalletHistoryResponse>, response: Response<WalletHistoryResponse>) {
@@ -1269,7 +1390,8 @@ class ServiceHelper {
     }
 
     fun updateBannerService(request: UploadBannerRequest, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         var body: MultipartBody.Part? = null
         if (!TextUtils.isEmpty(request.banner)) {
             val file = File(request.banner)
@@ -1280,7 +1402,7 @@ class ServiceHelper {
         val advertPlan = RequestBody.create(MediaType.parse("text/plain"), request.advertisement_plan_id.toString())
         val categoryId = RequestBody.create(MediaType.parse("text/plain"), request.category_id.toString())
 
-        val call = myService.uploadBannerApi(body!!, userId, advertPlan,categoryId)
+        val call = myService.uploadBannerApi(body!!, userId, advertPlan, categoryId)
         call.enqueue(object : Callback<ProfileUpdateResponse> {
             override fun onResponse(call: Call<ProfileUpdateResponse>, response: Response<ProfileUpdateResponse>) {
 
@@ -1291,8 +1413,8 @@ class ServiceHelper {
                     try {
                         val messageError = JSONObject(response.errorBody()!!.string())
                         val messageE = JSONObject(messageError.getString("errors"))
-                        val lessAmount=JSONArray(messageE.getString("less_coin"))
-                        val value=lessAmount[0].toString()
+                        val lessAmount = JSONArray(messageE.getString("less_coin"))
+                        val value = lessAmount[0].toString()
                         onResponse.onFailure(value)
                     } catch (e: Exception) {
                     }
@@ -1300,7 +1422,7 @@ class ServiceHelper {
             }
 
             override fun onFailure(call: Call<ProfileUpdateResponse>, t: Throwable) {
-            //    Log.d(LOG_TAG, "<<<Error>>>" + t.localizedMessage)
+                //    Log.d(LOG_TAG, "<<<Error>>>" + t.localizedMessage)
                 onResponse.onFailure("Something went wrong!")
 
             }
@@ -1308,7 +1430,8 @@ class ServiceHelper {
     }
 
     fun getAlBannerService(userId: String, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.getAllBannerApi(userId)
         responseCall.enqueue(object : Callback<ViewAllBannerResponse> {
             override fun onResponse(call: Call<ViewAllBannerResponse>, response: Response<ViewAllBannerResponse>) {
@@ -1331,7 +1454,8 @@ class ServiceHelper {
     }
 
     fun sendQrService(request: SendQrCodeRequest, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.qrCodeApi(request)
         responseCall.enqueue(object : Callback<DisLikeResponse> {
             override fun onResponse(call: Call<DisLikeResponse>, response: Response<DisLikeResponse>) {
@@ -1342,8 +1466,8 @@ class ServiceHelper {
                         try {
                             val messageError = JSONObject(response.errorBody()!!.string())
                             val messageE = JSONObject(messageError.getString("errors"))
-                            val lessAmount=JSONArray(messageE.getString("less_coin"))
-                            val value=lessAmount[0].toString()
+                            val lessAmount = JSONArray(messageE.getString("less_coin"))
+                            val value = lessAmount[0].toString()
                             onResponse.onFailure(value)
                         } catch (e: JSONException) {
                             onResponse.onFailure("Something went wrong")
@@ -1364,7 +1488,8 @@ class ServiceHelper {
     }
 
     fun getAllUserInfoService(token: String, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.getUserInfoApi(token)
         responseCall.enqueue(object : Callback<UserInfoResponse> {
             override fun onResponse(call: Call<UserInfoResponse>, response: Response<UserInfoResponse>) {
@@ -1387,7 +1512,8 @@ class ServiceHelper {
     }
 
     fun rateUserService(request: RateUserRequest, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.rateUserApi(request)
         responseCall.enqueue(object : Callback<UpdateWalletResponse> {
             override fun onResponse(call: Call<UpdateWalletResponse>, response: Response<UpdateWalletResponse>) {
@@ -1416,8 +1542,9 @@ class ServiceHelper {
         })
     }
 
-    fun uploadImageService(imageUrl:String ,onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+    fun uploadImageService(imageUrl: String, onResponse: OnResponse) {
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         var body: MultipartBody.Part? = null
         if (!TextUtils.isEmpty(imageUrl)) {
             val file = File(imageUrl)
@@ -1448,16 +1575,17 @@ class ServiceHelper {
             }
 
             override fun onFailure(call: Call<ChatImageResponse>, t: Throwable) {
-             //   Log.d(LOG_TAG, "<<<Error>>>" + t.localizedMessage)
+                //   Log.d(LOG_TAG, "<<<Error>>>" + t.localizedMessage)
                 onResponse.onFailure("Something went wrong!")
 
             }
         })
     }
 
-    fun getBannerItemService(categoryId:String, userId: String,pageCount:Int, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
-        val responseCall = myService.getBannerDetailsApi(userId,categoryId,pageCount)
+    fun getBannerItemService(categoryId: String, userId: String, pageCount: Int, onResponse: OnResponse) {
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
+        val responseCall = myService.getBannerDetailsApi(userId, categoryId, pageCount)
         responseCall.enqueue(object : Callback<BannerDetailResponse> {
             override fun onResponse(call: Call<BannerDetailResponse>, response: Response<BannerDetailResponse>) {
                 val res = response.body()
@@ -1478,9 +1606,10 @@ class ServiceHelper {
         })
     }
 
-    fun verifyMobileNo(request: VerifyNumberRequest,userId:Int, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
-        val responseCall = myService.verifyMobileApi(userId,request)
+    fun verifyMobileNo(request: VerifyNumberRequest, userId: Int, onResponse: OnResponse) {
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
+        val responseCall = myService.verifyMobileApi(userId, request)
         responseCall.enqueue(object : Callback<VerifyNumberResponse> {
             override fun onResponse(call: Call<VerifyNumberResponse>, response: Response<VerifyNumberResponse>) {
                 if (response.code() == 200) {
@@ -1509,7 +1638,8 @@ class ServiceHelper {
     }
 
     fun verifyOtpNo(request: VerifyOtpRequest, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.verifyOtpApi(request)
         responseCall.enqueue(object : Callback<VerifyNumberResponse> {
             override fun onResponse(call: Call<VerifyNumberResponse>, response: Response<VerifyNumberResponse>) {
@@ -1539,18 +1669,19 @@ class ServiceHelper {
     }
 
 
-    fun getMyRatingService(comingFrom:Int, userId: Int, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
-         val responseCall: Call<MyRatingResponse>
-        if(comingFrom==1){
+    fun getMyRatingService(comingFrom: Int, userId: Int, token: String, onResponse: OnResponse) {
+//        val myService = ApiClient.getClient().create(MyService::class.java, token)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
+        val responseCall: Call<MyRatingResponse>
+        if (comingFrom == 1) {
             responseCall = myService.getMyRatingGoodApi(userId)
-        }else if(comingFrom==2){
+        } else if (comingFrom == 2) {
             responseCall = myService.getMyRatingBadApi(userId)
-        }else{
+        } else {
             responseCall = myService.getMyRatingPoorApi(userId)
         }
-       //   responseCall = myService.getMyRatingGoodApi(userId)
-         responseCall.enqueue(object : Callback<MyRatingResponse> {
+        //   responseCall = myService.getMyRatingGoodApi(userId)
+        responseCall.enqueue(object : Callback<MyRatingResponse> {
             override fun onResponse(call: Call<MyRatingResponse>, response: Response<MyRatingResponse>) {
                 val res = response.body()
                 Log.e("<<<Response>>>", Gson().toJson(res))
@@ -1571,32 +1702,35 @@ class ServiceHelper {
     }
 
     fun updateDeviceInfo(request: UpdateDeviceInfoRequest, onResponse: OnResponse) {
-        val myService = ApiClient.getClient().create(MyService::class.java)
-        val responseCall = myService.updateDeviceInfoApi(request)
-        responseCall.enqueue(object : Callback<DisLikeResponse> {
-            override fun onResponse(call: Call<DisLikeResponse>, response: Response<DisLikeResponse>) {
-                if (response.code() == 200) {
-                    onResponse.onSuccess(response)
-                } else {
-                    if (response.errorBody() != null) {
-                        try {
-                            val messageError = JSONObject(response.errorBody()!!.string())
-                            onResponse.onFailure(messageError.getString("message"))
-                        } catch (e: JSONException) {
-                            onResponse.onFailure("Something went wrong")
-                            e.printStackTrace()
-                        } catch (e: IOException) {
-                            e.printStackTrace()
-                        }
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        if (VerkoopApplication.getToken().isNotEmpty()) {
+            val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
+            val responseCall = myService.updateDeviceInfoApi(request)
+            responseCall.enqueue(object : Callback<DisLikeResponse> {
+                override fun onResponse(call: Call<DisLikeResponse>, response: Response<DisLikeResponse>) {
+                    if (response.code() == 200) {
+                        onResponse.onSuccess(response)
                     } else {
-                        onResponse.onFailure("Something went wrong")
+                        if (response.errorBody() != null) {
+                            try {
+                                val messageError = JSONObject(response.errorBody()!!.string())
+                                onResponse.onFailure(messageError.getString("message"))
+                            } catch (e: JSONException) {
+                                onResponse.onFailure("Something went wrong")
+                                e.printStackTrace()
+                            } catch (e: IOException) {
+                                e.printStackTrace()
+                            }
+                        } else {
+                            onResponse.onFailure("Something went wrong")
+                        }
                     }
                 }
-            }
 
-            override fun onFailure(call: Call<DisLikeResponse>, t: Throwable) {
-                onResponse.onFailure(t.message)
-            }
-        })
+                override fun onFailure(call: Call<DisLikeResponse>, t: Throwable) {
+                    onResponse.onFailure(t.message)
+                }
+            })
+        }
     }
 }

@@ -348,7 +348,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 
     private fun setResponseData(userId: String, api_token: String, firstName: String, email: String, loginType: String, firstTime: Int, mobileNo: String, qr_code: String, coin: Int, amount: Int) {
         Utils.savePreferencesString(this@LoginActivity, AppConstants.USER_ID, userId)
-        Utils.savePreferencesString(this@LoginActivity, AppConstants.API_TOKEN, api_token)
+        Utils.savePreferencesString(this@LoginActivity, AppConstants.API_TOKEN, "Bearer $api_token")
         Utils.savePreferencesString(this@LoginActivity, AppConstants.USER_NAME, firstName)
         Utils.savePreferencesString(this@LoginActivity, AppConstants.QR_CODE, qr_code)
         Utils.saveIntPreferences(this@LoginActivity, AppConstants.COIN, coin)

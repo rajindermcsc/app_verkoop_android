@@ -32,13 +32,23 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
+        <activity android:name=".activity.StripeCardPaymentActivity"></activity>
 
         <meta-data
             android:name="com.google.android.gms.wallet.api.enabled"
-            android:value="true"/>
+            android:value="true" />
 
-        <activity android:name=".activity.MyWalletstripeActivity"></activity>
-        <activity android:name=".activity.CameraActivity"></activity>
+        <activity android:name=".activity.PayWithGoogleActivityy">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name=".activity.MyWalletstripeActivity" />
+        <activity android:name=".activity.CameraActivity" />
         <activity android:name=".activity.MainActivity" />
 
         <meta-data

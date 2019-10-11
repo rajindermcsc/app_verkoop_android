@@ -1,5 +1,6 @@
 package com.verkoopapp.network
 
+import com.verkoopapp.VerkoopApplication
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -12,8 +13,9 @@ import io.fabric.sdk.android.services.settings.IconRequest.build
 
 
 
- class ServiceGenerator{
-    private val API_BASE_URL = "http://18.197.155.81/idress/index.php/"
+ object ServiceGenerator{
+    private val API_BASE_URL = "http://verkoopadmin.com/VerkoopApp/api/V1/"
+//    private val API_BASE_URL = "http://mobile.serveo.net/verkoop/api/V1/"
 
     private val httpClient = OkHttpClient.Builder()
 /*     OkHttpClient client = OkHttpClient.Builder()
@@ -50,7 +52,7 @@ import io.fabric.sdk.android.services.settings.IconRequest.build
         return createService(serviceClass, null, null)
     }
 
-    private fun <S> createService(
+     fun <S> createService(
             serviceClass: Class<S>, authToken: String): S {
         if (!checkEmptyString(authToken)) {
             val interceptor = AuthenticationInterceptor(authToken)
@@ -67,7 +69,22 @@ import io.fabric.sdk.android.services.settings.IconRequest.build
 
         return retrofit!!.create(serviceClass)
     }
+     fun <S> createServiceWithoutToken(serviceClass: Class<S>): S {
+         if (!checkEmptyString(VerkoopApplication.getToken())) {
+             val interceptor = AuthenticationInterceptor(VerkoopApplication.getToken())
+             val logInterceptor = HttpLoggingInterceptor()
+             logInterceptor.level = HttpLoggingInterceptor.Level.BODY
+             if (!httpClient.interceptors().contains(interceptor)) {
+                 httpClient.addInterceptor(MyOkHttpInterceptor(VerkoopApplication.getToken()))
+                 httpClient.addInterceptor(logInterceptor)
+                 builder.client(httpClient.build())
+//                buildClient().newCall(request).execute()
+                 retrofit = builder.build()
+             }
+         }
 
+         return retrofit!!.create(serviceClass)
+     }
     private fun buildClient(): OkHttpClient {
         val logInterceptor = HttpLoggingInterceptor()
         logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -89,7 +106,6 @@ import io.fabric.sdk.android.services.settings.IconRequest.build
     }
 
      class MyOkHttpInterceptor internal constructor(internal val tokenServer: String) : Interceptor {
-
          @Throws(IOException::class)
          override fun intercept(chain: Interceptor.Chain): Response {
              val originalRequest = chain.request()

@@ -64,6 +64,9 @@ interface MyService {
     fun getSearchPlaceApi(@Query("query") keyWord: String,
                           @Query("key") key: String): Call<PlaceApiResponse>
 
+    @GET("get_activity_list/{userId}")
+    fun getActivityList(@Path(value = "userId", encoded = true) fullUrl: String): Call<ActivityListResponseModel>
+
     @GET("user/profileData/{userId}")
     fun getMyProfileApi(@Path(value = "userId", encoded = true) fullUrl: String): Call<MyProfileIngoResponse>
 
@@ -108,6 +111,12 @@ interface MyService {
 
     @POST("user/forgot_password")
     fun forgotPasswordApi(@Body request: ForgotPasswordRequest): Call<AddItemResponse>
+
+    @POST("user/logout")
+    fun logOutApi(@Body request: LogOutRequest): Call<AddItemResponse>
+
+    @POST("send_money")
+    fun sendMoneyApi(@Body request: SendMoneyRequest): Call<AddItemResponse>
 
     @GET("getBrandWithModels")
     fun getCarBrandApi(): Call<CarBrandResponse>

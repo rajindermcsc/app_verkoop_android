@@ -22,6 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /*This class used to hit service*/
 public class ApiClient {
     private static final String BASE_URL = "http://verkoopadmin.com/VerkoopApp/api/V1/";
+//    private static final String BASE_URL = "http://mobile.serveo.net/verkoop/api/V1/";
     private static Retrofit retrofit = null;
     public static Retrofit getClient() {
         if (retrofit == null) {

@@ -46,7 +46,7 @@ class RatingActivity : AppCompatActivity() {
     }
     private fun getMyRatingApi(userId:Int,comingFrom:Int) {
         pbProgressFav.visibility= View.VISIBLE
-        ServiceHelper().getMyRatingService(comingFrom,userId,object : ServiceHelper.OnResponse {
+        ServiceHelper().getMyRatingService(comingFrom,userId, Utils.getPreferencesString(this@RatingActivity, AppConstants.USER_ID),object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
                 tvMssgData.visibility=View.GONE
                 pbProgressFav.visibility= View.GONE

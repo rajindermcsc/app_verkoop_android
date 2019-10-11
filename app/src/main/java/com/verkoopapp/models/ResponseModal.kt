@@ -494,9 +494,15 @@ data class SubCategoryPost(
 )
 
 data class FavouritesResponse(
-        val data: ArrayList<ItemHome>,
+        val data: FavouritesData,
         val message: String
 )
+
+class FavouritesData (
+        val items: ArrayList<ItemHome>
+)
+
+
 
 /*data class Data(
     val id: Int,
@@ -964,3 +970,25 @@ data class SearchMultipleKeywordCategory(
     val name: String,
     val parent_id: Int
 )
+
+data class ActivityListResponseModel(
+    val data: ActivityListData,
+    val message: String
+)
+
+data class ActivityListData(
+    val activities: ArrayList<ActivityData>
+)
+
+data class ActivityData(
+    val comment_id: Int,
+    val created_at: CreatedAt,
+    val description: String,
+    val image: String,
+    val item_id: Int,
+    val user_id: Int,
+    val message: String,
+    val type: Int
+)
+
+

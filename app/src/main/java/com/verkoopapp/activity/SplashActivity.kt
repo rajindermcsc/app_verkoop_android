@@ -19,6 +19,7 @@ class SplashActivity : AppCompatActivity() {
     private var id = 0
     private var type = 0
     private var typeNoti = 0
+    private var idNoti = 0
     //private lateinit var bundle: Bundle
 
     private fun setAppIntent() {
@@ -29,13 +30,21 @@ class SplashActivity : AppCompatActivity() {
                     val i = bundle.get("type").toString()
                     typeNoti=i.toInt()
                 }
+                if (bundle.get("user_id") != null) {
+                    val i = bundle.get("user_id").toString()
+                    idNoti=i.toInt()
+                }
+                if (bundle.get("item_id") != null) {
+                    val i = bundle.get("item_id").toString()
+                    idNoti=i.toInt()
+                }
                 if (typeNoti != null) {
                     if (typeNoti == 1 || typeNoti == 3 || typeNoti == 6) {
                         type=1
-                        id=379
+                        id=idNoti
                     } else if (typeNoti == 2 || typeNoti == 4){
                         type=2
-                        id=130
+                        id=idNoti
                     }
                 }
             }

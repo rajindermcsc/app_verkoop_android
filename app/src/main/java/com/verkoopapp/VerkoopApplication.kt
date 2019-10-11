@@ -12,6 +12,7 @@ import com.verkoopapp.models.SocketCheckConnectionEvent
 import com.verkoopapp.models.SocketOnReceiveEvent
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Loading
+import com.verkoopapp.utils.Utils
 import io.branch.referral.Branch
 import io.fabric.sdk.android.Fabric
 import io.realm.Realm
@@ -62,6 +63,10 @@ class VerkoopApplication : Application() {
         lateinit var instance: VerkoopApplication
         operator fun get(context: Context): VerkoopApplication {
             return context.applicationContext as VerkoopApplication
+        }
+
+        @JvmStatic fun getToken(): String {
+            return Utils.getPreferencesString(instance, AppConstants.API_TOKEN)
         }
 
         fun getAppSocket(): Socket? {

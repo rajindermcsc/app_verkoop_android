@@ -22,6 +22,7 @@ import com.google.api.client.util.GenericData
 import com.google.api.services.vision.v1.Vision
 import com.google.api.services.vision.v1.VisionRequestInitializer
 import com.google.api.services.vision.v1.model.*
+import com.google.firebase.iid.FirebaseInstanceId
 import com.google.gson.Gson
 import com.verkoopapp.R
 import com.verkoopapp.VerkoopApplication
@@ -29,7 +30,10 @@ import com.verkoopapp.adapter.HomePagerAdapter
 import com.verkoopapp.fragment.ActivitiesFragment
 import com.verkoopapp.fragment.HomeFragment
 import com.verkoopapp.fragment.ProfileFragment
+import com.verkoopapp.models.DisLikeResponse
 import com.verkoopapp.models.SocketCheckConnectionEvent
+import com.verkoopapp.models.UpdateDeviceInfoRequest
+import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.home_activity.*
@@ -39,6 +43,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONException
 import org.json.JSONObject
+import retrofit2.Response
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -62,6 +67,7 @@ class HomeActivity : AppCompatActivity() {
     private var mCurrentPhotoPath: String? = null
     private val CAMERA_REQUEST = 1888
     private var uriTemp: Uri? = null
+    private var deviceId: String = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,6 +89,8 @@ class HomeActivity : AppCompatActivity() {
         }
         setBranchIdData()
         setIntentData()
+        firebaseDeviceToken()
+
 //        setVisionData()
     }
 
@@ -348,6 +356,37 @@ class HomeActivity : AppCompatActivity() {
 //
 //        thread.start()
 //    }
+
+    private fun firebaseDeviceToken() {
+        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
+            deviceId = it.token
+            Log.e("newTokena", deviceId)
+            updateDeviceInfo()
+        }
+    }
+
+    private fun updateDeviceInfo() {
+        if (Utils.isOnline(this)) {
+            callUpdateDeviceInfoApi()
+        } else {
+            updateDeviceInfo()
+        }
+    }
+
+    private fun callUpdateDeviceInfoApi() {
+        ServiceHelper().updateDeviceInfo(UpdateDeviceInfoRequest(Utils.getPreferences(this@HomeActivity, AppConstants.USER_ID), deviceId, "1"),
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        VerkoopApplication.instance.loader.hide(this@HomeActivity)
+                        val loginResponse = response.body() as DisLikeResponse
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        VerkoopApplication.instance.loader.hide(this@HomeActivity)
+                        Utils.showSimpleMessage(this@HomeActivity, msg!!).show()
+                    }
+                })
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: SocketCheckConnectionEvent) {

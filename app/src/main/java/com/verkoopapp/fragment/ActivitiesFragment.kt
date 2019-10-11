@@ -1,22 +1,39 @@
 package com.verkoopapp.fragment
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import com.ksmtrivia.common.BaseFragment
 import com.verkoopapp.R
 import com.verkoopapp.activity.HomeActivity
+import com.verkoopapp.activity.ProductDetailsActivity
+import com.verkoopapp.activity.UserProfileActivity
 import com.verkoopapp.adapter.ActivitiesAdapter
 import com.verkoopapp.adapter.ProfileAdapter
+import com.verkoopapp.models.ActivityData
+import com.verkoopapp.models.ActivityListResponseModel
+import com.verkoopapp.models.ItemHome
+import com.verkoopapp.network.ServiceHelper
+import com.verkoopapp.utils.AppConstants
+import com.verkoopapp.utils.NotificationType
+import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.activities_fragment.*
+import kotlinx.android.synthetic.main.edit_profile_activity.*
+import kotlinx.android.synthetic.main.profile_fragment.*
+import retrofit2.Response
 
-class ActivitiesFragment : BaseFragment() {
+class ActivitiesFragment : BaseFragment(), NotificationType {
+
     val TAG = ActivitiesFragment::class.java.simpleName.toString()
     private lateinit var activitesAdapter: ActivitiesAdapter
     private lateinit var homeActivity: HomeActivity
+    private var notificationsList = ArrayList<ActivityData>()
+
     override fun getTitle(): Int {
         return 0
     }
@@ -45,13 +62,41 @@ class ActivitiesFragment : BaseFragment() {
         slActivities.setOnRefreshListener {
             slActivities.isRefreshing = false
         }
+
+        getActivityListApi()
+    }
+
+    private fun getActivityListApi() {
+        ServiceHelper().getActivityList(Utils.getPreferencesString(activity!!, AppConstants.USER_ID), object : ServiceHelper.OnResponse {
+            override fun onSuccess(response: Response<*>) {
+                val activityResponse = response.body() as ActivityListResponseModel
+
+                if (activityResponse.data != null) {
+                    try {
+                        rvNotificationList.visibility = View.VISIBLE
+                        notificationsList.clear()
+                        notificationsList = activityResponse.data.activities
+                        activitesAdapter.setData(notificationsList)
+                        activitesAdapter.notifyDataSetChanged()
+                    } catch (e: Exception) {
+                    }
+                } else {
+//                            Utils.showSimpleMessage(homeActivity, myProfileResponse.message).show()
+                }
+            }
+
+            override fun onFailure(msg: String?) {
+                Utils.showSimpleMessage(homeActivity, msg!!).show()
+            }
+        })
+
     }
 
     private fun setAdapter() {
-        val linearLayoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
-        rvNotificationList.layoutManager=linearLayoutManager
-        activitesAdapter = ActivitiesAdapter(homeActivity,this)
-        rvNotificationList.adapter=activitesAdapter
+        val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        rvNotificationList.layoutManager = linearLayoutManager
+        activitesAdapter = ActivitiesAdapter(homeActivity, this)
+        rvNotificationList.adapter = activitesAdapter
     }
 
     companion object {
@@ -63,4 +108,45 @@ class ActivitiesFragment : BaseFragment() {
         }
     }
 
+    override fun typeNotification(position: Int?) {
+        when (notificationsList[position!!].type) {
+            1 -> {
+                if (notificationsList[position!!].item_id != null) {
+                    val intent = Intent(activity!!, ProductDetailsActivity::class.java)
+                    intent.putExtra(AppConstants.ITEM_ID, notificationsList[position!!].item_id)
+                    startActivity(intent)
+                }
+            }
+            2 -> {
+                if (notificationsList[position!!].user_id != null) {
+                    val reportIntent = Intent(activity!!, UserProfileActivity::class.java)
+                    reportIntent.putExtra(AppConstants.USER_ID, notificationsList[position!!].user_id)
+                    startActivity(reportIntent)
+                }
+            }
+            3 -> {
+                if (notificationsList[position!!].item_id != null) {
+                    val intent = Intent(activity!!, ProductDetailsActivity::class.java)
+                    intent.putExtra(AppConstants.ITEM_ID, notificationsList[position!!].item_id)
+                    startActivity(intent)
+                }
+            }
+            4 -> {
+                if (notificationsList[position!!].user_id != null) {
+                    val reportIntent = Intent(activity!!, UserProfileActivity::class.java)
+                    reportIntent.putExtra(AppConstants.USER_ID, notificationsList[position!!].user_id)
+                    startActivity(reportIntent)
+                }
+            }
+            5 -> {
+            }
+            6 -> {
+                if (notificationsList[position!!].item_id != null) {
+                    val intent = Intent(activity!!, ProductDetailsActivity::class.java)
+                    intent.putExtra(AppConstants.ITEM_ID, notificationsList[position!!].item_id)
+                    startActivity(intent)
+                }
+            }
+        }
+    }
 }

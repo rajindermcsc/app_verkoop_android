@@ -5,20 +5,27 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.View
 import com.github.nkzawa.socketio.client.Ack
 import com.github.nkzawa.socketio.client.Socket
 import com.google.gson.Gson
 import com.verkoopapp.R
 import com.verkoopapp.VerkoopApplication
+import com.verkoopapp.models.AddItemResponse
+import com.verkoopapp.models.LogOutRequest
+import com.verkoopapp.models.WalletHistoryResponse
+import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.DeleteCommentDialog
 import com.verkoopapp.utils.SelectionListener
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.my_profile_details_row.*
+import kotlinx.android.synthetic.main.my_wallet_activity.*
 import kotlinx.android.synthetic.main.setting_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 import org.json.JSONException
 import org.json.JSONObject
+import retrofit2.Response
 
 class SettingActivity : AppCompatActivity() {
     private var socket: Socket? = VerkoopApplication.getAppSocket()
@@ -134,11 +141,36 @@ class SettingActivity : AppCompatActivity() {
     }
 
     private fun logout() {
-        callInit()
-        com.verkoopapp.utils.Utils.clearPreferences(this@SettingActivity)
-        val intent = Intent(this@SettingActivity, WalkThroughActivity::class.java)
-        startActivity(intent)
-        finishAffinity()
+        if (Utils.isOnline(this)) {
+            callInit()
+            callLogOutApi()
+            com.verkoopapp.utils.Utils.clearPreferences(this@SettingActivity)
+//            val intent = Intent(this@SettingActivity, WalkThroughActivity::class.java)
+//            startActivity(intent)
+//            finishAffinity()
+        } else {
+            Utils.showSimpleMessage(this, "Please check your internet connection")
+        }
+    }
+
+    private fun callLogOutApi() {
+        ServiceHelper().getLogOutService(LogOutRequest(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()), object : ServiceHelper.OnResponse {
+            override fun onSuccess(response: Response<*>) {
+                val responseWallet = response.body() as AddItemResponse
+                if (responseWallet.message.equals("Logged out successfully")) {
+                    val intent = Intent(this@SettingActivity, WalkThroughActivity::class.java)
+                    startActivity(intent)
+                    finishAffinity()
+                } else {
+                    Utils.showSimpleMessage(this@SettingActivity, responseWallet.message!!).show()
+                }
+            }
+
+            override fun onFailure(msg: String?) {
+                pbProgressWallet.visibility = View.GONE
+                Utils.showSimpleMessage(this@SettingActivity, msg!!).show()
+            }
+        })
     }
 
     private fun callInit() {

@@ -141,7 +141,7 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="change_password">Change Password</string>
     <string name="notification">Notification</string>
-    <string name="date_privacy_settings"><![CDATA[Date & Privacy Settings]]></string>
+    <string name="date_privacy_settings"><![CDATA[Data & Privacy Settings]]></string>
     <string name="need_help">Need Help</string>
     <string name="help_center">Help Center</string>
     <string name="contact_us">Contact Us</string>
