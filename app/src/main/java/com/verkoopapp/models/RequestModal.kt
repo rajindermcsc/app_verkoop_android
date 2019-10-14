@@ -51,6 +51,10 @@ data class UpdateDeviceInfoRequest(
        val device_type : String
 )
 
+data class DeactivateAccountRequest(
+        val access_token:String
+)
+
 @Parcelize
 data class AddItemRequest(
         val imageList: ArrayList<String>,
@@ -244,6 +248,11 @@ data class SearchItemRequest(
         val user_id: Int
 )
 
+data class RenewBannerRequest(
+        val banner_id: Int,
+        val advertisement_plan_id: Int
+)
+
 data class SearchUserRequest(
         val username: String
 )
@@ -264,7 +273,7 @@ data class LogOutRequest(
 data class SendMoneyRequest(
         val qrCodeId: String,
         val user_id: Int,
-        val amount: Int
+        val amount: String
 )
 
 data class HomeRequest(

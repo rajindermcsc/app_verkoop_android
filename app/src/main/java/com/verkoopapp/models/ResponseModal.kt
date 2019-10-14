@@ -869,6 +869,7 @@ data class ViewAllBannerResponse(
 data class DataBanner(
     var id: Int,
     var image: String,
+    var status: String,
     var updated_at: String,
     var day: Int,
     var advertisement_plan_id: Int

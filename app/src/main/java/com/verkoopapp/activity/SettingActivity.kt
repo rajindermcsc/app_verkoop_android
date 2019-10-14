@@ -12,6 +12,7 @@ import com.google.gson.Gson
 import com.verkoopapp.R
 import com.verkoopapp.VerkoopApplication
 import com.verkoopapp.models.AddItemResponse
+import com.verkoopapp.models.DeactivateAccountRequest
 import com.verkoopapp.models.LogOutRequest
 import com.verkoopapp.models.WalletHistoryResponse
 import com.verkoopapp.network.ServiceHelper
@@ -41,7 +42,11 @@ class SettingActivity : AppCompatActivity() {
             onBackPressed()
         }
         tvLogout.setOnClickListener {
+            tvLogout.isEnabled = false
             logOutDialogBox()
+            Handler().postDelayed(Runnable {
+                tvLogout.isEnabled = true
+            }, 1500)
         }
         tvEditProfile.setOnClickListener {
             tvEditProfile.isEnabled = false
@@ -122,7 +127,13 @@ class SettingActivity : AppCompatActivity() {
             intent.putExtra(AppConstants.COMING_FROM, 6)
             startActivity(intent)
         }
-        tvDeActivateAcct.setOnClickListener { }
+        tvDeActivateAcct.setOnClickListener {
+            tvLogout.isEnabled = false
+            deactivateDialogBox()
+            Handler().postDelayed(Runnable {
+                tvLogout.isEnabled = true
+            }, 1500)
+        }
 
     }
 
@@ -138,6 +149,39 @@ class SettingActivity : AppCompatActivity() {
             }
         })
         shareDialog.show()
+    }
+
+    private fun deactivateDialogBox() {
+        val shareDialog = DeleteCommentDialog(this, getString(R.string.deactivate_heading), getString(R.string.deactivate_des), object : SelectionListener {
+            override fun leaveClick() {
+                if (Utils.isOnline(this@SettingActivity)) {
+                    deactivateAccountApi()
+                } else {
+                    Utils.showSimpleMessage(this@SettingActivity, getString(R.string.check_internet)).show()
+                }
+
+            }
+        })
+        shareDialog.show()
+    }
+
+    private fun deactivateAccountApi() {
+        ServiceHelper().getDeactivateAccountService(DeactivateAccountRequest(VerkoopApplication.getToken()), object : ServiceHelper.OnResponse {
+            override fun onSuccess(response: Response<*>) {
+                val responseWallet = response.body() as AddItemResponse
+                if (responseWallet.message.equals("Account deactivated")) {
+                    Utils.showSimpleMessage(this@SettingActivity, "Account deactivated successfully")
+                    logout()
+                } else {
+                    Utils.showSimpleMessage(this@SettingActivity, responseWallet.message!!).show()
+                }
+            }
+
+            override fun onFailure(msg: String?) {
+                pbProgressWallet.visibility = View.GONE
+                Utils.showSimpleMessage(this@SettingActivity, msg!!).show()
+            }
+        })
     }
 
     private fun logout() {

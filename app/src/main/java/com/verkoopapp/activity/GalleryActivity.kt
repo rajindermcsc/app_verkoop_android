@@ -188,13 +188,13 @@ class GalleryActivity : AppCompatActivity(), GalleryAdapter.ImageCountCallBack {
         if (requestCode == define.TAKE_A_PICK_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 val savedFile = File(pickerController.getSavePath())
-                SingleMediaScanner(this, savedFile)
-                addImage(savedFile)
-                val contentURI = CommonUtils.getImageContentUri(this@GalleryActivity, savedFile)
-                Log.e("ImageContentURi", contentURI.toString())
-            } else {
-                File(pickerController.getSavePath()).delete()
-            }
+                    SingleMediaScanner(this, savedFile)
+                    addImage(savedFile)
+                    val contentURI = CommonUtils.getImageContentUri(this@GalleryActivity, savedFile)
+                    Log.e("ImageContentURi", contentURI.toString())
+                } else {
+                    File(pickerController.getSavePath()).delete()
+                }
         }
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {

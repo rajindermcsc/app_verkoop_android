@@ -679,6 +679,54 @@ class ServiceHelper {
         })
     }
 
+    fun deleteBannerService(bannerId: Int, onResponse: OnResponse) {
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
+        val responseCall = myService.deleteBannerApi(bannerId)
+        responseCall.enqueue(object : Callback<DisLikeResponse> {
+            override fun onResponse(call: Call<DisLikeResponse>, response: Response<DisLikeResponse>) {
+                val res = response.body()
+                Log.e("<<<Response>>>", Gson().toJson(res))
+                if (res != null) {
+                    when {
+                        response.code() == 200 -> onResponse.onSuccess(response)
+                        else -> onResponse.onFailure(response.message())
+                    }
+                } else {
+                    onResponse.onFailure("Something went wrong!")
+                }
+            }
+
+            override fun onFailure(call: Call<DisLikeResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
+
+    fun renewBannerService(request:RenewBannerRequest, onResponse: OnResponse) {
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
+        val responseCall = myService.renewBannerApi(request)
+        responseCall.enqueue(object : Callback<DisLikeResponse> {
+            override fun onResponse(call: Call<DisLikeResponse>, response: Response<DisLikeResponse>) {
+                val res = response.body()
+                Log.e("<<<Response>>>", Gson().toJson(res))
+                if (res != null) {
+                    when {
+                        response.code() == 200 -> onResponse.onSuccess(response)
+                        else -> onResponse.onFailure(response.message())
+                    }
+                } else {
+                    onResponse.onFailure("Something went wrong!")
+                }
+            }
+
+            override fun onFailure(call: Call<DisLikeResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
+
     fun reportAddedService(request: ReportUserRequest, onResponse: OnResponse) {
 //        val myService = ApiClient.getClient().create(MyService::class.java)
         val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
@@ -958,6 +1006,38 @@ class ServiceHelper {
             }
 
             override fun onFailure(call: Call<SearchByUserResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
+
+    fun getDeactivateAccountService(request: DeactivateAccountRequest, onResponse: OnResponse) {
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
+        val responseCall = myService.deactivateAccount(request)
+        responseCall.enqueue(object : Callback<AddItemResponse> {
+            override fun onResponse(call: Call<AddItemResponse>, response: Response<AddItemResponse>) {
+                //  Log.e("<<<Response>>>", Gson().toJson(res))
+                if (response.code() == 200) {
+                    onResponse.onSuccess(response)
+                } else {
+                    if (response.errorBody() != null) {
+                        try {
+                            val messageError = JSONObject(response.errorBody()!!.string())
+                            onResponse.onFailure(messageError.getString("message"))
+                        } catch (e: JSONException) {
+                            onResponse.onFailure("Something went wrong")
+                            e.printStackTrace()
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                        }
+                    } else {
+                        onResponse.onFailure("Something went wrong")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<AddItemResponse>, t: Throwable) {
                 onResponse.onFailure(t.message)
             }
         })

@@ -100,11 +100,17 @@ interface MyService {
     @DELETE("items/{item_id}")
     fun deleteListingApi(@Path(value = "item_id", encoded = true) fullUrl: Int): Call<DisLikeResponse>
 
+    @DELETE("userPurchaseAdvertisement/{id}")
+    fun deleteBannerApi(@Path(value = "id", encoded = true) fullUrl: Int): Call<DisLikeResponse>
+
     @POST("searchKeywordData")
     fun searchItemApi(@Body request: SearchItemRequest): Call<SearchItemResponse>
 
     @PUT("user/searchByUserName/{user_id}")
     fun searchByUserApi(@Path(value = "user_id", encoded = true) fullUrl: Int, @Body request: SearchUserRequest): Call<SearchByUserResponse>
+
+    @POST("renew_advertisement")
+    fun renewBannerApi(@Body request: RenewBannerRequest): Call<DisLikeResponse>
 
     @POST("searchKeywordMultipleData")
     fun searchKeywordMultipleData(@Body request: SearchKeywordMultipleDataRequest): Call<SearchMultipleKeywordResponse>
@@ -182,6 +188,9 @@ interface MyService {
 
     @POST("user/updateDeviceInfo")
     fun updateDeviceInfoApi(@Body request: UpdateDeviceInfoRequest): Call<DisLikeResponse>
+
+    @PUT("user/deactivate_account")
+    fun deactivateAccount( @Body request: DeactivateAccountRequest): Call<AddItemResponse>
 
     @Multipart
     @Headers("Accept: application/json")

@@ -109,6 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:padding="@dimen/dp_8"
+                android:id="@+id/tvRenewBanner"
                 android:text="@string/renew"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/sp_18" />
@@ -117,6 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp_8"
+                android:id="@+id/tvDeleteBanner"
                 android:text="@string/delete_"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/sp_18" />

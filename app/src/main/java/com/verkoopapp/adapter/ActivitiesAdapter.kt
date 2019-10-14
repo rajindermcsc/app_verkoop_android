@@ -1,6 +1,7 @@
 package com.verkoopapp.adapter
 
 import android.content.Context
+import android.os.Handler
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -22,7 +23,7 @@ class ActivitiesAdapter(val context: Context, private val activitiesFragment: Ac
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
     private var notificationsList = ArrayList<ActivityData>()
     var homeActivity = context as HomeActivity?
-    var notificationType : NotificationType = activitiesFragment
+    var notificationType: NotificationType = activitiesFragment
 
     inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(data: ActivityData?) {
@@ -40,7 +41,13 @@ class ActivitiesAdapter(val context: Context, private val activitiesFragment: Ac
                             .into(ivProfileNotification)
                 }
             }
-            llNotification.setOnClickListener { notificationType.typeNotification(position!!) }
+            llNotification.setOnClickListener {
+                llNotification.isEnabled = false
+                notificationType.typeNotification(position!!)
+            }
+            Handler().postDelayed(Runnable {
+                llNotification.isEnabled = true
+            }, 1000)
         }
     }
 

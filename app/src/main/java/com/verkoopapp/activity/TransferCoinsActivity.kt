@@ -63,7 +63,7 @@ class TransferCoinsActivity : AppCompatActivity() {
     }
 
     private fun sendMoneyApi() {
-        ServiceHelper().sendMoneyService(SendMoneyRequest(qrCode, Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), (etAmountTrans.text.toString()).toInt()), object : ServiceHelper.OnResponse {
+        ServiceHelper().sendMoneyService(SendMoneyRequest(qrCode, Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), (etAmountTrans.text.toString())), object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
                 val responseBanner = response.body() as TransferCoinResponse?
                 if (responseBanner != null) {
