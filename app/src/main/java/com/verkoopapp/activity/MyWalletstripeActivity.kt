@@ -93,8 +93,10 @@ class MyWalletstripeActivity : AppCompatActivity() {
     private fun saveCard() {
         val card = cardMultilineWidget.card ?: return
 
+//        val stripe = Stripe(applicationContext,
+//                "pk_test_IkEuiX8PBSrxqDOnx7W79ubE006HXByoRc")
         val stripe = Stripe(applicationContext,
-                "pk_test_IkEuiX8PBSrxqDOnx7W79ubE006HXByoRc")
+                "pk_live_0QE5t1AQdS0YOx0xAzfzd8Dq00AYl5mZ6X")
 
         stripe.createToken(card, object : ApiResultCallback<Token> {
             override fun onSuccess(result: Token) {

@@ -1,6 +1,7 @@
 package com.verkoopapp.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.os.Handler
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -8,6 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import com.verkoopapp.R
+import com.verkoopapp.activity.AdvertPackagesActivity
+import com.verkoopapp.activity.AdvertisementActivity
+import com.verkoopapp.activity.UploadBannerActivity
+import com.verkoopapp.activity.ViewAllBannerActivity
 import com.verkoopapp.models.DataBanner
 import com.verkoopapp.models.DisLikeResponse
 import com.verkoopapp.models.RenewBannerRequest
@@ -50,6 +55,11 @@ class BannerAdapter(private val context: Context) : RecyclerView.Adapter<BannerA
                     .placeholder(R.mipmap.post_placeholder)
                     .into(ivProductImageHome)
 
+            ivProductImageHome.setOnClickListener {
+                val intent=Intent(context, AdvertisementActivity::class.java)
+                intent.putExtra(AppConstants.CATEGORY_ID,data.id)
+                context.startActivity(intent)
+            }
             tvDeleteBanner.setOnClickListener {
                 tvDeleteBanner.isEnabled = false
                 deleteBannerPopUp(data.id, adapterPosition)
@@ -59,16 +69,25 @@ class BannerAdapter(private val context: Context) : RecyclerView.Adapter<BannerA
             }
 
             if (data.status.equals("0")) {
+                tvRenewBanner.text = "Waiting for review"
+            } else if (data.status.equals("1")) {
                 tvRenewBanner.alpha = 0.3f
-            } else {
+            } else if(data.status.equals("2")){
                 tvRenewBanner.alpha = 1f
+            } else if(data.status.equals("3")){
+                tvRenewBanner.text = "Rejected"
             }
 
             tvRenewBanner.setOnClickListener {
-                if (data.status.equals("0")) {
+                if (data.status.equals("2")) {
                     tvRenewBanner.isEnabled = false
+                    val intent = Intent(context, AdvertPackagesActivity::class.java)
+                    intent.putExtra(AppConstants.COMING_FROM, "forRenewPackage")
+                    intent.putExtra(AppConstants.BANNERID, data.id)
+//                    context.startActivity(intent)
+                    (context as ViewAllBannerActivity).startActivityForResult(intent,5)
 //                renewBannerPopUp(data.id,adapterPosition)
-                    renewBannerApi(data.id, adapterPosition)
+//                    renewBannerApi(data.id, adapterPosition)
                     Handler().postDelayed(Runnable {
                         tvRenewBanner.isEnabled = true
                     }, 1000)

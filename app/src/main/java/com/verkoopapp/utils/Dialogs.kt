@@ -5,14 +5,14 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.text.TextUtils
 import android.view.*
 
 import com.verkoopapp.R
-import com.verkoopapp.activity.ChatActivity
 import kotlinx.android.synthetic.main.delete_comment_dialog.*
-import kotlinx.android.synthetic.main.dialog_answer.*
+import kotlinx.android.synthetic.main.dialog_item_added.*
 import kotlinx.android.synthetic.main.dialog_create_offer.*
 import kotlinx.android.synthetic.main.dialog_select_met_up.*
 import kotlinx.android.synthetic.main.proceed_dialog.*
@@ -26,6 +26,7 @@ interface SharePostListener{
     fun onWhatAppClick()
     fun onFacebookClick()
     fun onShareClick()
+    fun finishDialog()
 }
 interface SelectionListener{
     fun leaveClick()
@@ -45,25 +46,38 @@ class ShareProductDialog(context: Context, private val header:String, private va
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        setContentView(R.layout.dialog_answer)
+        setContentView(R.layout.dialog_item_added)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
         setCancelable(false)
 
         ivFinishDialog.setOnClickListener {
+            ivFinishDialog.isEnabled=false
+            listener.finishDialog()
             dismiss()
         }
         ivWhatAppShareDialog.setOnClickListener {
+            ivWhatAppShareDialog.isEnabled=false
             listener.onWhatAppClick()
-            dismiss()
+            Handler().postDelayed(Runnable {
+                ivWhatAppShareDialog.isEnabled = true
+            }, 1000)
         }
         tvFacebookShareDialog.setOnClickListener {
+            tvFacebookShareDialog.isEnabled=false
             listener.onFacebookClick()
-            dismiss()
+            Handler().postDelayed(Runnable {
+                tvFacebookShareDialog.isEnabled = true
+            }, 1000)
+//            dismiss()
         }
         tvShareDialog.setOnClickListener {
+            tvShareDialog.isEnabled=false
             listener.onShareClick()
-            dismiss()
+            Handler().postDelayed(Runnable {
+                tvShareDialog.isEnabled = true
+            }, 1000)
+//            dismiss()
         }
     }
 }

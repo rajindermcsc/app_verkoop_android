@@ -1,5 +1,6 @@
 package com.verkoopapp.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Point
 import android.os.Bundle
@@ -10,9 +11,7 @@ import android.view.View
 import android.view.WindowManager
 import com.verkoopapp.R
 import com.verkoopapp.adapter.AdvertPackageAdapter
-import com.verkoopapp.models.AdvertPlanActivity
-import com.verkoopapp.models.ProfileUpdateResponse
-import com.verkoopapp.models.UploadBannerRequest
+import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.*
 import kotlinx.android.synthetic.main.advert_package_activity.*
@@ -23,23 +22,32 @@ import retrofit2.Response
 class AdvertPackagesActivity : AppCompatActivity(), AdvertPackageAdapter.SubmitBannerCallBack {
     private lateinit var advertPackageAdapter: AdvertPackageAdapter
     private var imageUrl = ""
-    private var categoryId :Int=0
-    override fun planSelectionClick(planId: Int,totalCoin:Int) {
-        submitDialog(planId,totalCoin)
+    private var categoryId: Int = 0
+    private var comingFor = ""
+    private var bannerID: Int = 0
+    override fun planSelectionClick(planId: Int, totalCoin: Int) {
+        submitDialog(planId, totalCoin)
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.advert_package_activity)
-        Log.e("<<TotalCoin>>",Utils.getPreferencesInt(this, AppConstants.COIN).toString())
-        tvCoinPackage.text=Utils.getPreferencesInt(this, AppConstants.COIN).toString()
-        imageUrl = intent.getStringExtra(AppConstants.IMAGE_URL)
-        categoryId = intent.getIntExtra(AppConstants.CATEGORY_ID,0)
-         val display = windowManager.defaultDisplay
-         val size =  Point()
-         display.getSize(size)
-         val width = size.x
+        Log.e("<<TotalCoin>>", Utils.getPreferencesInt(this, AppConstants.COIN).toString())
+        tvCoinPackage.text = Utils.getPreferencesInt(this, AppConstants.COIN).toString()
+        if (intent.getStringExtra(AppConstants.COMING_FROM) != null) {
+            comingFor = intent.getStringExtra(AppConstants.COMING_FROM)
+        }
+        if (comingFor.equals("forRenewPackage")) {
+            bannerID = intent.getIntExtra(AppConstants.BANNERID, 0)
+        } else {
+            imageUrl = intent.getStringExtra(AppConstants.IMAGE_URL)
+            categoryId = intent.getIntExtra(AppConstants.CATEGORY_ID, 0)
+        }
+        val display = windowManager.defaultDisplay
+        val size = Point()
+        display.getSize(size)
+        val width = size.x
         setData()
         setAdapter(width)
         if (Utils.isOnline(this)) {
@@ -47,6 +55,7 @@ class AdvertPackagesActivity : AppCompatActivity(), AdvertPackageAdapter.SubmitB
         } else {
             Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
         }
+
     }
 
     private fun setData() {
@@ -63,7 +72,7 @@ class AdvertPackagesActivity : AppCompatActivity(), AdvertPackageAdapter.SubmitB
 
     private fun getAdvertPlanApi() {
         pbAdvertPackage.visibility = View.VISIBLE
-        ServiceHelper().getAdvertisementPlanService(Utils.getPreferencesString(this,AppConstants.USER_ID).toInt(),object : ServiceHelper.OnResponse {
+        ServiceHelper().getAdvertisementPlanService(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
                 pbAdvertPackage.visibility = View.GONE
                 val responseWallet = response.body() as AdvertPlanActivity
@@ -84,17 +93,42 @@ class AdvertPackagesActivity : AppCompatActivity(), AdvertPackageAdapter.SubmitB
 
     }
 
-    private fun submitDialog(planId: Int,coin:Int) {
+    private fun submitDialog(planId: Int, coin: Int) {
         val proceedDialog = ProceedDialog(this, "", object : SelectionListener {
             override fun leaveClick() {
-                purchaseAdvertisementApi(planId,coin)
+                if (comingFor.equals("forRenewPackage")) {
+                    renewBannerApi(planId)
+                } else {
+                    purchaseAdvertisementApi(planId, coin)
+                }
             }
         })
         proceedDialog.show()
     }
 
-    private fun purchaseAdvertisementApi(planId: Int, coin:Int) {
-        val uploadBannerRequest = UploadBannerRequest(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(),categoryId, planId, imageUrl)
+    private fun renewBannerApi(planId: Int) {
+        ServiceHelper().renewBannerService(RenewBannerRequest(bannerID, planId),
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        val likeResponse = response.body() as DisLikeResponse
+                        if (likeResponse.message.equals("Banner renewed successfully.")) {
+                            val returnIntent = Intent()
+                            setResult(Activity.RESULT_OK, returnIntent)
+                            Utils.showSimpleMessage(this@AdvertPackagesActivity, getString(R.string.banner_renewed_successfully)).show()
+                            finish()
+                        } else {
+                            Utils.showSimpleMessage(this@AdvertPackagesActivity, likeResponse.message!!).show()
+                        }
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        Utils.showSimpleMessage(this@AdvertPackagesActivity, msg!!).show()
+                    }
+                })
+    }
+
+    private fun purchaseAdvertisementApi(planId: Int, coin: Int) {
+        val uploadBannerRequest = UploadBannerRequest(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), categoryId, planId, imageUrl)
         window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         pbAdvertPackage.visibility = View.VISIBLE
@@ -105,9 +139,9 @@ class AdvertPackagesActivity : AppCompatActivity(), AdvertPackageAdapter.SubmitB
                 val homeDataResponse = response.body() as ProfileUpdateResponse
                 Utils.showToast(this@AdvertPackagesActivity, homeDataResponse.message)
                 setDialogBox()
-                if(coin<=Utils.getPreferencesInt(this@AdvertPackagesActivity, AppConstants.COIN)){
-                val  remainingCoin=  Utils.getPreferencesInt(this@AdvertPackagesActivity, AppConstants.COIN)-coin
-                    Utils.saveIntPreferences(this@AdvertPackagesActivity,AppConstants.COIN,remainingCoin)
+                if (coin <= Utils.getPreferencesInt(this@AdvertPackagesActivity, AppConstants.COIN)) {
+                    val remainingCoin = Utils.getPreferencesInt(this@AdvertPackagesActivity, AppConstants.COIN) - coin
+                    Utils.saveIntPreferences(this@AdvertPackagesActivity, AppConstants.COIN, remainingCoin)
                 }
 
             }

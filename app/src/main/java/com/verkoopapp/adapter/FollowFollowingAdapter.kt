@@ -108,6 +108,11 @@ class FollowFollowingAdapter(private val context: Context,private val userId:Int
                 tvFollow.text = context.getString(R.string.follow)
                 tvFollow.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
             }
+            if(Utils.getPreferencesString(context,AppConstants.USER_ID).toInt()==modal.id) {
+                tvFollow.visibility=View.GONE
+            } else{
+                tvFollow.visibility=View.VISIBLE
+            }
             tvFollow.setOnClickListener {
                 if(Utils.getPreferencesString(context,AppConstants.USER_ID).toInt()==userId) {
                     if (!modal.isClicked) {
@@ -122,10 +127,12 @@ class FollowFollowingAdapter(private val context: Context,private val userId:Int
                 }
             }
             llUserProfile.setOnClickListener {
-                val reportIntent = Intent(context, UserProfileActivity::class.java)
-                reportIntent.putExtra(AppConstants.USER_ID,modal.id)
-                reportIntent.putExtra(AppConstants.USER_NAME,modal.username)
-                context.startActivity(reportIntent)
+                if(modal.id !=Utils.getPreferencesString(context, AppConstants.USER_ID).toInt()) {
+                    val reportIntent = Intent(context, UserProfileActivity::class.java)
+                    reportIntent.putExtra(AppConstants.USER_ID, modal.id)
+                    reportIntent.putExtra(AppConstants.USER_NAME, modal.username)
+                    context.startActivity(reportIntent)
+                }
             }
         }
     }

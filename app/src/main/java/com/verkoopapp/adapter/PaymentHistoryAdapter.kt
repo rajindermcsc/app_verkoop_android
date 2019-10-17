@@ -37,7 +37,7 @@ class PaymentHistoryAdapter(private val context: Context, private val type: Int)
                 tvPriceWallet.setTextColor(ContextCompat.getColor(context, R.color.accept_offer))
                 tvPriceWallet.text = StringBuilder().append("R ").append(modal.amount)
             } else if (modal.type == 1) {
-                tvTypeHeading.text = context.getString(R.string.purchased_coin)
+                tvTypeHeading.text = context.getString(R.string.send_to)
                 tvPriceWallet.setTextColor(ContextCompat.getColor(context, R.color.black_))
                 tvPriceWallet.text = StringBuilder().append("- ").append("R ").append(modal.amount)
             }

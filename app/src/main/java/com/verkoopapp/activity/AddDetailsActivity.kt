@@ -28,6 +28,8 @@ import android.util.Log
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.WindowManager
+import com.facebook.share.model.ShareLinkContent
+import com.facebook.share.widget.ShareDialog
 import com.google.android.gms.common.util.IOUtils
 import com.google.api.client.extensions.android.json.AndroidJsonFactory
 import com.google.api.client.http.javanet.NetHttpTransport
@@ -44,6 +46,9 @@ import com.verkoopapp.adapter.SelectedImageAdapter
 import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.*
+import io.branch.indexing.BranchUniversalObject
+import io.branch.referral.util.ContentMetadata
+import io.branch.referral.util.LinkProperties
 import kotlinx.android.synthetic.main.add_details_activity.*
 import kotlinx.android.synthetic.main.details_toolbar.*
 import retrofit2.Response
@@ -108,6 +113,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
     private lateinit var photoData: ByteArray
     private var visionData: String = ""
     private var uriTemp: Uri? = null
+    private var shareDialogFacebook: ShareDialog? = null
 
 
     override fun selectDetailCount(count: Int, position: Int, imageId: Int) {
@@ -135,6 +141,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             setIntentData()
         }
         setVisionData()
+        shareDialogFacebook = ShareDialog(this)
 
     }
 
@@ -633,7 +640,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         tvSave.setOnClickListener {
             if (Utils.isOnline(this@AddDetailsActivity)) {
                 if (isValidate()) {
-
+                    KeyboardUtil.hideKeyboard(this)
                     if (comingFrom != 1) {
                         window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
@@ -1128,21 +1135,85 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
 
     private fun shareDialog() {
         val shareDialog = ShareProductDialog(this, "", "", object : SharePostListener {
-            override fun onWhatAppClick() {
-                Utils.showToast(this@AddDetailsActivity, "whatApp")
+            override fun finishDialog() {
+                val intent = Intent(this@AddDetailsActivity, HomeActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                intent.putExtra(AppConstants.TRANSACTION, 1)
+                startActivity(intent)
+            }
 
+            override fun onWhatAppClick() {
+                val installed = Utils.appInstalledOrNot(this@AddDetailsActivity, "com.whatsapp")
+                if (installed) {
+                    sharedDetails(2)/*WhatsApp Share*/
+                } else {
+                    Utils.showSimpleMessage(this@AddDetailsActivity, getString(R.string.not_installed)).show()
+
+                }
+//                Utils.showToast(this@AddDetailsActivity, "whatApp")
             }
 
             override fun onFacebookClick() {
-                Utils.showToast(this@AddDetailsActivity, "facebook")
+                sharedDetails(1)/*facebook Share*/
+//                Utils.showToast(this@AddDetailsActivity, "facebook")
             }
 
             override fun onShareClick() {
-                Utils.showToast(this@AddDetailsActivity, "share")
+                sharedDetails(0)/*open Share*/
+//                Utils.showToast(this@AddDetailsActivity, "share")
             }
 
         })
         shareDialog.show()
+    }
+
+    private fun sharedDetails(type: Int) {
+
+        val buo = BranchUniversalObject()
+                .setCanonicalIdentifier("content/12345")
+                //.setCanonicalIdentifier("content/12345")
+                .setTitle(etNameDetail.text.toString())
+                .setContentDescription(etDescriptionDetail.text.toString())
+//                .setContentImageUrl(AppConstants.IMAGE_URL + productImage)
+                .setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
+                .setLocalIndexMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
+                .setContentMetadata(ContentMetadata()
+                        .addCustomMetadata("product_id", itemId.toString())
+                        .addCustomMetadata("type", 1.toString()))
+        val lp = LinkProperties()
+                .setChannel("sms")
+                .setFeature("sharing")
+
+        buo.generateShortUrl(this, lp) { url, error ->
+            if (error == null) {
+                when (type) {
+                    1 -> faceBookShareDialog(url)
+                    2 -> {
+                        val sendIntent = Intent("android.intent.action.MAIN")
+                        sendIntent.action = Intent.ACTION_SEND
+                        sendIntent.type = "text/plain"
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, url)
+                        sendIntent.`package` = "com.whatsapp"
+                        startActivity(sendIntent)
+                    }
+                    else -> {
+                        val sharingIntent = Intent(Intent.ACTION_SEND)
+                        sharingIntent.type = "text/html"
+                        sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Verkoop")
+                        sharingIntent.putExtra(Intent.EXTRA_TEXT, url)
+                        startActivity(Intent.createChooser(sharingIntent, "Share using"))
+                    }
+                }
+            }
+        }
+
+    }
+
+    private fun faceBookShareDialog(url: String?) {
+        val content = ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse(url))
+                .build()
+        shareDialogFacebook!!.show(content)
     }
 
     private fun setSelection() {
@@ -1442,7 +1513,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 try {
                     bmp = android.provider.MediaStore.Images.Media.getBitmap(cr, uriTemp)
                     val scaledBitmap = Utils.scaleDown(bmp, 1024f, true)
-                    val compressedBitmap = Utils.scaleDown(bmp, 360f, true)
+                    val compressedBitmap = Utils.scaleDown(bmp, 300f, true)
                     //  uri = Utils.getImageUri(this@AddDetailsActivity,CommonUtils.rotateImageIfRequired(this@AddDetailsActivity,scaledBitmap,Uri.parse(selectedImageList[imageCount].imageUrl)))
                     uri = Uri.parse(Utils.saveTempBitmap(this@AddDetailsActivity, CommonUtils.rotateImageIfRequired(this@AddDetailsActivity, scaledBitmap, Uri.parse(selectedImageList[imageCount].imageUrl))))
                     realPath.add(Utils.getRealPathFromURI(this@AddDetailsActivity, uri!!))
@@ -1592,11 +1663,13 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                         val categoriesResponse = response.body() as AddItemResponse
                         Utils.showToast(this@AddDetailsActivity, categoriesResponse.message)
-                        // shareDialog()
-                        val intent = Intent(this@AddDetailsActivity, HomeActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-                        intent.putExtra(AppConstants.TRANSACTION, 1)
-                        startActivity(intent)
+                        shareDialog()
+
+//                        val intent = Intent(this@AddDetailsActivity, HomeActivity::class.java)
+//                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+//                        intent.putExtra(AppConstants.TRANSACTION, 1)
+//                        startActivity(intent)
+
                         /*  val returnIntent = Intent()
                           returnIntent.putExtra(AppConstants.TRANSACTION, 1)
                           setResult(Activity.RESULT_OK, returnIntent)

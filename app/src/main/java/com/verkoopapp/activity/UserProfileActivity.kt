@@ -168,7 +168,7 @@ class UserProfileActivity:AppCompatActivity() {
         val shareDialog = DeleteCommentDialog(this,getString(R.string.block_user),getString(R.string.block_sure),object : SelectionListener {
             override fun leaveClick() {
                 isBlockClick=true
-               bockUserApi()
+               blockUserApi()
             }
         })
         shareDialog.show()
@@ -237,7 +237,7 @@ class UserProfileActivity:AppCompatActivity() {
                 })
     }
 
-    private fun bockUserApi() {
+    private fun blockUserApi() {
         val blockUserRequest= BlockUserRequest(Utils.getPreferencesString(this,AppConstants.USER_ID), userId)
         ServiceHelper().blockUserService(blockUserRequest,
                 object : ServiceHelper.OnResponse {

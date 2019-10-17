@@ -45,6 +45,10 @@ class SplashActivity : AppCompatActivity() {
                     } else if (typeNoti == 2 || typeNoti == 4){
                         type=2
                         id=idNoti
+                    } else if( typeNoti == 5){
+                        type=3
+                    } else if(typeNoti == 7){
+                        type =4
                     }
                 }
             }

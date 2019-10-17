@@ -15,21 +15,22 @@ import kotlinx.android.synthetic.main.verify_otp_dialog.*
 import retrofit2.Response
 import android.app.Activity
 import android.content.Intent
+import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.view.View
 import com.github.florent37.viewanimator.ViewAnimator
 import com.verkoopapp.models.VerifyNumberRequest
 
-class VerifyOtpDialogActivity:AppCompatActivity(){
+class VerifyOtpDialogActivity : AppCompatActivity() {
     internal var number1 = ""
     internal var number2 = ""
     internal var number3 = ""
     internal var number4 = ""
-    private var phoneNo:String=""
+    private var phoneNo: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.verify_otp_dialog)
-        phoneNo=intent.getStringExtra(AppConstants.PHONE_NO)
+        phoneNo = intent.getStringExtra(AppConstants.PHONE_NO)
         setFirstTextWatcher()
         setSecondTextWatcher()
         setThirdTextWatcher()
@@ -37,6 +38,7 @@ class VerifyOtpDialogActivity:AppCompatActivity(){
         setData()
         setAnimation()
     }
+
     private fun setAnimation() {
         ViewAnimator
                 .animate(flParentOtp)
@@ -44,11 +46,17 @@ class VerifyOtpDialogActivity:AppCompatActivity(){
                 .duration(400)
                 .start()
     }
+
     private fun setData() {
-        pbProgressOtp.indeterminateDrawable.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), android.graphics.PorterDuff.Mode.MULTIPLY)
+//        pbProgressOtp.indeterminateDrawable.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), android.graphics.PorterDuff.Mode.MULTIPLY)
+        pbProgressOtp.indeterminateDrawable.setColorFilter(resources.getColor(R.color.colorPrimary), android.graphics.PorterDuff.Mode.MULTIPLY)
         tvSubmitOtp.setOnClickListener {
             if (Utils.isOnline(this)) {
+                tvSubmitOtp.isEnabled = false
                 sumbitResult()
+                Handler().postDelayed(Runnable {
+                    tvSubmitOtp.isEnabled = true
+                }, 1500)
             } else {
                 Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
             }
@@ -61,13 +69,18 @@ class VerifyOtpDialogActivity:AppCompatActivity(){
 
         tvResend.setOnClickListener {
             if (Utils.isOnline(this)) {
+                tvResend.isEnabled = false
                 verifyPhoneNoApi()
+                Handler().postDelayed(Runnable {
+                    tvResend.isEnabled = true
+                }, 1500)
             } else {
                 Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
             }
         }
 
     }
+
     private fun verifyPhoneNoApi() {
         pbProgressOtp.visibility = View.VISIBLE
         ServiceHelper().verifyMobileNo(VerifyNumberRequest(phoneNo), Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(),
@@ -84,6 +97,7 @@ class VerifyOtpDialogActivity:AppCompatActivity(){
                     }
                 })
     }
+
     private fun sumbitResult() {
         if (!number1.isEmpty() && !number2.isEmpty()
                 && !number3.isEmpty() && !number4.isEmpty()) {
@@ -109,19 +123,21 @@ class VerifyOtpDialogActivity:AppCompatActivity(){
     }
 
     private fun otpVerificationService(enteredOTP: String) {
-        pbProgressOtp.visibility= View.VISIBLE
-        ServiceHelper().verifyOtpNo(VerifyOtpRequest(enteredOTP.toInt(),Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(),phoneNo),
+        pbProgressOtp.visibility = View.VISIBLE
+        ServiceHelper().verifyOtpNo(VerifyOtpRequest(enteredOTP.toInt(), Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), phoneNo),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         val loginResponse = response.body() as VerifyNumberResponse
-                        Utils.showToast(this@VerifyOtpDialogActivity,"Phone number updated successfully.")
+                        Utils.showToast(this@VerifyOtpDialogActivity, "Phone number updated successfully.")
                         successPress()
-                        pbProgressOtp.visibility= View.GONE
+                        pbProgressOtp.visibility = View.GONE
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                     }
 
                     override fun onFailure(msg: String?) {
-                        pbProgressOtp.visibility= View.GONE
+                        pbProgressOtp.visibility = View.GONE
                         Utils.showSimpleMessage(this@VerifyOtpDialogActivity, msg!!).show()
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                     }
                 })
 
@@ -138,7 +154,7 @@ class VerifyOtpDialogActivity:AppCompatActivity(){
                 .onStop {
                     llParentOtp.visibility = View.GONE
                     val returnIntent = Intent()
-                    returnIntent.putExtra(AppConstants.PHONE_NO,phoneNo)
+                    returnIntent.putExtra(AppConstants.PHONE_NO, phoneNo)
                     setResult(Activity.RESULT_OK, returnIntent)
                     finish()
                     overridePendingTransition(0, 0)

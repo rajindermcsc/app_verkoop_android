@@ -1,5 +1,6 @@
 package com.verkoopapp.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -29,7 +30,7 @@ class ViewAllBannerActivity:AppCompatActivity(){
     private fun setAdapter() {
      val mLayoutManager=LinearLayoutManager(this)
         rvBanner.layoutManager=mLayoutManager
-        bannerListAdapter= BannerAdapter(this)
+        bannerListAdapter= BannerAdapter(this@ViewAllBannerActivity)
         rvBanner.adapter=bannerListAdapter
     }
 
@@ -74,5 +75,18 @@ class ViewAllBannerActivity:AppCompatActivity(){
             }
         })
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 5){
+            if(resultCode == Activity.RESULT_OK){
+//                if (Utils.isOnline(this)) {
+//                    getFavouriteApi()
+//                } else {
+//                    Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+//                }
+            }
+        }
     }
 }

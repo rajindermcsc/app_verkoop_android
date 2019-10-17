@@ -1243,7 +1243,7 @@
                         android:lines="3"
                         android:paddingEnd="@dimen/dp_10"
                         android:paddingStart="@dimen/dp_10"
-                        android:textColor="@color/text_gray__"
+                        android:textColor="@color/text_color"
                         android:textColorHint="@color/light_gray"
                         android:textSize="@dimen/sp_14" />
 

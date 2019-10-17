@@ -35,6 +35,7 @@ import com.verkoopapp.models.SocketCheckConnectionEvent
 import com.verkoopapp.models.UpdateDeviceInfoRequest
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
+import com.verkoopapp.utils.CommonUtils
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.home_activity.*
 import kotlinx.android.synthetic.main.toolbar_home.*
@@ -90,7 +91,6 @@ class HomeActivity : AppCompatActivity() {
         setBranchIdData()
         setIntentData()
         firebaseDeviceToken()
-
 //        setVisionData()
     }
 
@@ -141,6 +141,12 @@ class HomeActivity : AppCompatActivity() {
                 reportIntent.putExtra(AppConstants.USER_ID, id)
                 startActivity(reportIntent)
             }
+        } else if(type == 3){
+            val walletIntent = Intent(this,MyWalletstripeActivity::class.java)
+            startActivity(walletIntent)
+        } else if(type == 4){
+            val walletIntent = Intent(this,ChatInboxActivity::class.java)
+            startActivity(walletIntent)
         }
     }
 

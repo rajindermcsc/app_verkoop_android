@@ -56,6 +56,7 @@ object AppConstants{
      const val MAX_PRICE = "MAX_PRICE"
      const val PRODUCT_NAME = "PRODUCT_NAME"
      const val ID = "ID"
+     const val BANNERID = "BANNERID"
      const val IS_MY_PRODUCT = "IS_MY_PRODUCT"
      const val IS_SOLD = "IS_SOLD"
      const val SCREEN_TYPE = "SCREEN_TYPE"

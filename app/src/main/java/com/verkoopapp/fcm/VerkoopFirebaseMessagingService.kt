@@ -110,6 +110,10 @@ class VerkoopFirebaseMessagingService : FirebaseMessagingService() {
                     intent.putExtra(AppConstants.TYPE, 1)
                 } else if (type == 2 || type == 4){
                     intent.putExtra(AppConstants.TYPE, 2)
+                } else if(type == 5){
+                    intent.putExtra(AppConstants.TYPE, 3)
+                } else if(type == 7){
+                    intent.putExtra(AppConstants.TYPE, 4)
                 }
             }
             intent.putExtra("titleNoti", title)

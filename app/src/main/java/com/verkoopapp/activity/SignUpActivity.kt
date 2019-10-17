@@ -144,7 +144,7 @@ class SignUpActivity : AppCompatActivity() {
 
                 for (i in start until end) {
                     val currentChar = source[i]
-                    if (!Character.isWhitespace(currentChar) ) {
+                    if (!Character.isWhitespace(currentChar)) {
                         builder.append(currentChar)
                     }
                 }
@@ -167,7 +167,7 @@ class SignUpActivity : AppCompatActivity() {
         } else if (TextUtils.isEmpty(etPasswordS.text.toString().trim())) {
             Utils.showSimpleMessage(this, getString(R.string.enter_password)).show()
             false
-        } else if (etPasswordS.text.toString().trim().length < 7) {
+        } else if (etPasswordS.text.toString().trim().length < 6) {
             Utils.showSimpleMessage(this, getString(R.string.enter_password_length)).show()
             false
         } else if (TextUtils.isEmpty(etConfPassword.text.toString().trim())) {
@@ -184,20 +184,26 @@ class SignUpActivity : AppCompatActivity() {
     private fun callSignUpApi() {
         VerkoopApplication.instance.loader.show(this)
         ServiceHelper().userSignUPService(SignUpRequest(etEmailS.text.toString().trim(), etName.text.toString().trim(), etConfPassword.text.toString().trim()
-                ,"normal" ,ccp.selectedCountryName,"1"),
+                , "normal", ccp.selectedCountryName, "1"),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
-                        VerkoopApplication.instance.loader.hide(this@SignUpActivity)
-                        val loginResponse = response.body() as SignUpResponse
-                        if(loginResponse.data!=null) {
-                            setResponseData(loginResponse.data.userId.toString (), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.qrCode_image,loginResponse.data.coin,loginResponse.data.amount)
-                            updateDeviceInfo()
+                        try {
+                            VerkoopApplication.instance.loader.hide(this@SignUpActivity)
+                            val loginResponse = response.body() as SignUpResponse
+                            if (loginResponse.data != null) {
+                                setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.qrCode_image, loginResponse.data.coin, loginResponse.data.amount)
+                                updateDeviceInfo()
+                            }
+                        } catch (e: Exception) {
                         }
                     }
 
                     override fun onFailure(msg: String?) {
-                        VerkoopApplication.instance.loader.hide(this@SignUpActivity)
-                        Utils.showSimpleMessage(this@SignUpActivity, msg!!).show()
+                        try {
+                            VerkoopApplication.instance.loader.hide(this@SignUpActivity)
+                            Utils.showSimpleMessage(this@SignUpActivity, msg!!).show()
+                        } catch (e: Exception) {
+                        }
                     }
                 })
     }
@@ -211,7 +217,7 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun callUpdateDeviceInfoApi() {
-        ServiceHelper().updateDeviceInfo(UpdateDeviceInfoRequest(Utils.getPreferences(this@SignUpActivity,AppConstants.USER_ID),deviceId,"1"),
+        ServiceHelper().updateDeviceInfo(UpdateDeviceInfoRequest(Utils.getPreferences(this@SignUpActivity, AppConstants.USER_ID), deviceId, "1"),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         VerkoopApplication.instance.loader.hide(this@SignUpActivity)
@@ -225,7 +231,7 @@ class SignUpActivity : AppCompatActivity() {
                 })
     }
 
-    private fun setResponseData(userId: String, api_token: String, firstName: String, email: String, loginType: String,qrCode: String,coin:Int,amount:Int) {
+    private fun setResponseData(userId: String, api_token: String, firstName: String, email: String, loginType: String, qrCode: String, coin: Int, amount: Int) {
         Utils.savePreferencesString(this@SignUpActivity, AppConstants.USER_ID, userId)
         Utils.savePreferencesString(this@SignUpActivity, AppConstants.API_TOKEN, "Bearer $api_token")
         Utils.savePreferencesString(this@SignUpActivity, AppConstants.USER_NAME, firstName)

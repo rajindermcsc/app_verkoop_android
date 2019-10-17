@@ -44,10 +44,10 @@ class ActivitiesAdapter(val context: Context, private val activitiesFragment: Ac
             llNotification.setOnClickListener {
                 llNotification.isEnabled = false
                 notificationType.typeNotification(position!!)
+                Handler().postDelayed(Runnable {
+                    llNotification.isEnabled = true
+                }, 1000)
             }
-            Handler().postDelayed(Runnable {
-                llNotification.isEnabled = true
-            }, 1000)
         }
     }
 

@@ -53,6 +53,7 @@
             android:layout_height="match_parent"
             android:layout_marginRight="25dp"
             android:layout_marginTop="@dimen/dp_5"
+            android:visibility="gone"
             android:layout_weight="0.5"
             android:background="#fff"
             android:gravity="center|start">

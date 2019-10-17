@@ -96,7 +96,7 @@ class ChangePasswordActivity : AppCompatActivity() {
                 Utils.showSimpleMessage(this, "Please enter current password.").show()
                 false
             }
-            etCurrentPassword.text.toString().trim().length < 7 -> {
+            etCurrentPassword.text.toString().trim().length < 6 -> {
                 Utils.showSimpleMessage(this, getString(R.string.enter_password_length)).show()
                 false
             }
@@ -104,7 +104,7 @@ class ChangePasswordActivity : AppCompatActivity() {
                 Utils.showSimpleMessage(this, "Please enter new password.").show()
                 false
             }
-            etNewPassword.text.toString().trim().length < 7 -> {
+            etNewPassword.text.toString().trim().length < 6 -> {
                 Utils.showSimpleMessage(this, getString(R.string.enter_password_length)).show()
                 false
             }

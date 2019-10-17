@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
 import android.provider.MediaStore
 import android.support.v4.content.FileProvider
 import android.support.v7.app.AppCompatActivity
@@ -72,9 +73,9 @@ class EditProfileActivity : AppCompatActivity() {
                     etBio.setText(myProfileResponse.data.bio)
                     if (!TextUtils.isEmpty(myProfileResponse.data.mobile_no)) {
                         tvPhoneNo.text = myProfileResponse.data.mobile_no
-                        tvUpdate.text="Change"
-                    }else{
-                        tvUpdate.text="Update"
+                        tvUpdate.text = "Change"
+                    } else {
+                        tvUpdate.text = "Update"
                     }
 
                     if (!TextUtils.isEmpty(myProfileResponse.data.DOB)) {
@@ -154,8 +155,12 @@ class EditProfileActivity : AppCompatActivity() {
             startActivityForResult(intent, 3)
         }
         tvUpdate.setOnClickListener {
-            val intent=Intent(this,VerifyNumberActivity::class.java)
+            tvUpdate.isEnabled = false
+            val intent = Intent(this, VerifyNumberActivity::class.java)
             startActivityForResult(intent, VERIFY_OTP_RETURN)
+            Handler().postDelayed(Runnable {
+                tvUpdate.isEnabled = true
+            }, 2000)
         }
     }
 
@@ -179,13 +184,13 @@ class EditProfileActivity : AppCompatActivity() {
                 window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                 pbProfileProgress.visibility = View.GONE
                 val homeDataResponse = response.body() as ProfileUpdateResponse
-                if(homeDataResponse.data!=null) {
+                if (homeDataResponse.data != null) {
                     if (!TextUtils.isEmpty(homeDataResponse.data.mobile_no)) {
                         Utils.savePreferencesString(this@EditProfileActivity, AppConstants.MOBILE_NO, homeDataResponse.data.mobile_no)
                     }
                 }
                 Utils.showToast(this@EditProfileActivity, getString(R.string.profile_updated))
-                 EventBus.getDefault().post( MessageEvent("update"))
+                EventBus.getDefault().post(MessageEvent("update"))
                 onBackPressed()
             }
 
@@ -287,9 +292,9 @@ class EditProfileActivity : AppCompatActivity() {
 
             if (requestCode === VERIFY_OTP_RETURN) {
                 if (resultCode === Activity.RESULT_OK) {
-                   val  phoneNo = data!!.getStringExtra(AppConstants.PHONE_NO)
-                    tvPhoneNo.text=phoneNo
-                    tvUpdate.text="Change"
+                    val phoneNo = data!!.getStringExtra(AppConstants.PHONE_NO)
+                    tvPhoneNo.text = phoneNo
+                    tvUpdate.text = "Change"
                     if (!TextUtils.isEmpty(phoneNo)) {
                         Utils.savePreferencesString(this@EditProfileActivity, AppConstants.MOBILE_NO, phoneNo)
                     }

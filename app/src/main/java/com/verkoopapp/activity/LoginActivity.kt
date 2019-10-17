@@ -181,7 +181,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         } else if (!Utils.isValidPassword(etPassword.text.toString().trim())) {
             Utils.showSimpleMessage(this, getString(R.string.enter_password)).show()
             false
-        } else if (etPassword.text.toString().trim().length < 7) {
+        } else if (etPassword.text.toString().trim().length < 6) {
             Utils.showSimpleMessage(this, getString(R.string.enter_password_length)).show()
             false
         } else {

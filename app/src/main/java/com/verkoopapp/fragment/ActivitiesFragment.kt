@@ -11,6 +11,7 @@ import android.view.WindowManager
 import com.ksmtrivia.common.BaseFragment
 import com.verkoopapp.R
 import com.verkoopapp.activity.HomeActivity
+import com.verkoopapp.activity.MyWalletstripeActivity
 import com.verkoopapp.activity.ProductDetailsActivity
 import com.verkoopapp.activity.UserProfileActivity
 import com.verkoopapp.adapter.ActivitiesAdapter
@@ -145,6 +146,11 @@ class ActivitiesFragment : BaseFragment(), NotificationType {
                 }
             }
             5 -> {
+                if(notificationsList[position!!].user_id!=null){
+                    val reportIntent = Intent(activity!!, MyWalletstripeActivity::class.java)
+//                    reportIntent.putExtra(AppConstants.USER_ID, notificationsList[position!!].user_id)
+                    startActivity(reportIntent)
+                }
             }
             6 -> {
                 if (notificationsList[position!!].item_id != null) {

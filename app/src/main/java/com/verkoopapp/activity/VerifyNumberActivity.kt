@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.toolbar_location.*
 import kotlinx.android.synthetic.main.verify_number_activity.*
 import retrofit2.Response
 import android.app.Activity
+import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.text.Editable
 import android.text.TextWatcher
@@ -38,7 +39,11 @@ class VerifyNumberActivity : AppCompatActivity() {
         tvGetCode.setOnClickListener {
             if (isValidate()) {
                 if (Utils.isOnline(this)) {
+                    tvGetCode.isEnabled=false
                     verifyPhoneNoApi()
+                    Handler().postDelayed(Runnable {
+                        tvGetCode.isEnabled=true
+                    },1500)
                 } else {
                     Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
                 }

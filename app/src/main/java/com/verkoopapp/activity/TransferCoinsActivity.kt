@@ -3,6 +3,7 @@ package com.verkoopapp.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
@@ -47,7 +48,7 @@ class TransferCoinsActivity : AppCompatActivity() {
         tvSaveYTransfer.setOnClickListener {
             if (Utils.isOnline(this@TransferCoinsActivity)) {
                 if (!TextUtils.isEmpty(etAmountTrans.text.toString())) {
-                    tvSaveYTransfer.isEnabled=false
+                    tvSaveYTransfer.isEnabled = false
 //                    getUserInfo()
                     sendMoneyApi()
                 } else {
@@ -63,6 +64,7 @@ class TransferCoinsActivity : AppCompatActivity() {
     }
 
     private fun sendMoneyApi() {
+        pbProgressTransfer.visibility = View.VISIBLE
         ServiceHelper().sendMoneyService(SendMoneyRequest(qrCode, Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), (etAmountTrans.text.toString())), object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
                 val responseBanner = response.body() as TransferCoinResponse?
@@ -80,12 +82,14 @@ class TransferCoinsActivity : AppCompatActivity() {
                 } else {
                     Utils.showSimpleMessage(this@TransferCoinsActivity, "No data found.").show()
                 }
-                tvSaveYTransfer.isEnabled=true
+                tvSaveYTransfer.isEnabled = true
+                pbProgressTransfer.visibility = View.GONE
             }
 
             override fun onFailure(msg: String?) {
                 Utils.showSimpleMessage(this@TransferCoinsActivity, msg!!).show()
-                tvSaveYTransfer.isEnabled=true
+                tvSaveYTransfer.isEnabled = true
+                pbProgressTransfer.visibility = View.GONE
             }
         })
 

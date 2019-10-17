@@ -35,7 +35,7 @@
             app:jtbLeftBackgroundColor="@color/light_gry"
             app:jtbLeftThumbColor="@color/red_light"
             app:jtbRightThumbColor="@color/red_light"
-            app:jtbRightBackgroundColor="@color/light_gry"
+            app:jtbRightBackgroundColor="@color/light_red"
             app:jtbRightTextColor="@color/light_gry" />
     </LinearLayout>
 
@@ -74,7 +74,7 @@
             app:jtbLeftBackgroundColor="@color/light_gry"
             app:jtbLeftThumbColor="@color/red_light"
             app:jtbRightThumbColor="@color/red_light"
-            app:jtbRightBackgroundColor="@color/light_gry"
+            app:jtbRightBackgroundColor="@color/light_red"
             app:jtbRightTextColor="@color/light_gry" />
     </LinearLayout>
 
