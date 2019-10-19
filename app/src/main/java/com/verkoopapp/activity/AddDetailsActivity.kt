@@ -1134,7 +1134,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
     }
 
     private fun shareDialog() {
-        val shareDialog = ShareProductDialog(this, "", "", object : SharePostListener {
+        val shareDialog = ShareProductDialog(this, etNameDetail.text.toString(), categoryName,etPrice.text.toString(), object : SharePostListener {
             override fun finishDialog() {
                 val intent = Intent(this@AddDetailsActivity, HomeActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK

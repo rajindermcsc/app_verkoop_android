@@ -25,7 +25,8 @@ class AdvertisementActivity : AppCompatActivity() {
     private lateinit var linearLayoutManager: GridLayoutManager
     private lateinit var advertisementAdapter: AdvertisementAdapter
     private var itemsList = ArrayList<ItemHome>()
-    private var categoryId: Int = 0
+    private var categoryId: String = ""
+    private var userId: String = ""
     private var isLoading = false
     private var totalPageCount: Int? = null
     private var currentPage = 0
@@ -33,7 +34,8 @@ class AdvertisementActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.favourites_activity)
         rvFavouriteList.visibility = View.GONE
-        categoryId = intent.getIntExtra(AppConstants.CATEGORY_ID, 0)
+        categoryId = intent.getStringExtra(AppConstants.BANNERID)
+        userId = intent.getStringExtra(AppConstants.USER_ID)
         val display = windowManager.defaultDisplay
         val size = Point()
         display.getSize(size)
@@ -101,7 +103,7 @@ class AdvertisementActivity : AppCompatActivity() {
 
     private fun getItemService(loadMore:Int) {
         isLoading=true
-        ServiceHelper().getBannerItemService(categoryId.toString(), Utils.getPreferencesString(this, AppConstants.USER_ID),currentPage, object : ServiceHelper.OnResponse {
+        ServiceHelper().getBannerItemService(categoryId.toString(), userId,currentPage, object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
                 window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                 pbProgressFav.visibility = View.GONE

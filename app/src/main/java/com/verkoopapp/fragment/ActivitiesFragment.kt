@@ -61,16 +61,19 @@ class ActivitiesFragment : BaseFragment(), NotificationType {
         setAdapter()
 
         slActivities.setOnRefreshListener {
-            if(Utils.isOnline(activity!!)){
+            if (Utils.isOnline(activity!!)) {
                 getActivityListApi()
-            } else{
-                Utils.showSimpleMessage(activity!!,"Please check your internet connection.")
+            } else {
+                Utils.showSimpleMessage(activity!!, "Please check your internet connection.")
             }
 
             slActivities.isRefreshing = false
         }
-
-        getActivityListApi()
+        if (Utils.isOnline(activity!!)) {
+            getActivityListApi()
+        } else {
+            Utils.showSimpleMessage(activity!!, "Please check your internet connection.")
+        }
     }
 
     private fun getActivityListApi() {
@@ -146,7 +149,7 @@ class ActivitiesFragment : BaseFragment(), NotificationType {
                 }
             }
             5 -> {
-                if(notificationsList[position!!].user_id!=null){
+                if (notificationsList[position!!].user_id != null) {
                     val reportIntent = Intent(activity!!, MyWalletstripeActivity::class.java)
 //                    reportIntent.putExtra(AppConstants.USER_ID, notificationsList[position!!].user_id)
                     startActivity(reportIntent)

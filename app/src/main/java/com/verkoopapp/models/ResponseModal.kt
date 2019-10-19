@@ -263,6 +263,8 @@ data class DataItems(
         val created_at: String,
         val updated_at: String,
         val items_like_count: Int,
+        val is_like: Boolean,
+        val like_id: Int,
         val username: String,
         val profile_pic: String,
         val category_name: String,
@@ -362,7 +364,8 @@ data class Advertisment(
         val id: Int,
         val name: String,
         val image: String,
-        val category_id: Int
+        val user_id: String,
+        val category_id: String
 )
 
 data class Category(

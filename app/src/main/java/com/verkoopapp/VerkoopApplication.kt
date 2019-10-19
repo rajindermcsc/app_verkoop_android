@@ -25,7 +25,7 @@ import org.greenrobot.eventbus.EventBus
 
 
 //
- @ReportsCrashes(mailTo = "taranjeet.singh@mobilecoderz.com", mode = ReportingInteractionMode.TOAST, resToastText = R.string.application_crash)// my email here
+// @ReportsCrashes(mailTo = "taranjeet.singh@mobilecoderz.com", mode = ReportingInteractionMode.TOAST, resToastText = R.string.application_crash)// my email here
 
 class VerkoopApplication : Application() {
      private var loadDialog: Loading? = null
@@ -59,7 +59,7 @@ class VerkoopApplication : Application() {
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
         MultiDex.install(this)
-        ACRA.init(this)
+//        ACRA.init(this)
 
     }
     companion object {

@@ -1665,7 +1665,7 @@ class ServiceHelper {
     fun getBannerItemService(categoryId: String, userId: String, pageCount: Int, onResponse: OnResponse) {
 //        val myService = ApiClient.getClient().create(MyService::class.java)
         val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
-        val responseCall = myService.getBannerDetailsApi(userId, categoryId, pageCount)
+        val responseCall = myService.getBannerDetailsApi(userId, categoryId)
         responseCall.enqueue(object : Callback<BannerDetailResponse> {
             override fun onResponse(call: Call<BannerDetailResponse>, response: Response<BannerDetailResponse>) {
                 val res = response.body()

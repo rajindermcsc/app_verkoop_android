@@ -2,6 +2,7 @@ package com.verkoopapp.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.os.Handler
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -60,10 +61,14 @@ inner class ViewHolder(override val containerView: View?):RecyclerView.ViewHolde
                     .into(ivImageRate)
         }
         llUserProfile.setOnClickListener {
-            val reportIntent = Intent(context, UserProfileActivity::class.java)
-            reportIntent.putExtra(AppConstants.USER_ID, data.user_id)
-            reportIntent.putExtra(AppConstants.USER_NAME, data.userName)
-            context.startActivity(reportIntent)
+            Handler().postDelayed(Runnable {
+                if(data.user_id!= Utils.getPreferencesString(context, AppConstants.USER_ID).toInt()) {
+                    val reportIntent = Intent(context, UserProfileActivity::class.java)
+                    reportIntent.putExtra(AppConstants.USER_ID, data.user_id)
+                    reportIntent.putExtra(AppConstants.USER_NAME, data.userName)
+                    context.startActivity(reportIntent)
+                }
+            },100)
         }
         flItemImage.setOnClickListener {
             val intent = Intent(context, ProductDetailsActivity::class.java)

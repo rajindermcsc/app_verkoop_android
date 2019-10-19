@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.content.FileProvider
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.github.nkzawa.socketio.client.Ack
 import com.github.nkzawa.socketio.client.Socket
@@ -90,7 +91,9 @@ class HomeActivity : AppCompatActivity() {
         }
         setBranchIdData()
         setIntentData()
-        firebaseDeviceToken()
+        if (Utils.isOnline(this)) {
+            firebaseDeviceToken()
+        }
 //        setVisionData()
     }
 
@@ -111,14 +114,17 @@ class HomeActivity : AppCompatActivity() {
         if (result == 1) {
             when {
                 viewPager.currentItem == 0 -> {
-                    bottomTabLayout.selectTab(R.id.menu_button3)
                     viewPager.currentItem = 3
                     profileFragment!!.refreshUI(0)
-
+                    Handler().postDelayed(Runnable {
+                        bottomTabLayout.selectTab(R.id.menu_button3)
+                    },100)
                 }
                 viewPager.currentItem == 1 -> {
-                    bottomTabLayout.selectTab(R.id.menu_button3)
                     viewPager.currentItem = 3
+                    Handler().postDelayed(Runnable {
+                        bottomTabLayout.selectTab(R.id.menu_button3)
+                    },100)
                 }
                 else -> {
                     profileFragment!!.refreshUI(1)
@@ -141,11 +147,11 @@ class HomeActivity : AppCompatActivity() {
                 reportIntent.putExtra(AppConstants.USER_ID, id)
                 startActivity(reportIntent)
             }
-        } else if(type == 3){
-            val walletIntent = Intent(this,MyWalletstripeActivity::class.java)
+        } else if (type == 3) {
+            val walletIntent = Intent(this, MyWalletstripeActivity::class.java)
             startActivity(walletIntent)
-        } else if(type == 4){
-            val walletIntent = Intent(this,ChatInboxActivity::class.java)
+        } else if (type == 4) {
+            val walletIntent = Intent(this, ChatInboxActivity::class.java)
             startActivity(walletIntent)
         }
     }
@@ -187,7 +193,7 @@ class HomeActivity : AppCompatActivity() {
         // viewPager.offscreenPageLimit = 2
         setTabLayout()
         ivChat.setOnClickListener {
-            ivChat.isEnabled=false
+            ivChat.isEnabled = false
             val intent = Intent(this, ChatInboxActivity::class.java)
             startActivity(intent)
             Handler().postDelayed(Runnable {
@@ -195,7 +201,7 @@ class HomeActivity : AppCompatActivity() {
             }, 700)
         }
         ivFavourite.setOnClickListener {
-            ivFavourite.isEnabled=false
+            ivFavourite.isEnabled = false
             val intent = Intent(this, FavouritesActivity::class.java)
             startActivity(intent)
             Handler().postDelayed(Runnable {
@@ -399,6 +405,14 @@ class HomeActivity : AppCompatActivity() {
         /* Do something */
         callInit()
 
+    }
+
+    public fun showLoader(){
+        progressBarHome.visibility = View.VISIBLE
+    }
+
+    public fun hideLoader(){
+        progressBarHome.visibility = View.GONE
     }
 
     private fun callInit() {

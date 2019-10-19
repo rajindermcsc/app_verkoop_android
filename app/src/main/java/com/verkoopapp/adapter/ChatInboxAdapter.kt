@@ -2,6 +2,7 @@ package com.verkoopapp.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
@@ -101,6 +102,8 @@ class ChatInboxAdapter(private val context: Context, private val chatInboxType: 
             if (chatInboxType == 1) {
                 tvArchive.visibility = View.GONE
                 tvDelete.text = context.getString(R.string.un_arciver)
+                llDeleteArchieve.setBackgroundColor(context.resources.getColor(R.color.light_gray))
+
             } else {
                 tvArchive.visibility = View.VISIBLE
                 tvDelete.text = context.getString(R.string.delete)
@@ -133,11 +136,19 @@ class ChatInboxAdapter(private val context: Context, private val chatInboxType: 
             }
 
             tvDelete.setOnClickListener {
+                tvDelete.isEnabled=false
+                Handler().postDelayed(Runnable {
+                    tvDelete.isEnabled=true
+                },1000)
                 mItemManger.closeAllItems()
                 deleteChatCallBack.deleteChat(data.sender_id, data.receiver_id, data.item_id, 0, adapterPosition, swipe)
 
             }
             tvArchive.setOnClickListener {
+                tvArchive.isEnabled=false
+                Handler().postDelayed(Runnable {
+                    tvArchive.isEnabled=true
+                },1000)
                 mItemManger.closeAllItems()
                 deleteChatCallBack.deleteChat(data.sender_id, data.receiver_id, data.item_id, 1, adapterPosition, swipe)
             }

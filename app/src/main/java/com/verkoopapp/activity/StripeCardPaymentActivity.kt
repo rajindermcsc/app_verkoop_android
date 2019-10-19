@@ -27,13 +27,13 @@ import java.lang.Exception
 class StripeCardPaymentActivity : AppCompatActivity() {
     private lateinit var cardInputWidget: CardMultilineWidget
     var token: String? = null
-    var amountMoney: Int? = null
+    var amountMoney: Long? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stripe_card_payment)
         cardInputWidget = findViewById(R.id.card_input_widget)
-        amountMoney = intent.getIntExtra(AppConstants.AMOUNT, 0)
+        amountMoney = intent.getLongExtra(AppConstants.AMOUNT, 0L)
         tvPurchase.setOnClickListener {
             tvPurchase.isEnabled = false
             setStripePayment()
@@ -47,8 +47,11 @@ class StripeCardPaymentActivity : AppCompatActivity() {
         }
         val card = cardInputWidget.card ?: return
 
+//        val stripe = Stripe(applicationContext,
+//                "pk_test_IkEuiX8PBSrxqDOnx7W79ubE006HXByoRc")
+
         val stripe = Stripe(applicationContext,
-                "pk_test_IkEuiX8PBSrxqDOnx7W79ubE006HXByoRc")
+                "pk_live_0QE5t1AQdS0YOx0xAzfzd8Dq00AYl5mZ6X")
 
         stripe.createToken(card, object : ApiResultCallback<Token> {
             override fun onSuccess(result: Token) {

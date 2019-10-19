@@ -109,14 +109,15 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
             position == YOUR_DAILY_PICKS -> (holder as YourDailyPickHolder).bind()
             position == PROPERTIES_ROW -> (holder as CarAndPropertiesHolder).bind()
             position == RECOMMENDED_YOU -> (holder as RecommendedYouHolder).bind()
-            itemsList[position-4].isLoading -> (holder as ShowLoaderHolder).bind()
+            itemsList[position - 4].isLoading -> (holder as ShowLoaderHolder).bind()
             else -> {
                 val modal = itemsList[position - 4]
                 (holder as ItemsHolder).bind(modal)
             }
         }
     }
-    inner class ShowLoaderHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView!!),LayoutContainer{
+
+    inner class ShowLoaderHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind() {
 
         }
@@ -132,12 +133,24 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
                 val textSliderView = DefaultSliderView(context)
                 //textSliderView.tex
                 textSliderView.bundle(Bundle())
-                textSliderView.bundle.putInt(AppConstants.CATEGORY_ID,advertismentsList[i].category_id)
+                textSliderView.bundle.putString(AppConstants.CATEGORY_ID, advertismentsList[i].category_id)
+                textSliderView.bundle.putString(AppConstants.BANNERID, advertismentsList[i].id.toString())
+                if (advertismentsList[i].user_id != null) {
+                    textSliderView.bundle.putString(AppConstants.USER_ID, advertismentsList[i].user_id.toString())
+                }
                 textSliderView.image(AppConstants.IMAGE_URL + advertismentsList[i].image)
                         .setOnSliderClickListener { slider ->
-                            val intent=Intent(context,AdvertisementActivity::class.java)
-                            intent.putExtra(AppConstants.CATEGORY_ID,slider.bundle.getInt(AppConstants.CATEGORY_ID,0))
-                            context.startActivity(intent)
+                            if (slider.bundle.getString(AppConstants.CATEGORY_ID) != null) {
+                                mDemoSlider.isEnabled = false
+                                Handler().postDelayed(Runnable {
+                                    mDemoSlider.isEnabled = true
+                                }, 1000)
+                                val intent = Intent(context, AdvertisementActivity::class.java)
+                                intent.putExtra(AppConstants.CATEGORY_ID, slider.bundle.getString(AppConstants.CATEGORY_ID, "0"))
+                                intent.putExtra(AppConstants.BANNERID, slider.bundle.getString(AppConstants.BANNERID, "0"))
+                                intent.putExtra(AppConstants.USER_ID, slider.bundle.getString(AppConstants.USER_ID, "0"))
+                                context.startActivity(intent)
+                            }
                             //    Toast.makeText(context,slider.bundle.getInt(AppConstants.CATEGORY_ID,0).toString(),Toast.LENGTH_SHORT).show()
                         }.scaleType = BaseSliderView.ScaleType.Fit
 
@@ -156,7 +169,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
             rvCategoryHome!!.adapter!!.notifyDataSetChanged()
             //   rvCategoryHome.setRecycledViewPool(v iewPool)
             tvViewAll.setOnClickListener {
-                tvViewAll.isEnabled=false
+                tvViewAll.isEnabled = false
                 val intent = Intent(context, FullCategoriesActivity::class.java)
                 context.startActivityForResult(intent, 2)
                 Handler().postDelayed(Runnable {
@@ -171,7 +184,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
     inner class CarAndPropertiesHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind() {
             ivBuyCar.setOnClickListener {
-                ivBuyCar.isEnabled=false
+                ivBuyCar.isEnabled = false
                 val intent = Intent(context, BuyCarsActivity::class.java)
                 (context as HomeActivity).startActivityForResult(intent, 2)
                 Handler().postDelayed(Runnable {
@@ -179,7 +192,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
                 }, 1000)
             }
             ivBuyProperty.setOnClickListener {
-                ivBuyProperty.isEnabled=false
+                ivBuyProperty.isEnabled = false
                 val intent = Intent(context, BuyPropertiesActivity::class.java)
                 (context as HomeActivity).startActivityForResult(intent, 2)
                 Handler().postDelayed(Runnable {
@@ -282,7 +295,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
             rvYourDailyPicks.setHasFixedSize(true)
             rvYourDailyPicks.adapter = dailyPicksAdapter
             tvViewAllDailyPicks.setOnClickListener {
-                tvViewAllDailyPicks.isEnabled=false
+                tvViewAllDailyPicks.isEnabled = false
                 val intent = Intent(context, FavouritesActivity::class.java)
                 intent.putExtra(AppConstants.COMING_FROM, 1)
                 context.startActivity(intent)
@@ -296,6 +309,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
 
 
     private fun lickedApi(itemId: Int, position: Int) {
+        (context as HomeActivity).showLoader()
         val lickedRequest = LickedRequest(Utils.getPreferencesString(context, AppConstants.USER_ID), itemId)
         ServiceHelper().likeService(lickedRequest,
                 object : ServiceHelper.OnResponse {
@@ -306,17 +320,20 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
                         itemsList[position].items_like_count = itemsList[position].items_like_count + 1
                         itemsList[position].like_id = responseLike.like_id
                         notifyItemChanged(position + 4)
+                        (context as HomeActivity).hideLoader()
                     }
 
                     override fun onFailure(msg: String?) {
                         itemsList[position].isClicked = !itemsList[position].isClicked
                         notifyItemChanged(position + 4)
                         //      Utils.showSimpleMessage(homeActivity, msg!!).show()
+                        (context as HomeActivity).hideLoader()
                     }
                 })
     }
 
     private fun deleteLikeApi(position: Int, lickedId: Int) {
+        (context as HomeActivity).showLoader()
         ServiceHelper().disLikeService(lickedId,
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
@@ -326,11 +343,13 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
                         itemsList[position].items_like_count = itemsList[position].items_like_count - 1
                         itemsList[position].like_id = 0
                         notifyItemChanged(position + 4)
+                        (context as HomeActivity).hideLoader()
                     }
 
                     override fun onFailure(msg: String?) {
                         itemsList[position].isClicked = !itemsList[position].isClicked
                         notifyItemChanged(position + 4)
+                        (context as HomeActivity).hideLoader()
                     }
                 })
     }

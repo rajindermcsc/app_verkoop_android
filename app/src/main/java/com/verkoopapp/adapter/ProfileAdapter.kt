@@ -261,11 +261,12 @@ class ProfileAdapter(private val context: Context, private val screenWidth: Int,
             } else {
                 tvSoldFav.visibility = View.GONE
             }
-            if (data.is_like) {
+//            if (data.is_like) {
                 tvLikesHome.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_liked, 0, 0, 0)
-            } else {
-                tvLikesHome.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_like, 0, 0, 0)
-            }
+//            } else {
+//                tvLikesHome.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_like, 0, 0, 0)
+//            }
+
             tvLikesHome.text = data.items_like_count.toString()
             if (data.item_type == 1) {
                 tvConditionHome.text = "New"
@@ -288,15 +289,15 @@ class ProfileAdapter(private val context: Context, private val screenWidth: Int,
             }
             tvLikesHome.setOnClickListener {
 
-                if (!data.isClicked) {
-                    if (data.like_id > 0) {
-                        data.isClicked = !data.isClicked
-                        deleteLikeApi(adapterPosition - 1, data.like_id)
-                    } else {
-                        data.isClicked = !data.isClicked
-                        lickedApi(data.id, adapterPosition - 1)
-                    }
-                }
+//                if (!data.isClicked) {
+//                    if (data.like_id > 0) {
+//                        data.isClicked = !data.isClicked
+//                        deleteLikeApi(adapterPosition - 1, data.like_id)
+//                    } else {
+//                        data.isClicked = !data.isClicked
+//                        lickedApi(data.id, adapterPosition - 1)
+//                    }
+//                }
             }
             tvProductHome.text = data.name
             tvItemPriceHome.text = "R " + data.price

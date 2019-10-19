@@ -37,6 +37,10 @@
             android:screenOrientation="portrait"></activity>
 
         <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/logo" />
+
+        <meta-data
             android:name="com.google.android.gms.wallet.api.enabled"
             android:value="true" />
 

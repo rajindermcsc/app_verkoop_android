@@ -138,7 +138,6 @@ class ProfileFragment : BaseFragment() {
             fragment.arguments = arg
             return fragment
         }
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

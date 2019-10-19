@@ -71,7 +71,7 @@ class KSMNotificationManager (private val mCtx: Context) {
                 .setAutoCancel(true)
                 .setContentIntent(resultPendingIntent)
                 .setContentTitle(title)
-                .setSmallIcon(R.mipmap.logo)
+                .setSmallIcon(getNotificationIcon(mBuilder))
                 .setLargeIcon(BitmapFactory.decodeResource(mCtx.resources, R.mipmap.logo))
                 .setContentText(message)
                 .setTicker(message)
@@ -96,6 +96,17 @@ class KSMNotificationManager (private val mCtx: Context) {
             notificationManager.createNotificationChannel(notificationChannel)
         }
         notificationManager.notify(ID_SMALL_NOTIFICATION, notification)
+    }
+
+    private fun getNotificationIcon(notificationBuilder: NotificationCompat.Builder): Int {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val color = 0x008000
+            notificationBuilder.color = color
+            return R.mipmap.logo
+
+        }
+        return R.mipmap.logo
     }
 
     //The method will return Bitmap from an image URL

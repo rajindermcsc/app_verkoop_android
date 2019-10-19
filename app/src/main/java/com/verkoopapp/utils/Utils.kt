@@ -268,52 +268,52 @@ object Utils {
             if (year != 0L) {
                 totalTime = year.toInt()
                 if (totalTime == 1) {
-                    unit = "year"
+                    unit = "Year"
                 } else {
-                    unit = "years"
+                    unit = "Years"
                 }
                 // unit = "day"
             } else if (month != 0L) {
                 totalTime = month.toInt()
                 if (totalTime == 1) {
-                    unit = "month"
+                    unit = "Month"
                 } else {
-                    unit = "months"
+                    unit = "Months"
                 }
                 // unit = "day"
             } else if (week != 0L) {
                 totalTime = week.toInt()
                 if (totalTime == 1) {
-                    unit = "week"
+                    unit = "Week"
                 } else {
-                    unit = "weeks"
+                    unit = "Weeks"
                 }
                 // unit = "day"
             } else if (days != 0L) {
                 totalTime = days.toInt()
                 if (totalTime == 1) {
-                    unit = "day"
+                    unit = "Day"
                 } else {
-                    unit = "days"
+                    unit = "Days"
                 }
                 // unit = "day"
             } else if (hours != 0L) {
                 totalTime = hours.toInt()
                 if (totalTime == 1) {
-                    unit = "hour"
+                    unit = "Hour"
                 } else {
-                    unit = "hours"
+                    unit = "Hours"
                 }
             } else if (minutes != 0L) {
                 totalTime = minutes.toInt()
-                unit = "min"
+                unit = "Min"
             } else if (seconds != 0L) {
                 totalTime = seconds.toInt()
-                unit = "sec"
+                unit = "Sec"
 
             } else {
                 totalTime = 1
-                unit = "sec"
+                unit = "Sec"
             }
 
         } catch (e: Exception) {

@@ -2,6 +2,7 @@ package com.verkoopapp.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.os.Handler
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -23,10 +24,10 @@ import kotlinx.android.synthetic.main.item_row.*
 import retrofit2.Response
 
 
-class ItemAdapter(private val context: Context,private val rvItemListDetails:RecyclerView) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
+class ItemAdapter(private val context: Context, private val rvItemListDetails: RecyclerView) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
     private var mInflater: LayoutInflater = LayoutInflater.from(context)
-    private var itemsList=ArrayList<ItemHome>()
-    private var width=0
+    private var itemsList = ArrayList<ItemHome>()
+    private var width = 0
     private val CATEGORY_LIST_ROW = 0
     private val ITEMS_ROW = 1
 
@@ -36,11 +37,12 @@ class ItemAdapter(private val context: Context,private val rvItemListDetails:Rec
             else -> ITEMS_ROW
         }
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = mInflater.inflate(R.layout.item_row, parent, false)
         val params = view.layoutParams
         params.width = rvItemListDetails.width / 2
-        width= params.width
+        width = params.width
         view.layoutParams = params
         return ViewHolder(view)
     }
@@ -51,30 +53,30 @@ class ItemAdapter(private val context: Context,private val rvItemListDetails:Rec
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = itemsList[position]
-       holder.bind(data)
+        holder.bind(data)
     }
 
     inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
-        fun bind( data: ItemHome) {
-            ivProductImageHome.layoutParams.height =width-16
+        fun bind(data: ItemHome) {
+            ivProductImageHome.layoutParams.height = width - 16
             tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at!!.date)).append(" ").append("ago")
-            tvNameHome.text=data.username
-            tvProductHome.text=data.name
-            if(data.item_type==1){
-                tvConditionHome.text="New"
-            }else{
-                tvConditionHome.text=context.getString(R.string.used)
+            tvNameHome.text = data.username
+            tvProductHome.text = data.name
+            if (data.item_type == 1) {
+                tvConditionHome.text = "New"
+            } else {
+                tvConditionHome.text = context.getString(R.string.used)
             }
-            if(data.is_like){
-                tvLikesHome.setCompoundDrawablesWithIntrinsicBounds( R.mipmap.post_liked, 0, 0, 0)
-            }else{
-                tvLikesHome.setCompoundDrawablesWithIntrinsicBounds( R.mipmap.post_like, 0, 0, 0)
+            if (data.is_like) {
+                tvLikesHome.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_liked, 0, 0, 0)
+            } else {
+                tvLikesHome.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_like, 0, 0, 0)
             }
-            tvLikesHome.text=data.items_like_count.toString()
-            if(data.item_type==1){
-                tvConditionHome.text="New"
-            }else{
-                tvConditionHome.text=context.getString(R.string.used)
+            tvLikesHome.text = data.items_like_count.toString()
+            if (data.item_type == 1) {
+                tvConditionHome.text = "New"
+            } else {
+                tvConditionHome.text = context.getString(R.string.used)
             }
             if (!TextUtils.isEmpty(data.profile_pic)) {
                 Picasso.with(context)
@@ -88,7 +90,7 @@ class ItemAdapter(private val context: Context,private val rvItemListDetails:Rec
             } else {
                 ivPicProfile.setImageResource(R.mipmap.pic_placeholder)
             }
-            if(!TextUtils.isEmpty(data.image_url)) {
+            if (!TextUtils.isEmpty(data.image_url)) {
                 Picasso.with(context).load(AppConstants.IMAGE_URL + data.image_url)
                         .resize(720, 720)
                         .centerCrop()
@@ -96,18 +98,22 @@ class ItemAdapter(private val context: Context,private val rvItemListDetails:Rec
                         .placeholder(R.mipmap.post_placeholder)
                         .into(ivProductImageHome)
 
-            }else{
+            } else {
                 ivProductImageHome.setImageResource(R.mipmap.post_placeholder)
             }
 
 
-            tvItemPriceHome.text="R "+data.price
+            tvItemPriceHome.text = "R " + data.price
             itemView.setOnClickListener {
+                itemView.isEnabled = false
+                Handler().postDelayed(Runnable {
+                    itemView.isEnabled = true
+                }, 1000)
                 val intent = Intent(context, ProductDetailsActivity::class.java)
                 intent.putExtra(AppConstants.ITEM_ID, data.id)
                 intent.putExtra(AppConstants.USER_ID, data.user_id)
                 context.startActivity(intent)
-               // likeDisLikeListener.getItemDetailsClick(data.id,data.user_id)
+                // likeDisLikeListener.getItemDetailsClick(data.id,data.user_id)
 
             }
             tvLikesHome.setOnClickListener {
@@ -123,15 +129,15 @@ class ItemAdapter(private val context: Context,private val rvItemListDetails:Rec
             }
             llUserProfile.setOnClickListener {
                 val reportIntent = Intent(context, UserProfileActivity::class.java)
-                reportIntent.putExtra(AppConstants.USER_ID,data.user_id)
-                reportIntent.putExtra(AppConstants.USER_NAME,data.username)
+                reportIntent.putExtra(AppConstants.USER_ID, data.user_id)
+                reportIntent.putExtra(AppConstants.USER_NAME, data.username)
                 context.startActivity(reportIntent)
             }
         }
-        }
+    }
 
     fun setData(items: ArrayList<ItemHome>) {
-        itemsList=items
+        itemsList = items
     }
 
 

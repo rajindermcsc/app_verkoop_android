@@ -352,6 +352,10 @@ class ChatActivity : AppCompatActivity() {
             }
         }
         llParentChat.setOnClickListener {
+            llParentChat.isEnabled=false
+            Handler().postDelayed(Runnable {
+                llParentChat.isEnabled=true
+            },1000)
             val intent = Intent(this, ProductDetailsActivity::class.java)
             intent.putExtra(AppConstants.ITEM_ID, itemId)
             startActivity(intent)
@@ -393,6 +397,10 @@ class ChatActivity : AppCompatActivity() {
 
         tvViewProfile.setOnClickListener {
             if (tvViewProfile.text.toString().equals(getString(R.string.view_seller), ignoreCase = true)) {
+                tvViewProfile.isEnabled=false
+                Handler().postDelayed(Runnable {
+                    tvViewProfile.isEnabled=true
+                },1000)
                 val reportIntent = Intent(this, UserProfileActivity::class.java)
                 reportIntent.putExtra(AppConstants.USER_ID, senderId)
                 reportIntent.putExtra(AppConstants.USER_NAME, userName)

@@ -46,7 +46,7 @@ class SearchActivity : AppCompatActivity() {
         }
         if (intent.getIntExtra(AppConstants.COMING_FROM, 0) == 1) {
             ll_search.visibility = View.GONE
-            etSearchHeader.hint = getString(R.string.search_user)
+            etSearchHeader.hint = getString(R.string.search_userr)
             comingFrom = 1
             setUserSearchAdapter()
         } else {

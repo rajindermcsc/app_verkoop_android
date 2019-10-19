@@ -41,12 +41,15 @@ interface RateUserListener{
     fun rateUserClick(rating:Float,type:String)
 }
 
-class ShareProductDialog(context: Context, private val header:String, private val categoryType: String, private val listener:SharePostListener)
+class ShareProductDialog(context: Context, private val header:String, private val categoryType: String, private val price: String, private val listener:SharePostListener)
     :android.app.Dialog(context){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.dialog_item_added)
+        tvHeaderDialog.text=header
+        tvCategoryDialog.text=categoryType
+        tvPriceDialog.text=price
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
         setCancelable(false)

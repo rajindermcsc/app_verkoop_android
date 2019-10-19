@@ -10,7 +10,7 @@ import android.text.TextUtils
 import android.util.DisplayMetrics
 import android.view.View
 import com.verkoopapp.R
-import com.verkoopapp.adapter.DetailSubCategory
+import com.verkoopapp.adapter.DetailSubCategoryAdapter
 import com.verkoopapp.adapter.FilterAdapter
 import com.verkoopapp.adapter.ItemAdapter
 import com.verkoopapp.models.*
@@ -76,7 +76,7 @@ class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterC
         rvSubCategory.layoutParams.height = (width / 3)
         val mManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvSubCategory.layoutManager = mManager
-        val detailSubCategoryAdapter = DetailSubCategory(this, rvSubCategory, subCategoryList)
+        val detailSubCategoryAdapter = DetailSubCategoryAdapter(this, rvSubCategory, subCategoryList)
         rvSubCategory.adapter = detailSubCategoryAdapter
     }
 

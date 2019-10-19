@@ -65,7 +65,7 @@ class MyWalletstripeActivity : AppCompatActivity() {
     private val currency = "USD"
     var amount: BigDecimal? = null
     var token: String? = null
-    var amountMoney: Int? = null
+     var amountMoney=0L
     private lateinit var cardMultilineWidget: CardMultilineWidget
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -210,12 +210,15 @@ class MyWalletstripeActivity : AppCompatActivity() {
         if (requestCode == 2) {
             if (resultCode == Activity.RESULT_OK) {
                 val result = data!!.getStringExtra(AppConstants.INTENT_RESULT)
-                amountMoney = data.getIntExtra(AppConstants.AMOUNT, 0)
+                amountMoney = data.getLongExtra(AppConstants.AMOUNT, 0)?:0
                 if (Utils.isOnline(this)) {
                     Log.e("activityResult", "success")
 //                    setPayment(amountMoney) .........this is for the worecard
 //                    setStripePayment(amountMoney)
-                    popUp()
+//                    popUp()
+                    val intent = Intent(this, StripeCardPaymentActivity::class.java)
+                    intent.putExtra(AppConstants.AMOUNT, amountMoney)
+                    startActivityForResult(intent, 3)
 
                 } else {
                     Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()

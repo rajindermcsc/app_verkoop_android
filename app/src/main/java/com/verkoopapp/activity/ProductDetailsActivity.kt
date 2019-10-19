@@ -15,6 +15,7 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
+import android.widget.Toast
 import com.daimajia.slider.library.SliderTypes.BaseSliderView
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView
 import com.facebook.share.model.ShareLinkContent
@@ -71,6 +72,11 @@ class ProductDetailsActivity : AppCompatActivity() {
     private var dbHelper: DbHelper? = null
     private var dataResponse: DataItems? = null
     private var shareDialogFacebook: ShareDialog? = null
+    var isClicked: Boolean = false
+    var isLiked: Boolean = false
+    var likeCount: Int = 0
+    var likeId: Int = 0
+    var comingFrom : String =""
 
     private lateinit var commentListAdapter: CommentListAdapter
     private lateinit var shareDialog: DeleteCommentDialog
@@ -88,6 +94,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         screenHeight = displayMetrics.heightPixels
         mDemoSliderDetails.minimumHeight = (screenHeight / 2) + 100
         comingType = intent.getIntExtra(AppConstants.COMING_TYPE, 0)
+        comingFrom = intent.getStringExtra(AppConstants.COMING_FROM)
         setCommentAdapter()
         adapterPosition = intent.getIntExtra(AppConstants.ADAPTER_POSITION, 0)
         if (intent.getIntExtra(AppConstants.COMING_FROM, 0) == 1) {
@@ -194,13 +201,11 @@ class ProductDetailsActivity : AppCompatActivity() {
         if (data.is_sold == 1 || data.user_id == Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()) {
             llBuying.visibility = View.GONE
             llChat.visibility = View.VISIBLE
-
         } else {
             llBuying.visibility = View.VISIBLE
             llChat.visibility = View.VISIBLE
-
-
         }
+
         llChatDetails.setOnClickListener {
             if (Utils.getPreferencesString(this, AppConstants.USER_ID).toInt() != data.user_id) {
                 val reportIntent = Intent(this, UserProfileActivity::class.java)
@@ -288,7 +293,38 @@ class ProductDetailsActivity : AppCompatActivity() {
         if (data.items_image.isNotEmpty()) {
             productImage = data.items_image[0].url
         }
+        if (data.is_like) {
+            isLiked = true
+            tvLikes.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_liked, 0, 0, 0)
+        } else {
+            isLiked = false
+            tvLikes.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_like, 0, 0, 0)
+        }
+
+        if(userId == Utils.getPreferencesString(this,AppConstants.USER_ID).toInt()){
+            tvLikes.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_liked, 0, 0, 0)
+        }
+
         tvLikes.text = data.items_like_count.toString()
+        likeCount = data.items_like_count
+        likeId = data.like_id
+        tvLikes.setOnClickListener {
+            if (userId != Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()) {
+                tvLikes.isEnabled = false
+                if (!isClicked) {
+                    if (likeId > 0) {
+                        isClicked = !isClicked
+                        deleteLikeApi(adapterPosition - 1, likeId)
+                    } else {
+                        isClicked = !isClicked
+                        likedApi(data.id, adapterPosition - 1)
+                    }
+                }
+                Handler().postDelayed(Runnable {
+                    tvLikes.isEnabled = true
+                }, 1000)
+            }
+        }
         tvPrice.text = StringBuilder().append(": ").append(getString(R.string.dollar)).append(" ").append(data.price)
         tvDescription.text = data.description
         tvUserName.text = data.username
@@ -393,6 +429,53 @@ class ProductDetailsActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    private fun likedApi(itemId: Int, position: Int) {
+        val lickedRequest = LickedRequest(Utils.getPreferencesString(this, AppConstants.USER_ID), itemId)
+        ServiceHelper().likeService(lickedRequest,
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        isClicked = !isClicked
+                        val responseLike = response.body() as LikedResponse
+                        isLiked = !isLiked
+                        likeCount = likeCount + 1
+                        likeId = responseLike.like_id
+                        setLikeData()
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        isClicked = !isClicked
+                        //      Utils.showSimpleMessage(homeActivity, msg!!).show()
+                    }
+                })
+    }
+
+    private fun setLikeData() {
+        if (isLiked == true) {
+            tvLikes.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_liked, 0, 0, 0)
+        } else {
+            tvLikes.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_like, 0, 0, 0)
+        }
+        tvLikes.text = likeCount.toString()
+    }
+
+    private fun deleteLikeApi(position: Int, lickedId: Int) {
+        ServiceHelper().disLikeService(lickedId,
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        isClicked = !isClicked
+                        val likeResponse = response.body() as DisLikeResponse
+                        isLiked = !isLiked
+                        likeCount = likeCount - 1
+                        likeId = 0
+                        setLikeData()
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        isClicked = !isClicked
+                    }
+                })
     }
 
     private fun openPowerMenu(menuList: ArrayList<PowerMenuItem>) {
@@ -538,7 +621,9 @@ class ProductDetailsActivity : AppCompatActivity() {
                             }*/
                             setData(detailsResponse.data)
                         } else {
-                            Utils.showSimpleMessage(this@ProductDetailsActivity, detailsResponse.message).show()
+//                                Utils.showSimpleMessage(this@ProductDetailsActivity, detailsResponse.message).show()
+                            Toast.makeText(this@ProductDetailsActivity,detailsResponse.message,Toast.LENGTH_SHORT).show()
+                            finish()
                         }
                     }
 

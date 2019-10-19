@@ -24,26 +24,26 @@ class ArchivedChatActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCal
     private val socket: Socket? = VerkoopApplication.getAppSocket()
     private var chatInboxList = ArrayList<ChatInboxResponse>()
     override fun deleteChat(senderId: Int, receiverId: Int, itemId: Int, type: Int, adapterPosition: Int, swipe: SwipeLayout) {
-        if(socket!!.connected()) {
-            if(senderId==Utils.getPreferencesString(this@ArchivedChatActivity,AppConstants.USER_ID).toInt()){
+        if (socket!!.connected()) {
+            if (senderId == Utils.getPreferencesString(this@ArchivedChatActivity, AppConstants.USER_ID).toInt()) {
                 setArchiveChatEvent(senderId, receiverId, itemId, adapterPosition, swipe)
-            }else{
-                setArchiveChatEvent(receiverId,senderId, itemId, adapterPosition, swipe)
+            } else {
+                setArchiveChatEvent(receiverId, senderId, itemId, adapterPosition, swipe)
             }
 
         }
     }
 
-    private var dbHelper: DbHelper?=null
+    private var dbHelper: DbHelper? = null
     private lateinit var chatInboxAdapter: ChatInboxAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.favourites_activity)
-        dbHelper= DbHelper()
+        dbHelper = DbHelper()
         steAdapter()
         if (Utils.isOnline(this)) {
-            if(socket!!.connected()) {
+            if (socket!!.connected()) {
                 setOfflineData()
             }
         } else {
@@ -64,7 +64,7 @@ class ArchivedChatActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCal
     }
 
     private fun setOfflineData() {
-         chatInboxList = ArrayList<ChatInboxResponse>()
+        chatInboxList = ArrayList<ChatInboxResponse>()
         val result = dbHelper!!.getArchiveList(1)
         for (i in result.indices) {
             val dataBean = ChatInboxResponse(
@@ -98,7 +98,7 @@ class ArchivedChatActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCal
     private fun setArchiveChatEvent(senderId: Int, receiverId: Int, itemId: Int, adapterPosition: Int, swipe: SwipeLayout) {
         val jsonObject = JSONObject()
         try {
-            jsonObject.put("sender_id",senderId)
+            jsonObject.put("sender_id", senderId)
             jsonObject.put("receiver_id", receiverId)
             jsonObject.put("item_id", itemId)
             Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
@@ -108,11 +108,13 @@ class ArchivedChatActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCal
                 runOnUiThread {
                     if (data.getString("status") == "1") {
                         runOnUiThread {
-                            dbHelper!!.unArchiveChat(senderId,receiverId,itemId)
+                            dbHelper!!.unArchiveChat(senderId, receiverId, itemId)
                             chatInboxAdapter.mItemManger.removeShownLayouts(swipe)
-                            chatInboxList.removeAt(adapterPosition)
-                            chatInboxAdapter.notifyItemRemoved(adapterPosition)
-                            chatInboxAdapter.notifyItemRangeChanged(adapterPosition, chatInboxList.size)
+                            if (chatInboxList.size >= adapterPosition) {
+                                chatInboxList.removeAt(adapterPosition)
+                                chatInboxAdapter.notifyItemRemoved(adapterPosition)
+                                chatInboxAdapter.notifyItemRangeChanged(adapterPosition, chatInboxList.size)
+                            }
                         }
                     } else {
 

@@ -14,7 +14,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.details_sub_category.*
 
 
-class DetailSubCategory(private val context:Context,private val recyclerView: RecyclerView,private val subCategoryList: ArrayList<SubCategoryPost>):RecyclerView.Adapter<DetailSubCategory.ViewHolder>(){
+class DetailSubCategoryAdapter(private val context:Context, private val recyclerView: RecyclerView, private val subCategoryList: ArrayList<SubCategoryPost>):RecyclerView.Adapter<DetailSubCategoryAdapter.ViewHolder>(){
     private var mInflater:LayoutInflater= LayoutInflater.from(context)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder{
        val view=mInflater.inflate(R.layout.details_sub_category,parent,false)

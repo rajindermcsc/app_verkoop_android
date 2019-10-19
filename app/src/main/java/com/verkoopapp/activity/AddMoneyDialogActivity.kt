@@ -45,7 +45,7 @@ class AddMoneyDialogActivity:AppCompatActivity(){
               KeyboardUtil.hideKeyboard(this)
               val returnIntent = Intent()
               returnIntent.putExtra(AppConstants.INTENT_RESULT, "success")
-              returnIntent.putExtra(AppConstants.AMOUNT,(etAmount.text.toString()).toInt())
+              returnIntent.putExtra(AppConstants.AMOUNT,(etAmount.text.toString()).toLong())
               setResult(Activity.RESULT_OK, returnIntent)
               finish()
            //   callUpdateWalletApi()
