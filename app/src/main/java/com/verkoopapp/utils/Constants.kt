@@ -34,6 +34,8 @@ object AppConstants{
      const val COMMENT_RESULR = "COMMENT_RESULR"
      const val REPORT_LIST = "REPORT_LIST"
      const val ADAPTER_POSITION = "ADAPTER_POSITION"
+     const val TOTAL_LIKE = "TOTAL_LIKE"
+     const val IS_LIKED = "IS_LIKED"
      const val COMING_TYPE = "COMING_TYPE"
      const val PRODUCT_DETAIL = "PRODUCT_DETAIL"
      const val CAR_BRAND_NAME = "CAR_BRAND_NAME"

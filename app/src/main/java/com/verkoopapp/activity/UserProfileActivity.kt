@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.Point
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
@@ -19,9 +20,12 @@ import com.verkoopapp.adapter.UserProfileItemAdapter
 import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.*
+import kotlinx.android.synthetic.main.buy_cars_activity.*
 import kotlinx.android.synthetic.main.profile_fragment.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 import kotlinx.android.synthetic.main.user_profile_activity.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import retrofit2.Response
 
 class UserProfileActivity:AppCompatActivity() {
@@ -34,6 +38,10 @@ class UserProfileActivity:AppCompatActivity() {
     private var blockedId:Int=0
     private var typeMenu:Int=0
     private var userName:String=""
+    private var fromLikeEvent: Boolean = false
+    private var positionFromLikeEvent: Int = 0
+    private var typeForEventBus: Int = 0
+    private var comingFrom: String = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -200,6 +208,12 @@ class UserProfileActivity:AppCompatActivity() {
                         } else {
 //                            Utils.showSimpleMessage(homeActivity, myProfileResponse.message).show()
                         }
+
+                        if (fromLikeEvent == true) {
+                            if (comingFrom.equals("UserProfileAdapter")) {
+                                rvUserPostsList.scrollToPosition(positionFromLikeEvent)
+                            }
+                        }
                     }
 
                     override fun onFailure(msg: String?) {
@@ -258,6 +272,40 @@ class UserProfileActivity:AppCompatActivity() {
                     }
                 })
 
+    }
+
+
+    @Subscribe
+    fun MessageEventOnLikeUserProfile(event: MessageEventOnLikeUserProfile) {
+        fromLikeEvent = true
+        comingFrom = event.comingFrom
+        positionFromLikeEvent = event.position
+        if (Utils.isOnline(this)) {
+            window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+            pbProgressUser.visibility = View.VISIBLE
+            myProfileInfoApi()
+        } else {
+            Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+        }
+        Handler().postDelayed(Runnable {
+            fromLikeEvent = false
+        }, 2500)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        try {
+            EventBus.getDefault().register(this)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 
 }

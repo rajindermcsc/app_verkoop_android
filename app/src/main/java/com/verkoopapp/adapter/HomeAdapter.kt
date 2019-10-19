@@ -40,12 +40,16 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
     val YOUR_DAILY_PICKS = 1
     val RECOMMENDED_YOU = 3
     private var width = 0
+    private var comingFromOnLike = ""
     private var widthOrg = 0
     private var widthDaily = 0
+    private var positionOnLikeEvent = 0
     private var itemsList = ArrayList<ItemHome>()
     private var dailyPicksList = ArrayList<ItemHome>()
     private var categoryList = ArrayList<Category>()
     private var advertismentsList = ArrayList<Advertisment>()
+
+    var dailyPicksAdapter: YourDailyPicksAdapter? = null
 
     override fun getItemViewType(position: Int): Int {
         return when {
@@ -106,13 +110,25 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when {
             position == CATEGORY_LIST_ROW -> (holder as AddsAndItemsHolder).bind(categoryList, advertismentsList)
-            position == YOUR_DAILY_PICKS -> (holder as YourDailyPickHolder).bind()
+            position == YOUR_DAILY_PICKS -> {
+                (holder as YourDailyPickHolder).bind()
+                if (comingFromOnLike.equals("YourDailyPicksAdapter")) {
+                    if (positionOnLikeEvent > 0) {
+                        holder.rvYourDailyPicks.scrollToPosition(positionOnLikeEvent)
+                    }
+                }
+            }
             position == PROPERTIES_ROW -> (holder as CarAndPropertiesHolder).bind()
             position == RECOMMENDED_YOU -> (holder as RecommendedYouHolder).bind()
             itemsList[position - 4].isLoading -> (holder as ShowLoaderHolder).bind()
             else -> {
                 val modal = itemsList[position - 4]
                 (holder as ItemsHolder).bind(modal)
+                if (comingFromOnLike.equals("RecommendedForYou")) {
+                    if (positionOnLikeEvent > 0) {
+                        holder.rvYourDailyPicks.scrollToPosition(positionOnLikeEvent)
+                    }
+                }
             }
         }
     }
@@ -270,8 +286,14 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
             tvProductHome.text = data.name
             tvItemPriceHome.text = "R " + data.price
             itemView.setOnClickListener {
+                itemView.isEnabled = false
+                Handler().postDelayed(Runnable {
+                    itemView.isEnabled = true
+                }, 1000)
                 val intent = Intent(context, ProductDetailsActivity::class.java)
                 intent.putExtra(AppConstants.ITEM_ID, data.id)
+                intent.putExtra(AppConstants.ADAPTER_POSITION, adapterPosition)
+                intent.putExtra(AppConstants.COMING_FROM, "RecommendedForYou")
                 context.startActivity(intent)
             }
             tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at!!.date)).append(" ").append("ago")
@@ -291,7 +313,8 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
             linearLayoutManager.isAutoMeasureEnabled = true
             rvYourDailyPicks.layoutManager = linearLayoutManager
             Log.e("<<YourDailyPickHolder>>", rvItemList.toString())
-            val dailyPicksAdapter = YourDailyPicksAdapter(context, rvItemList, itemsList)
+//            val dailyPicksAdapter = YourDailyPicksAdapter(context, rvItemList, itemsList, homeFragment)
+            dailyPicksAdapter = YourDailyPicksAdapter(context, rvItemList, itemsList, homeFragment)
             rvYourDailyPicks.setHasFixedSize(true)
             rvYourDailyPicks.adapter = dailyPicksAdapter
             tvViewAllDailyPicks.setOnClickListener {
@@ -366,4 +389,16 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
     fun updateDailyPicksData(itemsDaily: ArrayList<ItemHome>) {
         dailyPicksList = itemsDaily
     }
+
+    fun setLikeOnPostViewDaily(position: Int, isLiked: Boolean, totalLike: Int) {
+        itemsList[position].is_like = isLiked
+        itemsList[position].items_like_count = totalLike
+        dailyPicksAdapter!!.notifyDataSetChanged()
+    }
+
+    fun getpositionFromLike(position: Int, comingFromLike: String) {
+        positionOnLikeEvent = position
+        comingFromOnLike = comingFromLike
+    }
+
 }

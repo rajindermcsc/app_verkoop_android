@@ -42,6 +42,7 @@ import kotlinx.android.synthetic.main.item_details_activity.*
 import kotlinx.android.synthetic.main.item_details_activity.tvAddress
 import kotlinx.android.synthetic.main.my_profile_details_row.*
 import kotlinx.android.synthetic.main.toolbar_product_details.*
+import org.greenrobot.eventbus.EventBus
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Response
@@ -75,8 +76,9 @@ class ProductDetailsActivity : AppCompatActivity() {
     var isClicked: Boolean = false
     var isLiked: Boolean = false
     var likeCount: Int = 0
+    var likeInitialCount: Int = 0
     var likeId: Int = 0
-    var comingFrom : String =""
+    var comingFrom: String = ""
 
     private lateinit var commentListAdapter: CommentListAdapter
     private lateinit var shareDialog: DeleteCommentDialog
@@ -94,7 +96,9 @@ class ProductDetailsActivity : AppCompatActivity() {
         screenHeight = displayMetrics.heightPixels
         mDemoSliderDetails.minimumHeight = (screenHeight / 2) + 100
         comingType = intent.getIntExtra(AppConstants.COMING_TYPE, 0)
-        comingFrom = intent.getStringExtra(AppConstants.COMING_FROM)
+        if (intent.getStringExtra(AppConstants.COMING_FROM) != null) {
+            comingFrom = intent.getStringExtra(AppConstants.COMING_FROM)
+        }
         setCommentAdapter()
         adapterPosition = intent.getIntExtra(AppConstants.ADAPTER_POSITION, 0)
         if (intent.getIntExtra(AppConstants.COMING_FROM, 0) == 1) {
@@ -301,11 +305,12 @@ class ProductDetailsActivity : AppCompatActivity() {
             tvLikes.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_like, 0, 0, 0)
         }
 
-        if(userId == Utils.getPreferencesString(this,AppConstants.USER_ID).toInt()){
+        if (userId == Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()) {
             tvLikes.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_liked, 0, 0, 0)
         }
 
         tvLikes.text = data.items_like_count.toString()
+        likeInitialCount = data.items_like_count
         likeCount = data.items_like_count
         likeId = data.like_id
         tvLikes.setOnClickListener {
@@ -442,6 +447,27 @@ class ProductDetailsActivity : AppCompatActivity() {
                         likeCount = likeCount + 1
                         likeId = responseLike.like_id
                         setLikeData()
+                        if (comingFrom != null && comingFrom.equals("YourDailyPicksAdapter")) {
+                            EventBus.getDefault().post(MessageEventOnLike(adapterPosition,"YourDailyPicksAdapter"))
+                        }
+                        if (comingFrom != null && comingFrom.equals("RecommendedForYou")) {
+                            EventBus.getDefault().post(MessageEventOnLike(adapterPosition,"RecommendedForYou"))
+                        }
+                        if (comingFrom != null && comingFrom.equals("CategoryDetailsActivity")) {
+                            EventBus.getDefault().post(MessageEventOnLikeCategory(adapterPosition,"CategoryDetailsActivity"))
+                        }
+                        if (comingFrom != null && comingFrom.equals("BuyCarsAdapter")) {
+                            EventBus.getDefault().post(MessageEventOnLikeBuyCars(adapterPosition,"BuyCarsAdapter"))
+                        }
+                        if (comingFrom != null && comingFrom.equals("BuyPropertyAdapter")) {
+                            EventBus.getDefault().post(MessageEventOnLikeBuyProperty(adapterPosition,"BuyPropertyAdapter"))
+                        }
+                        if (comingFrom != null && comingFrom.equals("UserProfileAdapter")) {
+                            EventBus.getDefault().post(MessageEventOnLikeUserProfile(adapterPosition,"UserProfileAdapter"))
+                        }
+                        if (comingFrom != null && comingFrom.equals("AdvertisementAdapter")) {
+                            EventBus.getDefault().post(MessageEventOnLikeAdvertisementAdapter(adapterPosition,"AdvertisementAdapter"))
+                        }
                     }
 
                     override fun onFailure(msg: String?) {
@@ -458,6 +484,8 @@ class ProductDetailsActivity : AppCompatActivity() {
             tvLikes.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_like, 0, 0, 0)
         }
         tvLikes.text = likeCount.toString()
+
+
     }
 
     private fun deleteLikeApi(position: Int, lickedId: Int) {
@@ -470,6 +498,27 @@ class ProductDetailsActivity : AppCompatActivity() {
                         likeCount = likeCount - 1
                         likeId = 0
                         setLikeData()
+                        if (comingFrom != null && comingFrom.equals("YourDailyPicksAdapter")) {
+                            EventBus.getDefault().post(MessageEventOnLike(adapterPosition,"YourDailyPicksAdapter"))
+                        }
+                        if (comingFrom != null && comingFrom.equals("RecommendedForYou")) {
+                            EventBus.getDefault().post(MessageEventOnLike(adapterPosition,"RecommendedForYou"))
+                        }
+                        if (comingFrom != null && comingFrom.equals("CategoryDetailsActivity")) {
+                            EventBus.getDefault().post(MessageEventOnLikeCategory(adapterPosition,"CategoryDetailsActivity"))
+                        }
+                        if (comingFrom != null && comingFrom.equals("BuyCarsAdapter")) {
+                            EventBus.getDefault().post(MessageEventOnLikeBuyCars(adapterPosition,"BuyCarsAdapter"))
+                        }
+                        if (comingFrom != null && comingFrom.equals("BuyPropertyAdapter")) {
+                            EventBus.getDefault().post(MessageEventOnLikeBuyProperty(adapterPosition,"BuyPropertyAdapter"))
+                        }
+                        if (comingFrom != null && comingFrom.equals("UserProfileAdapter")) {
+                            EventBus.getDefault().post(MessageEventOnLikeUserProfile(adapterPosition,"UserProfileAdapter"))
+                        }
+                        if (comingFrom != null && comingFrom.equals("AdvertisementAdapter")) {
+                            EventBus.getDefault().post(MessageEventOnLikeAdvertisementAdapter(adapterPosition,"AdvertisementAdapter"))
+                        }
                     }
 
                     override fun onFailure(msg: String?) {
@@ -622,7 +671,7 @@ class ProductDetailsActivity : AppCompatActivity() {
                             setData(detailsResponse.data)
                         } else {
 //                                Utils.showSimpleMessage(this@ProductDetailsActivity, detailsResponse.message).show()
-                            Toast.makeText(this@ProductDetailsActivity,detailsResponse.message,Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@ProductDetailsActivity, detailsResponse.message, Toast.LENGTH_SHORT).show()
                             finish()
                         }
                     }
@@ -675,6 +724,14 @@ class ProductDetailsActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (powerMenu != null && powerMenu!!.isShowing) {
             powerMenu!!.dismiss()
+//        } else if (likeInitialCount != likeCount) {
+//            val returnIntent = Intent()
+//            returnIntent.putExtra(AppConstants.ADAPTER_POSITION, adapterPosition)
+//            returnIntent.putExtra(AppConstants.TOTAL_LIKE, likeCount)
+//            returnIntent.putExtra(AppConstants.IS_LIKED, isLiked)
+//            returnIntent.putExtra(AppConstants.COMING_FROM, comingFrom)
+//            setResult(Activity.RESULT_OK, returnIntent)
+//            finish()
         } else {
             //  super.onBackPressed()
             val returnIntent = Intent()

@@ -182,6 +182,9 @@ class BuyPropertyAdapter(private val context: Context, private val rvProperty: R
             tvItemPriceHome.text = "R" + data.price
             itemView.setOnClickListener {
                 val intent = Intent(context, ProductDetailsActivity::class.java)
+                intent.putExtra(AppConstants.USER_ID, data.user_id)
+                intent.putExtra(AppConstants.ADAPTER_POSITION, adapterPosition)
+                intent.putExtra(AppConstants.COMING_FROM,"BuyPropertyAdapter")
                 intent.putExtra(AppConstants.ITEM_ID, data.id)
                 context.startActivity(intent)
             }

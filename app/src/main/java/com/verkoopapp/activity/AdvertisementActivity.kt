@@ -3,6 +3,7 @@ package com.verkoopapp.activity
 import android.graphics.Point
 import android.nfc.tech.MifareUltralight
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -13,11 +14,16 @@ import com.verkoopapp.R
 import com.verkoopapp.adapter.AdvertisementAdapter
 import com.verkoopapp.models.BannerDetailResponse
 import com.verkoopapp.models.ItemHome
+import com.verkoopapp.models.MessageEventOnLikeAdvertisementAdapter
+import com.verkoopapp.models.MessageEventOnLikeUserProfile
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.favourites_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
+import kotlinx.android.synthetic.main.user_profile_activity.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import retrofit2.Response
 
 
@@ -30,6 +36,11 @@ class AdvertisementActivity : AppCompatActivity() {
     private var isLoading = false
     private var totalPageCount: Int? = null
     private var currentPage = 0
+    private var fromLikeEvent: Boolean = false
+    private var positionFromLikeEvent: Int = 0
+    private var typeForEventBus: Int = 0
+    private var comingFrom: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.favourites_activity)
@@ -127,6 +138,12 @@ class AdvertisementActivity : AppCompatActivity() {
                     }
                     advertisementAdapter.notifyDataSetChanged()
                 }
+
+                if (fromLikeEvent == true) {
+                    if (comingFrom.equals("AdvertisementAdapter")) {
+                        rvUserPostsList.scrollToPosition(positionFromLikeEvent)
+                    }
+                }
             }
 
             override fun onFailure(msg: String?) {
@@ -148,4 +165,41 @@ class AdvertisementActivity : AppCompatActivity() {
             }
         })
     }
+
+
+    @Subscribe
+    fun MessageEventOnLikeAdvertisementAdapter(event: MessageEventOnLikeAdvertisementAdapter) {
+        fromLikeEvent = true
+        comingFrom = event.comingFrom
+        positionFromLikeEvent = event.position
+        if (Utils.isOnline(this)) {
+
+            window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+            pbProgressFav.visibility = View.VISIBLE
+            currentPage = 0
+            getItemService(0)
+        } else {
+            Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+        }
+        Handler().postDelayed(Runnable {
+            fromLikeEvent = false
+        }, 2500)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        try {
+            EventBus.getDefault().register(this)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
 }

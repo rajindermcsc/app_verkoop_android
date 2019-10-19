@@ -24,6 +24,9 @@ interface MyService {
     @GET("categories")
     fun getCategoriesService(): Call<CategoriesResponse>
 
+    @GET("categories")
+    fun getReportList(): Call<CategoriesResponse>
+
     @GET("user/profile/{userId}")
     fun getMyProfileService(@Path(value = "userId", encoded = true) fullUrl: String): Call<MyProfileResponse>
 

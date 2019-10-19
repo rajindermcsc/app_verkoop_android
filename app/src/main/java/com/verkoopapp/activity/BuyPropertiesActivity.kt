@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.nfc.tech.MifareUltralight
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -17,6 +18,8 @@ import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.buy_cars_activity.*
 import kotlinx.android.synthetic.main.toolbar_cars_properties.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import retrofit2.Response
 
 class BuyPropertiesActivity : AppCompatActivity() {
@@ -27,6 +30,11 @@ class BuyPropertiesActivity : AppCompatActivity() {
     private lateinit var linearLayoutManager: GridLayoutManager
     private lateinit var buyPropertyAdapter: BuyPropertyAdapter
     private var carBrandList = ArrayList<CarType>()
+    private var fromLikeEvent: Boolean = false
+    private var positionFromLikeEvent: Int = 0
+    private var typeForEventBus: Int = 0
+    private var comingFrom: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.buy_cars_activity)
@@ -142,6 +150,11 @@ class BuyPropertiesActivity : AppCompatActivity() {
                 if (homeDataResponse!!.data != null) {
                     setApiData(lodeMode,homeDataResponse.data)
                 }
+                if (fromLikeEvent == true) {
+                    if (comingFrom.equals("BuyPropertyAdapter")) {
+                        rvBuyCarList.scrollToPosition(positionFromLikeEvent)
+                    }
+                }
             }
 
             override fun onFailure(msg: String?) {
@@ -207,5 +220,40 @@ class BuyPropertiesActivity : AppCompatActivity() {
                 //Write your code if there's no result
             }
         }
+    }
+
+    @Subscribe
+    fun MessageEventOnLikeBuyProperty(event: MessageEventOnLikeBuyProperty) {
+        fromLikeEvent = true
+        comingFrom = event.comingFrom
+        positionFromLikeEvent = event.position
+        if (Utils.isOnline(this)) {
+            itemsList.clear()
+            currentPage=1
+            window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+            pbCars.visibility = View.VISIBLE
+            getItemService(0)
+        } else {
+            Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+        }
+        Handler().postDelayed(Runnable {
+            fromLikeEvent = false
+        }, 2500)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        try {
+            EventBus.getDefault().register(this)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 }

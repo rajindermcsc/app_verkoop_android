@@ -118,6 +118,7 @@ class ChatActivity : AppCompatActivity() {
         if (Utils.isOnline(this)) {
             setOfflineHistory()
             getChatHistory()
+//            getReportList()
         } else {
             Handler().postDelayed({
                 Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
@@ -125,6 +126,21 @@ class ChatActivity : AppCompatActivity() {
             setOfflineHistory()
         }
 
+    }
+
+    private fun getReportList() {
+        VerkoopApplication.instance.loader.show(this)
+        ServiceHelper().categoriesService(
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        VerkoopApplication.instance.loader.hide(this@ChatActivity)
+                        Utils.showSimpleMessage(this@ChatActivity, msg!!).show()
+                    }
+                })
     }
 
     private fun directChat() {

@@ -48,6 +48,8 @@ import com.verkoopapp.VerkoopApplication
 import com.verkoopapp.activity.*
 import com.verkoopapp.utils.GridSpacingItemDecoration
 import kotlinx.android.synthetic.main.my_profile_details_row.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -71,7 +73,10 @@ class HomeFragment : BaseFragment() {
     private lateinit var vision: Vision
     private lateinit var photoData: ByteArray
     private var visionData: String = ""
+    private var comingFrom: String = ""
     private var uriTemp: Uri? = null
+    private var fromLikeEvent: Boolean = false
+    private var positionFromLikeEvent: Int = 0
 
 
     override fun getTitle(): Int {
@@ -194,7 +199,7 @@ class HomeFragment : BaseFragment() {
         }
         ivAR.setOnClickListener {
             if (checkAndRequestPermission()) {
-                ivAR.isEnabled=false
+                ivAR.isEnabled = false
 //                val intent = Intent("android.media.action.IMAGE_CAPTURE")
 //                homeActivity.startActivityForResult(intent,CAMERA_REQUEST)
 //                homeActivity.startVison()
@@ -296,11 +301,18 @@ class HomeFragment : BaseFragment() {
 
     private fun getItemService(loadMore: Int) {
         isLoading = true
-        ServiceHelper().getItemsService(HomeRequest(0), currentPage, Utils.getPreferencesString(homeActivity, AppConstants.USER_ID),object : ServiceHelper.OnResponse {
+        ServiceHelper().getItemsService(HomeRequest(0), currentPage, Utils.getPreferencesString(homeActivity, AppConstants.USER_ID), object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
                 homeActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                 if (swipeContainer != null) {
                     swipeContainer.isRefreshing = false
+                }
+                if (fromLikeEvent == true) {
+                    if (comingFrom.equals("RecommendedForYou")) {
+                        rvHomeList.scrollToPosition(positionFromLikeEvent + 7)
+                    } else {
+                        homeAdapter.getpositionFromLike(positionFromLikeEvent, comingFrom)
+                    }
                 }
                 isLoading = false
                 if (pbProgressHome != null) {
@@ -380,7 +392,53 @@ class HomeFragment : BaseFragment() {
                 inputStream = ByteArrayInputStream(baos.toByteArray())
                 imageToVision()
             }
+        } else if (requestCode == 1777) {
+            if (resultCode == Activity.RESULT_OK) {
+//                if (data != null) {
+//                    val position = data.getIntExtra(AppConstants.ADAPTER_POSITION, 0)
+//                    val comingFrom = data.getStringExtra(AppConstants.COMING_FROM)
+//                    val totalLike = data.getIntExtra(AppConstants.TOTAL_LIKE,0)
+//                    if (position != null) {
+//                        if (comingFrom.equals("YourDailyPicksAdapter")) {
+////                         itemsList[posiiton].is_like=data.getBooleanExtra(AppConstants.IS_LIKED,false)
+//                        homeAdapter.setLikeOnPostViewDaily(position,data.getBooleanExtra(AppConstants.IS_LIKED,false),totalLike)
+//                        }
+//                    }
+//                }
+            }
         }
+    }
+
+
+    @Subscribe
+    fun onMessageEventOnLike(event: MessageEventOnLike) {
+        fromLikeEvent = true
+        comingFrom = event.comingFrom
+        positionFromLikeEvent = event.position
+        if (Utils.isOnline(homeActivity)) {
+            currentPage = 1
+            getItemService(1)
+        } else {
+            Utils.showSimpleMessage(homeActivity, getString(R.string.check_internet)).show()
+        }
+        Handler().postDelayed(Runnable {
+            fromLikeEvent = false
+        }, 2500)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        try {
+            EventBus.getDefault().register(this)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 
     private fun setVisionData() {

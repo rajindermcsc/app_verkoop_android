@@ -18,6 +18,10 @@ import kotlinx.android.synthetic.main.buy_cars_activity.*
 import kotlinx.android.synthetic.main.toolbar_cars_properties.*
 import retrofit2.Response
 import android.app.Activity
+import android.os.Handler
+import kotlinx.android.synthetic.main.category_details_activity.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 
 class BuyCarsActivity:AppCompatActivity() {
@@ -27,6 +31,10 @@ class BuyCarsActivity:AppCompatActivity() {
     private var currentPage = 0
     private lateinit var linearLayoutManager: GridLayoutManager
     private lateinit var buyCarsAdapter:BuyCarsAdapter
+    private var fromLikeEvent: Boolean = false
+    private var positionFromLikeEvent: Int = 0
+    private var typeForEventBus: Int = 0
+    private var comingFrom: String = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -143,6 +151,11 @@ class BuyCarsActivity:AppCompatActivity() {
                 if (homeDataResponse!!.data != null) {
                     setApiData(loadMore,homeDataResponse.data)
                 }
+                if (fromLikeEvent == true) {
+                    if (comingFrom.equals("BuyCarsAdapter")) {
+                        rvBuyCarList.scrollToPosition(positionFromLikeEvent)
+                    }
+                }
             }
 
             override fun onFailure(msg: String?) {
@@ -200,6 +213,41 @@ class BuyCarsActivity:AppCompatActivity() {
                 //Write your code if there's no result
             }
         }
+    }
+
+    @Subscribe
+    fun MessageEventOnLikeBuyCars(event: MessageEventOnLikeBuyCars) {
+        fromLikeEvent = true
+        comingFrom = event.comingFrom
+        positionFromLikeEvent = event.position
+        if (Utils.isOnline(this)) {
+            itemsList.clear()
+            currentPage=1
+            window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+            pbCars.visibility = View.VISIBLE
+            getItemService(0)
+        } else {
+            Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+        }
+        Handler().postDelayed(Runnable {
+            fromLikeEvent = false
+        }, 2500)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        try {
+            EventBus.getDefault().register(this)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 }
 

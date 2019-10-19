@@ -11,6 +11,7 @@ import com.squareup.picasso.Picasso
 import com.verkoopapp.R
 import com.verkoopapp.activity.ProductDetailsActivity
 import com.verkoopapp.activity.UserProfileActivity
+import com.verkoopapp.fragment.HomeFragment
 import com.verkoopapp.models.DisLikeResponse
 import com.verkoopapp.models.ItemHome
 import com.verkoopapp.models.LickedRequest
@@ -23,7 +24,7 @@ import kotlinx.android.synthetic.main.item_row.*
 import retrofit2.Response
 
 
-class YourDailyPicksAdapter(private val context:Context,private val recyclerView:Int,private val itemsList: ArrayList<ItemHome>):RecyclerView.Adapter<YourDailyPicksAdapter.ViewHolder>(){
+class YourDailyPicksAdapter(private val context:Context,private val recyclerView:Int,private val itemsList: ArrayList<ItemHome>,private val homeFragment: HomeFragment):RecyclerView.Adapter<YourDailyPicksAdapter.ViewHolder>(){
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var width=0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
@@ -102,7 +103,10 @@ class YourDailyPicksAdapter(private val context:Context,private val recyclerView
             itemView.setOnClickListener {
                 val intent = Intent(context, ProductDetailsActivity::class.java)
                 intent.putExtra(AppConstants.ITEM_ID, data.id)
-                context.startActivity(intent)
+                intent.putExtra(AppConstants.ADAPTER_POSITION, adapterPosition)
+                intent.putExtra(AppConstants.COMING_FROM,"YourDailyPicksAdapter")
+                homeFragment.startActivityForResult(intent,1777)
+//                context.startActivity(intent)
 
             }
             tvLikesHome.setOnClickListener {
@@ -140,6 +144,7 @@ class YourDailyPicksAdapter(private val context:Context,private val recyclerView
                         itemsList[position].items_like_count= itemsList[position].items_like_count+1
                         itemsList[position].like_id= responseLike.like_id
                         notifyItemChanged(position )
+
                     }
 
                     override fun onFailure(msg: String?) {

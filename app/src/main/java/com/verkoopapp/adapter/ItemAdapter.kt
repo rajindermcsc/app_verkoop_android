@@ -112,6 +112,8 @@ class ItemAdapter(private val context: Context, private val rvItemListDetails: R
                 val intent = Intent(context, ProductDetailsActivity::class.java)
                 intent.putExtra(AppConstants.ITEM_ID, data.id)
                 intent.putExtra(AppConstants.USER_ID, data.user_id)
+                intent.putExtra(AppConstants.ADAPTER_POSITION, adapterPosition)
+                intent.putExtra(AppConstants.COMING_FROM,"CategoryDetailsActivity")
                 context.startActivity(intent)
                 // likeDisLikeListener.getItemDetailsClick(data.id,data.user_id)
 

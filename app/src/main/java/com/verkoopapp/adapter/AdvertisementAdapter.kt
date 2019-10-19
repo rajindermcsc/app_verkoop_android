@@ -3,6 +3,7 @@ package com.verkoopapp.adapter
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
@@ -162,8 +163,15 @@ class AdvertisementAdapter(private val context: Context, private val widthScreen
             tvProductHome.text = data.name
             tvItemPriceHome.text = "R" + data.price
             itemView.setOnClickListener {
+                itemView.isEnabled = false
+                Handler().postDelayed(Runnable {
+                    itemView.isEnabled = true
+                }, 1000)
                 val intent = Intent(context, ProductDetailsActivity::class.java)
                 intent.putExtra(AppConstants.ITEM_ID, data.id)
+                intent.putExtra(AppConstants.USER_ID, data.user_id)
+                intent.putExtra(AppConstants.ADAPTER_POSITION, adapterPosition)
+                intent.putExtra(AppConstants.COMING_FROM,"AdvertisementAdapter")
                 context.startActivity(intent)
             }
             tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at!!.date)).append(" ").append("ago")

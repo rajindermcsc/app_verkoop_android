@@ -243,6 +243,36 @@ class MessageEvent(
         val updateUi: String
 )
 
+class MessageEventOnLikeCategory(
+        val position: Int,
+        val comingFrom: String
+)
+
+class MessageEventOnLikeBuyCars(
+        val position: Int,
+        val comingFrom: String
+)
+
+class MessageEventOnLikeBuyProperty(
+        val position: Int,
+        val comingFrom: String
+)
+
+class MessageEventOnLikeUserProfile(
+        val position: Int,
+        val comingFrom: String
+)
+
+class MessageEventOnLikeAdvertisementAdapter(
+        val position: Int,
+        val comingFrom: String
+)
+
+class MessageEventOnLike(
+        val position: Int,
+        val comingFrom: String
+)
+
 data class SearchItemRequest(
         val name: String,
         val user_id: Int

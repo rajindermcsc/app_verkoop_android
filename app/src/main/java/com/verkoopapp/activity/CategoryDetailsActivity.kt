@@ -3,6 +3,7 @@ package com.verkoopapp.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
@@ -19,7 +20,11 @@ import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.GridSpacingItemDecoration
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.category_details_activity.*
+import kotlinx.android.synthetic.main.category_details_activity.tvSell
+import kotlinx.android.synthetic.main.home_fragment.*
 import kotlinx.android.synthetic.main.toolbar_details_.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import retrofit2.Response
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
@@ -30,6 +35,10 @@ class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterC
     private var itemsList = ArrayList<ItemHome>()
     private var filterRequest: FilterRequest? = null
     private var filterList = ArrayList<FilterModal>()
+    private var fromLikeEvent: Boolean = false
+    private var positionFromLikeEvent: Int = 0
+    private var typeForEventBus: Int = 0
+    private var comingFrom: String = ""
 
     override fun onSelectingFilter() {
         val intent = Intent(this, FilterActivity::class.java)
@@ -95,15 +104,16 @@ class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterC
             startActivity(intent)
         }
         val type = intent.getIntExtra(AppConstants.TYPE, 0)
+        typeForEventBus = type
         toolbar_title_.text = intent.getStringExtra(AppConstants.SUB_CATEGORY)
         toolbar_title_.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
-                intent.putExtra(AppConstants.CATEGORY_NAME, toolbar_title_.text.toString())
+            intent.putExtra(AppConstants.CATEGORY_NAME, toolbar_title_.text.toString())
             startActivityForResult(intent, 2)
         }
         if (type == 1) {
             llParent.visibility = View.GONE
-            filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID), "2", "", "", "", "", "", "",intent.getIntExtra(AppConstants.ITEM_ID,0))
+            filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID), "2", "", "", "", "", "", "", intent.getIntExtra(AppConstants.ITEM_ID, 0))
             getDetailsApi(filterRequest!!)
 
         } else {
@@ -131,7 +141,7 @@ class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterC
     private fun setItemList() {
         val linearLayoutManager = GridLayoutManager(this, 2)
         rvItemListDetails.layoutManager = linearLayoutManager
-        rvItemListDetails.addItemDecoration(GridSpacingItemDecoration(2,Utils.dpToPx(this,2F).toInt(),false))
+        rvItemListDetails.addItemDecoration(GridSpacingItemDecoration(2, Utils.dpToPx(this, 2F).toInt(), false))
         itemAdapter = ItemAdapter(this, rvItemListDetails)
         rvItemListDetails.isNestedScrollingEnabled = false
         rvItemListDetails.adapter = itemAdapter
@@ -241,6 +251,12 @@ class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterC
                     override fun onSuccess(response: Response<*>) {
                         itemsList.clear()
                         pvProgressDetail.visibility = View.GONE
+
+                        if (fromLikeEvent == true) {
+                            if (comingFrom.equals("CategoryDetailsActivity")) {
+                                rvItemListDetails.scrollToPosition(positionFromLikeEvent)
+                            }
+                        }
                         val categoryPostResponse = response.body() as CategoryPostResponse
                         if (categoryPostResponse.data.subCategoryList.size > 0) {
                             setSubcategoryData(categoryPostResponse.data.subCategoryList)
@@ -262,5 +278,45 @@ class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterC
                     }
                 })
 
+    }
+
+    @Subscribe
+    fun MessageEventOnLikeCategory(event: MessageEventOnLikeCategory) {
+        fromLikeEvent = true
+        comingFrom = event.comingFrom
+        positionFromLikeEvent = event.position
+        if (Utils.isOnline(this@CategoryDetailsActivity)) {
+            if (typeForEventBus == 1) {
+                llParent.visibility = View.GONE
+                filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), typeForEventBus, Utils.getPreferencesString(this, AppConstants.USER_ID), "2", "", "", "", "", "", "", intent.getIntExtra(AppConstants.ITEM_ID, 0))
+                getDetailsApi(filterRequest!!)
+
+            } else {
+                tvCategorySelected.text = intent.getStringExtra(AppConstants.SUB_CATEGORY)
+                llParent.visibility = View.VISIBLE
+                filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), typeForEventBus, Utils.getPreferencesString(this, AppConstants.USER_ID), "2", "", "", "", "", "", "")
+                getDetailsApi(filterRequest!!)
+            }
+        } else {
+            Utils.showSimpleMessage(this@CategoryDetailsActivity, getString(R.string.check_internet)).show()
+        }
+        Handler().postDelayed(Runnable {
+            fromLikeEvent = false
+        }, 2500)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        try {
+            EventBus.getDefault().register(this)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 }

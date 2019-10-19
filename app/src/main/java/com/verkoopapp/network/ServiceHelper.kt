@@ -146,6 +146,30 @@ class ServiceHelper {
         })
     }
 
+    fun reportListService(onResponse: OnResponse) {
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
+        val responseCall = myService.getCategoriesService()
+        responseCall.enqueue(object : Callback<CategoriesResponse> {
+            override fun onResponse(call: Call<CategoriesResponse>, response: Response<CategoriesResponse>) {
+                val res = response.body()
+                Log.e("<<<Response>>>", Gson().toJson(res))
+                if (res != null) {
+                    when {
+                        response.code() == 200 -> onResponse.onSuccess(response)
+                        else -> onResponse.onFailure(response.message())
+                    }
+                } else {
+                    onResponse.onFailure("Something went wrong!")
+                }
+            }
+
+            override fun onFailure(call: Call<CategoriesResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
+
     fun addItemsApi(request: AddItemRequest, onResponse: OnResponse) {
         //  val service = ServiceGenerator().createService(MyService::class.java, "idress", "idress")
 //        val myService = ApiClient.getClient().create(MyService::class.java)
