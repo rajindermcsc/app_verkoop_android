@@ -64,7 +64,7 @@ class ViewAllBannerActivity:AppCompatActivity(){
                     bannerListAdapter.notifyDataSetChanged()
 
                 }else{
-                    Utils.showSimpleMessage(this@ViewAllBannerActivity, "No data found.").show()
+//                    Utils.showSimpleMessage(this@ViewAllBannerActivity, "No data found.").show()
                 }
 
             }
