@@ -43,6 +43,7 @@ import io.realm.RealmResults
 import kotlinx.android.synthetic.main.chat_activity.*
 import kotlinx.android.synthetic.main.toolbar_bottom.*
 import kotlinx.android.synthetic.main.toolbar_product_details.*
+import okhttp3.internal.Util
 import org.apache.commons.lang3.StringEscapeUtils
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -53,6 +54,7 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ChatActivity : AppCompatActivity() {
     private val socket: Socket? = VerkoopApplication.getAppSocket()
@@ -60,6 +62,8 @@ class ChatActivity : AppCompatActivity() {
     private var senderId = 0
     private var itemId = 0
     private var isSold = 0
+    private var is_block = 0
+    private var user_block_id = 0
     private var isRate = 0
     private var categoryId = 0
     private var userName = ""
@@ -81,6 +85,7 @@ class ChatActivity : AppCompatActivity() {
     private var isBlockClick: Boolean = false
     private var blockedId: Int = 0
     private var userId: Int = 0
+    private var reportsList = ArrayList<ReportListData>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,6 +104,9 @@ class ChatActivity : AppCompatActivity() {
         isMyProduct = intent.getBooleanExtra(AppConstants.IS_MY_PRODUCT, false)
         isRate = intent.getIntExtra(AppConstants.IS_RATE, 0)
         isSold = intent.getIntExtra(AppConstants.IS_SOLD, 0)
+//        is_block = intent.getIntExtra(AppConstants.IS_BLOCK, 0)
+//        user_block_id = intent.getIntExtra(AppConstants.USER_BLOCK_ID, 0)
+//        blockedId = intent.getIntExtra(AppConstants.BLOCK_ID, 0)
 
         if (socket!!.connected()) {
             directChat()
@@ -118,7 +126,7 @@ class ChatActivity : AppCompatActivity() {
         if (Utils.isOnline(this)) {
             setOfflineHistory()
             getChatHistory()
-//            getReportList()
+            getReportList()
         } else {
             Handler().postDelayed({
                 Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
@@ -130,10 +138,14 @@ class ChatActivity : AppCompatActivity() {
 
     private fun getReportList() {
         VerkoopApplication.instance.loader.show(this)
-        ServiceHelper().categoriesService(
+        ServiceHelper().reportListService(1,
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
-
+                        VerkoopApplication.instance.loader.hide(this@ChatActivity)
+                        val reportListData = response.body() as ReportListResponse
+                        if (reportListData.data != null) {
+                            reportsList = reportListData.data
+                        }
                     }
 
                     override fun onFailure(msg: String?) {
@@ -214,6 +226,13 @@ class ChatActivity : AppCompatActivity() {
                     runOnUiThread {
                         try {
                             if (data.getString("status") == "1") {
+                                if (data.has("block_id")) {
+                                    blockedId = data.getInt("block_id")
+                                }
+                                if (data.has("user_block_id")) {
+                                    user_block_id = data.getInt("user_block_id")
+                                }
+                                is_block = data.getInt("is_block")
                                 chatList.clear()
                                 try {
                                     val listdata = java.util.ArrayList<JSONObject>()
@@ -251,6 +270,28 @@ class ChatActivity : AppCompatActivity() {
                                     chatAdapter.notifyDataSetChanged()
                                     rvChatList.scrollToPosition(chatList.size - 1)
                                     setOfflineHistory()
+
+                                    if (is_block == 1) {
+                                        if (user_block_id != null) {
+                                            if (user_block_id == Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()) {
+                                                etMssg.isEnabled = true
+                                                ivUpload.isEnabled = true
+                                                ivSend.isEnabled = true
+                                                etMssg.setHint(getString(R.string.enter_here))
+                                            } else {
+                                                etMssg.isEnabled = false
+                                                etMssg.setText("")
+                                                ivUpload.isEnabled = false
+                                                ivSend.isEnabled = false
+                                                etMssg.setHint(getString(R.string.you_cant_reply))
+                                            }
+                                        }
+                                    } else {
+                                        etMssg.isEnabled = true
+                                        ivUpload.isEnabled = true
+                                        ivSend.isEnabled = true
+                                        etMssg.setHint(getString(R.string.enter_here))
+                                    }
                                 } catch (e: JSONException) {
                                     e.printStackTrace()
                                 }
@@ -368,10 +409,10 @@ class ChatActivity : AppCompatActivity() {
             }
         }
         llParentChat.setOnClickListener {
-            llParentChat.isEnabled=false
+            llParentChat.isEnabled = false
             Handler().postDelayed(Runnable {
-                llParentChat.isEnabled=true
-            },1000)
+                llParentChat.isEnabled = true
+            }, 1000)
             val intent = Intent(this, ProductDetailsActivity::class.java)
             intent.putExtra(AppConstants.ITEM_ID, itemId)
             startActivity(intent)
@@ -413,10 +454,10 @@ class ChatActivity : AppCompatActivity() {
 
         tvViewProfile.setOnClickListener {
             if (tvViewProfile.text.toString().equals(getString(R.string.view_seller), ignoreCase = true)) {
-                tvViewProfile.isEnabled=false
+                tvViewProfile.isEnabled = false
                 Handler().postDelayed(Runnable {
-                    tvViewProfile.isEnabled=true
-                },1000)
+                    tvViewProfile.isEnabled = true
+                }, 1000)
                 val reportIntent = Intent(this, UserProfileActivity::class.java)
                 reportIntent.putExtra(AppConstants.USER_ID, senderId)
                 reportIntent.putExtra(AppConstants.USER_NAME, userName)
@@ -434,7 +475,11 @@ class ChatActivity : AppCompatActivity() {
             }
         }
         ivRightProduct.setOnClickListener {
-            Utils.showToast(this, "work in Progress")
+            ivRightProduct.isEnabled = false
+            Handler().postDelayed(Runnable {
+                ivRightProduct.isEnabled = true
+            }, 1000)
+//            Utils.showToast(this, "work in Progress")
             openPowerMenu()
         }
         ivUpload.setOnClickListener {
@@ -590,8 +635,14 @@ class ChatActivity : AppCompatActivity() {
      }*/
 
     private fun openPowerMenu() {
+        var blockTitle = ""
+        if (blockedId > 0) {
+            blockTitle = "Unblock user"
+        } else {
+            blockTitle = "Block user"
+        }
         powerMenu = PowerMenu.Builder(this)
-                .addItem(PowerMenuItem("Block user", false)) // add an item.
+                .addItem(PowerMenuItem(blockTitle, false)) // add an item.
                 .addItem(PowerMenuItem("Report user", false)) // aad an item list.
 
                 .setAnimation(MenuAnimation.SHOWUP_TOP_RIGHT) // Animation start point (TOP | LEFT).
@@ -612,19 +663,29 @@ class ChatActivity : AppCompatActivity() {
         powerMenu!!.dismiss()
 
         if (position == 1) {
-//             val reportIntent = Intent(this, ReportUserActivity::class.java)
-//             reportIntent.putParcelableArrayListExtra(AppConstants.REPORT_LIST, reportsList)
-//             reportIntent.putExtra(AppConstants.COMING_FROM,1)
-//             reportIntent.putExtra(AppConstants.ITEM_ID,userId)
-//             startActivity(reportIntent)
+            if (reportsList.size > 0) {
+                val reportIntent = Intent(this, ReportUserActivity::class.java)
+                reportIntent.putParcelableArrayListExtra(AppConstants.REPORT_LIST, reportsList)
+                reportIntent.putExtra(AppConstants.COMING_FROM, 1)
+                reportIntent.putExtra(AppConstants.ITEM_ID, userId)
+                startActivity(reportIntent)
+            } else {
+                if (Utils.isOnline(this)) {
+                    getReportList()
+                } else {
+                    Utils.showSimpleMessage(this@ChatActivity, getString(R.string.check_internet)).show()
+                }
+            }
         } else if (position == 0) {
-//             if(!isBlockClick) {
-//                 if (item.getTitle().equals("Block user", ignoreCase = true)) {
-//                     blockUserDialog()
-//                 } else if (item.getTitle().equals("Unblock user", ignoreCase = true)) {
-//                     unBlockUserDialog()
-//                 }
-//             }
+            if (!isBlockClick) {
+                if (item.getTitle().equals("Block user", ignoreCase = true)) {
+                    blockUserDialog()
+                } else if (item.getTitle().equals("Unblock user", ignoreCase = true)) {
+                    if (blockedId > 0) {
+                        unBlockUserDialog()
+                    }
+                }
+            }
         }
     }
 
@@ -650,7 +711,7 @@ class ChatActivity : AppCompatActivity() {
 
 
     private fun blockUserApi() {
-        val blockUserRequest = BlockUserRequest(Utils.getPreferencesString(this, AppConstants.USER_ID), userId)
+        val blockUserRequest = BlockUserRequest(Utils.getPreferencesString(this, AppConstants.USER_ID), senderId)
         ServiceHelper().blockUserService(blockUserRequest,
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
@@ -658,8 +719,14 @@ class ChatActivity : AppCompatActivity() {
                         val blockResponse = response.body() as BlockUserResponse
                         if (blockResponse.data != null) {
                             Utils.showSimpleMessage(this@ChatActivity, "This user has been blocked.").show()
-//                            blockedId = blockResponse.data.id
+                            blockedId = blockResponse.data.id
+                            etMssg.isEnabled = false
+                            etMssg.setText("")
+                            ivUpload.isEnabled = false
+                            ivSend.isEnabled = false
+                            etMssg.setHint(getString(R.string.you_cant_reply))
 //                            typeMenu = 1
+
                         }
                     }
 
@@ -679,7 +746,11 @@ class ChatActivity : AppCompatActivity() {
                         isBlockClick = false
                         val likeResponse = response.body() as DisLikeResponse
                         Utils.showSimpleMessage(this@ChatActivity, "This user has been unblocked.").show()
-//                        blockedId=0
+                        blockedId = 0
+                        etMssg.isEnabled = true
+                        ivUpload.isEnabled = true
+                        ivSend.isEnabled = true
+                        etMssg.setHint(getString(R.string.enter_here))
                     }
 
                     override fun onFailure(msg: String?) {
@@ -975,6 +1046,7 @@ class ChatActivity : AppCompatActivity() {
                                     chatAdapter.notifyDataSetChanged()
                                     rvChatList.scrollToPosition(chatList.size - 1)
                                     etMssg.text = null
+                                    llViewOffer.visibility = View.GONE
                                 } catch (e: JSONException) {
                                     e.printStackTrace()
                                 }

@@ -8,12 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.verkoopapp.R
 import com.verkoopapp.activity.ReportUserActivity
+import com.verkoopapp.models.ReportListData
 import com.verkoopapp.models.ReportResponse
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.reason_list.*
 
 
-class ReportListAdapter(private val context: Context, private  val reportList: ArrayList<ReportResponse>):RecyclerView.Adapter<ReportListAdapter.ViewHolder>(){
+class ReportListAdapter(private val context: Context, private  val reportList: ArrayList<ReportListData>):RecyclerView.Adapter<ReportListAdapter.ViewHolder>(){
     private  var mInflater:LayoutInflater= LayoutInflater.from(context)
      private lateinit var  onselectCallBack:OnSelectedCallBack
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
@@ -27,13 +28,13 @@ class ReportListAdapter(private val context: Context, private  val reportList: A
         return reportList.size
 }
 
-    override fun onBindViewHolder(holder:ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder:ViewHolder, position: Int)  {
         val modal =reportList[position]
         holder.bind(modal)
     }
 
     inner class ViewHolder(override val containerView: View?):RecyclerView.ViewHolder(containerView!!),LayoutContainer{
-        fun bind(modal: ReportResponse) {
+        fun bind(modal: ReportListData) {
             if(modal.isSelected){
                 tvReportName.setTextColor(ContextCompat.getColor(context,R.color.colorPrimary))
             }else{

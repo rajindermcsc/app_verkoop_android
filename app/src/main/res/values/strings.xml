@@ -382,6 +382,7 @@
     <string name="permission_warning">All permissions are required.</string>
     <string name="progressMessage"><![CDATA[Creating Token...]]></string>
     <string name="endingIn">Card ending in</string>
+    <string name="you_cant_reply">You can\'t reply this conservation anymore</string>
 
 
 </resources>

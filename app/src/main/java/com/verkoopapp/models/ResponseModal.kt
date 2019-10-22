@@ -44,8 +44,8 @@ data class DataSignUp(
         val created_at: CreatedAtSignUp,
         val token: String,
         val qrCode_image: String,
-        val coin: Int=0,
-        val amount: Int=0
+        val coin: Int = 0,
+        val amount: Int = 0
 )
 
 data class CreatedAtSignUp(
@@ -129,10 +129,28 @@ data class TransferCoinResponse(
 data class TransferCoinError(
         val less_amount: ArrayList<String>
 )
+
 data class MyProfileResponse(
         val data: DataProfile?,
         val message: String
 )
+
+data class ReportListResponse(
+        val data: ArrayList<ReportListData>,
+        val message: String
+)
+
+@Parcelize
+data class ReportListData(
+        val created_at: String,
+        val description: String,
+        val id: Int,
+        val name: String,
+        val notes: String,
+        val type: Int,
+        val updated_at: String,
+        var isSelected: Boolean
+) : Parcelable
 
 data class DataProfile(
         val id: Int,
@@ -151,9 +169,9 @@ data class DataProfile(
         val follow_id: Int,
         val follow_count: Int,
         val follower_count: Int,
-        val good:Int,
-        val sad:Int,
-        val average:Int,
+        val good: Int,
+        val sad: Int,
+        val average: Int,
         val items: ArrayList<ItemHome>
 )
 
@@ -257,7 +275,7 @@ data class DataItems(
         val user_id: Int,
         val category_id: Int,
         val name: String,
-        val price: Double=0.00,
+        val price: Double = 0.00,
         val item_type: Int,
         val description: String,
         val created_at: String,
@@ -276,44 +294,44 @@ data class DataItems(
         val items_image: List<ItemsImage>,
         var comments: ArrayList<CommentModal>?,
         var reports: ArrayList<ReportResponse>?,
-        var type:Int=0,
-        var brand_id :Int=0,
-        var car_type_id : Int=0,
-        var additional_info:AdditionalInfoResponse?=null,
-        val zone_id:Int=0,
-        var offer_price:Double= 0.0,
-        val chat_count:Int=0,
-        var make_offer:Boolean= false,
-        var message_count:Int= 0
+        var type: Int = 0,
+        var brand_id: Int = 0,
+        var car_type_id: Int = 0,
+        var additional_info: AdditionalInfoResponse? = null,
+        val zone_id: Int = 0,
+        var offer_price: Double = 0.0,
+        val chat_count: Int = 0,
+        var make_offer: Boolean = false,
+        var message_count: Int = 0
 
 ) : Parcelable
 
 @Parcelize
 data class AdditionalInfoResponse(
-    val city: String?=null,
-    val bathroom: Int,
-    val bedroom: Int,
-    val brand_name: String?=null,
-    val car_brand_id: Int,
-    val car_type: String?=null,
-    val car_type_id: Int,
-    val direct_owner: Int,
-    val postal_code: String?=null,
-    val registration_year: String?=null,
-    val street_name: String?=null,
-    val location: String?=null,
-    val zoneId: Int,
-    val min_price:Double=0.0,
-    val max_price:Double=0.0,
-    val property_type:String?=null,
-    val parking_type:Int?=0,
-    val from_year:Int?=0,
-    val to_year:Int?=0,
-    val furnished:Int?=0,
-    val transmission_type:Int=0,
-    val model_id:Int=0,
-    val model_name:String?=null
-): Parcelable
+        val city: String? = null,
+        val bathroom: Int,
+        val bedroom: Int,
+        val brand_name: String? = null,
+        val car_brand_id: Int,
+        val car_type: String? = null,
+        val car_type_id: Int,
+        val direct_owner: Int,
+        val postal_code: String? = null,
+        val registration_year: String? = null,
+        val street_name: String? = null,
+        val location: String? = null,
+        val zoneId: Int,
+        val min_price: Double = 0.0,
+        val max_price: Double = 0.0,
+        val property_type: String? = null,
+        val parking_type: Int? = 0,
+        val from_year: Int? = 0,
+        val to_year: Int? = 0,
+        val furnished: Int? = 0,
+        val transmission_type: Int = 0,
+        val model_id: Int = 0,
+        val model_name: String? = null
+) : Parcelable
 
 @Parcelize
 data class ReportResponse(
@@ -376,23 +394,23 @@ data class Category(
 )
 
 data class ItemHome(
-        val id: Int=0,
-        val user_id: Int=0,
-        val category_id: Int=0,
-        val name: String?=null,
-        val price: Double=0.0,
-        val item_type: Int=0,
-        val created_at: CreatedAtHome?=null,
-        var items_like_count: Int=0,
-        var like_id: Int=0,
-        var is_like: Boolean=false,
-        var is_sold: Int=0,
-        val image_url: String?=null,
-        val username: String?=null,
-        val profile_pic: String?=null,
-        var isClicked: Boolean=false,
-        var isLoading: Boolean=false,
-        var type:Int=0
+        val id: Int = 0,
+        val user_id: Int = 0,
+        val category_id: Int = 0,
+        val name: String? = null,
+        val price: Double = 0.0,
+        val item_type: Int = 0,
+        val created_at: CreatedAtHome? = null,
+        var items_like_count: Int = 0,
+        var like_id: Int = 0,
+        var is_like: Boolean = false,
+        var is_sold: Int = 0,
+        val image_url: String? = null,
+        val username: String? = null,
+        val profile_pic: String? = null,
+        var isClicked: Boolean = false,
+        var isLoading: Boolean = false,
+        var type: Int = 0
 )
 
 data class CreatedAtHome(
@@ -411,38 +429,38 @@ data class DisLikeResponse(
 )
 
 data class SocialGoogleResponse(
-    val data: DataGoogle?,
-    val message: String
+        val data: DataGoogle?,
+        val message: String
 )
 
 data class DataGoogle(
-    val userId: Int,
-    val email: String,
-    val username: String,
-    val first_name: String,
-    val last_name: String,
-    val login_type: String,
-    val social_id: String,
-    val mobile_no: String,
-    val website: String,
-    val city: String,
-    val state: String,
-    val country: String,
-    val city_id: Int,
-    val state_id: Int,
-    val country_id: Int,
-    val bio: String,
-    val gender: String,
-    val DOB: String,
-    val profile_pic: String,
-    val is_active: Int,
-    val is_use: Int,
-    val mobile_verified: Int,
-    val created_at: CreatedAt,
-    val token: String,
-    val qrCode_image: String,
-    val coin: Int,
-    val amount: Int
+        val userId: Int,
+        val email: String,
+        val username: String,
+        val first_name: String,
+        val last_name: String,
+        val login_type: String,
+        val social_id: String,
+        val mobile_no: String,
+        val website: String,
+        val city: String,
+        val state: String,
+        val country: String,
+        val city_id: Int,
+        val state_id: Int,
+        val country_id: Int,
+        val bio: String,
+        val gender: String,
+        val DOB: String,
+        val profile_pic: String,
+        val is_active: Int,
+        val is_use: Int,
+        val mobile_verified: Int,
+        val created_at: CreatedAt,
+        val token: String,
+        val qrCode_image: String,
+        val coin: Int,
+        val amount: Int
 )
 
 data class SocialLoginResponse(
@@ -510,10 +528,9 @@ data class FavouritesResponse(
         val message: String
 )
 
-class FavouritesData (
+class FavouritesData(
         val items: ArrayList<ItemHome>
 )
-
 
 
 /*data class Data(
@@ -659,11 +676,11 @@ data class DataUserProfile(
         val state_id: Int,
         val country_id: Int,
         val follow_count: Int,
-        var follower_count: Int=0,
-        var follower_id: Int=0,
-        var average: Int=0,
-        var sad: Int=0,
-        var good: Int=0,
+        var follower_count: Int = 0,
+        var follower_id: Int = 0,
+        var average: Int = 0,
+        var sad: Int = 0,
+        var good: Int = 0,
         val block_id: Int,
         val items: ArrayList<ItemHome>,
         val reports: ArrayList<ReportResponse>
@@ -744,225 +761,230 @@ data class DataUser(
 )
 
 data class CarBrandResponse(
-    val data: ArrayList<DataCarBrand>,
-    val message: String
+        val data: ArrayList<DataCarBrand>,
+        val message: String
 )
 
 data class DataCarBrand(
-    val id: Int,
-    val name: String,
-    val image: String?=null,
-    val created_at: String?=null,
-    val updated_at: String?=null,
-    var isSelected: Boolean=false,
-    val car_models: ArrayList<CarModelList>?=null
+        val id: Int,
+        val name: String,
+        val image: String? = null,
+        val created_at: String? = null,
+        val updated_at: String? = null,
+        var isSelected: Boolean = false,
+        val car_models: ArrayList<CarModelList>? = null
 )
 
 @Parcelize
 data class CarModelList(
-    var brand_id: Int,
-    var created_at: String,
-    var id: Int,
-    var is_active: Int,
-    var name: String,
-    var updated_at: String,
-    var isSelected: Boolean
-): Parcelable
+        var brand_id: Int,
+        var created_at: String,
+        var id: Int,
+        var is_active: Int,
+        var name: String,
+        var updated_at: String,
+        var isSelected: Boolean
+) : Parcelable
+
 data class BuyCarResponse(
-    val data: DataCarResponse?,
-    val message: String
+        val data: DataCarResponse?,
+        val message: String
 )
 
 data class DataCarResponse(
-    val items: ArrayList<ItemHome>,
-    val totalPage: Int,
-    val brands: ArrayList<Brand>,
-    val car_types: ArrayList<CarType>
+        val items: ArrayList<ItemHome>,
+        val totalPage: Int,
+        val brands: ArrayList<Brand>,
+        val car_types: ArrayList<CarType>
 )
 
 data class CarType(
-    val id: Int,
-    val name: String,
-    val image: String,
-    val created_at: String?=null,
-    val updated_at: String?=null
+        val id: Int,
+        val name: String,
+        val image: String,
+        val created_at: String? = null,
+        val updated_at: String? = null
 )
 
 @Parcelize
 data class Brand(
-    val id: Int,
-    val name: String,
-    val image: String,
-    val created_at: String?=null,
-    val updated_at: String?=null
-): Parcelable
-
+        val id: Int,
+        val name: String,
+        val image: String,
+        val created_at: String? = null,
+        val updated_at: String? = null
+) : Parcelable
 
 
 data class CoinPlanResponse(
-    var data: ArrayList<CoinPlan>,
-    var message: String,
-    var coins :  Int
+        var data: ArrayList<CoinPlan>,
+        var message: String,
+        var coins: Int
 )
 
 data class CoinPlan(
-    var id: Int,
-    var amount: Int,
-    var coin: Int,
-    var is_active: Int,
-    var created_at: String,
-    var updated_at: String
+        var id: Int,
+        var amount: Int,
+        var coin: Int,
+        var is_active: Int,
+        var created_at: String,
+        var updated_at: String
 )
 
 data class AdvertPlanActivity(
-    var data: ArrayList<DataAdvert>,
-    var message: String
+        var data: ArrayList<DataAdvert>,
+        var message: String
 )
 
 data class DataAdvert(
-    var id: Int,
-    var name: String,
-    var day: Int,
-    var coin: Int,
-    var is_active: Int,
-    var created_at: String,
-    var updated_at: String
+        var id: Int,
+        var name: String,
+        var day: Int,
+        var coin: Int,
+        var is_active: Int,
+        var created_at: String,
+        var updated_at: String
 )
 
 data class UpdateWalletResponse(
-    var data: List<DataWalletAdd>,
-    var amount: Int,
-    var message: String
+        var data: List<DataWalletAdd>,
+        var amount: Int,
+        var message: String
 )
 
 data class DataWalletAdd(
-    var id: Int,
-    var user_id: Int,
-    var token: String,
-    var amount: Int,
-    var status: Int,
-    var created_at: String,
-    var updated_at: String
+        var id: Int,
+        var user_id: Int,
+        var token: String,
+        var amount: Int,
+        var status: Int,
+        var created_at: String,
+        var updated_at: String
 )
+
 data class WalletHistoryResponse(
-    var data: ArrayList<DataHistory>?,
-    var amount: Int,
-    var message: String
+        var data: ArrayList<DataHistory>?,
+        var amount: Int,
+        var message: String
 )
 
 data class DataHistory(
-    var id: Int,
-    var type:Int,
-    var user_id: Int,
-    var token: String,
-    var userName: String,
-    var profilePic: String,
-    var amount: Int,
-    var status: Int,
-    var coin_plan_id: Int,
-    var is_active: Int,
-    var coin: Int,
-    var created_at: String,
-    var updated_at: String
+        var id: Int,
+        var type: Int,
+        var user_id: Int,
+        var token: String,
+        var userName: String,
+        var profilePic: String,
+        var amount: Int,
+        var status: Int,
+        var coin_plan_id: Int,
+        var is_active: Int,
+        var coin: Int,
+        var created_at: String,
+        var updated_at: String
 )
+
 data class ViewAllBannerResponse(
-    var data: ArrayList<DataBanner>
+        var data: ArrayList<DataBanner>
 )
 
 data class DataBanner(
-    var id: Int,
-    var image: String,
-    var status: String,
-    var updated_at: String,
-    var day: Int,
-    var advertisement_plan_id: Int
+        var id: Int,
+        var image: String,
+        var status: String,
+        var updated_at: String,
+        var day: Int,
+        var advertisement_plan_id: Int
 )
 
 data class UserInfoResponse(
-    var data: DataInfoUser?,
-    var message: String
+        var data: DataInfoUser?,
+        var message: String
 )
 
 data class DataInfoUser(
-    var id: Int,
-    var username: String,
-    var first_name: String,
-    var last_name: String,
-    var profile_pic: String
+        var id: Int,
+        var username: String,
+        var first_name: String,
+        var last_name: String,
+        var profile_pic: String
 )
 
 data class ChatImageResponse(
-    var data: Datamage,
-    var message: String
+        var data: Datamage,
+        var message: String
 )
 
 data class Datamage(
-    var image: String
+        var image: String
 )
+
 data class BannerDetailResponse(
-    var data: DataAdd?,
-    var message: String
+        var data: DataAdd?,
+        var message: String
 )
 
 data class DataAdd(
-    var banner: ArrayList<Banner>?,
-    var items: ArrayList<ItemHome>,
-    var totalPage: Int
+        var banner: ArrayList<Banner>?,
+        var items: ArrayList<ItemHome>,
+        var totalPage: Int
 )
 
 
 data class Banner(
-    var category_id: Int,
-    var id: Int,
-    var image: String,
-    var user_id: Int
+        var category_id: Int,
+        var id: Int,
+        var image: String,
+        var user_id: Int
 )
+
 data class VerifyNumberResponse(
-    var message: String,
-    var otp: Int=0
+        var message: String,
+        var otp: Int = 0
 )
+
 data class MyRatingResponse(
-    var data: ArrayList<DataMyRating>?
+        var data: ArrayList<DataMyRating>?
 )
 
 data class DataMyRating(
-    var name: String,
-    var profile_pic: String,
-    var rating: Double,
-    var url: String,
-    var userName: String,
-    var created_at: String,
-    var user_id:Int,
-    var item_id:Int
+        var name: String,
+        var profile_pic: String,
+        var rating: Double,
+        var url: String,
+        var userName: String,
+        var created_at: String,
+        var user_id: Int,
+        var item_id: Int
 )
 
 data class SearchMultipleKeywordResponse(
-    val `data`: SearchMultipleKeywordData,
-    val message: String
+        val `data`: SearchMultipleKeywordData,
+        val message: String
 )
 
 data class SearchMultipleKeywordData(
 //    val items: List<SearchMultipleKeywordDataList>,
-    val items: List<ItemHome>,
-    val totalPage: Int
+        val items: List<ItemHome>,
+        val totalPage: Int
 )
 
 data class SearchMultipleKeywordDataList(
-    val category_id: Int,
-    val created_at: CreatedAt,
-    val id: Int,
-    val image_url: String,
-    val is_like: Boolean,
-    val is_sold: Int,
-    val item_type: Int,
-    val items_like_count: Any,
-    val like_id: Int,
-    val name: String,
-    val price: Int,
-    val profile_pic: String,
-    val type: Int,
-    val user_id: Int,
-    val username: String
+        val category_id: Int,
+        val created_at: CreatedAt,
+        val id: Int,
+        val image_url: String,
+        val is_like: Boolean,
+        val is_sold: Int,
+        val item_type: Int,
+        val items_like_count: Any,
+        val like_id: Int,
+        val name: String,
+        val price: Int,
+        val profile_pic: String,
+        val type: Int,
+        val user_id: Int,
+        val username: String
 )
 
 //data class SearchMultipleKeywordResponse(
@@ -979,29 +1001,29 @@ data class SearchMultipleKeywordDataList(
 //)
 
 data class SearchMultipleKeywordCategory(
-    val id: Int,
-    val name: String,
-    val parent_id: Int
+        val id: Int,
+        val name: String,
+        val parent_id: Int
 )
 
 data class ActivityListResponseModel(
-    val data: ActivityListData,
-    val message: String
+        val data: ActivityListData,
+        val message: String
 )
 
 data class ActivityListData(
-    val activities: ArrayList<ActivityData>
+        val activities: ArrayList<ActivityData>
 )
 
 data class ActivityData(
-    val comment_id: Int,
-    val created_at: CreatedAt,
-    val description: String,
-    val image: String,
-    val item_id: Int,
-    val user_id: Int,
-    val message: String,
-    val type: Int
+        val comment_id: Int,
+        val created_at: CreatedAt,
+        val description: String,
+        val image: String,
+        val item_id: Int,
+        val user_id: Int,
+        val message: String,
+        val type: Int
 )
 
 

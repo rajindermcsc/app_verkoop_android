@@ -146,12 +146,12 @@ class ServiceHelper {
         })
     }
 
-    fun reportListService(onResponse: OnResponse) {
+    fun reportListService(type:Int,onResponse: OnResponse) {
 //        val myService = ApiClient.getClient().create(MyService::class.java)
         val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
-        val responseCall = myService.getCategoriesService()
-        responseCall.enqueue(object : Callback<CategoriesResponse> {
-            override fun onResponse(call: Call<CategoriesResponse>, response: Response<CategoriesResponse>) {
+        val responseCall = myService.getReportList(type)
+        responseCall.enqueue(object : Callback<ReportListResponse> {
+            override fun onResponse(call: Call<ReportListResponse>, response: Response<ReportListResponse>) {
                 val res = response.body()
                 Log.e("<<<Response>>>", Gson().toJson(res))
                 if (res != null) {
@@ -164,7 +164,7 @@ class ServiceHelper {
                 }
             }
 
-            override fun onFailure(call: Call<CategoriesResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ReportListResponse>, t: Throwable) {
                 onResponse.onFailure(t.message)
             }
         })

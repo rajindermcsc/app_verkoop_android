@@ -165,6 +165,9 @@ class ChatInboxAdapter(private val context: Context, private val chatInboxType: 
                 }
                 intent.putExtra(AppConstants.USER_NAME, data.username)
                 intent.putExtra(AppConstants.ITEM_ID, data.item_id)
+//                intent.putExtra(AppConstants.IS_BLOCK, data.is_block)
+//                intent.putExtra(AppConstants.BLOCK_ID, data.block_id)
+//                intent.putExtra(AppConstants.USER_BLOCK_ID, data.user_block_id)
                 intent.putExtra(AppConstants.PROFILE_URL, data.profile_pic)
                 intent.putExtra(AppConstants.PRODUCT_URL, data.url)
                 intent.putExtra(AppConstants.PRODUCT_PRICE,data.item_price.toDouble())

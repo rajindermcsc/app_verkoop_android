@@ -24,9 +24,6 @@ interface MyService {
     @GET("categories")
     fun getCategoriesService(): Call<CategoriesResponse>
 
-    @GET("categories")
-    fun getReportList(): Call<CategoriesResponse>
-
     @GET("user/profile/{userId}")
     fun getMyProfileService(@Path(value = "userId", encoded = true) fullUrl: String): Call<MyProfileResponse>
 
@@ -45,6 +42,8 @@ interface MyService {
     @DELETE("likes/{licked_id}")
     fun disLikedApi(@Path(value = "licked_id", encoded = true) fullUrl: Int): Call<DisLikeResponse>
 
+    @GET("getReportList/{type}")
+    fun getReportList(@Path(value = "type", encoded = true) type: Int): Call<ReportListResponse>
 
     @PUT("categoryFilterData/{user_id}")
     fun categoryPostApi(@Body request: FilterRequest, @Path(value = "user_id", encoded = true) userId: String): Call<CategoryPostResponse>
@@ -172,13 +171,13 @@ interface MyService {
     fun rateUserApi(@Body request: RateUserRequest): Call<UpdateWalletResponse>
 
     @GET("bannerDetails/{userId}/{category_id}")
-    fun getBannerDetailsApi(@Path(value = "userId", encoded = true) fullUrl: String,@Path(value = "category_id", encoded = true) categoryId: String): Call<BannerDetailResponse>
+    fun getBannerDetailsApi(@Path(value = "userId", encoded = true) fullUrl: String, @Path(value = "category_id", encoded = true) categoryId: String): Call<BannerDetailResponse>
 
     @PUT("user/changePhoneNo/{user_id}")
     fun verifyMobileApi(@Path(value = "user_id", encoded = true) fullUrl: Int, @Body request: VerifyNumberRequest): Call<VerifyNumberResponse>
 
     @POST("user/mobileVerified")
-    fun verifyOtpApi( @Body request: VerifyOtpRequest): Call<VerifyNumberResponse>
+    fun verifyOtpApi(@Body request: VerifyOtpRequest): Call<VerifyNumberResponse>
 
     @GET("listRatedUserGood/{user_id}")
     fun getMyRatingGoodApi(@Path(value = "user_id", encoded = true) fullUrl: Int): Call<MyRatingResponse>
@@ -193,7 +192,7 @@ interface MyService {
     fun updateDeviceInfoApi(@Body request: UpdateDeviceInfoRequest): Call<DisLikeResponse>
 
     @PUT("user/deactivate_account")
-    fun deactivateAccount( @Body request: DeactivateAccountRequest): Call<AddItemResponse>
+    fun deactivateAccount(@Body request: DeactivateAccountRequest): Call<AddItemResponse>
 
     @Multipart
     @Headers("Accept: application/json")
@@ -307,9 +306,9 @@ interface MyService {
     @Headers("Accept: application/json")
     @POST("userPurchaseAdvertisement")
     fun uploadBannerApi(@Part files: MultipartBody.Part,
-                               @Part("user_id") userId: RequestBody,
-                               @Part("advertisement_plan_id") userName: RequestBody,
-                               @Part("category_id") categoryId: RequestBody): Call<ProfileUpdateResponse>
+                        @Part("user_id") userId: RequestBody,
+                        @Part("advertisement_plan_id") userName: RequestBody,
+                        @Part("category_id") categoryId: RequestBody): Call<ProfileUpdateResponse>
 
     @Multipart
     @Headers("Accept: application/json")
