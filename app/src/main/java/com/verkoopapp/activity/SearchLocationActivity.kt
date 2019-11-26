@@ -22,7 +22,6 @@ import com.verkoopapp.models.PlaceSearchRequest
 import com.verkoopapp.models.ResultLocation
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
-import com.verkoopapp.utils.AppConstants.GOOGLE_API_KEY
 import com.verkoopapp.utils.SelectionListener
 import com.verkoopapp.utils.Utils
 import com.verkoopapp.utils.ResumeLocationDialog
@@ -137,7 +136,7 @@ class SearchLocationActivity : AppCompatActivity(), LocationSearchAdapter.Select
 
     /*get location Api from lat long*/
     private fun getPlaceList(locationLatLon: String) {
-        val placeSearchRequest = PlaceSearchRequest(locationLatLon, "500", "", GOOGLE_API_KEY)
+        val placeSearchRequest = PlaceSearchRequest(locationLatLon, "500", "", getString(R.string.google_location_api_key))
         ServiceHelper().getPlacesService(placeSearchRequest, object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
                 VerkoopApplication.instance.loader.hide(this@SearchLocationActivity)
@@ -162,7 +161,7 @@ class SearchLocationActivity : AppCompatActivity(), LocationSearchAdapter.Select
 
     /*search location Api*/
     private fun searchItemApi() {
-        val placeSearchRequest = PlaceSearchRequest("", "", etSearchPlace.text.toString().trim(), GOOGLE_API_KEY)
+        val placeSearchRequest = PlaceSearchRequest("", "", etSearchPlace.text.toString().trim(),  getString(R.string.google_location_api_key))
         ServiceHelper().getSearchPlaceService(placeSearchRequest, object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
                 VerkoopApplication.instance.loader.hide(this@SearchLocationActivity)

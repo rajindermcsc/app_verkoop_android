@@ -28,6 +28,7 @@ import com.verkoopapp.VerkoopApplication
 import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
+import com.verkoopapp.utils.CommonUtils
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.login_activity.*
 import kotlinx.android.synthetic.main.profile_fragment.*
@@ -56,6 +57,13 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         setData()
         googleLoginSetUp()
         firebaseDeviceToken()
+//        CommonUtils.printKeyHash(this)
+       // YIoi6SUsG3ukhAjn77nu1JgKvKE=
+//        0a:d8:a0:75:f1:dc:09:98:1e:cc:05:9a:36:cc:7c:54:6f:7f:4f:0c
+//         val sha1KeyHash = byteArrayOf(0x0a.toByte(), 0xd8.toByte(), 0xa0.toByte(), 0x75.toByte(), 0xf1.toByte(), 0xdc.toByte(), 0x09.toByte(),
+//                 0x98.toByte(), 0x1e.toByte(), 0xcc.toByte(), 0x05.toByte(), 0x9a.toByte(), 0x36.toByte(),
+//                 0xcc.toByte(), 0x7c.toByte(), 0x54.toByte(), 0x6f.toByte(), 0x7f.toByte(), 0x4f.toByte(), 0x0c.toByte())
+//        println("keyHashForFacebookLogin New: " + android.util.Base64.encodeToString(sha1KeyHash, android.util.Base64.NO_WRAP))
     }
 
     private fun firebaseDeviceToken() {

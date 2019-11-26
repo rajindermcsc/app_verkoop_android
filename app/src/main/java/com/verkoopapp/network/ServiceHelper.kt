@@ -1100,8 +1100,8 @@ class ServiceHelper {
     }
 
     fun forgotPasswordService(request: ForgotPasswordRequest, onResponse: OnResponse) {
-//        val myService = ApiClient.getClient().create(MyService::class.java)
-        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
+        val myService = ApiClient.getClient().create(MyService::class.java)
+//        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.forgotPasswordApi(request)
         responseCall.enqueue(object : Callback<AddItemResponse> {
             override fun onResponse(call: Call<AddItemResponse>, response: Response<AddItemResponse>) {

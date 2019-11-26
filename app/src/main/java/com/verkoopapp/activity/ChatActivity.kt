@@ -233,7 +233,9 @@ class ChatActivity : AppCompatActivity() {
                                     user_block_id = data.getInt("user_block_id")
                                 }
                                 is_block = data.getInt("is_block")
-                                chatList.clear()
+                                if (user_block_id == null) {
+                                    chatList.clear()
+                                }
                                 try {
                                     val listdata = java.util.ArrayList<JSONObject>()
                                     try {
@@ -265,26 +267,32 @@ class ChatActivity : AppCompatActivity() {
                                         }
 
                                     }
-                                    dbHelper!!.chatHistoryInsertData(chatList)
-                                    chatAdapter.setData(chatList)
-                                    chatAdapter.notifyDataSetChanged()
-                                    rvChatList.scrollToPosition(chatList.size - 1)
-                                    setOfflineHistory()
+                                    if (user_block_id == null) {
+                                        dbHelper!!.chatHistoryInsertData(chatList)
+                                        chatAdapter.setData(chatList)
+                                        chatAdapter.notifyDataSetChanged()
+                                        rvChatList.scrollToPosition(chatList.size - 1)
+                                        setOfflineHistory()
+                                    }
 
                                     if (is_block == 1) {
                                         if (user_block_id != null) {
                                             if (user_block_id == Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()) {
-                                                etMssg.isEnabled = true
-                                                ivUpload.isEnabled = true
-                                                ivSend.isEnabled = true
-                                                etMssg.setHint(getString(R.string.enter_here))
+                                                etMssg.isEnabled = false
+                                                ivUpload.isEnabled = false
+                                                ivSend.isEnabled = false
+                                                etMssg.setHint(getString(R.string.you_cant_reply))
                                             } else {
                                                 etMssg.isEnabled = false
                                                 etMssg.setText("")
                                                 ivUpload.isEnabled = false
                                                 ivSend.isEnabled = false
-                                                etMssg.setHint(getString(R.string.you_cant_reply))
+                                                etMssg.setHint(getString(R.string.unblock_this_user))
                                             }
+                                            etMssg.isEnabled = false
+                                            ivUpload.isEnabled = false
+                                            ivSend.isEnabled = false
+                                            llViewOffer.visibility = View.GONE
                                         }
                                     } else {
                                         etMssg.isEnabled = true
@@ -720,11 +728,12 @@ class ChatActivity : AppCompatActivity() {
                         if (blockResponse.data != null) {
                             Utils.showSimpleMessage(this@ChatActivity, "This user has been blocked.").show()
                             blockedId = blockResponse.data.id
-                            etMssg.isEnabled = false
-                            etMssg.setText("")
-                            ivUpload.isEnabled = false
-                            ivSend.isEnabled = false
-                            etMssg.setHint(getString(R.string.you_cant_reply))
+//                            etMssg.isEnabled = false
+//                            etMssg.setText("")
+//                            ivUpload.isEnabled = false
+//                            ivSend.isEnabled = false
+//                            etMssg.setHint(getString(R.string.unblock_this_user))
+                            getChatHistory()
 //                            typeMenu = 1
 
                         }
@@ -747,10 +756,11 @@ class ChatActivity : AppCompatActivity() {
                         val likeResponse = response.body() as DisLikeResponse
                         Utils.showSimpleMessage(this@ChatActivity, "This user has been unblocked.").show()
                         blockedId = 0
-                        etMssg.isEnabled = true
-                        ivUpload.isEnabled = true
-                        ivSend.isEnabled = true
-                        etMssg.setHint(getString(R.string.enter_here))
+//                        etMssg.isEnabled = true
+//                        ivUpload.isEnabled = true
+//                        ivSend.isEnabled = true
+//                        etMssg.setHint(getString(R.string.enter_here))
+                        getChatHistory()
                     }
 
                     override fun onFailure(msg: String?) {
@@ -1077,32 +1087,34 @@ class ChatActivity : AppCompatActivity() {
                     Log.e("<<<Response>>>", Gson().toJson(it[0]))
                     val data = it[0] as JSONObject
                     runOnUiThread {
-                        if (data.getString("status") == "1") {
-                            runOnUiThread {
-                                saveDataToDb(data)
-                                if (data.getInt("type") == 2) {
-                                    makeOfferManage(0, 0)
+                        if (data.has("status")) {
+                            if (data.getString("status") == "1") {
+                                runOnUiThread {
+                                    saveDataToDb(data)
+                                    if (data.getInt("type") == 2) {
+                                        makeOfferManage(0, 0)
+                                    }
+                                    try {
+                                        val chatData = ChatData(data.getInt("message_id"),
+                                                data.getInt("sender_id"),
+                                                data.getInt("receiver_id"),
+                                                data.getString("message"),
+                                                data.getString("timestamp"),
+                                                data.getInt("type"),
+                                                data.getInt("item_id"),
+                                                data.getInt("chat_user_id"), 0)
+                                        chatList.add(chatData)
+                                        chatAdapter.setData(chatList)
+                                        chatAdapter.notifyDataSetChanged()
+                                        rvChatList.scrollToPosition(chatList.size - 1)
+                                        etMssg.text = null
+                                    } catch (e: JSONException) {
+                                        e.printStackTrace()
+                                    }
                                 }
-                                try {
-                                    val chatData = ChatData(data.getInt("message_id"),
-                                            data.getInt("sender_id"),
-                                            data.getInt("receiver_id"),
-                                            data.getString("message"),
-                                            data.getString("timestamp"),
-                                            data.getInt("type"),
-                                            data.getInt("item_id"),
-                                            data.getInt("chat_user_id"), 0)
-                                    chatList.add(chatData)
-                                    chatAdapter.setData(chatList)
-                                    chatAdapter.notifyDataSetChanged()
-                                    rvChatList.scrollToPosition(chatList.size - 1)
-                                    etMssg.text = null
-                                } catch (e: JSONException) {
-                                    e.printStackTrace()
-                                }
-                            }
-                        } else {
+                            } else {
 
+                            }
                         }
                     }
                 })

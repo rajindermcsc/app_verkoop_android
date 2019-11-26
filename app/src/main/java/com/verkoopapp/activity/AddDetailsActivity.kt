@@ -1134,37 +1134,40 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
     }
 
     private fun shareDialog() {
-        val shareDialog = ShareProductDialog(this, etNameDetail.text.toString(), categoryName,etPrice.text.toString(), object : SharePostListener {
-            override fun finishDialog() {
-                val intent = Intent(this@AddDetailsActivity, HomeActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-                intent.putExtra(AppConstants.TRANSACTION, 1)
-                startActivity(intent)
-            }
-
-            override fun onWhatAppClick() {
-                val installed = Utils.appInstalledOrNot(this@AddDetailsActivity, "com.whatsapp")
-                if (installed) {
-                    sharedDetails(2)/*WhatsApp Share*/
-                } else {
-                    Utils.showSimpleMessage(this@AddDetailsActivity, getString(R.string.not_installed)).show()
-
+        try {
+            val shareDialog = ShareProductDialog(this, etNameDetail.text.toString(), categoryName,etPrice.text.toString(), object : SharePostListener {
+                override fun finishDialog() {
+                    val intent = Intent(this@AddDetailsActivity, HomeActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                    intent.putExtra(AppConstants.TRANSACTION, 1)
+                    startActivity(intent)
                 }
-//                Utils.showToast(this@AddDetailsActivity, "whatApp")
-            }
 
-            override fun onFacebookClick() {
-                sharedDetails(1)/*facebook Share*/
-//                Utils.showToast(this@AddDetailsActivity, "facebook")
-            }
+                override fun onWhatAppClick() {
+                    val installed = Utils.appInstalledOrNot(this@AddDetailsActivity, "com.whatsapp")
+                    if (installed) {
+                        sharedDetails(2)/*WhatsApp Share*/
+                    } else {
+                        Utils.showSimpleMessage(this@AddDetailsActivity, getString(R.string.not_installed)).show()
 
-            override fun onShareClick() {
-                sharedDetails(0)/*open Share*/
-//                Utils.showToast(this@AddDetailsActivity, "share")
-            }
+                    }
+    //                Utils.showToast(this@AddDetailsActivity, "whatApp")
+                }
 
-        })
-        shareDialog.show()
+                override fun onFacebookClick() {
+                    sharedDetails(1)/*facebook Share*/
+    //                Utils.showToast(this@AddDetailsActivity, "facebook")
+                }
+
+                override fun onShareClick() {
+                    sharedDetails(0)/*open Share*/
+    //                Utils.showToast(this@AddDetailsActivity, "share")
+                }
+
+            })
+            shareDialog.show()
+        } catch (e: Exception) {
+        }
     }
 
     private fun sharedDetails(type: Int) {
@@ -1526,8 +1529,10 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 return bmp
             }
 
-            override fun onPostExecute(aVoid: Bitmap) {
-                super.onPostExecute(aVoid)
+            override fun onPostExecute(aVoid: Bitmap?) {
+                if(aVoid!=null){
+                    super.onPostExecute(aVoid)
+                }
                 if (imageCount == selectedImageList.size - 2) {
                     //   pbProgress.setVisibility(View.GONE)
                     imageCount = 0
@@ -1817,7 +1822,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 null)
 
         visionBuilder.setVisionRequestInitializer(
-                VisionRequestInitializer("AIzaSyDjTWXzAS6IvhCf7bscIyKYZXOUKsy4Tms"))
+                VisionRequestInitializer(getString(R.string.google_vision_api_key)))
 
         vision = visionBuilder.build()
     }

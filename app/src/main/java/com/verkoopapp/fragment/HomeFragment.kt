@@ -448,7 +448,7 @@ class HomeFragment : BaseFragment() {
                 null)
 
         visionBuilder.setVisionRequestInitializer(
-                VisionRequestInitializer("AIzaSyDjTWXzAS6IvhCf7bscIyKYZXOUKsy4Tms"))
+                VisionRequestInitializer(getString(R.string.google_vision_api_key)))
 
         vision = visionBuilder.build()
     }

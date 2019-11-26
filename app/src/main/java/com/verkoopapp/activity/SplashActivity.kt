@@ -49,6 +49,8 @@ class SplashActivity : AppCompatActivity() {
                         type=3
                     } else if(typeNoti == 7){
                         type =4
+                    } else if(typeNoti == 8){
+                        type = 5
                     }
                 }
             }

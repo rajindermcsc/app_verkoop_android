@@ -383,6 +383,9 @@
     <string name="progressMessage"><![CDATA[Creating Token...]]></string>
     <string name="endingIn">Card ending in</string>
     <string name="you_cant_reply">You can\'t reply this conservation anymore</string>
+    <string name="unblock_this_user">Unblock this user to reply this conservation</string>
+    <string name="google_location_api_key">AIzaSyBkQ-B8gjSX7O2A0qsAmUJtrQFqe2i0svc</string>
+    <string name="google_vision_api_key">AIzaSyDjTWXzAS6IvhCf7bscIyKYZXOUKsy4Tms</string>
 
 
 </resources>

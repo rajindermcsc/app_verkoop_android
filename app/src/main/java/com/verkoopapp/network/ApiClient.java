@@ -43,8 +43,8 @@ public class ApiClient {
 
         return new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
-                .connectTimeout(50000, TimeUnit.SECONDS)
-                .readTimeout(50000, TimeUnit.SECONDS)
+                .connectTimeout(500000, TimeUnit.SECONDS)
+                .readTimeout(500000, TimeUnit.SECONDS)
                 .build();
     }
 
@@ -89,8 +89,8 @@ public class ApiClient {
                 }
             });
             builder.addInterceptor(interceptor)
-                    .connectTimeout(50000, TimeUnit.SECONDS)
-                    .readTimeout(50000, TimeUnit.SECONDS)
+                    .connectTimeout(500000, TimeUnit.SECONDS)
+                    .readTimeout(500000, TimeUnit.SECONDS)
                     .build();
             return builder;
         } catch (Exception e) {
