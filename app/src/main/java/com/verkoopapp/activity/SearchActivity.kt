@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
@@ -26,6 +27,7 @@ import kotlinx.android.synthetic.main.toolbar_search_user.*
 import retrofit2.Response
 
 class SearchActivity : AppCompatActivity() {
+    private val TAG = SearchActivity::class.java.simpleName
     private lateinit var searchListAdapter: SearchListAdapter
     private lateinit var searchVisionDataListAdapter: SearchVisionDataListAdapter
     private lateinit var searchByUserAdapter: SearchByUserAdapter
@@ -124,6 +126,7 @@ class SearchActivity : AppCompatActivity() {
 
     private fun setData() {
         iv_left.setOnClickListener { onBackPressed() }
+        Log.e(TAG, "setData: ")
         ll_search.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
             intent.putExtra(AppConstants.COMING_FROM, 1)
@@ -135,6 +138,13 @@ class SearchActivity : AppCompatActivity() {
                     if (!TextUtils.isEmpty(etSearchHeader.text.toString())) {
                         if (Utils.isOnline(this)) {
                             searchByUserNameApi(etSearchHeader.text.toString())
+                            iv_left.setOnClickListener { onBackPressed() }
+                            Log.e(TAG, "setData: ")
+                            ll_search.setOnClickListener {
+                                val intent = Intent(this, SearchActivity::class.java)
+                                intent.putExtra(AppConstants.COMING_FROM, 1)
+                                startActivity(intent)
+                            }
                             KeyboardUtil.hideKeyboard(this)
                         } else {
                             Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()

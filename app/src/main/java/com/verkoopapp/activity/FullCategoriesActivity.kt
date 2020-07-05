@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.StaggeredGridLayoutManager
+import android.util.Log
 import android.view.View
 import com.verkoopapp.R
 import com.verkoopapp.adapter.FullCategoryAdapter
 import com.verkoopapp.adapter.SubCategoryAdapter
+import com.verkoopapp.fragment.HomeFragment
 import com.verkoopapp.models.CategoriesResponse
 import com.verkoopapp.models.DataCategory
 import com.verkoopapp.network.ServiceHelper
@@ -21,8 +23,9 @@ import retrofit2.Response
 import java.util.*
 
 class FullCategoriesActivity : AppCompatActivity(), FullCategoryAdapter.SelectedCategory, SubCategoryAdapter.SelectedSubcategory {
+    val TAG = FullCategoriesActivity::class.java.simpleName.toString()
 
-    override fun subCategoryName(subCategoryId: Int, subCategoryName: String,categoryId:Int) {
+    override fun subCategoryName(subCategoryId: Int, subCategoryName: String, categoryId: Int) {
         when (categoryId) {
             85 -> {
                 val intent = Intent(this, BuyCarsActivity::class.java)
@@ -34,6 +37,9 @@ class FullCategoriesActivity : AppCompatActivity(), FullCategoryAdapter.Selected
             }
             else -> {
                 val intent = Intent(this, CategoryDetailsActivity::class.java)
+                Log.e(TAG, "subCategoryName: "+categoryId)
+                Log.e(TAG, "subCategoryName: "+subCategoryName)
+//                Log.e(TAG, "subCategoryName: "+categoryId)
                 intent.putExtra(AppConstants.CATEGORY_ID, categoryId)
                 intent.putExtra(AppConstants.SUB_CATEGORY, subCategoryName)
                 intent.putExtra(AppConstants.TYPE, 1)
@@ -54,6 +60,8 @@ class FullCategoriesActivity : AppCompatActivity(), FullCategoryAdapter.Selected
             }
             else -> {
                 val intent = Intent(this, CategoryDetailsActivity::class.java)
+                Log.e(TAG, "CategoryName: "+categoryId)
+                Log.e(TAG, "CategoryName: "+categoryName)
                 intent.putExtra(AppConstants.CATEGORY_ID, categoryId)
                 intent.putExtra(AppConstants.SUB_CATEGORY, categoryName)
                 intent.putExtra(AppConstants.TYPE, 0)

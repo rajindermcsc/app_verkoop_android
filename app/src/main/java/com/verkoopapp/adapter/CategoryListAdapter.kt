@@ -10,10 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import com.verkoopapp.R
-import com.verkoopapp.activity.BuyCarsActivity
-import com.verkoopapp.activity.BuyPropertiesActivity
-import com.verkoopapp.activity.CategoryDetailsActivity
-import com.verkoopapp.activity.HomeActivity
+import com.verkoopapp.activity.*
 import com.verkoopapp.models.Category
 import com.verkoopapp.utils.AppConstants
 import kotlinx.android.extensions.LayoutContainer
@@ -22,6 +19,7 @@ import kotlinx.android.synthetic.main.my_profile_details_row.*
 
 
 class CategoryListAdapter(private val context: HomeActivity, private var categoryList: ArrayList<Category>, private val rvCategoryHome: Int): RecyclerView.Adapter<CategoryListAdapter.ViewHolder>() {
+    val TAG = CategoryListAdapter::class.java.simpleName.toString()
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = mInflater.inflate(R.layout.category_home_row, parent, false)
@@ -70,6 +68,8 @@ class CategoryListAdapter(private val context: HomeActivity, private var categor
                     }
                     else -> {
                         val intent = Intent(context, CategoryDetailsActivity::class.java)
+                        Log.e(TAG, "CategoryName: "+data.id)
+                        Log.e(TAG, "CategoryName: "+data.name)
                         intent.putExtra(AppConstants.CATEGORY_ID, data.id)
                         intent.putExtra(AppConstants.TYPE, 0)
                         intent.putExtra(AppConstants.SUB_CATEGORY, data.name)
