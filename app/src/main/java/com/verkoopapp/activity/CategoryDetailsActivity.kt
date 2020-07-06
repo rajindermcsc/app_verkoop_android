@@ -265,17 +265,25 @@ class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterC
                         val categoryPostResponse = response.body() as CategoryPostResponse
                         Log.e(TAG, "categoryPostResponse: "+categoryPostResponse)
                         if (categoryPostResponse.data.subCategoryList.size > 0) {
+                            Log.e(TAG, "onSuccess@1: ")
+                            scroll_view_category_detail.visibility = View.VISIBLE
                             setSubcategoryData(categoryPostResponse.data.subCategoryList)
                         }
-                        else if(categoryPostResponse.data.subCategoryList.size == 0){
-                            scroll_view_category_detail.visibility = View.GONE
-                            tvMssgData.visibility = View.VISIBLE
-                        }
                         if (categoryPostResponse.data.items.size > 0) {
+                            Log.e(TAG, "onSuccess@2: ")
+                            scroll_view_category_detail.visibility = View.VISIBLE
                             itemsList = categoryPostResponse.data.items
                             itemAdapter.setData(itemsList)
                             itemAdapter.notifyDataSetChanged()
-                        } else {
+                        }
+                        else if(categoryPostResponse.data.subCategoryList.size == 0
+                                && categoryPostResponse.data.items.size == 0){
+                            Log.e(TAG, "onSuccess@3: ")
+                            scroll_view_category_detail.visibility = View.GONE
+                            tvMssgData.visibility = View.VISIBLE
+                        }
+                        else {
+                            Log.e(TAG, "onSuccess@4: ")
                             itemsList.clear()
                             itemAdapter.notifyDataSetChanged()
                         }

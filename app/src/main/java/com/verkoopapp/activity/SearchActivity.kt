@@ -134,26 +134,44 @@ class SearchActivity : AppCompatActivity() {
         }
         etSearchHeader.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                Log.e(TAG, "setDatacomingFrom: "+comingFrom)
+//                val intent = Intent(this, SearchActivity::class.java)
+//                intent.putExtra(AppConstants.COMING_FROM, 1)
+//                startActivity(intent)
                 if (comingFrom == 1) {
+
                     if (!TextUtils.isEmpty(etSearchHeader.text.toString())) {
                         if (Utils.isOnline(this)) {
                             searchByUserNameApi(etSearchHeader.text.toString())
-                            iv_left.setOnClickListener { onBackPressed() }
-                            Log.e(TAG, "setData: ")
-                            ll_search.setOnClickListener {
-                                val intent = Intent(this, SearchActivity::class.java)
-                                intent.putExtra(AppConstants.COMING_FROM, 1)
-                                startActivity(intent)
-                            }
                             KeyboardUtil.hideKeyboard(this)
                         } else {
                             Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
                         }
                     }
                 }
+                if (comingFrom == 0) {
+                    Log.e(TAG, "setDatazero: ")
+                    if (Utils.isOnline(this@SearchActivity)) {
+                        Log.e(TAG, "setDatazero@: ")
+                        if (!TextUtils.isEmpty(etSearchHeader.text.toString())) {
+                            Log.e(TAG, "setDatazero@@: ")
+                            callSearchApi(etSearchHeader.text.toString())
+                        }/*else{
+                        searchItemList.clear()
+                        searchListAdapter.setData(searchItemList)
+                        searchListAdapter.notifyDataSetChanged()
+                    }*/
+                    } else {
+                        Utils.showSimpleMessage(this@SearchActivity, getString(R.string.check_internet)).show()
+                    }
+                } else {
+                    tvDemoText.visibility = View.GONE
+                }
                 true
             } else false
         }
+
+
         etSearchHeader.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
 
@@ -206,6 +224,7 @@ class SearchActivity : AppCompatActivity() {
                     override fun onSuccess(response: Response<*>) {
                         pbProgressSearch.visibility = View.GONE
                         val searchItemResponse = response.body() as SearchByUserResponse?
+                        Log.e(TAG, "onSuccesssearchItemResponse: "+searchItemResponse)
                         if (searchItemResponse != null) {
                             searchByUserList.clear()
                             searchByUserList.addAll(searchItemResponse.data)
