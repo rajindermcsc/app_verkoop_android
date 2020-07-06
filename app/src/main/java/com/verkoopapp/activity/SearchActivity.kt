@@ -135,9 +135,12 @@ class SearchActivity : AppCompatActivity() {
         etSearchHeader.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 Log.e(TAG, "setDatacomingFrom: "+comingFrom)
-//                val intent = Intent(this, SearchActivity::class.java)
-//                intent.putExtra(AppConstants.COMING_FROM, 1)
-//                startActivity(intent)
+                val intent = Intent(this, CategoryDetailsActivity::class.java)
+
+                intent.putExtra(AppConstants.CATEGORY_ID, "")
+                intent.putExtra(AppConstants.SUB_CATEGORY, etSearchHeader.text.toString())
+                intent.putExtra(AppConstants.TYPE, 0)
+                startActivityForResult(intent, 2)
                 if (comingFrom == 1) {
 
                     if (!TextUtils.isEmpty(etSearchHeader.text.toString())) {
@@ -149,24 +152,7 @@ class SearchActivity : AppCompatActivity() {
                         }
                     }
                 }
-                if (comingFrom == 0) {
-                    Log.e(TAG, "setDatazero: ")
-                    if (Utils.isOnline(this@SearchActivity)) {
-                        Log.e(TAG, "setDatazero@: ")
-                        if (!TextUtils.isEmpty(etSearchHeader.text.toString())) {
-                            Log.e(TAG, "setDatazero@@: ")
-                            callSearchApi(etSearchHeader.text.toString())
-                        }/*else{
-                        searchItemList.clear()
-                        searchListAdapter.setData(searchItemList)
-                        searchListAdapter.notifyDataSetChanged()
-                    }*/
-                    } else {
-                        Utils.showSimpleMessage(this@SearchActivity, getString(R.string.check_internet)).show()
-                    }
-                } else {
-                    tvDemoText.visibility = View.GONE
-                }
+
                 true
             } else false
         }

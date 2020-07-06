@@ -295,7 +295,6 @@ class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterC
                         Utils.showSimpleMessage(this@CategoryDetailsActivity, msg!!).show()
                     }
                 })
-
     }
 
 //    @Subscribe
