@@ -9,6 +9,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.View
 import com.verkoopapp.R
 import com.verkoopapp.adapter.DetailSubCategoryAdapter
@@ -28,7 +29,9 @@ import org.greenrobot.eventbus.Subscribe
 import retrofit2.Response
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
+
 class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterCallBack {
+    val TAG = CategoryDetailsActivity::class.java.simpleName.toString()
     private var isClicked: Boolean = false
     private lateinit var itemAdapter: ItemAdapter
     private lateinit var filterAdapter: FilterAdapter
@@ -246,9 +249,11 @@ class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterC
 
     private fun getDetailsApi(request: FilterRequest) {
         pvProgressDetail.visibility = View.VISIBLE
+
         ServiceHelper().categoryPostService(request,
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
+                        Log.e(TAG, "onSuccess: "+response)
                         itemsList.clear()
                         pvProgressDetail.visibility = View.GONE
 
@@ -258,8 +263,13 @@ class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterC
                             }
                         }
                         val categoryPostResponse = response.body() as CategoryPostResponse
+                        Log.e(TAG, "categoryPostResponse: "+categoryPostResponse)
                         if (categoryPostResponse.data.subCategoryList.size > 0) {
                             setSubcategoryData(categoryPostResponse.data.subCategoryList)
+                        }
+                        else if(categoryPostResponse.data.subCategoryList.size == 0){
+                            scroll_view_category_detail.visibility = View.GONE
+                            tvMssgData.visibility = View.VISIBLE
                         }
                         if (categoryPostResponse.data.items.size > 0) {
                             itemsList = categoryPostResponse.data.items
@@ -280,30 +290,30 @@ class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterC
 
     }
 
-    @Subscribe
-    fun MessageEventOnLikeCategory(event: MessageEventOnLikeCategory) {
-        fromLikeEvent = true
-        comingFrom = event.comingFrom
-        positionFromLikeEvent = event.position
-        if (Utils.isOnline(this@CategoryDetailsActivity)) {
-            if (typeForEventBus == 1) {
-                llParent.visibility = View.GONE
-                filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), typeForEventBus, Utils.getPreferencesString(this, AppConstants.USER_ID), "2", "", "", "", "", "", "", intent.getIntExtra(AppConstants.ITEM_ID, 0))
-                getDetailsApi(filterRequest!!)
-
-            } else {
-                tvCategorySelected.text = intent.getStringExtra(AppConstants.SUB_CATEGORY)
-                llParent.visibility = View.VISIBLE
-                filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), typeForEventBus, Utils.getPreferencesString(this, AppConstants.USER_ID), "2", "", "", "", "", "", "")
-                getDetailsApi(filterRequest!!)
-            }
-        } else {
-            Utils.showSimpleMessage(this@CategoryDetailsActivity, getString(R.string.check_internet)).show()
-        }
-        Handler().postDelayed(Runnable {
-            fromLikeEvent = false
-        }, 2500)
-    }
+//    @Subscribe
+//    fun MessageEventOnLikeCategory(event: MessageEventOnLikeCategory) {
+//        fromLikeEvent = true
+//        comingFrom = event.comingFrom
+//        positionFromLikeEvent = event.position
+//        if (Utils.isOnline(this@CategoryDetailsActivity)) {
+//            if (typeForEventBus == 1) {
+//                llParent.visibility = View.GONE
+//                filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), typeForEventBus, Utils.getPreferencesString(this, AppConstants.USER_ID), "2", "", "", "", "", "", "", intent.getIntExtra(AppConstants.ITEM_ID, 0))
+//                getDetailsApi(filterRequest!!)
+//
+//            } else {
+//                tvCategorySelected.text = intent.getStringExtra(AppConstants.SUB_CATEGORY)
+//                llParent.visibility = View.VISIBLE
+//                filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), typeForEventBus, Utils.getPreferencesString(this, AppConstants.USER_ID), "2", "", "", "", "", "", "")
+//                getDetailsApi(filterRequest!!)
+//            }
+//        } else {
+//            Utils.showSimpleMessage(this@CategoryDetailsActivity, getString(R.string.check_internet)).show()
+//        }
+//        Handler().postDelayed(Runnable {
+//            fromLikeEvent = false
+//        }, 2500)
+//    }
 
     override fun onStart() {
         super.onStart()
