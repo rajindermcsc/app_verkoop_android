@@ -252,8 +252,9 @@ class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterC
 
         ServiceHelper().categoryPostService(request,
                 object : ServiceHelper.OnResponse {
+
                     override fun onSuccess(response: Response<*>) {
-                        Log.e(TAG, "onSuccess: "+response)
+                        Log.e(TAG, "onSuccess: "+response.raw().request().url())
                         itemsList.clear()
                         pvProgressDetail.visibility = View.GONE
 
@@ -291,6 +292,7 @@ class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterC
                     }
 
                     override fun onFailure(msg: String?) {
+                        Log.e(TAG, "onFailure: "+msg)
                         pvProgressDetail.visibility = View.GONE
                         Utils.showSimpleMessage(this@CategoryDetailsActivity, msg!!).show()
                     }

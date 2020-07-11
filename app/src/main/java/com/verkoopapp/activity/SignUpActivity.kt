@@ -1,31 +1,35 @@
 package com.verkoopapp.activity
 
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.graphics.Typeface
 import android.os.Bundle
+import android.support.v4.app.FragmentActivity
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import android.text.Editable
-import android.text.TextUtils
-import android.text.TextWatcher
+import android.text.*
+import android.util.Base64
+import android.util.Log
+import com.google.firebase.iid.FirebaseInstanceId
 import com.verkoopapp.R
 import com.verkoopapp.VerkoopApplication
+import com.verkoopapp.models.DisLikeResponse
 import com.verkoopapp.models.SignUpRequest
 import com.verkoopapp.models.SignUpResponse
+import com.verkoopapp.models.UpdateDeviceInfoRequest
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.signup_activity.*
 import retrofit2.Response
-import android.text.InputFilter
-import android.text.Spanned
-import android.util.Log
-import com.google.firebase.iid.FirebaseInstanceId
-import com.verkoopapp.models.DisLikeResponse
-import com.verkoopapp.models.UpdateDeviceInfoRequest
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 
 
 class SignUpActivity : AppCompatActivity() {
+    val TAG = SignUpActivity::class.java.simpleName.toString()
     private var id = 0
     private var type = 0
     private var deviceId: String = ""
@@ -34,6 +38,7 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(R.layout.signup_activity)
         type = intent.getIntExtra(AppConstants.TYPE, 0)
         id = intent.getIntExtra(AppConstants.ID, 0)
+        printHashKey(applicationContext)
         setData()
         ccp.setCountryForPhoneCode(1)
         firebaseDeviceToken()
@@ -43,6 +48,22 @@ class SignUpActivity : AppCompatActivity() {
         FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
             deviceId = it.token
             Log.e("newToken", deviceId)
+        }
+    }
+
+    fun printHashKey(pContext: Context) {
+        try {
+            val info: PackageInfo = pContext.getPackageManager().getPackageInfo(pContext.getPackageName(), PackageManager.GET_SIGNATURES)
+            for (signature in info.signatures) {
+                val md: MessageDigest = MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                val hashKey = String(Base64.encode(md.digest(), 0))
+                Log.e(TAG, "printHashKey() Hash Key: $hashKey")
+            }
+        } catch (e: NoSuchAlgorithmException) {
+            Log.e(TAG, "printHashKey()", e)
+        } catch (e: java.lang.Exception) {
+            Log.e(TAG, "printHashKey()", e)
         }
     }
 

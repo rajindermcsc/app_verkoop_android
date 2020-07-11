@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/StudioProjects-app_verkoop.iml" filepath="$PROJECT_DIR$/.idea/modules/StudioProjects-app_verkoop.iml" group="app_verkoop" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/StudioProjects-app_verkoop-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/StudioProjects-app_verkoop-app.iml" group="app_verkoop/app" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="verkoop_app/app" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app_verkoop.iml" filepath="$PROJECT_DIR$/.idea/modules/app_verkoop.iml" group="app_verkoop" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app_verkoop-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app_verkoop-app.iml" group="app_verkoop/app" />

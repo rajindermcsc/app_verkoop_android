@@ -45,7 +45,7 @@ interface MyService {
     @GET("getReportList/{type}")
     fun getReportList(@Path(value = "type", encoded = true) type: Int): Call<ReportListResponse>
 
-    @PUT("categoryFilterData/{user_id}")
+    @POST("categoryFilterData/{user_id}")
     fun categoryPostApi(@Body request: FilterRequest, @Path(value = "user_id", encoded = true) userId: String): Call<CategoryPostResponse>
 
     @POST("user/selectedUserCategroy")

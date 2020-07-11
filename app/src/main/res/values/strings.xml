@@ -4,8 +4,9 @@
     <string name="login">LOGIN</string>
     <string name="email">Email</string>
 <!--    <string name="facebook_app_id">257402935133665</string>-->
-    <string name="facebook_app_id">773418396427195</string>
-    <string name="fb_login_protocol_scheme">fb257402935133665</string>
+    <string name="facebook_app_id">984566338553455</string>
+    <string name="fb_login_protocol_scheme">fb984566338553455</string>
+
 
     <string name="password">Password</string>
     <string name="forgot_password">Forgot Password?</string>

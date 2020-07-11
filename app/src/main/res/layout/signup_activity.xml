@@ -68,7 +68,7 @@
                         android:imeOptions="actionNext"
                         android:textCursorDrawable="@drawable/cursor_shape"
                         android:inputType="text"
-                        android:maxLength="80"
+                        android:maxLength="20"
                         android:maxLines="1"
                         android:minLines="1"
                         android:padding="@dimen/dp_8"
