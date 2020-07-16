@@ -13,6 +13,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.row_search_item.*
 import com.verkoopapp.activity.SearchActivity
 import com.verkoopapp.utils.AppConstants
+import kotlinx.android.synthetic.main.toolbar_search_user.*
 
 
 open class SearchListAdapter(private val context:Context):RecyclerView.Adapter<RecyclerView.ViewHolder>(){
@@ -43,6 +44,7 @@ open class SearchListAdapter(private val context:Context):RecyclerView.Adapter<R
                 intent.putExtra(AppConstants.CATEGORY_ID, modal.category_id)
                 intent.putExtra(AppConstants.ITEM_ID, modal.id)
                 intent.putExtra(AppConstants.SUB_CATEGORY, modal.category.name)
+                intent.putExtra(AppConstants.Search, "")
                 if(modal.category.parent_id>0) {
                     intent.putExtra(AppConstants.TYPE, 1)
                 }

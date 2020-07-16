@@ -52,20 +52,20 @@ class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterC
     override fun removeFilter(remove: String, position: Int) {
         when {
             remove.equals("Condition :", ignoreCase = true) -> {
-                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, filterRequest!!.sort_no, filterRequest!!.latitude, filterRequest!!.longitude, "", filterRequest!!.meet_up, filterRequest!!.min_price, filterRequest!!.max_price)
+                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, filterRequest!!.sort_no, filterRequest!!.latitude, filterRequest!!.longitude, "", filterRequest!!.meet_up, filterRequest!!.min_price, filterRequest!!.max_price, filterRequest!!.search)
                 getDetailsApi(filterRequest!!)
                 filterList.removeAt(position)
                 filterAdapter.notifyDataSetChanged()
 
             }
             remove.equals("Deal Option :", ignoreCase = true) -> {
-                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, filterRequest!!.sort_no, filterRequest!!.latitude, filterRequest!!.longitude, filterRequest!!.item_type, "", filterRequest!!.min_price, filterRequest!!.max_price)
+                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, filterRequest!!.sort_no, filterRequest!!.latitude, filterRequest!!.longitude, filterRequest!!.item_type, "", filterRequest!!.min_price, filterRequest!!.max_price, filterRequest!!.search)
                 getDetailsApi(filterRequest!!)
                 filterList.removeAt(position)
                 filterAdapter.notifyDataSetChanged()
             }
             remove.equals("Price :", ignoreCase = true) -> {
-                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, filterRequest!!.sort_no, filterRequest!!.latitude, filterRequest!!.longitude, filterRequest!!.item_type, filterRequest!!.meet_up, "", "")
+                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, filterRequest!!.sort_no, filterRequest!!.latitude, filterRequest!!.longitude, filterRequest!!.item_type, filterRequest!!.meet_up, "", "", filterRequest!!.search)
                 getDetailsApi(filterRequest!!)
                 filterList.removeAt(position)
                 filterAdapter.notifyDataSetChanged()
@@ -108,7 +108,12 @@ class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterC
         }
         val type = intent.getIntExtra(AppConstants.TYPE, 0)
         typeForEventBus = type
-        toolbar_title_.text = intent.getStringExtra(AppConstants.SUB_CATEGORY)
+        if (intent.getStringExtra(AppConstants.SUB_CATEGORY).isEmpty()){
+            toolbar_title_.text = intent.getStringExtra(AppConstants.Search)
+        }
+        else {
+            toolbar_title_.text = intent.getStringExtra(AppConstants.SUB_CATEGORY)
+        }
         toolbar_title_.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
             intent.putExtra(AppConstants.CATEGORY_NAME, toolbar_title_.text.toString())
@@ -116,13 +121,13 @@ class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterC
         }
         if (type == 1) {
             llParent.visibility = View.GONE
-            filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID), "2", "", "", "", "", "", "", intent.getIntExtra(AppConstants.ITEM_ID, 0))
+            filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID), "2", "", "", "", "", "", "", intent.getStringExtra(AppConstants.Search)?: "",intent.getIntExtra(AppConstants.ITEM_ID, 0))
             getDetailsApi(filterRequest!!)
 
         } else {
             tvCategorySelected.text = intent.getStringExtra(AppConstants.SUB_CATEGORY)
             llParent.visibility = View.VISIBLE
-            filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID), "2", "", "", "", "", "", "")
+            filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID), "2", "", "", "", "", "", "",intent.getStringExtra(AppConstants.Search)?: "")
             getDetailsApi(filterRequest!!)
         }
         iv_left_detail.setOnClickListener { onBackPressed() }

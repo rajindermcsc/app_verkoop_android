@@ -738,7 +738,8 @@ data class DataSearch(
         val category_id: Int,
         val name: String,
         val category_name: String,
-        val category: CategorySearch
+        val category: CategorySearch,
+        val search: String
 )
 
 data class CategorySearch(

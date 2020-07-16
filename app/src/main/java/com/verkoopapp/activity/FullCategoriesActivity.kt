@@ -43,6 +43,7 @@ class FullCategoriesActivity : AppCompatActivity(), FullCategoryAdapter.Selected
                 intent.putExtra(AppConstants.CATEGORY_ID, categoryId)
                 intent.putExtra(AppConstants.SUB_CATEGORY, subCategoryName)
                 intent.putExtra(AppConstants.TYPE, 1)
+                intent.putExtra(AppConstants.Search, "")
                 startActivityForResult(intent, 2)
             }
         }
@@ -65,6 +66,7 @@ class FullCategoriesActivity : AppCompatActivity(), FullCategoryAdapter.Selected
                 intent.putExtra(AppConstants.CATEGORY_ID, categoryId)
                 intent.putExtra(AppConstants.SUB_CATEGORY, categoryName)
                 intent.putExtra(AppConstants.TYPE, 0)
+                intent.putExtra(AppConstants.Search, "")
                 startActivityForResult(intent, 2)
             }
         }

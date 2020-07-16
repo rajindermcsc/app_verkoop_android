@@ -138,8 +138,9 @@ class SearchActivity : AppCompatActivity() {
                 val intent = Intent(this, CategoryDetailsActivity::class.java)
 
                 intent.putExtra(AppConstants.CATEGORY_ID, "")
-                intent.putExtra(AppConstants.SUB_CATEGORY, etSearchHeader.text.toString())
-                intent.putExtra(AppConstants.TYPE, 0)
+                intent.putExtra(AppConstants.SUB_CATEGORY, "")
+                intent.putExtra(AppConstants.TYPE, "")
+                intent.putExtra(AppConstants.Search, etSearchHeader.editableText.toString())
                 startActivityForResult(intent, 2)
                 if (comingFrom == 1) {
 

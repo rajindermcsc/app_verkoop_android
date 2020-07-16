@@ -4,6 +4,7 @@ import android.os.Build
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import com.github.nkzawa.emitter.Emitter
 
 abstract class BaseActivity : AppCompatActivity() {
     private var lastFragmentName = ""
@@ -146,5 +147,5 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-   // abstract val newMessage: Emitter.Listener?
+    abstract val newMessage: Emitter.Listener?
 }

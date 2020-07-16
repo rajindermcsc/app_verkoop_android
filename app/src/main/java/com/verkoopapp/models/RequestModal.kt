@@ -152,7 +152,8 @@ data class LickedRequest(
 data class CategoryPostRequest(
         val category_id: String,
         val type: Int,
-        val userId: String
+        val userId: String,
+        val name: String
 )
 
 data class UpdateCategoryRequest(
@@ -172,6 +173,7 @@ data class FilterRequest(
         val meet_up: String,
         val min_price: String,
         val max_price: String,
+        val search: String,
         val item_id: Int = 0
 ) : Parcelable
 

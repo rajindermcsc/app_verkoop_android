@@ -74,8 +74,10 @@ class VerkoopApplication : Application() {
 
         fun getAppSocket(): Socket? {
             return if (instance.socket != null) {
+                Log.e("TAG", "getAppSocketnotnull: ")
                 instance.socket
             } else {
+                Log.e("TAG", "getAppSocketnull: ")
                 instance.initSocket()
                 instance.socket
             }
@@ -84,7 +86,9 @@ class VerkoopApplication : Application() {
 
     private fun initSocket() {
         if (socket != null ) {
+            Log.e("TAG", "initSocketifconned: "+socket.connected())
             socket.on(Socket.EVENT_CONNECT) { _ ->
+                Log.e("TAG", "initSocketifconned: "+socket.connected())
                         Log.e("<<<<<SOCKET>>>>>", "CONNECTED")
                         /* Socket Init */
                /* socket.emit(AppConstants.INIT_USER_ID, getObj(), Ack {
@@ -104,6 +108,7 @@ class VerkoopApplication : Application() {
                     }
             socket.connect()
         }
+
     }
 
 

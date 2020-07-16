@@ -18,6 +18,7 @@ object AppConstants{
      const val SELECTED_LIST = "selected_list"
      const val CATEGORY_NAME = "category_name"
      const val CATEGORY_ID = "category_id"
+     const val Search = "search"
      const val SUB_CATEGORY_ID = "SUB_CATEGORY_ID"
      const val TRANSACTION = "transaction"
      const val ADDRESS = "ADDRESS"

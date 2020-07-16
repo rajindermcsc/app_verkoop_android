@@ -57,7 +57,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class ChatActivity : AppCompatActivity() {
-    private val socket: Socket? = VerkoopApplication.getAppSocket()
+    val TAG = ChatActivity::class.java.simpleName.toString()
+    private val socket: Socket? = com.github.nkzawa.socketio.client.IO.socket(AppConstants.SOCKET_URL)
+//    private val socket: Socket? = VerkoopApplication.getAppSocket()
     private var powerMenu: PowerMenu? = null
     private var senderId = 0
     private var itemId = 0
@@ -91,6 +93,8 @@ class ChatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.chat_activity)
+        socket?.open()
+        socket?.connect()
         senderId = intent.getIntExtra(AppConstants.USER_ID, 0)/*Receiver id*/
         itemId = intent.getIntExtra(AppConstants.ITEM_ID, 0)
         categoryId = intent.getIntExtra(AppConstants.CATEGORY_ID, 0)
@@ -108,6 +112,7 @@ class ChatActivity : AppCompatActivity() {
 //        user_block_id = intent.getIntExtra(AppConstants.USER_BLOCK_ID, 0)
 //        blockedId = intent.getIntExtra(AppConstants.BLOCK_ID, 0)
 
+
         if (socket!!.connected()) {
             directChat()
         }
@@ -120,7 +125,7 @@ class ChatActivity : AppCompatActivity() {
             llViewOffer.visibility = View.GONE
         }
         dbHelper = DbHelper()
-        initKeyBoardListener()
+//        initKeyBoardListener()
         setData()
         setAdapter()
         if (Utils.isOnline(this)) {
@@ -135,6 +140,23 @@ class ChatActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun onResume() {
+        super.onResume()
+        socket?.io(AppConstants.SOCKET_URL)
+        socket?.open()
+        socket?.connect()
+
+    }
+
+
+
+//    override fun onPause() {
+//        super.onPause()
+//        socket?.disconnect()
+//    }
+
+
 
     private fun getReportList() {
         VerkoopApplication.instance.loader.show(this)
@@ -426,14 +448,21 @@ class ChatActivity : AppCompatActivity() {
             startActivity(intent)
         }
         ivSend.setOnClickListener {
-            if (!TextUtils.isEmpty(etMssg.text.toString().trim())) {
-                if (socket!!.connected()) {
-                    sendMssgEvent(etMssg.text.toString().trim(), 0)
+            try {
+
+                if (!TextUtils.isEmpty(etMssg.text.toString().trim())) {
+//                    if (socket!!.connected()) {
+                        sendMssgEvent(etMssg.text.toString().trim(), 0)
+//                    }
+//                    else {
+//                        Utils.showSimpleMessage(this, "Socket Disconnected.").show()
+//                    }
                 } else {
-                    Utils.showSimpleMessage(this, "Socket Disconnected.").show()
+                    Utils.showSimpleMessage(this, getString(R.string.enter_mssg)).show()
                 }
-            } else {
-                Utils.showSimpleMessage(this, getString(R.string.enter_mssg)).show()
+            }
+            catch (e : java.lang.Exception){
+                Log.e(TAG, "setDataexception: "+e.message)
             }
         }
         tvMakeOffer.setOnClickListener {
@@ -1134,7 +1163,7 @@ class ChatActivity : AppCompatActivity() {
             jsonObject.put("type", type)
             jsonObject.put("chat_user_id", chatUserId)
             ivSend.isEnabled = false
-            Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
+            Log.e("sendmsgevent", Gson().toJson(jsonObject))
             if (socket!!.connected()) {
                 socket?.emit(AppConstants.SEND_MESSAGES, jsonObject, Ack {
                     Log.e("<<<SendResponse>>>", Gson().toJson(it[0]))
@@ -1162,12 +1191,14 @@ class ChatActivity : AppCompatActivity() {
                                 ivSend.isEnabled = true
                             }
                         } catch (e: JSONException) {
+                            Log.e(TAG, "sendMssgEventexceinside: "+e.message)
                             e.printStackTrace()
                         }
                     }
                 })
             }
         } catch (e: JSONException) {
+            Log.e(TAG, "sendMssgEventexce: "+e.message)
             e.printStackTrace()
         }
     }
@@ -1253,6 +1284,7 @@ class ChatActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
+//            socket?.disconnect()
     }
 
     private fun initKeyBoardListener() {
@@ -1311,4 +1343,8 @@ class ChatActivity : AppCompatActivity() {
         mCurrentPhotoPath = image.absolutePath
         return image
     }
+}
+
+private fun Socket?.io(socketUrl: String) {
+    Log.e("TAG", "io: "+socketUrl)
 }

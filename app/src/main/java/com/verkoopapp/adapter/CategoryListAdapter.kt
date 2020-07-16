@@ -74,6 +74,7 @@ class CategoryListAdapter(private val context: HomeActivity, private var categor
                         intent.putExtra(AppConstants.TYPE, 0)
                         intent.putExtra(AppConstants.SUB_CATEGORY, data.name)
                         context.startActivityForResult(intent, 2)
+                        intent.putExtra(AppConstants.Search, "")
                     }
                 }
             }

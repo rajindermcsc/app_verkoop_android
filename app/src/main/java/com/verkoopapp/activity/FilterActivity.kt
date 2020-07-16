@@ -43,6 +43,7 @@ class FilterActivity : AppCompatActivity() {
     private var lat = ""
     private var lng = ""
     private var condition: String = ""
+    private var name: String = ""
     private var itemType: String = ""
     private var meetUp: Int = 0
     private var isFocusMax: Boolean = false
@@ -274,7 +275,7 @@ class FilterActivity : AppCompatActivity() {
                 condition.equals(getString(R.string.used), ignoreCase = true) -> "2"
                 else -> ""
             }
-            val filterRequestSend = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, sortNumber.toString(), lat, lng, itemType, meetUp.toString(), etMinPrice.text.toString().replace("R",""), etMaxPrice.text.toString().replace("R",""))
+            val filterRequestSend = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, sortNumber.toString(), lat, lng, itemType, meetUp.toString(), etMinPrice.text.toString().replace("R",""), etMaxPrice.text.toString().replace("R",""),filterRequest!!.search)
             val returnIntent = Intent()
             returnIntent.putExtra(AppConstants.POST_DATA, filterRequestSend)
             setResult(Activity.RESULT_OK, returnIntent)

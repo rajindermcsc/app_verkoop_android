@@ -108,7 +108,7 @@ interface MyService {
     @POST("searchKeywordData")
     fun searchItemApi(@Body request: SearchItemRequest): Call<SearchItemResponse>
 
-    @PUT("user/searchByUserName/{user_id}")
+    @POST("user/searchByUserName/{user_id}")
     fun searchByUserApi(@Path(value = "user_id", encoded = true) fullUrl: Int, @Body request: SearchUserRequest): Call<SearchByUserResponse>
 
     @POST("renew_advertisement")

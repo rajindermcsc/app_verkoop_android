@@ -63,6 +63,7 @@ import kotlin.collections.ArrayList
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
 class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedImageCount {
+    val TAG = AddDetailsActivity::class.java.simpleName.toString()
     private val REQUEST_CODE = 11
     private var imageList = ArrayList<SelectedImage>()
     private var addItemRequest: AddItemRequest? = null
@@ -1603,6 +1604,8 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         ServiceHelper().editItemsApi(editItemRequest,
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
+                        Log.e(TAG, "onSuccess: "+response.raw().request().url())
+                        Log.e(TAG, "onSuccessyes: ")
                         pbProgressAdd.visibility = View.GONE
                         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                         val categoriesResponse = response.body() as AddItemResponse
@@ -1616,6 +1619,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     }
 
                     override fun onFailure(msg: String?) {
+                        Log.e(TAG, "onFailure: "+msg)
                         pbProgressAdd.visibility = View.GONE
                         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                         Utils.showSimpleMessage(this@AddDetailsActivity, msg!!).show()
@@ -1664,6 +1668,9 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         ServiceHelper().addItemsApi(addItemRequest,
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
+                        Log.e(TAG, "onSuccessyes@: "+response.raw().request().url())
+                        Log.e(TAG, "onSuccessyes@: "+response.message())
+                        Log.e(TAG, "onSuccessyes@: "+response)
                         pbProgressAdd.visibility = View.GONE
                         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                         val categoriesResponse = response.body() as AddItemResponse
@@ -1682,6 +1689,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     }
 
                     override fun onFailure(msg: String?) {
+                        Log.e(TAG, "onFailure@: "+msg)
                         pbProgressAdd.visibility = View.GONE
                         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                         Utils.showSimpleMessage(this@AddDetailsActivity, msg!!).show()

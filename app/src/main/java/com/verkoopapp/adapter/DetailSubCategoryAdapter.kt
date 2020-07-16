@@ -13,6 +13,7 @@ import com.verkoopapp.models.SubCategoryPost
 import com.verkoopapp.utils.AppConstants
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.details_sub_category.*
+import kotlinx.android.synthetic.main.toolbar_search_user.*
 
 
 class DetailSubCategoryAdapter(private val context: Context, private val recyclerView: RecyclerView, private val subCategoryList: ArrayList<SubCategoryPost>) : RecyclerView.Adapter<DetailSubCategoryAdapter.ViewHolder>() {
@@ -47,6 +48,7 @@ class DetailSubCategoryAdapter(private val context: Context, private val recycle
                 intent.putExtra(AppConstants.CATEGORY_ID, data.id)
                 intent.putExtra(AppConstants.SUB_CATEGORY, data.name)
                 intent.putExtra(AppConstants.TYPE, 1)
+                intent.putExtra(AppConstants.Search, "")
                 (context as CategoryDetailsActivity).startActivityForResult(intent, 2)
             }
         }
