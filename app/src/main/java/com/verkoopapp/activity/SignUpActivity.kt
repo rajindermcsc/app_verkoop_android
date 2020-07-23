@@ -6,7 +6,6 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.graphics.Typeface
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.text.*
@@ -204,15 +203,17 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun callSignUpApi() {
         VerkoopApplication.instance.loader.show(this)
+        Log.e("TAG", "callSignUpApi: "+ccp.selectedCountryName)
+        Log.e("TAG", "callSignUpApi: "+ccp.selectedCountryNameCode)
         ServiceHelper().userSignUPService(SignUpRequest(etEmailS.text.toString().trim(), etName.text.toString().trim(), etConfPassword.text.toString().trim()
-                , "normal", ccp.selectedCountryName, "1"),
+                , "normal", ccp.selectedCountryName, ccp.selectedCountryNameCode,"1"),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         try {
                             VerkoopApplication.instance.loader.hide(this@SignUpActivity)
                             val loginResponse = response.body() as SignUpResponse
                             if (loginResponse.data != null) {
-                                setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.qrCode_image, loginResponse.data.coin, loginResponse.data.amount)
+                                setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.qrCode_image, loginResponse.data.coin, loginResponse.data.amount, loginResponse.data.currency,loginResponse.data.currency_symbol)
                                 updateDeviceInfo()
                             }
                         } catch (e: Exception) {
@@ -252,13 +253,15 @@ class SignUpActivity : AppCompatActivity() {
                 })
     }
 
-    private fun setResponseData(userId: String, api_token: String, firstName: String, email: String, loginType: String, qrCode: String, coin: Int, amount: Int) {
+    private fun setResponseData(userId: String, api_token: String, firstName: String, email: String, loginType: String, qrCode: String, coin: Int, amount: Int, currency:String,currency_symbol:String) {
         Utils.savePreferencesString(this@SignUpActivity, AppConstants.USER_ID, userId)
         Utils.savePreferencesString(this@SignUpActivity, AppConstants.API_TOKEN, "Bearer $api_token")
         Utils.savePreferencesString(this@SignUpActivity, AppConstants.USER_NAME, firstName)
         Utils.savePreferencesString(this@SignUpActivity, AppConstants.QR_CODE, qrCode)
         Utils.saveIntPreferences(this@SignUpActivity, AppConstants.COIN, coin)
         Utils.saveIntPreferences(this@SignUpActivity, AppConstants.AMOUNT, amount)
+        Utils.savePreferencesString(this@SignUpActivity, AppConstants.CURRENCY, currency)
+        Utils.savePreferencesString(this@SignUpActivity, AppConstants.CURRENCY_SYMBOL, currency_symbol)
         if (!TextUtils.isEmpty(email)) {
             Utils.savePreferencesString(this@SignUpActivity, AppConstants.USER_EMAIL_ID, email)
         }

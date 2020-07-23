@@ -37,10 +37,10 @@ class FullCategoriesActivity : AppCompatActivity(), FullCategoryAdapter.Selected
             }
             else -> {
                 val intent = Intent(this, CategoryDetailsActivity::class.java)
-                Log.e(TAG, "subCategoryName: "+categoryId)
+                Log.e(TAG, "subCategoryName: "+subCategoryId)
                 Log.e(TAG, "subCategoryName: "+subCategoryName)
 //                Log.e(TAG, "subCategoryName: "+categoryId)
-                intent.putExtra(AppConstants.CATEGORY_ID, categoryId)
+                intent.putExtra(AppConstants.CATEGORY_ID, subCategoryId)
                 intent.putExtra(AppConstants.SUB_CATEGORY, subCategoryName)
                 intent.putExtra(AppConstants.TYPE, 1)
                 intent.putExtra(AppConstants.Search, "")

@@ -63,11 +63,11 @@
                     android:orientation="horizontal">
 
                     <com.verkoopapp.fonts.textView.GothiBoldTextView
+                        android:id="@+id/currency_symbol"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="R "
                         android:textColor="@color/accept_offer"
                         android:textSize="@dimen/sp_24" />
 

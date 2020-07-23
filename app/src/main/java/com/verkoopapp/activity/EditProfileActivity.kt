@@ -12,6 +12,7 @@ import android.provider.MediaStore
 import android.support.v4.content.FileProvider
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.AdapterView
@@ -19,10 +20,8 @@ import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import com.verkoopapp.R
-import com.verkoopapp.models.MessageEvent
-import com.verkoopapp.models.MyProfileIngoResponse
-import com.verkoopapp.models.ProfileUpdateRequest
-import com.verkoopapp.models.ProfileUpdateResponse
+import com.verkoopapp.VerkoopApplication
+import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.*
 import kotlinx.android.synthetic.main.edit_profile_activity.*
@@ -45,6 +44,7 @@ class EditProfileActivity : AppCompatActivity() {
     private var stateId: Int = 0
     private var cityId: Int = 0
     private var countryId: Int = 0
+    private var country_Id: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.edit_profile_activity)
@@ -71,6 +71,9 @@ class EditProfileActivity : AppCompatActivity() {
                     etLastName.setText(myProfileResponse.data.last_name)
                     etWebsite.setText(myProfileResponse.data.website)
                     etBio.setText(myProfileResponse.data.bio)
+                    ccp.setCountryForNameCode(myProfileResponse.data.country_code)
+                    country_Id=myProfileResponse.data.country_code
+                    Log.e("TAG", "onSuccesscountry_code: "+myProfileResponse.data.country_code)
                     if (!TextUtils.isEmpty(myProfileResponse.data.mobile_no)) {
                         tvPhoneNo.text = myProfileResponse.data.mobile_no
                         tvUpdate.text = "Change"
@@ -95,14 +98,17 @@ class EditProfileActivity : AppCompatActivity() {
                                 .placeholder(R.mipmap.gallery_place)
                                 .into(ivProfileImage)
                     }
-                    if (!TextUtils.isEmpty(myProfileResponse.data.state) && !TextUtils.isEmpty(myProfileResponse.data.city)) {
-                        etMyCity.text = StringBuilder().append(myProfileResponse.data.state).append(", ").append(myProfileResponse.data.city)
-                        cityId = myProfileResponse.data.city_id
-                        stateId = myProfileResponse.data.state_id
-                        cityName = myProfileResponse.data.city
-                        stateName = myProfileResponse.data.state
-                        countryName = myProfileResponse.data.country
-                    }
+                    if (!myProfileResponse.data.city.isNullOrEmpty())
+                        etMyCity.setText(myProfileResponse.data.city)
+
+//                    if (!TextUtils.isEmpty(myProfileResponse.data.state) && !TextUtils.isEmpty(myProfileResponse.data.city)) {
+//                        etMyCity.text = StringBuilder().append(myProfileResponse.data.state).append(", ").append(myProfileResponse.data.city)
+//                        cityId = myProfileResponse.data.city_id
+//                        stateId = myProfileResponse.data.state_id
+//                        cityName = myProfileResponse.data.city
+//                        stateName = myProfileResponse.data.state
+//                        countryName = myProfileResponse.data.country
+//                    }
                 }
             }
 
@@ -112,6 +118,33 @@ class EditProfileActivity : AppCompatActivity() {
                 Utils.showSimpleMessage(this@EditProfileActivity, msg!!).show()
             }
         })
+    }
+
+    private fun getMyState(code: String) {
+        Log.e("TAG", "getMyState: "+code)
+        ServiceHelper().myStateList(code, object : ServiceHelper.OnResponse {
+            override fun onSuccess(response: Response<*>) {
+                Log.e("TAG", "onSuccess: "+response.message())
+                Log.e("TAG", "onSuccess: "+response.errorBody())
+                Log.e("TAG", "onSuccess: "+response.raw().request().url())
+                val responseState = response.body() as StateResponse
+                if (responseState.data != null) {
+                    Log.e("TAG", "onSuccessstates: "+responseState.message)
+                    Log.e("TAG", "onSuccessstates: "+responseState.data)
+//                    val intent = Intent(this@EditProfileActivity, TransferCoinsActivity::class.java)
+
+
+                } else {
+                    Utils.showSimpleMessage(this@EditProfileActivity, "No data found.").show()
+                }
+
+            }
+
+            override fun onFailure(msg: String?) {
+                Utils.showSimpleMessage(this@EditProfileActivity, msg!!).show()
+            }
+        })
+
     }
 
     private fun setData() {
@@ -149,6 +182,7 @@ class EditProfileActivity : AppCompatActivity() {
             addProfileImage()
         }
         llCity.setOnClickListener {
+            getMyState(country_Id)
             val intent = Intent(this, RegionActivity::class.java)
             intent.putExtra(AppConstants.CITY_ID, cityId)
             intent.putExtra(AppConstants.STATE_ID, stateId)
@@ -170,7 +204,8 @@ class EditProfileActivity : AppCompatActivity() {
                 if (etUserName.text?.toString() != null) etUserName.text.toString() else "",
                 if (etFirstName.text?.toString() != null) etFirstName.text.toString() else "",
                 if (etLastName.text?.toString() != null) etLastName.text.toString() else "",
-                cityName, stateName, countryName, cityId.toString(), stateId.toString(), countryId.toString(),
+                if (etMyCity.text?.toString() != null) etMyCity.text.toString() else "",
+                /*cityName,*/ stateName, ccp.selectedCountryName, ccp.selectedCountryNameCode, cityId.toString(), stateId.toString(), countryId.toString(),
                 if (etWebsite.text?.toString() != null) etWebsite.text.toString() else "",
                 if (etBio.text?.toString() != null) etBio.text.toString() else "",
                 if (mCurrentPhotoPath != null) mCurrentPhotoPath!! else "",
@@ -189,6 +224,9 @@ class EditProfileActivity : AppCompatActivity() {
                         Utils.savePreferencesString(this@EditProfileActivity, AppConstants.MOBILE_NO, homeDataResponse.data.mobile_no)
                     }
                 }
+                Utils.savePreferencesString(this@EditProfileActivity, AppConstants.CURRENCY, homeDataResponse.data!!.currency)
+                Utils.savePreferencesString(this@EditProfileActivity, AppConstants.COUNTRY_ID, homeDataResponse.data!!.currency)
+                Utils.savePreferencesString(this@EditProfileActivity, AppConstants.CURRENCY_SYMBOL, homeDataResponse.data!!.currency_symbol)
                 Utils.showToast(this@EditProfileActivity, getString(R.string.profile_updated))
                 EventBus.getDefault().post(MessageEvent("update"))
                 onBackPressed()
@@ -248,7 +286,7 @@ class EditProfileActivity : AppCompatActivity() {
             when (requestCode) {
                 REQUEST_TAKE_PHOTO -> {
                     val f = File(mCurrentPhotoPath!!)
-                    uriTemp = FileProvider.getUriForFile(this, applicationContext.packageName + ".provider", f)
+                    uriTemp = FileProvider.getUriForFile(this, "com.verkoopapp" + ".provider", f)
                     CropImage.activity(uriTemp)
                             .setGuidelines(CropImageView.Guidelines.ON)
                             .setAspectRatio(1, 1)
@@ -283,7 +321,7 @@ class EditProfileActivity : AppCompatActivity() {
                     stateId = data.getIntExtra(AppConstants.STATE_ID, 0)
                     countryId = data.getIntExtra(AppConstants.COUNTRY_ID, 0)
                     countryName = data.getStringExtra(AppConstants.COUNTRY_NAME)
-                    etMyCity.text = StringBuilder().append(stateName).append(", ").append(cityName)
+                    //etMyCity.text = StringBuilder().append(stateName).append(", ").append(cityName)
                 }
                 if (resultCode === Activity.RESULT_CANCELED) {
                     //Write your code if there's no result

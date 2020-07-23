@@ -291,6 +291,10 @@ class ProductDetailsActivity : AppCompatActivity() {
         }
         mDemoSliderDetails.stopAutoCycle()
         tvProductName.text = data.name
+        data.price = Utils.convertCurrencyWithoutSymbol(this@ProductDetailsActivity,data.currency,data.price)
+        data.offer_price = Utils.convertCurrencyWithoutSymbol(this@ProductDetailsActivity,data.currency,data.offer_price)
+        data.additional_info!!.min_price = Utils.convertCurrencyWithoutSymbol(this@ProductDetailsActivity,data.currency,data.additional_info!!.min_price)
+        data.additional_info!!.max_price = Utils.convertCurrencyWithoutSymbol(this@ProductDetailsActivity,data.currency,data.additional_info!!.max_price)
         price = data.price
         productName = data.name
         productDescription = data.description
@@ -330,7 +334,7 @@ class ProductDetailsActivity : AppCompatActivity() {
                 }, 1000)
             }
         }
-        tvPrice.text = StringBuilder().append(": ").append(getString(R.string.dollar)).append(" ").append(data.price)
+        tvPrice.text = StringBuilder().append(": ").append(Utils.getPreferencesString(this@ProductDetailsActivity,AppConstants.CURRENCY_SYMBOL)).append(" ").append(data.price)
         tvDescription.text = data.description
         tvUserName.text = data.username
         tvDateDetails.text = StringBuilder().append(Utils.getDateDifferenceDiff(data.created_at)).append(" ").append("ago")
@@ -349,7 +353,7 @@ class ProductDetailsActivity : AppCompatActivity() {
             CommonView.visibility = View.VISIBLE
             llPropertyDetails.visibility = View.GONE
             if (data.additional_info != null) {
-                tvPrice.text = StringBuilder().append(": ").append(getString(R.string.dollar)).append(data.additional_info!!.min_price).append(" - ").append(getString(R.string.dollar)).append(data.additional_info!!.max_price)
+                tvPrice.text = StringBuilder().append(": ").append(Utils.getPreferencesString(this@ProductDetailsActivity,AppConstants.CURRENCY_SYMBOL)).append(data.additional_info!!.min_price).append(" - ").append(Utils.getPreferencesString(this@ProductDetailsActivity,AppConstants.CURRENCY_SYMBOL)).append(data.additional_info!!.max_price)
                 tvRegistrationYear.text = StringBuilder().append(": ").append(data.additional_info!!.from_year.toString()).append(" - ").append(data.additional_info!!.to_year.toString())
                 tvCarBrand.text = StringBuilder().append(": ").append(data.additional_info!!.brand_name)
                 tvCarType.text = StringBuilder().append(": ").append(data.additional_info!!.car_type)
@@ -370,7 +374,7 @@ class ProductDetailsActivity : AppCompatActivity() {
             }
 
         } else if (data.type == 2 || data.type == 3) {
-            tvPrice.text = StringBuilder().append(": ").append(getString(R.string.dollar)).append(data.additional_info!!.min_price).append(" - ").append(getString(R.string.dollar)).append(data.additional_info!!.max_price)
+            tvPrice.text = StringBuilder().append(": ").append(Utils.getPreferencesString(this@ProductDetailsActivity,AppConstants.CURRENCY_SYMBOL)).append(data.additional_info!!.min_price).append(" - ").append(Utils.getPreferencesString(this@ProductDetailsActivity,AppConstants.CURRENCY_SYMBOL)).append(data.additional_info!!.max_price)
             tvType.visibility = View.GONE
             llPropertyDetails.visibility = View.VISIBLE
             CommonView.visibility = View.VISIBLE

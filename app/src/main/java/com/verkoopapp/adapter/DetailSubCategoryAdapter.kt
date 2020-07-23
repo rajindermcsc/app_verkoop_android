@@ -49,6 +49,7 @@ class DetailSubCategoryAdapter(private val context: Context, private val recycle
                 intent.putExtra(AppConstants.SUB_CATEGORY, data.name)
                 intent.putExtra(AppConstants.TYPE, 1)
                 intent.putExtra(AppConstants.Search, "")
+
                 (context as CategoryDetailsActivity).startActivityForResult(intent, 2)
             }
         }

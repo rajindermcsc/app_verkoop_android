@@ -188,8 +188,20 @@ interface MyService {
     @GET("listRatedUserBad/{user_id}")
     fun getMyRatingPoorApi(@Path(value = "user_id", encoded = true) fullUrl: Int): Call<MyRatingResponse>
 
+    @GET("state_list/{country_id}")
+    fun getStateApi(@Path(value = "country_id") fullUrl: String): Call<StateResponse>
+
+    @GET("state_list/{state_id}")
+    fun getCityApi(@Path(value = "state_id", encoded = true) fullUrl: String): Call<CityResponse>
+
     @POST("user/updateDeviceInfo")
     fun updateDeviceInfoApi(@Body request: UpdateDeviceInfoRequest): Call<DisLikeResponse>
+
+    @POST("user/updateCountry")
+    fun updateCountryApi(@Body request: UpdateCountryRequest): Call<UpdateCountryResponse>
+
+
+
 
     @PUT("user/deactivate_account")
     fun deactivateAccount(@Body request: DeactivateAccountRequest): Call<AddItemResponse>
@@ -272,6 +284,7 @@ interface MyService {
                                 @Part("city") city: RequestBody,
                                 @Part("state") state: RequestBody,
                                 @Part("country") country: RequestBody,
+                                @Part("country_code") countryCode: RequestBody,
                                 @Part("city_id") cityId: RequestBody,
                                 @Part("state_id") stateId: RequestBody,
                                 @Part("country_id") countryId: RequestBody,
@@ -293,6 +306,7 @@ interface MyService {
                                @Part("city") city: RequestBody,
                                @Part("state") state: RequestBody,
                                @Part("country") country: RequestBody,
+                               @Part("country_code") countryCode: RequestBody,
                                @Part("city_id") cityId: RequestBody,
                                @Part("state_id") stateId: RequestBody,
                                @Part("country_id") countryId: RequestBody,
@@ -314,5 +328,8 @@ interface MyService {
     @Headers("Accept: application/json")
     @POST("chatImageUpload")
     fun uploadImageApi(@Part files: MultipartBody.Part): Call<ChatImageResponse>
+
+    @GET("currencies")
+    fun getCurrencies(): Call<CurrencyResponse>
 
 }

@@ -10,8 +10,11 @@ data class SignUpRequest(
         val password: String,
         val login_type: String,
         val country: String,
+        val country_code: String,
 //        val device_id: String,
         val device_type: String
+//        val currency: String,
+//        val currency_symbol: String
 )
 
 data class LoginRequest(
@@ -20,6 +23,8 @@ data class LoginRequest(
         val login_type: String,
 //        val device_id: String,
         val device_type: String
+//        val currency: String,
+//        val currency_symbol: String
 )
 
 @Parcelize
@@ -49,6 +54,12 @@ data class UpdateDeviceInfoRequest(
         val user_id:String,
        val device_id : String,
        val device_type : String
+)
+
+data class UpdateCountryRequest(
+        val user_id:String,
+        val country : String,
+        val country_code : String
 )
 
 data class DeactivateAccountRequest(
@@ -194,6 +205,7 @@ data class ProfileUpdateRequest(
         val city: String,
         val state: String,
         val country: String,
+        val country_code: String,
         val City_id: String,
         val State_id: String,
         val country_id: String,
@@ -365,4 +377,8 @@ data class VerifyOtpRequest(
         var otp: Int,
         var user_id: Int,
         var mobile_no: String
+)
+
+data class StateRequest(
+        val country_id: String
 )

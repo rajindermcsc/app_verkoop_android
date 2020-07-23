@@ -15,6 +15,8 @@ import android.provider.MediaStore
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.FileProvider
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.util.Log
@@ -34,6 +36,7 @@ import com.theartofdev.edmodo.cropper.CropImageView
 import com.verkoopapp.R
 import com.verkoopapp.VerkoopApplication
 import com.verkoopapp.adapter.ChatAdapter
+import com.verkoopapp.adapter.ChatSuggestionAdapter
 import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.offlinechatdata.ChatResponse
@@ -57,9 +60,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class ChatActivity : AppCompatActivity() {
-    val TAG = ChatActivity::class.java.simpleName.toString()
-    private val socket: Socket? = com.github.nkzawa.socketio.client.IO.socket(AppConstants.SOCKET_URL)
-//    private val socket: Socket? = VerkoopApplication.getAppSocket()
+    private val socket: Socket? = VerkoopApplication.getAppSocket()
     private var powerMenu: PowerMenu? = null
     private var senderId = 0
     private var itemId = 0
@@ -93,8 +94,6 @@ class ChatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.chat_activity)
-        socket?.open()
-        socket?.connect()
         senderId = intent.getIntExtra(AppConstants.USER_ID, 0)/*Receiver id*/
         itemId = intent.getIntExtra(AppConstants.ITEM_ID, 0)
         categoryId = intent.getIntExtra(AppConstants.CATEGORY_ID, 0)
@@ -112,7 +111,6 @@ class ChatActivity : AppCompatActivity() {
 //        user_block_id = intent.getIntExtra(AppConstants.USER_BLOCK_ID, 0)
 //        blockedId = intent.getIntExtra(AppConstants.BLOCK_ID, 0)
 
-
         if (socket!!.connected()) {
             directChat()
         }
@@ -125,7 +123,7 @@ class ChatActivity : AppCompatActivity() {
             llViewOffer.visibility = View.GONE
         }
         dbHelper = DbHelper()
-//        initKeyBoardListener()
+        initKeyBoardListener()
         setData()
         setAdapter()
         if (Utils.isOnline(this)) {
@@ -139,24 +137,39 @@ class ChatActivity : AppCompatActivity() {
             setOfflineHistory()
         }
 
+        rvChatSuggestion.setHasFixedSize(true)
+        val linearLayoutManager = LinearLayoutManager(
+                this@ChatActivity,
+                LinearLayoutManager.HORIZONTAL,
+                false
+        )
+        rvChatSuggestion.layoutManager = linearLayoutManager
+        rvChatSuggestion.itemAnimator = DefaultItemAnimator()
+        val dividerItemDecoration = DividerItemDecoration(
+                rvChatSuggestion.context,
+                linearLayoutManager.orientation
+        )
+        ContextCompat.getDrawable(this@ChatActivity, R.drawable.rv_devider)
+                ?.let { it1 ->
+                    dividerItemDecoration.setDrawable(
+                            it1
+                    )
+                }
+        rvChatSuggestion.addItemDecoration(dividerItemDecoration)
+        val adapter =
+                ChatSuggestionAdapter(
+                        this@ChatActivity,
+                        arrayListOf("is still available", "what is your best price", "is the price is negotiable", "what conditions is it in?")
+                ) {
+                    if (socket!!.connected()) {
+                        sendMssgEvent(it, 0)
+                        rvChatSuggestion.visibility = View.GONE
+                    } else {
+                        Utils.showSimpleMessage(this, "Socket Disconnected.").show()
+                    }
+                }
+        rvChatSuggestion.adapter = adapter
     }
-
-    override fun onResume() {
-        super.onResume()
-        socket?.io(AppConstants.SOCKET_URL)
-        socket?.open()
-        socket?.connect()
-
-    }
-
-
-
-//    override fun onPause() {
-//        super.onPause()
-//        socket?.disconnect()
-//    }
-
-
 
     private fun getReportList() {
         VerkoopApplication.instance.loader.show(this)
@@ -405,7 +418,7 @@ class ChatActivity : AppCompatActivity() {
     private fun setData() {
         tvUserName.text = userName
         tvProductDes.text = productName
-        tvProducePrice.text = StringBuilder().append("R ").append(price.toString())
+        tvProducePrice.text = StringBuilder().append(Utils.getPreferencesString(this@ChatActivity, AppConstants.CURRENCY_SYMBOL) + " ").append(price.toString())
         if (!TextUtils.isEmpty(productUrl)) {
             Picasso.with(this@ChatActivity).load(AppConstants.IMAGE_URL + productUrl)
                     .resize(720, 720)
@@ -448,21 +461,14 @@ class ChatActivity : AppCompatActivity() {
             startActivity(intent)
         }
         ivSend.setOnClickListener {
-            try {
-
-                if (!TextUtils.isEmpty(etMssg.text.toString().trim())) {
-//                    if (socket!!.connected()) {
-                        sendMssgEvent(etMssg.text.toString().trim(), 0)
-//                    }
-//                    else {
-//                        Utils.showSimpleMessage(this, "Socket Disconnected.").show()
-//                    }
+            if (!TextUtils.isEmpty(etMssg.text.toString().trim())) {
+                if (socket!!.connected()) {
+                    sendMssgEvent(etMssg.text.toString().trim(), 0)
                 } else {
-                    Utils.showSimpleMessage(this, getString(R.string.enter_mssg)).show()
+                    Utils.showSimpleMessage(this, "Socket Disconnected.").show()
                 }
-            }
-            catch (e : java.lang.Exception){
-                Log.e(TAG, "setDataexception: "+e.message)
+            } else {
+                Utils.showSimpleMessage(this, getString(R.string.enter_mssg)).show()
             }
         }
         tvMakeOffer.setOnClickListener {
@@ -1163,7 +1169,7 @@ class ChatActivity : AppCompatActivity() {
             jsonObject.put("type", type)
             jsonObject.put("chat_user_id", chatUserId)
             ivSend.isEnabled = false
-            Log.e("sendmsgevent", Gson().toJson(jsonObject))
+            Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
             if (socket!!.connected()) {
                 socket?.emit(AppConstants.SEND_MESSAGES, jsonObject, Ack {
                     Log.e("<<<SendResponse>>>", Gson().toJson(it[0]))
@@ -1191,14 +1197,12 @@ class ChatActivity : AppCompatActivity() {
                                 ivSend.isEnabled = true
                             }
                         } catch (e: JSONException) {
-                            Log.e(TAG, "sendMssgEventexceinside: "+e.message)
                             e.printStackTrace()
                         }
                     }
                 })
             }
         } catch (e: JSONException) {
-            Log.e(TAG, "sendMssgEventexce: "+e.message)
             e.printStackTrace()
         }
     }
@@ -1284,7 +1288,6 @@ class ChatActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
-//            socket?.disconnect()
     }
 
     private fun initKeyBoardListener() {
@@ -1344,7 +1347,6 @@ class ChatActivity : AppCompatActivity() {
         return image
     }
 }
-
 private fun Socket?.io(socketUrl: String) {
     Log.e("TAG", "io: "+socketUrl)
 }

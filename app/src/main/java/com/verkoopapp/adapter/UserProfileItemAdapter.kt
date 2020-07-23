@@ -263,7 +263,7 @@ class UserProfileItemAdapter(private val context: Context, private val llProfile
                 }
             }
             tvProductHome.text = data.name
-            tvItemPriceHome.text = "R " + data.price
+            tvItemPriceHome.text = Utils.convertCurrency(context, data.currency!!, data.price)
             itemView.setOnClickListener {
                 itemView.isEnabled = false
                 Handler().postDelayed(Runnable {

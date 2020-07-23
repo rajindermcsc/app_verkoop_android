@@ -232,13 +232,13 @@ class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterC
                 }
             }
             if (!TextUtils.isEmpty(filterRequest.min_price) && !TextUtils.isEmpty(filterRequest.max_price)) {
-                val filterModal = FilterModal(getString(R.string.pric), "R" + filterRequest.min_price + " - R" + filterRequest.max_price, false, 4)
+                val filterModal = FilterModal(getString(R.string.pric), Utils.getPreferencesString(this@CategoryDetailsActivity, AppConstants.CURRENCY_SYMBOL) + filterRequest.min_price + " - "+Utils.getPreferencesString(this@CategoryDetailsActivity,AppConstants.CURRENCY_SYMBOL) + filterRequest.max_price, false, 4)
                 filterList.add(filterModal)
             } else if (!TextUtils.isEmpty(filterRequest.min_price) && TextUtils.isEmpty(filterRequest.max_price)) {
-                val filterModal = FilterModal(getString(R.string.pric), "From R" + filterRequest.min_price, false, 4)
+                val filterModal = FilterModal(getString(R.string.pric), "From "+Utils.getPreferencesString(this@CategoryDetailsActivity,AppConstants.CURRENCY_SYMBOL) + filterRequest.min_price, false, 4)
                 filterList.add(filterModal)
             } else if (TextUtils.isEmpty(filterRequest.min_price) && !TextUtils.isEmpty(filterRequest.max_price)) {
-                val filterModal = FilterModal(getString(R.string.pric), "Up to R" + filterRequest.max_price, false, 4)
+                val filterModal = FilterModal(getString(R.string.pric), "Up to "+Utils.getPreferencesString(this@CategoryDetailsActivity,AppConstants.CURRENCY_SYMBOL) + filterRequest.max_price, false, 4)
                 filterList.add(filterModal)
             }
         }
@@ -272,11 +272,13 @@ class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterC
                         Log.e(TAG, "categoryPostResponse: "+categoryPostResponse)
                         if (categoryPostResponse.data.subCategoryList.size > 0) {
                             Log.e(TAG, "onSuccess@1: ")
+                            Log.e(TAG, "categoryPostResponse: "+categoryPostResponse.data.subCategoryList)
                             scroll_view_category_detail.visibility = View.VISIBLE
                             setSubcategoryData(categoryPostResponse.data.subCategoryList)
                         }
                         if (categoryPostResponse.data.items.size > 0) {
                             Log.e(TAG, "onSuccess@2: ")
+                            Log.e(TAG, "categoryPostResponse: "+categoryPostResponse.data.items)
                             scroll_view_category_detail.visibility = View.VISIBLE
                             itemsList = categoryPostResponse.data.items
                             itemAdapter.setData(itemsList)

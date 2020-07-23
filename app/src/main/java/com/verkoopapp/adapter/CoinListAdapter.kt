@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import com.verkoopapp.R
 import com.verkoopapp.fragment.GetCoinsFragment
 import com.verkoopapp.models.CoinPlan
+import com.verkoopapp.utils.AppConstants
+import com.verkoopapp.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.coin_row.*
 
@@ -40,7 +42,9 @@ class CoinListAdapter(private val context: Context, private val rvCoinList: Int,
         fun bind(modal: CoinPlan) {
             llCoinParent.layoutParams.height =width
             tvCoins.text=modal.coin.toString()
-            tvPriceCoins.text= StringBuilder().append("R ").append(modal.amount)
+            modal.amount = Utils.convertCurrencyWithoutSymbol(context,modal.currency,modal.amount)
+            tvPriceCoins.text= StringBuilder().append(Utils.getPreferencesString(context, AppConstants.CURRENCY_SYMBOL)+" ").append(modal.amount)
+//            tvPriceCoins.text= StringBuilder().append(Utils.getPreferencesString(context, AppConstants.USER_ID)).append(modal.amount)
             itemView.setOnClickListener {
             purchaseCoinCallBack.purchaseCoin(modal.id,adapterPosition,modal.amount,modal.coin)
             }
@@ -53,7 +57,7 @@ class CoinListAdapter(private val context: Context, private val rvCoinList: Int,
     }
 
     interface PurchaseCoinCallBack{
-        fun purchaseCoin(coinPlanId:Int,position: Int,price:Int,totalCoin:Int)
+        fun purchaseCoin(coinPlanId:Int,position: Int,price:Double,totalCoin:Int)
     }
 
 }

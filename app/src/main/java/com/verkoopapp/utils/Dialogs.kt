@@ -15,10 +15,13 @@ import kotlinx.android.synthetic.main.delete_comment_dialog.*
 import kotlinx.android.synthetic.main.dialog_item_added.*
 import kotlinx.android.synthetic.main.dialog_create_offer.*
 import kotlinx.android.synthetic.main.dialog_select_met_up.*
+import kotlinx.android.synthetic.main.dialog_update_country.*
 import kotlinx.android.synthetic.main.proceed_dialog.*
 import kotlinx.android.synthetic.main.purchase_coin_dialog.*
 import kotlinx.android.synthetic.main.rating_dialog.*
 import kotlinx.android.synthetic.main.select_option_dialoog.*
+import kotlinx.android.synthetic.main.signup_activity.*
+import kotlinx.android.synthetic.main.signup_activity.ccp
 import kotlinx.android.synthetic.main.warning_dialog.*
 
 
@@ -37,6 +40,11 @@ interface SelectionOptionListener{
 interface MakeOfferListener{
     fun makeOfferClick(offerPrice:Double)
 }
+
+interface CountryListener {
+    fun onItemClick(code: String, name: String)
+}
+
 interface RateUserListener{
     fun rateUserClick(rating:Float,type:String)
 }
@@ -166,6 +174,7 @@ class CreatOfferDialog(private val productType:Int,private val minPrice:Double,p
         window.setGravity(Gravity.BOTTOM)
         setCanceledOnTouchOutside(true)
         setCancelable(true)
+        tvSymbol.text = Utils.getPreferencesString(context, AppConstants.CURRENCY_SYMBOL)
         if(type==1){
         etTotalPrice.setText(offeredPrice.toString())
         }else{
@@ -195,7 +204,7 @@ class CreatOfferDialog(private val productType:Int,private val minPrice:Double,p
               llMakeOffer.setBackgroundColor(ContextCompat.getColor(context, R.color.blue))
               llMakeOffer.isEnabled = true
           } else {
-              Utils.showSimpleMessage(context, "A bid should be higher then or equal to R " + minPrice.toString()).show()
+              Utils.showSimpleMessage(context, "A bid should be higher then or equal to ${Utils.getPreferencesString(context,AppConstants.CURRENCY_SYMBOL)} " + String.format("%.2f", minPrice)).show()
               llMakeOffer.setBackgroundColor(ContextCompat.getColor(context, R.color.light_gray))
               llMakeOffer.isEnabled = false
           }
@@ -205,13 +214,32 @@ class CreatOfferDialog(private val productType:Int,private val minPrice:Double,p
               llMakeOffer.setBackgroundColor(ContextCompat.getColor(context, R.color.blue))
               llMakeOffer.isEnabled = true
           } else {
-              Utils.showSimpleMessage(context, "A bid should be higher then R " + sixtyPercent.toString()).show()
+              Utils.showSimpleMessage(context, "A bid should be higher then ${Utils.getPreferencesString(context,AppConstants.CURRENCY_SYMBOL)} " + String.format("%.2f", sixtyPercent)).show()
               llMakeOffer.setBackgroundColor(ContextCompat.getColor(context, R.color.light_gray))
               llMakeOffer.isEnabled = false
           }
       }
     }
 
+}
+
+class countryDialog(context: Context, private val listener: CountryListener)
+    : android.app.Dialog(context) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        setContentView(R.layout.dialog_update_country)
+        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
+        setCancelable(false)
+        setCanceledOnTouchOutside(false)
+        ccp.setCountryForPhoneCode(1)
+        tvSave.setOnClickListener {
+            listener.onItemClick(ccp.selectedCountryName, ccp.selectedCountryNameCode)
+            dismiss()
+        }
+
+    }
 }
 
 class WarningDialog(context: Context, private val listener:SelectionListener)

@@ -31,9 +31,7 @@ import com.verkoopapp.adapter.HomePagerAdapter
 import com.verkoopapp.fragment.ActivitiesFragment
 import com.verkoopapp.fragment.HomeFragment
 import com.verkoopapp.fragment.ProfileFragment
-import com.verkoopapp.models.DisLikeResponse
-import com.verkoopapp.models.SocketCheckConnectionEvent
-import com.verkoopapp.models.UpdateDeviceInfoRequest
+import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.CommonUtils
@@ -75,6 +73,8 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)
+        checkIfCurrencyIsNull()
+        callCurrencyList()
         comingFrom = intent.getIntExtra(AppConstants.COMING_FROM, 0)
         homeFragment = HomeFragment.newInstance()
         profileFragment = ProfileFragment.newInstance()
@@ -108,6 +108,56 @@ class HomeActivity : AppCompatActivity() {
 //
 //        vision = visionBuilder.build()
 //    }
+
+    private fun checkIfCurrencyIsNull() {
+        if (Utils.getPreferencesString(this@HomeActivity, AppConstants.CURRENCY).isNullOrEmpty() ||
+                Utils.getPreferencesString(this@HomeActivity, AppConstants.CURRENCY_SYMBOL).isNullOrEmpty()) {
+            if (Utils.isOnline(this@HomeActivity)) {
+                socket?.emit(AppConstants.SOCKET_DISCONNECT, getObj(), Ack {
+                    Log.e("<<<DisConnectLogOut>>>", Gson().toJson(it[0]))
+                })
+//                callLogOutApi()
+            }
+        }
+    }
+
+    private fun callLogOutApi() {
+        ServiceHelper().getLogOutService(LogOutRequest(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()), object : ServiceHelper.OnResponse {
+            override fun onSuccess(response: Response<*>) {
+                val responseWallet = response.body() as AddItemResponse
+                if (responseWallet.message.equals("Logged out successfully")) {
+                    Utils.clearPreferences(this@HomeActivity)
+                    val intent = Intent(this@HomeActivity, WalkThroughActivity::class.java)
+                    startActivity(intent)
+                    finishAffinity()
+                }
+            }
+
+            override fun onFailure(msg: String?) {
+                Utils.showSimpleMessage(this@HomeActivity, msg!!).show()
+            }
+        })
+    }
+
+    private fun callCurrencyList() {
+        ServiceHelper().getCurrencyRateList(
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        val currencyResponse = response.body() as CurrencyResponse
+                        if (currencyResponse.data != null) {
+                            if (currencyResponse.data.currency != null) {
+                                VerkoopApplication.instance.currencies.clear()
+                                VerkoopApplication.instance.currencies.addAll(currencyResponse.data.currency)
+                            }
+                        }
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        Utils.showSimpleMessage(this@HomeActivity, msg!!).show()
+                    }
+                })
+    }
+
 
     private fun setIntentData() {
         val result = intent!!.getIntExtra(AppConstants.TRANSACTION, 0)

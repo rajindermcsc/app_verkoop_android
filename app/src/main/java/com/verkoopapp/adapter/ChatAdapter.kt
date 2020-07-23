@@ -226,7 +226,7 @@ class ChatAdapter(private val context:Context ) : RecyclerView.Adapter<RecyclerV
             }else if (chatData.type == 5) {
                 tvRightOfferMssg.text = "CANCELLED OFFER"
             }
-            tvRightPrice.text = StringBuilder().append("R").append(chatData.message)
+            tvRightPrice.text = StringBuilder().append(Utils.getPreferencesString(context,AppConstants.CURRENCY_SYMBOL)).append(chatData.message)
             tvRightOfferTime.text = Utils.setDate(chatData.timeStamp)
         }
     }
@@ -242,7 +242,7 @@ class ChatAdapter(private val context:Context ) : RecyclerView.Adapter<RecyclerV
             } else if (chatData.type == 5) {
                 tvLeftOfferMssg.text = "CANCELLED OFFER"
             }
-            tvLeftOfferPrice.text = StringBuilder().append("R").append(chatData.message)
+            tvLeftOfferPrice.text = StringBuilder().append(Utils.getPreferencesString(context,AppConstants.CURRENCY_SYMBOL)).append(chatData.message)
             tvLeftOfferTime.text = Utils.setDate(chatData.timeStamp)
         }
 

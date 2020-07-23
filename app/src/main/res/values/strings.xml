@@ -387,6 +387,7 @@
     <string name="unblock_this_user">Unblock this user to reply this conservation</string>
     <string name="google_location_api_key">AIzaSyBkQ-B8gjSX7O2A0qsAmUJtrQFqe2i0svc</string>
     <string name="google_vision_api_key">AIzaSyDjTWXzAS6IvhCf7bscIyKYZXOUKsy4Tms</string>
+    <string name="country">Country</string>
 
 
 </resources>

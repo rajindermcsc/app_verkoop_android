@@ -4,7 +4,6 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
-import android.provider.Settings
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
@@ -28,10 +27,10 @@ import com.verkoopapp.VerkoopApplication
 import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
-import com.verkoopapp.utils.CommonUtils
+import com.verkoopapp.utils.CountryListener
 import com.verkoopapp.utils.Utils
+import com.verkoopapp.utils.countryDialog
 import kotlinx.android.synthetic.main.login_activity.*
-import kotlinx.android.synthetic.main.profile_fragment.*
 import org.json.JSONException
 import retrofit2.Response
 import java.util.*
@@ -213,6 +212,34 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         }
     }
 
+    private fun showCountryDialog(data: DataGoogle) {
+        val shareDialog = countryDialog(this, object : CountryListener {
+            override fun onItemClick(code: String, name: String) {
+                callUpdateCountryApi(code, name, data)
+            }
+        })
+        shareDialog.show()
+    }
+
+    private fun callUpdateCountryApi(code: String, name: String, data: DataGoogle) {
+        VerkoopApplication.instance.loader.show(this)
+        ServiceHelper().updateCountry(UpdateCountryRequest(data.userId.toString(), code,name),
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        VerkoopApplication.instance.loader.hide(this@LoginActivity)
+                        val ciuntryResponse = response.body() as UpdateCountryResponse
+                        setResponseData(data.userId.toString(), data.token, data.username, data.email, data.login_type, data.is_use, "", data.qrCode_image, data.coin, data.amount, ciuntryResponse.currency, ciuntryResponse.currency_symbol)
+                        updateDeviceInfo()
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        VerkoopApplication.instance.loader.hide(this@LoginActivity)
+                        Utils.showSimpleMessage(this@LoginActivity, msg!!).show()
+                        updateDeviceInfo()
+                    }
+                })
+    }
+
     /*Login with Facebook*/
     private fun loginWithFacebook() {
         if (deviceId.equals("")) {
@@ -317,7 +344,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
                         val loginResponse = response.body() as LogInResponse
                         if (loginResponse.data != null) {
-                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use, loginResponse.data.mobile_no, loginResponse.data.qrCode_image, loginResponse.data.coin, loginResponse.data.amount)
+                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use, loginResponse.data.mobile_no, loginResponse.data.qrCode_image, loginResponse.data.coin, loginResponse.data.amount, loginResponse.data.currency, loginResponse.data.currency_symbol)
                             updateDeviceInfo()
                         } else {
                             Utils.showSimpleMessage(this@LoginActivity, loginResponse.message).show()
@@ -340,27 +367,31 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
     }
 
     private fun callUpdateDeviceInfoApi() {
+//        VerkoopApplication.instance.loader.hide(this@LoginActivity)
         ServiceHelper().updateDeviceInfo(UpdateDeviceInfoRequest(Utils.getPreferences(this@LoginActivity, AppConstants.USER_ID), deviceId, "1"),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
-                        VerkoopApplication.instance.loader.hide(this@LoginActivity)
+//                        VerkoopApplication.instance.loader.hide(this@LoginActivity)
                         val loginResponse = response.body() as DisLikeResponse
                     }
 
                     override fun onFailure(msg: String?) {
-                        VerkoopApplication.instance.loader.hide(this@LoginActivity)
+//                        VerkoopApplication.instance.loader.hide(this@LoginActivity)
                         Utils.showSimpleMessage(this@LoginActivity, msg!!).show()
                     }
                 })
     }
 
-    private fun setResponseData(userId: String, api_token: String, firstName: String, email: String, loginType: String, firstTime: Int, mobileNo: String, qr_code: String, coin: Int, amount: Int) {
+    private fun setResponseData(userId: String, api_token: String, firstName: String, email: String, loginType: String, firstTime: Int, mobileNo: String, qr_code: String, coin: Int, amount: Float, currency: String, currency_symbol: String) {
         Utils.savePreferencesString(this@LoginActivity, AppConstants.USER_ID, userId)
         Utils.savePreferencesString(this@LoginActivity, AppConstants.API_TOKEN, "Bearer $api_token")
         Utils.savePreferencesString(this@LoginActivity, AppConstants.USER_NAME, firstName)
         Utils.savePreferencesString(this@LoginActivity, AppConstants.QR_CODE, qr_code)
         Utils.saveIntPreferences(this@LoginActivity, AppConstants.COIN, coin)
-        Utils.saveIntPreferences(this@LoginActivity, AppConstants.AMOUNT, amount)
+        Utils.saveFloatPreferences(this@LoginActivity, AppConstants.AMOUNT, amount)
+        Utils.savePreferencesString(this@LoginActivity, AppConstants.CURRENCY, currency)
+        Utils.savePreferencesString(this@LoginActivity, AppConstants.CURRENCY_SYMBOL, currency_symbol)
+        Utils.savePreferencesString(this@LoginActivity, AppConstants.COUNTRY_ID, currency_symbol)
 
         if (!TextUtils.isEmpty(mobileNo)) {
             Utils.savePreferencesString(this@LoginActivity, AppConstants.MOBILE_NO, mobileNo)
@@ -423,8 +454,14 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                         val loginResponse = response.body() as SocialGoogleResponse
                         Log.e("<<Log>>", "Login Successfully.")
                         if (loginResponse.data != null) {
-                            setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use, "", loginResponse.data.qrCode_image, loginResponse.data.coin, loginResponse.data.amount)
-                            updateDeviceInfo()
+
+                            if (loginResponse.data.currency.isNullOrEmpty() || loginResponse.data.currency_symbol.isNullOrEmpty()) {
+                                VerkoopApplication.instance.loader.hide(this@LoginActivity)
+                                showCountryDialog(loginResponse.data)
+                            } else {
+                                setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.is_use, "", loginResponse.data.qrCode_image, loginResponse.data.coin, loginResponse.data.amount, loginResponse.data.currency, loginResponse.data.currency_symbol)
+                                updateDeviceInfo()
+                            }
                         }
                     }
 

@@ -1,6 +1,5 @@
 package com.verkoopapp.activity
 
-import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -12,24 +11,16 @@ import kotlinx.android.synthetic.main.toolbar_location.*
 import android.app.Activity
 import android.content.Context
 import android.os.Handler
-import android.provider.MediaStore
-import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
-import android.widget.SimpleAdapter
 import android.widget.Toast
 import com.stripe.android.ApiResultCallback
 import com.stripe.android.Stripe
-import com.stripe.android.model.Card
-import com.stripe.android.model.PaymentMethod
-import com.stripe.android.model.PaymentMethodCreateParams
 import com.stripe.android.model.Token
 import com.stripe.android.view.CardMultilineWidget
-import com.stripe.example.controller.ErrorDialogHandler
-import com.stripe.example.controller.ProgressDialogController
 import com.verkoopapp.models.AddMoneyRequest
 import com.verkoopapp.models.UpdateWalletResponse
 import com.verkoopapp.models.WalletHistoryResponse
@@ -41,23 +32,10 @@ import retrofit2.Response
 
 import com.verkoopapp.utils.SignatureHelper
 import com.wirecard.ecom.Client
-import com.wirecard.ecom.card.model.CardPayment
-import com.wirecard.ecom.model.TransactionState
-import com.wirecard.ecom.model.TransactionType
 import com.wirecard.ecom.model.out.PaymentResponse
-import de.wirecard.paymentsdk.*
-import de.wirecard.paymentsdk.models.PaymentPageStyle
-import de.wirecard.paymentsdk.models.WirecardCardPayment
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.dialog_payment.*
 import kotlinx.android.synthetic.main.dialog_payment.view.*
 import java.lang.Exception
 import java.math.BigDecimal
-import java.util.*
-import kotlin.collections.HashMap
 
 class MyWalletstripeActivity : AppCompatActivity() {
     private lateinit var paymentHistoryAdapter: PaymentHistoryAdapter
@@ -195,6 +173,7 @@ class MyWalletstripeActivity : AppCompatActivity() {
     private fun setData() {
         ivLeftLocation.setOnClickListener { onBackPressed() }
         tvHeaderLoc.text = getString(R.string.my_wallet)
+        currency_symbol.text = Utils.getPreferencesString(this@MyWalletstripeActivity,AppConstants.CURRENCY_SYMBOL)+" "
         tvAddMoney.setOnClickListener {
             tvAddMoney.isEnabled = false
             Handler().postDelayed(Runnable {

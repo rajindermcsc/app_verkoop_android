@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -117,6 +118,54 @@
                         android:textColor="@color/black_"
                         android:textSize="@dimen/sp_14"
                         tools:ignore="LabelFor" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:orientation="horizontal">
+
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/country"
+                        android:textColor="@color/brown"
+                        android:textSize="@dimen/sp_14" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1">
+
+                        <com.hbb20.CountryCodePicker
+                            android:id="@+id/ccp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:gravity="start"
+                            app:ccpDialog_allowSearch="true"
+                            app:ccpDialog_keyboardAutoPopup="false"
+                            app:ccpDialog_showPhoneCode="false"
+                            app:ccp_contentColor="@color/text_color"
+                            app:ccp_countryPreference="US,DE,IN"
+                            app:ccp_showArrow="false"
+                            app:ccp_showFlag="true"
+                            app:ccp_showFullName="true"
+                            app:ccp_showNameCode="true"
+                            app:ccp_showPhoneCode="false"
+                            app:ccp_textGravity="LEFT" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical|end"
+                            android:layout_marginEnd="@dimen/dp_10"
+                            android:padding="@dimen/dp_10"
+                            android:src="@mipmap/dropdown" />
+                    </FrameLayout>
                 </LinearLayout>
 
                 <LinearLayout

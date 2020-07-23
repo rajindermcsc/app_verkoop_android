@@ -12,6 +12,7 @@ import com.verkoopapp.R
 import com.verkoopapp.fragment.ProfileFragment
 import com.verkoopapp.models.Item
 import com.verkoopapp.utils.AppConstants
+import com.verkoopapp.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.my_profile_row.*
 
@@ -77,7 +78,7 @@ class MyProfileItemAdapter(private val context: Context, private val llProfilePa
             }
 
             tvNameProfile.text=data.name
-            tvItemPriceProfile.text="R"+data.price
+            tvItemPriceProfile.text= Utils.getPreferencesString(context, AppConstants.CURRENCY_SYMBOL)+ " "+data.price
             itemView.setOnClickListener {
               //  likeDisLikeListener.getItemDetailsClick(data.id,adapterPosition)
 

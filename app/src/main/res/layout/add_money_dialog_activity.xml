@@ -70,12 +70,12 @@
                         android:orientation="horizontal">
 
                         <com.verkoopapp.fonts.textView.GothiBoldTextView
+                            android:id="@+id/currency"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:padding="@dimen/dp_10"
-                            android:text="@string/dollar"
                             android:textColor="@color/dark_black"
                             android:textSize="@dimen/sp_18" />
 

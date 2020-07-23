@@ -1,12 +1,18 @@
 package com.verkoopapp.network
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.text.TextUtils
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.verkoopapp.VerkoopApplication
+import com.verkoopapp.activity.WalkThroughActivity
 
 import com.verkoopapp.models.*
+import com.verkoopapp.utils.Utils
 
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -33,6 +39,8 @@ class ServiceHelper {
         val responseCall = myService.userSignUpApi(request)
         responseCall.enqueue(object : Callback<SignUpResponse> {
             override fun onResponse(call: Call<SignUpResponse>, response: Response<SignUpResponse>) {
+                Log.e("TAG", "onResponse: "+request.country_code)
+//                Log.e("TAG", "userSignUPService: "+request.currency)
                 //  Log.e("<<<Response>>>", Gson().toJson(res))
                 if (response.code() == 200) {
                     onResponse.onSuccess(response)
@@ -254,6 +262,9 @@ class ServiceHelper {
         })
     }
 
+
+
+
     fun getPlacesService(placeSearchRequest: PlaceSearchRequest, onResponse: OnResponse) {
         val service = ApiClientLocation.client
         val responseCall = service.getDetails(placeSearchRequest.loc, placeSearchRequest.radius, placeSearchRequest.key)
@@ -346,6 +357,43 @@ class ServiceHelper {
                 onResponse.onFailure(t.message)
             }
         })
+    }
+
+    fun getCurrencyRateList(onResponse: OnResponse) {
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
+        val responseCall = myService.getCurrencies()
+        responseCall.enqueue(object : Callback<CurrencyResponse> {
+            override fun onResponse(call: Call<CurrencyResponse>, response: Response<CurrencyResponse>) {
+                val res = response.body()
+                if (response.code() == 401) {
+                    doLogout()
+                }
+                Log.e("<<<Response>>>", Gson().toJson(res))
+                if (res != null) {
+                    when {
+                        response.code() == 200 -> onResponse.onSuccess(response)
+                        else -> onResponse.onFailure(response.message())
+                    }
+                } else {
+                    onResponse.onFailure("Something went wrong!")
+                }
+            }
+
+            override fun onFailure(call: Call<CurrencyResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
+
+    private fun doLogout() {
+        Utils.clearPreferences(VerkoopApplication.instance.baseContext)
+        val mStartActivity = Intent(VerkoopApplication.instance.baseContext, WalkThroughActivity::class.java)
+        val mPendingIntentId = 123456
+        val mPendingIntent = PendingIntent.getActivity(VerkoopApplication.instance.baseContext, mPendingIntentId, mStartActivity,
+                PendingIntent.FLAG_CANCEL_CURRENT)
+        val mgr = VerkoopApplication.instance.baseContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent)
+        System.exit(0)
     }
 
     fun getItemsService(homeRequest: HomeRequest, pageCount: Int, userId: String, onResponse: OnResponse) {
@@ -447,6 +495,19 @@ class ServiceHelper {
     fun categoryPostService(categoryPostRequest: FilterRequest, onResponse: OnResponse) {
         // val myService = ApiClient.getClient().create(MyService::class.java)
         val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
+        Log.e("TAG", "categoryPostService: "+categoryPostRequest.toString())
+        Log.e("TAG", "categoryPostService: "+categoryPostRequest.category_id)
+        Log.e("TAG", "categoryPostService: "+categoryPostRequest.item_id)
+        Log.e("TAG", "categoryPostService: "+categoryPostRequest.item_type)
+        Log.e("TAG", "categoryPostService: "+categoryPostRequest.latitude)
+        Log.e("TAG", "categoryPostService: "+categoryPostRequest.longitude)
+        Log.e("TAG", "categoryPostService: "+categoryPostRequest.max_price)
+        Log.e("TAG", "categoryPostService: "+categoryPostRequest.meet_up)
+        Log.e("TAG", "categoryPostService: "+categoryPostRequest.min_price)
+        Log.e("TAG", "categoryPostService: "+categoryPostRequest.search)
+        Log.e("TAG", "categoryPostService: "+categoryPostRequest.sort_no)
+        Log.e("TAG", "categoryPostService: "+categoryPostRequest.type)
+        Log.e("TAG", "categoryPostService: "+categoryPostRequest.userId)
         val responseCall = myService.categoryPostApi(categoryPostRequest, categoryPostRequest.userId)
         responseCall.enqueue(object : Callback<CategoryPostResponse> {
             override fun onResponse(call: Call<CategoryPostResponse>, response: Response<CategoryPostResponse>) {
@@ -535,6 +596,7 @@ class ServiceHelper {
         val city = RequestBody.create(MediaType.parse("text/plain"), request.city)
         val state = RequestBody.create(MediaType.parse("text/plain"), request.state)
         val country = RequestBody.create(MediaType.parse("text/plain"), request.country)
+        val countryCode = RequestBody.create(MediaType.parse("text/plain"), request.country_code)
         val cityId = RequestBody.create(MediaType.parse("text/plain"), request.City_id)
         val stateId = RequestBody.create(MediaType.parse("text/plain"), request.State_id)
         val countryId = RequestBody.create(MediaType.parse("text/plain"), request.country_id)
@@ -545,9 +607,9 @@ class ServiceHelper {
         val dob = RequestBody.create(MediaType.parse("text/plain"), request.DOB)
 
         call = if (body != null) {
-            myService.editProfileWthImageApi(body, userId, userName, firstName, lastName, city, state, country, cityId, stateId, countryId, webSite, bio, mobileNo, gender, dob)
+            myService.editProfileWthImageApi(body, userId, userName, firstName, lastName, city, state, country,countryCode ,cityId, stateId, countryId, webSite, bio, mobileNo, gender, dob)
         } else {
-            myService.editProfileWthOutImgApi(userId, userName, firstName, lastName, city, state, country, cityId, stateId, countryId, webSite, bio, mobileNo, gender, dob)
+            myService.editProfileWthOutImgApi(userId, userName, firstName, lastName, city, state, country, countryCode,cityId, stateId, countryId, webSite, bio, mobileNo, gender, dob)
         }
 
         call.enqueue(object : Callback<ProfileUpdateResponse> {
@@ -1837,4 +1899,89 @@ class ServiceHelper {
             })
         }
     }
+
+
+    fun updateCountry(request: UpdateCountryRequest, onResponse: OnResponse) {
+        val myService = ApiClient.getClient().create(MyService::class.java)
+        val responseCall = myService.updateCountryApi(request)
+        responseCall.enqueue(object : Callback<UpdateCountryResponse> {
+            override fun onResponse(call: Call<UpdateCountryResponse>, response: Response<UpdateCountryResponse>) {
+                if (response.code() == 200) {
+                    onResponse.onSuccess(response)
+                } else {
+                    if (response.errorBody() != null) {
+                        try {
+                            val messageError = JSONObject(response.errorBody()!!.string())
+                            onResponse.onFailure(messageError.getString("message"))
+                        } catch (e: JSONException) {
+                            onResponse.onFailure("Something went wrong")
+                            e.printStackTrace()
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                        }
+                    } else {
+                        onResponse.onFailure("Something went wrong")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<UpdateCountryResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
+
+
+
+
+    fun myStateList(userId: String, onResponse: OnResponse) {
+        //    val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
+
+        val responseCall = myService.getStateApi(userId)
+        responseCall.enqueue(object : Callback<StateResponse> {
+            override fun onResponse(call: Call<StateResponse>, response: Response<StateResponse>) {
+                val res = response.body()
+                Log.e("<<<Response>>>", Gson().toJson(res))
+                if (res != null) {
+                    when {
+                        response.code() == 200 -> onResponse.onSuccess(response)
+                        else -> onResponse.onFailure(response.message())
+                    }
+                } else {
+                    onResponse.onFailure("Something went wrong!")
+                }
+            }
+
+            override fun onFailure(call: Call<StateResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
+
+    fun myCityList(userId: String, onResponse: OnResponse) {
+        //    val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
+
+        val responseCall = myService.getCityApi(userId)
+        responseCall.enqueue(object : Callback<CityResponse> {
+            override fun onResponse(call: Call<CityResponse>, response: Response<CityResponse>) {
+                val res = response.body()
+                Log.e("<<<Response>>>", Gson().toJson(res))
+                if (res != null) {
+                    when {
+                        response.code() == 200 -> onResponse.onSuccess(response)
+                        else -> onResponse.onFailure(response.message())
+                    }
+                } else {
+                    onResponse.onFailure("Something went wrong!")
+                }
+            }
+
+            override fun onFailure(call: Call<CityResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
+
 }

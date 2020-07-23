@@ -1,5 +1,6 @@
 package com.verkoopapp.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Handler
@@ -57,6 +58,7 @@ class ItemAdapter(private val context: Context, private val rvItemListDetails: R
     }
 
     inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+        @SuppressLint("SetTextI18n")
         fun bind(data: ItemHome) {
             ivProductImageHome.layoutParams.height = width - 16
             tvPostOn.text = StringBuilder().append(Utils.getDateDifference(data.created_at!!.date)).append(" ").append("ago")
@@ -103,7 +105,7 @@ class ItemAdapter(private val context: Context, private val rvItemListDetails: R
             }
 
 
-            tvItemPriceHome.text = "R " + data.price
+            tvItemPriceHome.text = Utils.convertCurrency(context, data.currency!!, data.price)
             itemView.setOnClickListener {
                 itemView.isEnabled = false
                 Handler().postDelayed(Runnable {

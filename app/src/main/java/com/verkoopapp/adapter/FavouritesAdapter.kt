@@ -102,7 +102,7 @@ class FavouritesAdapter(private val context: Context,private val rvFavourites: R
                 ivProductImageHome.setImageResource(R.mipmap.post_placeholder)
             }
 
-            tvItemPriceHome.text="R"+data.price
+            tvItemPriceHome.text= Utils.convertCurrency(context, data.currency!!, data.price)
             itemView.setOnClickListener {
                // likeDisLikeListener.getItemDetailsClick(data.id,adapterPosition)
                 if(comingFrom!=0) {

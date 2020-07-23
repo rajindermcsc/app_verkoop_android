@@ -75,7 +75,7 @@ class StripeCardPaymentActivity : AppCompatActivity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         pbProgressStripeWallet.visibility = View.VISIBLE
-        ServiceHelper().addMoneyService(AddMoneyRequest(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), amount!!.toDouble(), token!!, "USD"),
+        ServiceHelper().addMoneyService(AddMoneyRequest(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), amount!!.toDouble(), token!!,  Utils.getPreferencesString(this@StripeCardPaymentActivity,AppConstants.CURRENCY)),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         tvPurchase.isEnabled = true

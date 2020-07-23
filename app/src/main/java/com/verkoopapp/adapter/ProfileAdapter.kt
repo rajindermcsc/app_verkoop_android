@@ -300,7 +300,7 @@ class ProfileAdapter(private val context: Context, private val screenWidth: Int,
 //                }
             }
             tvProductHome.text = data.name
-            tvItemPriceHome.text = "R " + data.price
+            tvItemPriceHome.text = Utils.convertCurrency(context, data.currency!!, data.price)
             itemView.setOnClickListener {
                 val intent = Intent(context, ProductDetailsActivity::class.java)
                 intent.putExtra(AppConstants.ITEM_ID, data.id)

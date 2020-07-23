@@ -73,8 +73,9 @@ object AppConstants{
      const val IS_RATE = "IS_RATE"
      const val PHONE_NO = "PHONE_NO"
      const val COIN = "COIN"
-     const val AMOUNT = "AMOUNT"
-
+    const val AMOUNT = "AMOUNT"
+    const val CURRENCY = "CURRENCY"
+    const val CURRENCY_SYMBOL = "CURRENCY_SYMBOL"
 
 
    /*Socket constant*/
@@ -99,5 +100,5 @@ object AppConstants{
 
      const val SENDER_ID = "sender_id"
      const val ITEM_ID = "item_id"
-
+    const val MAX_FILE_SIZE = 1048576 //1*1024*1024 in bytes
 }

@@ -179,7 +179,7 @@ class BuyPropertyAdapter(private val context: Context, private val rvProperty: R
 
             }
             tvProductHome.text = data.name
-            tvItemPriceHome.text = "R" + data.price
+            tvItemPriceHome.text = Utils.convertCurrency(context, data.currency!!, data.price)
             itemView.setOnClickListener {
                 val intent = Intent(context, ProductDetailsActivity::class.java)
                 intent.putExtra(AppConstants.USER_ID, data.user_id)

@@ -71,10 +71,10 @@ class FilterActivity : AppCompatActivity() {
                 lng = filterRequest!!.longitude
             }
             if (!TextUtils.isEmpty(filterRequest!!.min_price)) {
-                etMinPrice.setText(StringBuilder().append(getString(R.string.dollar)).append(filterRequest!!.min_price))
+                etMinPrice.setText(StringBuilder().append(Utils.getPreferencesString(this@FilterActivity,AppConstants.CURRENCY_SYMBOL)).append(filterRequest!!.min_price))
             }
             if (!TextUtils.isEmpty(filterRequest!!.max_price)) {
-                etMaxPrice.setText(StringBuilder().append(getString(R.string.dollar)).append(filterRequest!!.max_price))
+                etMaxPrice.setText(StringBuilder().append(Utils.getPreferencesString(this@FilterActivity,AppConstants.CURRENCY_SYMBOL)).append(filterRequest!!.max_price))
             }
             if (!TextUtils.isEmpty(filterRequest!!.meet_up)) {
                 if (filterRequest!!.meet_up.equals("1", ignoreCase = true)) {
@@ -203,7 +203,7 @@ class FilterActivity : AppCompatActivity() {
             if (hasFocus) {
                 isFocus = true
                 if (etMinPrice.text.toString().isEmpty()) {
-                    etMinPrice.setText(this@FilterActivity.getString(R.string.dollar))
+                    etMinPrice.setText(Utils.getPreferencesString(this@FilterActivity,AppConstants.CURRENCY_SYMBOL))
                     etMinPrice.setSelection(1)
                 }
             } else {
@@ -218,7 +218,7 @@ class FilterActivity : AppCompatActivity() {
             override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
                 if (isFocus) {
                     if (etMinPrice.length() == 0) {
-                        etMinPrice.setText("R")
+                        etMinPrice.setText(Utils.getPreferencesString(this@FilterActivity,AppConstants.CURRENCY_SYMBOL))
                         etMinPrice.setSelection(1)
                     }
                 }
@@ -236,7 +236,7 @@ class FilterActivity : AppCompatActivity() {
             if (hasFocus) {
                 isFocusMax = true
                 if (etMaxPrice.text.toString().isEmpty()) {
-                    etMaxPrice.setText(this@FilterActivity.getString(R.string.dollar))
+                    etMaxPrice.setText(Utils.getPreferencesString(this@FilterActivity,AppConstants.CURRENCY_SYMBOL))
                     etMaxPrice.setSelection(1)
                 }
             } else {
@@ -252,7 +252,7 @@ class FilterActivity : AppCompatActivity() {
             override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
                 if (isFocusMax) {
                     if (etMaxPrice.length() == 0) {
-                        etMaxPrice.setText("R")
+                        etMaxPrice.setText(Utils.getPreferencesString(this@FilterActivity,AppConstants.CURRENCY_SYMBOL))
                         etMaxPrice.setSelection(1)
                     }
                 }
@@ -275,7 +275,7 @@ class FilterActivity : AppCompatActivity() {
                 condition.equals(getString(R.string.used), ignoreCase = true) -> "2"
                 else -> ""
             }
-            val filterRequestSend = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, sortNumber.toString(), lat, lng, itemType, meetUp.toString(), etMinPrice.text.toString().replace("R",""), etMaxPrice.text.toString().replace("R",""),filterRequest!!.search)
+            val filterRequestSend = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, sortNumber.toString(), lat, lng, itemType, meetUp.toString(),etMinPrice.text.toString().replace(Utils.getPreferencesString(this@FilterActivity,AppConstants.CURRENCY_SYMBOL),""), etMaxPrice.text.toString().replace(Utils.getPreferencesString(this@FilterActivity,AppConstants.CURRENCY_SYMBOL),""),filterRequest!!.search)
             val returnIntent = Intent()
             returnIntent.putExtra(AppConstants.POST_DATA, filterRequestSend)
             setResult(Activity.RESULT_OK, returnIntent)

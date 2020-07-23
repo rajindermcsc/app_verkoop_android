@@ -284,7 +284,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
                 }
             }
             tvProductHome.text = data.name
-            tvItemPriceHome.text = "R " + data.price
+            tvItemPriceHome.text = Utils.convertCurrency(context, data.currency!!, data.price)
             itemView.setOnClickListener {
                 itemView.isEnabled = false
                 Handler().postDelayed(Runnable {

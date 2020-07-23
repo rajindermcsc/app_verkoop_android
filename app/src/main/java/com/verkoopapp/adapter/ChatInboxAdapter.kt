@@ -210,31 +210,31 @@ class ChatInboxAdapter(private val context: Context, private val chatInboxType: 
                 rbRatingInbox.visibility=View.GONE
               //  tvLastMssg.text  = data.message
             }
-            if (data.user_id==Utils.getPreferencesString(context,AppConstants.USER_ID).toInt()&&data.offer_status == 0) {
-                tvOfferDes.text=StringBuilder().append("Offered you R").append(data.offer_price)
-                tvStatus.visibility=View.GONE
-            }else if(data.user_id!=Utils.getPreferencesString(context,AppConstants.USER_ID).toInt()&&data.offer_status == 0) {
-                tvOfferDes.text=StringBuilder().append("You made an offer R").append(data.offer_price)
-                tvStatus.visibility=View.GONE
-            }else if(data.user_id==Utils.getPreferencesString(context,AppConstants.USER_ID).toInt()&&data.offer_status == 1) {
-                tvOfferDes.text=StringBuilder().append("Offered you R").append(data.offer_price)
-                tvStatus.visibility=View.VISIBLE
-                tvStatus.text=context.getString(R.string.accepetd)
+            if (data.user_id == Utils.getPreferencesString(context, AppConstants.USER_ID).toInt() && data.offer_status == 0) {
+                tvOfferDes.text = StringBuilder().append("Offered you " + Utils.getPreferencesString(context, AppConstants.CURRENCY_SYMBOL)).append(data.offer_price)
+                tvStatus.visibility = View.GONE
+            } else if (data.user_id != Utils.getPreferencesString(context, AppConstants.USER_ID).toInt() && data.offer_status == 0) {
+                tvOfferDes.text = StringBuilder().append("You made an offer " + Utils.getPreferencesString(context, AppConstants.CURRENCY_SYMBOL)).append(data.offer_price)
+                tvStatus.visibility = View.GONE
+            } else if (data.user_id == Utils.getPreferencesString(context, AppConstants.USER_ID).toInt() && data.offer_status == 1) {
+                tvOfferDes.text = StringBuilder().append("Offered you " + Utils.getPreferencesString(context, AppConstants.CURRENCY_SYMBOL)).append(data.offer_price)
+                tvStatus.visibility = View.VISIBLE
+                tvStatus.text = context.getString(R.string.accepetd)
                 tvStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.accept_offer))
-            }else if(data.user_id!=Utils.getPreferencesString(context,AppConstants.USER_ID).toInt()&&data.offer_status == 1) {
-                tvOfferDes.text=StringBuilder().append("You offered R").append(data.offer_price)
-                tvStatus.visibility=View.VISIBLE
-                tvStatus.text=context.getString(R.string.accepetd)
+            } else if (data.user_id != Utils.getPreferencesString(context, AppConstants.USER_ID).toInt() && data.offer_status == 1) {
+                tvOfferDes.text = StringBuilder().append("You offered " + Utils.getPreferencesString(context, AppConstants.CURRENCY_SYMBOL)).append(data.offer_price)
+                tvStatus.visibility = View.VISIBLE
+                tvStatus.text = context.getString(R.string.accepetd)
                 tvStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.accept_offer))
-            }else if(data.user_id==Utils.getPreferencesString(context,AppConstants.USER_ID).toInt()&&data.offer_status == 2) {
-                tvOfferDes.text=StringBuilder().append("Offered you R").append(data.offer_price)
-                tvStatus.visibility=View.VISIBLE
-                tvStatus.text=context.getString(R.string.declined)
+            } else if (data.user_id == Utils.getPreferencesString(context, AppConstants.USER_ID).toInt() && data.offer_status == 2) {
+                tvOfferDes.text = StringBuilder().append("Offered you " + Utils.getPreferencesString(context, AppConstants.CURRENCY_SYMBOL)).append(data.offer_price)
+                tvStatus.visibility = View.VISIBLE
+                tvStatus.text = context.getString(R.string.declined)
                 tvStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary))
-            }else if(data.user_id!=Utils.getPreferencesString(context,AppConstants.USER_ID).toInt()&&data.offer_status == 2) {
-                tvOfferDes.text=StringBuilder().append("You offered R").append(data.offer_price)
-                tvStatus.visibility=View.VISIBLE
-                tvStatus.text=context.getString(R.string.declined)
+            } else if (data.user_id != Utils.getPreferencesString(context, AppConstants.USER_ID).toInt() && data.offer_status == 2) {
+                tvOfferDes.text = StringBuilder().append("You offered " + Utils.getPreferencesString(context, AppConstants.CURRENCY_SYMBOL)).append(data.offer_price)
+                tvStatus.visibility = View.VISIBLE
+                tvStatus.text = context.getString(R.string.declined)
                 tvStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary))
             }else{
                 llAcceptOffer.visibility=View.GONE

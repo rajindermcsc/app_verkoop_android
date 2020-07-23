@@ -161,7 +161,7 @@ class AdvertisementAdapter(private val context: Context, private val widthScreen
                 }
             }
             tvProductHome.text = data.name
-            tvItemPriceHome.text = "R" + data.price
+            tvItemPriceHome.text = Utils.convertCurrency(context, data.currency!!, data.price)
             itemView.setOnClickListener {
                 itemView.isEnabled = false
                 Handler().postDelayed(Runnable {

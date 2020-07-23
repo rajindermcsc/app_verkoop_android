@@ -38,6 +38,7 @@ class AddMoneyDialogActivity:AppCompatActivity(){
                 .start()
     }
     private fun setData() {
+        currency.text = Utils.getPreferencesString(this@AddMoneyDialogActivity, AppConstants.CURRENCY_SYMBOL)
         pbProgressAddMoney.indeterminateDrawable.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), android.graphics.PorterDuff.Mode.MULTIPLY)
         tvProceed.setOnClickListener {
             if (Utils.isOnline(this)) {

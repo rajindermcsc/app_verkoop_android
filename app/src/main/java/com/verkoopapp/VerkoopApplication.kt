@@ -8,6 +8,7 @@ import com.crashlytics.android.Crashlytics
 import com.github.nkzawa.socketio.client.IO
 import com.github.nkzawa.socketio.client.Socket
 import com.google.gson.Gson
+import com.verkoopapp.models.Currency
 import com.verkoopapp.models.SocketCheckConnectionEvent
 import com.verkoopapp.models.SocketOnReceiveEvent
 import com.verkoopapp.utils.AppConstants
@@ -29,12 +30,20 @@ import org.greenrobot.eventbus.EventBus
 
 class VerkoopApplication : Application() {
      private var loadDialog: Loading? = null
+    private var currenyList: ArrayList<Currency>? = null
     private val socket: Socket? = IO.socket(AppConstants.SOCKET_URL)
     val loader: Loading
         get() {
             if (loadDialog == null)
                 loadDialog = Loading()
             return loadDialog!!
+        }
+
+    val currencies : ArrayList<Currency>
+        get() {
+            if(currenyList == null)
+                currenyList = ArrayList()
+            return currenyList!!
         }
 
      override fun onCreate() {

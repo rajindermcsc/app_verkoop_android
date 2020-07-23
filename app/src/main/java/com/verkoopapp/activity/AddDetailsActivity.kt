@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Typeface
 import android.location.LocationManager
 import android.net.Uri
@@ -38,7 +37,7 @@ import com.google.api.services.vision.v1.Vision
 import com.google.api.services.vision.v1.VisionRequestInitializer
 import com.google.api.services.vision.v1.model.*
 import com.google.gson.Gson
-import com.verkoopapp.BuildConfig
+import id.zelory.compressor.BuildConfig
 import com.verkoopapp.R
 import com.verkoopapp.VerkoopApplication
 import com.verkoopapp.adapter.PropertyTypeAdapter
@@ -46,6 +45,7 @@ import com.verkoopapp.adapter.SelectedImageAdapter
 import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.*
+import id.zelory.compressor.Compressor
 import io.branch.indexing.BranchUniversalObject
 import io.branch.referral.util.ContentMetadata
 import io.branch.referral.util.LinkProperties
@@ -55,15 +55,10 @@ import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.InputStream
-import java.net.HttpURLConnection
-import java.net.URL
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
 class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedImageCount {
-    val TAG = AddDetailsActivity::class.java.simpleName.toString()
     private val REQUEST_CODE = 11
     private var imageList = ArrayList<SelectedImage>()
     private var addItemRequest: AddItemRequest? = null
@@ -143,6 +138,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         }
         setVisionData()
         shareDialogFacebook = ShareDialog(this)
+        //  currency.text = Utils.getPreferencesString(this@AddDetailsActivity,AppConstants.CURRENCY_SYMBOL)
 
     }
 
@@ -177,7 +173,8 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 etNameDetail.setText(dataIntent!!.name)
             }
             if (!TextUtils.isEmpty(dataIntent!!.price.toString())) {
-                etPrice.setText(StringBuilder().append("R").append(dataIntent!!.price))
+
+                etPrice.setText(StringBuilder().append(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL)).append(dataIntent!!.price))
             }
             if (!TextUtils.isEmpty(dataIntent!!.description)) {
                 etDescriptionDetail.setText(dataIntent!!.description)
@@ -275,10 +272,10 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     etRegTo.setText(additionalEditInfo!!.to_year.toString())
                 }
                 if (!TextUtils.isEmpty(additionalEditInfo!!.min_price.toString())) {
-                    etMinPriceCar.setText(StringBuilder().append("R").append(additionalEditInfo!!.min_price.toString()))
+                    etMinPriceCar.setText(StringBuilder().append(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL)).append(additionalEditInfo!!.min_price.toString()))
                 }
                 if (!TextUtils.isEmpty(additionalEditInfo!!.max_price.toString())) {
-                    etMaxPriceCar.setText(StringBuilder().append("R").append(additionalEditInfo!!.max_price.toString()))
+                    etMaxPriceCar.setText(StringBuilder().append(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL)).append(additionalEditInfo!!.max_price.toString()))
                 }
 
             } else if (dataIntent!!.type == 2 || dataIntent!!.type == 3) {
@@ -316,10 +313,10 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     }
                 }
                 if (!TextUtils.isEmpty(additionalEditInfo!!.min_price.toString())) {
-                    etMinPriceAdd.setText(StringBuilder().append("R").append(additionalEditInfo!!.min_price.toString()))
+                    etMinPriceAdd.setText(StringBuilder().append(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL)).append(additionalEditInfo!!.min_price.toString()))
                 }
                 if (!TextUtils.isEmpty(additionalEditInfo!!.max_price.toString())) {
-                    etMaxPriceAdd.setText(StringBuilder().append("R").append(additionalEditInfo!!.max_price.toString()))
+                    etMaxPriceAdd.setText(StringBuilder().append(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL)).append(additionalEditInfo!!.max_price.toString()))
                 }
                 if (!TextUtils.isEmpty(additionalEditInfo!!.property_type)) {
                     if (additionalEditInfo!!.property_type.equals("House", ignoreCase = true)) {
@@ -359,7 +356,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 etNameDetail.setText(addItemRequest!!.name)
             }
             if (!TextUtils.isEmpty(addItemRequest!!.price)) {
-                etPrice.setText(StringBuilder().append("R").append(addItemRequest!!.price))
+                etPrice.setText(StringBuilder().append(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL)).append(addItemRequest!!.price))
             }
             if (!TextUtils.isEmpty(addItemRequest!!.description)) {
                 etDescriptionDetail.setText(addItemRequest!!.description)
@@ -455,10 +452,10 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     etRegTo.setText(additionalInfo!!.to_year.toString())
                 }
                 if (!TextUtils.isEmpty(additionalInfo!!.min_price.toString())) {
-                    etMinPriceCar.setText(StringBuilder().append("R").append(additionalInfo!!.min_price.toString()))
+                    etMinPriceCar.setText(StringBuilder().append(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL)).append(additionalInfo!!.min_price.toString()))
                 }
                 if (!TextUtils.isEmpty(additionalInfo!!.max_price.toString())) {
-                    etMaxPriceCar.setText(StringBuilder().append("R").append(additionalInfo!!.max_price.toString()))
+                    etMaxPriceCar.setText(StringBuilder().append(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL)).append(additionalInfo!!.max_price.toString()))
                 }
 
             } else if (addItemRequest!!.type == 2 || addItemRequest!!.type == 3) {
@@ -497,10 +494,10 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     }
                 }
                 if (!TextUtils.isEmpty(additionalInfo!!.min_price.toString())) {
-                    etMinPriceAdd.setText(StringBuilder().append("R").append(additionalInfo!!.min_price.toString()))
+                    etMinPriceAdd.setText(StringBuilder().append(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL)).append(additionalInfo!!.min_price.toString()))
                 }
                 if (!TextUtils.isEmpty(additionalInfo!!.max_price.toString())) {
-                    etMaxPriceAdd.setText(StringBuilder().append("R").append(additionalInfo!!.max_price.toString()))
+                    etMaxPriceAdd.setText(StringBuilder().append(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL)).append(additionalInfo!!.max_price.toString()))
                 }
                 if (!TextUtils.isEmpty(additionalInfo!!.property_type)) {
                     if (additionalInfo!!.property_type.equals("House", ignoreCase = true)) {
@@ -770,7 +767,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             if (hasFocus) {
                 isFocus = true
                 if (etPrice.text.toString().isEmpty()) {
-                    etPrice.setText(this@AddDetailsActivity.getString(R.string.dollar))
+                    etPrice.setText(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL))
                     etPrice.setSelection(1)
                 }
             } else {
@@ -786,7 +783,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
                 if (isFocus) {
                     if (etPrice.length() == 0) {
-                        etPrice.setText("R")
+                        etPrice.setText(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL))
                         etPrice.setSelection(1)
                     }
                 }
@@ -809,7 +806,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             if (hasFocus) {
                 isFocus = true
                 if (etMinPriceAdd.text.toString().isEmpty()) {
-                    etMinPriceAdd.setText(this@AddDetailsActivity.getString(R.string.dollar))
+                    etMinPriceAdd.setText(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL))
                     etMinPriceAdd.setSelection(1)
                 }
             } else {
@@ -825,7 +822,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
                 if (isFocus) {
                     if (etMinPriceAdd.length() == 0) {
-                        etMinPriceAdd.setText("R")
+                        etMinPriceAdd.setText(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL))
                         etMinPriceAdd.setSelection(1)
                     }
                 }
@@ -847,7 +844,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             if (hasFocus) {
                 isFocus = true
                 if (etMaxPriceAdd.text.toString().isEmpty()) {
-                    etMaxPriceAdd.setText(this@AddDetailsActivity.getString(R.string.dollar))
+                    etMaxPriceAdd.setText(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL))
                     etMaxPriceAdd.setSelection(1)
                 }
             } else {
@@ -863,7 +860,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
                 if (isFocus) {
                     if (etMaxPriceAdd.length() == 0) {
-                        etMaxPriceAdd.setText("R")
+                        etMaxPriceAdd.setText(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL))
                         etMaxPriceAdd.setSelection(1)
                     }
                 }
@@ -885,7 +882,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             if (hasFocus) {
                 isFocus = true
                 if (etMinPriceCar.text.toString().isEmpty()) {
-                    etMinPriceCar.setText(this@AddDetailsActivity.getString(R.string.dollar))
+                    etMinPriceCar.setText(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL))
                     etMinPriceCar.setSelection(1)
                 }
             } else {
@@ -901,7 +898,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
                 if (isFocus) {
                     if (etMinPriceCar.length() == 0) {
-                        etMinPriceCar.setText("R")
+                        etMinPriceCar.setText(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL))
                         etMinPriceCar.setSelection(1)
                     }
                 }
@@ -923,7 +920,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             if (hasFocus) {
                 isFocus = true
                 if (etMaxPriceCar.text.toString().isEmpty()) {
-                    etMaxPriceCar.setText(this@AddDetailsActivity.getString(R.string.dollar))
+                    etMaxPriceCar.setText(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL))
                     etMaxPriceCar.setSelection(1)
                 }
             } else {
@@ -939,7 +936,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
                 if (isFocus) {
                     if (etMaxPriceCar.length() == 0) {
-                        etMaxPriceCar.setText("R")
+                        etMaxPriceCar.setText(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL))
                         etMaxPriceCar.setSelection(1)
                     }
                 }
@@ -1136,7 +1133,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
 
     private fun shareDialog() {
         try {
-            val shareDialog = ShareProductDialog(this, etNameDetail.text.toString(), categoryName,etPrice.text.toString(), object : SharePostListener {
+            val shareDialog = ShareProductDialog(this, etNameDetail.text.toString(), categoryName, etPrice.text.toString(), object : SharePostListener {
                 override fun finishDialog() {
                     val intent = Intent(this@AddDetailsActivity, HomeActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
@@ -1152,17 +1149,17 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                         Utils.showSimpleMessage(this@AddDetailsActivity, getString(R.string.not_installed)).show()
 
                     }
-    //                Utils.showToast(this@AddDetailsActivity, "whatApp")
+                    //                Utils.showToast(this@AddDetailsActivity, "whatApp")
                 }
 
                 override fun onFacebookClick() {
                     sharedDetails(1)/*facebook Share*/
-    //                Utils.showToast(this@AddDetailsActivity, "facebook")
+                    //                Utils.showToast(this@AddDetailsActivity, "facebook")
                 }
 
                 override fun onShareClick() {
                     sharedDetails(0)/*open Share*/
-    //                Utils.showToast(this@AddDetailsActivity, "share")
+                    //                Utils.showToast(this@AddDetailsActivity, "share")
                 }
 
             })
@@ -1510,7 +1507,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             }
 
             override fun doInBackground(vararg params: Void): Bitmap? {
-                val uriTemp = FileProvider.getUriForFile(this@AddDetailsActivity, BuildConfig.APPLICATION_ID + ".provider", File(Utils.getRealPathFromUri(this@AddDetailsActivity, Uri.parse(selectedImageList[imageCount].imageUrl))))
+                val uriTemp = FileProvider.getUriForFile(this@AddDetailsActivity, "com.verkoopapp" + ".provider", File(Utils.getRealPathFromUri(this@AddDetailsActivity, Uri.parse(selectedImageList[imageCount].imageUrl))))
                 contentResolver.notifyChange(uriTemp, null)
                 val cr = contentResolver
                 var bmp: Bitmap? = null
@@ -1531,7 +1528,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             }
 
             override fun onPostExecute(aVoid: Bitmap?) {
-                if(aVoid!=null){
+                if (aVoid != null) {
                     super.onPostExecute(aVoid)
                 }
                 if (imageCount == selectedImageList.size - 2) {
@@ -1566,8 +1563,8 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         }
         val editItemRequest: EditItemRequest?
         if (screenType == 1) {
-            val additionalInfo = AdditionalInfo(car_brand_id = carBrandId, brand_name = carBrandName, car_type = carType, car_type_id = carTypeId, direct_owner = directOwner, location = etLocation.text.toString(), from_year = (etRegFrom.text.toString()).toInt(), to_year = (etRegTo.text.toString()).toInt(), min_price = etMinPriceCar.text.toString().replace("R", ""), max_price = etMaxPriceCar.text.toString().replace("R", ""), transmission_type = transmissionType, model_id = carModelId, model_name = carModel)
-            editItemRequest = EditItemRequest(realPath, imageIdList.toString().replace("[", "").replace("]", ""), categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceCar.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "0", itemId, screenType, additionalInfo, zoneId, carBrandId, carTypeId)
+            val additionalInfo = AdditionalInfo(car_brand_id = carBrandId, brand_name = carBrandName, car_type = carType, car_type_id = carTypeId, direct_owner = directOwner, location = etLocation.text.toString(), from_year = (etRegFrom.text.toString()).toInt(), to_year = (etRegTo.text.toString()).toInt(), min_price = etMinPriceCar.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), ""), max_price = etMaxPriceCar.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), ""), transmission_type = transmissionType, model_id = carModelId, model_name = carModel)
+            editItemRequest = EditItemRequest(realPath, imageIdList.toString().replace("[", "").replace("]", ""), categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceCar.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "0", itemId, screenType, additionalInfo, zoneId, carBrandId, carTypeId)
 
         } else if (screenType == 2) {
             var property_ = ""
@@ -1576,8 +1573,8 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     property_ = propertyTypeList[i].name
                 }
             }
-            val additionalInfo = AdditionalInfo(location = tvZone.text.toString(), zone_id = zoneId, street_name = etStreetName.text.toString(), postal_code = (etPostalCode.text.toString()).toInt(), city = etArea.text.toString(), bedroom = totalBadRoom, bathroom = totalBatchRoom, min_price = (etMinPriceAdd.text.toString().replace("R", "")), max_price = (etMaxPriceAdd.text.toString().replace("R", "")), property_type = property_, parking_type = parkingType)
-            editItemRequest = EditItemRequest(realPath, imageIdList.toString().replace("[", "").replace("]", ""), categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceAdd.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "0", itemId, screenType, additionalInfo, zoneId)
+            val additionalInfo = AdditionalInfo(location = tvZone.text.toString(), zone_id = zoneId, street_name = etStreetName.text.toString(), postal_code = (etPostalCode.text.toString()).toInt(), city = etArea.text.toString(), bedroom = totalBadRoom, bathroom = totalBatchRoom, min_price = (etMinPriceAdd.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "")), max_price = (etMaxPriceAdd.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "")), property_type = property_, parking_type = parkingType)
+            editItemRequest = EditItemRequest(realPath, imageIdList.toString().replace("[", "").replace("]", ""), categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceAdd.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "0", itemId, screenType, additionalInfo, zoneId)
 
         } else if (screenType == 3) {
             var property_ = ""
@@ -1586,26 +1583,32 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     property_ = propertyTypeList[i].name
                 }
             }
-            val additionalInfo = AdditionalInfo(location = tvZone.text.toString(), zone_id = zoneId, street_name = etStreetName.text.toString(), postal_code = (etPostalCode.text.toString()).toInt(), city = etArea.text.toString(), bedroom = totalBadRoom, bathroom = totalBatchRoom, min_price = (etMinPriceAdd.text.toString().replace("R", "")), max_price = (etMaxPriceAdd.text.toString().replace("R", "")), property_type = property_, parking_type = parkingType, furnished = furnished)
-            editItemRequest = EditItemRequest(realPath, imageIdList.toString().replace("[", "").replace("]", ""), categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceAdd.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "0", itemId, screenType, additionalInfo, zoneId)
+            val additionalInfo = AdditionalInfo(location = tvZone.text.toString(), zone_id = zoneId, street_name = etStreetName.text.toString(), postal_code = (etPostalCode.text.toString()).toInt(), city = etArea.text.toString(), bedroom = totalBadRoom, bathroom = totalBatchRoom, min_price = (etMinPriceAdd.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "")), max_price = (etMaxPriceAdd.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "")), property_type = property_, parking_type = parkingType, furnished = furnished)
+            editItemRequest = EditItemRequest(realPath, imageIdList.toString().replace("[", "").replace("]", ""), categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceAdd.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "0", itemId, screenType, additionalInfo, zoneId)
 
         } else {
             if (cbNearBy.isChecked) {
                 val additionalInfo = AdditionalInfo(carBrandId, carBrandName, carType, carTypeId, "", directOwner)
-                editItemRequest = EditItemRequest(realPath, imageIdList.toString().replace("[", "").replace("]", ""), categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "1", itemId, screenType, additionalInfo)
+                editItemRequest = EditItemRequest(realPath, imageIdList.toString().replace("[", "").replace("]", ""), categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "1", itemId, screenType, additionalInfo)
             } else {
                 val additionalInfo = AdditionalInfo(carBrandId, carBrandName, carType, carTypeId, "", directOwner)
-                editItemRequest = EditItemRequest(realPath, imageIdList.toString().replace("[", "").replace("]", ""), categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), "0.0", "0.0", "", "0", itemId, screenType, additionalInfo)
+                editItemRequest = EditItemRequest(realPath, imageIdList.toString().replace("[", "").replace("]", ""), categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), "0.0", "0.0", "", "0", itemId, screenType, additionalInfo)
             }
         }
         //  dasds
-        //  val editItemRequest = EditItemRequest(realPath, imageIdList.toString().replace("[", "").replace("]", ""), categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, meetUp, itemId,type)
+        //  val editItemRequest = EditItemRequest(realPath, imageIdList.toString().replace("[", "").replace("]", ""), categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity,AppConstants.CURRENCY_SYMBOL), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, meetUp, itemId,type)
 
+        for (i in 0 until editItemRequest.imageList.size) {
+            if (!TextUtils.isEmpty(editItemRequest.imageList[i])) {
+                val file1 = File(editItemRequest.imageList[i])
+                if (file1.length() > AppConstants.MAX_FILE_SIZE) {
+                    editItemRequest.imageList[i] = Compressor(this@AddDetailsActivity).compressToFile(file1).absolutePath
+                }
+            }
+        }
         ServiceHelper().editItemsApi(editItemRequest,
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
-                        Log.e(TAG, "onSuccess: "+response.raw().request().url())
-                        Log.e(TAG, "onSuccessyes: ")
                         pbProgressAdd.visibility = View.GONE
                         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                         val categoriesResponse = response.body() as AddItemResponse
@@ -1619,7 +1622,6 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     }
 
                     override fun onFailure(msg: String?) {
-                        Log.e(TAG, "onFailure: "+msg)
                         pbProgressAdd.visibility = View.GONE
                         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                         Utils.showSimpleMessage(this@AddDetailsActivity, msg!!).show()
@@ -1633,8 +1635,8 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         var addItemRequest: AddItemRequest? = null
         if (screenType == 1) {
             //val additionalInfo = AdditionalInfo(carBrandId, carBrandName, carType, carTypeId, etRegistrationYear.text.toString(), directOwner)
-            val additionalInfo = AdditionalInfo(car_brand_id = carBrandId, brand_name = carBrandName, car_type = carType, car_type_id = carTypeId, direct_owner = directOwner, location = etLocation.text.toString(), from_year = (etRegFrom.text.toString()).toInt(), to_year = (etRegTo.text.toString()).toInt(), min_price = etMinPriceCar.text.toString().replace("R", ""), max_price = etMaxPriceCar.text.toString().replace("R", ""), transmission_type = transmissionType, model_id = carModelId, model_name = carModel)
-            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceCar.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId, carBrandId, carTypeId)
+            val additionalInfo = AdditionalInfo(car_brand_id = carBrandId, brand_name = carBrandName, car_type = carType, car_type_id = carTypeId, direct_owner = directOwner, location = etLocation.text.toString(), from_year = (etRegFrom.text.toString()).toInt(), to_year = (etRegTo.text.toString()).toInt(), min_price = etMinPriceCar.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), ""), max_price = etMaxPriceCar.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), ""), transmission_type = transmissionType, model_id = carModelId, model_name = carModel)
+            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceCar.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId, carBrandId, carTypeId)
 
         } else if (screenType == 2) {
             var property_ = ""
@@ -1643,8 +1645,8 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     property_ = propertyTypeList[i].name
                 }
             }
-            val additionalInfo = AdditionalInfo(location = tvZone.text.toString(), zone_id = 0, street_name = etStreetName.text.toString(), postal_code = (etPostalCode.text.toString()).toInt(), city = etArea.text.toString(), bedroom = totalBadRoom, bathroom = totalBatchRoom, min_price = (etMinPriceAdd.text.toString().replace("R", "")), max_price = (etMaxPriceAdd.text.toString().replace("R", "")), property_type = property_, parking_type = parkingType)
-            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceAdd.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId)
+            val additionalInfo = AdditionalInfo(location = tvZone.text.toString(), zone_id = 0, street_name = etStreetName.text.toString(), postal_code = (etPostalCode.text.toString()).toInt(), city = etArea.text.toString(), bedroom = totalBadRoom, bathroom = totalBatchRoom, min_price = (etMinPriceAdd.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "")), max_price = (etMaxPriceAdd.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "")), property_type = property_, parking_type = parkingType)
+            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceAdd.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId)
         } else if (screenType == 3) {
             var property_ = ""
             for (i in propertyTypeList.indices) {
@@ -1652,25 +1654,30 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     property_ = propertyTypeList[i].name
                 }
             }
-            val additionalInfo = AdditionalInfo(location = tvZone.text.toString(), zone_id = 0, street_name = etStreetName.text.toString(), postal_code = (etPostalCode.text.toString()).toInt(), city = etArea.text.toString(), bedroom = totalBadRoom, bathroom = totalBatchRoom, min_price = (etMinPriceAdd.text.toString().replace("R", "")), max_price = (etMaxPriceAdd.text.toString().replace("R", "")), property_type = property_, parking_type = parkingType, furnished = furnished)
-            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceAdd.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId)
+            val additionalInfo = AdditionalInfo(location = tvZone.text.toString(), zone_id = 0, street_name = etStreetName.text.toString(), postal_code = (etPostalCode.text.toString()).toInt(), city = etArea.text.toString(), bedroom = totalBadRoom, bathroom = totalBatchRoom, min_price = (etMinPriceAdd.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "")), max_price = (etMaxPriceAdd.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "")), property_type = property_, parking_type = parkingType, furnished = furnished)
+            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceAdd.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId)
         } else {
             if (cbNearBy.isChecked) {
                 val additionalInfo = AdditionalInfo(carBrandId, carBrandName, carType, carTypeId, "", directOwner)
-                addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, lat.toString(), lng.toString(), address, "1", screenType, additionalInfo)
+                addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, lat.toString(), lng.toString(), address, "1", screenType, additionalInfo)
             } else {
                 val additionalInfo = AdditionalInfo(carBrandId, carBrandName, carType, carTypeId, "", directOwner)
-                addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, "0.0", "0.0", "", "0", screenType, additionalInfo
+                addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, "0.0", "0.0", "", "0", screenType, additionalInfo
                 )
             }
         }
 
+        for (i in 0 until addItemRequest.imageList.size) {
+            if (!TextUtils.isEmpty(addItemRequest.imageList[i])) {
+                val file1 = File(addItemRequest.imageList[i])
+                if (file1.length() > AppConstants.MAX_FILE_SIZE) {
+                    addItemRequest.imageList[i] = Compressor(this@AddDetailsActivity).compressToFile(file1).absolutePath
+                }
+            }
+        }
         ServiceHelper().addItemsApi(addItemRequest,
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
-                        Log.e(TAG, "onSuccessyes@: "+response.raw().request().url())
-                        Log.e(TAG, "onSuccessyes@: "+response.message())
-                        Log.e(TAG, "onSuccessyes@: "+response)
                         pbProgressAdd.visibility = View.GONE
                         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                         val categoriesResponse = response.body() as AddItemResponse
@@ -1689,7 +1696,6 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     }
 
                     override fun onFailure(msg: String?) {
-                        Log.e(TAG, "onFailure@: "+msg)
                         pbProgressAdd.visibility = View.GONE
                         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                         Utils.showSimpleMessage(this@AddDetailsActivity, msg!!).show()
@@ -1764,7 +1770,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 }
             }
             val additionalInfo = AdditionalInfo(carBrandId, carBrandName, carType, carTypeId, etRegistrationYear.text.toString(), directOwner, tvZone.text.toString(), zoneId, etStreetName.text.toString(), postalCode, etArea.text.toString(), totalBadRoom, totalBatchRoom, (etMinPriceAdd.text.toString().replace("R", "")), (etMaxPriceAdd.text.toString().replace("$", "")), property_, parkingType)
-            addItemRequest = AddItemRequest(sendList, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "1", screenType, additionalInfo)
+            addItemRequest = AddItemRequest(sendList, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity,AppConstants.CURRENCY_SYMBOL), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), lat.toString(), lng.toString(), address, "1", screenType, additionalInfo)
 
         }*/
         val addItemRequest: AddItemRequest?
@@ -1778,8 +1784,8 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 toYear = (etRegTo.text.toString()).toInt()
             }
             //val additionalInfo = AdditionalInfo(carBrandId, carBrandName, carType, carTypeId, etRegistrationYear.text.toString(), directOwner)
-            val additionalInfo = AdditionalInfo(car_brand_id = carBrandId, brand_name = carBrandName, car_type = carType, car_type_id = carTypeId, direct_owner = directOwner, location = etLocation.text.toString(), from_year = fromYear, to_year = toYear, min_price = etMinPriceCar.text.toString().replace("R", ""), max_price = etMaxPriceCar.text.toString().replace("R", ""), transmission_type = transmissionType, model_id = carModelId, model_name = carModel)
-            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceCar.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId, carBrandId, carTypeId)
+            val additionalInfo = AdditionalInfo(car_brand_id = carBrandId, brand_name = carBrandName, car_type = carType, car_type_id = carTypeId, direct_owner = directOwner, location = etLocation.text.toString(), from_year = fromYear, to_year = toYear, min_price = etMinPriceCar.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), ""), max_price = etMaxPriceCar.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), ""), transmission_type = transmissionType, model_id = carModelId, model_name = carModel)
+            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceCar.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId, carBrandId, carTypeId)
 
         } else if (screenType == 2) {
             var property_ = ""
@@ -1792,8 +1798,8 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             if (!TextUtils.isEmpty(etPostalCode.text.toString()) && !etPostalCode.text.toString().equals("null", ignoreCase = true)) {
                 postalCode = (etPostalCode.text.toString()).toInt()
             }
-            val additionalInfo = AdditionalInfo(location = tvZone.text.toString(), zone_id = 0, street_name = etStreetName.text.toString(), postal_code = postalCode, city = etArea.text.toString(), bedroom = totalBadRoom, bathroom = totalBatchRoom, min_price = (etMinPriceAdd.text.toString().replace("R", "")), max_price = (etMaxPriceAdd.text.toString().replace("R", "")), property_type = property_, parking_type = parkingType)
-            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceAdd.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId)
+            val additionalInfo = AdditionalInfo(location = tvZone.text.toString(), zone_id = 0, street_name = etStreetName.text.toString(), postal_code = postalCode, city = etArea.text.toString(), bedroom = totalBadRoom, bathroom = totalBatchRoom, min_price = (etMinPriceAdd.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "")), max_price = (etMaxPriceAdd.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "")), property_type = property_, parking_type = parkingType)
+            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceAdd.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId)
         } else if (screenType == 3) {
             var property_ = ""
             for (i in propertyTypeList.indices) {
@@ -1805,13 +1811,13 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             if (!TextUtils.isEmpty(etPostalCode.text.toString()) && !etPostalCode.text.toString().equals("null", ignoreCase = true)) {
                 postalCode = (etPostalCode.text.toString()).toInt()
             }
-            val additionalInfo = AdditionalInfo(location = tvZone.text.toString(), zone_id = 0, street_name = etStreetName.text.toString(), postal_code = postalCode, city = etArea.text.toString(), bedroom = totalBadRoom, bathroom = totalBatchRoom, min_price = (etMinPriceAdd.text.toString().replace("R", "")), max_price = (etMaxPriceAdd.text.toString().replace("R", "")), property_type = property_, parking_type = parkingType, furnished = furnished)
-            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceAdd.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId)
+            val additionalInfo = AdditionalInfo(location = tvZone.text.toString(), zone_id = 0, street_name = etStreetName.text.toString(), postal_code = postalCode, city = etArea.text.toString(), bedroom = totalBadRoom, bathroom = totalBatchRoom, min_price = (etMinPriceAdd.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "")), max_price = (etMaxPriceAdd.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "")), property_type = property_, parking_type = parkingType, furnished = furnished)
+            addItemRequest = AddItemRequest(realPath, categoryId.toString(), categoryName, etNameDetail.text.toString(), etMaxPriceAdd.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, lat.toString(), lng.toString(), address, "0", screenType, additionalInfo, zoneId)
         } else {
             if (cbNearBy.isChecked) {
-                addItemRequest = AddItemRequest(sendList, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, lat.toString(), lng.toString(), address, "1", screenType)
+                addItemRequest = AddItemRequest(sendList, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, lat.toString(), lng.toString(), address, "1", screenType)
             } else {
-                addItemRequest = AddItemRequest(sendList, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(this@AddDetailsActivity.getString(R.string.dollar), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, "0.0", "0.0", "", "0", screenType)
+                addItemRequest = AddItemRequest(sendList, categoryId.toString(), categoryName, etNameDetail.text.toString(), etPrice.text.toString().replace(Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.CURRENCY_SYMBOL), "").trim(), itemType.toString(), etDescriptionDetail.text.toString(), Utils.getPreferencesString(this@AddDetailsActivity, AppConstants.USER_ID), labelArrayString, "0.0", "0.0", "", "0", screenType)
             }
         }
         val returnIntent = Intent()

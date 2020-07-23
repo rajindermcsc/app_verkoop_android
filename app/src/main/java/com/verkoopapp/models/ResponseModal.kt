@@ -45,7 +45,9 @@ data class DataSignUp(
         val token: String,
         val qrCode_image: String,
         val coin: Int = 0,
-        val amount: Int = 0
+        val amount: Int = 0,
+        val currency: String,
+        val currency_symbol:String
 )
 
 data class CreatedAtSignUp(
@@ -77,7 +79,9 @@ data class Data(
         val mobile_no: String,
         val qrCode_image: String,
         val coin: Int,
-        val amount: Int
+        val amount: Float,
+        val currency: String,
+        val currency_symbol:String
 )
 
 @Parcelize
@@ -134,6 +138,31 @@ data class MyProfileResponse(
         val data: DataProfile?,
         val message: String
 )
+
+data class StateResponse(
+        val data: ArrayList<StateData>,
+        val message: String
+)
+
+
+
+data class StateData(
+        val id: Int,
+        val name: String
+
+)
+
+data class CityResponse(
+        val data: ArrayList<CityData>,
+        val message: String
+)
+
+data class CityData(
+        val id: Int,
+        val name: String
+
+)
+
 
 data class ReportListResponse(
         val data: ArrayList<ReportListData>,
@@ -275,7 +304,8 @@ data class DataItems(
         val user_id: Int,
         val category_id: Int,
         val name: String,
-        val price: Double = 0.00,
+        var price: Double = 0.00,
+        val currency: String,
         val item_type: Int,
         val description: String,
         val created_at: String,
@@ -321,8 +351,8 @@ data class AdditionalInfoResponse(
         val street_name: String? = null,
         val location: String? = null,
         val zoneId: Int,
-        val min_price: Double = 0.0,
-        val max_price: Double = 0.0,
+        var min_price: Double = 0.0,
+        var max_price: Double = 0.0,
         val property_type: String? = null,
         val parking_type: Int? = 0,
         val from_year: Int? = 0,
@@ -370,6 +400,19 @@ data class HomeDataResponse(
         val message: String
 )
 
+data class CurrencyResponse(
+        val data: DataCurrency?,
+        val message: String
+)
+
+data class DataCurrency(
+        val currency: ArrayList<Currency>
+)
+
+data class Currency(
+        var code: String,
+        var rate: String)
+
 data class DataHome(
         val items: ArrayList<ItemHome>,
         val advertisments: ArrayList<Advertisment>?,
@@ -398,6 +441,7 @@ data class ItemHome(
         val user_id: Int = 0,
         val category_id: Int = 0,
         val name: String? = null,
+        val currency: String? = null,
         val price: Double = 0.0,
         val item_type: Int = 0,
         val created_at: CreatedAtHome? = null,
@@ -427,6 +471,13 @@ data class LikedResponse(
 data class DisLikeResponse(
         val message: String
 )
+
+data class UpdateCountryResponse(
+        val message: String,
+        val currency: String,
+        val currency_symbol: String
+)
+
 
 data class SocialGoogleResponse(
         val data: DataGoogle?,
@@ -460,7 +511,9 @@ data class DataGoogle(
         val token: String,
         val qrCode_image: String,
         val coin: Int,
-        val amount: Int
+        val amount: Float,
+        val currency: String,
+        val currency_symbol:String
 )
 
 data class SocialLoginResponse(
@@ -588,6 +641,8 @@ data class DataProfileUpdate(
         val login_type: String,
         val social_id: String,
         val country: String,
+        val currency: String,
+        val currency_symbol: String,
         val mobile_no: String,
         val website: String,
         val city: String,
@@ -615,6 +670,7 @@ data class DataGetProfile(
         val city: String,
         val state: String,
         val country: String,
+        val country_code: String,
         val city_id: Int,
         val state_id: Int,
         val country_id: Int,
@@ -825,8 +881,9 @@ data class CoinPlanResponse(
 
 data class CoinPlan(
         var id: Int,
-        var amount: Int,
+        var amount: Double,
         var coin: Int,
+        var currency: String,
         var is_active: Int,
         var created_at: String,
         var updated_at: String

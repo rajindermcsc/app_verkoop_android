@@ -23,6 +23,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.andrognito.flashbar.Flashbar
 import com.verkoopapp.R
+import com.verkoopapp.VerkoopApplication
 import java.io.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -89,6 +90,16 @@ object Utils {
         editor.putInt(key, value)
         editor.commit()
     }
+
+    fun saveFloatPreferences(context: Context, key: String, value: Float) {
+
+        val sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context)
+        val editor = sharedPreferences.edit()
+        editor.putFloat(key, value)
+        editor.commit()
+    }
+
 
     fun emailValidator(mailAddress: String): Boolean {
 
@@ -619,6 +630,37 @@ object Utils {
         }
         return appInstalled
     }
+
+    fun convertCurrency(context: Context, from: String, amount: Double): String? {
+        if (from.isNullOrEmpty()) {
+            return "${getPreferencesString(context, AppConstants.CURRENCY_SYMBOL)} --"
+        }
+
+        if (from.equals(getPreferencesString(context, AppConstants.CURRENCY), true)) {
+            return "${getPreferencesString(context, AppConstants.CURRENCY_SYMBOL)} $amount"
+        }
+
+        val fromRate = VerkoopApplication.instance.currencies.first { it.code == from }
+        val toRate = VerkoopApplication.instance.currencies.first { it.code == getPreferencesString(context, AppConstants.CURRENCY) }
+        val convert = toRate.rate.toDouble() / fromRate.rate.toDouble()
+        val output = convert * amount
+        return "${getPreferencesString(context, AppConstants.CURRENCY_SYMBOL)} ${String.format("%.2f", output)}"
+    }
+
+    fun convertCurrencyWithoutSymbol(context: Context, from: String, amount: Double): Double {
+        if (from.isNullOrEmpty()) {
+            return amount
+        }
+        if (from.equals(getPreferencesString(context, AppConstants.CURRENCY), true)) {
+            return amount
+        }
+        val fromRate = VerkoopApplication.instance.currencies.first { it.code == from }
+        val toRate = VerkoopApplication.instance.currencies.first { it.code == getPreferencesString(context, AppConstants.CURRENCY) }
+        val convert = toRate.rate.toDouble() / fromRate.rate.toDouble()
+        val output = convert * amount
+        return String.format("%.2f", output).toDouble()
+    }
+
 
 
 }

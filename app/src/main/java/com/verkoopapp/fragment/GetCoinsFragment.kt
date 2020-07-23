@@ -29,7 +29,7 @@ class GetCoinsFragment : BaseFragment(), CoinListAdapter.PurchaseCoinCallBack {
     private val TAG = GetCoinsFragment::class.java.simpleName
     private lateinit var getCoinAdapter: CoinListAdapter
 
-    override fun purchaseCoin(coinPlanId: Int, position: Int, price: Int, totalCoin: Int) {
+    override fun purchaseCoin(coinPlanId: Int, position: Int, price: Double, totalCoin: Int) {
         purchaseDialog(coinPlanId, position, price, totalCoin)
     }
 
@@ -137,7 +137,7 @@ class GetCoinsFragment : BaseFragment(), CoinListAdapter.PurchaseCoinCallBack {
 
     }
 
-    private fun purchaseDialog(coin_id: Int, position: Int, price: Int, totalCoin: Int) {
+    private fun purchaseDialog(coin_id: Int, position: Int, price: Double, totalCoin: Int) {
         val message = StringBuffer().append("Want to purchase ").append(totalCoin).append(" coins?")
         val shareDialog = PurchaseCoinDialog(coinsActivity, message, object : SelectionListener {
             override fun leaveClick() {

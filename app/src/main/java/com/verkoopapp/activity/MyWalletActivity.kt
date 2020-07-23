@@ -150,6 +150,7 @@ class MyWalletActivity : AppCompatActivity() {
     private fun setData() {
         ivLeftLocation.setOnClickListener { onBackPressed() }
         tvHeaderLoc.text = getString(R.string.my_wallet)
+        currency_symbol.text = Utils.getPreferencesString(this@MyWalletActivity,AppConstants.CURRENCY_SYMBOL)+" "
         tvAddMoney.setOnClickListener {
             val intent = Intent(this, AddMoneyDialogActivity::class.java)
             startActivityForResult(intent, 2)
