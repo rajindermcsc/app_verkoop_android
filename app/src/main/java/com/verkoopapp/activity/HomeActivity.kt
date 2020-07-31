@@ -3,7 +3,10 @@ package com.verkoopapp.activity
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
+import android.location.Address
+import android.location.Geocoder
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
@@ -33,9 +36,7 @@ import com.verkoopapp.fragment.HomeFragment
 import com.verkoopapp.fragment.ProfileFragment
 import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
-import com.verkoopapp.utils.AppConstants
-import com.verkoopapp.utils.CommonUtils
-import com.verkoopapp.utils.Utils
+import com.verkoopapp.utils.*
 import kotlinx.android.synthetic.main.home_activity.*
 import kotlinx.android.synthetic.main.toolbar_home.*
 import org.greenrobot.eventbus.EventBus
@@ -116,9 +117,53 @@ class HomeActivity : AppCompatActivity() {
                 socket?.emit(AppConstants.SOCKET_DISCONNECT, getObj(), Ack {
                     Log.e("<<<DisConnectLogOut>>>", Gson().toJson(it[0]))
                 })
-//                callLogOutApi()
+                callLogOutApi()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (checkPermission()){
+
+            getgpslocation()
+        }
+        else{
+            checkPermission()
+        }
+    }
+
+    private fun checkPermission(): Boolean {
+        val permissionCheck = PermissionCheck(this)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (permissionCheck.checkLocationPermission())
+                return true
+        } else
+            return true
+        return false
+    }
+
+    private fun getgpslocation() {
+        val gpsTracker = GPSTracker(this@HomeActivity)
+
+        if (gpsTracker.canGetLocation()) {
+            val latitude: Double = gpsTracker.location.latitude
+            val longitude: Double = gpsTracker.location.longitude
+            val geocoder = Geocoder(this@HomeActivity, Locale.getDefault())
+            val addresses: List<Address> = geocoder.getFromLocation(latitude, longitude, 1)
+            val cityName: String = addresses[0].getLocality()
+            val stateName: String = addresses[0].getAdminArea()
+            val countryName: String = addresses[0].countryCode
+            Utils.savePreferencesString(this@HomeActivity, AppConstants.CITY_NAME, cityName)
+            Utils.savePreferencesString(this@HomeActivity, AppConstants.STATE_NAME, stateName)
+//            Utils.savePreferencesString(this@HomeActivity, AppConstants.COUNTRY_CODE, countryName)
+        } else {
+            // can't get location
+            // GPS or Network is not enabled
+            // Ask user to enable GPS/network in settings
+//                                    gpsTracker.showSettingsAlert()
+        }
+
     }
 
     private fun callLogOutApi() {

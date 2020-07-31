@@ -11,14 +11,15 @@ import android.widget.Filterable
 import com.verkoopapp.R
 import com.verkoopapp.activity.StateActivity
 import com.verkoopapp.models.City
+import com.verkoopapp.models.CityDataValue
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.region_row.*
 
 
 class CityListAdapter(private val context: Context) : RecyclerView.Adapter<CityListAdapter.ViewHolder>(), Filterable {
 
-    private var cityList = ArrayList<City>()
-    private var mFilteredList = ArrayList<City>()
+    private var cityList = ArrayList<CityDataValue>()
+    private var mFilteredList = ArrayList<CityDataValue>()
     private lateinit var clickEventCallBack: ClickEventCallBack
     val font = Typeface.createFromAsset(context.assets, "fonts/gothic.ttf")
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
@@ -34,7 +35,7 @@ class CityListAdapter(private val context: Context) : RecyclerView.Adapter<CityL
                     mFilteredList = cityList
                 } else {
 
-                    val filteredList = ArrayList<City>()
+                    val filteredList = ArrayList<CityDataValue>()
 
                     for (androidVersion in cityList) {
 
@@ -52,7 +53,7 @@ class CityListAdapter(private val context: Context) : RecyclerView.Adapter<CityL
             }
 
             override fun publishResults(charSequence: CharSequence, filterResults: Filter.FilterResults) {
-                mFilteredList = filterResults.values as ArrayList<City>
+                mFilteredList = filterResults.values as ArrayList<CityDataValue>
                 notifyDataSetChanged()
             }
         }
@@ -75,12 +76,13 @@ class CityListAdapter(private val context: Context) : RecyclerView.Adapter<CityL
     }
 
     inner class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
-        fun bind(data: City) {
-            cbRegion.typeface = font
-            cbRegion.isChecked = data.isSelected
+        fun bind(data: CityDataValue) {
+//            cbRegion.typeface = font
+//            cbRegion.isChecked = data.isSelected
             cbRegion.text = data.name
             cbRegion.setOnClickListener {
                 refreshList(adapterPosition)
+
                 clickEventCallBack.onSelectRegion(data.name, data.id)
             }
         }
@@ -88,17 +90,17 @@ class CityListAdapter(private val context: Context) : RecyclerView.Adapter<CityL
     }
 
     private fun refreshList(adapterPosition: Int) {
-        for (i in mFilteredList.indices) {
-            mFilteredList[i].isSelected = false
-        }
-        for (j in cityList.indices) {
-            cityList[j].isSelected = false
-        }
-        mFilteredList[adapterPosition].isSelected = true
+//        for (i in mFilteredList.indices) {
+//            mFilteredList[i].isSelected = false
+//        }
+//        for (j in cityList.indices) {
+//            cityList[j].isSelected = false
+//        }
+//        mFilteredList[adapterPosition].isSelected = true
         notifyDataSetChanged()
     }
 
-    fun setData(data: ArrayList<City>) {
+    fun setData(data: ArrayList<CityDataValue>) {
        cityList = data
        mFilteredList = data
     }

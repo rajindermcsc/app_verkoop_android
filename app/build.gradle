@@ -12,13 +12,22 @@ ext {
 }
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('E:\\verkoop_app\\verkoop_app\\verkoop_app\\verkoop_new.jks')
+            storePassword '123456'
+            keyAlias = 'upload'
+            keyPassword '123456'
+        }
+    }
+
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.verkoopapp"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 3
-        versionName "1.1"
+        versionCode 7
+        versionName "1.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }

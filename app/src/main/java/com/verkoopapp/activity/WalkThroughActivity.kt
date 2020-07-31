@@ -2,6 +2,7 @@ package com.verkoopapp.activity
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
@@ -13,6 +14,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import com.verkoopapp.R
 import com.verkoopapp.utils.AppConstants
+import com.verkoopapp.utils.PermissionCheck
 
 import kotlinx.android.synthetic.main.walk_through_activity.*
 
@@ -28,8 +30,11 @@ class WalkThroughActivity:AppCompatActivity(){
         setContentView(R.layout.walk_through_activity)
          type = intent.getIntExtra(AppConstants.TYPE, 0)
          id = intent.getIntExtra(AppConstants.ID, 0)
+
         setAdapter()
     }
+
+
 
 
     private fun setAdapter() {

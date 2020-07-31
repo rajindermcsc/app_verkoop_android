@@ -14,10 +14,11 @@ import kotlinx.android.synthetic.main.selarch_location_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 import android.app.Activity
 import android.content.Intent
+import com.verkoopapp.models.CityDataValue
 
 
 class StateActivity:AppCompatActivity(), CityListAdapter.ClickEventCallBack {
-    private var cityList=ArrayList<City>()
+    private var cityList=ArrayList<CityDataValue>()
     private lateinit var cityListAdapter: CityListAdapter
 
     override fun onSelectRegion(regionName: String, regionId: Int) {

@@ -48,6 +48,10 @@ interface MyService {
     @POST("categoryFilterData/{user_id}")
     fun categoryPostApi(@Body request: FilterRequest, @Path(value = "user_id", encoded = true) userId: String): Call<CategoryPostResponse>
 
+
+    @POST("categoryFilterData_android/{user_id}")
+    fun categoryPostApi_android(@Body request: FilterRequest, @Path(value = "user_id", encoded = true) userId: String): Call<CategoryPostResponse>
+
     @POST("user/selectedUserCategroy")
     fun updateServiceApi(@Body request: UpdateCategoryRequest): Call<LikedResponse>
 
@@ -191,8 +195,8 @@ interface MyService {
     @GET("state_list/{country_id}")
     fun getStateApi(@Path(value = "country_id") fullUrl: String): Call<StateResponse>
 
-    @GET("state_list/{state_id}")
-    fun getCityApi(@Path(value = "state_id", encoded = true) fullUrl: String): Call<CityResponse>
+    @GET("city_list/{state_id}")
+    fun getCityApi(@Path(value = "state_id", encoded = true) fullUrl: Int): Call<CityResponse>
 
     @POST("user/updateDeviceInfo")
     fun updateDeviceInfoApi(@Body request: UpdateDeviceInfoRequest): Call<DisLikeResponse>
@@ -213,6 +217,7 @@ interface MyService {
                     @Part("category_id") categoryId: RequestBody,
                     @Part("name") name: RequestBody,
                     @Part("price") price: RequestBody,
+                    @Part("country_id") countryid: RequestBody,
                     @Part("item_type") itemType: RequestBody,
                     @Part("description") description: RequestBody,
                     @Part("user_id") userId: RequestBody,
@@ -238,6 +243,7 @@ interface MyService {
                          @Part("category_id") categoryId: RequestBody,
                          @Part("name") name: RequestBody,
                          @Part("price") price: RequestBody,
+                         @Part("country_id") countryid: RequestBody,
                          @Part("item_type") itemType: RequestBody,
                          @Part("description") description: RequestBody,
                          @Part("user_id") userId: RequestBody,
@@ -260,6 +266,7 @@ interface MyService {
                               @Part("category_id") categoryId: RequestBody,
                               @Part("name") name: RequestBody,
                               @Part("price") price: RequestBody,
+                              @Part("country_id") countryid: RequestBody,
                               @Part("item_type") itemType: RequestBody,
                               @Part("description") description: RequestBody,
                               @Part("user_id") userId: RequestBody,

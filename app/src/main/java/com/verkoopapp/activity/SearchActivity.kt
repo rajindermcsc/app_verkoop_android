@@ -126,7 +126,6 @@ class SearchActivity : AppCompatActivity() {
 
     private fun setData() {
         iv_left.setOnClickListener { onBackPressed() }
-        Log.e(TAG, "setData: ")
         ll_search.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
             intent.putExtra(AppConstants.COMING_FROM, 1)
@@ -134,14 +133,7 @@ class SearchActivity : AppCompatActivity() {
         }
         etSearchHeader.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                Log.e(TAG, "setDatacomingFrom: "+comingFrom)
-                val intent = Intent(this, CategoryDetailsActivity::class.java)
 
-                intent.putExtra(AppConstants.CATEGORY_ID, "")
-                intent.putExtra(AppConstants.SUB_CATEGORY, "")
-                intent.putExtra(AppConstants.TYPE, "")
-                intent.putExtra(AppConstants.Search, etSearchHeader.editableText.toString())
-                startActivityForResult(intent, 2)
                 if (comingFrom == 1) {
 
                     if (!TextUtils.isEmpty(etSearchHeader.text.toString())) {
@@ -152,6 +144,24 @@ class SearchActivity : AppCompatActivity() {
                             Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
                         }
                     }
+                }
+                else if (comingFrom==0){
+
+                    if (!TextUtils.isEmpty(etSearchHeader.text.toString())) {
+                        if (Utils.isOnline(this)) {
+                            val intent = Intent(this, CategoryDetailsActivity::class.java)
+
+                            intent.putExtra(AppConstants.CATEGORY_ID, "")
+                            intent.putExtra(AppConstants.SUB_CATEGORY, "")
+                            intent.putExtra(AppConstants.TYPE, 1)
+                            intent.putExtra(AppConstants.Search, etSearchHeader.editableText.toString())
+                            startActivityForResult(intent, 2)
+//                            KeyboardUtil.hideKeyboard(this)
+                        } else {
+                            Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
+                        }
+                    }
+
                 }
 
                 true
@@ -211,7 +221,6 @@ class SearchActivity : AppCompatActivity() {
                     override fun onSuccess(response: Response<*>) {
                         pbProgressSearch.visibility = View.GONE
                         val searchItemResponse = response.body() as SearchByUserResponse?
-                        Log.e(TAG, "onSuccesssearchItemResponse: "+searchItemResponse)
                         if (searchItemResponse != null) {
                             searchByUserList.clear()
                             searchByUserList.addAll(searchItemResponse.data)

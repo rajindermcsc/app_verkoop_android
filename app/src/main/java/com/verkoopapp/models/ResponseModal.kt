@@ -140,28 +140,39 @@ data class MyProfileResponse(
 )
 
 data class StateResponse(
-        val data: ArrayList<StateData>,
+        val data: StateData?,
         val message: String
 )
 
 
 
 data class StateData(
-        val id: Int,
-        val name: String
+        val state: ArrayList<StateDataValue>
 
 )
 
+@Parcelize
+data class StateDataValue(
+        val id: Int,
+        val name: String
+
+): Parcelable
+
 data class CityResponse(
-        val data: ArrayList<CityData>,
+        val data: CityData?,
         val message: String
 )
 
 data class CityData(
+        val city: ArrayList<CityDataValue>
+)
+
+@Parcelize
+data class CityDataValue(
         val id: Int,
         val name: String
 
-)
+): Parcelable
 
 
 data class ReportListResponse(

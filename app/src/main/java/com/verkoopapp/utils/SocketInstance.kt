@@ -15,10 +15,8 @@ class SocketInstance : Application() {
 
 
             iSocket = IO.socket(AppConstants.SOCKET_URL)
-            Log.e("TAG", "onCreate: "+iSocket.toString())
         } catch (e: URISyntaxException) {
             throw RuntimeException(e)
-            Log.e("TAG", "onCreate: "+e.message)
         }
     }
 

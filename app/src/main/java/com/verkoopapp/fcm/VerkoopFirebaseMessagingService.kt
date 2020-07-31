@@ -50,13 +50,13 @@ class VerkoopFirebaseMessagingService : FirebaseMessagingService() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
         if (remoteMessage!!.data.isNotEmpty()) {
-            Log.e(TAG, "Data Payload: " + remoteMessage.data.toString())
+
             try {
                 val json = JSONObject(remoteMessage.data)
                 sendPushNotification(json)
 //                sendPushNotification(remoteMessage.getData().get("title")!!, remoteMessage.getData().get("body")!!)
             } catch (e: Exception) {
-                Log.e(TAG, "Exception: " + e.message)
+
             }
 
         }
@@ -131,9 +131,9 @@ class VerkoopFirebaseMessagingService : FirebaseMessagingService() {
                 mNotificationManager.showBigNotification(title, message, imageUrl, intent)
             }
         } catch (e: JSONException) {
-            Log.e(TAG, "Json Exception: " + e.message)
+
         } catch (e: Exception) {
-            Log.e(TAG, "Exception: " + e.message)
+
         }
 
     }

@@ -1348,5 +1348,5 @@ class ChatActivity : AppCompatActivity() {
     }
 }
 private fun Socket?.io(socketUrl: String) {
-    Log.e("TAG", "io: "+socketUrl)
+
 }

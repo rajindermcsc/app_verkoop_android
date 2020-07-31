@@ -2,6 +2,9 @@ package com.verkoopapp.activity
 
 import android.content.Intent
 import android.graphics.Typeface
+import android.location.Address
+import android.location.Geocoder
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.content.ContextCompat
@@ -26,10 +29,8 @@ import com.verkoopapp.R
 import com.verkoopapp.VerkoopApplication
 import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
-import com.verkoopapp.utils.AppConstants
-import com.verkoopapp.utils.CountryListener
-import com.verkoopapp.utils.Utils
-import com.verkoopapp.utils.countryDialog
+import com.verkoopapp.utils.*
+import kotlinx.android.synthetic.main.dialog_update_country.*
 import kotlinx.android.synthetic.main.login_activity.*
 import org.json.JSONException
 import retrofit2.Response
@@ -46,6 +47,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
     private var url: String? = null
     private var loginType: String = ""
     private var deviceId: String = ""
+    private var countryName: String = ""
     private var id = 0
     private var type = 0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +58,8 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         setData()
         googleLoginSetUp()
         firebaseDeviceToken()
+
+
 //        CommonUtils.printKeyHash(this)
        // YIoi6SUsG3ukhAjn77nu1JgKvKE=
 //        0a:d8:a0:75:f1:dc:09:98:1e:cc:05:9a:36:cc:7c:54:6f:7f:4f:0c
@@ -63,6 +67,50 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 //                 0x98.toByte(), 0x1e.toByte(), 0xcc.toByte(), 0x05.toByte(), 0x9a.toByte(), 0x36.toByte(),
 //                 0xcc.toByte(), 0x7c.toByte(), 0x54.toByte(), 0x6f.toByte(), 0x7f.toByte(), 0x4f.toByte(), 0x0c.toByte())
 //        println("keyHashForFacebookLogin New: " + android.util.Base64.encodeToString(sha1KeyHash, android.util.Base64.NO_WRAP))
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (checkPermission()){
+
+            getgpslocation()
+        }
+        else{
+            checkPermission()
+        }
+    }
+
+    private fun checkPermission(): Boolean {
+        val permissionCheck = PermissionCheck(this)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (permissionCheck.checkLocationPermission())
+                return true
+        } else
+            return true
+        return false
+    }
+
+    private fun getgpslocation() {
+        val gpsTracker = GPSTracker(this@LoginActivity)
+
+        if (gpsTracker.canGetLocation()) {
+            val latitude: Double = gpsTracker.location.latitude
+            val longitude: Double = gpsTracker.location.longitude
+            val geocoder = Geocoder(this@LoginActivity, Locale.getDefault())
+            val addresses: List<Address> = geocoder.getFromLocation(latitude, longitude, 1)
+            val cityName: String = addresses[0].getLocality()
+            val stateName: String = addresses[0].getAdminArea()
+            countryName= addresses[0].countryCode
+            Utils.savePreferencesString(this@LoginActivity, AppConstants.CITY_NAME, cityName)
+            Utils.savePreferencesString(this@LoginActivity, AppConstants.STATE_NAME, stateName)
+            Utils.savePreferencesString(this@LoginActivity, AppConstants.COUNTRY_CODE, countryName)
+        } else {
+            // can't get location
+            // GPS or Network is not enabled
+            // Ask user to enable GPS/network in settings
+//                                    gpsTracker.showSettingsAlert()
+        }
+
     }
 
     private fun firebaseDeviceToken() {
@@ -252,19 +300,16 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                 fbAccessToken = loginResult.accessToken
                 if (fbAccessToken != null) {
                     val request = GraphRequest.newMeRequest(fbAccessToken) { `object`, response ->
-                        Log.e(TAG, ":::: facebook response::::" + response.toString())
                         val facebookId = response.jsonObject.optString("id")
                         val imageUrl = "https://graph.facebook.com/$facebookId/picture?type=large&redirect=true&width=800&height=800"
                         val email = response.jsonObject.optString("email")
                         val name = response.jsonObject.optString("name")
                         val first_name = response.jsonObject.optString("first_name")
                         val last_name = response.jsonObject.optString("last_name")
-                        Log.e(TAG, "::Name::$name")
-                        Log.e(TAG, "::Email::$email")
 
                         try {
                             url = `object`.getJSONObject("picture").getJSONObject("data").getString("url")
-                            Log.e(TAG, ":::profile pic url:::$url")
+//                            Log.e(TAG, ":::profile pic url:::$url")
                             LoginManager.getInstance().logOut()
 //                            if (!TextUtils.isEmpty(facebookId) && !TextUtils.isEmpty(email)) {
                             if (!TextUtils.isEmpty(facebookId)) {
@@ -392,6 +437,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         Utils.savePreferencesString(this@LoginActivity, AppConstants.CURRENCY, currency)
         Utils.savePreferencesString(this@LoginActivity, AppConstants.CURRENCY_SYMBOL, currency_symbol)
         Utils.savePreferencesString(this@LoginActivity, AppConstants.COUNTRY_ID, currency_symbol)
+//        Utils.savePreferencesString(this@LoginActivity, AppConstants.COUNTRY_CODE, ccp.selectedCountryNameCode)
 
         if (!TextUtils.isEmpty(mobileNo)) {
             Utils.savePreferencesString(this@LoginActivity, AppConstants.MOBILE_NO, mobileNo)

@@ -388,6 +388,9 @@
     <string name="google_location_api_key">AIzaSyBkQ-B8gjSX7O2A0qsAmUJtrQFqe2i0svc</string>
     <string name="google_vision_api_key">AIzaSyDjTWXzAS6IvhCf7bscIyKYZXOUKsy4Tms</string>
     <string name="country">Country</string>
+    <string name="GPSAlertDialogTitle">Enable GPS</string>
+    <string name="GPSAlertDialogMessage">Please Enable GPS to continue...</string>
+    <string name="action_settings">Settings</string>
 
 
 </resources>

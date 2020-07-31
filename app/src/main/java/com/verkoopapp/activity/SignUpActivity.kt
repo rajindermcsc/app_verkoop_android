@@ -5,6 +5,8 @@ import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.graphics.Typeface
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
@@ -20,11 +22,13 @@ import com.verkoopapp.models.SignUpResponse
 import com.verkoopapp.models.UpdateDeviceInfoRequest
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
+import com.verkoopapp.utils.GPSTracker
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.signup_activity.*
 import retrofit2.Response
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
+import java.util.*
 
 
 class SignUpActivity : AppCompatActivity() {
@@ -38,6 +42,7 @@ class SignUpActivity : AppCompatActivity() {
         type = intent.getIntExtra(AppConstants.TYPE, 0)
         id = intent.getIntExtra(AppConstants.ID, 0)
         printHashKey(applicationContext)
+
         setData()
         ccp.setCountryForPhoneCode(1)
         firebaseDeviceToken()
@@ -57,7 +62,6 @@ class SignUpActivity : AppCompatActivity() {
                 val md: MessageDigest = MessageDigest.getInstance("SHA")
                 md.update(signature.toByteArray())
                 val hashKey = String(Base64.encode(md.digest(), 0))
-                Log.e(TAG, "printHashKey() Hash Key: $hashKey")
             }
         } catch (e: NoSuchAlgorithmException) {
             Log.e(TAG, "printHashKey()", e)
@@ -67,6 +71,10 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun setData() {
+
+
+
+
         val typefaceFont = Typeface.createFromAsset(assets, "fonts/gothicb.ttf")
         etPasswordS.typeface = typefaceFont
         etConfPassword.typeface = typefaceFont
@@ -203,8 +211,6 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun callSignUpApi() {
         VerkoopApplication.instance.loader.show(this)
-        Log.e("TAG", "callSignUpApi: "+ccp.selectedCountryName)
-        Log.e("TAG", "callSignUpApi: "+ccp.selectedCountryNameCode)
         ServiceHelper().userSignUPService(SignUpRequest(etEmailS.text.toString().trim(), etName.text.toString().trim(), etConfPassword.text.toString().trim()
                 , "normal", ccp.selectedCountryName, ccp.selectedCountryNameCode,"1"),
                 object : ServiceHelper.OnResponse {
@@ -213,6 +219,7 @@ class SignUpActivity : AppCompatActivity() {
                             VerkoopApplication.instance.loader.hide(this@SignUpActivity)
                             val loginResponse = response.body() as SignUpResponse
                             if (loginResponse.data != null) {
+
                                 setResponseData(loginResponse.data.userId.toString(), loginResponse.data.token, loginResponse.data.username, loginResponse.data.email, loginResponse.data.login_type, loginResponse.data.qrCode_image, loginResponse.data.coin, loginResponse.data.amount, loginResponse.data.currency,loginResponse.data.currency_symbol)
                                 updateDeviceInfo()
                             }
@@ -261,6 +268,7 @@ class SignUpActivity : AppCompatActivity() {
         Utils.saveIntPreferences(this@SignUpActivity, AppConstants.COIN, coin)
         Utils.saveIntPreferences(this@SignUpActivity, AppConstants.AMOUNT, amount)
         Utils.savePreferencesString(this@SignUpActivity, AppConstants.CURRENCY, currency)
+        Utils.savePreferencesString(this@SignUpActivity, AppConstants.COUNTRY_CODE, ccp.selectedCountryNameCode)
         Utils.savePreferencesString(this@SignUpActivity, AppConstants.CURRENCY_SYMBOL, currency_symbol)
         if (!TextUtils.isEmpty(email)) {
             Utils.savePreferencesString(this@SignUpActivity, AppConstants.USER_EMAIL_ID, email)

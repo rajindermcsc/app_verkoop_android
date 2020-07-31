@@ -195,6 +195,7 @@ class ServiceHelper {
         val categoryId = RequestBody.create(MediaType.parse("text/plain"), request.categoriesId)
         val name = RequestBody.create(MediaType.parse("text/plain"), request.name)
         val price = RequestBody.create(MediaType.parse("text/plain"), request.price)
+        val countyid = RequestBody.create(MediaType.parse("text/plain"), request.country_code)
         val itemType = RequestBody.create(MediaType.parse("text/plain"), request.item_type)
         val description = RequestBody.create(MediaType.parse("text/plain"), request.description)
         val userId = RequestBody.create(MediaType.parse("text/plain"), request.user_id)
@@ -213,7 +214,7 @@ class ServiceHelper {
 
         Log.e("<<stringRequest>>", prettyJson)
         val additionalInfo = RequestBody.create(okhttp3.MultipartBody.FORM, prettyJson)
-        call = myService.addClothApi(parts, categoryId, name, price, itemType, description, userId, address, lat, label, lng, meetUp, type, carBrandId, carType, additionalInfo, zoneId)
+        call = myService.addClothApi(parts, categoryId, name, price,countyid, itemType, description, userId, address, lat, label, lng, meetUp, type, carBrandId, carType, additionalInfo, zoneId)
         call.enqueue(object : Callback<AddItemResponse> {
             override fun onResponse(call: Call<AddItemResponse>, response: Response<AddItemResponse>) {
                 Log.e("<<<<Response>>>>", Gson().toJson(response.body()))
@@ -497,36 +498,94 @@ class ServiceHelper {
         val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         Log.e("TAG", "categoryPostService: "+categoryPostRequest.toString())
         Log.e("TAG", "categoryPostService: "+categoryPostRequest.category_id)
-        Log.e("TAG", "categoryPostService: "+categoryPostRequest.item_id)
-        Log.e("TAG", "categoryPostService: "+categoryPostRequest.item_type)
-        Log.e("TAG", "categoryPostService: "+categoryPostRequest.latitude)
-        Log.e("TAG", "categoryPostService: "+categoryPostRequest.longitude)
-        Log.e("TAG", "categoryPostService: "+categoryPostRequest.max_price)
-        Log.e("TAG", "categoryPostService: "+categoryPostRequest.meet_up)
-        Log.e("TAG", "categoryPostService: "+categoryPostRequest.min_price)
+//        Log.e("TAG", "categoryPostService: "+categoryPostRequest.item_id)
+//        Log.e("TAG", "categoryPostService: "+categoryPostRequest.item_type)
+//        Log.e("TAG", "categoryPostService: "+categoryPostRequest.latitude)
+//        Log.e("TAG", "categoryPostService: "+categoryPostRequest.longitude)
+//        Log.e("TAG", "categoryPostService: "+categoryPostRequest.max_price)
+//        Log.e("TAG", "categoryPostService: "+categoryPostRequest.meet_up)
+//        Log.e("TAG", "categoryPostService: "+categoryPostRequest.min_price)
         Log.e("TAG", "categoryPostService: "+categoryPostRequest.search)
-        Log.e("TAG", "categoryPostService: "+categoryPostRequest.sort_no)
+//        Log.e("TAG", "categoryPostService: "+categoryPostRequest.sort_no)
         Log.e("TAG", "categoryPostService: "+categoryPostRequest.type)
-        Log.e("TAG", "categoryPostService: "+categoryPostRequest.userId)
-        val responseCall = myService.categoryPostApi(categoryPostRequest, categoryPostRequest.userId)
-        responseCall.enqueue(object : Callback<CategoryPostResponse> {
-            override fun onResponse(call: Call<CategoryPostResponse>, response: Response<CategoryPostResponse>) {
-                val res = response.body()
-                Log.e("<<<Response>>>", Gson().toJson(res))
-                if (res != null) {
-                    when {
-                        response.code() == 200 -> onResponse.onSuccess(response)
-                        else -> onResponse.onFailure(response.message())
-                    }
-                } else {
-                    onResponse.onFailure("Something went wrong!")
-                }
-            }
+//        Log.e("TAG", "categoryPostService: "+categoryPostRequest.userId)
 
-            override fun onFailure(call: Call<CategoryPostResponse>, t: Throwable) {
-                onResponse.onFailure(t.message)
-            }
-        })
+        try {
+
+            val responseCall = myService.categoryPostApi(categoryPostRequest, categoryPostRequest.userId)
+            responseCall.enqueue(object : Callback<CategoryPostResponse> {
+                override fun onResponse(call: Call<CategoryPostResponse>, response: Response<CategoryPostResponse>) {
+                    val res = response.body()
+                    Log.e("TAG", "onResponse: " + res?.data?.items)
+                    Log.e("TAG", "onResponse: " + res?.message)
+                    Log.e("<<<Response>>>", Gson().toJson(res))
+                    if (res != null) {
+                        when {
+                            response.code() == 200 -> onResponse.onSuccess(response)
+                            else -> onResponse.onFailure(response.message())
+                        }
+                    } else {
+                        onResponse.onFailure("Something went wrong!")
+                    }
+                }
+
+                override fun onFailure(call: Call<CategoryPostResponse>, t: Throwable) {
+                    onResponse.onFailure(t.message)
+                    Log.e("TAG", "onFailure: "+t.message)
+                }
+            })
+        }
+        catch (exc: Exception){
+            Log.e("TAG", "categoryPostService: "+exc.message)
+        }
+    }
+
+
+    fun categoryPostService_android(categoryPostRequest: FilterRequest, onResponse: OnResponse) {
+        // val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
+        Log.e("TAG", "categoryPostService_android: "+categoryPostRequest.toString())
+        Log.e("TAG", "categoryPostService: "+categoryPostRequest.category_id)
+//        Log.e("TAG", "categoryPostService: "+categoryPostRequest.item_id)
+//        Log.e("TAG", "categoryPostService: "+categoryPostRequest.item_type)
+//        Log.e("TAG", "categoryPostService: "+categoryPostRequest.latitude)
+//        Log.e("TAG", "categoryPostService: "+categoryPostRequest.longitude)
+//        Log.e("TAG", "categoryPostService: "+categoryPostRequest.max_price)
+//        Log.e("TAG", "categoryPostService: "+categoryPostRequest.meet_up)
+//        Log.e("TAG", "categoryPostService: "+categoryPostRequest.min_price)
+        Log.e("TAG", "categoryPostService: "+categoryPostRequest.search)
+//        Log.e("TAG", "categoryPostService: "+categoryPostRequest.sort_no)
+        Log.e("TAG", "categoryPostService: "+categoryPostRequest.type)
+//        Log.e("TAG", "categoryPostService: "+categoryPostRequest.userId)
+
+        try {
+
+            val responseCall = myService.categoryPostApi_android(categoryPostRequest, categoryPostRequest.userId)
+            responseCall.enqueue(object : Callback<CategoryPostResponse> {
+                override fun onResponse(call: Call<CategoryPostResponse>, response: Response<CategoryPostResponse>) {
+                    val res = response.body()
+                    Log.e("TAG", "onResponse: " + res?.data?.items)
+                    Log.e("TAG", "onResponse: " + res?.message)
+                    Log.e("<<<Response>>>", Gson().toJson(res))
+                    if (res != null) {
+                        when {
+                            response.code() == 200 -> onResponse.onSuccess(response)
+                            else -> onResponse.onFailure(response.message())
+                        }
+                    } else {
+                        onResponse.onFailure("Something went wrong!")
+                    }
+                }
+
+                override fun onFailure(call: Call<CategoryPostResponse>, t: Throwable) {
+                    onResponse.onFailure(t.message)
+                    Log.e("TAG", "onFailure: "+t.message)
+                }
+            })
+        }
+        catch (exc: Exception){
+            Log.e("TAG", "categoryPostService: "+exc.message)
+        }
     }
 
     fun updateCategoryService(updateCategoryRequest: UpdateCategoryRequest, onResponse: OnResponse) {
@@ -1209,6 +1268,7 @@ class ServiceHelper {
         val categoryId = RequestBody.create(MediaType.parse("text/plain"), request.categoriesId)
         val name = RequestBody.create(MediaType.parse("text/plain"), request.name)
         val price = RequestBody.create(MediaType.parse("text/plain"), request.price)
+        val countryid = RequestBody.create(MediaType.parse("text/plain"), request.country_code)
         val itemType = RequestBody.create(MediaType.parse("text/plain"), request.item_type)
         val description = RequestBody.create(MediaType.parse("text/plain"), request.description)
         val userId = RequestBody.create(MediaType.parse("text/plain"), request.user_id)
@@ -1228,9 +1288,9 @@ class ServiceHelper {
         val prettyJson = prettyGson.toJson(request.additional_info)
         val additionalInfo = RequestBody.create(okhttp3.MultipartBody.FORM, prettyJson)
         if (request.imageList.size > 0) {
-            call = myService.updateProductApi(parts, deleteImageId, itemId, categoryId, name, price, itemType, description, userId, address, lat, lng, meetUp, type, carBrandId, carType, additionalInfo, zoneId)
+            call = myService.updateProductApi(parts, deleteImageId, itemId, categoryId, name, price, countryid,itemType, description, userId, address, lat, lng, meetUp, type, carBrandId, carType, additionalInfo, zoneId)
         } else {
-            call = myService.updateWithoutImageApi(deleteImageId, itemId, categoryId, name, price, itemType, description, userId, address, lat, lng, meetUp, type, carBrandId, carType, additionalInfo, zoneId)
+            call = myService.updateWithoutImageApi(deleteImageId, itemId, categoryId, name, price, countryid,itemType, description, userId, address, lat, lng, meetUp, type, carBrandId, carType, additionalInfo, zoneId)
         }
         call.enqueue(object : Callback<AddItemResponse> {
             override fun onResponse(call: Call<AddItemResponse>, response: Response<AddItemResponse>) {
@@ -1959,7 +2019,7 @@ class ServiceHelper {
         })
     }
 
-    fun myCityList(userId: String, onResponse: OnResponse) {
+    fun myCityList(userId: Int, onResponse: OnResponse) {
         //    val myService = ApiClient.getClient().create(MyService::class.java)
         val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
 

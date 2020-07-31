@@ -68,8 +68,6 @@ class CategoryListAdapter(private val context: HomeActivity, private var categor
                     }
                     else -> {
                         val intent = Intent(context, CategoryDetailsActivity::class.java)
-                        Log.e(TAG, "CategoryName: "+data.id)
-                        Log.e(TAG, "CategoryName: "+data.name)
                         intent.putExtra(AppConstants.CATEGORY_ID, data.id)
                         intent.putExtra(AppConstants.TYPE, 0)
                         intent.putExtra(AppConstants.SUB_CATEGORY, data.name)

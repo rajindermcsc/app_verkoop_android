@@ -275,7 +275,7 @@ class FilterActivity : AppCompatActivity() {
                 condition.equals(getString(R.string.used), ignoreCase = true) -> "2"
                 else -> ""
             }
-            val filterRequestSend = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, sortNumber.toString(), lat, lng, itemType, meetUp.toString(),etMinPrice.text.toString().replace(Utils.getPreferencesString(this@FilterActivity,AppConstants.CURRENCY_SYMBOL),""), etMaxPrice.text.toString().replace(Utils.getPreferencesString(this@FilterActivity,AppConstants.CURRENCY_SYMBOL),""),filterRequest!!.search)
+            val filterRequestSend = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, sortNumber.toString(), lat, lng, itemType, meetUp.toString(),etMinPrice.text.toString().replace(Utils.getPreferencesString(this@FilterActivity,AppConstants.CURRENCY_SYMBOL),""), etMaxPrice.text.toString().replace(Utils.getPreferencesString(this@FilterActivity,AppConstants.CURRENCY_SYMBOL),""),filterRequest!!.search, filterRequest!!.country_code)
             val returnIntent = Intent()
             returnIntent.putExtra(AppConstants.POST_DATA, filterRequestSend)
             setResult(Activity.RESULT_OK, returnIntent)

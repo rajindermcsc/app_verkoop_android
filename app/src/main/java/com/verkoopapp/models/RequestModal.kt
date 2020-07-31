@@ -73,6 +73,7 @@ data class AddItemRequest(
         val categoryName: String,
         val name: String,
         val price: String,
+        val country_code: String,
         val item_type: String,
         val description: String,
         val user_id: String,
@@ -124,6 +125,7 @@ data class EditItemRequest(
         val categoryName: String,
         val name: String,
         val price: String,
+        val country_code: String,
         val item_type: String,
         val description: String,
         val user_id: String,
@@ -185,6 +187,7 @@ data class FilterRequest(
         val min_price: String,
         val max_price: String,
         val search: String,
+        val country_code: String,
         val item_id: Int = 0
 ) : Parcelable
 
@@ -203,6 +206,7 @@ data class ProfileUpdateRequest(
         val first_name: String,
         val last_name: String,
         val city: String,
+//        val cityname: String,
         val state: String,
         val country: String,
         val country_code: String,

@@ -8,25 +8,30 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import com.verkoopapp.R
 import com.verkoopapp.adapter.RegionAdapter
-import com.verkoopapp.models.City
-import com.verkoopapp.models.Country
-import com.verkoopapp.models.State
+import com.verkoopapp.models.*
+import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.CommonUtils
+import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.selarch_location_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
+import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
+import retrofit2.Response
 
 class RegionActivity : AppCompatActivity(), RegionAdapter.ClickEventCallBack {
     var stateName: String = ""
     var countryName: String = ""
+    var country_id: String = ""
     var countryId: Int = 0
     var stateId: Int = 0
     var cityId: Int = 0
-    override fun onSelectRegion(regionName: String, regionId: Int, coming: Int, cityList: ArrayList<City>) {
+    private var statelist = ArrayList<StateDataValue>()
+    override fun onSelectRegion(regionName: String, regionId: Int, coming: Int, cityList: ArrayList<CityDataValue>) {
         stateName = regionName
         stateId = regionId
         val i = Intent(this, StateActivity::class.java)
@@ -36,7 +41,7 @@ class RegionActivity : AppCompatActivity(), RegionAdapter.ClickEventCallBack {
     }
 
     val countryList = ArrayList<Country>()
-    val statesList = ArrayList<State>()
+    val statesList = ArrayList<StateDataValue>()
     private lateinit var regionAdapter: RegionAdapter
 
 
@@ -44,6 +49,7 @@ class RegionActivity : AppCompatActivity(), RegionAdapter.ClickEventCallBack {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.selarch_location_activity)
         setAdapter()
+        getMyState(country_id)
         getStateList()
         setData()
     }
@@ -54,50 +60,83 @@ class RegionActivity : AppCompatActivity(), RegionAdapter.ClickEventCallBack {
         regionAdapter = RegionAdapter(this, 0)
         cityId = intent.getIntExtra(AppConstants.CITY_ID, 0)
         stateId = intent.getIntExtra(AppConstants.STATE_ID, 0)
+        country_id = intent.getStringExtra(AppConstants.COUNTRY_CODE)
         rvLocation.adapter = regionAdapter
     }
 
 
+    private fun getMyState(code: String) {
+        pbProgress.visibility=View.VISIBLE
+        ServiceHelper().myStateList(code, object : ServiceHelper.OnResponse {
+            override fun onSuccess(response: Response<*>) {
+
+                val responseState = response.body() as StateResponse
+                pbProgress.visibility=View.GONE
+                if (responseState.data != null) {
+
+
+                    statelist = responseState.data.state
+                    regionAdapter.setData(statelist)
+                    regionAdapter.notifyDataSetChanged()
+//                    val intent = Intent(this@EditProfileActivity, TransferCoinsActivity::class.java)
+
+
+                } else {
+                    Utils.showSimpleMessage(this@RegionActivity, "No data found.").show()
+                }
+
+            }
+
+            override fun onFailure(msg: String?) {
+                Utils.showSimpleMessage(this@RegionActivity, msg!!).show()
+            }
+        })
+
+    }
+
+
+
     private fun getStateList() {
         try {
-            val obj = JSONObject(CommonUtils.loadJSONFromAsset(this))
-            val m_jArry = obj.getJSONArray("country")
-            for (i in 0 until m_jArry.length()) {
-                val jo_inside = m_jArry.getJSONObject(i)
-                val states = jo_inside.getJSONArray("states")
-                for (j in 0 until states.length()) {
-                    val citiesList = ArrayList<City>()
-                    val stateList = states.getJSONObject(j)
-                    val citys = stateList.getJSONArray("cities")
-                    for (k in 0 until citys.length()) {
-                        val cityList = citys.getJSONObject(k)
-                        val cities = City(cityList.getInt("id"), false, cityList.getString("name"))
-                        citiesList.add(cities)
-                    }
-                    Log.e("cityList", citiesList.toString())
-                    val state = State(stateList.getInt("id"), stateList.getString("name"), false, citiesList)
-                    statesList.add(state)
-                    Log.e("StateList", statesList.toString())
-                }
-                val country = Country(jo_inside.getInt("id"), jo_inside.getString("name"), statesList)
-                countryList.add(country)
-                countryName = countryList[0].name
-                countryId = countryList[0].id
-                if (stateId != 0 && cityId != 0) {
-                    for (k in countryList[0].states.indices) {
-                        if (countryList[0].states[k].id == stateId) {
-                            countryList[0].states[k].isSelected = true
-                            updateCity(countryList[0].states[k].cities)
-                            break
-                        }
-                    }
-                }
-                regionAdapter.setData(countryList[0].states)
-                regionAdapter.notifyDataSetChanged()
+//            val obj = JSONObject(CommonUtils.loadJSONFromAsset(this))
+//            val m_jArry = obj.getJSONArray("country")
+//            for (i in 0 until m_jArry.length()) {
+//                val jo_inside = m_jArry.getJSONObject(i)
+//                val states = jo_inside.getJSONArray("states")
+//                for (j in 0 until states.length()) {
+//                    val citiesList = ArrayList<City>()
+//                    val stateList = states.getJSONObject(j)
+//                    val citys = stateList.getJSONArray("cities")
+//                    for (k in 0 until citys.length()) {
+//                        val cityList = citys.getJSONObject(k)
+//                        val cities = City(cityList.getInt("id"), false, cityList.getString("name"))
+//                        citiesList.add(cities)
+//                    }
+//                    Log.e("cityList", citiesList.toString())
+//                    val state = State(stateList.getInt("id"), stateList.getString("name"), false, citiesList)
+//                    statesList.add(state)
+//                    Log.e("StateList", statesList.toString())
+//                }
+//                val country = Country(jo_inside.getInt("id"), jo_inside.getString("name"), statesList)
+//                countryList.add(country)
+//                countryName = countryList[0].name
+//                countryId = countryList[0].id
+//                if (stateId != 0 && cityId != 0) {
+//                    for (k in countryList[0].states.indices) {
+//                        if (countryList[0].states[k].id == stateId) {
+//                            countryList[0].states[k].isSelected = true
+//                            updateCity(countryList[0].states[k].cities)
+//                            break
+//                        }
+//                    }
+//                }
+//                regionAdapter.setData(countryList[0].states)
+//                regionAdapter.notifyDataSetChanged()
             }
-        } catch (e: JSONException) {
+        catch (e: JSONException) {
             e.printStackTrace()
         }
+//        }
 
     }
 

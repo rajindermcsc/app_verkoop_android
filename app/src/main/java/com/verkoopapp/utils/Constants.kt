@@ -35,6 +35,7 @@ object AppConstants{
      const val STATE_ID = "STATE_ID"
      const val COUNTRY_ID = "COUNTRY_ID"
      const val COUNTRY_NAME = "COUNTRY_NAME"
+     const val COUNTRY_CODE = "COUNTRY_CODE"
      const val COMMENT_RESULR = "COMMENT_RESULR"
      const val REPORT_LIST = "REPORT_LIST"
      const val ADAPTER_POSITION = "ADAPTER_POSITION"

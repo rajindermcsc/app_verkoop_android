@@ -235,6 +235,8 @@ class countryDialog(context: Context, private val listener: CountryListener)
         setCanceledOnTouchOutside(false)
         ccp.setCountryForPhoneCode(1)
         tvSave.setOnClickListener {
+
+            Utils.savePreferencesString(context, AppConstants.COUNTRY_CODE, ccp.selectedCountryNameCode)
             listener.onItemClick(ccp.selectedCountryName, ccp.selectedCountryNameCode)
             dismiss()
         }

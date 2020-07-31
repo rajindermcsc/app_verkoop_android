@@ -52,20 +52,20 @@ class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterC
     override fun removeFilter(remove: String, position: Int) {
         when {
             remove.equals("Condition :", ignoreCase = true) -> {
-                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, filterRequest!!.sort_no, filterRequest!!.latitude, filterRequest!!.longitude, "", filterRequest!!.meet_up, filterRequest!!.min_price, filterRequest!!.max_price, filterRequest!!.search)
+                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, filterRequest!!.sort_no, filterRequest!!.latitude, filterRequest!!.longitude, "", filterRequest!!.meet_up, filterRequest!!.min_price, filterRequest!!.max_price, filterRequest!!.search, filterRequest!!.country_code)
                 getDetailsApi(filterRequest!!)
                 filterList.removeAt(position)
                 filterAdapter.notifyDataSetChanged()
 
             }
             remove.equals("Deal Option :", ignoreCase = true) -> {
-                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, filterRequest!!.sort_no, filterRequest!!.latitude, filterRequest!!.longitude, filterRequest!!.item_type, "", filterRequest!!.min_price, filterRequest!!.max_price, filterRequest!!.search)
+                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, filterRequest!!.sort_no, filterRequest!!.latitude, filterRequest!!.longitude, filterRequest!!.item_type, "", filterRequest!!.min_price, filterRequest!!.max_price, filterRequest!!.search, filterRequest!!.country_code)
                 getDetailsApi(filterRequest!!)
                 filterList.removeAt(position)
                 filterAdapter.notifyDataSetChanged()
             }
             remove.equals("Price :", ignoreCase = true) -> {
-                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, filterRequest!!.sort_no, filterRequest!!.latitude, filterRequest!!.longitude, filterRequest!!.item_type, filterRequest!!.meet_up, "", "", filterRequest!!.search)
+                filterRequest = FilterRequest(filterRequest!!.category_id, filterRequest!!.type, filterRequest!!.userId, filterRequest!!.sort_no, filterRequest!!.latitude, filterRequest!!.longitude, filterRequest!!.item_type, filterRequest!!.meet_up, "", "", filterRequest!!.search, filterRequest!!.country_code)
                 getDetailsApi(filterRequest!!)
                 filterList.removeAt(position)
                 filterAdapter.notifyDataSetChanged()
@@ -121,13 +121,25 @@ class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterC
         }
         if (type == 1) {
             llParent.visibility = View.GONE
-            filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID), "2", "", "", "", "", "", "", intent.getStringExtra(AppConstants.Search)?: "",intent.getIntExtra(AppConstants.ITEM_ID, 0))
-            getDetailsApi(filterRequest!!)
+            if (intent.getIntExtra(AppConstants.CATEGORY_ID, 0)==0){
+                filterRequest = FilterRequest("", type, Utils.getPreferencesString(this, AppConstants.USER_ID), "2", "", "", "", "", "", "", intent.getStringExtra(AppConstants.Search)
+                        ?: "", Utils.getPreferencesString(this@CategoryDetailsActivity, AppConstants.COUNTRY_CODE))
+
+                getDetailsApi_android(filterRequest!!)
+
+            } else {
+                filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID), "2", "", "", "", "", "", "", intent.getStringExtra(AppConstants.Search)
+                        ?: "", Utils.getPreferencesString(this@CategoryDetailsActivity, AppConstants.COUNTRY_CODE), intent.getIntExtra(AppConstants.ITEM_ID, 0))
+
+                getDetailsApi(filterRequest!!)
+            }
 
         } else {
             tvCategorySelected.text = intent.getStringExtra(AppConstants.SUB_CATEGORY)
             llParent.visibility = View.VISIBLE
-            filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID), "2", "", "", "", "", "", "",intent.getStringExtra(AppConstants.Search)?: "")
+            filterRequest = FilterRequest(intent.getIntExtra(AppConstants.CATEGORY_ID, 0).toString(), type, Utils.getPreferencesString(this, AppConstants.USER_ID), "2", "", "", "", "", "", "", intent.getStringExtra(AppConstants.Search)
+                    ?: "",Utils.getPreferencesString(this@CategoryDetailsActivity,AppConstants.COUNTRY_CODE))
+
             getDetailsApi(filterRequest!!)
         }
         iv_left_detail.setOnClickListener { onBackPressed() }
@@ -252,14 +264,13 @@ class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterC
         finish()
     }
 
-    private fun getDetailsApi(request: FilterRequest) {
+    private fun getDetailsApi_android(request: FilterRequest) {
         pvProgressDetail.visibility = View.VISIBLE
 
-        ServiceHelper().categoryPostService(request,
+        ServiceHelper().categoryPostService_android(request,
                 object : ServiceHelper.OnResponse {
 
                     override fun onSuccess(response: Response<*>) {
-                        Log.e(TAG, "onSuccess: "+response.raw().request().url())
                         itemsList.clear()
                         pvProgressDetail.visibility = View.GONE
 
@@ -269,7 +280,55 @@ class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterC
                             }
                         }
                         val categoryPostResponse = response.body() as CategoryPostResponse
-                        Log.e(TAG, "categoryPostResponse: "+categoryPostResponse)
+                        if (categoryPostResponse.data.subCategoryList.size > 0) {
+                            scroll_view_category_detail.visibility = View.VISIBLE
+                            setSubcategoryData(categoryPostResponse.data.subCategoryList)
+                        }
+                        if (categoryPostResponse.data.items.size > 0) {
+                            scroll_view_category_detail.visibility = View.VISIBLE
+                            itemsList = categoryPostResponse.data.items
+                            itemAdapter.setData(itemsList)
+                            itemAdapter.notifyDataSetChanged()
+                        }
+                        else if(categoryPostResponse.data.subCategoryList.size == 0
+                                && categoryPostResponse.data.items.size == 0){
+//                            Log.e(TAG, "onSuccess@3: ")
+                            scroll_view_category_detail.visibility = View.GONE
+                            tvMssgData.visibility = View.VISIBLE
+                        }
+                        else {
+//                            Log.e(TAG, "onSuccess@4: ")
+                            itemsList.clear()
+                            itemAdapter.notifyDataSetChanged()
+                        }
+
+                    }
+
+                    override fun onFailure(msg: String?) {
+//                        Log.e(TAG, "onFailure: "+msg)
+                        pvProgressDetail.visibility = View.GONE
+                        Utils.showSimpleMessage(this@CategoryDetailsActivity, msg!!).show()
+                    }
+                })
+    }
+
+    private fun getDetailsApi(request: FilterRequest) {
+        pvProgressDetail.visibility = View.VISIBLE
+
+        ServiceHelper().categoryPostService(request,
+                object : ServiceHelper.OnResponse {
+
+                    override fun onSuccess(response: Response<*>) {
+
+                        itemsList.clear()
+                        pvProgressDetail.visibility = View.GONE
+
+                        if (fromLikeEvent == true) {
+                            if (comingFrom.equals("CategoryDetailsActivity")) {
+                                rvItemListDetails.scrollToPosition(positionFromLikeEvent)
+                            }
+                        }
+                        val categoryPostResponse = response.body() as CategoryPostResponse
                         if (categoryPostResponse.data.subCategoryList.size > 0) {
                             Log.e(TAG, "onSuccess@1: ")
                             Log.e(TAG, "categoryPostResponse: "+categoryPostResponse.data.subCategoryList)
