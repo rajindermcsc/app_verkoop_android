@@ -213,6 +213,7 @@ class ServiceHelper {
 
 
         Log.e("<<stringRequest>>", prettyJson)
+        Log.e("<<stringRequest>>", request.toString())
         val additionalInfo = RequestBody.create(okhttp3.MultipartBody.FORM, prettyJson)
         call = myService.addClothApi(parts, categoryId, name, price,countyid, itemType, description, userId, address, lat, label, lng, meetUp, type, carBrandId, carType, additionalInfo, zoneId)
         call.enqueue(object : Callback<AddItemResponse> {
@@ -1295,6 +1296,7 @@ class ServiceHelper {
         call.enqueue(object : Callback<AddItemResponse> {
             override fun onResponse(call: Call<AddItemResponse>, response: Response<AddItemResponse>) {
                 Log.e("<<<<Response>>>>", Gson().toJson(response.body()))
+                Log.e("<<<<Response>>>>", request.toString())
                 if (response.code() == 200) {
                     onResponse.onSuccess(response)
                 } else {

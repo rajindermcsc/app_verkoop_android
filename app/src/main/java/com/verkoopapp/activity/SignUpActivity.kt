@@ -62,6 +62,7 @@ class SignUpActivity : AppCompatActivity() {
                 val md: MessageDigest = MessageDigest.getInstance("SHA")
                 md.update(signature.toByteArray())
                 val hashKey = String(Base64.encode(md.digest(), 0))
+                Log.e(TAG, "printHashKey: "+hashKey)
             }
         } catch (e: NoSuchAlgorithmException) {
             Log.e(TAG, "printHashKey()", e)
