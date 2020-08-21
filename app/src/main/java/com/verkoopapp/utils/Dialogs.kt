@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.dialog_item_added.*
 import kotlinx.android.synthetic.main.dialog_create_offer.*
 import kotlinx.android.synthetic.main.dialog_select_met_up.*
 import kotlinx.android.synthetic.main.dialog_update_country.*
+import kotlinx.android.synthetic.main.popup_rating.*
 import kotlinx.android.synthetic.main.proceed_dialog.*
 import kotlinx.android.synthetic.main.purchase_coin_dialog.*
 import kotlinx.android.synthetic.main.rating_dialog.*
@@ -322,6 +323,29 @@ class ProceedDialog(context: Context,private val description:String, private val
             dismiss()
         }
         tvCancelPro.setOnClickListener {
+            dismiss()
+        }
+    }
+}
+
+
+class RatingFoodOrder(context: Context)
+    : android.app.Dialog(context) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        setContentView(R.layout.popup_rating)
+        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
+
+        setCanceledOnTouchOutside(true)
+        setCancelable(true)
+
+
+        img_close.setOnClickListener {
+            dismiss()
+        }
+        tv_done.setOnClickListener {
             dismiss()
         }
     }

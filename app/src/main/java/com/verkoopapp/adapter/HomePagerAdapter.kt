@@ -12,6 +12,7 @@ class HomePagerAdapter(fm: FragmentManager, private val pages: Int,private val f
             0 -> fragmentList[position]
             1 -> fragmentList[position]
             2 -> fragmentList[position]
+            3-> fragmentList[position]
             else -> null
         }
     }

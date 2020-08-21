@@ -32,29 +32,58 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".activity.StripeCardPaymentActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
-            android:screenOrientation="portrait"></activity>
+        <activity android:name=".activity.ResturantsDetailActivity"></activity>
+        <activity android:name=".activity.FindResturantActivity" />
+        <activity android:name=".activity.PastTripDetailActivity" />
+        <activity android:name=".activity.PackageDetailActivity" />
+        <activity android:name=".activity.SelectDriverActivity" />
+        <activity android:name=".activity.CalculatePriceActivity" />
+        <activity android:name=".activity.PackageActivity" />
+        <activity android:name=".activity.FoodFilterActivity" />
+        <activity android:name=".activity.AddNewAddressActivity" />
+        <activity android:name=".activity.CheckoutActivity" />
+        <activity android:name=".activity.FoodItemDetailActivity" />
+        <activity android:name=".activity.SavedAddressActivity" />
+        <activity android:name=".activity.DeliveryDetailActivity" />
+        <activity android:name=".activity.SearchFoodActivity" />
+        <activity android:name=".activity.CreditCardDetailActivity" />
+        <activity android:name=".activity.PaymentDetailActivity" />
+        <activity android:name=".activity.WalletDetailActivity" />
+        <activity android:name=".activity.CashActivity" />
+        <activity android:name=".activity.ApplyCouponActivity" />
+        <activity android:name=".activity.CouponDetailsActivity" />
+        <activity android:name=".activity.FavouritesFoodActivity" />
+        <activity android:name=".activity.OngoingOrderDetailActivity" />
+        <activity android:name=".activity.PastOrderDetailActivity" />
+        <activity
+            android:name=".activity.FoodHomeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
+            android:name=".activity.StripeCardPaymentActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@mipmap/logo" />
-
         <meta-data
             android:name="com.google.android.gms.wallet.api.enabled"
             android:value="true" />
 
-        <activity android:name=".activity.PayWithGoogleActivity"
+        <activity
+            android:name=".activity.PayWithGoogleActivity"
             android:screenOrientation="portrait">
 
-<!--             <intent-filter>-->
-<!--             <action android:name="android.intent.action.MAIN" />-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
 
-<!--             <category android:name="android.intent.category.LAUNCHER" />-->
-<!--             </intent-filter>-->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".activity.MyWalletstripeActivity"
+        <activity
+            android:name=".activity.MyWalletstripeActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.CameraActivity" />
         <activity android:name=".activity.MainActivity" />
@@ -83,7 +112,7 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths"
-                tools:replace="android:resource"/>
+                tools:replace="android:resource" />
         </provider>
         <provider
             android:name="com.facebook.FacebookContentProvider"

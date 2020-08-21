@@ -1,6 +1,7 @@
 package com.verkoopapp.activity
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Typeface
 import android.location.Address
 import android.location.Geocoder
@@ -27,6 +28,7 @@ import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.iid.FirebaseInstanceId
 import com.verkoopapp.R
 import com.verkoopapp.VerkoopApplication
+import com.verkoopapp.customgallery.Define
 import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.*
@@ -61,7 +63,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 
 
 //        CommonUtils.printKeyHash(this)
-       // YIoi6SUsG3ukhAjn77nu1JgKvKE=
+        // YIoi6SUsG3ukhAjn77nu1JgKvKE=
 //        0a:d8:a0:75:f1:dc:09:98:1e:cc:05:9a:36:cc:7c:54:6f:7f:4f:0c
 //         val sha1KeyHash = byteArrayOf(0x0a.toByte(), 0xd8.toByte(), 0xa0.toByte(), 0x75.toByte(), 0xf1.toByte(), 0xdc.toByte(), 0x09.toByte(),
 //                 0x98.toByte(), 0x1e.toByte(), 0xcc.toByte(), 0x05.toByte(), 0x9a.toByte(), 0x36.toByte(),
@@ -71,11 +73,12 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 
     override fun onResume() {
         super.onResume()
-        if (checkPermission()){
+        if (checkPermission()) {
+            runOnUiThread {
+                getgpslocation()
+            }
 
-            getgpslocation()
-        }
-        else{
+        } else {
             checkPermission()
         }
     }
@@ -85,8 +88,10 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (permissionCheck.checkLocationPermission())
                 return true
-        } else
-            return true
+        } else{
+            return false
+        }
+
         return false
     }
 
@@ -100,7 +105,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
             val addresses: List<Address> = geocoder.getFromLocation(latitude, longitude, 1)
             val cityName: String = addresses[0].getLocality()
             val stateName: String = addresses[0].getAdminArea()
-            countryName= addresses[0].countryCode
+            countryName = addresses[0].countryCode
             Utils.savePreferencesString(this@LoginActivity, AppConstants.CITY_NAME, cityName)
             Utils.savePreferencesString(this@LoginActivity, AppConstants.STATE_NAME, stateName)
             Utils.savePreferencesString(this@LoginActivity, AppConstants.COUNTRY_CODE, countryName)
@@ -244,6 +249,27 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         }
     }
 
+    /* It runs when user grantted permission or not */
+  /*  override fun onRequestPermissionsResult(
+            requestCode: Int,
+            permissions: Array<out String>,
+            grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        val define = Define()
+        when (requestCode) {
+            define.PERMISSION_LOCATION -> {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    runOnUiThread {
+                        getgpslocation()
+                    }
+                } else {
+                    Toast.makeText(this,"Location Permissions are Needed",Toast.LENGTH_LONG).show()
+                    checkPermission()
+                }
+            }
+        }
+    }*/
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -271,7 +297,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 
     private fun callUpdateCountryApi(code: String, name: String, data: DataGoogle) {
         VerkoopApplication.instance.loader.show(this)
-        ServiceHelper().updateCountry(UpdateCountryRequest(data.userId.toString(), code,name),
+        ServiceHelper().updateCountry(UpdateCountryRequest(data.userId.toString(), code, name),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         VerkoopApplication.instance.loader.hide(this@LoginActivity)
