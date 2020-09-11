@@ -18,6 +18,12 @@
 
 
     <item
+        android:id="@+id/vervo_button"
+        android:icon="@drawable/tab_button2_selector"
+        android:title="@string/vervo" />
+
+
+    <item
         android:id="@+id/menu_button3"
         android:icon="@drawable/tab_button3_selector"
         android:title="@string/profile" />

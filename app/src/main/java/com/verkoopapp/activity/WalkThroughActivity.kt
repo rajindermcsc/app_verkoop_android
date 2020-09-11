@@ -106,6 +106,7 @@ class WalkThroughActivity: AppCompatActivity(){
         ivIndicatorSecondW.setImageResource(R.mipmap.dot_2)
         ivIndicatorThirdW.setImageResource(R.mipmap.dot_2)
     }
+
     class PicturePreViewAdapter(mContext: Context, private var mImageResources: IntArray) : PagerAdapter() {
        private var mLayoutInflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
