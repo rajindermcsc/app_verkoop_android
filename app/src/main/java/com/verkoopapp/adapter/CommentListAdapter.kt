@@ -1,7 +1,7 @@
 package com.verkoopapp.adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +14,11 @@ import com.verkoopapp.models.DisLikeResponse
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.*
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.comment_row.*
+import kotlinx.android.synthetic.main.comment_row.ivOption
+import kotlinx.android.synthetic.main.comment_row.ivProfilePic
+import kotlinx.android.synthetic.main.comment_row.tvComment
+import kotlinx.android.synthetic.main.comment_row.tvNameCom
+import kotlinx.android.synthetic.main.comment_row.tvTimeCom
 import retrofit2.Response
 
 

@@ -3,11 +3,12 @@ package com.verkoopapp.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.verkoopapp.R
 import com.verkoopapp.adapter.CarBrandAdapter
 import com.verkoopapp.models.CarBrandResponse
@@ -38,10 +39,10 @@ class CarBrandActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.car_brand_activity)
         comingFrom = intent.getIntExtra(AppConstants.TYPE, 0)
-        carBrand=intent.getStringExtra(AppConstants.CAR_BRAND_NAME)
+        carBrand= intent.getStringExtra(AppConstants.CAR_BRAND_NAME).toString()
         carBrandId=intent.getIntExtra(AppConstants.CAR_BRAND_ID,carBrandId)
         if(intent.getStringExtra(AppConstants.CAR_MODEL)!=null){
-            carType=   intent.getStringExtra(AppConstants.CAR_MODEL)
+            carType= intent.getStringExtra(AppConstants.CAR_MODEL)!!
         }
 
         carModelId=intent.getIntExtra(AppConstants.CAR_MODEL_ID,0)
@@ -49,9 +50,9 @@ class CarBrandActivity : AppCompatActivity() {
         setAdapter(comingFrom)
         setData()
         if (comingFrom != 0) {
-            carModalLIst=intent.getParcelableArrayListExtra(AppConstants.CAR_BRAND_LIST)
+            carModalLIst= intent.getParcelableArrayListExtra(AppConstants.CAR_BRAND_LIST)!!
             tvHeaderLoc.text = getString(R.string.car_model)
-            carBrand=intent.getStringExtra(AppConstants.CAR_BRAND_NAME)
+            carBrand= intent.getStringExtra(AppConstants.CAR_BRAND_NAME).toString()
             carBrandId=intent.getIntExtra(AppConstants.CAR_BRAND_ID,carBrandId)
           //  carBrandAdapter.setData(carModalLIst)
            // carBrandAdapter.notifyDataSetChanged()
@@ -72,7 +73,7 @@ class CarBrandActivity : AppCompatActivity() {
 
     private fun setZoneList() {
         tvHeaderLoc.text = getString(R.string.zone)
-        zone=intent.getStringExtra(AppConstants.ZONE)
+        zone= intent.getStringExtra(AppConstants.ZONE).toString()
         zoneId=intent.getIntExtra(AppConstants.ZONE_ID,0)
         val nameList = arrayOf("East", "West", "North East", "North", "Central")
         val subList = arrayOf(1,2,3,4,5)
@@ -113,8 +114,8 @@ class CarBrandActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 3) {
             if (resultCode == Activity.RESULT_OK) {
-                 carType = data!!.getStringExtra(AppConstants.CAR_MODEL)
-                 carBrand = data.getStringExtra(AppConstants.CAR_BRAND_NAME)
+                 carType = data!!.getStringExtra(AppConstants.CAR_MODEL).toString()
+                 carBrand = data.getStringExtra(AppConstants.CAR_BRAND_NAME).toString()
                  carModelId = data.getIntExtra(AppConstants.CAR_MODEL_ID, 0)
                  carBrandId = data.getIntExtra(AppConstants.CAR_BRAND_ID, 0)
                 val returnIntent = Intent()

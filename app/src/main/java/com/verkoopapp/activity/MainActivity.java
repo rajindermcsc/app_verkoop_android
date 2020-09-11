@@ -1,6 +1,7 @@
 package com.verkoopapp.activity;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import android.os.Bundle;
 
 import com.verkoopapp.R;

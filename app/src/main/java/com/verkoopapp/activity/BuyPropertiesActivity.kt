@@ -5,11 +5,12 @@ import android.content.Intent
 import android.nfc.tech.MifareUltralight
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import com.verkoopapp.R
 import com.verkoopapp.adapter.BuyPropertyAdapter
 import com.verkoopapp.models.*
@@ -133,7 +134,7 @@ class BuyPropertiesActivity : AppCompatActivity() {
 
     private fun getItemService(lodeMode:Int) {
         isLoading = true
-        ServiceHelper().getBuyCarService(HomeRequest(2), currentPage, Utils.getPreferencesString(this, AppConstants.USER_ID), object : ServiceHelper.OnResponse {
+        ServiceHelper().getBuyCarService(HomeRequest(2,Utils.getPreferencesString(this, AppConstants.COUNTRY_CODE), currentPage), Utils.getPreferencesString(this, AppConstants.USER_ID), object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
                 scCars.isRefreshing = false
                 isLoading = false

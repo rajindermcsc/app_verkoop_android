@@ -6,19 +6,19 @@ import android.content.Intent
 import android.graphics.Point
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import com.ksmtrivia.common.BaseFragment
+import com.verkoopapp.utils.BaseFragment
 import com.verkoopapp.R
 import com.verkoopapp.activity.*
 import com.verkoopapp.adapter.ProfileAdapter
+
 import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
-import com.verkoopapp.utils.GridSpacingItemDecoration
 import com.verkoopapp.utils.GridSpacingProfileDecorate
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.profile_fragment.*
@@ -30,7 +30,7 @@ import retrofit2.Response
 
 class ProfileFragment : BaseFragment() {
     private val TAG = ProfileFragment::class.java.simpleName.toString()
-    private lateinit var profileAdapter: ProfileAdapter
+    lateinit var profileAdapter: ProfileAdapter
     private lateinit var homeActivity: HomeActivity
     private var itemsList = ArrayList<ItemHome>()
 
@@ -38,7 +38,7 @@ class ProfileFragment : BaseFragment() {
         return 0
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         homeActivity = context as HomeActivity
 

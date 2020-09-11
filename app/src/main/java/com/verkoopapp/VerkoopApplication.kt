@@ -2,11 +2,11 @@ package com.verkoopapp
 
 import android.app.Application
 import android.content.Context
-import android.support.multidex.MultiDex
 import android.util.Log
+import androidx.multidex.MultiDex
 import com.crashlytics.android.Crashlytics
-import com.github.nkzawa.socketio.client.IO
-import com.github.nkzawa.socketio.client.Socket
+import io.socket.client.Ack
+import io.socket.client.Socket
 import com.google.gson.Gson
 import com.verkoopapp.models.Currency
 import com.verkoopapp.models.SocketCheckConnectionEvent
@@ -31,7 +31,7 @@ import org.greenrobot.eventbus.EventBus
 class VerkoopApplication : Application() {
      private var loadDialog: Loading? = null
     private var currenyList: ArrayList<Currency>? = null
-    private val socket: Socket? = IO.socket(AppConstants.SOCKET_URL)
+    private val socket: Socket? = io.socket.client.IO.socket(AppConstants.SOCKET_URL)
     val loader: Loading
         get() {
             if (loadDialog == null)

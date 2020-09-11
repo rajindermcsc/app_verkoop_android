@@ -3,29 +3,25 @@ package com.verkoopapp.fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import com.ksmtrivia.common.BaseFragment
+import com.verkoopapp.utils.BaseFragment
 import com.verkoopapp.R
 import com.verkoopapp.activity.HomeActivity
 import com.verkoopapp.activity.MyWalletstripeActivity
 import com.verkoopapp.activity.ProductDetailsActivity
 import com.verkoopapp.activity.UserProfileActivity
 import com.verkoopapp.adapter.ActivitiesAdapter
-import com.verkoopapp.adapter.ProfileAdapter
 import com.verkoopapp.models.ActivityData
 import com.verkoopapp.models.ActivityListResponseModel
-import com.verkoopapp.models.ItemHome
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.NotificationType
 import com.verkoopapp.utils.Utils
-import kotlinx.android.synthetic.main.activities_fragment.*
-import kotlinx.android.synthetic.main.edit_profile_activity.*
-import kotlinx.android.synthetic.main.profile_fragment.*
+import kotlinx.android.synthetic.main.activities_fragment.slActivities
+import kotlinx.android.synthetic.main.activities_fragment.rvNotificationList
 import retrofit2.Response
 
 class ActivitiesFragment : BaseFragment(), NotificationType {
@@ -39,7 +35,7 @@ class ActivitiesFragment : BaseFragment(), NotificationType {
         return 0
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         homeActivity = context as HomeActivity
     }

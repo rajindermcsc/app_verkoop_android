@@ -62,6 +62,17 @@ data class UpdateCountryRequest(
         val country_code : String
 )
 
+data class MakePaymentRequest(
+        val user_id:String,
+        val currency: String,
+        val amount: String,
+        val ex_year:String,
+        val ex_mon:String,
+        val cvv:String,
+        val card_num:String,
+        val name:String
+)
+
 data class DeactivateAccountRequest(
         val access_token:String
 )
@@ -325,6 +336,12 @@ data class SendMoneyRequest(
 )
 
 data class HomeRequest(
+        val type: Int,
+        val country_code: String,
+        val page: Int
+)
+
+data class HomeRequestID(
         val type: Int
 )
 

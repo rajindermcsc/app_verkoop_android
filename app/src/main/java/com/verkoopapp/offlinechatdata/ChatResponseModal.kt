@@ -1,6 +1,6 @@
 package com.verkoopapp.offlinechatdata
 
-import android.support.annotation.VisibleForTesting
+import androidx.annotation.VisibleForTesting
 import io.realm.RealmObject
 
 @VisibleForTesting

@@ -14,16 +14,14 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.provider.MediaStore
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.FileProvider
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.core.content.FileProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import com.ksmtrivia.common.BaseFragment
+import com.verkoopapp.utils.BaseFragment
 import com.verkoopapp.R
 import com.verkoopapp.adapter.HomeAdapter
 import com.verkoopapp.models.*
@@ -34,8 +32,8 @@ import kotlinx.android.synthetic.main.home_fragment.*
 import retrofit2.Response
 import android.util.Log
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.google.android.gms.common.util.IOUtils
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.api.client.extensions.android.json.AndroidJsonFactory
 import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.util.GenericData
@@ -47,6 +45,7 @@ import com.google.firebase.iid.InstanceIdResult
 import com.verkoopapp.VerkoopApplication
 import com.verkoopapp.activity.*
 import com.verkoopapp.utils.GridSpacingItemDecoration
+import com.verkoopapp.activity.HomeActivity
 import kotlinx.android.synthetic.main.my_profile_details_row.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -87,7 +86,7 @@ class HomeFragment : BaseFragment() {
         return TAG
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         homeActivity = activity as HomeActivity
     }
@@ -301,7 +300,8 @@ class HomeFragment : BaseFragment() {
 
     private fun getItemService(loadMore: Int) {
         isLoading = true
-        ServiceHelper().getItemsService(HomeRequest(0), currentPage, Utils.getPreferencesString(homeActivity, AppConstants.USER_ID), object : ServiceHelper.OnResponse {
+        ServiceHelper().getItemsService(HomeRequest(0,Utils.getPreferencesString(homeActivity, AppConstants.COUNTRY_CODE) ,currentPage), Utils.getPreferencesString(homeActivity, AppConstants.USER_ID),
+                object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
                 homeActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                 if (swipeContainer != null) {

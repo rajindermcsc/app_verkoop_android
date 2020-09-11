@@ -55,11 +55,11 @@ interface MyService {
     @POST("user/selectedUserCategroy")
     fun updateServiceApi(@Body request: UpdateCategoryRequest): Call<LikedResponse>
 
-    @PUT("dashboard/{userId}")
-    fun getHomeDataApi(@Body request: HomeRequest, @Path(value = "userId", encoded = true) fullUrl: String, @Query("page") pageCount: Int): Call<HomeDataResponse>
+    @POST("dashboard/{userId}")
+    fun getHomeDataApi(@Body request: HomeRequest, @Path(value = "userId", encoded = true) fullUrl: String): Call<HomeDataResponse>
 
-    @PUT("dashboard/{userId}")
-    fun getBuyCarDataApi(@Body request: HomeRequest, @Path(value = "userId", encoded = true) fullUrl: String, @Query("page") pageCount: Int): Call<BuyCarResponse>
+    @POST("dashboard/{userId}")
+    fun getBuyCarDataApi(@Body request: HomeRequest, @Path(value = "userId", encoded = true) fullUrl: String): Call<BuyCarResponse>
 
     @GET("nearbysearch/json")
     fun getDetails(@Query("location") loc: String,
@@ -140,7 +140,7 @@ interface MyService {
     fun carsFilterApi(@Path(value = "user_id", encoded = true) fullUrl: Int, @Body request: CarsFilterRequest): Call<FavouritesResponse>
 
     @PUT("getUserListFollow/{user_id}")
-    fun followFollowingApi(@Path(value = "user_id", encoded = true) fullUrl: Int, @Body request: HomeRequest): Call<SearchByUserResponse>
+    fun followFollowingApi(@Path(value = "user_id", encoded = true) fullUrl: Int, @Body request: HomeRequestID): Call<SearchByUserResponse>
 
     @POST("payments")
     fun addMoneyApi(@Body request: AddMoneyRequest): Call<UpdateWalletResponse>
@@ -203,6 +203,10 @@ interface MyService {
 
     @POST("user/updateCountry")
     fun updateCountryApi(@Body request: UpdateCountryRequest): Call<UpdateCountryResponse>
+
+
+    @POST("user/authpay")
+    fun stripepayment(@Body request: MakePaymentRequest): Call<PaymentResponse>
 
 
 

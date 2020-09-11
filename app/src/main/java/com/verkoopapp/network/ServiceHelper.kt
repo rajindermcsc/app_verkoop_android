@@ -398,10 +398,14 @@ class ServiceHelper {
         System.exit(0)
     }
 
-    fun getItemsService(homeRequest: HomeRequest, pageCount: Int, userId: String, onResponse: OnResponse) {
+    fun getItemsService(homeRequest: HomeRequest,userId: String, onResponse: OnResponse) {
         // val myService = ApiClient.getClient().create(MyService::class.java)
         val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
-        val responseCall = myService.getHomeDataApi(homeRequest, userId, pageCount)
+//        Log.e("TAG", "getItemsService: "+country_code)
+//        Log.e("TAG", "getItemsService: "+pageCount)
+        Log.e("TAG", "getItemsService: "+userId)
+        Log.e("TAG", "getItemsService: "+homeRequest.type)
+        val responseCall = myService.getHomeDataApi(homeRequest, userId)
         responseCall.enqueue(object : Callback<HomeDataResponse> {
             override fun onResponse(call: Call<HomeDataResponse>, response: Response<HomeDataResponse>) {
                 val res = response.body()
@@ -422,10 +426,10 @@ class ServiceHelper {
         })
     }
 
-    fun getBuyCarService(homeRequest: HomeRequest, pageCount: Int, userId: String, onResponse: OnResponse) {
+    fun getBuyCarService(homeRequest: HomeRequest,  userId: String,onResponse: OnResponse) {
         //val myService = ApiClient.getClient().create(MyService::class.java)
         val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
-        val responseCall = myService.getBuyCarDataApi(homeRequest, userId, pageCount)
+        val responseCall = myService.getBuyCarDataApi(homeRequest, userId)
         responseCall.enqueue(object : Callback<BuyCarResponse> {
             override fun onResponse(call: Call<BuyCarResponse>, response: Response<BuyCarResponse>) {
                 val res = response.body()
@@ -709,6 +713,41 @@ class ServiceHelper {
             }
 
             override fun onFailure(call: Call<MyProfileIngoResponse>, t: Throwable) {
+                onResponse.onFailure(t.message)
+            }
+        })
+    }
+
+    fun getPaymentCreditCard(makePaymentRequest: MakePaymentRequest, onResponse: OnResponse) {
+//        val myService = ApiClient.getClient().create(MyService::class.java)
+        val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
+        val responseCall = myService.stripepayment(makePaymentRequest)
+        responseCall.enqueue(object : Callback<PaymentResponse> {
+            override fun onResponse(call: Call<PaymentResponse>, response: Response<PaymentResponse>) {
+
+                Log.e("TAG", "onResponse: "+response.errorBody())
+                Log.e("TAG", "onResponse: "+response.message())
+                Log.e("TAG", "onResponse: "+response.code())
+                if (response.code() == 200) {
+                    onResponse.onSuccess(response)
+                } else {
+                    if (response.errorBody() != null) {
+                        try {
+                            val messageError = JSONObject(response.errorBody()!!.string())
+                            onResponse.onFailure(messageError.getString("message"))
+                        } catch (e: JSONException) {
+                            onResponse.onFailure("Something went wrong")
+                            e.printStackTrace()
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                        }
+                    } else {
+                        onResponse.onFailure("Something went wrong")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<PaymentResponse>, t: Throwable) {
                 onResponse.onFailure(t.message)
             }
         })
@@ -1366,7 +1405,7 @@ class ServiceHelper {
         })
     }
 
-    fun followFollowingService(UserId: Int, request: HomeRequest, onResponse: OnResponse) {
+    fun followFollowingService(UserId: Int, request: HomeRequestID, onResponse: OnResponse) {
 //        val myService = ApiClient.getClient().create(MyService::class.java)
         val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.followFollowingApi(UserId, request)
@@ -1399,6 +1438,10 @@ class ServiceHelper {
     }
 
     fun addMoneyService(request: AddMoneyRequest, onResponse: OnResponse) {
+        Log.e("TAG", "addMoneyService: "+request.amount)
+        Log.e("TAG", "addMoneyService: "+request.currency)
+        Log.e("TAG", "addMoneyService: "+request.token)
+        Log.e("TAG", "addMoneyService: "+request.user_id)
 //        val myService = ApiClient.getClient().create(MyService::class.java)
         val myService = ServiceGenerator.createServiceWithoutToken(MyService::class.java)
         val responseCall = myService.addMoneyApi(request)

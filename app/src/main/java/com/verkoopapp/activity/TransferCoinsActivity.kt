@@ -5,9 +5,10 @@ import android.app.Activity
 import android.content.Intent
 import android.opengl.Visibility
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import android.text.TextUtils
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.github.florent37.viewanimator.ViewAnimator
 import com.squareup.picasso.Picasso
 import com.verkoopapp.R
@@ -28,9 +29,9 @@ class TransferCoinsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.transfer_coin_dialog_activity)
         KeyboardUtil(this, llParentTrans)
-        userName = intent.getStringExtra(AppConstants.USER_NAME)
-        imageUrl = intent.getStringExtra(AppConstants.IMAGE_URL)
-        qrCode = intent.getStringExtra(AppConstants.QR_CODE)
+        userName = intent.getStringExtra(AppConstants.USER_NAME).toString()
+        imageUrl = intent.getStringExtra(AppConstants.IMAGE_URL).toString()
+        qrCode = intent.getStringExtra(AppConstants.QR_CODE).toString()
         setData()
         setAnimation()
     }

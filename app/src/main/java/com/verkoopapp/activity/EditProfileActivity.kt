@@ -9,13 +9,14 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.provider.MediaStore
-import android.support.v4.content.FileProvider
-import android.support.v7.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.AdapterView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
 import com.google.android.gms.common.util.SharedPreferencesUtils
 import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
@@ -303,12 +304,12 @@ class EditProfileActivity : AppCompatActivity() {
             }
             if (requestCode === 3) {
                 if (resultCode === Activity.RESULT_OK) {
-                    cityName = data!!.getStringExtra(AppConstants.CITY_NAME)
+                    cityName = data!!.getStringExtra(AppConstants.CITY_NAME).toString()
                     cityId = data.getIntExtra(AppConstants.CITY_ID, 0)
-                    stateName = data.getStringExtra(AppConstants.STATE_NAME)
+                    stateName = data.getStringExtra(AppConstants.STATE_NAME).toString()
                     stateId = data.getIntExtra(AppConstants.STATE_ID, 0)
                     countryId = data.getIntExtra(AppConstants.COUNTRY_ID, 0)
-                    countryName = data.getStringExtra(AppConstants.COUNTRY_NAME)
+                    countryName = data.getStringExtra(AppConstants.COUNTRY_NAME).toString()
                     etMyCity.text = cityName
                     Utils.savePreferencesString(this@EditProfileActivity, AppConstants.CITY_NAME, cityName)
                     Utils.savePreferencesString(this@EditProfileActivity, AppConstants.STATE_NAME, stateName)
@@ -324,7 +325,9 @@ class EditProfileActivity : AppCompatActivity() {
                     tvPhoneNo.text = phoneNo
                     tvUpdate.text = "Change"
                     if (!TextUtils.isEmpty(phoneNo)) {
-                        Utils.savePreferencesString(this@EditProfileActivity, AppConstants.MOBILE_NO, phoneNo)
+                        if (phoneNo != null) {
+                            Utils.savePreferencesString(this@EditProfileActivity, AppConstants.MOBILE_NO, phoneNo)
+                        }
                     }
                 }
                 if (resultCode === Activity.RESULT_CANCELED) {

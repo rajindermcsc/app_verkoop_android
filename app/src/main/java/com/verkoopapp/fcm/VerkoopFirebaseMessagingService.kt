@@ -2,7 +2,7 @@ package com.verkoopapp.fcm
 
 import android.content.Intent
 import android.os.Build
-import android.support.annotation.RequiresApi
+import androidx.annotation.RequiresApi
 import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -21,9 +21,9 @@ import retrofit2.Response
 
 class VerkoopFirebaseMessagingService : FirebaseMessagingService() {
 
-    override fun onNewToken(refreshedToken: String?) {
+    override fun onNewToken(p0: String) {
         // Get updated InstanceID token.
-        Log.d(VerkoopFirebaseMessagingService.TAG, "Refreshed token: " + refreshedToken!!)
+        Log.d(VerkoopFirebaseMessagingService.TAG, "Refreshed token: " + p0!!)
 
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the
@@ -32,7 +32,7 @@ class VerkoopFirebaseMessagingService : FirebaseMessagingService() {
         /*Utils.sendDeviceId(this)*/
 
 
-        callUpdateDeviceInfoApi(refreshedToken)
+        callUpdateDeviceInfoApi(p0)
     }
 
     private fun callUpdateDeviceInfoApi(refreshedToken: String) {
@@ -48,11 +48,11 @@ class VerkoopFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun onMessageReceived(remoteMessage: RemoteMessage?) {
-        if (remoteMessage!!.data.isNotEmpty()) {
+    override fun onMessageReceived(p0: RemoteMessage) {
+        if (p0!!.data.isNotEmpty()) {
 
             try {
-                val json = JSONObject(remoteMessage.data)
+                val json = JSONObject(p0.data as Map<*, *>)
                 sendPushNotification(json)
 //                sendPushNotification(remoteMessage.getData().get("title")!!, remoteMessage.getData().get("body")!!)
             } catch (e: Exception) {

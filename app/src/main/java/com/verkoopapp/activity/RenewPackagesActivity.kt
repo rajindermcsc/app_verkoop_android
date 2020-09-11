@@ -3,11 +3,12 @@ package com.verkoopapp.activity
 import android.content.Intent
 import android.graphics.Point
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import com.verkoopapp.R
 import com.verkoopapp.adapter.AdvertPackageAdapter
 import com.verkoopapp.models.AdvertPlanActivity
@@ -34,7 +35,7 @@ class RenewPackagesActivity : AppCompatActivity(), AdvertPackageAdapter.SubmitBa
         setContentView(R.layout.advert_package_activity)
         Log.e("<<TotalCoin>>",Utils.getPreferencesInt(this, AppConstants.COIN).toString())
         tvCoinPackage.text=Utils.getPreferencesInt(this, AppConstants.COIN).toString()
-        imageUrl = intent.getStringExtra(AppConstants.IMAGE_URL)
+        imageUrl = intent.getStringExtra(AppConstants.IMAGE_URL).toString()
         categoryId = intent.getIntExtra(AppConstants.CATEGORY_ID,0)
          val display = windowManager.defaultDisplay
          val size =  Point()

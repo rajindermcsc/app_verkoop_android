@@ -1,11 +1,11 @@
 package com.verkoopapp.fragment
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ksmtrivia.common.BaseFragment
+import com.verkoopapp.utils.BaseFragment
 import com.verkoopapp.R
 import com.verkoopapp.activity.CoinsActivity
 import com.verkoopapp.adapter.CoinsHistoryAdapter
@@ -13,7 +13,8 @@ import com.verkoopapp.models.WalletHistoryResponse
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
-import kotlinx.android.synthetic.main.history_fragment.*
+import kotlinx.android.synthetic.main.history_fragment.rvCoinsHistoryList
+import kotlinx.android.synthetic.main.history_fragment.pbProgressHistory
 import retrofit2.Response
 
 class HistoryFragment : BaseFragment() {

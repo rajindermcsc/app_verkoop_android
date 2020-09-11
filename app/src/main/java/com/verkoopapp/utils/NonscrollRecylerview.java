@@ -1,10 +1,12 @@
 package com.verkoopapp.utils;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
+
+import javax.annotation.Nullable;
 
 /**
  * Created by intel on 09-04-2018.

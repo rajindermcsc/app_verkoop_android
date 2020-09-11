@@ -4,11 +4,12 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Point
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import com.verkoopapp.R
 import com.verkoopapp.adapter.AdvertPackageAdapter
 import com.verkoopapp.models.*
@@ -36,12 +37,12 @@ class AdvertPackagesActivity : AppCompatActivity(), AdvertPackageAdapter.SubmitB
         Log.e("<<TotalCoin>>", Utils.getPreferencesInt(this, AppConstants.COIN).toString())
         tvCoinPackage.text = Utils.getPreferencesInt(this, AppConstants.COIN).toString()
         if (intent.getStringExtra(AppConstants.COMING_FROM) != null) {
-            comingFor = intent.getStringExtra(AppConstants.COMING_FROM)
+            comingFor = intent.getStringExtra(AppConstants.COMING_FROM)!!
         }
         if (comingFor.equals("forRenewPackage")) {
             bannerID = intent.getIntExtra(AppConstants.BANNERID, 0)
         } else {
-            imageUrl = intent.getStringExtra(AppConstants.IMAGE_URL)
+            imageUrl = intent.getStringExtra(AppConstants.IMAGE_URL).toString()
             categoryId = intent.getIntExtra(AppConstants.CATEGORY_ID, 0)
         }
         val display = windowManager.defaultDisplay

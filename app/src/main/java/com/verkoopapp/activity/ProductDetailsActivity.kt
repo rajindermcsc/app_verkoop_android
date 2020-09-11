@@ -7,9 +7,9 @@ import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.util.DisplayMetrics
 import android.util.Log
@@ -20,8 +20,8 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView
 import com.facebook.share.model.ShareLinkContent
 import com.facebook.share.widget.ShareDialog
-import com.github.nkzawa.socketio.client.Ack
-import com.github.nkzawa.socketio.client.Socket
+import io.socket.client.Ack
+import io.socket.client.Socket
 import com.google.gson.Gson
 import com.skydoves.powermenu.MenuAnimation
 import com.skydoves.powermenu.OnMenuItemClickListener
@@ -97,7 +97,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         mDemoSliderDetails.minimumHeight = (screenHeight / 2) + 100
         comingType = intent.getIntExtra(AppConstants.COMING_TYPE, 0)
         if (intent.getStringExtra(AppConstants.COMING_FROM) != null) {
-            comingFrom = intent.getStringExtra(AppConstants.COMING_FROM)
+            comingFrom = intent.getStringExtra(AppConstants.COMING_FROM)!!
         }
         setCommentAdapter()
         adapterPosition = intent.getIntExtra(AppConstants.ADAPTER_POSITION, 0)

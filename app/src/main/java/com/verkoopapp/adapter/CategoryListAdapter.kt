@@ -2,7 +2,7 @@ package com.verkoopapp.adapter
 
 import android.content.Intent
 import android.os.Handler
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater

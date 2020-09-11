@@ -2,14 +2,12 @@ package com.verkoopapp.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import com.verkoopapp.LikeDisLikeListener
-import com.verkoopapp.LoadingListener
 import com.verkoopapp.R
 import com.verkoopapp.activity.ProductDetailsActivity
 import com.verkoopapp.activity.UserProfileActivity
@@ -23,7 +21,6 @@ import kotlinx.android.synthetic.main.item_row.*
 
 class ItemHomeAdapter(private val context: Context, private val rvItemList: RecyclerView, private val homeFragment: HomeFragment) : RecyclerView.Adapter<ItemHomeAdapter.ViewHolder>() {
     private var mInflater: LayoutInflater = LayoutInflater.from(context)
-    private lateinit var loadingListener: LoadingListener
     private var itemsList = ArrayList<ItemHome>()
     private var width = 0
 

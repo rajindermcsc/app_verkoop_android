@@ -5,26 +5,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ksmtrivia.common.BaseFragment
+import com.verkoopapp.utils.BaseFragment
 import com.verkoopapp.R
-import com.verkoopapp.activity.ChatInboxActivity
 
 
-class BuyingFragment:BaseFragment(){
-    private lateinit var chatInboxActivity: ChatInboxActivity
+class BuyingFragment: BaseFragment(){
 
-    private val TAG=BuyingFragment::class.java.simpleName.toString()
     override fun getTitle(): Int {
     return 0
     }
 
     override fun getFragmentTag(): String? {
-       return TAG
+        return null
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
-        chatInboxActivity=context as ChatInboxActivity
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

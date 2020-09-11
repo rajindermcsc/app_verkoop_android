@@ -4,11 +4,10 @@ import com.verkoopapp.models.ChatData
 import com.verkoopapp.models.ChatInboxResponse
 import io.realm.Realm
 import io.realm.RealmResults
-import java.util.*
 
 
 class DbHelper {
-    var realm = Realm.getDefaultInstance()
+    var realm: Realm = Realm.getDefaultInstance()
 
     fun insertAllChatData(AllChatList: ArrayList<ChatInboxResponse>) {
         realm.executeTransaction { realm1 ->

@@ -73,16 +73,16 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/scProfile"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-       <android.support.v7.widget.RecyclerView
+       <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvPostsList"
            android:visibility="gone"
            android:layout_width="match_parent"
            android:layout_height="match_parent"/>
-        </android.support.v4.widget.SwipeRefreshLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <ProgressBar
             android:id="@+id/pbProgressProfile"
@@ -96,7 +96,7 @@
             android:layout_gravity="bottom"
             android:background="@drawable/gradation_black"
             android:gravity="center">
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/card_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -117,7 +117,7 @@
                 android:paddingStart="@dimen/dp_35"
                 android:text="@string/sell"
                 android:textColor="@color/white" />
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
         </LinearLayout>
     </FrameLayout>
 </LinearLayout>

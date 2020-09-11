@@ -1,10 +1,11 @@
 package com.ksmtrivia.common
 
 import android.os.Build
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import android.view.View
-import com.github.nkzawa.emitter.Emitter
+import androidx.appcompat.app.AppCompatActivity
+import com.verkoopapp.utils.BaseFragment
+import io.socket.emitter.Emitter
 
 abstract class BaseActivity : AppCompatActivity() {
     private var lastFragmentName = ""
@@ -61,7 +62,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     }
 
-    fun replaceFragmentWithSharedElement(fragment: android.support.v4.app.Fragment?, view: View,
+    fun replaceFragmentWithSharedElement(fragment: androidx.fragment.app.Fragment?, view: View,
                                          transitionName: String, holder: Int) {
         if (fragment != null) {
             val fragmentManager = supportFragmentManager
@@ -136,7 +137,7 @@ abstract class BaseActivity : AppCompatActivity() {
                 //if( !isResettingStack )
                 backStackChangeListner(backStackCount)
 
-                val currFrag:BaseFragment? = manager
+                val currFrag: BaseFragment? = manager
                         .findFragmentById(holder) as BaseFragment?
 
                 if (lastFragmentName != currFrag?.javaClass?.name) {

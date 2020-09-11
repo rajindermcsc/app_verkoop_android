@@ -5,9 +5,9 @@ import android.graphics.Color
 import android.graphics.Point
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import android.text.TextUtils
 import android.view.View
 import android.view.WindowManager
@@ -49,7 +49,7 @@ class UserProfileActivity:AppCompatActivity() {
         setContentView(R.layout.user_profile_activity)
         userId=intent.getIntExtra(AppConstants.USER_ID,0)
         if(intent.getStringExtra(AppConstants.USER_NAME)!=null) {
-            userName = intent.getStringExtra(AppConstants.USER_NAME)
+            userName = intent.getStringExtra(AppConstants.USER_NAME)!!
         }
         val display = windowManager.defaultDisplay
         val size = Point()

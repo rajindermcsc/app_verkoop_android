@@ -8,8 +8,8 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.support.v4.content.FileProvider
-import android.support.v7.app.AppCompatActivity
+import androidx.core.content.FileProvider
+import androidx.core.content.ContextCompat
 import android.view.View
 import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
@@ -23,9 +23,10 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 import android.text.TextUtils
+import androidx.appcompat.app.AppCompatActivity
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
-class UploadBannerActivity:AppCompatActivity() {
+class UploadBannerActivity: AppCompatActivity() {
     private var uriTemp: Uri? = null
     private var mCurrentPhotoPath: String? = null
     private var categoryName:String?=null

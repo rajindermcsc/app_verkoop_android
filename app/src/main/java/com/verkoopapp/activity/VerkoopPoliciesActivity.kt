@@ -1,10 +1,11 @@
 package com.verkoopapp.activity
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.appcompat.app.AppCompatActivity
 import com.verkoopapp.R
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
@@ -12,7 +13,7 @@ import kotlinx.android.synthetic.main.private_policy_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 
 
-class VerkoopPoliciesActivity:AppCompatActivity() {
+class VerkoopPoliciesActivity: AppCompatActivity() {
     private var comingFrom: Int = 0
     private var webURl: String? = null
     private var errorMssg = ""
@@ -68,7 +69,7 @@ class VerkoopPoliciesActivity:AppCompatActivity() {
         webView.settings.useWideViewPort = true
         webView.settings.loadWithOverviewMode = true
         webView.settings.javaScriptEnabled=true
-        webView.loadUrl(webURl)
+        webURl?.let { webView.loadUrl(it) }
         webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 pbProgress.visibility = View.VISIBLE

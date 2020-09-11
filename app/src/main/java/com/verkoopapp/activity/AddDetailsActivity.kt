@@ -14,11 +14,11 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.FileProvider
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -347,7 +347,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
     }
 
     private fun setIntentData() {
-        imageList = intent.getParcelableArrayListExtra(AppConstants.SELECTED_LIST)
+        imageList = intent.getParcelableArrayListExtra(AppConstants.SELECTED_LIST)!!
         tvCountDetail.text = StringBuilder().append(" ").append(imageList.size.toString()).append(" ").append("/ 10")
         setListData(imageList, 0)
         addItemRequest = intent.getParcelableExtra(AppConstants.POST_DATA)
@@ -1260,7 +1260,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode === 1) {
             if (resultCode === Activity.RESULT_OK) {
-                categoryName = data!!.getStringExtra(AppConstants.CATEGORY_NAME)
+                categoryName = data!!.getStringExtra(AppConstants.CATEGORY_NAME).toString()
                 categoryId = data.getIntExtra(AppConstants.SUB_CATEGORY_ID, 0)
                 parentId = data.getIntExtra(AppConstants.CATEGORY_ID, 0)
                 val typeSelection = data.getIntExtra(AppConstants.SCREEN_TYPE, 0)
@@ -1339,7 +1339,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
 
         if (requestCode == 12) {
             if (resultCode == Activity.RESULT_OK) {
-                address = data!!.getStringExtra(AppConstants.ADDRESS)
+                address = data!!.getStringExtra(AppConstants.ADDRESS).toString()
                 lat = data.getDoubleExtra(AppConstants.LATITUDE, 0.0)
                 lng = data.getDoubleExtra(AppConstants.LONGITUDE, 0.0)
                 Log.e("<<lat>>", lat.toString())
@@ -1355,8 +1355,8 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         }
         if (requestCode == 13) {
             if (resultCode == Activity.RESULT_OK) {
-                carBrandName = data!!.getStringExtra(AppConstants.CAR_BRAND_NAME)
-                carModel = data.getStringExtra(AppConstants.CAR_MODEL)
+                carBrandName = data!!.getStringExtra(AppConstants.CAR_BRAND_NAME).toString()
+                carModel = data.getStringExtra(AppConstants.CAR_MODEL).toString()
                 carBrandId = data.getIntExtra(AppConstants.CAR_BRAND_ID, 0)
                 carModelId = data.getIntExtra(AppConstants.CAR_MODEL_ID, 0)
                 if (!TextUtils.isEmpty(carModel)) {
@@ -1375,7 +1375,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         }
         if (requestCode == 14) {
             if (resultCode == Activity.RESULT_OK) {
-                zoneName = data!!.getStringExtra(AppConstants.ZONE)
+                zoneName = data!!.getStringExtra(AppConstants.ZONE).toString()
                 zoneId = data.getIntExtra(AppConstants.ZONE_ID, 0)
                 tvZone.setText(zoneName)
                 // tvZone.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
@@ -1402,7 +1402,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         if (requestCode === 2) {
             if (resultCode === Activity.RESULT_OK) {
                 imageList.clear()
-                imageList = data!!.getParcelableArrayListExtra(AppConstants.SELECTED_LIST)
+                imageList = data!!.getParcelableArrayListExtra(AppConstants.SELECTED_LIST)!!
                 tvCountDetail.text = StringBuilder().append(" ").append(imageList.size.toString()).append(" ").append("/ 10")
                 setListData(imageList, 1)
             }
@@ -1417,7 +1417,9 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 tvMobileNo.text = phoneNo
                 tvUpdateAdd.text = "Change"
                 if (!TextUtils.isEmpty(phoneNo)) {
-                    Utils.savePreferencesString(this@AddDetailsActivity, AppConstants.MOBILE_NO, phoneNo)
+                    if (phoneNo != null) {
+                        Utils.savePreferencesString(this@AddDetailsActivity, AppConstants.MOBILE_NO, phoneNo)
+                    }
                 }
             }
             if (resultCode === Activity.RESULT_CANCELED) {

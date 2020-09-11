@@ -1,8 +1,8 @@
 package com.verkoopapp.activity
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -14,10 +14,11 @@ import kotlinx.android.synthetic.main.selarch_location_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 import android.app.Activity
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import com.verkoopapp.models.CityDataValue
 
 
-class StateActivity:AppCompatActivity(), CityListAdapter.ClickEventCallBack {
+class StateActivity: AppCompatActivity(), CityListAdapter.ClickEventCallBack {
     private var cityList=ArrayList<CityDataValue>()
     private lateinit var cityListAdapter: CityListAdapter
 
@@ -33,7 +34,7 @@ class StateActivity:AppCompatActivity(), CityListAdapter.ClickEventCallBack {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.selarch_location_activity)
-        cityList=intent.getParcelableArrayListExtra(AppConstants.CITY_LIST)
+        cityList= intent.getParcelableArrayListExtra(AppConstants.CITY_LIST)!!
         setAdapter()
         setData()
     }

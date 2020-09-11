@@ -2,17 +2,17 @@ package com.verkoopapp.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ksmtrivia.common.BaseFragment
 import com.verkoopapp.R
 import com.verkoopapp.activity.ChatInboxActivity
-import kotlinx.android.synthetic.main.chat_inbox_fragment.*
+import com.verkoopapp.utils.BaseFragment
+import kotlinx.android.synthetic.main.chat_inbox_fragment.rvInboxList
 
 
-class ChatInboxFragment:BaseFragment(){
+class ChatInboxFragment: BaseFragment(){
     private var TAG=ChatInboxFragment::class.java.simpleName.toString()
     private lateinit var chatInboxActivity: ChatInboxActivity
     override fun getTitle(): Int {
@@ -23,9 +23,9 @@ class ChatInboxFragment:BaseFragment(){
        return TAG
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
-        chatInboxActivity=context as ChatInboxActivity
+        chatInboxActivity= context as ChatInboxActivity
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

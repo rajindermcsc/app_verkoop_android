@@ -1,8 +1,8 @@
 package com.stripe.example.controller
 
 import android.content.res.Resources
-import android.support.annotation.StringRes
-import android.support.v4.app.FragmentManager
+import androidx.annotation.StringRes
+import androidx.fragment.app.FragmentManager
 import com.stripe.example.dialog.ProgressDialogFragment
 import java.lang.ref.WeakReference
 

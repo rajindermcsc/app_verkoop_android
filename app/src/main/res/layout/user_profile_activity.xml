@@ -10,16 +10,16 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/scUserProfile"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-       <android.support.v7.widget.RecyclerView
+       <androidx.recyclerview.widget.RecyclerView
            android:id="@+id/rvUserPostsList"
            android:layout_width="match_parent"
            android:layout_height="match_parent"
            android:visibility="gone"/>
-        </android.support.v4.widget.SwipeRefreshLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         <ProgressBar
             android:id="@+id/pbProgressUser"
             android:layout_width="wrap_content"

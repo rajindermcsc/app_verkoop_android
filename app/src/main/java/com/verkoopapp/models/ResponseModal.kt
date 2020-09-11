@@ -163,9 +163,20 @@ data class CityResponse(
         val message: String
 )
 
+data class PaymentResponse(
+        val message: String,
+        val status:String,
+        val wallet: String
+)
+
+//data class PaymentData(
+//
+//)
+
 data class CityData(
         val city: ArrayList<CityDataValue>
 )
+
 
 @Parcelize
 data class CityDataValue(
@@ -488,6 +499,8 @@ data class UpdateCountryResponse(
         val currency: String,
         val currency_symbol: String
 )
+
+
 
 
 data class SocialGoogleResponse(
@@ -933,7 +946,7 @@ data class DataWalletAdd(
 
 data class WalletHistoryResponse(
         var data: ArrayList<DataHistory>?,
-        var amount: Int,
+        var amount: Float,
         var message: String
 )
 
@@ -942,9 +955,10 @@ data class DataHistory(
         var type: Int,
         var user_id: Int,
         var token: String,
+        var currency: String,
         var userName: String,
         var profilePic: String,
-        var amount: Int,
+        var amount: Float,
         var status: Int,
         var coin_plan_id: Int,
         var is_active: Int,

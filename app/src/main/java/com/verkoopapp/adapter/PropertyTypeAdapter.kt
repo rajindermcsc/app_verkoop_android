@@ -1,11 +1,12 @@
 package com.verkoopapp.adapter
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.verkoopapp.R
 import com.verkoopapp.models.PropertyTypeRequest
 import kotlinx.android.extensions.LayoutContainer
@@ -31,7 +32,7 @@ class PropertyTypeAdapter(private val context:Context,private val propertyList:A
         fun bind(modal: PropertyTypeRequest) {
             tvName.text=modal.name
             if(modal.isSelected){
-                tvName.background=ContextCompat.getDrawable(context,R.drawable.red_rectangle_shape)
+                tvName.background= ContextCompat.getDrawable(context,R.drawable.red_rectangle_shape)
                 tvName.setTextColor(ContextCompat.getColor(context,R.color.white))
             }else{
                 tvName.background=ContextCompat.getDrawable(context,R.drawable.gray_rectangular_shape)

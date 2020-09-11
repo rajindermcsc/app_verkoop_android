@@ -7,13 +7,13 @@ import android.location.Geocoder
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
@@ -71,13 +71,23 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 
     override fun onResume() {
         super.onResume()
-        if (checkPermission()){
+        runOnUiThread {
+            try {
+                if (checkPermission()){
 
-            getgpslocation()
+                    getgpslocation()
+                }
+                else{
+                    checkPermission()
+                }
+            }
+            catch (exc:Exception){
+                Log.e(TAG, "onResume: "+exc.message)
+            }
+
+
         }
-        else{
-            checkPermission()
-        }
+
     }
 
     private fun checkPermission(): Boolean {
@@ -101,6 +111,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
             val cityName: String = addresses[0].getLocality()
             val stateName: String = addresses[0].getAdminArea()
             countryName= addresses[0].countryCode
+            Log.e(TAG, "getgpslocation: "+countryName)
             Utils.savePreferencesString(this@LoginActivity, AppConstants.CITY_NAME, cityName)
             Utils.savePreferencesString(this@LoginActivity, AppConstants.STATE_NAME, stateName)
             Utils.savePreferencesString(this@LoginActivity, AppConstants.COUNTRY_CODE, countryName)
@@ -255,7 +266,9 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                 if (deviceId.equals("")) {
                     firebaseDeviceToken()
                 }
-                handleSignInResult(result)
+                if (result != null) {
+                    handleSignInResult(result)
+                }
             }
         }
     }

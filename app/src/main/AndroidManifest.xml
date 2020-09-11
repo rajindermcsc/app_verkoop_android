@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.CAMERA_EXTENDED" />
     <uses-permission android:name="android.hardware.camera.autofocus" />
+<!--    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />-->
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -30,8 +31,38 @@
         android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        tools:replace="android:allowBackup">
+        tools:replace="android:allowBackup"
+        android:usesCleartextTraffic="true">
+
+
+        <activity android:name=".activity.ResturantsDetailActivity"></activity>
+        <activity android:name=".activity.FindResturantActivity" />
+        <activity android:name=".activity.PastTripDetailActivity" />
+        <activity android:name=".activity.PackageDetailActivity" />
+        <activity android:name=".activity.SelectDriverActivity" />
+        <activity android:name=".activity.CalculatePriceActivity" />
+        <activity android:name=".activity.PackageActivity" />
+        <activity android:name=".activity.FoodFilterActivity" />
+        <activity android:name=".activity.AddNewAddressActivity" />
+        <activity android:name=".activity.CheckoutActivity" />
+        <activity android:name=".activity.FoodItemDetailActivity" />
+        <activity android:name=".activity.SavedAddressActivity" />
+        <activity android:name=".activity.DeliveryDetailActivity" />
+        <activity android:name=".activity.SearchFoodActivity" />
+        <activity android:name=".activity.CreditCardDetailActivity" />
+        <activity android:name=".activity.PaymentDetailActivity" />
+        <activity android:name=".activity.WalletDetailActivity" />
+        <activity android:name=".activity.CashActivity" />
+        <activity android:name=".activity.ApplyCouponActivity" />
+        <activity android:name=".activity.CouponDetailsActivity" />
+        <activity android:name=".activity.FavouritesFoodActivity" />
+        <activity android:name=".activity.OngoingOrderDetailActivity" />
+        <activity android:name=".activity.PastOrderDetailActivity" />
+        <activity
+            android:name=".activity.FoodHomeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+
         <activity android:name=".activity.StripeCardPaymentActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:screenOrientation="portrait"></activity>
@@ -76,7 +107,7 @@
         </service>
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">

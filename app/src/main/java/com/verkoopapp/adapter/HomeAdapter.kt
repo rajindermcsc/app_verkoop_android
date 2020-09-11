@@ -2,9 +2,8 @@ package com.verkoopapp.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,6 +15,7 @@ import com.squareup.picasso.Picasso
 import com.verkoopapp.R
 import com.verkoopapp.activity.*
 import com.verkoopapp.fragment.HomeFragment
+import com.verkoopapp.activity.HomeActivity
 import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
@@ -28,6 +28,7 @@ import kotlinx.android.synthetic.main.your_daily_picks.*
 import retrofit2.Response
 import android.os.Bundle
 import android.os.Handler
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.my_profile_details_row.*
 
 
@@ -111,10 +112,15 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
         when {
             position == CATEGORY_LIST_ROW -> (holder as AddsAndItemsHolder).bind(categoryList, advertismentsList)
             position == YOUR_DAILY_PICKS -> {
-                (holder as YourDailyPickHolder).bind()
-                if (comingFromOnLike.equals("YourDailyPicksAdapter")) {
-                    if (positionOnLikeEvent > 0) {
-                        holder.rvYourDailyPicks.scrollToPosition(positionOnLikeEvent)
+                if (dailyPicksList.isEmpty()){
+
+                }
+                else {
+                    (holder as YourDailyPickHolder).bind()
+                    if (comingFromOnLike.equals("YourDailyPicksAdapter")) {
+                        if (positionOnLikeEvent > 0) {
+                            holder.rvYourDailyPicks.scrollToPosition(positionOnLikeEvent)
+                        }
                     }
                 }
             }

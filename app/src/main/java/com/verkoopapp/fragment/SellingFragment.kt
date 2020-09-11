@@ -5,12 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ksmtrivia.common.BaseFragment
+import com.verkoopapp.utils.BaseFragment
 import com.verkoopapp.R
 import com.verkoopapp.activity.ChatInboxActivity
 
 
-class SellingFragment:BaseFragment(){
+class SellingFragment: BaseFragment(){
     private var TAG=ChatInboxFragment::class.java.simpleName.toString()
     private lateinit var chatInboxActivity: ChatInboxActivity
 
@@ -24,7 +24,7 @@ class SellingFragment:BaseFragment(){
         return 0
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         chatInboxActivity=context as ChatInboxActivity
     }

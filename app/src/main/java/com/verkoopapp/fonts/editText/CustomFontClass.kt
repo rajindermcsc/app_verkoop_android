@@ -4,9 +4,10 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Typeface
 import android.util.AttributeSet
+import androidx.appcompat.widget.AppCompatEditText
 
 
-class GothicThinEditText : android.support.v7.widget.AppCompatEditText {
+class GothicThinEditText : AppCompatEditText {
     constructor(context: Context) : super(context) {
         val face = Typeface.createFromAsset(context.assets, "fonts/gothic.ttf")
         this.typeface = face
@@ -27,7 +28,7 @@ class GothicThinEditText : android.support.v7.widget.AppCompatEditText {
     }
 }
 
-class GothiBoldEditText : android.support.v7.widget.AppCompatEditText {
+class GothiBoldEditText : AppCompatEditText {
     constructor(context: Context) : super(context) {
         val face = Typeface.createFromAsset(context.assets, "fonts/gothicb.ttf")
         this.typeface = face

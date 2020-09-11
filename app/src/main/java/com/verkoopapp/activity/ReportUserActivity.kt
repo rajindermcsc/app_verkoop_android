@@ -4,9 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
 import android.view.WindowManager
 import com.github.florent37.viewanimator.ViewAnimator
@@ -35,7 +35,7 @@ class ReportUserActivity : AppCompatActivity(), ReportListAdapter.OnSelectedCall
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.report_user_activity)
-        reportList = intent.getParcelableArrayListExtra(AppConstants.REPORT_LIST)
+        reportList = intent.getParcelableArrayListExtra(AppConstants.REPORT_LIST)!!
         itemId = intent.getIntExtra(AppConstants.ITEM_ID, 0)
         comingFrom = intent.getIntExtra(AppConstants.COMING_FROM, 0)
         setAdapter()

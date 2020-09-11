@@ -4,8 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import android.opengl.Visibility
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
+import androidx.appcompat.app.AppCompatActivity
 import com.verkoopapp.R
 import com.verkoopapp.adapter.SearchByUserAdapter
 import com.verkoopapp.adapter.SearchListAdapter
@@ -58,7 +59,7 @@ class SearchActivity : AppCompatActivity() {
             etSearchHeader.isEnabled=false
             KeyboardUtil.hideKeyboard(this)
             ll_search.visibility = View.GONE
-            val string: String = intent.getStringExtra("visionData")
+            val string: String = intent.getStringExtra("visionData")!!
             setVisionDataAdapter()
             callSearchKeywordMultipleData(string)
         }

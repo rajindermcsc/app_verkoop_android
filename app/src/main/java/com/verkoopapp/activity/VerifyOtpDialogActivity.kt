@@ -1,7 +1,7 @@
 package com.verkoopapp.activity
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.WindowManager
@@ -16,7 +16,7 @@ import retrofit2.Response
 import android.app.Activity
 import android.content.Intent
 import android.os.Handler
-import android.support.v4.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import com.github.florent37.viewanimator.ViewAnimator
 import com.verkoopapp.models.VerifyNumberRequest
@@ -30,7 +30,7 @@ class VerifyOtpDialogActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.verify_otp_dialog)
-        phoneNo = intent.getStringExtra(AppConstants.PHONE_NO)
+        phoneNo = intent.getStringExtra(AppConstants.PHONE_NO).toString()
         setFirstTextWatcher()
         setSecondTextWatcher()
         setThirdTextWatcher()

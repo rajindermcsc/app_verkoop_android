@@ -1,8 +1,9 @@
 package com.verkoopapp.activity
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.verkoopapp.R
 import com.verkoopapp.adapter.CarModalAdapter
 import com.verkoopapp.models.CarModelList
@@ -10,7 +11,7 @@ import com.verkoopapp.utils.AppConstants
 import kotlinx.android.synthetic.main.car_brand_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 
-class CarModalActivity:AppCompatActivity(){
+class CarModalActivity: AppCompatActivity(){
     private var carModalLIst= ArrayList<CarModelList>()
     private var carBrand:String=""
     private var carBrandId:Int=0
@@ -18,8 +19,8 @@ class CarModalActivity:AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.car_brand_activity)
-        carModalLIst=intent.getParcelableArrayListExtra(AppConstants.CAR_MODEL_LIST)
-        carBrand=intent.getStringExtra(AppConstants.CAR_BRAND_NAME)
+        carModalLIst= intent.getParcelableArrayListExtra(AppConstants.CAR_MODEL_LIST)!!
+        carBrand= intent.getStringExtra(AppConstants.CAR_BRAND_NAME).toString()
         carBrandId=intent.getIntExtra(AppConstants.CAR_BRAND_ID,carBrandId)
         setAdapter()
         setData()

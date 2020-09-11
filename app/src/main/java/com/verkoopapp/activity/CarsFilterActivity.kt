@@ -1,9 +1,10 @@
 package com.verkoopapp.activity
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.verkoopapp.R
 import com.verkoopapp.adapter.FavouritesAdapter
 import com.verkoopapp.models.CarsFilterRequest
@@ -17,7 +18,7 @@ import kotlinx.android.synthetic.main.toolbar_location.*
 import retrofit2.Response
 
 
-class CarsFilterActivity:AppCompatActivity(){
+class CarsFilterActivity: AppCompatActivity(){
     private  lateinit var linearLayoutManager: GridLayoutManager
     private lateinit var favouritesAdapter: FavouritesAdapter
     private var itemsList=ArrayList<ItemHome>()
@@ -31,7 +32,7 @@ class CarsFilterActivity:AppCompatActivity(){
         setContentView(R.layout.favourites_activity)
        comingFrom=intent.getIntExtra(AppConstants.TYPE,0)
        filter_id=intent.getIntExtra(AppConstants.FILTER_ID,0)
-       filterType=intent.getStringExtra(AppConstants.FILTER_TYPE)
+       filterType= intent.getStringExtra(AppConstants.FILTER_TYPE).toString()
        setAdapter()
        if(filterType.equals(getString(R.string.brand),ignoreCase = true)){
            carFilterRequest= CarsFilterRequest(comingFrom,filter_id)

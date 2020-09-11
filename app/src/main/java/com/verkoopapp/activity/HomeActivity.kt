@@ -2,30 +2,22 @@ package com.verkoopapp.activity
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
 import android.location.Address
 import android.location.Geocoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
-import android.provider.MediaStore
-import android.support.v4.app.Fragment
-import android.support.v4.content.FileProvider
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.github.nkzawa.socketio.client.Ack
-import com.github.nkzawa.socketio.client.Socket
-import com.google.android.gms.common.util.IOUtils
-import com.google.api.client.extensions.android.json.AndroidJsonFactory
-import com.google.api.client.http.javanet.NetHttpTransport
-import com.google.api.client.util.GenericData
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import io.socket.client.Ack
+import io.socket.client.Socket
 import com.google.api.services.vision.v1.Vision
-import com.google.api.services.vision.v1.VisionRequestInitializer
-import com.google.api.services.vision.v1.model.*
+import com.google.api.services.vision.v1.model.BatchAnnotateImagesResponse
+import com.google.api.services.vision.v1.model.Feature
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.gson.Gson
 import com.verkoopapp.R
@@ -34,9 +26,13 @@ import com.verkoopapp.adapter.HomePagerAdapter
 import com.verkoopapp.fragment.ActivitiesFragment
 import com.verkoopapp.fragment.HomeFragment
 import com.verkoopapp.fragment.ProfileFragment
+import com.verkoopapp.fragment.VervoFragment
 import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
-import com.verkoopapp.utils.*
+import com.verkoopapp.utils.AppConstants
+import com.verkoopapp.utils.GPSTracker
+import com.verkoopapp.utils.PermissionCheck
+import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.home_activity.*
 import kotlinx.android.synthetic.main.toolbar_home.*
 import org.greenrobot.eventbus.EventBus
@@ -45,8 +41,7 @@ import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Response
-import java.io.*
-import java.text.SimpleDateFormat
+import java.io.InputStream
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -55,6 +50,7 @@ class HomeActivity : AppCompatActivity() {
     private var homeFragment: HomeFragment? = null
     private var profileFragment: ProfileFragment? = null
     private var activitiesFragment: ActivitiesFragment? = null
+//    private var vervoFragment: VervoFragment? = null
     private var fragmentList = ArrayList<Fragment>()
     private var doubleBackToExitPressedOnce = false
     private var comingFrom: Int = 0
@@ -76,12 +72,15 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.home_activity)
         checkIfCurrencyIsNull()
         callCurrencyList()
+        Log.e("TAG", "onCreate: "+Utils.getPreferencesString(this@HomeActivity,AppConstants.CURRENCY))
         comingFrom = intent.getIntExtra(AppConstants.COMING_FROM, 0)
         homeFragment = HomeFragment.newInstance()
         profileFragment = ProfileFragment.newInstance()
         activitiesFragment = ActivitiesFragment.newInstance()
+//        vervoFragment = VervoFragment.newInstance()
         fragmentList.add(homeFragment!!)
         fragmentList.add(activitiesFragment!!)
+//        fragmentList.add(vervoFragment!!)
         fragmentList.add(profileFragment!!)
         setData()
         callInit()
@@ -117,20 +116,20 @@ class HomeActivity : AppCompatActivity() {
                 socket?.emit(AppConstants.SOCKET_DISCONNECT, getObj(), Ack {
                     Log.e("<<<DisConnectLogOut>>>", Gson().toJson(it[0]))
                 })
-                callLogOutApi()
+//                callLogOutApi()
             }
         }
     }
 
     override fun onResume() {
         super.onResume()
-        if (checkPermission()){
-
-            getgpslocation()
-        }
-        else{
-            checkPermission()
-        }
+//        if (checkPermission()){
+//
+//            getgpslocation()
+//        }
+//        else{
+//            checkPermission()
+//        }
     }
 
     private fun checkPermission(): Boolean {
@@ -221,6 +220,12 @@ class HomeActivity : AppCompatActivity() {
                         bottomTabLayout.selectTab(R.id.menu_button3)
                     },100)
                 }
+                viewPager.currentItem == 2 -> {
+                    viewPager.currentItem = 3
+                    Handler().postDelayed(Runnable {
+                        bottomTabLayout.selectTab(R.id.menu_button3)
+                    },100)
+                }
                 else -> {
                     profileFragment!!.refreshUI(1)
                 }
@@ -278,12 +283,13 @@ class HomeActivity : AppCompatActivity() {
         when (id) {
             R.id.menu_button1 -> viewPager.currentItem = 0
             R.id.menu_button2 -> viewPager.currentItem = 1
+//            R.id.vervo_button-> viewPager.currentItem = 2
             R.id.menu_button3 -> viewPager.currentItem = 2
         }
     }
 
     private fun setData() {
-        val adapter = HomePagerAdapter(supportFragmentManager, 3, fragmentList)
+        val adapter = HomePagerAdapter(supportFragmentManager, 2, fragmentList)
         viewPager.adapter = adapter
         // viewPager.offscreenPageLimit = 2
         setTabLayout()
@@ -311,6 +317,10 @@ class HomeActivity : AppCompatActivity() {
                     profileFragment!!.refreshUI(0)
                 }
                 viewPager.currentItem == 1 -> {
+                    bottomTabLayout.selectTab(R.id.menu_button3)
+                    viewPager.currentItem = 3
+                }
+                viewPager.currentItem == 2 -> {
                     bottomTabLayout.selectTab(R.id.menu_button3)
                     viewPager.currentItem = 3
                 }
@@ -349,6 +359,10 @@ class HomeActivity : AppCompatActivity() {
 
                         }
                         viewPager.currentItem == 1 -> {
+                            bottomTabLayout.selectTab(R.id.menu_button3)
+                            viewPager.currentItem = 3
+                        }
+                        viewPager.currentItem == 2 -> {
                             bottomTabLayout.selectTab(R.id.menu_button3)
                             viewPager.currentItem = 3
                         }

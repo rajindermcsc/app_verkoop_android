@@ -2,8 +2,8 @@ package com.verkoopapp.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.verkoopapp.R
 import com.verkoopapp.adapter.PaymentHistoryAdapter
 import kotlinx.android.synthetic.main.my_wallet_activity.*
@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.verkoopapp.models.AddMoneyRequest
 import com.verkoopapp.models.UpdateWalletResponse
 import com.verkoopapp.models.WalletHistoryResponse
@@ -198,8 +199,8 @@ class MyWalletActivity : AppCompatActivity() {
             override fun onSuccess(response: Response<*>) {
                 pbProgressWallet.visibility = View.GONE
                 val responseWallet = response.body() as WalletHistoryResponse
-                tvTotalAmount.text = responseWallet.amount.toString()
-                Utils.saveIntPreferences(this@MyWalletActivity, AppConstants.AMOUNT, responseWallet.amount)
+                tvTotalAmount.text = Utils.convertCurrencyWithoutSymbol(this@MyWalletActivity, Utils.getPreferencesString(this@MyWalletActivity,AppConstants.CURRENCY), responseWallet.amount.toDouble()).toString()
+                Utils.saveFloatPreferences(this@MyWalletActivity, AppConstants.AMOUNT, responseWallet.amount)
                 if (responseWallet.data!!.isNotEmpty()) {
                     paymentHistoryAdapter.setData(responseWallet.data!!)
                     paymentHistoryAdapter.notifyDataSetChanged()

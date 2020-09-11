@@ -3,12 +3,13 @@ package com.verkoopapp.adapter
 import android.content.Context
 import android.content.Intent
 import android.os.Handler
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.swipe.SwipeLayout
 import com.daimajia.swipe.implments.SwipeItemRecyclerMangerImpl
 import com.daimajia.swipe.interfaces.SwipeAdapterInterface
@@ -23,7 +24,22 @@ import com.verkoopapp.models.ChatInboxResponse
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.chat_inbox_row.*
+import kotlinx.android.synthetic.main.chat_inbox_row.tvArchive
+import kotlinx.android.synthetic.main.chat_inbox_row.tvChatUserName
+import kotlinx.android.synthetic.main.chat_inbox_row.tvDelete
+import kotlinx.android.synthetic.main.chat_inbox_row.tvLastMssg
+import kotlinx.android.synthetic.main.chat_inbox_row.tvLastMssgTime
+import kotlinx.android.synthetic.main.chat_inbox_row.tvProductName
+import kotlinx.android.synthetic.main.chat_inbox_row.tvSoldChat
+import kotlinx.android.synthetic.main.chat_inbox_row.tvStatus
+import kotlinx.android.synthetic.main.chat_inbox_row.llDeleteArchieve
+import kotlinx.android.synthetic.main.chat_inbox_row.ivProfilePicChat
+import kotlinx.android.synthetic.main.chat_inbox_row.ivImageChat
+import kotlinx.android.synthetic.main.chat_inbox_row.rbRatingInbox
+import kotlinx.android.synthetic.main.chat_inbox_row.llParentChat
+import kotlinx.android.synthetic.main.chat_inbox_row.swipe
+import kotlinx.android.synthetic.main.chat_inbox_row.tvOfferDes
+import kotlinx.android.synthetic.main.chat_inbox_row.llAcceptOffer
 import org.apache.commons.lang3.StringEscapeUtils
 
 

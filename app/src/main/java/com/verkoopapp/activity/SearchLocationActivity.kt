@@ -6,12 +6,13 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Looper
-import android.support.v4.app.ActivityCompat
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
 import com.verkoopapp.R
 import com.verkoopapp.VerkoopApplication

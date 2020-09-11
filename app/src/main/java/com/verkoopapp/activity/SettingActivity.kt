@@ -3,11 +3,12 @@ package com.verkoopapp.activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import android.util.Log
 import android.view.View
-import com.github.nkzawa.socketio.client.Ack
-import com.github.nkzawa.socketio.client.Socket
+import androidx.appcompat.app.AppCompatActivity
+import io.socket.client.Ack
+import io.socket.client.Socket
 import com.google.gson.Gson
 import com.verkoopapp.R
 import com.verkoopapp.VerkoopApplication

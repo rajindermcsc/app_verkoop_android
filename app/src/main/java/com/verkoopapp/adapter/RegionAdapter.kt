@@ -1,23 +1,22 @@
 package com.verkoopapp.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Typeface
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import androidx.recyclerview.widget.RecyclerView
 import com.verkoopapp.R
 import com.verkoopapp.VerkoopApplication
 import com.verkoopapp.activity.RegionActivity
-import com.verkoopapp.models.City
 import com.verkoopapp.models.CityDataValue
 import com.verkoopapp.models.CityResponse
 import com.verkoopapp.models.StateDataValue
 import com.verkoopapp.network.ServiceHelper
-import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.region_row.*
@@ -100,7 +99,20 @@ class RegionAdapter(private val context: Context, private val coming: Int) : Rec
             cbRegion.setOnClickListener {
                 refreshList(adapterPosition)
                 if (coming == 0) {
-                    getMyCity(data.name,data.id,0,statesList[position].id)
+
+                    for (i in 0 until statesList.size) {
+
+                        Log.e("TAG", "bind: "+statesList[i].name)
+                        Log.e("TAG", "bind: "+cbRegion.text)
+                        if (statesList[i].name.equals(cbRegion.text.toString())) {
+                            getMyCity(data.name, data.id, 0, statesList[i].id)
+                        }
+                    }
+
+//                    if (statesList[position].name.equals(cbRegion.text.toString())){
+//
+//                        getMyCity(data.name,data.id,0,statesList[position].id)
+//                    }
                 } else {
                    val cityList=ArrayList<CityDataValue>()
                     clickEventCallBack.onSelectRegion(data.name, data.id, 1,cityList)
@@ -112,22 +124,38 @@ class RegionAdapter(private val context: Context, private val coming: Int) : Rec
 
 
     private fun getMyCity(code: String, id: Int, i1: Int, id1: Int) {
-//        VerkoopApplication.instance.loader.show()
+        Log.e("TAG", "getMyCity: "+code)
+        Log.e("TAG", "getMyCity: "+id)
+        Log.e("TAG", "getMyCity: "+i1)
+        Log.e("TAG", "getMyCity: "+id1)
+        VerkoopApplication.instance.loader.show(context as Activity)
         ServiceHelper().myCityList(id1, object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
+                VerkoopApplication.instance.loader.hide(context as Activity)
                 val responseCity = response.body() as CityResponse
+                Log.e("TAG", "onSuccess: "+responseCity.data)
                 if (responseCity.data != null) {
+
                     citylist = responseCity.data.city
-                    clickEventCallBack.onSelectRegion(code, id, 0,citylist)
+                    if (citylist.size==0){
+
+                        Utils.showSimpleMessage(context, responseCity.message).show()
+                    }
+                    else{
+
+                        clickEventCallBack.onSelectRegion(code, id, 0,citylist)
+                    }
 
 
                 } else {
+                    VerkoopApplication.instance.loader.hide(context as Activity)
                     Utils.showSimpleMessage(context, "No data found.").show()
                 }
 
             }
 
             override fun onFailure(msg: String?) {
+                VerkoopApplication.instance.loader.hide(context as Activity)
                 Utils.showSimpleMessage(context, msg!!).show()
             }
         })

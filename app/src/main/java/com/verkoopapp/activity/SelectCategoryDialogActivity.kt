@@ -1,8 +1,8 @@
 package com.verkoopapp.activity
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.verkoopapp.R
 import com.verkoopapp.adapter.CategoryDialogAdapter
 import com.verkoopapp.adapter.SubCategoryDialogAdapter
@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.select_category_dialog_activity.*
 import java.util.ArrayList
 import android.app.Activity
 import android.content.Intent
-import android.support.v4.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.view.WindowManager
 import com.github.florent37.viewanimator.ViewAnimator

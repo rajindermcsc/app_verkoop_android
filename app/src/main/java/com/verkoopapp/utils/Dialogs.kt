@@ -6,23 +6,47 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.*
+import androidx.core.content.ContextCompat
 
 import com.verkoopapp.R
-import kotlinx.android.synthetic.main.delete_comment_dialog.*
-import kotlinx.android.synthetic.main.dialog_item_added.*
-import kotlinx.android.synthetic.main.dialog_create_offer.*
-import kotlinx.android.synthetic.main.dialog_select_met_up.*
-import kotlinx.android.synthetic.main.dialog_update_country.*
-import kotlinx.android.synthetic.main.proceed_dialog.*
-import kotlinx.android.synthetic.main.purchase_coin_dialog.*
-import kotlinx.android.synthetic.main.rating_dialog.*
-import kotlinx.android.synthetic.main.select_option_dialoog.*
-import kotlinx.android.synthetic.main.signup_activity.*
+import kotlinx.android.synthetic.main.delete_comment_dialog.tvDescriptionDel
+import kotlinx.android.synthetic.main.delete_comment_dialog.tvHeaderDel
+import kotlinx.android.synthetic.main.delete_comment_dialog.tvLeaveDelete
+import kotlinx.android.synthetic.main.delete_comment_dialog.tvNo
+import kotlinx.android.synthetic.main.delete_comment_dialog.flParentDel
+import kotlinx.android.synthetic.main.dialog_item_added.tvCategoryDialog
+import kotlinx.android.synthetic.main.dialog_item_added.tvFacebookShareDialog
+import kotlinx.android.synthetic.main.dialog_item_added.tvHeaderDialog
+import kotlinx.android.synthetic.main.dialog_item_added.tvPriceDialog
+import kotlinx.android.synthetic.main.dialog_item_added.tvShareDialog
+import kotlinx.android.synthetic.main.dialog_item_added.ivFinishDialog
+import kotlinx.android.synthetic.main.dialog_item_added.ivWhatAppShareDialog
+import kotlinx.android.synthetic.main.dialog_create_offer.tvSymbol
+import kotlinx.android.synthetic.main.dialog_create_offer.llParent
+import kotlinx.android.synthetic.main.dialog_create_offer.etTotalPrice
+import kotlinx.android.synthetic.main.dialog_create_offer.llMakeOffer
+import kotlinx.android.synthetic.main.dialog_select_met_up.tvLeave
+import kotlinx.android.synthetic.main.dialog_select_met_up.tvResume
+import kotlinx.android.synthetic.main.dialog_update_country.tvSave
+import kotlinx.android.synthetic.main.popup_rating.img_close
+import kotlinx.android.synthetic.main.popup_rating.tv_done
+import kotlinx.android.synthetic.main.proceed_dialog.tvProceedPro
+import kotlinx.android.synthetic.main.proceed_dialog.tvCancelPro
+import kotlinx.android.synthetic.main.purchase_coin_dialog.tvMessage
+import kotlinx.android.synthetic.main.purchase_coin_dialog.tvNoPur
+import kotlinx.android.synthetic.main.purchase_coin_dialog.tvYesPur
+import kotlinx.android.synthetic.main.rating_dialog.tvHeading
+import kotlinx.android.synthetic.main.rating_dialog.tvCancelRate
+import kotlinx.android.synthetic.main.rating_dialog.tvSubmitRate
+import kotlinx.android.synthetic.main.rating_dialog.rbRating
+import kotlinx.android.synthetic.main.select_option_dialoog.llCamera
+import kotlinx.android.synthetic.main.select_option_dialoog.tvGallery
+import kotlinx.android.synthetic.main.select_option_dialoog.llCancel
 import kotlinx.android.synthetic.main.signup_activity.ccp
-import kotlinx.android.synthetic.main.warning_dialog.*
+import kotlinx.android.synthetic.main.warning_dialog.tvProceed
 
 
 interface SharePostListener{
@@ -59,7 +83,7 @@ class ShareProductDialog(context: Context, private val header:String, private va
         tvCategoryDialog.text=categoryType
         tvPriceDialog.text=price
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
+        window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
         setCancelable(false)
 
         ivFinishDialog.setOnClickListener {
@@ -100,7 +124,7 @@ class ResumeLocationDialog(context: Context, private val listener:SelectionListe
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.dialog_select_met_up)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
+        window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
         setCancelable(false)
 
         tvResume.setOnClickListener {
@@ -120,7 +144,7 @@ class SelectOptionDialog(context: Context, private val listener:SelectionOptionL
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.select_option_dialoog)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
+        window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
         setCancelable(false)
 
         llCamera.setOnClickListener {
@@ -144,11 +168,11 @@ class DeleteCommentDialog(context: Context,private val header:String,private val
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.delete_comment_dialog)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
         setCanceledOnTouchOutside(true)
         setCancelable(true)
         if(header.equals(context.getString(R.string.confirm_accpt_offer),ignoreCase = true)||header.equals(context.getString(R.string.cancel_offer),ignoreCase = true)){
-            flParentDel.background=ContextCompat.getDrawable(context,R.drawable.white_rectangular_shape)
+            flParentDel.background= ContextCompat.getDrawable(context,R.drawable.white_rectangular_shape)
         }
         tvHeaderDel.text=header
         tvDescriptionDel.text=description
@@ -170,8 +194,8 @@ class CreatOfferDialog(private val productType:Int,private val minPrice:Double,p
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.dialog_create_offer)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
-        window.setGravity(Gravity.BOTTOM)
+        window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        window?.setGravity(Gravity.BOTTOM)
         setCanceledOnTouchOutside(true)
         setCancelable(true)
         tvSymbol.text = Utils.getPreferencesString(context, AppConstants.CURRENCY_SYMBOL)
@@ -230,7 +254,7 @@ class countryDialog(context: Context, private val listener: CountryListener)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.dialog_update_country)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
+        window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
         setCancelable(false)
         setCanceledOnTouchOutside(false)
         ccp.setCountryForPhoneCode(1)
@@ -251,7 +275,7 @@ class WarningDialog(context: Context, private val listener:SelectionListener)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.warning_dialog)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
+        window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
         setCancelable(false)
         tvProceed.setOnClickListener {
             dismiss()
@@ -267,7 +291,7 @@ class RatingBarDialog(context: Context, private val typeUser: String, private va
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.rating_dialog)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
+        window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
         setCancelable(false)
 
         if(typeUser.equals(context.getString(R.string.buyer),ignoreCase = true)){
@@ -292,7 +316,7 @@ class PurchaseCoinDialog(context: Context, private val header: StringBuffer, pri
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.purchase_coin_dialog)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
         setCanceledOnTouchOutside(true)
         setCancelable(true)
 
@@ -314,7 +338,7 @@ class ProceedDialog(context: Context,private val description:String, private val
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.proceed_dialog)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
         setCanceledOnTouchOutside(true)
         setCancelable(true)
         tvProceedPro.setOnClickListener {
@@ -322,6 +346,29 @@ class ProceedDialog(context: Context,private val description:String, private val
             dismiss()
         }
         tvCancelPro.setOnClickListener {
+            dismiss()
+        }
+    }
+}
+
+
+class RatingFoodOrder(context: Context)
+    : android.app.Dialog(context) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        setContentView(R.layout.popup_rating)
+        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
+
+        setCanceledOnTouchOutside(true)
+        setCancelable(true)
+
+
+        img_close.setOnClickListener {
+            dismiss()
+        }
+        tv_done.setOnClickListener {
             dismiss()
         }
     }

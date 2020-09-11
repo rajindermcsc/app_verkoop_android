@@ -1,12 +1,13 @@
 package com.verkoopapp.activity
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.verkoopapp.R
 import kotlinx.android.synthetic.main.notifizcatin_fragment.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 
-class NotificationActivity:AppCompatActivity(){
+class NotificationActivity: AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

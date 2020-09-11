@@ -1,8 +1,9 @@
 package com.verkoopapp.activity
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import com.verkoopapp.R
 import com.verkoopapp.adapter.CarBrandsAdapter
 import com.verkoopapp.models.Brand
@@ -11,7 +12,7 @@ import kotlinx.android.synthetic.main.favourites_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 
 
-class CarBrandsActivity:AppCompatActivity(){
+class CarBrandsActivity: AppCompatActivity(){
     private  lateinit var linearLayoutManager:GridLayoutManager
     private lateinit var carBrandsAdapter: CarBrandsAdapter
     private var brandList= ArrayList<Brand>()
@@ -20,7 +21,7 @@ class CarBrandsActivity:AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.favourites_activity)
-        brandList=intent.getParcelableArrayListExtra(AppConstants.CAR_BRAND_LIST)
+        brandList= intent.getParcelableArrayListExtra(AppConstants.CAR_BRAND_LIST)!!
         setData()
         setAdapter()
     }

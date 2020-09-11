@@ -3,12 +3,12 @@ package com.verkoopapp.fragment
 import android.content.Context
 import android.graphics.Point
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import com.ksmtrivia.common.BaseFragment
+import com.verkoopapp.utils.BaseFragment
 import com.verkoopapp.R
 import com.verkoopapp.activity.CoinsActivity
 import com.verkoopapp.adapter.CoinListAdapter
@@ -42,7 +42,7 @@ class GetCoinsFragment : BaseFragment(), CoinListAdapter.PurchaseCoinCallBack {
         return TAG
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         coinsActivity = context as CoinsActivity
         coinUpdateCallBack = context

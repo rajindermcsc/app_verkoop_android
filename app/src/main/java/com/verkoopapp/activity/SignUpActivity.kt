@@ -8,8 +8,8 @@ import android.graphics.Typeface
 import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import android.text.*
 import android.util.Base64
 import android.util.Log

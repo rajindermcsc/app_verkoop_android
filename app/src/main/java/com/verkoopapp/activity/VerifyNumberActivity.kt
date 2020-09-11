@@ -2,7 +2,7 @@ package com.verkoopapp.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import android.text.TextUtils
 import android.view.View
 import com.verkoopapp.R
@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.verify_number_activity.*
 import retrofit2.Response
 import android.app.Activity
 import android.os.Handler
-import android.support.v4.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import kotlinx.android.synthetic.main.forgot_password_activity.*

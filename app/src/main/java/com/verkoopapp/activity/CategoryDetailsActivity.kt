@@ -4,13 +4,14 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.verkoopapp.R
 import com.verkoopapp.adapter.DetailSubCategoryAdapter
 import com.verkoopapp.adapter.FilterAdapter
@@ -108,7 +109,7 @@ class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterC
         }
         val type = intent.getIntExtra(AppConstants.TYPE, 0)
         typeForEventBus = type
-        if (intent.getStringExtra(AppConstants.SUB_CATEGORY).isEmpty()){
+        if (intent.getStringExtra(AppConstants.SUB_CATEGORY)?.isEmpty()!!){
             toolbar_title_.text = intent.getStringExtra(AppConstants.Search)
         }
         else {

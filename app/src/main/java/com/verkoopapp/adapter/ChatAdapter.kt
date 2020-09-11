@@ -3,7 +3,7 @@ package com.verkoopapp.adapter
 
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -15,15 +15,26 @@ import com.verkoopapp.models.ChatData
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.chat_image_left_row.*
-import kotlinx.android.synthetic.main.chat_image_right_row.*
-
-import kotlinx.android.synthetic.main.chat_offer_left_row.*
-import kotlinx.android.synthetic.main.chat_offer_right_row.*
-import kotlinx.android.synthetic.main.chat_text_left_row.*
-import kotlinx.android.synthetic.main.chat_text_right_row.*
-import kotlinx.android.synthetic.main.rate_user_left_row.*
-import kotlinx.android.synthetic.main.rate_user_right_row.*
+import kotlinx.android.synthetic.main.chat_image_left_row.tvPhotoLeft
+import kotlinx.android.synthetic.main.chat_image_left_row.tvImageDataLeft
+import kotlinx.android.synthetic.main.chat_image_right_row.tvImageRight
+import kotlinx.android.synthetic.main.chat_image_right_row.tvDateImageRight
+import kotlinx.android.synthetic.main.chat_offer_left_row.tvLeftOfferMssg
+import kotlinx.android.synthetic.main.chat_offer_left_row.tvLeftOfferPrice
+import kotlinx.android.synthetic.main.chat_offer_left_row.tvLeftOfferTime
+import kotlinx.android.synthetic.main.chat_offer_right_row.tvRightOfferMssg
+import kotlinx.android.synthetic.main.chat_offer_right_row.tvRightOfferTime
+import kotlinx.android.synthetic.main.chat_offer_right_row.tvRightPrice
+import kotlinx.android.synthetic.main.chat_text_left_row.tvLeftMssg
+import kotlinx.android.synthetic.main.chat_text_left_row.tvLeftTime
+import kotlinx.android.synthetic.main.chat_text_right_row.tvRightMssg
+import kotlinx.android.synthetic.main.chat_text_right_row.tvRightTime
+import kotlinx.android.synthetic.main.rate_user_left_row.tvLeftRateMssg
+import kotlinx.android.synthetic.main.rate_user_left_row.tvLeftRateTime
+import kotlinx.android.synthetic.main.rate_user_left_row.rbRatingLeft
+import kotlinx.android.synthetic.main.rate_user_right_row.tvRightRateTime
+import kotlinx.android.synthetic.main.rate_user_right_row.tvRightRaterMssg
+import kotlinx.android.synthetic.main.rate_user_right_row.rbRatingRight
 import org.apache.commons.lang3.StringEscapeUtils
 
 

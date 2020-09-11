@@ -1,10 +1,10 @@
 package com.verkoopapp.utils
 
 import android.content.Context
-import android.support.annotation.Nullable
 import android.view.MotionEvent
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.util.AttributeSet
+import javax.annotation.Nullable
 
 
 /**

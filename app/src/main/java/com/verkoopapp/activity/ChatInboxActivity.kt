@@ -4,14 +4,14 @@ package com.verkoopapp.activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import com.daimajia.swipe.SwipeLayout
-import com.github.nkzawa.socketio.client.Ack
-import com.github.nkzawa.socketio.client.Socket
+import io.socket.client.Ack
+import io.socket.client.Socket
 import com.google.gson.Gson
 import com.verkoopapp.R
 import com.verkoopapp.VerkoopApplication
@@ -22,13 +22,23 @@ import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.DeleteCommentDialog
 import com.verkoopapp.utils.SelectionListener
 import com.verkoopapp.utils.Utils
-import kotlinx.android.synthetic.main.chat_inbox_activity.*
-import kotlinx.android.synthetic.main.toolbar_chat.*
+import kotlinx.android.synthetic.main.chat_inbox_activity.rvChatInbox
+import kotlinx.android.synthetic.main.chat_inbox_activity.llAll
+import kotlinx.android.synthetic.main.chat_inbox_activity.llBuying
+import kotlinx.android.synthetic.main.chat_inbox_activity.llSelling
+import kotlinx.android.synthetic.main.chat_inbox_activity.tvAll
+import kotlinx.android.synthetic.main.chat_inbox_activity.tvBuying
+import kotlinx.android.synthetic.main.chat_inbox_activity.tvSelling
+import kotlinx.android.synthetic.main.chat_inbox_activity.vAll
+import kotlinx.android.synthetic.main.chat_inbox_activity.vBuying
+import kotlinx.android.synthetic.main.chat_inbox_activity.vSelling
+import kotlinx.android.synthetic.main.toolbar_chat.ivLeftLocation
+import kotlinx.android.synthetic.main.toolbar_chat.tvRight
 import org.json.JSONException
 import org.json.JSONObject
 
 
-class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBack {
+public class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteChatCallBack {
     private val socket: Socket? = VerkoopApplication.getAppSocket()
     private lateinit var chatInboxAdapter: ChatInboxAdapter
     private var chatInboxType: Int = 0

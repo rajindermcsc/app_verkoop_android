@@ -1,14 +1,16 @@
 package com.verkoopapp.activity
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.verkoopapp.R
 import com.verkoopapp.adapter.FollowFollowingAdapter
 import com.verkoopapp.models.HomeRequest
+import com.verkoopapp.models.HomeRequestID
 import com.verkoopapp.models.SearchByUserResponse
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
@@ -68,7 +70,7 @@ class FollowFollowingActivity : AppCompatActivity() {
 
     private fun followFollowingApi(type: Int, userId: Int) {
         pbProgressSearch.visibility = View.VISIBLE
-        ServiceHelper().followFollowingService(userId, HomeRequest(type),
+        ServiceHelper().followFollowingService(userId, HomeRequestID(type),
                 object : ServiceHelper.OnResponse {
                     override fun onSuccess(response: Response<*>) {
                         pbProgressSearch.visibility = View.GONE

@@ -12,7 +12,7 @@ import android.net.Uri
 import android.os.Environment
 import android.preference.PreferenceManager
 import android.provider.MediaStore
-import android.support.v7.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
@@ -21,6 +21,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.andrognito.flashbar.Flashbar
 import com.verkoopapp.R
 import com.verkoopapp.VerkoopApplication
@@ -48,7 +49,7 @@ object Utils {
 
         val sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(context)
-        return sharedPreferences.getString(key, "")
+        return sharedPreferences.getString(key, "").toString()
 
     }
 
@@ -76,10 +77,18 @@ object Utils {
 
     }
 
+    fun getPreferencesLong(context: Activity, key: String): Long {
+
+        val sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context)
+        return sharedPreferences.getLong(key, 0L)
+
+    }
+
     fun getPreferencesString(context: Context, key: String): String {
         val sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(context)
-        return sharedPreferences.getString(key, "")
+        return sharedPreferences.getString(key, "").toString()
     }
 
     fun saveIntPreferences(context: Context, key: String, value: Int) {
@@ -88,6 +97,15 @@ object Utils {
                 .getDefaultSharedPreferences(context)
         val editor = sharedPreferences.edit()
         editor.putInt(key, value)
+        editor.commit()
+    }
+
+    fun saveLongPreferences(context: Context, key: String, value: Long) {
+
+        val sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context)
+        val editor = sharedPreferences.edit()
+        editor.putLong(key, value)
         editor.commit()
     }
 
@@ -129,6 +147,18 @@ object Utils {
                 .build()
     }
 
+    fun showSimpleMessageShort(context: Context, text: String): Flashbar {
+        return Flashbar.Builder(context as AppCompatActivity)
+                .gravity(Flashbar.Gravity.TOP)
+                .messageSizeInSp(16f)
+                //.titleTypeface(Typeface.createFromAsset(context.assets, "fonts/SourceSansPro-Regular.ttf"))
+                .message(text)
+                .backgroundColorRes(R.color.colorPrimary)
+                .dismissOnTapOutside()
+                .duration(2000)
+                .build()
+    }
+
     fun showToast(context: Context, message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
@@ -157,7 +187,7 @@ object Utils {
         val result: String
         val cursor = context.contentResolver.query(contentURI, null, null, null, null)
         if (cursor == null) { // Source is Dropbox or other similar local file path
-            result = contentURI.path
+            result = contentURI.path.toString()
         } else {
             cursor.moveToFirst()
             val idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
@@ -645,6 +675,28 @@ object Utils {
         val convert = toRate.rate.toDouble() / fromRate.rate.toDouble()
         val output = convert * amount
         return "${getPreferencesString(context, AppConstants.CURRENCY_SYMBOL)} ${String.format("%.2f", output)}"
+    }
+
+    fun convertCurrencyToUsd(context: Context, from: String, amount: Double): String? {
+        try {
+
+
+            val fromRate = VerkoopApplication.instance.currencies.first {
+                it.code == from
+            }
+            val toRate = VerkoopApplication.instance.currencies.first { it.code == "USD" }
+
+            val convert = toRate.rate.toDouble() / fromRate.rate.toDouble()
+
+            val output = convert * amount
+
+
+            return "${String.format("%.2f", output)}"
+        }
+        catch (ex:Exception){
+            Log.e("TAG", "convertCurrencyToUsdex: "+ex.message)
+        }
+        return null
     }
 
     fun convertCurrencyWithoutSymbol(context: Context, from: String, amount: Double): Double {

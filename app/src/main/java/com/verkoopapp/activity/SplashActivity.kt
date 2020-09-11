@@ -4,10 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.PersistableBundle
-import android.support.v7.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils

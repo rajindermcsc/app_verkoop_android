@@ -1,8 +1,9 @@
-package com.ksmtrivia.common
-import android.support.annotation.StringRes
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
+package com.verkoopapp.utils
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import android.widget.ImageView
+import androidx.annotation.StringRes
+import com.ksmtrivia.common.BaseActivity
 
 /**
  * Created by admin on 4/3/2018.

@@ -12,19 +12,20 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.provider.MediaStore
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.FileProvider
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.WindowManager
-import com.github.nkzawa.socketio.client.Ack
-import com.github.nkzawa.socketio.client.Socket
+import androidx.annotation.RequiresApi
+//import com.github.nkzawa.socketio.client.Ack
+//import com.github.nkzawa.socketio.client.Socket
 import com.google.gson.Gson
 import com.skydoves.powermenu.MenuAnimation
 import com.skydoves.powermenu.OnMenuItemClickListener
@@ -43,6 +44,8 @@ import com.verkoopapp.offlinechatdata.ChatResponse
 import com.verkoopapp.offlinechatdata.DbHelper
 import com.verkoopapp.utils.*
 import io.realm.RealmResults
+import io.socket.client.Ack
+import io.socket.client.Socket
 import kotlinx.android.synthetic.main.chat_activity.*
 import kotlinx.android.synthetic.main.toolbar_bottom.*
 import kotlinx.android.synthetic.main.toolbar_product_details.*
@@ -100,10 +103,10 @@ class ChatActivity : AppCompatActivity() {
         price = intent.getDoubleExtra(AppConstants.PRODUCT_PRICE, 0.0)
         minPrice = intent.getDoubleExtra(AppConstants.MIN_PRICE, 0.0)
         maxPrice = intent.getDoubleExtra(AppConstants.MAX_PRICE, 0.0)
-        userName = intent.getStringExtra(AppConstants.USER_NAME)
-        profileUrl = intent.getStringExtra(AppConstants.PROFILE_URL)
-        productUrl = intent.getStringExtra(AppConstants.PRODUCT_URL)
-        productName = intent.getStringExtra(AppConstants.PRODUCT_NAME)
+        userName = intent.getStringExtra(AppConstants.USER_NAME).toString()
+        profileUrl = intent.getStringExtra(AppConstants.PROFILE_URL).toString()
+        productUrl = intent.getStringExtra(AppConstants.PRODUCT_URL).toString()
+        productName = intent.getStringExtra(AppConstants.PRODUCT_NAME).toString()
         isMyProduct = intent.getBooleanExtra(AppConstants.IS_MY_PRODUCT, false)
         isRate = intent.getIntExtra(AppConstants.IS_RATE, 0)
         isSold = intent.getIntExtra(AppConstants.IS_SOLD, 0)
@@ -199,7 +202,7 @@ class ChatActivity : AppCompatActivity() {
             jsonObject.put("price", price.toString())
             Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
             if (socket!!.connected()) {
-                socket?.emit(AppConstants.DIRECT_CHAT, jsonObject, Ack {
+                socket.emit(AppConstants.DIRECT_CHAT, jsonObject, Ack {
                     Log.e("<<<Chat_User_Id>>>", Gson().toJson(it[0]))
                     val data = it[0] as JSONObject
                     runOnUiThread {
@@ -255,7 +258,7 @@ class ChatActivity : AppCompatActivity() {
             jsonObject.put("item_id", itemId)
             Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
             if (socket!!.connected()) {
-                socket?.emit(AppConstants.CHAT_LIST, jsonObject, Ack {
+                socket.emit(AppConstants.CHAT_LIST, jsonObject, Ack {
                     Log.e("<<<Response>>>", Gson().toJson(it[0]))
                     val data = it[0] as JSONObject
                     runOnUiThread {
@@ -403,6 +406,7 @@ class ChatActivity : AppCompatActivity() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
     private fun setAdapter() {
         val layoutManager = LinearLayoutManager(this)
         rvChatList.layoutManager = layoutManager
@@ -510,6 +514,7 @@ class ChatActivity : AppCompatActivity() {
                 declineOfferDialogBox(lastOffer!!.message!!)
             } else if (tvViewProfile.text.toString().equals(getString(R.string.cancel_offer), ignoreCase = true)) {
                 val lastOffer = dbHelper!!.getOfferPriceLast(Utils.getPreferencesString(this, AppConstants.USER_ID).toInt(), senderId, itemId, 2)
+
                 cancelOfferDialogBox(lastOffer!!.message!!)
             } else if (tvViewProfile.text.toString().equals(getString(R.string.leave_review), ignoreCase = true)) {
                 openRatingDialog(getString(R.string.buyer))
@@ -866,7 +871,7 @@ class ChatActivity : AppCompatActivity() {
             jsonObject.put("chat_user_id", chatUserId)
             Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
             if (socket!!.connected()) {
-                socket?.emit(AppConstants.DECLINE_OFFER_EVENT, jsonObject, Ack {
+                socket.emit(AppConstants.DECLINE_OFFER_EVENT, jsonObject, Ack {
                     Log.e("<<<Response>>>", Gson().toJson(it[0]))
                     val data = it[0] as JSONObject
                     runOnUiThread {
@@ -916,7 +921,7 @@ class ChatActivity : AppCompatActivity() {
             jsonObject.put("chat_user_id", chatUserId)
             Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
             if (socket!!.connected()) {
-                socket?.emit(AppConstants.CANCEL_OFFER_EVENT, jsonObject, Ack {
+                socket.emit(AppConstants.CANCEL_OFFER_EVENT, jsonObject, Ack {
                     Log.e("<<<Response>>>", Gson().toJson(it[0]))
                     val data = it[0] as JSONObject
                     runOnUiThread {
@@ -967,7 +972,7 @@ class ChatActivity : AppCompatActivity() {
             jsonObject.put("chat_user_id", chatUserId)
             Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
             if (socket!!.connected()) {
-                socket?.emit(AppConstants.EDIT_OFFER_EVENT, jsonObject, Ack {
+                socket.emit(AppConstants.EDIT_OFFER_EVENT, jsonObject, Ack {
                     Log.e("<<<Response>>>", Gson().toJson(it[0]))
                     val data = it[0] as JSONObject
                     runOnUiThread {
@@ -1017,7 +1022,7 @@ class ChatActivity : AppCompatActivity() {
             jsonObject.put("chat_user_id", chatUserId)
             Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
             if (socket!!.connected()) {
-                socket?.emit(AppConstants.ACCEPT_OFFER_EVENT, jsonObject, Ack {
+                socket.emit(AppConstants.ACCEPT_OFFER_EVENT, jsonObject, Ack {
                     Log.e("<<<Response>>>", Gson().toJson(it[0]))
                     val data = it[0] as JSONObject
                     runOnUiThread {
@@ -1067,7 +1072,7 @@ class ChatActivity : AppCompatActivity() {
             jsonObject.put("chat_user_id", chatUserId)
             Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
             if (socket!!.connected()) {
-                socket?.emit(AppConstants.RATE_USER_EVENT, jsonObject, Ack {
+                socket.emit(AppConstants.RATE_USER_EVENT, jsonObject, Ack {
                     Log.e("<<<Response>>>", Gson().toJson(it[0]))
                     val data = it[0] as JSONObject
                     runOnUiThread {
@@ -1118,7 +1123,7 @@ class ChatActivity : AppCompatActivity() {
             jsonObject.put("price", price)
             Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
             if (socket!!.connected()) {
-                socket?.emit(AppConstants.MAKE_OFFER_EVENT, jsonObject, Ack {
+                socket.emit(AppConstants.MAKE_OFFER_EVENT, jsonObject, Ack {
                     Log.e("<<<Response>>>", Gson().toJson(it[0]))
                     val data = it[0] as JSONObject
                     runOnUiThread {
@@ -1171,7 +1176,7 @@ class ChatActivity : AppCompatActivity() {
             ivSend.isEnabled = false
             Log.e("<<<ACKRESPONSE>>>", Gson().toJson(jsonObject))
             if (socket!!.connected()) {
-                socket?.emit(AppConstants.SEND_MESSAGES, jsonObject, Ack {
+                socket.emit(AppConstants.SEND_MESSAGES, jsonObject, Ack {
                     Log.e("<<<SendResponse>>>", Gson().toJson(it[0]))
                     val data = it[0] as JSONObject
                     runOnUiThread {
@@ -1301,6 +1306,7 @@ class ChatActivity : AppCompatActivity() {
             private val windowVisibleDisplayFrame = Rect()
             private var lastVisibleDecorViewHeight: Int = 0
 
+            @RequiresApi(Build.VERSION_CODES.CUPCAKE)
             override fun onGlobalLayout() {
                 decorView.getWindowVisibleDisplayFrame(windowVisibleDisplayFrame)
                 val visibleDecorViewHeight = windowVisibleDisplayFrame.height()
@@ -1328,6 +1334,7 @@ class ChatActivity : AppCompatActivity() {
         })
     }
 
+    @RequiresApi(Build.VERSION_CODES.FROYO)
     @SuppressLint("SimpleDateFormat")
     @Throws(IOException::class)
     private fun createImageFile(): File {

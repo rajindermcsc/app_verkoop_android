@@ -1,12 +1,13 @@
 package com.verkoopapp.activity
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.daimajia.swipe.SwipeLayout
-import com.github.nkzawa.socketio.client.Ack
-import com.github.nkzawa.socketio.client.Socket
+import io.socket.client.Ack
+import io.socket.client.Socket
 import com.google.gson.Gson
 import com.verkoopapp.R
 import com.verkoopapp.VerkoopApplication

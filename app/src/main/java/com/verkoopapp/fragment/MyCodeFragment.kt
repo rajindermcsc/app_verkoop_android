@@ -1,10 +1,10 @@
 package com.verkoopapp.fragment
 
 import android.os.Bundle
-import com.ksmtrivia.common.BaseFragment
+import com.verkoopapp.utils.BaseFragment
 
 
-class MyCodeFragment:BaseFragment(){
+class MyCodeFragment: BaseFragment(){
     private  var TAG=MyCodeFragment::class.java.simpleName.toString()
     override fun getTitle(): Int {
         return 0

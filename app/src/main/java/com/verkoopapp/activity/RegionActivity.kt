@@ -3,12 +3,13 @@ package com.verkoopapp.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.verkoopapp.R
 import com.verkoopapp.adapter.RegionAdapter
 import com.verkoopapp.models.*
@@ -60,12 +61,13 @@ class RegionActivity : AppCompatActivity(), RegionAdapter.ClickEventCallBack {
         regionAdapter = RegionAdapter(this, 0)
         cityId = intent.getIntExtra(AppConstants.CITY_ID, 0)
         stateId = intent.getIntExtra(AppConstants.STATE_ID, 0)
-        country_id = intent.getStringExtra(AppConstants.COUNTRY_CODE)
+        country_id = intent.getStringExtra(AppConstants.COUNTRY_CODE).toString()
         rvLocation.adapter = regionAdapter
     }
 
 
     private fun getMyState(code: String) {
+        Log.e("TAG", "getMyState: "+code)
         pbProgress.visibility=View.VISIBLE
         ServiceHelper().myStateList(code, object : ServiceHelper.OnResponse {
             override fun onSuccess(response: Response<*>) {
@@ -88,6 +90,7 @@ class RegionActivity : AppCompatActivity(), RegionAdapter.ClickEventCallBack {
             }
 
             override fun onFailure(msg: String?) {
+                Log.e("TAG", "onFailure: "+msg)
                 Utils.showSimpleMessage(this@RegionActivity, msg!!).show()
             }
         })

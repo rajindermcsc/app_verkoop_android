@@ -4,9 +4,10 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Typeface
 import android.util.AttributeSet
+import androidx.appcompat.widget.AppCompatTextView
 
 
-class GothicThinTextView : android.support.v7.widget.AppCompatTextView {
+class GothicThinTextView : AppCompatTextView {
     constructor(context: Context) : super(context) {
         val face = Typeface.createFromAsset(context.assets, "fonts/gothic.ttf")
         this.typeface = face
@@ -27,7 +28,7 @@ class GothicThinTextView : android.support.v7.widget.AppCompatTextView {
     }
 }
 
-class GothiBoldTextView : android.support.v7.widget.AppCompatTextView {
+class GothiBoldTextView : AppCompatTextView {
     constructor(context: Context) : super(context) {
         val face = Typeface.createFromAsset(context.assets, "fonts/gothicb.ttf")
         this.typeface = face

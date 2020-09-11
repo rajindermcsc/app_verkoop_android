@@ -2,8 +2,8 @@ package com.verkoopapp.utils
 
 import android.app.Application
 import android.util.Log
-import com.github.nkzawa.socketio.client.IO
-import com.github.nkzawa.socketio.client.Socket
+import io.socket.client.IO
+import io.socket.client.Socket
 import java.net.URISyntaxException
 
 

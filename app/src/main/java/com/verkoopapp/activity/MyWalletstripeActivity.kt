@@ -2,8 +2,8 @@ package com.verkoopapp.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.verkoopapp.R
 import com.verkoopapp.adapter.PaymentHistoryAdapter
 import kotlinx.android.synthetic.main.my_wallet_activity.*
@@ -11,12 +11,13 @@ import kotlinx.android.synthetic.main.toolbar_location.*
 import android.app.Activity
 import android.content.Context
 import android.os.Handler
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.stripe.android.ApiResultCallback
 import com.stripe.android.Stripe
 import com.stripe.android.model.Token
@@ -258,8 +259,8 @@ class MyWalletstripeActivity : AppCompatActivity() {
             override fun onSuccess(response: Response<*>) {
                 pbProgressWallet.visibility = View.GONE
                 val responseWallet = response.body() as WalletHistoryResponse
-                tvTotalAmount.text = responseWallet.amount.toString()
-                Utils.saveIntPreferences(this@MyWalletstripeActivity, AppConstants.AMOUNT, responseWallet.amount)
+                tvTotalAmount.text = Utils.convertCurrencyWithoutSymbol(this@MyWalletstripeActivity, "USD", responseWallet.amount.toDouble()).toString()
+                Utils.saveFloatPreferences(this@MyWalletstripeActivity, AppConstants.AMOUNT, responseWallet.amount)
                 if (responseWallet.data!!.isNotEmpty()) {
                     paymentHistoryAdapter.setData(responseWallet.data!!)
                     paymentHistoryAdapter.notifyDataSetChanged()
@@ -272,6 +273,7 @@ class MyWalletstripeActivity : AppCompatActivity() {
 
             override fun onFailure(msg: String?) {
                 pbProgressWallet.visibility = View.GONE
+                Log.e("TAG", "onFailure: "+msg)
                 Utils.showSimpleMessage(this@MyWalletstripeActivity, msg!!).show()
             }
         })

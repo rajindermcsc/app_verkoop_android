@@ -129,7 +129,7 @@
                     android:textColor="@color/dark_black"
                     android:textSize="@dimen/sp_14" />
 
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     xmlns:card_view="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/card_view"
                     android:layout_width="match_parent"
@@ -149,7 +149,7 @@
                         android:padding="@dimen/dp_10"
                         android:text="@string/login"
                         android:textColor="@color/white" />
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -197,11 +197,12 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
+
                     <com.verkoopapp.fonts.textView.GothicThinTextView
                         android:id="@+id/tvFacebook"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
                         android:drawableTop="@mipmap/facebook"
                         android:text="@string/facebook"
                         android:textSize="@dimen/sp_18" />

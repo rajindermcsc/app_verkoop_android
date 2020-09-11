@@ -1,7 +1,7 @@
 package com.verkoopapp.utils
 
 import android.content.Context
-import android.support.v7.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 
 
 class CustomGridLayoutManager(context: Context) : GridLayoutManager(context,2) {

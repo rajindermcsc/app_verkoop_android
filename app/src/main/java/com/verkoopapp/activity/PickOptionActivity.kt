@@ -2,7 +2,8 @@ package com.verkoopapp.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.verkoopapp.R
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils

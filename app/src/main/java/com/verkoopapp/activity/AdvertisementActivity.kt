@@ -4,12 +4,13 @@ import android.graphics.Point
 import android.nfc.tech.MifareUltralight
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import com.verkoopapp.R
 import com.verkoopapp.adapter.AdvertisementAdapter
 import com.verkoopapp.models.BannerDetailResponse
@@ -45,8 +46,8 @@ class AdvertisementActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.favourites_activity)
         rvFavouriteList.visibility = View.GONE
-        categoryId = intent.getStringExtra(AppConstants.BANNERID)
-        userId = intent.getStringExtra(AppConstants.USER_ID)
+        categoryId = intent.getStringExtra(AppConstants.BANNERID).toString()
+        userId = intent.getStringExtra(AppConstants.USER_ID).toString()
         val display = windowManager.defaultDisplay
         val size = Point()
         display.getSize(size)

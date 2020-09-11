@@ -3,9 +3,10 @@ package com.verkoopapp.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.verkoopapp.R
 import com.verkoopapp.adapter.FavouritesAdapter
 import com.verkoopapp.models.*
@@ -33,7 +34,7 @@ class FavouritesActivity : AppCompatActivity() {
         setAdapter()
         if (comingFrom == 3) {
             if (intent.getStringExtra("visionData") != null) {
-                val string: String = intent.getStringExtra("visionData")
+                val string: String = intent.getStringExtra("visionData")!!
                 callSearchKeywordMultipleData(string)
             }
         } else {

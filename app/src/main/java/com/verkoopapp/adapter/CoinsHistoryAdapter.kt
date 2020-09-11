@@ -1,20 +1,24 @@
 package com.verkoopapp.adapter
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.squareup.picasso.Picasso
 import com.verkoopapp.R
 import com.verkoopapp.models.DataHistory
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.coin_history_row.*
-import kotlinx.android.synthetic.main.transfer_coin_dialog_activity.*
+import kotlinx.android.synthetic.main.coin_history_row.ivUserPicCoins
+import kotlinx.android.synthetic.main.coin_history_row.ivWallet
+import kotlinx.android.synthetic.main.coin_history_row.tvCoinHeader
+import kotlinx.android.synthetic.main.coin_history_row.tvDataCoins
+import kotlinx.android.synthetic.main.coin_history_row.tvNoCoin
 
 
 class CoinsHistoryAdapter(private val context:Context):RecyclerView.Adapter<CoinsHistoryAdapter.ViewHolder>(){
