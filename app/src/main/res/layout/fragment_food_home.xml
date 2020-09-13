@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.verkoopapp.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothicThinTextView
                     android:id="@+id/tv_near_you"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -37,8 +37,10 @@
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:text="@string/near_you"
+                    android:layout_centerVertical="true"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/sp_16"
+                    android:textSize="@dimen/sp_22"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/tv_view_all"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -54,6 +56,7 @@
                     android:layout_marginEnd="@dimen/dp_15"
                     android:drawableRight="@drawable/ic_arrow_gray"
                     android:ellipsize="end"
+                    android:gravity="center"
                     android:singleLine="true"
                     android:text="@string/view_all"
                     android:textColor="@color/gray"
@@ -70,7 +73,6 @@
                 android:id="@+id/rv_near_you"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_15"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_near_you" />
@@ -81,7 +83,7 @@
                 android:layout_height="wrap_content">
 
 
-                <com.verkoopapp.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothicThinTextView
                     android:id="@+id/tv_discover_restro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -90,9 +92,11 @@
                     android:layout_marginEnd="@dimen/dp_15"
                     android:ellipsize="end"
                     android:singleLine="true"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"
                     android:text="@string/discover_restaurants"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/sp_16" />
+                    android:textSize="@dimen/sp_22" />
 
 
                 <com.verkoopapp.fonts.textView.GothiBoldTextView
@@ -103,6 +107,8 @@
                     android:layout_marginStart="@dimen/dp_15"
                     android:layout_marginTop="@dimen/dp_15"
                     android:layout_marginEnd="@dimen/dp_15"
+                    android:gravity="center"
+                    android:layout_centerInParent="true"
                     android:drawableRight="@drawable/ic_arrow_gray"
                     android:ellipsize="end"
                     android:singleLine="true"
@@ -116,7 +122,6 @@
                 android:id="@+id/rv_discover_restro"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/dp_15"
                 android:clipToPadding="false"
                 android:paddingBottom="@dimen/dp_40"
                 app:layout_constraintBottom_toBottomOf="parent"

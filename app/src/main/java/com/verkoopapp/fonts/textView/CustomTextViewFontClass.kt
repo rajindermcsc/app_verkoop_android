@@ -9,17 +9,17 @@ import androidx.appcompat.widget.AppCompatTextView
 
 class GothicThinTextView : AppCompatTextView {
     constructor(context: Context) : super(context) {
-        val face = Typeface.createFromAsset(context.assets, "fonts/gothic.ttf")
+        val face = Typeface.createFromAsset(context.assets, "fonts/Poppins-Regular.ttf")
         this.typeface = face
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        val face = Typeface.createFromAsset(context.assets, "fonts/gothic.ttf")
+        val face = Typeface.createFromAsset(context.assets, "fonts/Poppins-Regular.ttf")
         this.typeface = face
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
-        val face = Typeface.createFromAsset(context.assets, "fonts/gothic.ttf")
+        val face = Typeface.createFromAsset(context.assets, "fonts/Poppins-Regular.ttf")
         this.typeface = face
     }
 
@@ -30,17 +30,17 @@ class GothicThinTextView : AppCompatTextView {
 
 class GothiBoldTextView : AppCompatTextView {
     constructor(context: Context) : super(context) {
-        val face = Typeface.createFromAsset(context.assets, "fonts/gothicb.ttf")
+        val face = Typeface.createFromAsset(context.assets, "fonts/Poppins-Bold.ttf")
         this.typeface = face
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        val face = Typeface.createFromAsset(context.assets, "fonts/gothicb.ttf")
+        val face = Typeface.createFromAsset(context.assets, "fonts/Poppins-Bold.ttf")
         this.typeface = face
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
-        val face = Typeface.createFromAsset(context.assets, "fonts/gothicb.ttf")
+        val face = Typeface.createFromAsset(context.assets, "fonts/Poppins-Bold.ttf")
         this.typeface = face
     }
 

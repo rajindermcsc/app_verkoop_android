@@ -50,7 +50,7 @@ class HomeActivity : AppCompatActivity() {
     private var homeFragment: HomeFragment? = null
     private var profileFragment: ProfileFragment? = null
     private var activitiesFragment: ActivitiesFragment? = null
-//    private var vervoFragment: VervoFragment? = null
+    private var vervoFragment: VervoFragment? = null
     private var fragmentList = ArrayList<Fragment>()
     private var doubleBackToExitPressedOnce = false
     private var comingFrom: Int = 0
@@ -77,10 +77,10 @@ class HomeActivity : AppCompatActivity() {
         homeFragment = HomeFragment.newInstance()
         profileFragment = ProfileFragment.newInstance()
         activitiesFragment = ActivitiesFragment.newInstance()
-//        vervoFragment = VervoFragment.newInstance()
+        vervoFragment = VervoFragment.newInstance()
         fragmentList.add(homeFragment!!)
         fragmentList.add(activitiesFragment!!)
-//        fragmentList.add(vervoFragment!!)
+        fragmentList.add(vervoFragment!!)
         fragmentList.add(profileFragment!!)
         setData()
         callInit()
@@ -283,13 +283,13 @@ class HomeActivity : AppCompatActivity() {
         when (id) {
             R.id.menu_button1 -> viewPager.currentItem = 0
             R.id.menu_button2 -> viewPager.currentItem = 1
-//            R.id.vervo_button-> viewPager.currentItem = 2
-            R.id.menu_button3 -> viewPager.currentItem = 2
+            R.id.vervo_button-> viewPager.currentItem = 2
+            R.id.menu_button3 -> viewPager.currentItem = 3
         }
     }
 
     private fun setData() {
-        val adapter = HomePagerAdapter(supportFragmentManager, 2, fragmentList)
+        val adapter = HomePagerAdapter(supportFragmentManager, 3, fragmentList)
         viewPager.adapter = adapter
         // viewPager.offscreenPageLimit = 2
         setTabLayout()
