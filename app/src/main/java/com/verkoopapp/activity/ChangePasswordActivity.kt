@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import android.text.TextUtils
 import android.view.View
 import android.view.WindowManager
+import android.widget.ImageView
 import com.github.florent37.viewanimator.ViewAnimator
 import com.verkoopapp.R
 import com.verkoopapp.models.DisLikeResponse
@@ -18,18 +19,21 @@ import kotlinx.android.synthetic.main.change_password.*
 import retrofit2.Response
 
 class ChangePasswordActivity : AppCompatActivity() {
+    lateinit var ivLeftLocation: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.change_password)
+        ivLeftLocation=findViewById(R.id.ivLeftLocation)
         KeyboardUtil(this, llParentPass)
         setData()
-        setAnimation()
     }
 
     private fun setData() {
         pbProgressChange.indeterminateDrawable.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), android.graphics.PorterDuff.Mode.MULTIPLY)
-        ivFinishPass.setOnClickListener { onBackPressed() }
+        ivLeftLocation.setOnClickListener {
+            onBackPressed()
+        }
         tvSavePass.setOnClickListener {
             if (Utils.isOnline(this)) {
                 //   Utils.hideKeyboardOnOutSideTouch(tvSavePass, this@ChangePasswordActivity)
@@ -66,29 +70,7 @@ class ChangePasswordActivity : AppCompatActivity() {
 
     }
 
-    private fun setAnimation() {
-        ViewAnimator
-                .animate(flParentPass)
-                .translationY(1000f, 0f)
-                .duration(400)
-                .start()
-    }
 
-    override fun onBackPressed() {
-        ViewAnimator
-                .animate(flParentPass)
-                .translationY(0f, 2000f)
-                .duration(400)
-                .andAnimate(llParentPass)
-                .alpha(1f, 0f)
-                .duration(500)
-                .onStop {
-                    llParentPass.visibility = View.GONE
-                    finish()
-                    overridePendingTransition(0, 0)
-                }
-                .start()
-    }
 
     private fun isValidate(): Boolean {
         return when {

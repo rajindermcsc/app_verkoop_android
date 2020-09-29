@@ -285,7 +285,6 @@ class HomeFragment : BaseFragment() {
         if (data.daily_pic.size > 0) {
             homeAdapter.updateDailyPicksData(data.daily_pic)
         }
-
         totalPageCount = data.totalPage
         if (loadMore == 1) {
             itemsList.clear()

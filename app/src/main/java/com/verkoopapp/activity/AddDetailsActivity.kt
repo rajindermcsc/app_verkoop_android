@@ -604,7 +604,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             }
         }
 
-        val font = Typeface.createFromAsset(assets, "fonts/gothicb.ttf")
+        val font = Typeface.createFromAsset(assets, "fonts/Poppins-Regular.ttf")
         cbNearBy.typeface = font
         rbAutomatic.typeface = font
         rbManual.typeface = font

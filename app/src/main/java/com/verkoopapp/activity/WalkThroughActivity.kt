@@ -2,26 +2,25 @@ package com.verkoopapp.activity
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
-import androidx.core.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.verkoopapp.R
 import com.verkoopapp.utils.AppConstants
-import com.verkoopapp.utils.PermissionCheck
 
 import kotlinx.android.synthetic.main.walk_through_activity.*
 
 
 class WalkThroughActivity: AppCompatActivity(){
-    private val mImageResources = intArrayOf(R.mipmap.walkthrough, R.mipmap.walkthrough_2, R.mipmap.walkthrough_3)
+    private val mCaptions= ArrayList<String>()
+    private val mImageResources = intArrayOf(R.drawable.onboarding1_illustration, R.drawable.onboarding2_illustration, R.drawable.onboarding3_illustration)
     private var vpPosition:Int=0
     private var id = 0
     private var type = 0
@@ -31,7 +30,9 @@ class WalkThroughActivity: AppCompatActivity(){
         setContentView(R.layout.walk_through_activity)
          type = intent.getIntExtra(AppConstants.TYPE, 0)
          id = intent.getIntExtra(AppConstants.ID, 0)
-
+        mCaptions.add("Discover");
+        mCaptions.add("Chat Instantly");
+        mCaptions.add("Sell and declutter");
         setAdapter()
     }
 
@@ -39,7 +40,7 @@ class WalkThroughActivity: AppCompatActivity(){
 
 
     private fun setAdapter() {
-       val mAdapter = PicturePreViewAdapter(this, mImageResources)
+       val mAdapter = PicturePreViewAdapter(this, mImageResources,mCaptions)
         vpWalkThrough.adapter = mAdapter
         vpWalkThrough.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
@@ -55,6 +56,23 @@ class WalkThroughActivity: AppCompatActivity(){
 
             }
         })
+
+        tvCreateAccount.setOnClickListener {
+            val intent = Intent(this, SignUpActivity::class.java)
+            intent.putExtra(AppConstants.ID, id)
+            intent.putExtra(AppConstants.TYPE, type)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
+
+        tvLoginS.setOnClickListener{
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.putExtra(AppConstants.ID, id)
+            intent.putExtra(AppConstants.TYPE, type)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
+
         tvNextW.setOnClickListener {
             if(tvNextW.text.toString().equals("NEXT",ignoreCase = true)){
                 vpWalkThrough.currentItem = vpPosition+1
@@ -65,7 +83,6 @@ class WalkThroughActivity: AppCompatActivity(){
                 intent.putExtra(AppConstants.TYPE, type)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
-                finish()
             }
         }
         tvSkipW.setOnClickListener {
@@ -107,14 +124,16 @@ class WalkThroughActivity: AppCompatActivity(){
         ivIndicatorThirdW.setImageResource(R.mipmap.dot_2)
     }
 
-    class PicturePreViewAdapter(mContext: Context, private var mImageResources: IntArray) : PagerAdapter() {
+    class PicturePreViewAdapter(mContext: Context, private var mImageResources: IntArray, private var mCaptions: ArrayList<String>) : PagerAdapter() {
        private var mLayoutInflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
 
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
             val itemView = mLayoutInflater.inflate(R.layout.pager_item, container, false)
             val imageView = itemView.findViewById(R.id.ivPagerItem) as ImageView
+            val textView = itemView.findViewById(R.id.tvPagerItem) as TextView
             imageView.setImageResource(mImageResources[position])
+            textView.setText(mCaptions[position])
             container.addView(itemView)
             return itemView
         }

@@ -29,6 +29,7 @@ import retrofit2.Response
 import android.os.Bundle
 import android.os.Handler
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.my_profile_details_row.*
 
 
@@ -242,15 +243,19 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
                  llSideDividerHome.visibility = View.GONE
              }*/
             if (data.is_like) {
-                tvLikesHome.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_liked, 0, 0, 0)
+                tvLikesHome.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_favorite_colored, 0, 0, 0)
             } else {
-                tvLikesHome.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_like, 0, 0, 0)
+                tvLikesHome.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_favorite_grey, 0, 0, 0)
             }
-            tvLikesHome.text = data.items_like_count.toString()
+//            tvLikesHome.text = data.items_like_count.toString()
             if (data.item_type == 1) {
                 tvConditionHome.text = "New"
+                iv_new.visibility=View.VISIBLE
+                iv_used.visibility=View.GONE
             } else {
                 tvConditionHome.text = context.getString(R.string.used)
+                iv_new.visibility=View.GONE
+                iv_used.visibility=View.VISIBLE
             }
             if (!TextUtils.isEmpty(data.profile_pic)) {
                 Picasso.with(context)
@@ -315,7 +320,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
 
     inner class YourDailyPickHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind() {
-            val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            val linearLayoutManager = GridLayoutManager(context,2)
             linearLayoutManager.isAutoMeasureEnabled = true
             rvYourDailyPicks.layoutManager = linearLayoutManager
             Log.e("<<YourDailyPickHolder>>", rvItemList.toString())
@@ -333,7 +338,6 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
                 }, 700)
             }
         }
-
     }
 
 

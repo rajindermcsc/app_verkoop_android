@@ -6,6 +6,8 @@ import android.os.Handler
 import androidx.core.content.ContextCompat
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import io.socket.client.Ack
 import io.socket.client.Socket
@@ -30,10 +32,14 @@ import org.json.JSONObject
 import retrofit2.Response
 
 class SettingActivity : AppCompatActivity() {
+    lateinit var tvHeaderLoc: TextView
+    lateinit var ivLeftLocation: ImageView
     private var socket: Socket? = VerkoopApplication.getAppSocket()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.setting_activity)
+        tvHeaderLoc=findViewById(R.id.tvHeaderLoc)
+        ivLeftLocation=findViewById(R.id.ivLeftLocation)
         setData()
     }
 

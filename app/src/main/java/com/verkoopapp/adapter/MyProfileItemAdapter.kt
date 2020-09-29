@@ -50,9 +50,9 @@ class MyProfileItemAdapter(private val context: Context, private val llProfilePa
                 llSideDividerProfile.visibility= View.GONE
             }
             if(data.is_like){
-                tvLikesProfile.setCompoundDrawablesWithIntrinsicBounds( R.mipmap.post_liked, 0, 0, 0)
+                tvLikesProfile.setCompoundDrawablesWithIntrinsicBounds( R.drawable.ic_favorite_colored, 0, 0, 0)
             }else{
-                tvLikesProfile.setCompoundDrawablesWithIntrinsicBounds( R.mipmap.post_like, 0, 0, 0)
+                tvLikesProfile.setCompoundDrawablesWithIntrinsicBounds( R.drawable.ic_favorite_grey, 0, 0, 0)
             }
             tvLikesProfile.text=data.likes_count.toString()
             if(data.item_type==1){

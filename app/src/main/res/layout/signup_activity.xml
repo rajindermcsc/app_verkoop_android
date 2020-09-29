@@ -3,11 +3,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@mipmap/background"
     android:fitsSystemWindows="true"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:background="@color/white"
+        android:elevation="5dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/back_button"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            app:srcCompat="@drawable/ic_arrow_back_black"
+            android:padding="@dimen/dp_15"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_10">
+
+        </androidx.appcompat.widget.AppCompatImageView>
+
+        <com.verkoopapp.fonts.textView.GothiBoldTextView
+            android:layout_toRightOf="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create an Account"
+            android:textColor="@color/black"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:textSize="@dimen/sp_16">
+
+        </com.verkoopapp.fonts.textView.GothiBoldTextView>
+
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -28,37 +59,35 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/dp_150"
+                    android:layout_height="@dimen/dp_150"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/dp_50"
                     android:contentDescription="@string/app_logo"
-                    android:src="@mipmap/logo" />
+                    android:src="@drawable/logo" />
 
-                <com.verkoopapp.fonts.textView.GothiBoldTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/dp_10"
-                    android:layout_marginTop="@dimen/dp_18"
-                    android:text="@string/signup"
-                    android:textColor="@color/light_gray"
-                    android:textSize="@dimen/sp_24" />
 
                 <LinearLayout
+                    android:layout_marginTop="@dimen/dp_18"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="@dimen/dp_50"
+                    android:orientation="horizontal"
+                    android:background="@drawable/rounded_background_edittext">
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/ivName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_width="@dimen/dp_35"
+                        android:layout_height="match_parent"
                         android:padding="@dimen/dp_10"
-                        android:src="@mipmap/username_disable" />
+                        app:srcCompat="@drawable/ic_user_signup"/>
 
-                    <com.verkoopapp.fonts.editText.GothiBoldEditText
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/light_gray">
+                    </View>
+
+                    <com.verkoopapp.fonts.editText.GothicThinEditText
                         android:id="@+id/etName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -76,19 +105,16 @@
                 </LinearLayout>
 
 
-                <View
-                    android:id="@+id/vName"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:background="@color/light_gray" />
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center">
+                    android:layout_gravity="center"
+                    android:background="@drawable/rounded_background_edittext"
+                    android:layout_marginTop="@dimen/dp_8">
                 <com.hbb20.CountryCodePicker
                     android:id="@+id/ccp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dp_50"
                     android:layout_gravity="start"
                     android:gravity="start"
                     app:ccp_textGravity="LEFT"
@@ -97,40 +123,43 @@
                     app:ccpDialog_keyboardAutoPopup="false"
                     app:ccpDialog_showPhoneCode="false"
                     app:ccp_showPhoneCode="false"
-                    app:ccp_contentColor="@color/text_color"
+                    app:ccp_contentColor="@color/black"
                     app:ccp_countryPreference="US,DE,IN"
                     app:ccp_showFlag="true"
+                    app:ccp_flagBorderColor="@color/gray_light"
                     app:ccp_showFullName="true"
                     app:ccp_showNameCode="true" />
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp_10"
                     android:layout_marginEnd="@dimen/dp_10"
                     android:layout_gravity="center_vertical|end"
-                    android:src="@mipmap/dropdown"/>
+                    app:srcCompat="@drawable/ic_arrow_drop_down"/>
                 </FrameLayout>
-                <View
-                    android:id="@+id/vCountry"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:background="@color/colorPrimary" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dp_50"
                     android:layout_marginTop="@dimen/dp_8"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="@drawable/rounded_background_edittext">
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/ivEmailS"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_width="@dimen/dp_35"
+                        android:layout_height="match_parent"
                         android:padding="@dimen/dp_10"
-                        android:src="@mipmap/email_disable" />
+                        app:srcCompat="@drawable/ic_email_login"
+                        />
 
-                    <com.verkoopapp.fonts.editText.GothiBoldEditText
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/light_gray">
+                    </View>
+
+                    <com.verkoopapp.fonts.editText.GothicThinEditText
                         android:id="@+id/etEmailS"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -148,25 +177,26 @@
                 </LinearLayout>
 
 
-                <View
-                    android:id="@+id/vEmailS"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:background="@color/light_gray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dp_50"
                     android:layout_marginTop="@dimen/dp_8"
+                    android:background="@drawable/rounded_background_edittext"
                     android:orientation="horizontal">
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/ivPasswordS"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_width="@dimen/dp_35"
+                        android:layout_height="match_parent"
                         android:padding="@dimen/dp_10"
-                        android:src="@mipmap/password_disable" />
+                        app:srcCompat="@drawable/ic_password_login" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/light_gray">
+                    </View>
 
                     <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
                         android:id="@+id/etPasswordS"
@@ -187,25 +217,27 @@
                 </LinearLayout>
 
 
-                <View
-                    android:id="@+id/vPasswordS"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:background="@color/light_gray" />
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dp_50"
                     android:layout_marginTop="@dimen/dp_8"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="@drawable/rounded_background_edittext">
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/ivConfPassword"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_width="@dimen/dp_35"
+                        android:layout_height="match_parent"
                         android:padding="@dimen/dp_10"
-                        android:src="@mipmap/password_disable" />
+                        app:srcCompat="@drawable/ic_password_login" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/light_gray">
+                    </View>
 
                     <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
                         android:id="@+id/etConfPassword"
@@ -226,63 +258,53 @@
                 </LinearLayout>
 
 
-                <View
-                    android:id="@+id/vConfPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:background="@color/light_gray" />
-
-                <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/card_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/dp_40"
-                    android:layout_marginTop="@dimen/dp_20"
-                    card_view:cardCornerRadius="24dp"
-                    card_view:cardElevation="@dimen/dp_5">
-
-                    <com.verkoopapp.fonts.textView.GothiBoldTextView
-                        android:id="@+id/tvSignUpS"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/colorPrimary"
-                        android:gravity="center"
-                        android:textSize="@dimen/sp_18"
-                        android:padding="@dimen/dp_10"
-                        android:text="@string/sign_up_"
-                        android:textColor="@color/white" />
-                </androidx.cardview.widget.CardView>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:gravity="center"
-                android:orientation="horizontal">
 
                 <com.verkoopapp.fonts.textView.GothicThinTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/already_have_an_account"
-                    android:textSize="@dimen/sp_14"
+                    android:id="@+id/tvSignUpS"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_45"
+                    android:background="@drawable/button_background_capsule"
+                    android:gravity="center"
+                    android:textSize="@dimen/sp_18"
+                    android:padding="@dimen/dp_10"
+                    android:text="@string/sign_up"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_20"
                     android:textColor="@color/white" />
 
-                <com.verkoopapp.fonts.textView.GothiBoldTextView
-                    android:id="@+id/tvLoginS"
-                    android:layout_width="wrap_content"
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/dp_10"
-                    android:paddingEnd="@dimen/dp_10"
-                    android:paddingStart="@dimen/dp_4"
-                    android:paddingTop="@dimen/dp_10"
-                    android:text="@string/login_"
-                    android:textSize="@dimen/sp_14"
-                    android:textColor="@color/white" />
+                    android:gravity="center"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:orientation="horizontal">
+
+                    <com.verkoopapp.fonts.textView.GothicThinTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/sp_15"
+                        android:text="@string/already_have_an_account" />
+
+                    <com.verkoopapp.fonts.textView.GothicThinTextView
+                        android:id="@+id/tvLoginS"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:textSize="@dimen/sp_15"
+                        android:paddingEnd="@dimen/dp_10"
+                        android:paddingStart="@dimen/dp_4"
+                        android:paddingTop="@dimen/dp_10"
+                        android:text="@string/login_"
+                        android:textColor="@color/colorPrimary" />
+                </LinearLayout>
+
+
             </LinearLayout>
+
+
 
         </LinearLayout>
     </ScrollView>

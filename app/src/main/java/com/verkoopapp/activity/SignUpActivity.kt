@@ -43,6 +43,10 @@ class SignUpActivity : AppCompatActivity() {
         id = intent.getIntExtra(AppConstants.ID, 0)
         printHashKey(applicationContext)
 
+        back_button.setOnClickListener {
+            onBackPressed()
+        }
+
         setData()
         ccp.setCountryForPhoneCode(1)
         firebaseDeviceToken()
@@ -76,7 +80,7 @@ class SignUpActivity : AppCompatActivity() {
 
 
 
-        val typefaceFont = Typeface.createFromAsset(assets, "fonts/gothicb.ttf")
+        val typefaceFont = Typeface.createFromAsset(assets, "fonts/Poppins-Regular.ttf")
         etPasswordS.typeface = typefaceFont
         etConfPassword.typeface = typefaceFont
         ccp.setTypeFace(typefaceFont)
@@ -100,10 +104,8 @@ class SignUpActivity : AppCompatActivity() {
             override fun afterTextChanged(arg0: Editable) {
                 if (arg0.isNotEmpty()) {
                     ivName.setImageResource(R.mipmap.username_enable)
-                    vName.setBackgroundColor(ContextCompat.getColor(this@SignUpActivity, R.color.colorPrimary))
                 } else {
                     ivName.setImageResource(R.mipmap.username_disable)
-                    vName.setBackgroundColor(ContextCompat.getColor(this@SignUpActivity, R.color.light_gray))
                 }
             }
         })
@@ -117,10 +119,8 @@ class SignUpActivity : AppCompatActivity() {
             override fun afterTextChanged(arg0: Editable) {
                 if (arg0.isNotEmpty()) {
                     ivEmailS.setImageResource(R.mipmap.email_enable)
-                    vEmailS.setBackgroundColor(ContextCompat.getColor(this@SignUpActivity, R.color.colorPrimary))
                 } else {
                     ivEmailS.setImageResource(R.mipmap.email_disable)
-                    vEmailS.setBackgroundColor(ContextCompat.getColor(this@SignUpActivity, R.color.light_gray))
                 }
             }
         })
@@ -134,10 +134,8 @@ class SignUpActivity : AppCompatActivity() {
             override fun afterTextChanged(arg0: Editable) {
                 if (arg0.isNotEmpty()) {
                     ivPasswordS.setImageResource(R.mipmap.password_enable)
-                    vPasswordS.setBackgroundColor(ContextCompat.getColor(this@SignUpActivity, R.color.colorPrimary))
                 } else {
                     ivPasswordS.setImageResource(R.mipmap.password_disable)
-                    vPasswordS.setBackgroundColor(ContextCompat.getColor(this@SignUpActivity, R.color.light_gray))
                 }
             }
         })
@@ -151,10 +149,8 @@ class SignUpActivity : AppCompatActivity() {
             override fun afterTextChanged(arg0: Editable) {
                 if (arg0.isNotEmpty()) {
                     ivConfPassword.setImageResource(R.mipmap.password_enable)
-                    vConfPassword.setBackgroundColor(ContextCompat.getColor(this@SignUpActivity, R.color.colorPrimary))
                 } else {
                     ivConfPassword.setImageResource(R.mipmap.password_disable)
-                    vConfPassword.setBackgroundColor(ContextCompat.getColor(this@SignUpActivity, R.color.light_gray))
                 }
             }
         })

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -9,7 +10,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/toolbar_home" />
+        <include layout="@layout/toolbar_home"
+            android:visibility="gone"/>
 
         <com.verkoopapp.utils.NonSwipeableViewPager
             android:id="@+id/viewPager"
@@ -21,7 +23,10 @@
             android:id="@+id/bottomTabLayout"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:background="@color/colorPrimary" />
+            android:scrollIndicators="none"
+
+            android:background="@color/white"
+            tools:targetApi="m" />
     </LinearLayout>
 
     <ProgressBar

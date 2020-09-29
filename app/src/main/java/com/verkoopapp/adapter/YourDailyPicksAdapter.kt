@@ -21,18 +21,7 @@ import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.item_row.tvItemPriceHome
-import kotlinx.android.synthetic.main.item_row.viewItem
-import kotlinx.android.synthetic.main.item_row.llSideDividerHome
-import kotlinx.android.synthetic.main.item_row.ivProductImageHome
-import kotlinx.android.synthetic.main.item_row.tvNameHome
-import kotlinx.android.synthetic.main.item_row.tvProductHome
-import kotlinx.android.synthetic.main.item_row.tvConditionHome
-import kotlinx.android.synthetic.main.item_row.tvSoldFav
-import kotlinx.android.synthetic.main.item_row.tvLikesHome
-import kotlinx.android.synthetic.main.item_row.ivPicProfile
-import kotlinx.android.synthetic.main.item_row.tvPostOn
-import kotlinx.android.synthetic.main.item_row.llUserProfile
+import kotlinx.android.synthetic.main.item_row.*
 import retrofit2.Response
 
 
@@ -72,8 +61,12 @@ class YourDailyPicksAdapter(private val context:Context,private val recyclerView
             try {
                 if (data.item_type == 1) {
                     tvConditionHome.text = "New"
+                    iv_new.visibility=View.VISIBLE
+                    iv_used.visibility=View.GONE
                 } else {
                     tvConditionHome.text = context.getString(R.string.used)
+                    iv_new.visibility=View.GONE
+                    iv_used.visibility=View.VISIBLE
                 }
                 if (data.is_sold == 1) {
                     tvSoldFav.visibility = View.VISIBLE
@@ -81,15 +74,19 @@ class YourDailyPicksAdapter(private val context:Context,private val recyclerView
                     tvSoldFav.visibility = View.GONE
                 }
                 if (data.is_like) {
-                    tvLikesHome.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_liked, 0, 0, 0)
+                    tvLikesHome.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_favorite_colored, 0, 0, 0)
                 } else {
-                    tvLikesHome.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_like, 0, 0, 0)
+                    tvLikesHome.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_favorite_grey, 0, 0, 0)
                 }
-                tvLikesHome.text = data.items_like_count.toString()
+//                tvLikesHome.text = data.items_like_count.toString()
                 if (data.item_type == 1) {
                     tvConditionHome.text = "New"
+                    iv_new.visibility=View.VISIBLE
+                    iv_used.visibility=View.GONE
                 } else {
                     tvConditionHome.text = context.getString(R.string.used)
+                    iv_new.visibility=View.GONE
+                    iv_used.visibility=View.VISIBLE
                 }
                 if (!TextUtils.isEmpty(data.profile_pic)) {
                     Picasso.with(context)

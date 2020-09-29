@@ -7,6 +7,8 @@ import androidx.viewpager.widget.ViewPager
 import androidx.core.content.ContextCompat
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import com.verkoopapp.R
 import com.verkoopapp.adapter.GetCoinAdapter
 import com.verkoopapp.fragment.*
@@ -20,6 +22,8 @@ class CoinsActivity:AppCompatActivity(), GetCoinsFragment.CoinUpdateCallBack {
     private var fragmentList = ArrayList<Fragment>()
     private var getCoinFragment: GetCoinsFragment? = null
     private var getHistoryFragment: HistoryFragment? = null
+    lateinit var tvHeaderLoc: TextView
+    lateinit var ivLeftLocation: ImageView
     override fun updateHistoryList(totalCoin: Int, type: Int) {
         Log.e("<<Total coin>>", Utils.getPreferencesInt(this,AppConstants.COIN).toString())
         if(type==2){
@@ -36,6 +40,8 @@ class CoinsActivity:AppCompatActivity(), GetCoinsFragment.CoinUpdateCallBack {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.coins_activity)
+        tvHeaderLoc=findViewById(R.id.tvHeaderLoc)
+        ivLeftLocation=findViewById(R.id.ivLeftLocation)
         tvTotalCoin.text=Utils.getPreferencesInt(this, AppConstants.COIN).toString()
         getCoinFragment = GetCoinsFragment.newInstance()
         getHistoryFragment = HistoryFragment.newInstance()

@@ -23,10 +23,8 @@ import com.google.gson.Gson
 import com.verkoopapp.R
 import com.verkoopapp.VerkoopApplication
 import com.verkoopapp.adapter.HomePagerAdapter
-import com.verkoopapp.fragment.ActivitiesFragment
-import com.verkoopapp.fragment.HomeFragment
-import com.verkoopapp.fragment.ProfileFragment
-import com.verkoopapp.fragment.VervoFragment
+import com.verkoopapp.fragment.*
+import com.verkoopapp.fragment.HomeFragment.Companion.newInstance
 import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
@@ -49,7 +47,8 @@ import kotlin.collections.ArrayList
 class HomeActivity : AppCompatActivity() {
     private var homeFragment: HomeFragment? = null
     private var profileFragment: ProfileFragment? = null
-    private var activitiesFragment: ActivitiesFragment? = null
+//    private var activitiesFragment: ActivitiesFragment? = null
+    private var favouritesFragment: FavouritesFragment? = null
     private var vervoFragment: VervoFragment? = null
     private var fragmentList = ArrayList<Fragment>()
     private var doubleBackToExitPressedOnce = false
@@ -76,10 +75,10 @@ class HomeActivity : AppCompatActivity() {
         comingFrom = intent.getIntExtra(AppConstants.COMING_FROM, 0)
         homeFragment = HomeFragment.newInstance()
         profileFragment = ProfileFragment.newInstance()
-        activitiesFragment = ActivitiesFragment.newInstance()
+        favouritesFragment = FavouritesFragment.newInstance()
         vervoFragment = VervoFragment.newInstance()
         fragmentList.add(homeFragment!!)
-        fragmentList.add(activitiesFragment!!)
+        fragmentList.add(favouritesFragment!!)
         fragmentList.add(vervoFragment!!)
         fragmentList.add(profileFragment!!)
         setData()
@@ -275,7 +274,7 @@ class HomeActivity : AppCompatActivity() {
         //indicator color
         bottomTabLayout.setIndicatorColor(R.color.white)
         //indicator line color
-        bottomTabLayout.setIndicatorLineColor(R.color.colorPrimary)
+        bottomTabLayout.setIndicatorLineColor(R.color.white)
         //bottomTabLayout.setSelectedTab(R.id.menu_button5)
     }
 
@@ -284,7 +283,7 @@ class HomeActivity : AppCompatActivity() {
             R.id.menu_button1 -> viewPager.currentItem = 0
             R.id.menu_button2 -> viewPager.currentItem = 1
             R.id.vervo_button-> viewPager.currentItem = 2
-            R.id.menu_button3 -> viewPager.currentItem = 3
+            R.id.menu_button3 -> viewPager.currentItem = 2
         }
     }
 

@@ -5,7 +5,7 @@
     android:background="@color/gray_back"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar_location" />
+    <include layout="@layout/toolbar_favourite" />
 
     <FrameLayout
         android:layout_width="match_parent"

@@ -24,7 +24,7 @@
 
         android:background="@drawable/gray_border_background"
         android:orientation="vertical">
-        <com.verkoopapp.fonts.textView.GothiBoldTextView
+        <com.verkoopapp.fonts.textView.GothicThinTextView
             android:id="@+id/tvCategoryName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

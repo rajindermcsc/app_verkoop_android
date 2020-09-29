@@ -303,14 +303,14 @@ class ProductDetailsActivity : AppCompatActivity() {
         }
         if (data.is_like) {
             isLiked = true
-            tvLikes.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_liked, 0, 0, 0)
+            tvLikes.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_favorite_colored, 0, 0, 0)
         } else {
             isLiked = false
-            tvLikes.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_like, 0, 0, 0)
+            tvLikes.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_favorite_grey, 0, 0, 0)
         }
 
         if (userId == Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()) {
-            tvLikes.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_liked, 0, 0, 0)
+            tvLikes.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_favorite_colored, 0, 0, 0)
         }
 
         tvLikes.text = data.items_like_count.toString()
@@ -483,9 +483,9 @@ class ProductDetailsActivity : AppCompatActivity() {
 
     private fun setLikeData() {
         if (isLiked == true) {
-            tvLikes.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_liked, 0, 0, 0)
+            tvLikes.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_favorite_colored, 0, 0, 0)
         } else {
-            tvLikes.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.post_like, 0, 0, 0)
+            tvLikes.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_favorite_grey, 0, 0, 0)
         }
         tvLikes.text = likeCount.toString()
 

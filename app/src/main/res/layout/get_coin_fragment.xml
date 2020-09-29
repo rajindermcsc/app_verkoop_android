@@ -12,6 +12,7 @@
     android:layout_marginBottom="@dimen/dp_10"
     android:textSize="@dimen/sp_14"
     android:textColor="@color/brown"
+    android:visibility="gone"
     android:text="@string/use_coins_for_bumps_and_listing_frees"/>
     <FrameLayout
         android:layout_width="match_parent"

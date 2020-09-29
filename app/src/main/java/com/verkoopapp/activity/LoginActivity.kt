@@ -32,6 +32,8 @@ import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.*
 import kotlinx.android.synthetic.main.dialog_update_country.*
 import kotlinx.android.synthetic.main.login_activity.*
+import kotlinx.android.synthetic.main.login_activity.back_button
+import kotlinx.android.synthetic.main.signup_activity.*
 import org.json.JSONException
 import retrofit2.Response
 import java.util.*
@@ -53,6 +55,9 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
+        back_button.setOnClickListener {
+            onBackPressed()
+        }
         type = intent.getIntExtra(AppConstants.TYPE, 0)
         id = intent.getIntExtra(AppConstants.ID, 0)
         setData()
@@ -143,7 +148,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
     }
 
     private fun setData() {
-        val typefaceFont = Typeface.createFromAsset(assets, "fonts/gothicb.ttf")
+        val typefaceFont = Typeface.createFromAsset(assets, "fonts/Poppins-Regular.ttf")
         etPassword.typeface = typefaceFont
 
         tvLogin.setOnClickListener {
@@ -208,10 +213,8 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
             override fun afterTextChanged(arg0: Editable) {
                 if (arg0.isNotEmpty()) {
                     ivEmail.setImageResource(R.mipmap.email_enable)
-                    vEmail.setBackgroundColor(ContextCompat.getColor(this@LoginActivity, R.color.colorPrimary))
                 } else {
                     ivEmail.setImageResource(R.mipmap.email_disable)
-                    vEmail.setBackgroundColor(ContextCompat.getColor(this@LoginActivity, R.color.light_gray))
                 }
             }
         })
@@ -228,10 +231,8 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
             override fun afterTextChanged(arg0: Editable) {
                 if (arg0.isNotEmpty()) {
                     ivPassword.setImageResource(R.mipmap.password_enable)
-                    vPassword.setBackgroundColor(ContextCompat.getColor(this@LoginActivity, R.color.colorPrimary))
                 } else {
                     ivPassword.setImageResource(R.mipmap.password_disable)
-                    vPassword.setBackgroundColor(ContextCompat.getColor(this@LoginActivity, R.color.light_gray))
                 }
             }
         })

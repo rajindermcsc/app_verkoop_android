@@ -32,7 +32,7 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:scaleType="centerCrop"
-            android:src="@mipmap/cars"
+            android:src="@drawable/buy_cars"
             android:contentDescription="@string/image" />
     </com.github.florent37.shapeofview.shapes.RoundRectView>
     <com.github.florent37.shapeofview.shapes.RoundRectView
@@ -58,7 +58,7 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:scaleType="centerCrop"
-            android:src="@mipmap/property"
+            android:src="@drawable/buy_property"
             android:contentDescription="@string/image" />
     </com.github.florent37.shapeofview.shapes.RoundRectView>
     </LinearLayout>

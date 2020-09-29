@@ -17,20 +17,22 @@
         android:paddingEnd="@dimen/dp_18"
         android:paddingStart="@dimen/dp_18">
 
-        <com.verkoopapp.fonts.textView.GothiBoldTextView
+        <com.verkoopapp.fonts.textView.GothicThinTextView
             android:id="@+id/etSearchFull"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_40"
             android:layout_gravity="center"
             android:background="@drawable/white_rectangular_shape"
-            android:drawableEnd="@mipmap/search"
+            android:drawableStart="@mipmap/search"
+            android:drawablePadding="@dimen/dp_10"
             android:paddingBottom="@dimen/dp_8"
             android:paddingEnd="@dimen/dp_12"
             android:paddingStart="@dimen/dp_12"
+            android:textStyle="bold"
             android:paddingTop="@dimen/dp_8"
             android:text="@string/search"
             android:textColor="@color/text_gray"
-            android:textSize="@dimen/sp_14" />
+            android:textSize="@dimen/sp_16" />
     </LinearLayout>
 
     <View
