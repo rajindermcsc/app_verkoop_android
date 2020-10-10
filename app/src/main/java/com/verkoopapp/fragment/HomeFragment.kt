@@ -46,7 +46,9 @@ import com.verkoopapp.VerkoopApplication
 import com.verkoopapp.activity.*
 import com.verkoopapp.utils.GridSpacingItemDecoration
 import com.verkoopapp.activity.HomeActivity
+import kotlinx.android.synthetic.main.home_fragment.ivChat
 import kotlinx.android.synthetic.main.my_profile_details_row.*
+import kotlinx.android.synthetic.main.toolbar_home.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.io.*
@@ -166,6 +168,8 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun setData() {
+
+
         swipeContainer.setOnRefreshListener {
             if (Utils.isOnline(homeActivity)) {
                 currentPage = 1
@@ -179,6 +183,15 @@ class HomeFragment : BaseFragment() {
                 R.color.colorPrimary,
                 R.color.colorPrimary,
                 R.color.colorPrimary)
+
+        ivChat.setOnClickListener {
+            ivChat.isEnabled = false
+            val intent = Intent(homeActivity, ChatInboxActivity::class.java)
+            startActivity(intent)
+            Handler().postDelayed(Runnable {
+                ivChat.isEnabled = true
+            }, 700)
+        }
 
         tvCategoryHome.setOnClickListener {
             val intent = Intent(homeActivity, FullCategoriesActivity::class.java)

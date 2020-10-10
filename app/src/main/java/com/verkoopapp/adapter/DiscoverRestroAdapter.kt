@@ -12,7 +12,7 @@ import com.verkoopapp.activity.ResturantsDetailActivity
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_discover_restro.*
 
-class DiscoverRestroAdapter  (private val context: Context): RecyclerView.Adapter<DiscoverRestroAdapter.ViewHolder>() {
+class DiscoverRestroAdapter (private val context: Context): RecyclerView.Adapter<DiscoverRestroAdapter.ViewHolder>() {
     val TAG = DiscoverRestroAdapter::class.java.simpleName.toString()
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

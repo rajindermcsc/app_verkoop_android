@@ -246,7 +246,7 @@ public class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteCha
         }
         llAll.setOnClickListener {
             setNothing()
-            tvAll.setTextColor(ContextCompat.getColor(this, R.color.dark_black))
+            tvAll.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
             vAll.visibility = View.VISIBLE
             chatInboxType = 0
             chatInboxAdapter.mItemManger.closeAllItems()
@@ -254,7 +254,7 @@ public class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteCha
         }
         llBuying.setOnClickListener {
             setNothing()
-            tvBuying.setTextColor(ContextCompat.getColor(this, R.color.dark_black))
+            tvBuying.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
             vBuying.visibility = View.VISIBLE
             chatInboxType = 1
             chatInboxAdapter.mItemManger.closeAllItems()
@@ -262,7 +262,7 @@ public class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteCha
         }
         llSelling.setOnClickListener {
             setNothing()
-            tvSelling.setTextColor(ContextCompat.getColor(this, R.color.dark_black))
+            tvSelling.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
             vSelling.visibility = View.VISIBLE
             chatInboxType = 2
             chatInboxAdapter.mItemManger.closeAllItems()
@@ -422,9 +422,9 @@ public class ChatInboxActivity : AppCompatActivity(), ChatInboxAdapter.DeleteCha
     }
 
     private fun setNothing() {
-        tvAll.setTextColor(ContextCompat.getColor(this, R.color.light_gray))
-        tvBuying.setTextColor(ContextCompat.getColor(this, R.color.light_gray))
-        tvSelling.setTextColor(ContextCompat.getColor(this, R.color.light_gray))
+        tvAll.setTextColor(ContextCompat.getColor(this, R.color.black))
+        tvBuying.setTextColor(ContextCompat.getColor(this, R.color.black))
+        tvSelling.setTextColor(ContextCompat.getColor(this, R.color.black))
         vAll.visibility = View.INVISIBLE
         vBuying.visibility = View.INVISIBLE
         vSelling.visibility = View.INVISIBLE

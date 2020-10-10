@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/dp_10"
-            android:src="@mipmap/user"
+            android:src="@drawable/ic_profile"
             android:contentDescription="@string/image" />
 
         <com.verkoopapp.fonts.textView.GothicThinTextView

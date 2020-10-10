@@ -2,23 +2,27 @@ package com.verkoopapp.adapter
 
 import android.content.Context
 import android.content.Intent
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.slider.library.SliderTypes.BaseSliderView
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView
 import com.squareup.picasso.Picasso
 import com.verkoopapp.R
 import com.verkoopapp.activity.*
 import com.verkoopapp.fragment.HomeFragment
-import com.verkoopapp.activity.HomeActivity
 import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
+import com.verkoopapp.utils.GridSpacingItemDecoration
+import com.verkoopapp.utils.SpacingItem
 import com.verkoopapp.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.adds_category_row.*
@@ -26,11 +30,6 @@ import kotlinx.android.synthetic.main.cars_properties_row.*
 import kotlinx.android.synthetic.main.item_row.*
 import kotlinx.android.synthetic.main.your_daily_picks.*
 import retrofit2.Response
-import android.os.Bundle
-import android.os.Handler
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.GridLayoutManager
-import kotlinx.android.synthetic.main.my_profile_details_row.*
 
 
 class HomeAdapter(private val context: Context, private val rvItemList: Int, private val homeFragment: HomeFragment) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -120,6 +119,12 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
                     (holder as YourDailyPickHolder).bind()
                     if (comingFromOnLike.equals("YourDailyPicksAdapter")) {
                         if (positionOnLikeEvent > 0) {
+                            val spanCount = 2 // 3 columns
+
+                            val spacing = 20 // 50px
+
+                            val includeEdge = true
+                            holder.rvYourDailyPicks.addItemDecoration(SpacingItem(spanCount, spacing, includeEdge))
                             holder.rvYourDailyPicks.scrollToPosition(positionOnLikeEvent)
                         }
                     }
@@ -133,6 +138,12 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
                 (holder as ItemsHolder).bind(modal)
                 if (comingFromOnLike.equals("RecommendedForYou")) {
                     if (positionOnLikeEvent > 0) {
+                        val spanCount = 2 // 3 columns
+
+                        val spacing = 20 // 50px
+
+                        val includeEdge = true
+                        holder.rvYourDailyPicks.addItemDecoration(SpacingItem(spanCount, spacing, includeEdge))
                         holder.rvYourDailyPicks.scrollToPosition(positionOnLikeEvent)
                     }
                 }
@@ -182,11 +193,12 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
                 }
             }
             mDemoSlider.setDuration(3000)
-
             rvCategoryHome.layoutParams.height = widthOrg / 3
-            val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            val linearLayoutManager = GridLayoutManager(context, 2,GridLayoutManager.HORIZONTAL,false)
             rvCategoryHome.layoutManager = linearLayoutManager
             val categoryAdapter = CategoryListAdapter(context as HomeActivity, categoryList, rvItemList)
+
+            rvCategoryHome.addItemDecoration(SpacingItem(2, 20, true))
             rvCategoryHome.setHasFixedSize(true)
             rvCategoryHome.adapter = categoryAdapter
             rvCategoryHome!!.adapter!!.notifyDataSetChanged()
@@ -320,12 +332,18 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
 
     inner class YourDailyPickHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind() {
+            val spanCount = 2 // 3 columns
+
+            val spacing = 20 // 50px
+
+            val includeEdge = true
             val linearLayoutManager = GridLayoutManager(context,2)
             linearLayoutManager.isAutoMeasureEnabled = true
             rvYourDailyPicks.layoutManager = linearLayoutManager
             Log.e("<<YourDailyPickHolder>>", rvItemList.toString())
 //            val dailyPicksAdapter = YourDailyPicksAdapter(context, rvItemList, itemsList, homeFragment)
             dailyPicksAdapter = YourDailyPicksAdapter(context, rvItemList, itemsList, homeFragment)
+            rvYourDailyPicks.addItemDecoration(SpacingItem(spanCount, spacing, includeEdge))
             rvYourDailyPicks.setHasFixedSize(true)
             rvYourDailyPicks.adapter = dailyPicksAdapter
             tvViewAllDailyPicks.setOnClickListener {

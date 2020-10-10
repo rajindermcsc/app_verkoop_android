@@ -32,7 +32,10 @@ import com.verkoopapp.utils.GPSTracker
 import com.verkoopapp.utils.PermissionCheck
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.home_activity.*
+import kotlinx.android.synthetic.main.home_activity.tvSell
+import kotlinx.android.synthetic.main.home_fragment.*
 import kotlinx.android.synthetic.main.toolbar_home.*
+import kotlinx.android.synthetic.main.toolbar_home.ivChat
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -283,12 +286,12 @@ class HomeActivity : AppCompatActivity() {
             R.id.menu_button1 -> viewPager.currentItem = 0
             R.id.menu_button2 -> viewPager.currentItem = 1
             R.id.vervo_button-> viewPager.currentItem = 2
-            R.id.menu_button3 -> viewPager.currentItem = 2
+            R.id.menu_button3 -> viewPager.currentItem = 3
         }
     }
 
     private fun setData() {
-        val adapter = HomePagerAdapter(supportFragmentManager, 3, fragmentList)
+        val adapter = HomePagerAdapter(supportFragmentManager, 4, fragmentList)
         viewPager.adapter = adapter
         // viewPager.offscreenPageLimit = 2
         setTabLayout()
@@ -307,6 +310,14 @@ class HomeActivity : AppCompatActivity() {
             Handler().postDelayed(Runnable {
                 ivFavourite.isEnabled = true
             }, 700)
+        }
+        tvSell.setOnClickListener {
+            tvSell.isEnabled = false
+            val intent = Intent(this, GalleryActivity::class.java)
+            startActivityForResult(intent, 2)
+            Handler().postDelayed(Runnable {
+                tvSell.isEnabled = true
+            }, 1000)
         }
         if (comingFrom == 1) {
             when {

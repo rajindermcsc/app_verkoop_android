@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
@@ -25,6 +26,17 @@
             android:scrollIndicators="none"
             android:background="@color/white" />
     </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/tvSell"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="@dimen/dp_50"
+        app:srcCompat="@drawable/ic_add_sell"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="@dimen/dp_25">
+
+    </androidx.appcompat.widget.AppCompatImageView>
+
 
     <ProgressBar
         android:id="@+id/progressBarHome"

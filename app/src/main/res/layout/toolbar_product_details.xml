@@ -31,7 +31,7 @@
                 android:layout_marginStart="@dimen/dp_8"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="@dimen/dp_10"
-                android:src="@mipmap/back"
+                android:src="@drawable/ic_arrow_back_white"
                 android:visibility="visible"
                 android:contentDescription="@string/back" />
             <LinearLayout

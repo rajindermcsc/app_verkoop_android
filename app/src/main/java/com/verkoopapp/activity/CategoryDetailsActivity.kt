@@ -20,6 +20,7 @@ import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.GridSpacingItemDecoration
+import com.verkoopapp.utils.SpacingItem
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.category_details_activity.*
 import kotlinx.android.synthetic.main.category_details_activity.tvSell
@@ -103,9 +104,16 @@ class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterC
             startActivityForResult(intent, 2)
 
         }
-        ivFavouriteDetail.setOnClickListener {
-            val intent = Intent(this, FavouritesActivity::class.java)
-            startActivity(intent)
+//        ivFavouriteDetail.setOnClickListener {
+//            val intent = Intent(this, FavouritesActivity::class.java)
+//            startActivity(intent)
+//        }
+
+        if (intent.getStringExtra(AppConstants.SUB_CATEGORY)?.isEmpty()!!){
+            tvCategory.text = intent.getStringExtra(AppConstants.Search)
+        }
+        else {
+            tvCategory.text = intent.getStringExtra(AppConstants.SUB_CATEGORY)
         }
         val type = intent.getIntExtra(AppConstants.TYPE, 0)
         typeForEventBus = type
@@ -162,7 +170,7 @@ class CategoryDetailsActivity : AppCompatActivity(), FilterAdapter.SelectFilterC
     private fun setItemList() {
         val linearLayoutManager = GridLayoutManager(this, 2)
         rvItemListDetails.layoutManager = linearLayoutManager
-        rvItemListDetails.addItemDecoration(GridSpacingItemDecoration(2, Utils.dpToPx(this, 2F).toInt(), false))
+        rvItemListDetails.addItemDecoration(SpacingItem(2,20, false))
         itemAdapter = ItemAdapter(this, rvItemListDetails)
         rvItemListDetails.isNestedScrollingEnabled = false
         rvItemListDetails.adapter = itemAdapter

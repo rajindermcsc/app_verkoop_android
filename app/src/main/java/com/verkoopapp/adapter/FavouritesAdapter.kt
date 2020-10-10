@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import com.verkoopapp.R
 import com.verkoopapp.activity.FavouritesActivity
+import com.verkoopapp.activity.HomeActivity
 import com.verkoopapp.activity.ProductDetailsActivity
 import com.verkoopapp.activity.UserProfileActivity
 import com.verkoopapp.models.DisLikeResponse
@@ -122,7 +123,7 @@ class FavouritesAdapter(private val context: Context,private val rvFavourites: R
                     val intent = Intent(context, ProductDetailsActivity::class.java)
                     intent.putExtra(AppConstants.ITEM_ID, data.id)
                     intent.putExtra(AppConstants.ADAPTER_POSITION, adapterPosition)
-                    (context as FavouritesActivity).startActivityForResult(intent, 3)
+                    (context as HomeActivity).startActivityForResult(intent, 3)
                 }
 
             }

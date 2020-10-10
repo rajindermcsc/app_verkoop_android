@@ -304,14 +304,14 @@ class FilterActivity : AppCompatActivity() {
     }
 
     private fun setSelectNew() {
-        ivNew.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.new_active))
+        ivNew.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_new_item_white))
         tvNew.setTextColor(ContextCompat.getColor(this, R.color.white))
         llNew.background = ContextCompat.getDrawable(this, R.drawable.red_rectangle_shape)
         condition = "New"
     }
 
     private fun setSelectUsed() {
-        ivUsed.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.used_active))
+        ivUsed.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_used_item_white))
         tvUsed.setTextColor(ContextCompat.getColor(this, R.color.white))
         llUsed.background = ContextCompat.getDrawable(this, R.drawable.red_rectangle_shape)
         condition = getString(R.string.used)
@@ -333,11 +333,11 @@ class FilterActivity : AppCompatActivity() {
     }
 
     private fun setSelectionCondition() {
-        ivNew.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.new_inactive))
-        tvNew.setTextColor(ContextCompat.getColor(this, R.color.gray_light))
+        ivNew.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_new_item))
+        tvNew.setTextColor(ContextCompat.getColor(this, R.color.black))
         llNew.background = ContextCompat.getDrawable(this, R.drawable.item_type)
-        ivUsed.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.used_inactive))
-        tvUsed.setTextColor(ContextCompat.getColor(this, R.color.gray_light))
+        ivUsed.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_used_item))
+        tvUsed.setTextColor(ContextCompat.getColor(this, R.color.black))
         llUsed.background = ContextCompat.getDrawable(this, R.drawable.item_type)
         condition = ""
     }

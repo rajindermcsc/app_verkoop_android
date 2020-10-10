@@ -5,6 +5,10 @@
         android:color="@color/light_gray">
 
     </stroke>
+
+    <solid android:color="@color/white">
+
+    </solid>
     <padding
         android:top="2dp"
         android:left="2dp"

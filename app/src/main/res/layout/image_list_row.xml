@@ -16,6 +16,8 @@
             android:layout_height="match_parent"
             android:layout_margin="@dimen/dp_8"
            android:elevation="@dimen/dp_8"
+            android:padding="@dimen/dp_10"
+            android:background="@drawable/rectangle_border_shape"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,17 +29,19 @@
 
             <ImageView
                 android:id="@+id/ivImageDetail"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="369dp"
+                android:layout_height="693dp"
+                android:contentDescription="@string/image"
                 android:scaleType="fitXY"
-                android:src="@mipmap/pic_2"
-                android:contentDescription="@string/image" />
+                android:src="@mipmap/pic_2" />
         </com.github.florent37.shapeofview.shapes.RoundRectView>
 
         <FrameLayout
             android:id="@+id/flClose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_20"
             android:elevation="@dimen/dp_8"
             android:layout_gravity="end">
 
@@ -51,6 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+
                 android:contentDescription="@string/description"
                 android:src="@mipmap/filter_close" />
         </FrameLayout>
@@ -84,7 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:src="@mipmap/add_new"
+                    android:src="@drawable/ic_camera_profile_photo"
                     android:contentDescription="@string/camera" />
             </FrameLayout>
 

@@ -186,7 +186,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 } else {
                     setSelection()
                     itemType = 2
-                    ivUsedDetail.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.used_active))
+                    ivUsedDetail.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_used_item_white))
                     tvUsedDetail.setTextColor(ContextCompat.getColor(this, R.color.white))
                     llUsedDetail.background = ContextCompat.getDrawable(this, R.drawable.red_rectangle_shape)
                 }
@@ -210,7 +210,6 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 categoryName = dataIntent!!.category_name
                 tvCategory.text = categoryName
                 tvCategory.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                vSelectCategory.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
             }
 
             if (!TextUtils.isEmpty(dataIntent!!.meet_up.toString())) {
@@ -245,7 +244,6 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     }
 
                     tvBrand.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                    vBrand.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
                 }
                 directOwner = additionalEditInfo!!.direct_owner
 
@@ -284,7 +282,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 if (!TextUtils.isEmpty(additionalEditInfo!!.location)) {
                     zoneName = additionalEditInfo!!.location!!
                     tvZone.setText(zoneName)
-                    vZone.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+//                    vZone.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
                 }
 
                 if (!TextUtils.isEmpty(additionalEditInfo!!.street_name)) {
@@ -368,7 +366,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 } else {
                     setSelection()
                     itemType = 2
-                    ivUsedDetail.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.used_active))
+                    ivUsedDetail.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_used_item_white))
                     tvUsedDetail.setTextColor(ContextCompat.getColor(this, R.color.white))
                     llUsedDetail.background = ContextCompat.getDrawable(this, R.drawable.red_rectangle_shape)
                 }
@@ -392,7 +390,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 categoryName = addItemRequest!!.categoryName
                 tvCategory.text = categoryName
                 tvCategory.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                vSelectCategory.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+
             }
 
             if (!TextUtils.isEmpty(addItemRequest!!.meet_up)) {
@@ -426,7 +424,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     carBrandId = additionalInfo!!.car_brand_id
                     carTypeId = additionalInfo!!.car_type_id
                     tvBrand.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                    vBrand.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+
                 }
 
                 directOwner = additionalInfo!!.direct_owner
@@ -465,7 +463,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     tvZone.setText(zoneName)
                     zoneId = additionalInfo!!.zone_id
                     //  tvZone.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                    vZone.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+//                    vZone.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
                 }
 
                 if (!TextUtils.isEmpty(additionalInfo!!.street_name)) {
@@ -540,7 +538,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         if (!TextUtils.isEmpty(Utils.getPreferencesString(this, AppConstants.MOBILE_NO))) {
             tvMobileNo.text = Utils.getPreferencesString(this, AppConstants.MOBILE_NO)
             tvMobileNo.setTextColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
-            vMobile.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+
             tvUpdateAdd.text = "Change"
         } else {
             tvUpdateAdd.text = "Update"
@@ -667,7 +665,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
         llUsedDetail.setOnClickListener {
             setSelection()
             itemType = 2
-            ivUsedDetail.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.used_active))
+            ivUsedDetail.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_used_item_white))
             tvUsedDetail.setTextColor(ContextCompat.getColor(this, R.color.white))
             llUsedDetail.background = ContextCompat.getDrawable(this, R.drawable.red_rectangle_shape)
         }
@@ -679,11 +677,11 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             }
 
             override fun afterTextChanged(arg0: Editable) {
-                if (arg0.isNotEmpty()) {
-                    vNameDetail.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
-                } else {
-                    vNameDetail.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.light_gray))
-                }
+//                if (arg0.isNotEmpty()) {
+//                    vNameDetail.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+//                } else {
+//                    vNameDetail.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.light_gray))
+//                }
             }
         })
 
@@ -696,11 +694,11 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             }
 
             override fun afterTextChanged(arg0: Editable) {
-                if (arg0.isNotEmpty()) {
-                    vStreetName.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
-                } else {
-                    vStreetName.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.light_gray))
-                }
+//                if (arg0.isNotEmpty()) {
+//                    vStreetName.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+//                } else {
+//                    vStreetName.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.light_gray))
+//                }
             }
         })
         etPostalCode.addTextChangedListener(object : TextWatcher {
@@ -711,11 +709,11 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             }
 
             override fun afterTextChanged(arg0: Editable) {
-                if (arg0.isNotEmpty()) {
-                    vPostalCode.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
-                } else {
-                    vPostalCode.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.light_gray))
-                }
+//                if (arg0.isNotEmpty()) {
+//                    vPostalCode.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+//                } else {
+//                    vPostalCode.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.light_gray))
+//                }
             }
         })
         etArea.addTextChangedListener(object : TextWatcher {
@@ -726,11 +724,11 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             }
 
             override fun afterTextChanged(arg0: Editable) {
-                if (arg0.isNotEmpty()) {
-                    vArea.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
-                } else {
-                    vArea.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.light_gray))
-                }
+//                if (arg0.isNotEmpty()) {
+//                    vArea.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+//                } else {
+//                    vArea.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.light_gray))
+//                }
             }
         })
         etLocation.addTextChangedListener(object : TextWatcher {
@@ -741,11 +739,11 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             }
 
             override fun afterTextChanged(arg0: Editable) {
-                if (arg0.isNotEmpty()) {
-                    vLocation.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
-                } else {
-                    vLocation.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.light_gray))
-                }
+//                if (arg0.isNotEmpty()) {
+//                    vLocation.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+//                } else {
+//                    vLocation.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.light_gray))
+//                }
             }
         })
         tvZone.addTextChangedListener(object : TextWatcher {
@@ -756,11 +754,11 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             }
 
             override fun afterTextChanged(arg0: Editable) {
-                if (arg0.isNotEmpty()) {
-                    vZone.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
-                } else {
-                    vZone.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.light_gray))
-                }
+//                if (arg0.isNotEmpty()) {
+//                    vZone.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+//                } else {
+//                    vZone.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.light_gray))
+//                }
             }
         })
         etPrice.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
@@ -794,11 +792,11 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             }
 
             override fun afterTextChanged(arg0: Editable) {
-                if (arg0.isNotEmpty()) {
-                    vPrice.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
-                } else {
-                    vPrice.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.light_gray))
-                }
+//                if (arg0.isNotEmpty()) {
+//                    vPrice.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+//                } else {
+//                    vPrice.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.light_gray))
+//                }
             }
         })
 
@@ -963,11 +961,11 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
             }
 
             override fun afterTextChanged(arg0: Editable) {
-                if (arg0.isNotEmpty()) {
-                    vDescription.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
-                } else {
-                    vDescription.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.light_gray))
-                }
+//                if (arg0.isNotEmpty()) {
+//                    vDescription.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+//                } else {
+//                    vDescription.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.light_gray))
+//                }
             }
         })
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
@@ -1218,17 +1216,17 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
     }
 
     private fun setSelection() {
-        ivNewDetails.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.new_inactive))
-        tvNewDetails.setTextColor(ContextCompat.getColor(this, R.color.gray_light))
+        ivNewDetails.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_new_item))
+        tvNewDetails.setTextColor(ContextCompat.getColor(this, R.color.black))
         llNewDetails.background = ContextCompat.getDrawable(this, R.drawable.item_type)
-        ivUsedDetail.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.used_inactive))
-        tvUsedDetail.setTextColor(ContextCompat.getColor(this, R.color.gray_light))
+        ivUsedDetail.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_used_item))
+        tvUsedDetail.setTextColor(ContextCompat.getColor(this, R.color.black))
         llUsedDetail.background = ContextCompat.getDrawable(this, R.drawable.item_type)
     }
 
     private fun setSelect() {
         itemType = 1
-        ivNewDetails.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.new_active))
+        ivNewDetails.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_new_item_white))
         tvNewDetails.setTextColor(ContextCompat.getColor(this, R.color.white))
         llNewDetails.background = ContextCompat.getDrawable(this, R.drawable.red_rectangle_shape)
     }
@@ -1266,7 +1264,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 val typeSelection = data.getIntExtra(AppConstants.SCREEN_TYPE, 0)
                 tvCategory.text = categoryName
                 tvCategory.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                vSelectCategory.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+//                vSelectCategory.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
                 when (typeSelection) {
                     1 -> {
                         screenType = 1
@@ -1288,7 +1286,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                         screenType = 2
                         llProperties.visibility = View.VISIBLE
                         rgFurnish.visibility = View.GONE
-                        viewFurnish.visibility = View.GONE
+//                        viewFurnish.visibility = View.GONE
 
                         llItemCondition.visibility = View.GONE
                         tvItemCondition.visibility = View.GONE
@@ -1303,7 +1301,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                         screenType = 3
                         llProperties.visibility = View.VISIBLE
                         rgFurnish.visibility = View.VISIBLE
-                        viewFurnish.visibility = View.VISIBLE
+//                        viewFurnish.visibility = View.VISIBLE
 
 
                         llItemCondition.visibility = View.GONE
@@ -1365,7 +1363,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                     tvBrand.text = carBrandName
                 }
                 tvBrand.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                vBrand.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+//                vBrand.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
 
             }
             if (resultCode == Activity.RESULT_CANCELED) {
@@ -1379,7 +1377,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 zoneId = data.getIntExtra(AppConstants.ZONE_ID, 0)
                 tvZone.setText(zoneName)
                 // tvZone.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                vZone.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
+//                vZone.setBackgroundColor(ContextCompat.getColor(this@AddDetailsActivity, R.color.colorPrimary))
 
             }
             if (resultCode == Activity.RESULT_CANCELED) {
@@ -1450,7 +1448,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 screenType = 2
                 llProperties.visibility = View.VISIBLE
                 rgFurnish.visibility = View.GONE
-                viewFurnish.visibility = View.GONE
+//                viewFurnish.visibility = View.GONE
 
                 llPrice.visibility = View.GONE
                 llItemCondition.visibility = View.GONE
@@ -1467,7 +1465,7 @@ class AddDetailsActivity : AppCompatActivity(), SelectedImageAdapter.SelectedIma
                 screenType = 3
                 llProperties.visibility = View.VISIBLE
                 rgFurnish.visibility = View.VISIBLE
-                viewFurnish.visibility = View.VISIBLE
+//                viewFurnish.visibility = View.VISIBLE
 
                 llPrice.visibility = View.GONE
                 llItemCondition.visibility = View.GONE

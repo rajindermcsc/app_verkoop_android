@@ -17,7 +17,9 @@ import com.verkoopapp.models.SearchMultipleKeywordResponse
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.GridSpacingItemDecoration
+import com.verkoopapp.utils.SpacingItem
 import com.verkoopapp.utils.Utils
+import kotlinx.android.synthetic.main.adds_category_row.*
 import kotlinx.android.synthetic.main.favourites_activity.*
 import kotlinx.android.synthetic.main.toolbar_location.*
 import retrofit2.Response
@@ -98,8 +100,10 @@ class FavouritesFragment : Fragment() {
     private fun setAdapter() {
         linearLayoutManager = GridLayoutManager(context!!, 2)
         rvFavouriteList.layoutManager = linearLayoutManager
-        rvFavouriteList.addItemDecoration(GridSpacingItemDecoration(2, Utils.dpToPx(context!!, 2F).toInt(), false))
+//        rvFavouriteList.addItemDecoration(GridSpacingItemDecoration(2, Utils.dpToPx(context!!, 2F).toInt(), false))
+        rvFavouriteList.addItemDecoration(SpacingItem(2, 20, false))
         favouritesAdapter = FavouritesAdapter(context!!, rvFavouriteList, 0)
+
         rvFavouriteList.adapter = favouritesAdapter
         //  rvFavouriteList.addOnScrollListener(recyclerViewOnScrollListener)
         ivLeftLocation.setOnClickListener {

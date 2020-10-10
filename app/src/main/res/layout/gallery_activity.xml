@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <include layout="@layout/toolbar_filter"/>
+    <include layout="@layout/toolbar_gallery"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,6 +21,15 @@
             android:text="@string/listing_today"
             android:textSize="@dimen/sp_24"
             android:textColor="@color/dark_black"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorDividerLight"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginBottom="5dp">
+
+        </View>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

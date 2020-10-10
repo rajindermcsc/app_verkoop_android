@@ -358,6 +358,20 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
 
+        <receiver
+
+            android:name="com.clickzin.tracking.ClickzinReferrerReceiver"
+
+            android:exported="true">
+
+            <intent-filter>
+
+                <action android:name="com.android.vending.INSTALL_REFERRER"/>
+
+            </intent-filter>
+
+        </receiver>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="ee85ac909372ee72e880cd14f0d6f1957e8a5c2e" /> <!-- Branch init -->

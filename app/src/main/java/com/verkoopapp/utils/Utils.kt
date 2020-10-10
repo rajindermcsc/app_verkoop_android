@@ -662,6 +662,9 @@ object Utils {
     }
 
     fun convertCurrency(context: Context, from: String, amount: Double): String? {
+        Log.e("TAG", "convertCurrency: "+from)
+        Log.e("TAG", "convertCurrency: "+amount)
+        Log.e("TAG", "convertCurrency: ")
         if (from.isNullOrEmpty()) {
             return "${getPreferencesString(context, AppConstants.CURRENCY_SYMBOL)} --"
         }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_back"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar_chat" />
@@ -30,29 +30,22 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.verkoopapp.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothicThinTextView
                     android:id="@+id/tvAll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp_10"
                     android:text="@string/all"
-                    android:textColor="@color/dark_black"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/sp_12" />
 
                 <View
                     android:id="@+id/vAll"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_5"
+                    android:layout_height="@dimen/dp_1"
                     android:background="@color/colorPrimary" />
             </LinearLayout>
 
-
-            <View
-                android:layout_width="@dimen/dp_.5"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/dp_10"
-                android:layout_marginTop="@dimen/dp_10"
-                android:background="@color/light_gray_view" />
 
             <LinearLayout
                 android:id="@+id/llBuying"
@@ -63,29 +56,23 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.verkoopapp.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothicThinTextView
                     android:id="@+id/tvBuying"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp_10"
                     android:text="@string/buying"
-                    android:textColor="@color/light_gray"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/sp_12" />
 
                 <View
                     android:id="@+id/vBuying"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_5"
+                    android:layout_height="@dimen/dp_1"
                     android:background="@color/colorPrimary"
                     android:visibility="invisible" />
             </LinearLayout>
 
-            <View
-                android:layout_width="@dimen/dp_.5"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/dp_10"
-                android:layout_marginTop="@dimen/dp_10"
-                android:background="@color/light_gray_view" />
 
             <LinearLayout
                 android:id="@+id/llSelling"
@@ -96,19 +83,19 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.verkoopapp.fonts.textView.GothiBoldTextView
+                <com.verkoopapp.fonts.textView.GothicThinTextView
                     android:id="@+id/tvSelling"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp_10"
                     android:text="@string/selling"
-                    android:textColor="@color/light_gray"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/sp_12" />
 
                 <View
                     android:id="@+id/vSelling"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_5"
+                    android:layout_height="@dimen/dp_1"
                     android:background="@color/colorPrimary"
                     android:visibility="invisible" />
             </LinearLayout>

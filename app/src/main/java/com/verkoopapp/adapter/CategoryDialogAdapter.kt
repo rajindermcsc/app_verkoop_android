@@ -44,10 +44,10 @@ class CategoryDialogAdapter(private val context: Context, private val categoryLi
         fun bind(modal: DataCategory) {
             if(modal.isSelected){
                 expansionLayout.expand(true)
-                itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.gray_semi))
+                itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.white))
             }else{
                 expansionLayout.collapse(true)
-                itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.semi_white))
+                itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.white))
             }
             tvCategoryNameDialog.text = modal.name
             val mManager = LinearLayoutManager(context)

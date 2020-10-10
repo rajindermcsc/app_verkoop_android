@@ -16,6 +16,7 @@ import com.verkoopapp.adapter.BuyPropertyAdapter
 import com.verkoopapp.models.*
 import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
+import com.verkoopapp.utils.SpacingItem
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.buy_cars_activity.*
 import kotlinx.android.synthetic.main.toolbar_cars_properties.*
@@ -101,6 +102,7 @@ class BuyPropertiesActivity : AppCompatActivity() {
             }
         }
         rvBuyCarList.layoutManager = linearLayoutManager
+        rvBuyCarList.addItemDecoration(SpacingItem(2, 20, false))
         rvBuyCarList.setHasFixedSize(false)
         buyPropertyAdapter = BuyPropertyAdapter(this, rvBuyCarList)
         rvBuyCarList.adapter = buyPropertyAdapter

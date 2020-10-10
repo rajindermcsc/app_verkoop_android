@@ -9,7 +9,10 @@ import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.clickzin.tracking.ClickzinTracker
+import com.clickzin.tracking.utils.ClickzinUtils
 import com.google.gson.Gson
+import com.verkoopapp.R
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
 import io.branch.referral.Branch
@@ -93,9 +96,25 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
+
+        Log.d("testing", "onCreate@: ")
+        Log.i("testing", "onCreate@: ")
+
+//        Please explain the scenario to our manager and get the exact event name  with exactt spelling.
+//        ClickzinTracker.getInstance().trackEvents(applicationContext, "Signup",null);
+//
+//        ClickzinTracker.getInstance().sourceOfInstall
+//        ClickzinTracker.getInstance().referrer
+
+
     }
 
     private fun branchInit() {
+
+//      clickzintracker
+        ClickzinTracker.getInstance().init(applicationContext,resources.getString(R.string.app_name), null);
+        ClickzinTracker.getInstance().setCustomerId(ClickzinUtils.getUniquePsuedoID());
+        ClickzinTracker.getInstance().startTracking();
         // Branch init
         Branch.getInstance().initSession({ referringParams, error ->
             if (error == null) {

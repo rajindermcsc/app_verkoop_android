@@ -34,8 +34,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_qr_code" />
-                            <entry key="sourceFile" value="C:\Users\Dell\Downloads\DeliveryDesign\Verkopp Assets 7 to 15 screens\icons\qr_code.svg" />
+                            <entry key="outputName" value="ic_filter_white" />
+                            <entry key="sourceFile" value="C:\Users\Dell\Downloads\DeliveryDesign\Verkopp Assets 7 to 15 screens\icons\filter.svg" />
                           </map>
                         </option>
                       </PersistentState>

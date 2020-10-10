@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="@dimen/dp_10"
-            android:src="@mipmap/back" />
+            android:src="@drawable/ic_arrow_back_white" />
 
         <com.verkoopapp.fonts.textView.GothiBoldTextView
             android:id="@+id/toolbar_title"

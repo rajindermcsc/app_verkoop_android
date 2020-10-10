@@ -7,7 +7,6 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/dp_10"
     app:cardCornerRadius="@dimen/dp_10"
-    android:layout_margin="@dimen/dp_10"
     android:background="@drawable/dashboard_item_background"
     android:orientation="vertical">
 
@@ -174,7 +173,6 @@
                     android:id="@+id/llUserProfile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/dp_8"
                     android:orientation="horizontal">
 
                     <de.hdodenhof.circleimageview.CircleImageView

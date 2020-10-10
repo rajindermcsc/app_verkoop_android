@@ -20,6 +20,7 @@ import retrofit2.Response
 import android.app.Activity
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
+import com.verkoopapp.utils.SpacingItem
 import kotlinx.android.synthetic.main.category_details_activity.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -103,6 +104,7 @@ class BuyCarsActivity: AppCompatActivity() {
             }
         rvBuyCarList.layoutManager = linearLayoutManager
         rvBuyCarList.setHasFixedSize(false)
+        rvBuyCarList.addItemDecoration(SpacingItem(2, 20, false))
         buyCarsAdapter = BuyCarsAdapter(this, rvBuyCarList)
         rvBuyCarList.adapter = buyCarsAdapter
         rvBuyCarList.addOnScrollListener(recyclerViewOnScrollListener)

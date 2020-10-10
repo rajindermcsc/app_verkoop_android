@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
@@ -19,15 +20,26 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
+
+
         <com.stfalcon.bottomtablayout.BottomTabLayout
             android:id="@+id/bottomTabLayout"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:scrollIndicators="none"
-
             android:background="@color/white"
             tools:targetApi="m" />
     </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/tvSell"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="@dimen/dp_50"
+        app:srcCompat="@drawable/ic_add_sell"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="@dimen/dp_25">
+
+    </androidx.appcompat.widget.AppCompatImageView>
 
     <ProgressBar
         android:id="@+id/progressBarHome"

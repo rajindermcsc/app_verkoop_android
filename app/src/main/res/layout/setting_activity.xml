@@ -29,7 +29,7 @@
                 android:layout_marginTop="@dimen/dp_1"
                 android:contentDescription="@string/back"
                 android:padding="@dimen/dp_10"
-                android:src="@mipmap/back" />
+                android:src="@drawable/ic_arrow_back_white" />
 
             <com.verkoopapp.fonts.textView.GothiBoldTextView
                 android:id="@+id/tvHeaderLoc"

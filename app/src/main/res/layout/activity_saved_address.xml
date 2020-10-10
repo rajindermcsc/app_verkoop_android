@@ -9,7 +9,7 @@
 
     <include
         android:id="@+id/save_address_tool_lyt"
-        layout="@layout/toolbar_location" />
+        layout="@layout/toolbar_saved_address" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_save_address_list"

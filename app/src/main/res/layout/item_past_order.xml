@@ -46,6 +46,13 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/food_icon_copy" />
 
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/trending_gradient_shape">
+
+                </FrameLayout>
+
                 <com.verkoopapp.fonts.textView.GothiBoldTextView
                     android:id="@+id/tvSoldFav"
                     android:layout_width="match_parent"

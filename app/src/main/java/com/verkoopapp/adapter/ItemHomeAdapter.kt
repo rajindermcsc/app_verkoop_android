@@ -47,11 +47,11 @@ class ItemHomeAdapter(private val context: Context, private val rvItemList: Recy
         fun bind(data: ItemHome, position: Int) {
             ivProductImageHome.layoutParams.height = width - 16
             tvNameHome.text = data.username
-            if (position % 2 == 0) {
-                llSideDividerHome.visibility = View.VISIBLE
-            } else {
-                llSideDividerHome.visibility = View.GONE
-            }
+//            if (position % 2 == 0) {
+//                llSideDividerHome.visibility = View.VISIBLE
+//            } else {
+//                llSideDividerHome.visibility = View.GONE
+//            }
             if (data.is_like) {
                 tvLikesHome.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_favorite_colored, 0, 0, 0)
             } else {

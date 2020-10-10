@@ -14,7 +14,7 @@ class FoodItemDetailActivity : AppCompatActivity() {
 
 
         item_tool_lyt.tvHeaderLoc.text = getString(R.string.item_details)
-        item_tool_lyt.ivRight.setImageDrawable(getDrawable(R.mipmap.ic_heart_white))
+        item_tool_lyt.img_search.setImageDrawable(getDrawable(R.mipmap.ic_heart_white))
         item_tool_lyt.ivLeftLocation.setOnClickListener {
             finish()
         }

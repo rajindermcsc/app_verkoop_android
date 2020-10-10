@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/car_body_type"
-            android:textColor="@color/text_gray"
+            android:textColor="@color/black"
             android:textSize="@dimen/sp_14" />
     </LinearLayout>
 
@@ -37,9 +37,9 @@
         <com.verkoopapp.fonts.textView.GothiBoldTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/budget_filter"
-            android:textColor="@color/text_gray"
-            android:textSize="@dimen/sp_14" />
+            android:text="Filter"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_18" />
     </LinearLayout>
 
     <LinearLayout
@@ -74,26 +74,20 @@
                 <LinearLayout
                     android:id="@+id/ll15PerMonth"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dp_80"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="@dimen/dp_10">
 
-                    <com.verkoopapp.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothicThinTextView
                         android:id="@+id/tvFollowers"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_15k_month"
                         android:textColor="@color/dark_black"
-                        android:textSize="@dimen/sp_18" />
+                        android:textSize="@dimen/sp_16" />
 
-                    <com.verkoopapp.fonts.textView.GothiBoldTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/household_income"
-                        android:textColor="@color/text_gray"
-                        android:textSize="@dimen/sp_14" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -114,25 +108,20 @@
                 <LinearLayout
                     android:id="@+id/llMore15PerMonth"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dp_80"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="@dimen/dp_10">
 
-                    <com.verkoopapp.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothicThinTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_15_month"
                         android:textColor="@color/dark_black"
-                        android:textSize="@dimen/sp_18" />
+                        android:textSize="@dimen/sp_16" />
 
-                    <com.verkoopapp.fonts.textView.GothiBoldTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/household_income"
-                        android:textColor="@color/text_gray"
-                        android:textSize="@dimen/sp_14" />
+
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -160,25 +149,20 @@
                 <LinearLayout
                     android:id="@+id/ll25PerMonth"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dp_80"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="@dimen/dp_10">
 
-                    <com.verkoopapp.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothicThinTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_25_month"
                         android:textColor="@color/dark_black"
-                        android:textSize="@dimen/sp_18" />
+                        android:textSize="@dimen/sp_16" />
 
-                    <com.verkoopapp.fonts.textView.GothiBoldTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/household_income"
-                        android:textColor="@color/text_gray"
-                        android:textSize="@dimen/sp_14" />
+
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -199,25 +183,20 @@
                 <LinearLayout
                     android:id="@+id/llMore25PerMonth"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dp_80"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="@dimen/dp_10">
 
-                    <com.verkoopapp.fonts.textView.GothiBoldTextView
+                    <com.verkoopapp.fonts.textView.GothicThinTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_25_month_"
                         android:textColor="@color/dark_black"
-                        android:textSize="@dimen/sp_18" />
+                        android:textSize="@dimen/sp_16" />
 
-                    <com.verkoopapp.fonts.textView.GothiBoldTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/household_income"
-                        android:textColor="@color/text_gray"
-                        android:textSize="@dimen/sp_14" />
+
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>

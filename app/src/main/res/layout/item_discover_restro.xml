@@ -38,6 +38,7 @@
                 app:shape_roundRect_topLeftRadius="@dimen/dp_6"
                 app:shape_roundRect_topRightRadius="@dimen/dp_6">
 
+
                 <ImageView
                     android:id="@+id/ivProductImageHome"
                     android:layout_width="match_parent"
@@ -45,6 +46,18 @@
                     android:contentDescription="@string/image"
                     android:scaleType="centerCrop"
                     android:src="@drawable/food_icon_copy" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    app:srcCompat="@drawable/ic_favorite_grey"
+                    android:paddingTop="@dimen/dp_5"
+                    android:layout_gravity="end"
+                    android:paddingRight="@dimen/dp_5">
+
+                </androidx.appcompat.widget.AppCompatImageView>
+
+
 
                 <com.verkoopapp.fonts.textView.GothiBoldTextView
                     android:id="@+id/tvSoldFav"
@@ -105,7 +118,35 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/sp_12" />
 
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rectangle_grey_shape">
 
+
+                    <com.verkoopapp.fonts.textView.GothicThinTextView
+                        android:id="@+id/tv_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_3"
+                        android:layout_marginStart="@dimen/dp_12"
+                        android:text="4.5"
+                        android:padding="@dimen/dp_10"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_12" />
+
+                    <com.verkoopapp.fonts.textView.GothicThinTextView
+                        android:id="@+id/tv_rating_star"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_3"
+                        android:drawableLeft="@drawable/ic_star_yellow"
+                        android:drawablePadding="@dimen/dp_5"
+                        android:text="(24)"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/sp_12" />
+
+                    </LinearLayout>
                     <com.verkoopapp.fonts.textView.GothicThinTextView
                         android:id="@+id/tv_delivery_fee"
                         android:layout_width="wrap_content"

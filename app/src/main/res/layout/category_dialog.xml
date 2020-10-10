@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/semi_white"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <com.github.florent37.expansionpanel.ExpansionHeader
@@ -16,18 +16,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-        <com.verkoopapp.fonts.textView.GothiBoldTextView
+        <com.verkoopapp.fonts.textView.GothicThinTextView
             android:id="@+id/tvCategoryNameDialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/sp_14"
-            android:textColor="@color/text_gray_"
+            android:textColor="@color/black"
             android:text="@string/men_s_fashion"
             android:padding="@dimen/dp_10"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
-            android:background="@color/gray_se" />
+            android:background="@color/colorDividerLight" />
 </LinearLayout>
         <!-- HEADER INDICATOR -->
         <ImageView
@@ -61,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
             android:visibility="visible"
-            android:background="@color/gray_se" />
+            android:background="@color/colorDividerLight" />
         </LinearLayout>
     </com.github.florent37.expansionpanel.ExpansionLayout>
 
