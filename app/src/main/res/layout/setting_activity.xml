@@ -80,6 +80,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/rlEditProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -116,6 +117,7 @@
                 android:background="@color/colorDividerLight" />
 
             <RelativeLayout
+                android:id="@+id/rlChangePassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -151,6 +153,7 @@
                 android:background="@color/colorDividerLight" />
 
             <RelativeLayout
+                android:id="@+id/rlNotification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -186,6 +189,7 @@
                 android:background="@color/colorDividerLight" />
 
             <RelativeLayout
+                android:id="@+id/rlDataPrivacy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -233,6 +237,7 @@
                 android:textSize="@dimen/sp_16" />
 
             <RelativeLayout
+                android:id="@+id/rlHelpCenter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -268,6 +273,7 @@
                 android:background="@color/colorDividerLight" />
 
             <RelativeLayout
+                android:id="@+id/rlContactUs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -303,6 +309,7 @@
                 android:background="@color/colorDividerLight" />
 
             <RelativeLayout
+                android:id="@+id/rlAboutVerkoop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -352,6 +359,7 @@
                 android:textSize="@dimen/sp_16" />
 
             <RelativeLayout
+                android:id="@+id/rlTermsService"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -387,6 +395,7 @@
                 android:background="@color/colorDividerLight" />
 
             <RelativeLayout
+                android:id="@+id/rlPrivacyPolicy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -422,6 +431,7 @@
                 android:background="@color/colorDividerLight" />
 
             <RelativeLayout
+                android:id="@+id/rlDeActivateAcct"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -457,6 +467,7 @@
                 android:background="@color/colorDividerLight" />
 
             <RelativeLayout
+                android:id="@+id/rlBanner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -492,6 +503,7 @@
                 android:background="@color/colorDividerLight" />
 
             <RelativeLayout
+                android:id="@+id/rlLogout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">

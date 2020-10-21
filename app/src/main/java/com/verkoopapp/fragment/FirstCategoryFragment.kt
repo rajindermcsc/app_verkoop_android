@@ -35,16 +35,16 @@ class FirstCategoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setAdapter(categoryList)
+//        setAdapter(categoryList)
     }
 
 
-    private fun setAdapter(categoryList: ArrayList<DataCategory>) {
-        val linearLayoutManager = GridLayoutManager(context, 3)
-        rvCategoryList.layoutManager = linearLayoutManager
-        val categoriesAdapter= CategoryAdapter(categoriesActivity, categoryList, position,llParentCate)
-        rvCategoryList.adapter=categoriesAdapter
-    }
+//    private fun setAdapter(categoryList: ArrayList<DataCategory>) {
+//        val linearLayoutManager = GridLayoutManager(context, 3)
+//        rvCategoryList.layoutManager = linearLayoutManager
+//        val categoriesAdapter= CategoryAdapter(categoriesActivity, categoryList, position,llParentCate)
+//        rvCategoryList.adapter=categoriesAdapter
+//    }
 
     companion object {
         fun newInstance(id: Int, categoryList: ArrayList<DataCategory>): FirstCategoryFragment {

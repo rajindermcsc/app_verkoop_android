@@ -73,55 +73,55 @@ class WalkThroughActivity: AppCompatActivity(){
             startActivity(intent)
         }
 
-        tvNextW.setOnClickListener {
-            if(tvNextW.text.toString().equals("NEXT",ignoreCase = true)){
-                vpWalkThrough.currentItem = vpPosition+1
-            //    vpWalkThrough.currentItem = vpPosition
-            }else{
-                val intent = Intent(this, LoginActivity::class.java)
-                intent.putExtra(AppConstants.ID, id)
-                intent.putExtra(AppConstants.TYPE, type)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
-            }
-        }
-        tvSkipW.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            intent.putExtra(AppConstants.ID, id)
-            intent.putExtra(AppConstants.TYPE, type)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
-            finish()
-        }
+//        tvNextW.setOnClickListener {
+//            if(tvNextW.text.toString().equals("NEXT",ignoreCase = true)){
+//                vpWalkThrough.currentItem = vpPosition+1
+//            //    vpWalkThrough.currentItem = vpPosition
+//            }else{
+//                val intent = Intent(this, LoginActivity::class.java)
+//                intent.putExtra(AppConstants.ID, id)
+//                intent.putExtra(AppConstants.TYPE, type)
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+//                startActivity(intent)
+//            }
+//        }
+//        tvSkipW.setOnClickListener {
+//            val intent = Intent(this, LoginActivity::class.java)
+//            intent.putExtra(AppConstants.ID, id)
+//            intent.putExtra(AppConstants.TYPE, type)
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+//            startActivity(intent)
+//            finish()
+//        }
     }
 
     private fun highlightIndicator(count: Int) {
         when (count) {
             0 -> {
                 setGrayBackground()
-                ivIndicatorFirstW.setImageResource(R.mipmap.dot_1)
-                tvNextW.text=getString(R.string.next)
-                tvSkipW.visibility=View.VISIBLE
+                ivIndicatorFirstW.setImageResource(R.mipmap.ic_red_oval)
+//                tvNextW.text=getString(R.string.next)
+//                tvSkipW.visibility=View.VISIBLE
             }
             1 -> {
                 setGrayBackground()
-                ivIndicatorSecondW.setImageResource(R.mipmap.dot_1)
-                tvNextW.text=getString(R.string.next)
-                tvSkipW.visibility=View.VISIBLE
+                ivIndicatorSecondW.setImageResource(R.mipmap.ic_red_oval)
+//                tvNextW.text=getString(R.string.next)
+//                tvSkipW.visibility=View.VISIBLE
             }
             2 -> {
                 setGrayBackground()
-                ivIndicatorThirdW.setImageResource(R.mipmap.dot_1)
-                tvNextW.text=getString(R.string.done)
-                tvSkipW.visibility=View.INVISIBLE
+                ivIndicatorThirdW.setImageResource(R.mipmap.ic_red_oval)
+//                tvNextW.text=getString(R.string.done)
+//                tvSkipW.visibility=View.INVISIBLE
             }
         }
     }
 
     private fun setGrayBackground() {
-        ivIndicatorFirstW.setImageResource(R.mipmap.dot_2)
-        ivIndicatorSecondW.setImageResource(R.mipmap.dot_2)
-        ivIndicatorThirdW.setImageResource(R.mipmap.dot_2)
+        ivIndicatorFirstW.setImageResource(R.mipmap.ic_gray_dot)
+        ivIndicatorSecondW.setImageResource(R.mipmap.ic_gray_dot)
+        ivIndicatorThirdW.setImageResource(R.mipmap.ic_gray_dot)
     }
 
     class PicturePreViewAdapter(mContext: Context, private var mImageResources: IntArray, private var mCaptions: ArrayList<String>) : PagerAdapter() {

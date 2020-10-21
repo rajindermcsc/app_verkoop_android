@@ -40,6 +40,7 @@ class BuyPropertiesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.buy_cars_activity)
+
         setData()
         setBuyCarAdapter()
         if (Utils.isOnline(this)) {

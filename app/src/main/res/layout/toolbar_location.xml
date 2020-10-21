@@ -74,6 +74,19 @@
                 android:contentDescription="@string/favourite"
                 android:padding="@dimen/dp_5"
                 android:src="@mipmap/tick" />
+
+            <com.verkoopapp.fonts.textView.GothicThinTextView
+                android:id="@+id/tvHeaderRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:visibility="gone"
+                android:layout_marginStart="@dimen/dp_20"
+                android:text="@string/deal_location"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_18" />
         </RelativeLayout>
 
     </LinearLayout>

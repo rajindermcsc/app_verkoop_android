@@ -15,6 +15,7 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
+import android.view.WindowManager
 import android.widget.Toast
 import com.daimajia.slider.library.SliderTypes.BaseSliderView
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView
@@ -38,8 +39,11 @@ import com.verkoopapp.utils.*
 import io.branch.indexing.BranchUniversalObject
 import io.branch.referral.util.ContentMetadata
 import io.branch.referral.util.LinkProperties
+import kotlinx.android.synthetic.main.comment_dialog_activity.*
 import kotlinx.android.synthetic.main.item_details_activity.*
 import kotlinx.android.synthetic.main.item_details_activity.tvAddress
+import kotlinx.android.synthetic.main.item_details_activity.etComment
+import kotlinx.android.synthetic.main.item_details_activity.tvPost
 import kotlinx.android.synthetic.main.my_profile_details_row.*
 import kotlinx.android.synthetic.main.toolbar_product_details.*
 import org.greenrobot.eventbus.EventBus
@@ -241,7 +245,7 @@ class ProductDetailsActivity : AppCompatActivity() {
                     .placeholder(R.mipmap.pic_placeholder)
                     .into(ivProfileTool)
         }
-        ivRightProduct.setImageResource(R.drawable.menu_icone)
+        ivRightProduct.setImageResource(R.drawable.menu_icon_black)
 
         ivRightProduct.setOnClickListener {
             if (userId != Utils.getPreferencesString(this, AppConstants.USER_ID).toInt()) {
@@ -272,15 +276,31 @@ class ProductDetailsActivity : AppCompatActivity() {
             }
 
         }
-        tvPostComment.setOnClickListener {
-            if (data.id != 0) {
-                val i = Intent(this, AddCommentActivity::class.java)
-                i.putExtra(AppConstants.ITEM_ID, data.id)
-                startActivityForResult(i, 1)
+        tvPost.setOnClickListener {
+            if (Utils.isOnline(this)) {
+                if (!TextUtils.isEmpty(etComment.text.toString())) {
+                    KeyboardUtil.hideKeyboard(this)
+                    callPostCommentApi()
+                } else {
+                    Utils.showSimpleMessage(this, "Please enter Comment.").show()
+                }
+            } else {
+                Utils.showSimpleMessage(this, getString(R.string.check_internet)).show()
             }
         }
+
+
+
+//        tvPostComment.setOnClickListener {
+//            if (data.id != 0) {
+//                val i = Intent(this, AddCommentActivity::class.java)
+//                i.putExtra(AppConstants.ITEM_ID, data.id)
+//                startActivityForResult(i, 1)
+//            }
+//        }
         ivLeft.setOnClickListener { onBackPressed() }
-        custom_indicator_detail.setDefaultIndicatorColor(ContextCompat.getColor(this, R.color.white), ContextCompat.getColor(this, R.color.light_gray))
+//        custom_indicator_detail.setDefaultIndicatorColor(ContextCompat.getColor(this, R.color.white), ContextCompat.getColor(this, R.color.light_gray))
+        custom_indicator_detail.setIndicatorStyleResource(R.mipmap.ic_red_oval,R.mipmap.ic_gray_dot)
         mDemoSliderDetails.setCustomIndicator(custom_indicator_detail)
         for (i in data.items_image.indices) {
             val textSliderView = DefaultSliderView(this)
@@ -334,16 +354,16 @@ class ProductDetailsActivity : AppCompatActivity() {
                 }, 1000)
             }
         }
-        tvPrice.text = StringBuilder().append(": ").append(Utils.getPreferencesString(this@ProductDetailsActivity,AppConstants.CURRENCY_SYMBOL)).append(" ").append(data.price)
+        tvPrice.text = StringBuilder().append(Utils.getPreferencesString(this@ProductDetailsActivity,AppConstants.CURRENCY_SYMBOL)).append(" ").append(data.price)
         tvDescription.text = data.description
         tvUserName.text = data.username
         tvDateDetails.text = StringBuilder().append(Utils.getDateDifferenceDiff(data.created_at)).append(" ").append("ago")
         tvDateTool.text = StringBuilder().append(Utils.getDateDifferenceDiff(data.created_at)).append(" ").append("ago")
         tvCategoryDetail.text = StringBuilder().append(": ").append(data.category_name)
         if (data.item_type == 1) {
-            tvType.text = "New"
+            tvType.setImageDrawable(resources.getDrawable(R.drawable.ic_new_item))
         } else {
-            tvType.text = getString(R.string.used)
+            tvType.setImageDrawable(resources.getDrawable(R.drawable.ic_used_item))
         }
         categoryType = data.type
         Log.e("actegoryType=", data.type.toString())
@@ -437,6 +457,37 @@ class ProductDetailsActivity : AppCompatActivity() {
                 }
             }
         }
+
+    }
+
+
+    private fun callPostCommentApi() {
+        window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        pbProgressProduct.visibility = View.VISIBLE
+        ServiceHelper().postCommentService(PostCommentRequest(Utils.getPreferencesString(this, AppConstants.USER_ID), itemId, etComment.text.toString()),
+                object : ServiceHelper.OnResponse {
+                    override fun onSuccess(response: Response<*>) {
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                        pbProgressProduct.visibility = View.GONE
+                        val commentResponse = response.body() as CommentResponse
+                        if (commentResponse.data != null) {
+                            val intent = Intent(this@ProductDetailsActivity, ProductDetailsActivity::class.java)
+                            intent.putExtra(AppConstants.ITEM_ID, itemId)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            Utils.showSimpleMessage(this@ProductDetailsActivity, commentResponse.message).show()
+                        }
+
+                    }
+
+                    override fun onFailure(msg: String?) {
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                        pbProgressProduct.visibility = View.GONE
+                        Utils.showSimpleMessage(this@ProductDetailsActivity, msg!!).show()
+                    }
+                })
 
     }
 

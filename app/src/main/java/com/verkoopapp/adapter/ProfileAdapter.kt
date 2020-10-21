@@ -59,7 +59,6 @@ class ProfileAdapter(private val context: Context, private val screenWidth: Int,
             else -> {
 
                 view = mLayoutInflater.inflate(R.layout.item_row, parent, false)
-                view.visibility=View.GONE
                 val params = view.layoutParams
                 params.width = screenWidth / 2
                 width = params.width

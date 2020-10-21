@@ -161,8 +161,9 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
     inner class AddsAndItemsHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!), LayoutContainer {
         fun bind(categoryList: ArrayList<Category>, advertismentsList: ArrayList<Advertisment>) {
             mDemoSlider.removeAllSliders()
-            custom_indicator.setDefaultIndicatorColor(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.light_gray))
-            mDemoSlider.setCustomIndicator(custom_indicator)
+//            custom_indicator.visibility=View.GONE
+//            custom_indicator.setDefaultIndicatorColor(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.light_gray))
+//            mDemoSlider.setCustomIndicator(custom_indicator)
             for (i in 0 until advertismentsList.size) {
                 val textSliderView = DefaultSliderView(context)
                 //textSliderView.tex
@@ -193,12 +194,12 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
                 }
             }
             mDemoSlider.setDuration(3000)
-            rvCategoryHome.layoutParams.height = widthOrg / 3
+//            rvCategoryHome.layoutParams.height = widthOrg / 3
             val linearLayoutManager = GridLayoutManager(context, 2,GridLayoutManager.HORIZONTAL,false)
             rvCategoryHome.layoutManager = linearLayoutManager
             val categoryAdapter = CategoryListAdapter(context as HomeActivity, categoryList, rvItemList)
 
-            rvCategoryHome.addItemDecoration(SpacingItem(2, 20, true))
+//            rvCategoryHome.addItemDecoration(SpacingItem(2, 20, true))
             rvCategoryHome.setHasFixedSize(true)
             rvCategoryHome.adapter = categoryAdapter
             rvCategoryHome!!.adapter!!.notifyDataSetChanged()
@@ -337,7 +338,7 @@ class HomeAdapter(private val context: Context, private val rvItemList: Int, pri
             val spacing = 20 // 50px
 
             val includeEdge = true
-            val linearLayoutManager = GridLayoutManager(context,2)
+            val linearLayoutManager = GridLayoutManager(context,1,RecyclerView.HORIZONTAL,false)
             linearLayoutManager.isAutoMeasureEnabled = true
             rvYourDailyPicks.layoutManager = linearLayoutManager
             Log.e("<<YourDailyPickHolder>>", rvItemList.toString())

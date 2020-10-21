@@ -16,6 +16,7 @@
         android:textSize="@dimen/sp_18"
         android:textColor="@color/dark_black"/>
         <com.verkoopapp.fonts.textView.GothiBoldTextView
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/listing_today"

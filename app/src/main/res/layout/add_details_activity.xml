@@ -106,7 +106,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/dp_10"
-                            android:text="@string/change"
+                            android:text="@string/update"
                             android:textColor="@color/colorAccent"
                             android:textSize="@dimen/sp_16" />
                     </LinearLayout>
@@ -1129,7 +1129,7 @@
                                 android:layout_height="@dimen/dp_50"
                                 android:background="@drawable/rounded_background_edittext"
                                 android:text="@string/your_meet_up_location_and_schedule"
-                                android:textColor="@color/black"
+                                android:textColor="@color/colorDividerLight"
                                 android:textSize="@dimen/sp_14" />
 
                         </LinearLayout>

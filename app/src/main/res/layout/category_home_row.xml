@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="@dimen/dp_100"
     android:layout_height="@dimen/dp_100"
+    android:layout_margin="@dimen/dp_10"
     android:id="@+id/llRootParent">
         <LinearLayout
             android:id="@+id/llParent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/dp_6">
+            android:layout_height="@dimen/dp_100">
             <LinearLayout
                 android:id="@+id/llSelectionGallery"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/dp_100"
                 android:gravity="center"
+                android:layout_marginBottom="@dimen/dp_3"
                 android:layout_gravity="center"
                 android:orientation="vertical">
 
@@ -20,8 +21,6 @@
                     android:id="@+id/ivItemsHome"
                     android:layout_width="@dimen/dp_40"
                     android:layout_height="@dimen/dp_40"
-                    android:padding="@dimen/dp_2"
-                    android:layout_gravity="center"
                     android:contentDescription="@string/image" />
 
                 <com.verkoopapp.fonts.textView.GothicThinTextView
@@ -29,7 +28,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_6"
+                    android:layout_marginBottom="@dimen/dp_3"
                     android:text="Women's"
+                    android:singleLine="true"
                     android:gravity="center"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp_12" />

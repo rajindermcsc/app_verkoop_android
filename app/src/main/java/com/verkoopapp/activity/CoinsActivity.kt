@@ -79,13 +79,17 @@ class CoinsActivity:AppCompatActivity(), GetCoinsFragment.CoinUpdateCallBack {
         if(position==0){
             ivTipCoin.visibility=View.VISIBLE
             ivTipHistory.visibility=View.INVISIBLE
-            tvGetCoin.setTextColor(ContextCompat.getColor(this,R.color.yellow))
-            tvHistory.setTextColor(ContextCompat.getColor(this,R.color.light_gray))
+            view_all.visibility=View.VISIBLE
+            view_buy.visibility=View.INVISIBLE
+            tvGetCoin.setTextColor(ContextCompat.getColor(this,R.color.colorPrimary))
+            tvHistory.setTextColor(ContextCompat.getColor(this,R.color.black))
         }else{
             ivTipCoin.visibility=View.INVISIBLE
             ivTipHistory.visibility=View.VISIBLE
-            tvHistory.setTextColor(ContextCompat.getColor(this,R.color.yellow))
-            tvGetCoin.setTextColor(ContextCompat.getColor(this,R.color.light_gray))
+            view_all.visibility=View.INVISIBLE
+            view_buy.visibility=View.VISIBLE
+            tvHistory.setTextColor(ContextCompat.getColor(this,R.color.colorPrimary))
+            tvGetCoin.setTextColor(ContextCompat.getColor(this,R.color.black))
         }
     }
 }

@@ -87,7 +87,7 @@
 
     <string name="shoes">:Shoes</string>
     <string name="make_offer">Make Offer</string>
-    <string name="what_are_you">What are you</string>
+    <string name="what_are_you">What are you Selling?</string>
     <string name="listing_today">listing today ?</string>
 
     <string name="reset">Reset</string>
@@ -501,7 +501,7 @@
     <string name="complete_checkout">Complete Checkout</string>
     <string name="cash">Cash</string>
     <string name="pay_your_orders_with_wallet">Pay your orders with wallet</string>
-    <string name="use_your_wallet">Use wallet to pay your orders. You can recharge your wallet if you run oout of fund</string>
+    <string name="use_your_wallet">Use wallet to pay your orders. You can recharge your wallet if you run out of fund</string>
     <string name="wallet_balance">Wallet Balance</string>
     <string name="_23_4948_usd">23,4948 USD</string>
     <string name="wallet">Wallet</string>
@@ -570,6 +570,8 @@
     <string name="member_since">Member Since</string>
     <string name="favourite_">Favourite</string>
     <string name="tasked_with_maintaining">Tasked with maintaining our city\'s diverse parks, medians and jogging trails, our department</string>
+    <string name="saved_address">Saved Address</string>
+    <string name="apply_coupon">Apply Coupon</string>
 
 
 </resources>

@@ -160,7 +160,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/txt_order_details" />
 
 
-            <com.verkoopapp.fonts.textView.GothiBoldTextView
+            <com.verkoopapp.fonts.textView.GothicThinTextView
                 android:id="@+id/tv_arrival"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -455,16 +455,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_12"
                     android:layout_marginBottom="@dimen/dp_12"
-                    android:background="@drawable/grey_rectangle_shape"
+                    android:background="@drawable/dividergray_rectangle_shape"
                     android:orientation="horizontal"
                     android:paddingStart="@dimen/dp_15"
                     android:paddingTop="@dimen/dp_15"
                     android:paddingBottom="@dimen/dp_15">
 
-                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/ivPicProfile"
-                        android:layout_width="@dimen/dp_60"
-                        android:layout_height="@dimen/dp_60"
+                        android:layout_width="@dimen/dp_40"
+                        android:layout_height="@dimen/dp_40"
                         android:src="@mipmap/pic_placeholder"
                         app:civ_border_color="#FF000000"
                         app:civ_border_width="0dp" />
@@ -498,9 +498,9 @@
                             android:layout_height="1px"
                             android:layout_marginTop="@dimen/dp_10"
                             android:layout_marginEnd="@dimen/dp_10"
-                            android:background="@color/light_gray" />
+                            android:background="@color/colorDividerLight" />
 
-                        <com.verkoopapp.fonts.textView.GothiBoldTextView
+                        <com.verkoopapp.fonts.textView.GothicThinTextView
                             android:id="@+id/tv_car_no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -524,7 +524,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/expiry_date_lyt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:background="@drawable/grey_rectangle_shape"
+                android:background="@drawable/dividergray_rectangle_shape"
                 app:layout_constraintTop_toBottomOf="@+id/llUserProfile">
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -542,7 +542,7 @@
                 app:layout_constraintStart_toEndOf="@+id/tv_phone"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginStart="@dimen/dp_15"
-                android:background="@drawable/grey_rectangle_shape"
+                android:background="@drawable/dividergray_rectangle_shape"
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_marginEnd="@dimen/dp_15"
                 android:orientation="horizontal">
@@ -552,13 +552,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:padding="@dimen/dp_10"
-                    android:src="@drawable/ic_chat_black" />
+                    android:src="@drawable/ic_chats" />
 
-                <View
-                    android:layout_width="1px"
-                    android:layout_gravity="center_vertical"
-                    android:background="@color/gray"
-                    android:layout_height="@dimen/dp_20" />
+
 
                 <com.verkoopapp.fonts.editText.GothiBoldEditText
                     android:id="@+id/et_expiry_date"
@@ -596,7 +592,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_phone" />
 
-            <com.verkoopapp.fonts.textView.GothiBoldTextView
+            <com.verkoopapp.fonts.textView.GothicThinTextView
                 android:id="@+id/tv_subtotal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -610,7 +606,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_bill" />
 
-            <com.verkoopapp.fonts.textView.GothiBoldTextView
+            <com.verkoopapp.fonts.textView.GothicThinTextView
                 android:id="@+id/tv_subtotal_value"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -624,7 +620,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_bill" />
 
 
-            <com.verkoopapp.fonts.textView.GothiBoldTextView
+            <com.verkoopapp.fonts.textView.GothicThinTextView
                 android:id="@+id/tv_delivery_fee"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -638,7 +634,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_subtotal" />
 
-            <com.verkoopapp.fonts.textView.GothiBoldTextView
+            <com.verkoopapp.fonts.textView.GothicThinTextView
                 android:id="@+id/tv_fee_value"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -659,13 +655,13 @@
                 android:layout_marginStart="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_20"
                 android:layout_marginEnd="@dimen/dp_15"
-                android:background="@color/gray"
+                android:background="@color/colorDividerLight"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_delivery_fee" />
 
 
-            <com.verkoopapp.fonts.textView.GothiBoldTextView
+            <com.verkoopapp.fonts.textView.GothicThinTextView
                 android:id="@+id/tv_total"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -679,7 +675,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view_7" />
 
-            <com.verkoopapp.fonts.textView.GothiBoldTextView
+            <com.verkoopapp.fonts.textView.GothicThinTextView
                 android:id="@+id/tv_total_value"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -700,7 +696,7 @@
                 android:layout_marginStart="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_20"
                 android:layout_marginEnd="@dimen/dp_15"
-                android:background="@color/gray"
+                android:background="@color/colorDividerLight"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_total" />
@@ -719,7 +715,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view_8" />
 
-            <com.verkoopapp.fonts.textView.GothiBoldTextView
+            <com.verkoopapp.fonts.textView.GothicThinTextView
                 android:id="@+id/tv_payment_type"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -732,6 +728,22 @@
                 app:layout_constraintEnd_toStartOf="@+id/tv_subtotal_value"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_payment" />
+
+
+            <ImageView
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/dp_8"
+                android:paddingEnd="@dimen/dp_15"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_payment"
+                android:src="@drawable/ic_arrow_drop_down">
+
+            </ImageView>
+
+
 
 
             <View

@@ -43,6 +43,11 @@ class FavouritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        tvHeaderLoc.setText("My Favourite")
+        ivLeftLocation.visibility=View.GONE
+        ivLeftLocation.setOnClickListener {
+            fragmentManager?.popBackStack()
+        }
 //        comingFrom = intent.getIntExtra(AppConstants.COMING_FROM, 0)
         setAdapter()
 //        if (comingFrom == 3) {

@@ -56,7 +56,7 @@
                 android:layout_gravity="center_vertical"
                 android:contentDescription="@string/chat"
                 android:padding="@dimen/dp_5"
-                android:src="@mipmap/ic_filter" />
+                android:src="@drawable/ic_filter_white" />
 
 
 

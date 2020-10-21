@@ -19,7 +19,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/white">
 
 
             <com.verkoopapp.fonts.textView.GothiBoldTextView
@@ -58,54 +59,66 @@
                 android:layout_marginStart="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_20"
                 android:layout_marginEnd="@dimen/dp_15"
-                android:background="@color/gray"
+                android:background="@color/colorDividerLight"
                 app:layout_constraintTop_toBottomOf="@id/tv_restro_name" />
 
 
-            <RelativeLayout
+
+
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/dp_120"
+                app:cardCornerRadius="@dimen/dp_15"
                 android:layout_marginStart="@dimen/dp_15"
                 android:layout_marginEnd="@dimen/dp_15"
-                android:background="@drawable/rectangle_red_shape"
                 android:paddingTop="@dimen/dp_40"
                 android:paddingBottom="@dimen/dp_40"
                 android:paddingStart="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_30"
                 android:paddingEnd="@dimen/dp_10"
+                app:cardBackgroundColor="@color/colorAccent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view1">
 
-
-                <com.verkoopapp.fonts.textView.GothicThinTextView
-                    android:id="@+id/tv_wallet"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_15"
-                    android:layout_marginTop="@dimen/dp_8"
-                    android:layout_marginEnd="@dimen/dp_15"
-                    android:text="@string/wallet_balance"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp_16" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/dp_5"
+                    android:background="@drawable/profile_bg"
+                    android:gravity="center_vertical">
 
 
-
-                <com.verkoopapp.fonts.textView.GothiBoldTextView
-                    android:id="@+id/tv_total_wallet"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_15"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:layout_below="@+id/tv_wallet"
-                    android:layout_marginEnd="@dimen/dp_15"
-                    android:text="@string/_23_4948_usd"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp_18" />
+                    <com.verkoopapp.fonts.textView.GothicThinTextView
+                        android:id="@+id/tv_wallet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_15"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:layout_marginEnd="@dimen/dp_15"
+                        android:text="@string/wallet_balance"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_16" />
 
 
 
-            </RelativeLayout>
+                    <com.verkoopapp.fonts.textView.GothiBoldTextView
+                        android:id="@+id/tv_total_wallet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_15"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_below="@+id/tv_wallet"
+                        android:layout_marginEnd="@dimen/dp_15"
+                        android:text="@string/_23_4948_usd"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_20" />
+
+
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
 
 
             <RelativeLayout

@@ -79,6 +79,7 @@ class GalleryActivity : AppCompatActivity(), GalleryAdapter.ImageCountCallBack {
         rvGallery.layoutManager = linearLayoutManager
         itemAdapter = GalleryAdapter(this, llParentGallery, pickerController, pickerController.getPathDir(0))
         rvGallery.adapter = itemAdapter
+        Log.e("TAG", "setAdapter: "+checkPermission())
         if (checkPermission()) {
             pickerController.displayImage(0, true)
         }

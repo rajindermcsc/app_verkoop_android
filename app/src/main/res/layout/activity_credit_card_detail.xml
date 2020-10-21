@@ -32,7 +32,7 @@
                 android:layout_marginEnd="@dimen/dp_15"
                 android:text="@string/add_your_credit_card_details"
                 android:textColor="@color/black"
-                android:textSize="@dimen/sp_22"
+                android:textSize="@dimen/sp_20"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -56,15 +56,15 @@
                     android:layout_width="@dimen/dp_60"
                     android:layout_height="@dimen/dp_60"
                     android:layout_gravity="center"
-                    android:padding="@dimen/dp_10"
-                    android:src="@drawable/wallet_icon" />
+                    android:padding="@dimen/dp_15"
+                    android:src="@drawable/ic_credit_card_black" />
                 <View
                     android:layout_width="1px"
                     android:layout_gravity="center_vertical"
                     android:background="@color/gray"
                     android:layout_height="@dimen/dp_30"/>
 
-                <com.verkoopapp.fonts.editText.GothiBoldEditText
+                <com.verkoopapp.fonts.editText.GothicThinEditText
                     android:id="@+id/etName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -103,15 +103,15 @@
                     android:layout_width="@dimen/dp_60"
                     android:layout_height="@dimen/dp_60"
                     android:layout_gravity="center"
-                    android:padding="@dimen/dp_10"
-                    android:src="@drawable/wallet_icon" />
+                    android:padding="@dimen/dp_15"
+                    android:src="@drawable/ic_credit_card_black" />
                 <View
                     android:layout_width="1px"
                     android:layout_gravity="center_vertical"
                     android:background="@color/gray"
                     android:layout_height="@dimen/dp_30"/>
 
-                <com.verkoopapp.fonts.editText.GothiBoldEditText
+                <com.verkoopapp.fonts.editText.GothicThinEditText
                     android:id="@+id/et_expiry_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -148,15 +148,15 @@
                     android:layout_width="@dimen/dp_60"
                     android:layout_height="@dimen/dp_60"
                     android:layout_gravity="center"
-                    android:padding="@dimen/dp_10"
-                    android:src="@drawable/wallet_icon" />
+                    android:padding="@dimen/dp_15"
+                    android:src="@drawable/ic_credit_card_black" />
                 <View
                     android:layout_width="1px"
                     android:layout_gravity="center_vertical"
                     android:background="@color/gray"
                     android:layout_height="@dimen/dp_30"/>
 
-                <com.verkoopapp.fonts.editText.GothiBoldEditText
+                <com.verkoopapp.fonts.editText.GothicThinEditText
                     android:id="@+id/et_cvv_no"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -180,7 +180,7 @@
                 android:id="@+id/country_code_lyt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/expiry_date_lyt"
+                app:layout_constraintTop_toBottomOf="@+id/cvv_lyt"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginStart="@dimen/dp_15"
@@ -193,8 +193,8 @@
                     android:layout_width="@dimen/dp_60"
                     android:layout_height="@dimen/dp_60"
                     android:layout_gravity="center"
-                    android:padding="@dimen/dp_10"
-                    android:src="@drawable/wallet_icon" />
+                    android:padding="@dimen/dp_15"
+                    android:src="@drawable/flag_united_kingdom" />
                 <View
                     android:layout_width="1px"
                     android:layout_gravity="center_vertical"
@@ -242,15 +242,15 @@
                     android:layout_width="@dimen/dp_60"
                     android:layout_height="@dimen/dp_60"
                     android:layout_gravity="center"
-                    android:padding="@dimen/dp_10"
-                    android:src="@drawable/wallet_icon" />
+                    android:padding="@dimen/dp_15"
+                    android:src="@drawable/ic_location_black" />
                 <View
                     android:layout_width="1px"
                     android:layout_gravity="center_vertical"
                     android:background="@color/gray"
                     android:layout_height="@dimen/dp_30"/>
 
-                <com.verkoopapp.fonts.editText.GothiBoldEditText
+                <com.verkoopapp.fonts.editText.GothicThinEditText
                     android:id="@+id/et_postal_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

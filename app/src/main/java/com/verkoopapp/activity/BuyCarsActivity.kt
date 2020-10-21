@@ -71,6 +71,7 @@ class BuyCarsActivity: AppCompatActivity() {
                 R.color.colorPrimary,
                 R.color.colorPrimary)
         iv_leftCar.setOnClickListener { onBackPressed() }
+
         ivFavouriteCar.setOnClickListener {
             val intent = Intent(this, FavouritesActivity::class.java)
             startActivity(intent)

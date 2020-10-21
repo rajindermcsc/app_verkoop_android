@@ -46,7 +46,7 @@ class PackageProfileFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         pack_profile_tool_lyt.tvHeaderLoc.text = getString(R.string.how_help)
         pack_profile_tool_lyt.ivLeftLocation.setOnClickListener {
-
+            fragmentManager?.popBackStack()
         }
     }
 

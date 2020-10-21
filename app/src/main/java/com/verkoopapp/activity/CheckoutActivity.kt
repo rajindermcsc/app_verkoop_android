@@ -20,6 +20,16 @@ class CheckoutActivity : AppCompatActivity() {
         chekout_tool_lyt.tvHeaderLoc.text = getString(R.string.checkout)
 
 
+
+        tv_change_address.setOnClickListener {
+            val intent = Intent(this, AddNewAddressActivity::class.java)
+            startActivity(intent)
+        }
+
+        tv_add_coupon.setOnClickListener {
+            val intent = Intent(this, ApplyCouponActivity::class.java)
+            startActivity(intent)
+        }
         tv_place_order.setOnClickListener {
             val intent = Intent(this, PaymentDetailActivity::class.java)
             startActivity(intent)

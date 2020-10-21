@@ -39,7 +39,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:gravity="center_vertical"
-                        android:text="Order Delilvered"
+                        android:text="Order Delivered"
                         android:textColor="@color/black_dark"
                         android:textSize="@dimen/sp_16"
                         android:visibility="visible" />

@@ -25,7 +25,7 @@ class ChangePasswordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.change_password)
         ivLeftLocation=findViewById(R.id.ivLeftLocation)
-        KeyboardUtil(this, llParentPass)
+//        KeyboardUtil(this, llParentPass)
         setData()
     }
 

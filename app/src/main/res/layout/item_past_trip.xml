@@ -11,7 +11,7 @@
     <FrameLayout
         android:id="@+id/lyt_ongoing"
         android:layout_width="match_parent"
-        android:background="@drawable/grey_rectangle_shape"
+        android:background="@drawable/dividergray_rectangle_shape"
         android:layout_margin="@dimen/dp_10"
         android:layout_height="wrap_content"
         tools:ignore="UselessParent">
@@ -58,6 +58,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
+                            android:drawableStart="@drawable/ic_verified"
+                            android:drawablePadding="@dimen/dp_10"
                             android:text="@string/order_delivered"
                             android:textSize="@dimen/sp_16" />
 
@@ -79,7 +81,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:drawablePadding="@dimen/sp_8"
-                        android:drawableStart="@drawable/ic_right_blck"
+                        android:drawableStart="@drawable/ic_arrow_drop_down"
                         android:gravity="center"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/sp_14" />

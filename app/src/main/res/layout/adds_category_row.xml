@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    android:layout_height="wrap_content">
+    android:layout_height="480dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -11,28 +11,33 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/dp_180"
+            android:layout_margin="@dimen/dp_10"
+            android:background="@color/white">
 
             <com.daimajia.slider.library.SliderLayout
                 android:id="@+id/mDemoSlider"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_180" />
+                android:layout_height="@dimen/dp_180"
+                app:indicator_visibility="invisible"
+                android:layout_margin="@dimen/dp_3"/>
 
-            <com.daimajia.slider.library.Indicators.PagerIndicator
-                android:id="@+id/custom_indicator"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:gravity="center"
-                android:paddingTop="@dimen/dp_10"
-                android:background="@drawable/gradation_black"
-                android:paddingBottom="@dimen/dp_10" />
+<!--            <com.daimajia.slider.library.Indicators.PagerIndicator-->
+<!--                android:visibility="gone"-->
+<!--                android:id="@+id/custom_indicator"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="bottom"-->
+<!--                android:gravity="center"-->
+<!--                android:paddingTop="@dimen/dp_10"-->
+<!--                android:background="@drawable/gradation_black"-->
+<!--                android:paddingBottom="@dimen/dp_10" />-->
         </FrameLayout>
 
         <LinearLayout
             android:id="@+id/llCatView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_50"
             android:layout_marginEnd="@dimen/dp_18"
             android:padding="@dimen/dp_8"
             android:layout_marginStart="@dimen/dp_10"
@@ -58,7 +63,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCategoryHome"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="@dimen/dp_250"
             android:layout_marginStart="@dimen/dp_5" />
 
     </LinearLayout>

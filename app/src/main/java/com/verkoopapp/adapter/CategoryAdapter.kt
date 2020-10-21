@@ -1,26 +1,32 @@
 package com.verkoopapp.adapter
 
 import android.content.Context
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import android.text.TextUtils
+import android.util.Log
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
+import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import com.squareup.picasso.Picasso
 
 import com.verkoopapp.R
 import com.verkoopapp.activity.CategoriesActivity
 import com.verkoopapp.models.DataCategory
+import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.category_home_row.*
 import kotlinx.android.synthetic.main.category_row.*
+import kotlinx.android.synthetic.main.category_row.llParent
 
 
-class CategoryAdapter(private var context: Context, private val categoryList: ArrayList<DataCategory>, private val pagerPosition: Int, private val llParentCate: LinearLayout) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+class CategoryAdapter(private var context: Context, private val categoryList: ArrayList<DataCategory>, private val llParentCate: LinearLayout) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
     lateinit var selectedCategory: SelectedCategory
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -29,46 +35,21 @@ class CategoryAdapter(private var context: Context, private val categoryList: Ar
         val view = mInflater.inflate(
                 R.layout.category_row, parent, false)
         selectedCategory = context as CategoriesActivity
-        val params = llParentCate.layoutParams
-        params.width = llParentCate.width / 3
-        params.height = params.width
-        view.layoutParams = params
+//        val params = llParentCate.layoutParams
+//        params.width = llParentCate.width / 3
+//        params.height = params.width
+//        view.layoutParams = params
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        when (pagerPosition) {
-            0 -> {
-                val data = categoryList[position]
-                holder.bind(data, position)
-            }
-            1 -> {
-                val data = categoryList[position + 9]
-                holder.bind(data, position)
-            }
-            2 -> {
-                val data = categoryList[position + 18]
-                holder.bind(data, position)
-            }
-            3 -> {
-                val data = categoryList[position + 27]
-                holder.bind(data, position)
-            }
-            else -> {
-                val data = categoryList[position+36]
-                holder.bind(data, position)
-            }
-        }
+
+        val data = categoryList[position]
+        holder.bind(data, position)
+
     }
 
-    override fun getItemCount(): Int {
-        return if(pagerPosition==4){
-            categoryList.size-36
-        }else {
-            9
-        }
-    }
 
 
     inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
@@ -76,31 +57,37 @@ class CategoryAdapter(private var context: Context, private val categoryList: Ar
         fun bind(data: DataCategory, position: Int) {
             tvLevel.text = data.name
             if (!TextUtils.isEmpty(data.image)) {
+
+//                GlideToVectorYou
+//                        .init()
+//                        .with(context)
+//                        .setPlaceHolder(R.drawable.ic_settings, R.drawable.ic_settings)
+//                        .load(Uri.parse(AppConstants.IMAGE_URL+data.image), ivItemsCategory)
                 Picasso.with(context).load(data.image)
                         .resize(720, 720)
                         .centerInside()
-                        .error(R.mipmap.setting)
+                        .error(R.drawable.ic_settings)
                         .into(ivItemsCategory)
             }
             llParent.setOnClickListener {
                 if (data.isSelected) {
                     data.isSelected = false
                     tvLevel.setTextColor(ContextCompat.getColor(context, R.color.light_gray))
-                    llSelectionGallery.background = ContextCompat.getDrawable(context, R.drawable.transparent_rectangular_shape)
                     // ivItems.setImageResource(data.unselectedImage)
                     ivSelected.visibility = View.GONE
                     selectedCategory.selectedCount(checkSelectionCount())
-                } else {
-                    if (checkSelectionCount() < 3) {
+                }
+
+                else {
+//                    if (checkSelectionCount() < 3) {
                         data.isSelected = true
                         tvLevel.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
-                        llSelectionGallery.background = ContextCompat.getDrawable(context, R.drawable.red_transparent_shape)
                         //   ivItems.setImageResource(data.selectedImage)
                         ivSelected.visibility = View.VISIBLE
                         selectedCategory.selectedCount(checkSelectionCount())
-                    } else {
-                        Utils.showSimpleMessage(context, context.getString(R.string.three_category)).show()
-                    }
+//                    } else {
+//                        Utils.showSimpleMessage(context, context.getString(R.string.three_category)).show()
+//                    }
                 }
             }
         }
@@ -118,5 +105,9 @@ class CategoryAdapter(private var context: Context, private val categoryList: Ar
 
     interface SelectedCategory {
         fun selectedCount(addItem: Int)
+    }
+
+    override fun getItemCount(): Int {
+        return categoryList.size
     }
 }

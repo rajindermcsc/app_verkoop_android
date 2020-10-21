@@ -40,8 +40,28 @@
             app:layout_constraintTop_toBottomOf="@+id/img_logo" />
 
 
-        <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        <com.verkoopapp.fonts.textView.GothiBoldTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_80"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20"
+            android:gravity="center"
+            android:text="This service will be available soon"
+            app:layout_constraintBottom_toTopOf="@+id/card_view_package"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vervo_text">
+
+        </com.verkoopapp.fonts.textView.GothiBoldTextView>
+
+
+        <androidx.cardview.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/card_view_food"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -68,7 +88,9 @@
         </androidx.cardview.widget.CardView>
 
 
-        <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        <androidx.cardview.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:visibility="gone"
             android:id="@+id/card_view_package"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -14,25 +14,13 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.provider.MediaStore
+import android.util.Log
+import android.view.*
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
-import com.verkoopapp.utils.BaseFragment
-import com.verkoopapp.R
-import com.verkoopapp.adapter.HomeAdapter
-import com.verkoopapp.models.*
-import com.verkoopapp.network.ServiceHelper
-import com.verkoopapp.utils.AppConstants
-import com.verkoopapp.utils.Utils
-import kotlinx.android.synthetic.main.home_fragment.*
-import retrofit2.Response
-import android.util.Log
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import com.google.android.gms.common.util.IOUtils
 import com.google.api.client.extensions.android.json.AndroidJsonFactory
 import com.google.api.client.http.javanet.NetHttpTransport
@@ -40,17 +28,20 @@ import com.google.api.client.util.GenericData
 import com.google.api.services.vision.v1.Vision
 import com.google.api.services.vision.v1.VisionRequestInitializer
 import com.google.api.services.vision.v1.model.*
-import com.google.firebase.iid.FirebaseInstanceId
-import com.google.firebase.iid.InstanceIdResult
+import com.verkoopapp.R
 import com.verkoopapp.VerkoopApplication
 import com.verkoopapp.activity.*
+import com.verkoopapp.adapter.HomeAdapter
+import com.verkoopapp.models.*
+import com.verkoopapp.network.ServiceHelper
+import com.verkoopapp.utils.AppConstants
+import com.verkoopapp.utils.BaseFragment
 import com.verkoopapp.utils.GridSpacingItemDecoration
-import com.verkoopapp.activity.HomeActivity
-import kotlinx.android.synthetic.main.home_fragment.ivChat
-import kotlinx.android.synthetic.main.my_profile_details_row.*
-import kotlinx.android.synthetic.main.toolbar_home.*
+import com.verkoopapp.utils.Utils
+import kotlinx.android.synthetic.main.home_fragment.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
+import retrofit2.Response
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -101,6 +92,8 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val display = homeActivity.windowManager.defaultDisplay
+        val window: Window = activity!!.window
+        window.statusBarColor = ContextCompat.getColor(activity!!,R.color.gray);
         val size = Point()
         display.getSize(size)
         val width = size.x
@@ -136,7 +129,7 @@ class HomeFragment : BaseFragment() {
             }
         }
         rvHomeList.layoutManager = linearLayoutManager
-        rvHomeList.addItemDecoration(GridSpacingItemDecoration(2, Utils.dpToPx(homeActivity, 2F).toInt(), false))
+//        rvHomeList.addItemDecoration(GridSpacingItemDecoration(2, Utils.dpToPx(homeActivity, 2F).toInt(), false))
         rvHomeList.setHasFixedSize(false)
         homeAdapter = HomeAdapter(homeActivity, width, this)
         rvHomeList.adapter = homeAdapter
@@ -217,7 +210,7 @@ class HomeFragment : BaseFragment() {
 //                homeActivity.startVison()
 
                 val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                if (takePictureIntent.resolveActivity(activity!!.packageManager) != null) {
+//                if (takePictureIntent.resolveActivity(activity!!.packageManager) != null) {
                     var photoFile: File? = null
                     try {
                         photoFile = createImageFile()
@@ -233,7 +226,7 @@ class HomeFragment : BaseFragment() {
                                         activity!!.applicationContext.packageName + ".provider", photoFile))
                         startActivityForResult(takePictureIntent, CAMERA_REQUEST)
                     }
-                }
+//                }
                 Handler().postDelayed(Runnable {
                     ivAR.isEnabled = true
                 }, 1000)

@@ -20,6 +20,10 @@ import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.full_categories_activity.*
 import kotlinx.android.synthetic.main.toolbar_category.*
+import kotlinx.android.synthetic.main.toolbar_category.ivChat
+import kotlinx.android.synthetic.main.toolbar_category.ivFavourite
+import kotlinx.android.synthetic.main.toolbar_category.iv_left
+import kotlinx.android.synthetic.main.toolbar_category_new.*
 import retrofit2.Response
 import java.util.*
 

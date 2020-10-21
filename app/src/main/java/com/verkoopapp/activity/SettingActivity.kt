@@ -48,14 +48,14 @@ class SettingActivity : AppCompatActivity() {
         ivLeftLocation.setOnClickListener {
             onBackPressed()
         }
-        tvLogout.setOnClickListener {
+        rlLogout.setOnClickListener {
             tvLogout.isEnabled = false
             logOutDialogBox()
             Handler().postDelayed(Runnable {
                 tvLogout.isEnabled = true
             }, 1500)
         }
-        tvEditProfile.setOnClickListener {
+        rlEditProfile.setOnClickListener {
             tvEditProfile.isEnabled = false
             val intent = Intent(this, EditProfileActivity::class.java)
             startActivity(intent)
@@ -63,7 +63,7 @@ class SettingActivity : AppCompatActivity() {
                 tvEditProfile.isEnabled = true
             }, 1000)
         }
-        tvChangePassword.setOnClickListener {
+        rlChangePassword.setOnClickListener {
             tvChangePassword.isEnabled = false
             val intent = Intent(this, ChangePasswordActivity::class.java)
             startActivity(intent)
@@ -72,7 +72,7 @@ class SettingActivity : AppCompatActivity() {
                 tvChangePassword.isEnabled = true
             }, 1000)
         }
-        tvNotification.setOnClickListener {
+        rlNotification.setOnClickListener {
             tvNotification.isEnabled = false
             val intent = Intent(this, NotificationActivity::class.java)
             startActivity(intent)
@@ -80,7 +80,7 @@ class SettingActivity : AppCompatActivity() {
                 tvNotification.isEnabled = true
             }, 1000)
         }
-        tvBanner.setOnClickListener {
+        rlBanner.setOnClickListener {
             tvBanner.isEnabled = false
             val intent = Intent(this, ViewAllBannerActivity::class.java)
             startActivity(intent)
@@ -88,7 +88,7 @@ class SettingActivity : AppCompatActivity() {
                 tvBanner.isEnabled = true
             }, 1000)
         }
-        tvAboutVerkoop.setOnClickListener {
+        rlAboutVerkoop.setOnClickListener {
             tvAboutVerkoop.isEnabled = false
             val intent = Intent(this, VerkoopPoliciesActivity::class.java)
             intent.putExtra(AppConstants.COMING_FROM, 1)
@@ -97,7 +97,7 @@ class SettingActivity : AppCompatActivity() {
                 tvAboutVerkoop.isEnabled = true
             }, 1000)
         }
-        tvTermsService.setOnClickListener {
+        rlTermsService.setOnClickListener {
             tvTermsService.isEnabled = false
             val intent = Intent(this, VerkoopPoliciesActivity::class.java)
             intent.putExtra(AppConstants.COMING_FROM, 2)
@@ -106,12 +106,12 @@ class SettingActivity : AppCompatActivity() {
                 tvTermsService.isEnabled = true
             }, 1000)
         }
-        tvPrivacyPolicy.setOnClickListener {
+        rlPrivacyPolicy.setOnClickListener {
             val intent = Intent(this, VerkoopPoliciesActivity::class.java)
             intent.putExtra(AppConstants.COMING_FROM, 3)
             startActivity(intent)
         }
-        tvContactUs.setOnClickListener {
+        rlContactUs.setOnClickListener {
             tvContactUs.isEnabled = false
             val intent = Intent(this, VerkoopPoliciesActivity::class.java)
             intent.putExtra(AppConstants.COMING_FROM, 4)
@@ -120,7 +120,7 @@ class SettingActivity : AppCompatActivity() {
                 tvContactUs.isEnabled = true
             }, 1000)
         }
-        tvHelpCenter.setOnClickListener {
+        rlHelpCenter.setOnClickListener {
             tvHelpCenter.isEnabled = false
             val intent = Intent(this, VerkoopPoliciesActivity::class.java)
             intent.putExtra(AppConstants.COMING_FROM, 5)
@@ -129,12 +129,12 @@ class SettingActivity : AppCompatActivity() {
                 tvHelpCenter.isEnabled = true
             }, 1000)
         }
-        tvPrivatePolicy.setOnClickListener {
+        rlDataPrivacy.setOnClickListener {
             val intent = Intent(this, VerkoopPoliciesActivity::class.java)
             intent.putExtra(AppConstants.COMING_FROM, 6)
             startActivity(intent)
         }
-        tvDeActivateAcct.setOnClickListener {
+        rlDeActivateAcct.setOnClickListener {
             tvLogout.isEnabled = false
             deactivateDialogBox()
             Handler().postDelayed(Runnable {

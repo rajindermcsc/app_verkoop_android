@@ -10,9 +10,11 @@ import androidx.viewpager.widget.ViewPager
 import androidx.core.content.ContextCompat
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import com.verkoopapp.R
 import com.verkoopapp.VerkoopApplication
 import com.verkoopapp.adapter.CategoryAdapter
+import com.verkoopapp.adapter.HomeAdapter
 import com.verkoopapp.fragment.FirstCategoryFragment
 import com.verkoopapp.models.CategoriesResponse
 import com.verkoopapp.models.DataCategory
@@ -22,6 +24,9 @@ import com.verkoopapp.network.ServiceHelper
 import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.categories_screen.*
+import kotlinx.android.synthetic.main.categories_screen.rvCategoryList
+import kotlinx.android.synthetic.main.categories_screen.llParentCate
+import kotlinx.android.synthetic.main.first_category.*
 import retrofit2.Response
 
 class CategoriesActivity : AppCompatActivity(), CategoryAdapter.SelectedCategory {
@@ -30,6 +35,7 @@ class CategoriesActivity : AppCompatActivity(), CategoryAdapter.SelectedCategory
     private var id = 0
     private var type = 0
     private val categoryList = ArrayList<DataCategory>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.categories_screen)
@@ -43,28 +49,32 @@ class CategoriesActivity : AppCompatActivity(), CategoryAdapter.SelectedCategory
     }
 
     override fun selectedCount(addItem: Int) {
-        tvSelectionCount.text =StringBuilder().append(" ").append(addItem.toString()).append(" / 3")
+        tvSelectionCount.text =StringBuilder().append(" ").append(addItem.toString()).append("\n").append("Categories")
         selectionCount = addItem
 
     }
 
     private fun setAdapter() {
-        val mAdapter = PicturePreViewAdapter(supportFragmentManager)
-        vpCategories.adapter = mAdapter
-        vpCategories.offscreenPageLimit = 5
-        vpCategories.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                highlightIndicator(position)
-            }
-
-            override fun onPageSelected(position: Int) {
-
-            }
-
-            override fun onPageScrollStateChanged(state: Int) {
-
-            }
-        })
+        val linearLayoutManager = GridLayoutManager(this, 3)
+        rvCategoryList.layoutManager = linearLayoutManager
+        val categoriesAdapter= CategoryAdapter(this, categoryList,llParentCate)
+        rvCategoryList.adapter=categoriesAdapter
+//        val mAdapter = PicturePreViewAdapter(supportFragmentManager)
+//        vpCategories.adapter = mAdapter
+//        vpCategories.offscreenPageLimit = 5
+//        vpCategories.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+//            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+//                highlightIndicator(position)
+//            }
+//
+//            override fun onPageSelected(position: Int) {
+//
+//            }
+//
+//            override fun onPageScrollStateChanged(state: Int) {
+//
+//            }
+//        })
         tvNext.setOnClickListener {
             val selectedList=ArrayList<String>()
             if (selectionCount == 3) {

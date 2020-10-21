@@ -56,4 +56,5 @@
     <color name="transparentBlack80">#80000000</color>
     <color name="transparentBlack90">#90000000</color>
     <color name="transparentBlack99">#D8000000</color>
+    <color name="orange_coins">#ff8c39</color>
 </resources>

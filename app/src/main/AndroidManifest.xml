@@ -11,16 +11,21 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="true" />
     <uses-permission android:name="android.permission.CAMERA_EXTENDED" />
-    <uses-permission android:name="android.hardware.camera.autofocus" />
+<!--    <uses-permission android:name="android.hardware.camera.autofocus" />-->
 <!--    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />-->
 
     <uses-feature
         android:name="android.hardware.camera"
-        android:required="false" />
+        android:required="true" />
     <uses-feature
         android:name="android.hardware.camera.autofocus"
-        android:required="false" />
+        android:required="true" />
+
+
 
     <application
         android:name=".VerkoopApplication"
@@ -32,10 +37,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup"
-        android:usesCleartextTraffic="true">
+        android:requestLegacyExternalStorage="true"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="q">
 
 
-        <activity android:name=".activity.ResturantsDetailActivity"></activity>
+
+
+        <activity android:name=".activity.ResturantsDetailActivity"/>
         <activity android:name=".activity.FindResturantActivity" />
         <activity android:name=".activity.PastTripDetailActivity" />
         <activity android:name=".activity.PackageDetailActivity" />
@@ -110,7 +119,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.provider"
+            android:authorities="com.verkoopapp.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -371,6 +380,8 @@
             </intent-filter>
 
         </receiver>
+
+
 
         <meta-data
             android:name="io.fabric.ApiKey"

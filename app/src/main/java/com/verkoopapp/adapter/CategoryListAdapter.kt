@@ -17,6 +17,7 @@ import com.verkoopapp.models.Category
 import com.verkoopapp.utils.AppConstants
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.category_home_row.*
+import kotlinx.android.synthetic.main.category_row.*
 import kotlinx.android.synthetic.main.my_profile_details_row.*
 
 
@@ -27,7 +28,7 @@ class CategoryListAdapter(private val context: HomeActivity, private var categor
         val view = mInflater.inflate(R.layout.category_home_row, parent, false)
         val params = view.layoutParams
         params.width = (rvCategoryHome-70) / 3
-        params.height = params.width
+        params.height = params.height
         view.layoutParams = params
         return ViewHolder(view)
     }
@@ -48,11 +49,18 @@ class CategoryListAdapter(private val context: HomeActivity, private var categor
             tvLevelHome.text=data.name
             if (!TextUtils.isEmpty(data.image)) {
 
-                GlideToVectorYou
-                        .init()
-                        .with(context)
-                        .setPlaceHolder(R.drawable.ic_settings, R.drawable.ic_settings)
-                        .load(Uri.parse(AppConstants.IMAGE_URL+data.image), ivItemsHome)
+//                GlideToVectorYou
+//                        .init()
+//                        .with(context)
+//                        .setPlaceHolder(R.drawable.ic_settings, R.drawable.ic_settings)
+//                        .load(Uri.parse(AppConstants.IMAGE_URL+data.image), ivItemsHome)
+
+                Log.e(TAG, "bind: "+data.image)
+                Picasso.with(context).load(AppConstants.IMAGE_URL+data.image)
+                        .resize(720, 720)
+                        .centerInside()
+                        .error(R.drawable.ic_settings)
+                        .into(ivItemsHome)
 
 //                Picasso.with(context).load(AppConstants.IMAGE_URL+data.image)
 //                        .resize(720, 720)

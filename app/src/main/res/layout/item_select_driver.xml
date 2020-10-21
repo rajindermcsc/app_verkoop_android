@@ -22,8 +22,8 @@
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/ivPicProfile"
-            android:layout_width="@dimen/dp_60"
-            android:layout_height="@dimen/dp_60"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
             android:src="@mipmap/pic_placeholder"
             app:civ_border_color="#FF000000"
             app:civ_border_width="0dp" />
@@ -57,9 +57,9 @@
                 android:layout_height="1px"
                 android:layout_marginEnd="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_10"
-                android:background="@color/light_gray"/>
+                android:background="@color/colorDividerLight"/>
 
-            <com.verkoopapp.fonts.textView.GothiBoldTextView
+            <com.verkoopapp.fonts.textView.GothicThinTextView
                 android:id="@+id/tv_car_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

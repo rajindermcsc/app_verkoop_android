@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -108,6 +109,7 @@ class GalleryAdapter(private var context: Activity, private var llParent: Linear
                 imageCountCallBack.imageCount(imageCount)
             }
             flCamera.setOnClickListener {
+                Log.e("TAG", "bindcamera: "+saveDir)
                 pickerController.takePicture(context, saveDir)
             }
         }

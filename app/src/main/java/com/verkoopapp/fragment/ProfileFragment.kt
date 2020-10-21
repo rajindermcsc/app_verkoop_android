@@ -6,11 +6,9 @@ import android.content.Intent
 import android.graphics.Point
 import android.os.Bundle
 import android.os.Handler
+import android.view.*
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
 import com.verkoopapp.utils.BaseFragment
 import com.verkoopapp.R
 import com.verkoopapp.activity.*
@@ -22,6 +20,7 @@ import com.verkoopapp.utils.AppConstants
 import com.verkoopapp.utils.GridSpacingProfileDecorate
 import com.verkoopapp.utils.Utils
 import kotlinx.android.synthetic.main.profile_fragment.*
+import kotlinx.android.synthetic.main.toolbar_profile.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -59,12 +58,19 @@ class ProfileFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val window: Window = activity!!.window
+        window.statusBarColor = ContextCompat.getColor(activity!!,R.color.gray);
+        ivLeftLocation.visibility=View.GONE
         val display = homeActivity.windowManager.defaultDisplay
         val size = Point()
         display.getSize(size)
         val width = size.x
         setData()
         setAdapter(width)
+        ivChat.setOnClickListener {
+            val intent = Intent(context, ChatInboxActivity::class.java)
+            startActivity(intent)
+        }
         if (Utils.isOnline(homeActivity)) {
             homeActivity.window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)

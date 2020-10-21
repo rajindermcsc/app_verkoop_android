@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.AsyncTask
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import com.verkoopapp.activity.GalleryActivity
 import com.verkoopapp.models.ImageModal
 import com.verkoopapp.utils.Utils.checkGif
@@ -25,6 +26,7 @@ import java.util.ArrayList
 
      fun takePicture(activity: Activity, saveDir: String) {
        val cameraUtil= CameraUtil()
+         Log.e("TAG", "takePicture: "+saveDir)
         cameraUtil.takePictureCamera(activity,saveDir)
     }
 

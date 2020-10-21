@@ -9,8 +9,8 @@
     </style>
 
     <style name="AppTheme.Launcher">
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
+        <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="android:windowBackground">@mipmap/splash</item>
     </style>
@@ -18,13 +18,13 @@
 
 
     <style name="ThemeTransparent" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="windowNoTitle">true</item>
     </style>
 
     <style name="ThemeTransparent_light" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
         <item name="windowNoTitle">true</item>
     </style>
@@ -39,7 +39,7 @@
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@android:style/Animation</item>
-        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>
     </style>
 
     <style name="datepicker" parent="Theme.AppCompat.Light.Dialog">
